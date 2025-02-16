@@ -79,7 +79,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void takeShieldHit(LivingEntity attacker, CallbackInfo ci) {
         if (DOOM_MODE) {
             if (attacker instanceof GiantEntity) {
-                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
+                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
                 int shieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 10 : coolEnchantment == 4 ? 25 : coolEnchantment == 3 ? 50 : coolEnchantment == 2 ? 100 : coolEnchantment == 1 ? 150 : 200;
                 int speedrunnerShieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 15 : coolEnchantment == 3 ? 25 : coolEnchantment == 2 ? 75 : coolEnchantment == 1 ? 150 : 180;
                 this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), shieldCooldown);

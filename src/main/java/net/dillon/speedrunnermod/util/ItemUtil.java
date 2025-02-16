@@ -67,10 +67,18 @@ public class ItemUtil {
     }
 
     /**
-     * Returns an enchantment.
+     * Returns an enchantment using the {@code Entity} class.
      */
-    public static RegistryEntry<Enchantment> enchantment(Entity entity, RegistryKey<Enchantment> enchantment) {
+    public static RegistryEntry<Enchantment> entityEnchantment(Entity entity, RegistryKey<Enchantment> enchantment) {
         Optional<RegistryEntry.Reference<Enchantment>> optional = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
+        return optional.get();
+    }
+
+    /**
+     * Returns an enchantment using the {@code World} class.
+     */
+    public static RegistryEntry<Enchantment> worldEnchantment(World world, RegistryKey<Enchantment> enchantment) {
+        Optional<RegistryEntry.Reference<Enchantment>> optional = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
         return optional.get();
     }
 

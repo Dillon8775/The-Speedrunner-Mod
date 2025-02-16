@@ -234,26 +234,26 @@ public class ModTradeOffers {
         public TradeOffer create(Entity entity, Random random) {
             int i = random.nextInt(4) + 1;
             ItemStack itemStack = new ItemStack(i == 1 ? Items.NETHERITE_HELMET : i == 2 ? Items.NETHERITE_CHESTPLATE : i == 3 ? Items.NETHERITE_LEGGINGS : Items.NETHERITE_BOOTS);
-            itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.PROTECTION), random.nextInt(3) + 3);
-            itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.UNBREAKING), random.nextInt(3) + 3);
+            itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.PROTECTION), random.nextInt(3) + 3);
+            itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.UNBREAKING), random.nextInt(3) + 3);
             if (random.nextBoolean()) {
-                itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.MENDING), 1);
+                itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.MENDING), 1);
             }
             if (random.nextDouble() < 0.35) {
-                itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.THORNS), random.nextInt(3) + 2);
+                itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.THORNS), random.nextInt(3) + 2);
             }
             if (i == 1 && random.nextDouble() < 0.40) {
-                itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.RESPIRATION), random.nextInt(2) + 2);
+                itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.RESPIRATION), random.nextInt(2) + 2);
             }
             if (i == 3 && random.nextDouble() < 0.25) {
-                itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.SWIFT_SNEAK), random.nextInt(3) + 2);
+                itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.SWIFT_SNEAK), random.nextInt(3) + 2);
             }
             if (i == 4) {
                 if (random.nextDouble() < 0.40) {
-                    itemStack.addEnchantment(ItemUtil.enchantment(entity, ModEnchantments.DASH), random.nextInt(3) + 2);
+                    itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, ModEnchantments.DASH), random.nextInt(3) + 2);
                 }
                 if (random.nextDouble() < 0.35) {
-                    itemStack.addEnchantment(ItemUtil.enchantment(entity, Enchantments.FEATHER_FALLING), random.nextInt(2) + 3);
+                    itemStack.addEnchantment(ItemUtil.entityEnchantment(entity, Enchantments.FEATHER_FALLING), random.nextInt(2) + 3);
                 }
             }
             return new TradeOffer(new TradedItem(Items.EMERALD, this.price), itemStack, this.maxUses, this.experience, this.multiplier);

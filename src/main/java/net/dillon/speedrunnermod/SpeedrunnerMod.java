@@ -34,8 +34,8 @@ import static net.dillon.speedrunnermod.option.ModOptions.createStructureSpawnRa
  */
 public class SpeedrunnerMod implements ModInitializer {
     public static final String MOD_ID = "speedrunnermod";
-    public static final String MOD_VERSION = "v1.9.8.5";
-    public static final String MC_VERSION = "1.21.x";
+    public static final String MOD_VERSION = "v1.9.9";
+    public static final String MC_VERSION = "1.21.4x";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static boolean DOOM_MODE = SpeedrunnerMod.options().main.doomMode;

@@ -28,7 +28,7 @@ public class BlazeEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((BlazeEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 48;
+            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((BlazeEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 48;
         }
         return super.getExperienceToDrop(world);
     }

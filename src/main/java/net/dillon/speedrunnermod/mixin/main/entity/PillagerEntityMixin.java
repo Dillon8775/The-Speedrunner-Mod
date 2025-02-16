@@ -29,7 +29,7 @@ public abstract class PillagerEntityMixin extends IllagerEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((PillagerEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((PillagerEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
         }
         return super.getExperienceToDrop(world);
     }

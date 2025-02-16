@@ -75,6 +75,7 @@ public class ModItemGroups {
                         entries.add(ItemUtil.unbreakableComponentItem());
                         entries.add(ItemUtil.flightDurationComponentItem(1));
                         entries.add(ModItems.INFINI_PEARL);
+                        entries.add(ModItems.KNOCKBACK_STICK);
                         entries.add(ModItems.DRAGONS_SWORD);
                         entries.add(ModItems.WITHER_SWORD);
                         entries.add(ModItems.WITHER_BONE);

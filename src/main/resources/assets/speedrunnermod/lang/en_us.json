@@ -96,6 +96,8 @@
   "item.speedrunnermod.speedrunners_workbench.tooltip.line3": "Retired Speedrunner villager profession.",
   "item.speedrunnermod.speedrunners_workbench.tooltip.line4": "Can also transfer enchantments.",
   "item.speedrunnermod.speedrunner_stick": "Speedrunner Stick",
+  "item.speedrunnermod.knockback_stick": "Knockback Stick",
+  "item.speedrunnermod.knockback_stick.tooltip": "You know what this is.",
   "item.speedrunnermod.speedrunner_boat": "Speedrunner Boat",
   "item.speedrunnermod.speedrunner_chest_boat": "Speedrunner Boat with Chest",
   "item.speedrunnermod.dead_speedrunner_boat": "Dead Speedrunner Boat",

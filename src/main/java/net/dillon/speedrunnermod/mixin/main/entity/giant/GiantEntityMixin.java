@@ -78,7 +78,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150 : 0;
+        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150 : 0;
         this.experiencePoints = 50 + looting;
         int i = this.experiencePoints;
 

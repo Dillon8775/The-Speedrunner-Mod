@@ -28,7 +28,7 @@ public abstract class HoglinEntityMixin extends AnimalEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((HoglinEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36 : 0;
+        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((HoglinEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36 : 0;
         return this.experiencePoints + looting;
     }
 

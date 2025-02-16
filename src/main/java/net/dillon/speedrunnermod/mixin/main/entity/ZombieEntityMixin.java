@@ -33,7 +33,7 @@ public class ZombieEntityMixin extends HostileEntity {
     @Inject(method = "getExperienceToDrop", at = @At("HEAD"))
     private void getExperiencePoints(CallbackInfoReturnable<Integer> cir) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((ZombieEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((ZombieEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
         }
     }
 

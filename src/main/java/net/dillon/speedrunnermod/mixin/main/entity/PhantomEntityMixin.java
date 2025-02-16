@@ -23,7 +23,7 @@ public class PhantomEntityMixin extends FlyingEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((PhantomEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((PhantomEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
         }
         return super.getExperienceToDrop(world);
     }

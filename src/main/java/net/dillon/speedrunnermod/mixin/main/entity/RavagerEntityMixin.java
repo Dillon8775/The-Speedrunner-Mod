@@ -37,7 +37,7 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((RavagerEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((RavagerEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
         }
         return super.getExperienceToDrop(world);
     }

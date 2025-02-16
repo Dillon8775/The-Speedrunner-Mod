@@ -160,6 +160,7 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.DRAGONS_SWORD, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_STICK, Models.HANDHELD);
+        itemModelGenerator.registerWithTextureSource(ModItems.KNOCKBACK_STICK, Items.STICK, Models.GENERATED);
 
         // Speedrunner Bow, Crossbow, shield, and wither bone are done separately.
     }

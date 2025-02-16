@@ -26,7 +26,7 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ItemUtil.enchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150;
+            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150;
         }
         return super.getExperienceToDrop(world);
     }
