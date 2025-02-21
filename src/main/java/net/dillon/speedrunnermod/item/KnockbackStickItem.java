@@ -3,6 +3,8 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -20,16 +22,33 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public class KnockbackStickItem extends Item {
 
     public KnockbackStickItem(Settings settings) {
-        super(settings.maxCount(1).rarity(Rarity.EPIC));
+        super(settings.maxCount(1).maxDamage(10).rarity(Rarity.EPIC));
     }
 
     /**
      * Makes it so that the knockback stick actually has the knockback enchantment.
      */
+    @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!stack.hasEnchantments()) {
             stack.addEnchantment(ItemUtil.worldEnchantment(world, Enchantments.KNOCKBACK), 5);
         }
+    }
+
+    /**
+     * Return true when hitting an entity.
+     */
+    @Override
+    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        return true;
+    }
+
+    /**
+     * Decrement durability when hitting an entity.
+     */
+    @Override
+    public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.damage(1, attacker, EquipmentSlot.MAINHAND);
     }
 
     /**
