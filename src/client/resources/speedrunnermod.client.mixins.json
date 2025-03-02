@@ -14,6 +14,7 @@
     "client.fix.RenderLayersMixin",
     "client.fix.SmithingScreenHandlersMixin",
     "client.hud.DebugModText",
+    "client.network.ClientPlayNetworkHandlerMixin",
     "client.render.CustomWorldEvents",
     "client.render.item.model.special.SpecialModelTypesMixin",
     "client.screen.CreateWorldScreenMixin",

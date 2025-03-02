@@ -29,5 +29,5 @@ public interface SpeedrunnersTotemUsedCallback {
                 entity.getWorld().sendEntityStatus(entity, SpeedrunnersTotemItem.use());
             }
         }
-            });
+    });
 }

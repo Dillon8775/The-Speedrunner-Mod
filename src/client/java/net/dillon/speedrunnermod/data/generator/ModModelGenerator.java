@@ -104,7 +104,7 @@ public class ModModelGenerator extends FabricModelProvider {
 
         itemModelGenerator.registerBow(ModItems.SPEEDRUNNER_BOW);
         itemModelGenerator.registerCrossbow(ModItems.SPEEDRUNNER_CROSSBOW);
-        registerSpeedrunnerShield(itemModelGenerator, ModItems.SPEEDRUNNER_SHIELD);
+        this.registerSpeedrunnerShield(itemModelGenerator, ModItems.SPEEDRUNNER_SHIELD);
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_SHEARS, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_FLINT_AND_STEEL, Models.GENERATED);
@@ -136,6 +136,7 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.WARPED_CHEST_BOAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.ANNUL_EYE, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_EYE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.SPEEDRUNNERS_TOTEM, Models.GENERATED);
         itemModelGenerator.register(ModItems.INFERNO_EYE, Models.GENERATED);
         itemModelGenerator.registerWithTextureSource(ModItems.INFINI_PEARL, Items.ENDER_PEARL, Models.GENERATED);
         itemModelGenerator.register(ModItems.PIGLIN_AWAKENER, Models.GENERATED);

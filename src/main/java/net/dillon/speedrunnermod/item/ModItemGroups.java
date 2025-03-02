@@ -62,6 +62,7 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_SHEARS);
                         entries.add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
                         entries.add(ModItems.SPEEDRUNNER_SHIELD);
+                        entries.add(ModItems.SPEEDRUNNERS_TOTEM);
                         entries.add(ModBlockItems.SPEEDRUNNERS_WORKBENCH);
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
                         entries.add(ModItems.ENDER_THRUSTER);

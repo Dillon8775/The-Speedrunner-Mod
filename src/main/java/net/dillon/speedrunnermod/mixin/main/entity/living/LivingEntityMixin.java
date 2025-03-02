@@ -1,9 +1,16 @@
 package net.dillon.speedrunnermod.mixin.main.entity.living;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.event.SpeedrunnersTotemUsedCallback;
+import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.SpeedrunnersTotemItem;
+import net.dillon.speedrunnermod.mixin.main.entity.player.InventoryAccessor;
 import net.dillon.speedrunnermod.tag.ModItemTags;
+import net.dillon.speedrunnermod.util.Author;
+import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
+import net.minecraft.component.type.DeathProtectionComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -12,9 +19,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
@@ -25,8 +34,10 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
@@ -40,6 +51,8 @@ public abstract class LivingEntityMixin extends Entity {
     protected abstract boolean shouldSwimInFluids();
     @Shadow
     public abstract boolean canWalkOnFluid(FluidState fluidState);
+
+    @Shadow public abstract void stopRiding();
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -74,6 +87,35 @@ public abstract class LivingEntityMixin extends Entity {
                 }
             }
         }
+    }
+
+    // Calls the totemUse event if supposed to and not totem of undying, skipping vanilla setHealth stuff
+    @Author(Authors.YELEEFFF)
+    @Inject(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setHealth(F)V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
+    private void applySpeedrunnersTotemEffects(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack stack, DeathProtectionComponent deathProtectionComponent) {
+        if (stack.getItem() instanceof SpeedrunnersTotemItem) {
+            deathProtectionComponent.applyDeathEffects(stack, (LivingEntity)(Object)this);
+
+            SpeedrunnersTotemUsedCallback.EVENT.invoker().invoke(((LivingEntity)(Object) this), stack, source);
+            cir.setReturnValue(stack != null);
+        }
+    }
+
+    // Gets what totem should be used
+    @Author(Authors.YELEEFFF)
+    @ModifyVariable(method = "tryUseDeathProtector", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/LivingEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"))
+    private ItemStack setTotemToPop(ItemStack stack, DamageSource source) {
+        if (this.isPlayer()) {
+            PlayerInventory inventory = ((InventoryAccessor) this).getInventory();
+            ItemStack totemUndying = Items.TOTEM_OF_UNDYING.getDefaultStack();
+            ItemStack speedrunnersTotem = ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack();
+
+            if (inventory.offHand.contains(totemUndying) || inventory.offHand.contains(speedrunnersTotem)) {
+                return inventory.getSlotWithStack(totemUndying) != -1 ? inventory.getStack(inventory.getSlotWithStack(totemUndying)) : inventory.offHand.get(0);
+            }
+        }
+
+        return stack;
     }
 
     /**

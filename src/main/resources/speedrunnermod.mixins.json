@@ -64,6 +64,7 @@
     "main.entity.boat.AbstractBoatEntityMixin",
     "main.entity.giant.GiantEntityMixin",
     "main.entity.living.LivingEntityMixin",
+    "main.entity.player.InventoryAccessor",
     "main.entity.player.PlayerEntityMixin",
     "main.entity.player.ServerPlayerEntityMixin",
     "main.fix.BeehiveBlockMixin",
