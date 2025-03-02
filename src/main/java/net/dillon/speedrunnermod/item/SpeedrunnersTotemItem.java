@@ -14,9 +14,17 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * A totem that works anywhere in the players' inventory, stacks to 16, and has better effects upon use.
  */
 public class SpeedrunnersTotemItem extends Item {
+    private static final byte BYTE_ID = 75;
 
     public SpeedrunnersTotemItem(Settings settings) {
         super(settings.maxCount(16).rarity(Rarity.EPIC));
+    }
+
+    /**
+     * Returns the byte identifier for the Speedrunners totem.
+     */
+    public static byte use() {
+        return BYTE_ID;
     }
 
     @Override

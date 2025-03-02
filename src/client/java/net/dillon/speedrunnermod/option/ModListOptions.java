@@ -183,6 +183,9 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> DRAGON_IMMUNITY_FROM_GIANT_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_giant_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_immunity_from_giant_and_wither.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGiantAndWither, value -> options().advanced.dragonImmunityFromGiantAndWither = value);
 
+    public static final SimpleOption<Boolean> THROWING_FIREBALL_REQUIRES_SHIFTING = new SimpleOption<>("speedrunnermod.options.throwing_fireball_requires_shifting", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.throwing_fireball_requires_shifting.tooltip")),
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.throwingFireballRequiresShifting, value -> options().advanced.throwingFireballRequiresShifting = value);
+
     public static final SimpleOption<Boolean> TERRABLENDER_SURFACE_RULE_DATA_MIXIN = new SimpleOption<>("speedrunnermod.options.terrablender_surface_rule_data_mixin", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.terrablender_surface_rule_data_mixin.tooltip")),
             (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.terraBlenderSurfaceRuleDataMixin, value -> options().mixins.terraBlenderSurfaceRuleDataMixin = value);
 

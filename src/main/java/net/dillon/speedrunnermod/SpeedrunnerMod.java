@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModBoats;
+import net.dillon.speedrunnermod.event.ModEventCallbacks;
 import net.dillon.speedrunnermod.item.ModBlockItems;
 import net.dillon.speedrunnermod.item.ModFuels;
 import net.dillon.speedrunnermod.item.ModItemGroups;
@@ -58,6 +59,8 @@ public class SpeedrunnerMod implements ModInitializer {
         ModBlockItems.initializeBlockItems();
         ModItems.initializeItems();
         ModItemGroups.registerModifiedItemGroups();
+
+        ModEventCallbacks.registerEventCallbacks();
 
         ModBlockTags.initializeBlockTags();
         ModEnchantmentTags.initializeEnchantmentTags();

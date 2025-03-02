@@ -488,7 +488,12 @@ public class ModOptions {
         /**
          * Determines the explosion power for fireballs when thrown with a fire charge.
          */
-        public int fireballExplosionPower = 1;
+        public int fireballExplosionPower = 2;
+
+        /**
+         * Determines if -- while the player is looking at a block, if they need to be shifting to throw a fireball. Disable this if you want to do things like fireball jump.
+         */
+        public boolean throwingFireballRequiresShifting = true;
 
         /**
          * The minimum brightness amount for the Speedrunner Mod.

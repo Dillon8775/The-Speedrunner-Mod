@@ -34,6 +34,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 ModListOptions.SHOW_RESET_BUTTON,
                 ModListOptions.HIGHER_BREATH_TIME,
                 options().main.throwableFireballs ? ModListOptions.FIREBALL_EXPLOSION_POWER : ModListOptions.Inactiveable.IAO_FIREBALL_EXPLOSION_POWER,
+                ModListOptions.THROWING_FIREBALL_REQUIRES_SHIFTING
         };
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.FireChargeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -13,6 +14,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
@@ -24,29 +29,64 @@ public class FirechargeItemMixin extends Item {
     }
 
     /**
-     * Allows fireballs to be thrown.
+     * Allows fireballs to be used when shifting and looking at a block.
+     */
+    @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
+    private void throwFireballWhenShifting(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
+        PlayerEntity player = context.getPlayer();
+        if (options().main.throwableFireballs) {
+            if (!options().advanced.throwingFireballRequiresShifting) {
+                this.throwAndSetReturnValue(context, player, cir);
+            } else {
+                if (player.isSneaking()) {
+                    this.throwAndSetReturnValue(context, player, cir);
+                }
+            }
+        }
+    }
+
+    /**
+     * Allows fireballs to be thrown normally.
      */
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         if (options().main.throwableFireballs) {
-            ItemStack stack = player.getStackInHand(hand);
-            if (!world.isClient) {
-                Vec3d lookVec = player.getRotationVec(1.0F);
-                FireballEntity fireball = new FireballEntity(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower);
-                fireball.updatePosition(player.getX(), player.getEyeY() - 0.235, player.getZ());
-                fireball.setOwner(player);
-                world.spawnEntity(fireball);
-                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            return this.throwFireball(world, player, hand);
+        }
+        return super.use(world, player, hand);
+    }
 
-                player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(1));
-                if (!player.getAbilities().creativeMode) {
-                    stack.decrement(1);
-                }
+    @Unique
+    private void throwAndSetReturnValue(ItemUsageContext context, PlayerEntity player, CallbackInfoReturnable<ActionResult> cir) {
+        World world = context.getWorld();
+        Hand hand = context.getHand();
+        this.throwFireball(world, player, hand);
+        cir.setReturnValue(ActionResult.SUCCESS_SERVER);
+    }
 
-                return ActionResult.SUCCESS;
+    /**
+     * The method for throwing fireballs.
+     */
+    @Unique
+    private ActionResult throwFireball(World world, PlayerEntity player, Hand hand) {
+        ItemStack stack = player.getStackInHand(hand);
+        if (!world.isClient) {
+            Vec3d lookVec = player.getRotationVec(1.0F);
+            FireballEntity fireball = new FireballEntity(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower);
+            fireball.updatePosition(player.getX(), player.getEyeY() - 0.235, player.getZ());
+            fireball.setOwner(player);
+            world.spawnEntity(fireball);
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+            player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(1));
+            if (!player.getAbilities().creativeMode) {
+                stack.decrement(1);
             }
+            player.swingHand(hand);
+
+            return ActionResult.SUCCESS_SERVER;
         }
 
-        return super.use(world, player, hand);
+        return null;
     }
 }
