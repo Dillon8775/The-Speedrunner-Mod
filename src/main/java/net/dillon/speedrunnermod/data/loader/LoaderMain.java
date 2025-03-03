@@ -9,7 +9,6 @@ import net.dillon.speedrunnermod.util.Credit;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
@@ -70,7 +69,7 @@ public class LoaderMain {
             }
         }
 
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             JsonObject vindicator = new JsonObject();
             vindicator.addProperty("type", "minecraft:vindicator");
             vindicator.addProperty("maxCount", 4);

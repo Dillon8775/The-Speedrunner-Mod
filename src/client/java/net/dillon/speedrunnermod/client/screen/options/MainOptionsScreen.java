@@ -33,8 +33,6 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.FASTER_BLOCK_BREAKING,
                 ModListOptions.BLOCK_BREAKING_MULTIPLIER,
                 ModListOptions.DRAGON_PERCH_TIME,
-                ModListOptions.STATE_OF_THE_ART_ITEMS,
-                ModListOptions.DOOM_MODE,
                 ModListOptions.ICARUS_MODE,
                 ModListOptions.INFINI_PEARL_MODE,
                 ModListOptions.BETTER_VILLAGER_TRADES,
@@ -70,6 +68,7 @@ public class MainOptionsScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.initializeOptionListWidget();
+        this.optionList.addSingleOptionEntry(ModListOptions.PLAYING_MODE);
         this.optionList.addAll(mainOptions());
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);

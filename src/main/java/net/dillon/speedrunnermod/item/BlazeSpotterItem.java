@@ -43,7 +43,7 @@ public class BlazeSpotterItem extends Item {
         ItemStack itemStack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (options().stateOfTheArtItems.isBlazeSpotterEnabled()) {
+            if (options().main.playingMode.easy()) {
                 if (world.getRegistryKey() == World.NETHER) {
                     BlockPos blazeSpawnerPos = this.findNearestBlazeSpawner((ServerWorld)world, player.getBlockPos());
                     if (blazeSpawnerPos != null) {

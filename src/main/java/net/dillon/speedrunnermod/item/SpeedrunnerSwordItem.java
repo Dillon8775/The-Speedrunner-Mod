@@ -12,7 +12,6 @@ import net.minecraft.util.Formatting;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
@@ -52,7 +51,7 @@ public class SpeedrunnerSwordItem extends SwordItem {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line1").formatted(Formatting.GRAY));
-            if (DOOM_MODE) {
+            if (options().main.playingMode.doom()) {
                 tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line2"));
             }
         }

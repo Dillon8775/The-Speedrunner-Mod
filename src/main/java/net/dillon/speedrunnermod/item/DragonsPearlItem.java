@@ -37,7 +37,7 @@ public class DragonsPearlItem extends Item {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (!world.isClient) {
-            if (options().stateOfTheArtItems.isDragonsPearlEnabled()) {
+            if (options().main.playingMode.easy()) {
                 if (world.getRegistryKey() == World.END) {
                     List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlDragonDistanceXYZ[0], options().advanced.dragonsPearlDragonDistanceXYZ[1], options().advanced.dragonsPearlDragonDistanceXYZ[2]), entity -> true);
 

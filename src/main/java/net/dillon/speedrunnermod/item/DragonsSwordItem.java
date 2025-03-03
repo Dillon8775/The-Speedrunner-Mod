@@ -17,7 +17,6 @@ import net.minecraft.util.Formatting;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
@@ -34,8 +33,8 @@ public class DragonsSwordItem extends SwordItem {
      */
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (target instanceof EnderDragonEntity dragon && options().stateOfTheArtItems.isDragonsSwordEnabled()) {
-            if (!DOOM_MODE) {
+        if (target instanceof EnderDragonEntity dragon) {
+            if (!options().main.playingMode.doom()) {
                 dragon.setHealth(0.0F);
             } else {
                 attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), MathUtil.randomFloat(2.0F, 3.0F));
@@ -61,8 +60,8 @@ public class DragonsSwordItem extends SwordItem {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(DOOM_MODE ? Formatting.STRIKETHROUGH : Formatting.WHITE));
-            if (DOOM_MODE) {
+            tooltip.add(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(options().main.playingMode.doom() ? Formatting.STRIKETHROUGH : Formatting.WHITE));
+            if (options().main.playingMode.doom()) {
                 tooltip.add(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
             }
             ItemUtil.stateOfTheArtItem(tooltip);

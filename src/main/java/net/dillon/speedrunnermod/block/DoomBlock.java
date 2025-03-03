@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.block;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
@@ -23,7 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Be careful what you wish for...
@@ -141,10 +140,10 @@ public class DoomBlock {
      */
     private static void fallDamage(Entity entity, float fallDistance) {
         float fallDamage;
-        if (!SpeedrunnerMod.options().main.fallDamage) {
+        if (!options().main.fallDamage) {
             fallDamage = 0.0F;
         } else {
-            fallDamage = DOOM_MODE ? 1.15F : 1.0F;
+            fallDamage = options().main.playingMode.doom() ? 1.15F : 1.0F;
             if (entity.isSneaking()) {
                 fallDamage = fallDamage / 1.25F;
             }
@@ -168,7 +167,7 @@ public class DoomBlock {
 
         @Override
         public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-            if (DOOM_MODE) {
+            if (options().main.playingMode.doom()) {
                 whenBroken(world, pos, player);
             }
             return super.onBreak(world, pos, state, player);
@@ -191,7 +190,7 @@ public class DoomBlock {
 
         @Override
         public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-            if (DOOM_MODE) {
+            if (options().main.playingMode.doom()) {
                 whenBroken(world, pos, player);
             }
             return super.onBreak(world, pos, state, player);
@@ -214,7 +213,7 @@ public class DoomBlock {
 
         @Override
         public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-            if (DOOM_MODE) {
+            if (options().main.playingMode.doom()) {
                 whenBroken(world, pos, player);
             }
             return super.onBreak(world, pos, state, player);

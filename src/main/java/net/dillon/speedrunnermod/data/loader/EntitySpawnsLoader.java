@@ -9,23 +9,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @ChatGPT(Credit.FULL_CREDIT)
 public class EntitySpawnsLoader {
 
     public static void modifyBiomesWithDefaultMonsters(JsonElement jsonElement) {
         Map<String, Integer[]> monsterSpawns = new HashMap<>();
-        monsterSpawns.put("minecraft:spider", LoaderMain.createSpawnSettings(DOOM_MODE ? 75 : 100, DOOM_MODE ? 1 : 4, DOOM_MODE ? 5 : 4));
-        monsterSpawns.put("minecraft:slime", LoaderMain.createSpawnSettings(DOOM_MODE ? 50 : 100, 1, 4));
-        monsterSpawns.put("minecraft:enderman", LoaderMain.createSpawnSettings(DOOM_MODE ? 25 : 50, DOOM_MODE ? 1 : 4, 4));
-        monsterSpawns.put("minecraft:witch", LoaderMain.createSpawnSettings(DOOM_MODE ? 50 : 5, 1, DOOM_MODE ? 4 : 1));
+        monsterSpawns.put("minecraft:spider", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 75 : 100, options().main.playingMode.doom() ? 1 : 4, options().main.playingMode.doom() ? 5 : 4));
+        monsterSpawns.put("minecraft:slime", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 50 : 100, 1, 4));
+        monsterSpawns.put("minecraft:enderman", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 25 : 50, options().main.playingMode.doom() ? 1 : 4, 4));
+        monsterSpawns.put("minecraft:witch", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 50 : 5, 1, options().main.playingMode.doom() ? 4 : 1));
 
         LoaderMain.modifyMonsterSpawns(jsonElement, monsterSpawns, false);
 
         Map<String, Integer[]> customOrNoChangedWeightMonsterSpawns = new HashMap<>();
-        monsterSpawns.put("minecraft:zombie", LoaderMain.createSpawnSettings(DOOM_MODE ? 1 : 4, 4));
-        monsterSpawns.put("minecraft:creeper", LoaderMain.createSpawnSettings(DOOM_MODE ? 1 : 2, 4));
+        monsterSpawns.put("minecraft:zombie", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 1 : 4, 4));
+        monsterSpawns.put("minecraft:creeper", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 1 : 2, 4));
 
         LoaderMain.modifyMonsterSpawns(jsonElement, customOrNoChangedWeightMonsterSpawns, true);
     }

@@ -43,7 +43,7 @@ public class RaidEradicatorItem extends Item {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            if (options().stateOfTheArtItems.isRaidEradicatorEnabled()) {
+            if (options().main.playingMode.easy()) {
                 List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ[0], options().advanced.raidEradicatorDistanceXYZ[1], options().advanced.raidEradicatorDistanceXYZ[2]), entity -> true);
 
                 if (!raiders.isEmpty()) {

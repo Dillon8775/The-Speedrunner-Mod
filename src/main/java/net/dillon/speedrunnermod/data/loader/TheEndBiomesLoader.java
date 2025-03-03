@@ -6,7 +6,7 @@ import com.google.gson.JsonObject;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Contains all of the {@code end biome modifications.}
@@ -25,7 +25,7 @@ public class TheEndBiomesLoader {
         enderman.addProperty("type", "minecraft:enderman");
         enderman.addProperty("maxCount", 4);
         enderman.addProperty("minCount", 1);
-        enderman.addProperty("weight", DOOM_MODE ? 85 : 10);
+        enderman.addProperty("weight", options().main.playingMode.doom() ? 85 : 10);
 
         JsonObject skeleton = new JsonObject();
         skeleton.addProperty("type", "minecraft:skeleton");
@@ -64,7 +64,7 @@ public class TheEndBiomesLoader {
         breeze.addProperty("weight", 25);
 
         theEndMonsters.add(enderman);
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             theEndMonsters.add(skeleton);
             theEndMonsters.add(vindicator);
             theEndMonsters.add(ravager);
@@ -83,7 +83,7 @@ public class TheEndBiomesLoader {
         particleObject.add("options", optionsObject);
         particleObject.addProperty("probability", 0.030);
 
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             theEndEffects.add("particle", particleObject);
         }
     }

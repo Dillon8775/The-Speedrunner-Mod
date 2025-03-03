@@ -39,7 +39,6 @@ public class SpeedrunnerMod implements ModInitializer {
     public static final String MC_VERSION = "1.21.4x";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
-    public static boolean DOOM_MODE = SpeedrunnerMod.options().main.doomMode;
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
     public static final String OPTIONS_WARNING_MESSAGE = "Found an unusual value in the speedrunner mod settings.";
     public static boolean safeBoot;
@@ -80,7 +79,7 @@ public class SpeedrunnerMod implements ModInitializer {
         safeBoot = false;
         ModOptions.loadConfig();
 
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 
@@ -122,14 +121,13 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Environment(EnvType.CLIENT)
     public static void resetOptions() {
+        options().main.playingMode = ModOptions.PlayingMode.EASY;
         options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
         options().main.fasterBlockBreaking = true;
         options().main.blockBreakingMultiplier = 1;
         options().main.betterBiomes = true;
         options().main.iCarusMode = false;
         options().main.infiniPearlMode = false;
-        options().stateOfTheArtItems.stateOfTheArtItems = true;
-        options().main.doomMode = false;
         options().main.dragonPerchTime = 8;
         options().main.killGhastOnFireball = false;
         options().main.betterVillagerTrades = true;
@@ -170,14 +168,6 @@ public class SpeedrunnerMod implements ModInitializer {
         options().client.difficulty = ModOptions.Difficulty.EASY;
         options().client.allowCheats = false;
         options().client.showDeathCords = true;
-
-        options().stateOfTheArtItems.annulEye = true;
-        options().stateOfTheArtItems.blazeSpotter = true;
-        options().stateOfTheArtItems.dragonsPearl = true;
-        options().stateOfTheArtItems.dragonsSword = true;
-        options().stateOfTheArtItems.enderThruster = true;
-        options().stateOfTheArtItems.piglinAwakener = true;
-        options().stateOfTheArtItems.raidEradicator = true;
 
         options().advanced.modifiedStrongholdGeneration = true;
         options().advanced.modifiedStrongholdYGeneration = true;
@@ -670,7 +660,7 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     public static float getBedBlockExplosionPower(World world) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             return world.getRegistryKey() == World.END ? 15.0F : 5.0F;
         } else {
             return 5.0F;
@@ -678,11 +668,11 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     public static int getFireFromLavaTime() {
-        return DOOM_MODE ? 15 : 7;
+        return options().main.playingMode.doom() ? 15 : 7;
     }
 
     public static float getLavaDamageAmount() {
-        return DOOM_MODE ? 4.0F : 2.0F;
+        return options().main.playingMode.doom() ? 4.0F : 2.0F;
     }
 
     public static int getPlayerBreathTime() {
@@ -690,7 +680,7 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     public static int getBlazeFireballCooldown() {
-        return DOOM_MODE ? 60 : 180;
+        return options().main.playingMode.doom() ? 60 : 180;
     }
 
     public static int getDolphinRange() {
@@ -698,47 +688,47 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     public static int getEnderDragonFireballInstantDamageAmplifier() {
-        return DOOM_MODE ? 1 : 0;
+        return options().main.playingMode.doom() ? 1 : 0;
     }
 
     public static double getEnderDragonMaxHealth() {
-        return DOOM_MODE ? 500.0D : 100.0D;
+        return options().main.playingMode.doom() ? 500.0D : 100.0D;
     }
 
     public static float getEnderDragonEndCrystalHealAmount() {
-        return DOOM_MODE ? 1.7F : 0.1F;
+        return options().main.playingMode.doom() ? 1.7F : 0.1F;
     }
 
     public static float getEnderDragonDamageMultiplier() {
-        return DOOM_MODE ? 12.0F : 3.0F;
+        return options().main.playingMode.doom() ? 12.0F : 3.0F;
     }
 
     public static float getEnderDragonEndCrystalDestroyedHealthAmount() {
-        return DOOM_MODE ? 3.0F : 20.0F;
+        return options().main.playingMode.doom() ? 3.0F : 20.0F;
     }
 
     public static float getEnderDragonStayPerchedTime() {
         if (options().advanced.longerDragonPerchStayTime) {
-            return DOOM_MODE ? 0.18F : 0.60F;
+            return options().main.playingMode.doom() ? 0.18F : 0.60F;
         } else {
             return 0.25F;
         }
     }
 
     public static float getEnderPearlDamageMultiplier() {
-        return DOOM_MODE ? 5.0F : 2.0F;
+        return options().main.playingMode.doom() ? 5.0F : 2.0F;
     }
 
     public static int getGhastFireballCooldown() {
-        return DOOM_MODE ? -5 : -40;
+        return options().main.playingMode.doom() ? -5 : -40;
     }
 
     public static int getSlimeJumpTime() {
-        return DOOM_MODE ? 20 : 100;
+        return options().main.playingMode.doom() ? 20 : 100;
     }
 
     public static float getSlimeDamageMultiplier() {
-        return DOOM_MODE ? 2.2F : 1.5F;
+        return options().main.playingMode.doom() ? 2.2F : 1.5F;
     }
 
     public static double getZombifiedPiglinRunawayDistance() {
@@ -746,40 +736,40 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     public static int getSilverfishCallForHelpDelay() {
-        return DOOM_MODE ? 20 : 100;
+        return options().main.playingMode.doom() ? 20 : 100;
     }
 
     public static int getFireballFireTime() {
-        return DOOM_MODE ? 6 : 3;
+        return options().main.playingMode.doom() ? 6 : 3;
     }
 
     public static float getFireballDamageMultiplier() {
-        return DOOM_MODE ? 5.0F : 1.0F;
+        return options().main.playingMode.doom() ? 5.0F : 1.0F;
     }
 
     public static float getVexDecayDamageMultiplier() {
-        return DOOM_MODE ? 100.0F : 1.0F;
+        return options().main.playingMode.doom() ? 100.0F : 1.0F;
     }
 
     public static double getWitherMaxHealth() {
-        return DOOM_MODE ? 150.0D : 100.0D;
+        return options().main.playingMode.doom() ? 150.0D : 100.0D;
     }
 
     public static int getWitherSkeletonWitherEffectDuration() {
-        return DOOM_MODE ? 200 : 60;
+        return options().main.playingMode.doom() ? 200 : 60;
     }
 
     public static int getStrongholdMinY() {
-        return DOOM_MODE ? -48 : 27;
+        return options().main.playingMode.doom() ? -48 : 27;
     }
 
     public static int getStrongholdMaxY() {
         int seaLevel = 63;
-        return DOOM_MODE ? 0 : seaLevel;
+        return options().main.playingMode.doom() ? 0 : seaLevel;
     }
 
     public static float getEnderEyeChance() {
-        return DOOM_MODE ? 0.99F : 0.6F;
+        return options().main.playingMode.doom() ? 0.99F : 0.6F;
     }
 
     public static int getOreDiamondChance() {

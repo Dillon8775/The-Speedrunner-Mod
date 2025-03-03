@@ -13,7 +13,8 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 
 /**
  * All Speedrunner Mod {@code custom world gen features.}
@@ -33,7 +34,7 @@ public class ModWorldGen {
         addOres();
         addVegetalDecoration();
 
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (options().main.strongholdLibraryCount > 5) {
                 options().main.strongholdLibraryCount = 5;
                 warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
@@ -130,7 +131,7 @@ public class ModWorldGen {
                     GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_FANCY_SPEEDRUNNER_PLACED);
         }
 
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(),
                     GenerationStep.Feature.VEGETAL_DECORATION,
                     ModPlacedFeatures.DOOM_TREE_PLACED);
@@ -139,7 +140,7 @@ public class ModWorldGen {
 
     static {
         if (options().advanced.modifiedStrongholdGeneration) {
-            STRONGHOLD_GENERATION = DOOM_MODE ? new StrongholdGenerator.PieceData[]{
+            STRONGHOLD_GENERATION = options().main.playingMode.doom() ? new StrongholdGenerator.PieceData[]{
                     new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 25, 5),
                     new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 50, 5),
                     new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 25, 5),
@@ -222,7 +223,7 @@ public class ModWorldGen {
             NETHER_FORTRESS_GENERATION_CORRIDOR = new NetherFortressGenerator.PieceData[]{new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 25, 0, true), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorCrossing.class, 15, 5), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorRightTurn.class, 5, 10), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorLeftTurn.class, 5, 10), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorStairs.class, 10, 3, true), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 5, 2)};
         }
 
-        NETHER_FORTRESS_MOB_SPAWNS = DOOM_MODE ?
+        NETHER_FORTRESS_MOB_SPAWNS = options().main.playingMode.doom() ?
                 Pool.of(
                         new SpawnSettings.SpawnEntry(EntityType.BLAZE, 50, 1, 4),
                         new SpawnSettings.SpawnEntry(EntityType.PIGLIN_BRUTE, 25, 2, 4),

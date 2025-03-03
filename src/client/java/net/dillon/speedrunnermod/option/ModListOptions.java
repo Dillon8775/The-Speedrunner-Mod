@@ -22,6 +22,11 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Environment(EnvType.CLIENT)
 public class ModListOptions {
 
+    public static final SimpleOption<ModOptions.PlayingMode> PLAYING_MODE =
+            new SimpleOption<>("speedrunnermod.options.playing_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.playing_mode.tooltip")), SimpleOption.enumValueText(),
+                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.PlayingMode.values()), Codec.INT.xmap(ModOptions.PlayingMode::byId, ModOptions.PlayingMode::getId)),
+                    options().main.playingMode, value -> options().main.playingMode = value);
+
     public static final SimpleOption<ModOptions.StructureSpawnRate> STRUCTURE_SPAWN_RATES =
             new SimpleOption<>("speedrunnermod.options.structure_spawn_rates", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.structure_spawn_rates.tooltip")), SimpleOption.enumValueText(),
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
@@ -74,9 +79,6 @@ public class ModListOptions {
 
     public static final SimpleOption<Boolean> TEXTURE_TOOLTIPS = new SimpleOption<>("speedrunnermod.options.texture_tooltips", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.texture_tooltips.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.textureTooltips, value -> options().client.textureTooltips = value);
-
-    public static final SimpleOption<Boolean> DOOM_MODE = new SimpleOption<>("speedrunnermod.options.doom_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.doom_mode.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.doomMode, value -> options().main.doomMode = value);
 
     public static final SimpleOption<Boolean> KILL_GHAST_ON_FIREBALL = new SimpleOption<>("speedrunnermod.options.kill_ghast_on_fireball", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kill_ghast_on_fireball.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.killGhastOnFireball, value -> options().main.killGhastOnFireball = value);

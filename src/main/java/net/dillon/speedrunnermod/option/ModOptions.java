@@ -34,7 +34,6 @@ public class ModOptions {
     public static ModOptions OPTIONS = getConfig();
     public final Main main = new Main();
     public final Client client = new Client();
-    public final StateOfTheArtItems stateOfTheArtItems = new StateOfTheArtItems();
     public final Advanced advanced = new Advanced();
     public final StructureSpawnRates structureSpawnRates = new StructureSpawnRates();
     public final Mixins mixins = new Mixins();
@@ -44,6 +43,12 @@ public class ModOptions {
      * <p>See additional comments inside of static class for option documentation.</p>
      */
     public static class Main {
+
+        /**
+         * Determines the playing mode of the mod. The mode determines what features are added.
+         */
+        @RequiresRestart
+        public PlayingMode playingMode = PlayingMode.EASY;
 
         /**
          * Determines how frequently Minecraft structures generate throughout the world.
@@ -75,12 +80,6 @@ public class ModOptions {
          * Grants the player with an ender pearl that does not do damage nor get consumed upon use.
          */
         public boolean infiniPearlMode = false;
-
-        /**
-         * Flips the mod's description upside down, and makes the game harder to speedrun.
-         */
-        @RequiresRestart
-        public boolean doomMode = false;
 
         /**
          *  Determines the amount of time (in seconds) that it takes for the ender dragon to automatically perch upon entering the end.
@@ -305,109 +304,6 @@ public class ModOptions {
          * Sends the players coordinates to chat upon death, and displays them on the death screen.
          */
         public boolean showDeathCords = true;
-    }
-
-    /**
-     * {@code State-Of-The-Art items} config.
-     * <p>Allows for toggling of individual item functions.</p>
-     */
-    public static class StateOfTheArtItems {
-
-        /**
-         * Allows the user to enable/disable the functions of "State of the Art" items, which are items that may be considered "broken" (as in crazy, not actually broken), OP, or cracked, such as the Dragon's Pearl, Piglin Awakener, Raid Eradicator, etc.
-         */
-        public boolean stateOfTheArtItems = true;
-
-        /**
-         * Determines if the annul eye stronghold portal room teleporter should be enabled.
-         */
-        public boolean annulEye = true;
-
-        /**
-         * Determines if the blaze spotter item function should be enabled.
-         */
-        public boolean blazeSpotter = true;
-
-        /**
-         * Determines if the dragons pearl item function should be enabled.
-         */
-        public boolean dragonsPearl = true;
-
-        /**
-         * Determines if the dragons sword item should be enabled.
-         */
-        public boolean dragonsSword = true;
-
-        /**
-         * Determines if the ender thruster item function should be enabled.
-         */
-        public boolean enderThruster = true;
-
-        /**
-         * Determines if the piglin awakener item function should be enabled.
-         */
-        public boolean piglinAwakener = true;
-
-        /**
-         * Determines if the raid eradicator item function should be enabled.
-         */
-        public boolean raidEradicator = true;
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the annul eye toggle switch is enabled.
-         */
-        public boolean isAnnulEyeTeleporterEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.annulEye;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the blaze spotter toggle switch is enabled.
-         */
-        public boolean isBlazeSpotterEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.blazeSpotter;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the dragons pearl toggle switch is enabled.
-         */
-        public boolean isDragonsPearlEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.dragonsPearl;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the dragons sword toggle switch is enabled.
-         */
-        public boolean isDragonsSwordEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.dragonsSword;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the ender thruster toggle switch is enabled.
-         */
-        public boolean isEnderThrusterEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.enderThruster;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the piglin awakener toggle switch is enabled.
-         */
-        public boolean isPiglinAwakenerEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.piglinAwakener;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled and the raid eradicator toggle switch is enabled.
-         */
-        public boolean isRaidEradicatorEnabled() {
-            return isStateOfTheArtItemsEnabled() && options().stateOfTheArtItems.raidEradicator;
-        }
-
-        /**
-         * Returns true if {@code State-Of-The-Art items} option is enabled.
-         */
-        private boolean isStateOfTheArtItemsEnabled() {
-            return options().stateOfTheArtItems.stateOfTheArtItems;
-        }
     }
 
     /**
@@ -773,6 +669,56 @@ public class ModOptions {
      */
     public boolean inBounds(int option, int min, int max) {
         return option >= min && option <= max;
+    }
+
+    public enum PlayingMode implements TranslatableOption {
+        EASY(0, "speedrunnermod.options.playing_mode.easy"),
+        NORMAL(1, "speedrunnermod.options.playing_mode.normal"),
+        DOOM(2, "speedrunnermod.options.playing_mode.doom");
+
+        private static final PlayingMode[] VALUES = Arrays.stream(PlayingMode.values()).sorted(Comparator.comparingInt(PlayingMode::getId)).toArray(PlayingMode[]::new);
+        private final int id;
+        private final String translateKey;
+
+        PlayingMode(int id, String translationKey) {
+            this.id = id;
+            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+        }
+
+        /**
+         * Returns the {@code id value} of the {@code Playing Mode} option.
+         */
+        @Override
+        public int getId() {
+            return this.id;
+        }
+
+        /**
+         * Returns the {@code translation key} of the {@code Playing Mode} option.
+         */
+        @Override
+        public String getTranslationKey() {
+            return this.translateKey;
+        }
+
+        /**
+         * Not sure what this does to be honest, but it's used in ModListOptions.
+         */
+        public static PlayingMode byId(int id) {
+            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+        }
+
+        public boolean easy() {
+            return options().main.playingMode.equals(PlayingMode.EASY);
+        }
+
+        public boolean normal() {
+            return options().main.playingMode.equals(PlayingMode.NORMAL);
+        }
+
+        public boolean doom() {
+            return options().main.playingMode.equals(PlayingMode.DOOM);
+        }
     }
 
     /**
