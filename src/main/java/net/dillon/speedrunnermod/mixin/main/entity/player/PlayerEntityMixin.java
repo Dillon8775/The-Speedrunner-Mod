@@ -36,7 +36,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(PlayerEntity.class)
@@ -77,7 +76,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
     private void takeShieldHit(LivingEntity attacker, CallbackInfo ci) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (attacker instanceof GiantEntity) {
                 int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
                 int shieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 10 : coolEnchantment == 4 ? 25 : coolEnchantment == 3 ? 50 : coolEnchantment == 2 ? 100 : coolEnchantment == 1 ? 150 : 200;

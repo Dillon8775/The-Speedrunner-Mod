@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.client.screen.features.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.features.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.features.ScreenType;
 import net.dillon.speedrunnermod.client.util.ModTexts;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -32,12 +33,12 @@ public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
 
         height += 24;
         ButtonWidget enableDoomMode = this.addDrawableChild(ButtonWidget.builder(ModTexts.ENABLE_DOOM_MODE, button -> {
-            if (!options().main.doomMode) {
+            if (!options().main.playingMode.doom()) {
                 this.client.setScreen(new RestartRequiredScreen(this.parent, MinecraftClient.getInstance().options));
             }
-            options().main.doomMode = true;
+            options().main.playingMode = ModOptions.PlayingMode.DOOM;
         }).dimensions(this.getButtonsWidth(), height, 150, 20).build());
-        enableDoomMode.active = !options().main.doomMode;
+        enableDoomMode.active = !options().main.playingMode.doom();
     }
 
     @Override

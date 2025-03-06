@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(AbstractSkeletonEntity.class)
 public class AbstractSkeletonEntityMixin extends HostileEntity {
@@ -39,9 +39,9 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
      */
     @ModifyVariable(method = "updateAttackType", at = @At("STORE"), ordinal = 0)
     private int updateAttackType(int x) {
-        int i = DOOM_MODE ? 5 : 20;
+        int i = options().main.playingMode.doom() ? 5 : 20;
         if (this.getWorld().getDifficulty() != Difficulty.HARD) {
-            i = DOOM_MODE ? 10 : 20;
+            i = options().main.playingMode.doom() ? 10 : 20;
         }
         return i;
     }
@@ -51,6 +51,6 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
      */
     @ModifyArg(method = "createAbstractSkeletonAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
     private static double genericMovementSpeed(double baseValue) {
-        return DOOM_MODE ? 0.3D : 0.25D;
+        return options().main.playingMode.doom() ? 0.3D : 0.25D;
     }
 }

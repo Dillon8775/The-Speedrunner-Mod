@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public class RestartRequiredScreen extends AbstractModScreen {
     public static boolean currentLeaderboardsMode;
     public static boolean currentBetterBiomes;
-    public static boolean currentDoomMode;
+    public static ModOptions.PlayingMode currentPlayingMode;
     public static boolean currentBetterVillagerTrades;
     public static boolean currentCustomBiomesAndCustomBiomeFeatures;
     public static boolean currentPanorama;
@@ -100,7 +100,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public static void getCurrentOptions() {
         currentLeaderboardsMode = options().main.leaderboardsMode;
         currentBetterBiomes = options().main.betterBiomes;
-        currentDoomMode = options().main.doomMode;
+        currentPlayingMode = options().main.playingMode;
         currentBetterVillagerTrades = options().main.betterVillagerTrades;
         currentCustomBiomesAndCustomBiomeFeatures = options().main.customBiomesAndCustomBiomeFeatures;
         currentPanorama = options().client.customPanorama;
@@ -124,7 +124,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public static boolean needsRestart() {
         return currentLeaderboardsMode != options().main.leaderboardsMode ||
                 currentBetterBiomes != options().main.betterBiomes ||
-                currentDoomMode != options().main.doomMode ||
+                currentPlayingMode != options().main.playingMode ||
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
                 currentCustomBiomesAndCustomBiomeFeatures != options().main.customBiomesAndCustomBiomeFeatures ||
                 currentPanorama != options().client.customPanorama ||
@@ -148,7 +148,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     private static void revertChanges() {
         options().main.leaderboardsMode = currentLeaderboardsMode;
         options().main.betterBiomes = currentBetterBiomes;
-        options().main.doomMode = currentDoomMode;
+        options().main.playingMode = currentPlayingMode;
         options().main.betterVillagerTrades = currentBetterVillagerTrades;
         options().main.customBiomesAndCustomBiomeFeatures = currentCustomBiomesAndCustomBiomeFeatures;
         options().client.customPanorama = currentPanorama;

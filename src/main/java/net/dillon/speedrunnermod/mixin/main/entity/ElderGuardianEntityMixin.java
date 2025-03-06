@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(ElderGuardianEntity.class)
 public class ElderGuardianEntityMixin extends GuardianEntity {
@@ -48,8 +48,8 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
     @Overwrite
     public static DefaultAttributeContainer.Builder createElderGuardianAttributes() {
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericAttackDamage = DOOM_MODE ? 8.0D : 4.0D;
-        final double genericMaxHealth = DOOM_MODE ? 50.0D : 25.0D;
+        final double genericAttackDamage = options().main.playingMode.doom() ? 8.0D : 4.0D;
+        final double genericMaxHealth = options().main.playingMode.doom() ? 50.0D : 25.0D;
         return GuardianEntity.createGuardianAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
                 .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
@@ -63,10 +63,10 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
     @Overwrite
     public void mobTick(ServerWorld world) {
         super.mobTick(world);
-        final int i = DOOM_MODE ? 600 : 6000;
+        final int i = options().main.playingMode.doom() ? 600 : 6000;
         if ((this.age + this.getId()) % i == 0) {
-            final int duration = DOOM_MODE ? TickCalculator.minutes(5) : TickCalculator.seconds(30);
-            final double d = DOOM_MODE ? 55.0D : 25.0D;
+            final int duration = options().main.playingMode.doom() ? TickCalculator.minutes(5) : TickCalculator.seconds(30);
+            final double d = options().main.playingMode.doom() ? 55.0D : 25.0D;
             StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.MINING_FATIGUE, duration, 2);
             List<ServerPlayerEntity> list = StatusEffectUtil.addEffectToPlayersWithinDistance((ServerWorld)this.getWorld(), this, this.getPos(), d, statusEffectInstance, 1200);
             list.forEach(serverPlayerEntity -> serverPlayerEntity.networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.ELDER_GUARDIAN_EFFECT, this.isSilent() ? GameStateChangeS2CPacket.DEMO_OPEN_SCREEN : (int)1.0f)));

@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(Block.class)
@@ -25,7 +24,7 @@ public class BlockMixin {
         if (!options().main.fallDamage) {
             fallDamage = 0.0F;
         } else {
-            fallDamage = DOOM_MODE ? 1.0F : 0.7F;
+            fallDamage = options().main.playingMode.doom() ? 1.0F : 0.7F;
             if (entity.isSneaking()) {
                 fallDamage = fallDamage / 1.25F;
             }

@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(EnderPearlEntity.class)
 public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
@@ -63,7 +63,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
 
                     entity.fallDistance = 0.0F;
                     if (!isInfiniPearl) {
-                        if (DOOM_MODE) {
+                        if (options().main.playingMode.doom()) {
                             if (!serverPlayerEntity.isCreative() || !serverPlayerEntity.isSpectator()) {
                                 ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, TickCalculator.seconds(3), 0));
                             }

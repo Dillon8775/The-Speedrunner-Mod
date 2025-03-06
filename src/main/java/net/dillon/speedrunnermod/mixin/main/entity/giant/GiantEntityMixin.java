@@ -46,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * The {@code Giant Boss (doom mode)} exclusive.
@@ -103,7 +103,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.bossBar = new ServerBossBar(this.getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS);
             this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
             this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
@@ -119,10 +119,10 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createGiantAttributes() {
-        final double genericMaxHealth = DOOM_MODE ? 300.0D : 100.0D;
-        final double genericMovementSpeed = DOOM_MODE ? 0.3500000528343624D : 0.5D;
-        final double genericAttackDamage = DOOM_MODE ? 10.0D : 50.0D;
-        final double genericAttackKnockback = DOOM_MODE ? 1.0D : 0.0D;
+        final double genericMaxHealth = options().main.playingMode.doom() ? 300.0D : 100.0D;
+        final double genericMovementSpeed = options().main.playingMode.doom() ? 0.3500000528343624D : 0.5D;
+        final double genericAttackDamage = options().main.playingMode.doom() ? 10.0D : 50.0D;
+        final double genericAttackKnockback = options().main.playingMode.doom() ? 1.0D : 0.0D;
         return HostileEntity.createHostileAttributes().add(EntityAttributes.MAX_HEALTH, genericMaxHealth).add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed).add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage).add(EntityAttributes.ATTACK_KNOCKBACK, genericAttackKnockback);
     }
 
@@ -131,7 +131,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     protected void initGoals() {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.goalSelector.add(1, new SwimGoal(this));
             this.goalSelector.add(2, new GiantAttackGoal((GiantEntity) (Object) this, 1.0D, false));
             this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
@@ -149,7 +149,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void tick() {
         super.tick();
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (this.age % 10 == 0) {
                 this.heal(0.6F);
             }
@@ -163,7 +163,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public void attemptTickInVoid() {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (this.getWorld() instanceof ServerWorld && this.getWorld().getRegistryKey() == World.END) {
                 if (this.getY() < (double)(this.getWorld().getBottomY() - 64)) {
                     this.teleport(0, 96, 0, true);
@@ -184,7 +184,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void onDeath(DamageSource source) {
         super.onDeath(source);
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.onGiantDeath();
             if (!this.isSilent()) {
                 if (attackingPlayer != null && attackingPlayer instanceof ServerPlayerEntity) {
@@ -199,7 +199,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             Entity entity = source.getSource();
 
             if (entity instanceof WitherSkullEntity ||
@@ -245,10 +245,10 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.getWorld().sendEntityStatus(this, (byte)4);
         }
-        return DOOM_MODE ? Giant.tryAttack(world, this, (LivingEntity)target) : super.tryAttack(world, target);
+        return options().main.playingMode.doom() ? Giant.tryAttack(world, this, (LivingEntity)target) : super.tryAttack(world, target);
     }
 
     /**
@@ -256,7 +256,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     protected void knockback(LivingEntity target) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             Giant.knockback(this, target);
         }
     }
@@ -266,7 +266,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public void travel(Vec3d movementInput) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
                 this.updateVelocity(0.01F, movementInput);
                 this.move(MovementType.SELF, this.getVelocity());
@@ -285,7 +285,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void updateSwimming() {
         super.updateSwimming();
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (!this.getWorld().isClient) {
                 if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
                     this.navigation = this.waterNavigation;
@@ -303,7 +303,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public void checkDespawn() {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
                 this.discard();
             } else {
@@ -317,7 +317,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
-        return !DOOM_MODE;
+        return !options().main.playingMode.doom();
     }
 
     /**
@@ -325,7 +325,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source) {
-        return !DOOM_MODE;
+        return !options().main.playingMode.doom();
     }
 
     /**
@@ -333,7 +333,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean isFireImmune() {
-        return DOOM_MODE;
+        return options().main.playingMode.doom();
     }
 
     /**
@@ -341,7 +341,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean isImmuneToExplosion(Explosion explosion) {
-        return DOOM_MODE;
+        return options().main.playingMode.doom();
     }
 
     /**
@@ -349,7 +349,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean canStartRiding(Entity entity) {
-        return !DOOM_MODE && super.canStartRiding(entity);
+        return !options().main.playingMode.doom() && super.canStartRiding(entity);
     }
 
     /**
@@ -357,7 +357,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean canUsePortals(boolean allowVehicles) {
-        return !DOOM_MODE;
+        return !options().main.playingMode.doom();
     }
 
     /**
@@ -366,7 +366,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void setCustomName(@Nullable Text name) {
         super.setCustomName(name);
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.bossBar.setName(this.getDisplayName());
         }
     }
@@ -377,7 +377,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void onStartedTrackingBy(ServerPlayerEntity player) {
         super.onStartedTrackingBy(player);
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.bossBar.addPlayer(player);
         }
     }
@@ -388,7 +388,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void onStoppedTrackingBy(ServerPlayerEntity player) {
         super.onStoppedTrackingBy(player);
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.bossBar.removePlayer(player);
         }
     }
@@ -398,7 +398,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public SoundCategory getSoundCategory() {
-        return DOOM_MODE ? SoundCategory.HOSTILE : SoundCategory.NEUTRAL;
+        return options().main.playingMode.doom() ? SoundCategory.HOSTILE : SoundCategory.NEUTRAL;
     }
 
     /**
@@ -406,7 +406,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public SoundEvent getAmbientSound() {
-        return DOOM_MODE ? SoundEvents.ENTITY_ZOMBIE_AMBIENT : null;
+        return options().main.playingMode.doom() ? SoundEvents.ENTITY_ZOMBIE_AMBIENT : null;
     }
 
     /**
@@ -414,7 +414,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public SoundEvent getHurtSound(DamageSource source) {
-        return DOOM_MODE ? SoundEvents.ENTITY_ZOMBIE_HURT : SoundEvents.ENTITY_GENERIC_HURT;
+        return options().main.playingMode.doom() ? SoundEvents.ENTITY_ZOMBIE_HURT : SoundEvents.ENTITY_GENERIC_HURT;
     }
 
     /**
@@ -422,7 +422,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public SoundEvent getDeathSound() {
-        return DOOM_MODE ? SoundEvents.ENTITY_ZOMBIE_DEATH : SoundEvents.ENTITY_GENERIC_DEATH;
+        return options().main.playingMode.doom() ? SoundEvents.ENTITY_ZOMBIE_DEATH : SoundEvents.ENTITY_GENERIC_DEATH;
     }
 
     /**
@@ -430,7 +430,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             this.playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.25F, 1.0F);
         }
     }
@@ -440,7 +440,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public float getSoundVolume() {
-        return DOOM_MODE ? 5.0F : 1.0F;
+        return options().main.playingMode.doom() ? 5.0F : 1.0F;
     }
 
     /**

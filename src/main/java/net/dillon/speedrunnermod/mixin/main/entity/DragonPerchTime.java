@@ -17,7 +17,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(EnderDragonFight.class)
@@ -51,7 +50,7 @@ public abstract class DragonPerchTime {
             }, options().getDragonPerchTime());
         }
 
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             WitherEntity witherEntity = EntityType.WITHER.create(this.world, SpawnReason.EVENT);
             witherEntity.refreshPositionAndAngles(0.0D, 196.0D, 0.0D, this.world.random.nextFloat() * 360.0F, 0.0F);
             this.world.spawnEntity(witherEntity);

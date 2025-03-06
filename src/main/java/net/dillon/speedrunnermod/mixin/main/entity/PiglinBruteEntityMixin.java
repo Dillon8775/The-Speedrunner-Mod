@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(PiglinBruteEntity.class)
 public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
@@ -37,6 +37,6 @@ public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
      */
     @ModifyArg(method = "createPiglinBruteAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 0), index = 1)
     private static double genericMaxHealth(double baseValue) {
-        return DOOM_MODE ? 25.0D : 50.0D;
+        return options().main.playingMode.doom() ? 25.0D : 50.0D;
     }
 }

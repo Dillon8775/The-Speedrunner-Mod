@@ -42,7 +42,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected File configFile; // This returns null unless the screen is an options screen
     protected final File configDirectory = new File(FabricLoader.getInstance().getConfigDir().toUri()); // The directory for the speedrunner mod's configuration file
     protected final Screen parent;
-    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton, transferOptionsToPlayerButton;
+    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton;
     protected OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
@@ -75,17 +75,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.close();
                 Util.getOperatingSystem().open(this.configDirectory);
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
-
-            this.transferOptionsToPlayerButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.TRANSFER_OPTIONS_TO_PLAYER, (button) -> {
-                this.client.setScreen(new TransferOptionsToPlayerScreen(this.parent, MinecraftClient.getInstance().options));
-            }).dimensions(this.getButtonsLeftSide() - 106, this.getDoneButtonsHeight(), 100, 20).build());
-
-//            if (this.client.getServer() == null) {
-//                this.transferOptionsToPlayerButton.active = false;
-//            } else {
-//                this.transferOptionsToPlayerButton.active = this.client.getServer().isRemote();
-//            }
-            this.transferOptionsToPlayerButton.active = false;
         } else {
             if (this.buttonList != null) {
                 this.buttonList.addAll(this.buttons);
@@ -176,9 +165,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }
             if (this.openOptionsDirectoryButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.transferOptionsToPlayerButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.TRANSFER_OPTIONS_TO_PLAYER_TOOLTIP, context, mouseX, mouseY);
             }
         }
     }

@@ -44,9 +44,6 @@ public class ModTexts {
     public static final Text MENU_OPTIONS_CLIENT = Text.translatable("speedrunnermod.menu.options.client");
     public static final Text MENU_OPTIONS_CLIENT_TOOLTIP = Text.translatable("speedrunnermod.menu.options.client.tooltip");
     public static final Text MENU_OPTIONS_RESET_TOOLTIP = Text.translatable("speedrunnermod.menu.options.reset.tooltip");
-    public static final Text MENU_STATE_OF_THE_ART_ITEM_OPTIONS = Text.translatable("speedrunnermod.menu.options.state_of_the_art_items");
-    public static final Text MENU_STATE_OF_THE_ART_ITEM_OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.menu.options.state_of_the_art_items.tooltip");
-    public static final Text TITLE_STATE_OF_THE_ART_ITEMS = Text.translatable("speedrunnermod.title.options.state_of_the_art_items");
     public static final Text MENU_STRUCTURE_SPAWN_RATE_OPTIONS = Text.translatable("speedrunnermod.menu.options.structure_spawn_rates");
     public static final Text MENU_STRUCTURE_SPAWN_RATE_OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.menu.options.structure_spawn_rates.tooltip");
     public static final Text MENU_STRUCTURE_SPAWN_RATE_OPTIONS_NEEDS_CUSTOM_TOOLTIP = Text.translatable("speedrunnermod.menu.options.structure_spawn_rates_needs_custom.tooltip");
@@ -79,8 +76,6 @@ public class ModTexts {
     public static final Text MENU_DOOM_MODE = Text.translatable("speedrunnermod.menu.doom_mode");
     public static final Text TITLE_DOOM_MODE = Text.translatable("speedrunnermod.title.doom_mode");
     public static final Text TITLE_TRANSFER_OPTIONS_TO_PLAYER = Text.translatable("speedrunnermod.title.transfer_options_to_player");
-    public static final Text TRANSFER_OPTIONS_TO_PLAYER = Text.translatable("speedrunnermod.transfer_options_to_player");
-    public static final Text TRANSFER_OPTIONS_TO_PLAYER_TOOLTIP = Text.translatable("speedrunnermod.transfer_options_to_player.tooltip");
     public static final Text FIND_AND_SEND = Text.translatable("speedrunnermod.find_and_send");
 
     public static final Text EASIER_SPEEDRUNNING_MOD = Text.translatable("speedrunnermod.the_easier_speedrunning_mod");

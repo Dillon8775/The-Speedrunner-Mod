@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(WitchEntity.class)
 public abstract class WitchEntityMixin extends RaiderEntity {
@@ -40,8 +40,8 @@ public abstract class WitchEntityMixin extends RaiderEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createWitchAttributes() {
-        final double genericMaxHealth = DOOM_MODE ? 26.0D : 14.0D;
-        final double genericMovementSpeed = DOOM_MODE ? 0.35D : 0.25D;
+        final double genericMaxHealth = options().main.playingMode.doom() ? 26.0D : 14.0D;
+        final double genericMovementSpeed = options().main.playingMode.doom() ? 0.35D : 0.25D;
         return HostileEntity.createHostileAttributes().add(EntityAttributes.MAX_HEALTH, genericMaxHealth).add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed);
     }
 }

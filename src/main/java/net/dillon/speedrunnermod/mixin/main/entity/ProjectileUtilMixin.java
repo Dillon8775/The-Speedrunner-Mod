@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(ProjectileUtil.class)
 public class ProjectileUtilMixin {
@@ -29,7 +29,7 @@ public class ProjectileUtilMixin {
         ArrowItem arrowItem = (ArrowItem)(stack.getItem() instanceof ArrowItem ? stack.getItem() : Items.ARROW);
         PersistentProjectileEntity persistentProjectileEntity = arrowItem.createArrow(entity.getWorld(), stack, entity, bow);
         persistentProjectileEntity.applyDamageModifier(damageModifier);
-        if (DOOM_MODE && entity instanceof AbstractSkeletonEntity && persistentProjectileEntity instanceof ArrowEntity) {
+        if (options().main.playingMode.doom() && entity instanceof AbstractSkeletonEntity && persistentProjectileEntity instanceof ArrowEntity) {
             ((ArrowEntity)persistentProjectileEntity).addEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TickCalculator.seconds(10), 0));
         }
         return persistentProjectileEntity;

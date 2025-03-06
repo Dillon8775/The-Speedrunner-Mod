@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Environment(EnvType.CLIENT)
 @Mixin(DebugHud.class)
@@ -25,7 +25,7 @@ public class DebugModText {
     private void getRightText(CallbackInfoReturnable<List<String>> cir) {
         List<String> returnValue = cir.getReturnValue();
         returnValue.add(SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION);
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             returnValue.add("What's that? Doom Mode? Oh, flip.");
         }
     }

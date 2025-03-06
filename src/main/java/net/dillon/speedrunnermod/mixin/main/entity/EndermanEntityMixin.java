@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(EndermanEntity.class)
 public class EndermanEntityMixin extends HostileEntity {
@@ -39,10 +39,10 @@ public class EndermanEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createEndermanAttributes() {
-        final double genericMaxHealth = DOOM_MODE ? 60.0D : 25.0D;
+        final double genericMaxHealth = options().main.playingMode.doom() ? 60.0D : 25.0D;
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericAttackDamage = DOOM_MODE ? 8.0D : 4.0D;
-        final double genericFollowRange = DOOM_MODE ? 64.0D : 12.0D;
+        final double genericAttackDamage = options().main.playingMode.doom() ? 8.0D : 4.0D;
+        final double genericFollowRange = options().main.playingMode.doom() ? 64.0D : 12.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed).

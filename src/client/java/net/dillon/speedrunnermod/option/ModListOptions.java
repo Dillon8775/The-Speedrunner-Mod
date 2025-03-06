@@ -52,9 +52,6 @@ public class ModListOptions {
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.Difficulty.values()), Codec.INT.xmap(ModOptions.Difficulty::byId, ModOptions.Difficulty::getId)),
                     ModOptions.Difficulty.EASY, value -> options().client.difficulty = value);
 
-    public static final SimpleOption<Boolean> STATE_OF_THE_ART_ITEMS = new SimpleOption<>("speedrunnermod.options.state_of_the_art_items", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.state_of_the_art_items.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().stateOfTheArtItems.stateOfTheArtItems, value -> options().stateOfTheArtItems.stateOfTheArtItems = value);
-
     public static final SimpleOption<Boolean> FASTER_BLOCK_BREAKING = new SimpleOption<>("speedrunnermod.options.faster_block_breaking", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.fasterBlockBreaking, value -> options().main.fasterBlockBreaking = value);
 
@@ -304,56 +301,6 @@ public class ModListOptions {
             new SimpleOption<>("speedrunnermod.options.fireball_explosion_power", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fireball_explosion_power.tooltip")),
                     ModListOptions::getGenericValueText,
                     new SimpleOption.ValidatingIntSliderCallbacks(1, 10), options().advanced.fireballExplosionPower, value -> options().advanced.fireballExplosionPower = value);
-
-    /**
-     * Returns a {@link SimpleOption} for a {@code State-Of-The-Art item.}
-     */
-    public static SimpleOption<Boolean> stateOfTheArtItem(String itemTranslationKey) {
-        return new SimpleOption<>("speedrunnermod.options.state_of_the_art_items." + itemTranslationKey, options().stateOfTheArtItems.stateOfTheArtItems ? SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.state_of_the_art_items." + itemTranslationKey + ".tooltip")) : SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.state_of_the_art_items.disabled")),
-                (optionText, value) -> !value || !options().stateOfTheArtItems.stateOfTheArtItems ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, defaultItemValue(itemTranslationKey), value -> {
-            switch (itemTranslationKey) {
-                case TranslationStringKeys.ANNUL_EYE -> options().stateOfTheArtItems.annulEye = value;
-                case TranslationStringKeys.BLAZE_SPOTTER -> options().stateOfTheArtItems.blazeSpotter = value;
-                case TranslationStringKeys.DRAGONS_PEARL -> options().stateOfTheArtItems.dragonsPearl = value;
-                case TranslationStringKeys.DRAGONS_SWORD -> options().stateOfTheArtItems.dragonsSword = value;
-                case TranslationStringKeys.ENDER_THRUSTER -> options().stateOfTheArtItems.enderThruster = value;
-                case TranslationStringKeys.PIGLIN_AWAKENER -> options().stateOfTheArtItems.piglinAwakener = value;
-                case TranslationStringKeys.RAID_ERADICATOR -> options().stateOfTheArtItems.raidEradicator = value;
-            }
-        });
-    }
-
-    /**
-     * Returns the {@code default value} that the {@code ModListOption} should default to for {@code State-Of-The-Art items.}
-     */
-    private static boolean defaultItemValue(String itemTranslationKey) {
-        switch (itemTranslationKey) {
-            case TranslationStringKeys.ANNUL_EYE -> {
-                return options().stateOfTheArtItems.annulEye;
-            }
-            case TranslationStringKeys.BLAZE_SPOTTER -> {
-                return options().stateOfTheArtItems.blazeSpotter;
-            }
-            case TranslationStringKeys.DRAGONS_PEARL -> {
-                return options().stateOfTheArtItems.dragonsPearl;
-            }
-            case TranslationStringKeys.DRAGONS_SWORD -> {
-                return options().stateOfTheArtItems.dragonsSword;
-            }
-            case TranslationStringKeys.ENDER_THRUSTER -> {
-                return options().stateOfTheArtItems.enderThruster;
-            }
-            case TranslationStringKeys.PIGLIN_AWAKENER -> {
-                return options().stateOfTheArtItems.piglinAwakener;
-            }
-            case TranslationStringKeys.RAID_ERADICATOR -> {
-                return options().stateOfTheArtItems.raidEradicator;
-            }
-            default -> {
-                return options().stateOfTheArtItems.stateOfTheArtItems;
-            }
-        }
-    }
 
     /**
      * Creates a new {@code Structure Spawn Rate option.}

@@ -13,7 +13,7 @@ import net.minecraft.world.ServerWorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Prevents and fixes piglin brutes from spawning in the air.
@@ -22,7 +22,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 public class SpawnRestrictionMixin {
 
     static {
-        if (DOOM_MODE) {
+        if (options().main.playingMode.doom()) {
             SpawnRestriction.register(EntityType.PIGLIN_BRUTE, SpawnLocationTypes.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, SpawnRestrictionMixin::canPiglinBruteSpawn);
         }
     }

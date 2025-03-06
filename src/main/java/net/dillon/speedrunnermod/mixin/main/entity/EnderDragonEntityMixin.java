@@ -24,18 +24,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
 public abstract class EnderDragonEntityMixin extends MobEntity {
     @Shadow
     private float damageDuringSitting;
+
     @Shadow
     protected abstract void parentDamage(ServerWorld world, DamageSource source, float amount);
-    @Shadow @Final
+
+    @Shadow
+    @Final
     public EnderDragonPart head;
-    @Shadow @Final
+    @Shadow
+    @Final
     private PhaseManager phaseManager;
 
     public EnderDragonEntityMixin(EntityType<? extends EnderDragonEntity> entityType, World world) {
@@ -80,7 +83,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     @Inject(method = "updatePostDeath", at = @At("TAIL"))
     public void killAllHostiles(CallbackInfo ci) {
         if (options().advanced.dragonKillsNearbyHostileEntities && this.getWorld() instanceof ServerWorld serverWorld) {
-            EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+            EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
             World world = this.getEntityWorld();
 
             List<HostileEntity> hostiles = world.getEntitiesByClass(HostileEntity.class,
@@ -99,7 +102,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Override
     public void onDeath(DamageSource source) {
-        if (DOOM_MODE && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
+        if (options().main.playingMode.doom() && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
             this.setHealth(1.0F);
         } else {
             super.onDeath(source);
@@ -124,7 +127,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                 return false;
             }
 
-            if (DOOM_MODE && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
+            if (options().main.playingMode.doom() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
                 return false;
             } else {
                 if (source.getAttacker() instanceof PlayerEntity || source.isIn(DamageTypeTags.ALWAYS_HURTS_ENDER_DRAGONS)) {
@@ -136,8 +139,8 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                     }
 
                     if (this.phaseManager.getCurrent().isSittingOrHovering()) {
-                        this.damageDuringSitting = (int)((float)this.damageDuringSitting + (f - this.getHealth()));
-                        if ((float)this.damageDuringSitting > SpeedrunnerMod.getEnderDragonStayPerchedTime() * this.getMaxHealth()) {
+                        this.damageDuringSitting = (int) ((float) this.damageDuringSitting + (f - this.getHealth()));
+                        if ((float) this.damageDuringSitting > SpeedrunnerMod.getEnderDragonStayPerchedTime() * this.getMaxHealth()) {
                             this.damageDuringSitting = 0;
                             this.phaseManager.setPhase(PhaseType.TAKEOFF);
                         }
@@ -155,7 +158,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Unique
     private boolean isGiantOrWitherAlive() {
-        EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
         List<GiantEntity> giants = this.getWorld().getEntitiesByClass(GiantEntity.class,
                 dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForGiant[0], options().advanced.dragonImmunityDetectionDistanceForGiant[1], options().advanced.dragonImmunityDetectionDistanceForGiant[2]), entity -> true);
         List<WitherEntity> withers = this.getWorld().getEntitiesByClass(WitherEntity.class,

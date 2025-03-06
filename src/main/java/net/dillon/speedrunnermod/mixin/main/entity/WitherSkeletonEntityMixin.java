@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(WitherSkeletonEntity.class)
 public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
@@ -46,7 +46,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
      */
     @ModifyArg(method = "initialize", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeInstance;setBaseValue(D)V"))
     private double genericAttackDamage(double baseValue) {
-        return DOOM_MODE ? 10.0D : 1.0D;
+        return options().main.playingMode.doom() ? 10.0D : 1.0D;
     }
 
     /**
@@ -62,7 +62,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
      */
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<?> cir) {
-        if (DOOM_MODE && target instanceof PlayerEntity) {
+        if (options().main.playingMode.doom() && target instanceof PlayerEntity) {
             ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TickCalculator.seconds(10), 0));
         }
     }

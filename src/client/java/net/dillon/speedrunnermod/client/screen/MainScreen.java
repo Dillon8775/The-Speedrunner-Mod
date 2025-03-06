@@ -72,7 +72,7 @@ public class MainScreen extends AbstractModScreen {
                 this.client.setScreen(new SecretDoomModeScreen(this, options));
             }
         }).build());
-        this.buttons.get(7).visible = options().main.doomMode;
+        this.buttons.get(7).visible = options().main.playingMode.doom();
 
         super.init();
     }

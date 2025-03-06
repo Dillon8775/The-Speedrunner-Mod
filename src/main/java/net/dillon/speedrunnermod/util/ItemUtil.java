@@ -59,7 +59,7 @@ public class ItemUtil {
      */
     public static void stateOfTheArtItem(List<Text> tooltip) {
         tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip").formatted(Formatting.RED));
-        if (options().stateOfTheArtItems.stateOfTheArtItems) {
+        if (options().main.playingMode.easy()) {
             tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip.enabled").formatted(Formatting.GREEN).formatted(Formatting.ITALIC));
         } else {
             tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip.disabled").formatted(Formatting.RED).formatted(Formatting.ITALIC));

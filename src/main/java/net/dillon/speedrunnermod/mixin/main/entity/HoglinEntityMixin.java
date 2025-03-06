@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(HoglinEntity.class)
 public abstract class HoglinEntityMixin extends AnimalEntity {
@@ -38,11 +38,11 @@ public abstract class HoglinEntityMixin extends AnimalEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createHoglinAttributes() {
-        final double genericMaxHealth = DOOM_MODE ? 60.0D : 25.0D;
+        final double genericMaxHealth = options().main.playingMode.doom() ? 60.0D : 25.0D;
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericKnockbackResistance = DOOM_MODE ? 0.7000000238518589D : 0.6000000238418579D;
-        final double genericAttackKnockback = DOOM_MODE ? 1.2D : 0.5D;
-        final double genericAttackDamage = DOOM_MODE ? 8.0D : 4.0D;
+        final double genericKnockbackResistance = options().main.playingMode.doom() ? 0.7000000238518589D : 0.6000000238418579D;
+        final double genericAttackKnockback = options().main.playingMode.doom() ? 1.2D : 0.5D;
+        final double genericAttackDamage = options().main.playingMode.doom() ? 8.0D : 4.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

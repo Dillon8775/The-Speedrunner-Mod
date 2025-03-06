@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.DOOM_MODE;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(IronGolemEntity.class)
 public class IronGolemEntityMixin extends GolemEntity {
@@ -40,10 +40,10 @@ public class IronGolemEntityMixin extends GolemEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createIronGolemAttributes() {
-        final double genericMaxHealth = DOOM_MODE ? 100.0D : 50.0D;
-        final double genericMovementSpeed = DOOM_MODE ? 0.3D : 0.25D;
-        final double genericKnockbackResistance = DOOM_MODE ? 0.7D : 0.5D;
-        final double genericAttackDamage = DOOM_MODE ? 20.0D : 7.0D;
+        final double genericMaxHealth = options().main.playingMode.doom() ? 100.0D : 50.0D;
+        final double genericMovementSpeed = options().main.playingMode.doom() ? 0.3D : 0.25D;
+        final double genericKnockbackResistance = options().main.playingMode.doom() ? 0.7D : 0.5D;
+        final double genericAttackDamage = options().main.playingMode.doom() ? 20.0D : 7.0D;
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

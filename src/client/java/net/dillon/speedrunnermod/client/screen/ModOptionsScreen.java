@@ -38,24 +38,20 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.client.setScreen(new ClientOptionsScreen(this, options));
         }).build());
 
-        this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_STATE_OF_THE_ART_ITEM_OPTIONS, (button) -> {
-            this.client.setScreen(new StateOfTheArtItemsOptionsScreen(this, options));
-        }).build());
-
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
+        this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
             this.client.setScreen(new StructureSpawnRateOptionsScreen(this, options));
         }).build());
-        this.buttons.get(4).active = options().main.structureSpawnRates.custom();
+        this.buttons.get(3).active = options().main.structureSpawnRates.custom();
 
-        this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
+        this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
             this.client.setScreen(new AdvancedOptionsScreen(this, options));
         }).build());
 
-        this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
+        this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
             this.client.setScreen(new MixinOptionsScreen(this, options));
         }).build());
 
-        this.buttons.add(7, ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
+        this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
             this.client.setScreen(new ResetOptionsConfirmScreen(this, options));
         }).build());
 
@@ -74,22 +70,19 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_CLIENT_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.buttons.get(3).isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_STATE_OF_THE_ART_ITEM_OPTIONS_TOOLTIP, context, mouseX, mouseY);
-        }
-        if (this.buttons.get(4).isHovered()) {
             if (options().main.structureSpawnRates.custom()) {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_TOOLTIP, context, mouseX, mouseY);
             } else {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_NEEDS_CUSTOM_TOOLTIP, context, mouseX, mouseY);
             }
         }
-        if (this.buttons.get(5).isHovered()) {
+        if (this.buttons.get(4).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_ADVANCED_OPTIONS_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(6).isHovered()) {
+        if (this.buttons.get(5).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_MIXIN_OPTIONS_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(7).isHovered()) {
+        if (this.buttons.get(6).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
         }
         super.renderTooltips(context, mouseX, mouseY);
