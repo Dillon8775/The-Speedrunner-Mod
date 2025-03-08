@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.util.TickCalculator;
@@ -39,7 +39,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
     @Overwrite
     public void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        boolean isInfiniPearl = super.getStack().isOf(ModItems.INFINI_PEARL);
+        boolean isInfiniPearl = super.getStack().isIn(ModItemTags.INFINI_PEARLS);
 
         for(int i = 0; i < 32; ++i) {
             this.getWorld().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());

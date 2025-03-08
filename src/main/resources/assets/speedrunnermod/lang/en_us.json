@@ -131,6 +131,8 @@
   "item.speedrunnermod.piglin_awakener.tooltip": "Teleport nearby piglins to the player!",
   "item.speedrunnermod.blaze_spotter": "Blaze Spotter",
   "item.speedrunnermod.blaze_spotter.tooltip": "Teleport to the nearest blaze spawner!",
+  "item.speedrunnermod.ender_matter": "Ender Matter",
+  "item.speedrunnermod.ender_matter.tooltip": "Used to craft an infini pearl.",
   "item.speedrunnermod.infini_pearl": "InfiniPearl™",
   "item.speedrunnermod.infini_pearl.tooltip.line1": "An ender pearl that does not get",
   "item.speedrunnermod.infini_pearl.tooltip.line2": "consumed nor do damage upon use.",
@@ -156,7 +158,7 @@
 
   "item.speedrunnermod.ender_thruster.confirm": "Do you wish to teleport to the surface? Right-click to confirm.",
   "item.speedrunnermod.ender_thruster.wrong_dimension": "You can't use this item in the nether.",
-  "item.speedrunnermod.ender_thruster.couldnt_teleport": "Couldn't teleport, Y-level is already the same.",
+  "item.speedrunnermod.ender_thruster.couldnt_teleport": "Couldn't teleport, you are already on the highest Y-level available.",
 
   "item.speedrunnermod.dragons_pearl.already_perched": "The dragon is already perched!",
   "item.speedrunnermod.dragons_pearl.already_perching": "The dragon is already perching!",
@@ -235,7 +237,7 @@
   "block.speedrunnermod.dead_speedrunner_hanging_sign": "Dead Speedrunner Hanging Sign",
   "block.speedrunnermod.dead_speedrunner_bush": "Dead Speedrunner Bush",
   "block.speedrunnermod.raw_speedrunner_block": "Raw Speedrunner Block",
-  "block.speedrunnermod.thruster_block": "Thruster Block",
+  "block.speedrunnermod.thrusted_block": "Thrusted Block",
   "block.speedrunnermod.speedrunner_block": "Speedrunner Block",
   "block.speedrunnermod.speedrunner_ore": "Speedrunner Ore",
   "block.speedrunnermod.deepslate_speedrunner_ore": "Deepslate Speedrunner Ore",
@@ -307,6 +309,10 @@
   "advancements.speedrunnermod.deep_dark.description": "Slay Minecraft's most difficult boss, the warden.",
   "advancements.speedrunnermod.yes_the_end.title": "Yes, The End.",
   "advancements.speedrunnermod.yes_the_end.description": "Complete a speedrun",
+  "advancements.speedrunnermod.the_ends_matter.title": "The Ends Matter",
+  "advancements.speedrunnermod.the_ends_matter.description": "Obtain the dark substance known as ender matter.",
+  "advancements.speedrunnermod.to_infini_and_beyond.title": "To Infini, and Beyond!",
+  "advancements.speedrunnermod.to_infini_and_beyond.description": "Craft an InfiniPearl, and traverse the world harmlessly!",
   "advancements.speedrunnermod.quicker_pick.title": "Quicker Pick",
   "advancements.speedrunnermod.quicker_pick.description": "Obtain a Speedrunner Pickaxe",
 

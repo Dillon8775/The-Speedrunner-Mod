@@ -56,7 +56,7 @@ public class EnderThrusterItem extends Item {
                             } else if (world.getBlockState(pos).getBlock() == Blocks.LAVA) {
                                 world.setBlockState(pos, Blocks.BASALT.getDefaultState());
                             } else {
-                                world.setBlockState(pos, ModBlocks.THRUSTER_BLOCK.getDefaultState());
+                                world.setBlockState(pos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
                             }
 
                             boolean isAir = world.getBlockState(pos.up()).isAir() && world.getBlockState(pos.up(1)).isAir();

@@ -110,7 +110,11 @@ public abstract class LivingEntityMixin extends Entity {
             ItemStack totemUndying = Items.TOTEM_OF_UNDYING.getDefaultStack();
             ItemStack speedrunnersTotem = ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack();
 
-            if (inventory.offHand.contains(totemUndying) || inventory.offHand.contains(speedrunnersTotem)) {
+            if (inventory.contains(speedrunnersTotem)) { // works anywhere in the players inventory
+                return inventory.getSlotWithStack(speedrunnersTotem) != -1 ? inventory.getStack(inventory.getSlotWithStack(speedrunnersTotem)) : inventory.offHand.get(0);
+            }
+
+            if (inventory.offHand.contains(totemUndying) || inventory.main.contains(totemUndying)) { // only works in mainhand/offhand
                 return inventory.getSlotWithStack(totemUndying) != -1 ? inventory.getStack(inventory.getSlotWithStack(totemUndying)) : inventory.offHand.get(0);
             }
         }

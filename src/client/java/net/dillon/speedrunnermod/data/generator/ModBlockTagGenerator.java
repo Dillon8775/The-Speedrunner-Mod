@@ -98,7 +98,7 @@ public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
 
         getOrCreateTagBuilder(ModBlockTags.TEXTURE_CREATOR_MANNYQUESO)
-                .add(ModBlocks.THRUSTER_BLOCK)
+                .add(ModBlocks.THRUSTED_BLOCK)
                 .add(ModBlocks.SPEEDRUNNERS_WORKBENCH);
 
         getOrCreateTagBuilder(ModBlockTags.TEXTURE_CREATOR_KREVIKUS)
@@ -145,7 +145,7 @@ public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DOOM_STONE);
 
         getOrCreateTagBuilder(BlockTags.SHOVEL_MINEABLE)
-                .add(ModBlocks.THRUSTER_BLOCK);
+                .add(ModBlocks.THRUSTED_BLOCK);
 
         getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS)
                 .add(ModBlocks.SPEEDRUNNER_BLOCK);

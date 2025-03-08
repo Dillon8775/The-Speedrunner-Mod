@@ -769,7 +769,7 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     public static float getEnderEyeChance() {
-        return options().main.playingMode.doom() ? 0.99F : 0.6F;
+        return options().main.playingMode.doom() ? 0.99F : options().main.playingMode.easy() ? 0.6F : 0.9F;
     }
 
     public static int getOreDiamondChance() {

@@ -71,7 +71,7 @@ public class ModTradeOffers {
             factories.add(new TradeOffers.SellItemFactory(ModItems.DRAGONS_PEARL, 3, 1, 12, 12));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(ModItems.INFINI_PEARL, 24, 1, 1, 14));
+            factories.add(new TradeOffers.SellItemFactory(ModItems.CRAFTABLE_INFINI_PEARL, 24, 1, 1, 14));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
             factories.add(new TradeOffers.SellItemFactory(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 15));

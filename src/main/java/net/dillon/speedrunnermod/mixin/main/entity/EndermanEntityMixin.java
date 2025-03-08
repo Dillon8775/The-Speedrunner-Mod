@@ -1,17 +1,27 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+
+import java.util.Optional;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
@@ -31,6 +41,29 @@ public class EndermanEntityMixin extends HostileEntity {
             this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((EndermanEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 48;
         }
         return super.getExperienceToDrop(world);
+    }
+
+    /**
+     * Makes enderman drop {@code ender matter} based on the conditions for it.
+     */
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        EndermanEntity endermanEntity = (EndermanEntity)(Object)this;
+        LivingEntity attacker = endermanEntity.getAttacker();
+        if (damageSource.isOf(DamageTypes.PLAYER_ATTACK) && attacker != null) {
+            Optional<RegistryEntry.Reference<Enchantment>> optional = this.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(Enchantments.LOOTING);
+            RegistryEntry<Enchantment> registryEntry = optional.get();
+            int looting = EnchantmentHelper.getEquipmentLevel(registryEntry, attacker);
+            boolean attackerHasSpeedrunnerSword = attacker.getMainHandStack().isIn(ModItemTags.SPEEDRUNNER_SWORDS);
+            double chance = looting > 3 ? 0.1 : looting == 3 ? 0.075 : looting == 2 ? 0.065 : 0.05;
+            if (attackerHasSpeedrunnerSword) {
+                chance += 0.015;
+            }
+            if (endermanEntity.getRandom().nextDouble() < chance) {
+                endermanEntity.dropItem(endermanEntity.getServer().getWorld(endermanEntity.getEntityWorld().getRegistryKey()), ModItems.ENDER_MATTER);
+            }
+        }
+        super.onDeath(damageSource);
     }
 
     /**
