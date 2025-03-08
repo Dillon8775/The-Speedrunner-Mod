@@ -17,6 +17,7 @@ import net.minecraft.text.Text;
 import java.util.stream.IntStream;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * The Speedrunner Mod {@code item group.}
@@ -65,14 +66,18 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNERS_TOTEM);
                         entries.add(ModBlockItems.SPEEDRUNNERS_WORKBENCH);
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
-                        entries.add(ModItems.ENDER_THRUSTER);
-                        entries.add(ModBlockItems.THRUSTED_BLOCK);
+                        if (options().main.playingMode.easy()) {
+                            entries.add(ModItems.ENDER_THRUSTER);
+                            entries.add(ModBlockItems.THRUSTED_BLOCK);
+                        }
                         entries.add(ModItems.INFERNO_EYE);
-                        entries.add(ModItems.PIGLIN_AWAKENER);
-                        entries.add(ModItems.BLAZE_SPOTTER);
-                        entries.add(ModItems.RAID_ERADICATOR);
-                        entries.add(ModItems.ANNUL_EYE);
-                        entries.add(ModItems.DRAGONS_PEARL);
+                        if (options().main.playingMode.easy()) {
+                            entries.add(ModItems.PIGLIN_AWAKENER);
+                            entries.add(ModItems.BLAZE_SPOTTER);
+                            entries.add(ModItems.RAID_ERADICATOR);
+                            entries.add(ModItems.ANNUL_EYE);
+                            entries.add(ModItems.DRAGONS_PEARL);
+                        }
                         entries.add(ItemUtil.unbreakableComponentItem());
                         entries.add(ItemUtil.flightDurationComponentItem(1));
                         entries.add(ModItems.CRAFTABLE_INFINI_PEARL);

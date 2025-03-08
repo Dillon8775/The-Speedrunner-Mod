@@ -53,6 +53,10 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Fixes broken speedrunner mod options.
      */
     public static void fixOptions() {
+        if (BrokenModOptions.playingMode) {
+            options().main.playingMode = ModOptions.PlayingMode.EASY;
+        }
+
         if (BrokenModOptions.structureSpawnRates) {
             options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
         }

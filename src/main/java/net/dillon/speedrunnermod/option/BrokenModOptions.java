@@ -4,6 +4,7 @@ package net.dillon.speedrunnermod.option;
  * Any speedrunner mod option that is {@code broken,} see {@link ModOptions} for more on this.
  */
 public class BrokenModOptions {
+    public static boolean playingMode = false;
     public static boolean structureSpawnRates = false;
     public static boolean blockBreakingMultiplier = false;
     public static boolean strongholdPortalRoomCount = false;

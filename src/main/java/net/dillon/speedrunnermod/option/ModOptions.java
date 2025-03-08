@@ -719,6 +719,16 @@ public class ModOptions {
         public boolean doom() {
             return options().main.playingMode.equals(PlayingMode.DOOM);
         }
+
+        /**
+         * Returns true if the {@code Playing Mode} option is safe.
+         * <p>Going into the configuration file and setting the option to an invalid string, will crash the game.</p>
+         */
+        public boolean isSafe() {
+            return options().main.playingMode.equals(EASY) ||
+                    options().main.playingMode.equals(NORMAL) ||
+                    options().main.playingMode.equals(DOOM);
+        }
     }
 
     /**
@@ -1139,6 +1149,12 @@ public class ModOptions {
             error("Leaderboards mode is ON, please disable, as the leaderboards have been deleted.");
             isSafe(false);
             BrokenModOptions.leaderboards = true;
+        }
+
+        if (!options().main.playingMode.isSafe()) {
+            error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.playingMode");
+            isSafe(false);
+            BrokenModOptions.playingMode = true;
         }
 
         if (!options().main.structureSpawnRates.isSafe()) {
