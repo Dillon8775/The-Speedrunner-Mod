@@ -1,15 +1,37 @@
-package net.dillon.speedrunnermod.item;
+package net.dillon.speedrunnermod.component;
 
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.component.type.ConsumableComponent;
+import net.minecraft.component.type.DeathProtectionComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
+import net.minecraft.item.consume.ClearAllEffectsConsumeEffect;
 
 import java.util.List;
 
 import static net.minecraft.component.type.ConsumableComponents.food;
 
-public class ModConsumableComponents {
+/**
+ * Different types of components for mod items.
+ */
+public class ModComponents {
+    public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
+            List.of(
+                    new ClearAllEffectsConsumeEffect(),
+                    new ApplyEffectsConsumeEffect(
+                            List.of(
+                                    new StatusEffectInstance(StatusEffects.REGENERATION, 1800, 1),
+                                    new StatusEffectInstance(StatusEffects.ABSORPTION, TickCalculator.minutes(1), 1),
+                                    new StatusEffectInstance(StatusEffects.RESISTANCE, TickCalculator.seconds(30)),
+                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.minutes(2)),
+                                    new StatusEffectInstance(StatusEffects.STRENGTH, TickCalculator.seconds(15)),
+                                    new StatusEffectInstance(StatusEffects.SPEED, TickCalculator.seconds(30)),
+                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, TickCalculator.seconds(30))
+                            )
+                    )
+            ));
+
     public static final ConsumableComponent SPEEDRUNNER_BULK = food()
             .consumeEffect(
                     new ApplyEffectsConsumeEffect(
@@ -39,7 +61,7 @@ public class ModConsumableComponents {
                     )
             )
             .consumeEffect(
-                        new ApplyEffectsConsumeEffect(
+                    new ApplyEffectsConsumeEffect(
                             new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0), 0.1F
                     )
             )

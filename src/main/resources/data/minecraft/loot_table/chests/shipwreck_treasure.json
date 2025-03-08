@@ -181,7 +181,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 4,
           "name": "minecraft:lapis_lazuli",
           "functions": [
             {
@@ -191,6 +191,17 @@
                 "min": 1,
                 "max": 11
               }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 3,
+          "name": "speedrunnermod:ender_matter",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
             }
           ]
         }

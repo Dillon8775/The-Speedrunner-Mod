@@ -992,6 +992,14 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(ItemTags.WOOL)
                         .criterion("has_string", this.conditionsFromItem(Items.STRING))
                         .offerTo(this.exporter, helper.speedrunnerModRecipe("string_from_wool"));
+
+                this.createShapeless(RecipeCategory.MISC, ModItems.CRAFTABLE_INFINI_PEARL)
+                        .input(Items.ENDER_PEARL)
+                        .input(ModItems.SPEEDRUNNERS_EYE)
+                        .input(ModItems.ENDER_THRUSTER)
+                        .input(ModItems.ENDER_MATTER)
+                        .criterion("has_ender_matter", this.conditionsFromItem(ModItems.ENDER_MATTER))
+                        .offerTo(this.exporter);
             }
         };
     }

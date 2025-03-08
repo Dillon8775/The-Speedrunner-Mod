@@ -269,6 +269,17 @@
               "treasure": false
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 5,
+          "name": "speedrunnermod:ender_matter",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
         }
       ]
     }

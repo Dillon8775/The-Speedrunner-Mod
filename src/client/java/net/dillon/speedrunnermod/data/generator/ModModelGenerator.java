@@ -70,7 +70,7 @@ public class ModModelGenerator extends FabricModelProvider {
 
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SPEEDRUNNER_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.THRUSTER_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.THRUSTED_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SPEEDRUNNER_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NETHER_SPEEDRUNNER_ORE);
@@ -139,6 +139,8 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_TOTEM, Models.GENERATED);
         itemModelGenerator.register(ModItems.INFERNO_EYE, Models.GENERATED);
         itemModelGenerator.registerWithTextureSource(ModItems.INFINI_PEARL, Items.ENDER_PEARL, Models.GENERATED);
+        itemModelGenerator.registerWithTextureSource(ModItems.CRAFTABLE_INFINI_PEARL, Items.ENDER_PEARL, Models.GENERATED);
+        itemModelGenerator.register(ModItems.ENDER_MATTER, Models.GENERATED);
         itemModelGenerator.register(ModItems.PIGLIN_AWAKENER, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLAZE_SPOTTER, Models.GENERATED);
         itemModelGenerator.register(ModItems.RAID_ERADICATOR, Models.GENERATED);

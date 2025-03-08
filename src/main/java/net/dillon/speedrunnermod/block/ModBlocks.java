@@ -215,7 +215,7 @@ public class ModBlocks {
             .instrument(NoteBlockInstrument.BASEDRUM)
             .sounds(BlockSoundGroup.STONE));
 
-    public static final Block THRUSTER_BLOCK = Blocks.register(of("thruster_block"), Block::new, Block.Settings.create()
+    public static final Block THRUSTED_BLOCK = Blocks.register(of("thrusted_block"), Block::new, Block.Settings.create()
             .strength(0.5F)
             .allowsSpawning(Blocks::never)
             .sounds(BlockSoundGroup.GRASS));

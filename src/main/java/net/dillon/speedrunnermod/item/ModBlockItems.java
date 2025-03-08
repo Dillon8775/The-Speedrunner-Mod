@@ -112,7 +112,7 @@ public class ModBlockItems {
 
     public static final Item RAW_SPEEDRUNNER_BLOCK = Items.register(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
 
-    public static final Item THRUSTER_BLOCK = Items.register(ModBlocks.THRUSTER_BLOCK);
+    public static final Item THRUSTED_BLOCK = Items.register(ModBlocks.THRUSTED_BLOCK);
 
     public static final Item SPEEDRUNNER_ORE = Items.register(ModBlocks.SPEEDRUNNER_ORE);
 

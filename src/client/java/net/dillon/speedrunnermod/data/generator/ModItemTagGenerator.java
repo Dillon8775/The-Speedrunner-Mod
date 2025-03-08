@@ -52,6 +52,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ConventionalItemTags.SHIELD_TOOLS)
                 .add(Items.ENDER_PEARL)
                 .add(ModItems.INFINI_PEARL)
+                .add(ModItems.CRAFTABLE_INFINI_PEARL)
                 .add(Items.CHORUS_FRUIT);
 
         getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_TOOLS)
@@ -118,6 +119,10 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ConventionalItemTags.IGNITER_TOOLS)
                 .add(Items.FIRE_CHARGE);
 
+        getOrCreateTagBuilder(ModItemTags.INFINI_PEARLS)
+                .add(ModItems.INFINI_PEARL)
+                .add(ModItems.CRAFTABLE_INFINI_PEARL);
+
         getOrCreateTagBuilder(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
                 .forceAddTag(ModItemTags.GOLDEN_FOOD_ITEMS)
                 .add(Items.ENDER_PEARL)
@@ -147,6 +152,10 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS)
                 .add(ModItems.SPEEDRUNNER_INGOT);
+
+        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_SWORDS)
+                .add(ModItems.SPEEDRUNNER_SWORD)
+                .add(ModItems.GOLDEN_SPEEDRUNNER_SWORD);
 
         getOrCreateTagBuilder(ModItemTags.STATE_OF_THE_ART_ITEMS)
                 .add(ModItems.ANNUL_EYE)
@@ -259,7 +268,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModBlockItems.DEAD_SPEEDRUNNER_HANGING_SIGN);
 
         getOrCreateTagBuilder(ModItemTags.Block.TEXTURE_CREATOR_MANNYQUESO)
-                .add(ModBlockItems.THRUSTER_BLOCK);
+                .add(ModBlockItems.THRUSTED_BLOCK);
 
         getOrCreateTagBuilder(ModItemTags.Block.TEXTURE_CREATOR_KREVIKUS)
                 .forceAddTag(ModItemTags.Block.EXPERIENCE_ORES);

@@ -66,7 +66,7 @@ public class ModItemGroups {
                         entries.add(ModBlockItems.SPEEDRUNNERS_WORKBENCH);
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
                         entries.add(ModItems.ENDER_THRUSTER);
-                        entries.add(ModBlockItems.THRUSTER_BLOCK);
+                        entries.add(ModBlockItems.THRUSTED_BLOCK);
                         entries.add(ModItems.INFERNO_EYE);
                         entries.add(ModItems.PIGLIN_AWAKENER);
                         entries.add(ModItems.BLAZE_SPOTTER);
@@ -75,7 +75,8 @@ public class ModItemGroups {
                         entries.add(ModItems.DRAGONS_PEARL);
                         entries.add(ItemUtil.unbreakableComponentItem());
                         entries.add(ItemUtil.flightDurationComponentItem(1));
-                        entries.add(ModItems.INFINI_PEARL);
+                        entries.add(ModItems.CRAFTABLE_INFINI_PEARL);
+                        entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);
                         entries.add(ModItems.DRAGONS_SWORD);
                         entries.add(ModItems.WITHER_SWORD);
@@ -281,7 +282,7 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.FUNCTIONAL, ModBlockItems.SPEEDRUNNERS_WORKBENCH);
         addToItemGroup(ItemGroups.INGREDIENTS, ModBlockItems.SPEEDRUNNER_BLOCK);
         addToItemGroup(ItemGroups.INGREDIENTS, ModBlockItems.RAW_SPEEDRUNNER_BLOCK);
-        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModBlockItems.THRUSTER_BLOCK);
+        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModBlockItems.THRUSTED_BLOCK);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModBlockItems.SPEEDRUNNER_ORE);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModBlockItems.DEEPSLATE_SPEEDRUNNER_ORE);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModBlockItems.NETHER_SPEEDRUNNER_ORE);

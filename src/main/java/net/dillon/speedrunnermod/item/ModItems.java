@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
+import net.dillon.speedrunnermod.component.ModComponents;
 import net.dillon.speedrunnermod.entity.ModBoats;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
 import net.minecraft.item.*;
@@ -147,10 +148,10 @@ public class ModItems {
                 tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
             }
         }
-    }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModConsumableComponents.SPEEDRUNNER_BULK));
+    }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModComponents.SPEEDRUNNER_BULK));
 
     public static final Item ROTTEN_SPEEDRUNNER_BULK = Items.register(of("rotten_speedrunner_bulk"), Item::new,
-            new Item.Settings().food(ModFoodComponents.ROTTEN_SPEEDRUNNER_BULK, ModConsumableComponents.ROTTEN_SPEEDRUNNER_BULK));
+            new Item.Settings().food(ModFoodComponents.ROTTEN_SPEEDRUNNER_BULK, ModComponents.ROTTEN_SPEEDRUNNER_BULK));
 
     public static final Item COOKED_FLESH = Items.register(of("cooked_flesh"), Item::new,
             new Item.Settings().food(ModFoodComponents.COOKED_FLESH));
@@ -227,6 +228,17 @@ public class ModItems {
         }
     });
 
+    public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new Item(
+            settings) {
+
+        @Override
+        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+            if (options().client.itemTooltips) {
+                tooltip.add(Text.translatable("item.speedrunnermod.ender_matter.tooltip").formatted(Formatting.GRAY));
+            }
+        }
+    }, new Item.Settings().rarity(Rarity.RARE).maxCount(16));
+
     public static final Item WITHER_SWORD = Items.register(of("wither_sword"), WitherSwordItem::new);
     public static final Item ANNUL_EYE = Items.register(of("annul_eye"), AnnulEyeItem::new);
     public static final Item SPEEDRUNNERS_EYE = Items.register(of("speedrunners_eye"), SpeedrunnersEyeItem::new);
@@ -238,6 +250,7 @@ public class ModItems {
     public static final Item DRAGONS_SWORD = Items.register(of("dragons_sword"), DragonsSwordItem::new);
     public static final Item DRAGONS_PEARL = Items.register(of("dragons_pearl"), DragonsPearlItem::new);
     public static final Item INFINI_PEARL = Items.register(of("infini_pearl"), InfiniPearlItem::new);
+    public static final Item CRAFTABLE_INFINI_PEARL = Items.register(of("infini_pearl_craftable"), CraftableInfiniPearlItem::new);
     public static final Item KNOCKBACK_STICK = Items.register(of("knockback_stick"), KnockbackStickItem::new);
     public static final Item SPEEDRUNNERS_TOTEM = Items.register(of("speedrunners_totem"), SpeedrunnersTotemItem::new);
 
