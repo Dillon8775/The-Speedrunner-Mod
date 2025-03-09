@@ -86,16 +86,7 @@ public class ModItems {
 
     public static final Item SPEEDRUNNER_FLINT_AND_STEEL = Items.register(of("speedrunner_flint_and_steel"), FlintAndSteelItem::new, new Item.Settings().maxCount(1).maxDamage(128));
 
-    public static final Item SPEEDRUNNER_SHIELD = Items.register(of("speedrunner_shield"), settings -> new SpeedrunnerShieldItem(
-            settings) {
-
-        @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-            if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_shield.tooltip").formatted(Formatting.GRAY));
-            }
-        }
-    });
+    public static final Item SPEEDRUNNER_SHIELD = Items.register(of("speedrunner_shield"), SpeedrunnerShieldItem::new);
 
     public static final Item GOLDEN_SPEEDRUNNER_SWORD = Items.register(of("golden_speedrunner_sword"), settings -> new SpeedrunnerSwordItem(
             4, true, settings));

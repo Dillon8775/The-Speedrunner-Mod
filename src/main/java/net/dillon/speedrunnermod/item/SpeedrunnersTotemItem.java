@@ -10,6 +10,7 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
 
 import java.util.List;
@@ -39,8 +40,8 @@ public class SpeedrunnersTotemItem extends Item {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1"));
-            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2"));
+            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").formatted(Formatting.GRAY));
             tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3"));
         }
     }

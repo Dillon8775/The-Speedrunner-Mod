@@ -27,7 +27,7 @@ public class ModComponents {
                                     new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.minutes(2)),
                                     new StatusEffectInstance(StatusEffects.STRENGTH, TickCalculator.seconds(15)),
                                     new StatusEffectInstance(StatusEffects.SPEED, TickCalculator.seconds(30)),
-                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, TickCalculator.seconds(30))
+                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, TickCalculator.seconds(10))
                             )
                     )
             ));

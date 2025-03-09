@@ -892,11 +892,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
                         .input('@', ModItems.SPEEDRUNNER_INGOT)
-                        .input('#', ModBlocks.SPEEDRUNNER_PLANKS)
+                        .input('#', ModItemTags.Block.SPEEDRUNNER_PLANKS)
                         .pattern("@@")
                         .pattern("##")
                         .pattern("##")
-                        .criterion("has_planks", this.conditionsFromItem(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .criterion("has_planks", this.conditionsFromTag(ModItemTags.Block.SPEEDRUNNER_PLANKS))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_BOW)
