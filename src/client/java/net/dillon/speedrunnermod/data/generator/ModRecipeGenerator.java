@@ -1000,6 +1000,13 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(ModItems.ENDER_MATTER)
                         .criterion("has_ender_matter", this.conditionsFromItem(ModItems.ENDER_MATTER))
                         .offerTo(this.exporter);
+
+                this.createShapeless(RecipeCategory.COMBAT, ModItems.SPEEDRUNNERS_TOTEM)
+                        .input(Items.TOTEM_OF_UNDYING)
+                        .input(ModItems.SPEEDRUNNERS_EYE)
+                        .input(ModItemTags.INFINI_PEARLS)
+                        .criterion("has_totem", this.conditionsFromItem(Items.TOTEM_OF_UNDYING))
+                        .offerTo(this.exporter);
             }
         };
     }
