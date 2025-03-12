@@ -28,7 +28,7 @@ public class PiglinAwakenerScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 12;
+        return 15;
     }
 
     @Override

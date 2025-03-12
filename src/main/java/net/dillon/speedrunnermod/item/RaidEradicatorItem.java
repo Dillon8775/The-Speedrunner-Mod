@@ -96,7 +96,7 @@ public class RaidEradicatorItem extends Item {
                     player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"), options().client.itemMessages.isActionbar());
                 }
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(ItemUtil.toFormatting(Formatting.GRAY, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GRAY), false);
             }
         }
 

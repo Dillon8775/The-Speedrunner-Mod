@@ -58,7 +58,6 @@ public class ItemUtil {
      * Adds the tooltips for {@code State-Of-The-Art} items.
      */
     public static void stateOfTheArtItem(List<Text> tooltip) {
-        tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip").formatted(Formatting.RED));
         if (options().main.playingMode.easy()) {
             tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip.enabled").formatted(Formatting.GREEN).formatted(Formatting.ITALIC));
         } else {

@@ -15,6 +15,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -27,6 +28,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -46,6 +48,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public abstract ItemStack getEquippedStack(EquipmentSlot slot);
     @Shadow
     public abstract boolean damage(ServerWorld world, DamageSource source, float amount);
+
+    @Shadow @Final private PlayerInventory inventory;
 
     public PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -116,7 +120,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Override
     public void attemptTickInVoid() {
-        if (this.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING) || this.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING)) {
+        if (this.inventory.contains(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack()) || this.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING) || this.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING)) {
             if (this.getY() < (double)(this.getWorld().getBottomY() - 64)) {
                 int y = this.getWorld().getTopY(Heightmap.Type.MOTION_BLOCKING, 0, 0);
                 BlockPos pos = new BlockPos(0, y - 1, 0);
@@ -126,7 +130,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                     this.getWorld().setBlockState(pos, Blocks.LAVA.getDefaultState());
                 }
                 this.teleport(0.5, y, 0.5, true);
-                this.serverDamage(this.getDamageSources().generic(), 1000000.0F);
+                this.serverDamage(this.getDamageSources().generic(), Integer.MAX_VALUE);
                 this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
             }
         } else {

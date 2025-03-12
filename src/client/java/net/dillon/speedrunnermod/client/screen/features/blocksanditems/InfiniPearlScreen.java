@@ -14,26 +14,25 @@ import org.jetbrains.annotations.NotNull;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 
 @Environment(EnvType.CLIENT)
-public class BlazeSpotterScreen extends AbstractFeatureScreen {
+public class InfiniPearlScreen extends AbstractFeatureScreen {
 
-    public BlazeSpotterScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.blaze_spotter"), true, true);
+    public InfiniPearlScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.infini_pearl"), true, true);
     }
 
     @Override
-    @NotNull
-    public String linesKey() {
-        return "blaze_spotter";
+    public @NotNull String linesKey() {
+        return "infini_pearl";
     }
 
     @Override
     public int getPageNumber() {
-        return 16;
+        return 12;
     }
 
     @Override
     protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/blaze_spotter.png");
+        return ofSpeedrunnerMod("textures/gui/features/items/infini_pearl.png");
     }
 
     @Override
@@ -48,12 +47,11 @@ public class BlazeSpotterScreen extends AbstractFeatureScreen {
 
     @Override
     protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/blaze_spotter_crafting_recipe.png");
+        return ofSpeedrunnerMod("textures/gui/features/recipes/infini_pearl_crafting_recipe.png");
     }
 
     @Override
-    @NotNull
-    public ScreenCategory getScreenCategory() {
+    public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;
     }
 

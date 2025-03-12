@@ -127,7 +127,10 @@ public class BaseModScreen extends GameOptionsScreen {
                 new ArrowsExplodeBedsScreen(parent, options),
                 new SpeedrunnerEditionScreen(parent, options),
                 new MoreExperienceScreen(parent, options),
-                new CustomPanoramaScreen(parent, options));
+                new CustomPanoramaScreen(parent, options),
+                new SpeedrunnersTotemScreen(parent, options),
+                new InfiniPearlScreen(parent, options),
+                new EnderMatterScreen(parent, options));
     }
 
     /**

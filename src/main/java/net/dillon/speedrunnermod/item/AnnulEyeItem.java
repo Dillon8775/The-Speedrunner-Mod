@@ -145,7 +145,8 @@ public class AnnulEyeItem extends Item {
                             }
                         }
                     } else {
-                        player.sendMessage(Text.translatable("item.speedrunnermod.function_disabled").formatted(ItemUtil.toFormatting(Formatting.GREEN, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                        player.sendMessage(Text.translatable("item.speedrunnermod.function_disabled").formatted(Formatting.LIGHT_PURPLE), false);
+
                     }
                 }
             } else {
@@ -193,10 +194,13 @@ public class AnnulEyeItem extends Item {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1").formatted(Formatting.GRAY));
             tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2").formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line3"));
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line4"));
-            tooltip.add(options().main.playingMode.easy() ? Text.translatable("item.speedrunnermod.eye_of_annul.teleporter_enabled").formatted(Formatting.ITALIC).formatted(Formatting.GREEN) : Text.translatable("item.speedrunnermod.eye_of_annul.teleporter_disabled").formatted(Formatting.ITALIC).formatted(Formatting.RED));
-            tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip").formatted(Formatting.RED));
+            if (options().main.playingMode.easy()) {
+                tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line3"));
+                tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line4"));
+            } else {
+                tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line3").formatted(Formatting.ITALIC).formatted(Formatting.STRIKETHROUGH).formatted(Formatting.RED));
+                tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line4").formatted(Formatting.ITALIC).formatted(Formatting.STRIKETHROUGH).formatted(Formatting.RED));
+            }
         }
     }
 }

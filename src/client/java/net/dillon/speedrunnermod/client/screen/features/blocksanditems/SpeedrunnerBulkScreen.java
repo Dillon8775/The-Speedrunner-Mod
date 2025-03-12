@@ -28,7 +28,7 @@ public class SpeedrunnerBulkScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 16;
+        return 19;
     }
 
     @Override

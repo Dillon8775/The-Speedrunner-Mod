@@ -112,6 +112,8 @@
   "item.speedrunnermod.speedrunners_totem.tooltip.line1": "Stacks to 16, works anywhere in",
   "item.speedrunnermod.speedrunners_totem.tooltip.line2": "the players inventory, and has",
   "item.speedrunnermod.speedrunners_totem.tooltip.line3": "better effects upon use.",
+  "item.speedrunnermod.speedrunners_totem.tooltip.line4": "Works in the void, anywhere in the inventory.",
+  "item.totem_of_undying.tooltip": "Works in the void, if equipped.",
   "item.speedrunnermod.wither_bone": "Wither Bone",
   "item.speedrunnermod.wither_bone.tooltip": "Used to craft a Wither Sword.",
   "item.speedrunnermod.wither_sword": "Wither Sword",
@@ -185,15 +187,14 @@
   "item.speedrunnermod.eye_of_inferno.located": "Located %s! (may not be perfectly accurate)",
   "item.speedrunnermod.eye_of_inferno.wrong_dimension": "You must be in the nether to use this item!",
 
-  "item.speedrunnermod.item_disabled": "This item is disabled.",
-  "item.speedrunnermod.function_disabled": "This function is disabled.",
+  "item.speedrunnermod.item_disabled": "This item only works on §b§leasy§r mode.",
+  "item.speedrunnermod.function_disabled": "This item function only works on §b§leasy§r mode.",
 
   "item.speedrunnermod.speedrunners_eye.looking_for": "Now looking for a %s.",
   "item.speedrunnermod.speedrunners_eye.looking_for.tooltip": "Currently Locating: %s",
   "item.speedrunnermod.speedrunners_eye.blocks_away": "The nearest %s is %s blocks away. (may not be perfectly accurate)",
   "item.speedrunnermod.speedrunners_eye.wrong_dimension": "You must be in the overworld to use this item!",
 
-  "item.speedrunnermod.state_of_the_art.tooltip": "State-Of-The-Art item.",
   "item.speedrunnermod.state_of_the_art.tooltip.enabled": "Functions for this item are enabled.",
   "item.speedrunnermod.state_of_the_art.tooltip.disabled": "Functions for this item are disabled.",
 
@@ -688,6 +689,15 @@
   "speedrunnermod.title.features.blocks_and_items.speedrunners_eye": "§bSpeedrunner's Eye",
   "speedrunnermod.features.blocks_and_items.speedrunners_eye.text": "Acts just like an §aeye of ender,§f but only locates overworld structures, including §6villages,§f §druined portals,§f §eshipwrecks,§f §9ocean monuments,§f §6woodland mansions§f and §6desert temples.",
 
+  "speedrunnermod.title.features.blocks_and_items.ender_matter": "§9Ender Matter",
+  "speedrunnermod.features.blocks_and_items.ender_matter.text": "A §brare substance§f of matter, found only in §bshipwrecks§f and §dend cities.§f They also have a §a5% chance§f of dropping when killing an §denderman.§f This chance can be increased by using §elooting§f or a §bspeedrunner sword.",
+
+  "speedrunnermod.title.features.blocks_and_items.infini_pearl": "§9The Infini Pearl",
+  "speedrunnermod.features.blocks_and_items.infini_pearl.text": "Acts like a regular ender pearl, but does not get consumed upon use, and does not do any damage to the player upon landing.",
+
+  "speedrunnermod.title.features.blocks_and_items.speedrunners_totem": "§bSpeedrunner's Totem",
+  "speedrunnermod.features.blocks_and_items.speedrunners_totem.text": "An upgrade to the §etotem of undying!§f\nStacks to 16, gives better effects upon use, and can be used anywhere in the player's inventory.",
+
   "speedrunnermod.title.features.blocks_and_items.dragons_pearl": "§dDragon's Pearl",
   "speedrunnermod.features.blocks_and_items.dragons_pearl.text": "A §overy overpowered§r and useful item for §bspeedrunning.§f\nUpon right-clicking §o(in the end),§r you can §lforce§r the §dender dragon§f to §linstantly perch,§r no matter where the dragon is, removing those long last few minutes in every average speedrun.",
 
@@ -847,7 +857,7 @@
   "speedrunnermod.features.more.better_anvils.text": "§7Anvils§f have been §bimproved...§f§o a lot.§r\nSay goodbye to that annoying §l\"Too Expensive!\"§r feature! Now, you can combine §5items/add enchantments§f to §lany item,§r and never have a cost limit.\nWhat's even better is, you can §bcap§r the cost in the §bspeedrunner mod options§f §bmenu,§f so the cost for §lany anvil usage§r will §onot§r go over the capped number.\n§lFinally,§r you can go over §lmaximum enchant level§r for §5any enchantment.§f This means if you have §5two sharpness 5 books,§f you can combine the books to get §d§lSharpness 6.",
 
   "speedrunnermod.title.features.more.totems_work_in_void": "§eTotems Work in The Void",
-  "speedrunnermod.features.more.totems_work_in_void.text": "Free-fall into the void with a §etotem of undying§f equipped, and you will be §dteleported§f to the §lcenter of the end island!§r\nAt the cost of your §etotem,§f obviously...",
+  "speedrunnermod.features.more.totems_work_in_void.text": "Free-fall into the void with a §etotem of undying§f IF equipped, and you will be §dteleported§f to the §lcenter of the end island!§r\nAt the cost of your §etotem,§f obviously...\nIf you have a §bSpeedrunner's Totem,§f it will work anywhere in your inventory.",
 
   "speedrunnermod.title.features.more.never_breaking_ender_eyes": "§2Never Breaking §aEnder Eyes",
   "speedrunnermod.features.more.never_breaking_ender_eyes.text": "§aEnder eyes§r §lnever break!§r\n§oUnless you're on §c§oDoom Mode,§r§o then they will break §c§oevery time.",

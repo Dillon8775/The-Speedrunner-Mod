@@ -42,7 +42,8 @@ public class SpeedrunnersTotemItem extends Item {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1").formatted(Formatting.GRAY));
             tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3"));
+            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line4"));
         }
     }
 }
