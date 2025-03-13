@@ -14,5 +14,6 @@ public enum ScreenType {
     STARTER,
     NORMAL,
     FINAL,
-    END
+    END,
+    FIRST_TIME_PLAYING
 }

@@ -43,7 +43,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
     @Override @ChatGPT(Credit.PARTIAL_CREDIT)
     public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         boolean holdingEnchantedBookItem = player.getMainHandStack().isOf(Items.ENCHANTED_BOOK) || player.getOffHandStack().isOf(Items.ENCHANTED_BOOK);
-        if (!world.isClient && !holdingEnchantedBookItem && player.getMainHandStack().hasEnchantments() && !player.getOffHandStack().isEmpty()) {
+        if ((options().main.playingMode.easy() || options().main.playingMode.doom()) && !world.isClient && !holdingEnchantedBookItem && player.getMainHandStack().hasEnchantments() && !player.getOffHandStack().isEmpty()) {
             ItemStack mainHandStack = player.getMainHandStack(); // Get the players main hand stack
             ItemStack offHandStack = player.getOffHandStack(); // Get the players offhand stack
             ItemEnchantmentsComponent mainHandEnchantments = EnchantmentHelper.getEnchantments(mainHandStack); // Get the enchantments on the players main hand item, using an item enchantments component

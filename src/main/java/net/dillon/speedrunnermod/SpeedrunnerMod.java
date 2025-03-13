@@ -49,6 +49,8 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Override
     public void onInitialize() {
+        resetTutorialMode();
+
         ModWorldGen.initializeWorldGenFeatures();
 
         ModBoats.initializeBoats();
@@ -121,6 +123,7 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Environment(EnvType.CLIENT)
     public static void resetOptions() {
+        options().main.tutorialMode = false;
         options().main.playingMode = ModOptions.PlayingMode.EASY;
         options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
         options().main.fasterBlockBreaking = true;
@@ -157,6 +160,7 @@ public class SpeedrunnerMod implements ModInitializer {
         options().main.customDataGeneration = true;
         options().main.leaderboardsMode = false;
 
+        options().client.firstTimePlaying = false;
         options().client.fog = true;
         options().client.itemTooltips = true;
         options().client.customPanorama = true;
@@ -213,6 +217,15 @@ public class SpeedrunnerMod implements ModInitializer {
         options().mixins.simpleOptionMixin = true;
         options().mixins.logoDrawerMixin = true;
         options().mixins.renderLayersMixin = true;
+    }
+
+    /**
+     * Resets all tutorial mode options.
+     */
+    public static void resetTutorialMode() {
+        options().tutorialMode.enterWorld = false;
+        options().tutorialMode.obtainedSpeedrunnerPickaxe = false;
+        ModOptions.saveConfig();
     }
 
     /**

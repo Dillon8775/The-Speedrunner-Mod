@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -116,6 +117,12 @@ public class PiglinAwakenerItem extends Item {
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                stack.decrement(1);
+                for (int i = 0; i < 8; i++) {
+                    player.dropItem((ServerWorld)world, Items.GOLD_INGOT);
+                }
+                player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
             }
         }
 

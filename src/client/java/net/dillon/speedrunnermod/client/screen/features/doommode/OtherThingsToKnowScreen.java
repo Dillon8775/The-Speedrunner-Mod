@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.client.screen.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.features.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.features.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.features.ScreenType;
-import net.dillon.speedrunnermod.client.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -97,6 +97,12 @@ public class RaidEradicatorItem extends Item {
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GRAY), false);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_VINDICATOR_DEATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                stack.decrement(1);
+                player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
+                player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
+                player.dropItem((ServerWorld)world, Items.ENCHANTED_GOLDEN_APPLE);
+                player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
             }
         }
 

@@ -13,6 +13,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -75,6 +76,11 @@ public class BlazeSpotterItem extends Item {
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                itemStack.decrement(1);
+                player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
+                player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
+                player.dropItem((ServerWorld)world, Items.LAVA_BUCKET);
             }
         }
 

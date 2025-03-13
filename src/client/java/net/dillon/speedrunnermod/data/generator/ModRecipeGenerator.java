@@ -869,7 +869,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .pattern("#C#")
                         .pattern("###")
                         .showNotification(true)
-                        .criterion("has_template", this.conditionsFromItem(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE))
+                        .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_BLOCK))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.RAW_SPEEDRUNNER_BLOCK)

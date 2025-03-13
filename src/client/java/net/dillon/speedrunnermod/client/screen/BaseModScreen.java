@@ -3,12 +3,14 @@ package net.dillon.speedrunnermod.client.screen;
 import net.dillon.speedrunnermod.client.screen.features.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.features.blocksanditems.*;
 import net.dillon.speedrunnermod.client.screen.features.doommode.*;
+import net.dillon.speedrunnermod.client.screen.features.firsttimeplaying.*;
 import net.dillon.speedrunnermod.client.screen.features.more.*;
 import net.dillon.speedrunnermod.client.screen.features.oresandworldgen.*;
 import net.dillon.speedrunnermod.client.screen.features.toolsandarmor.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -52,6 +54,13 @@ public class BaseModScreen extends GameOptionsScreen {
             }
             this.client.setScreen(this);
         }, link, trusted));
+    }
+
+    /**
+     * A simplified way to render a tooltip.
+     */
+    protected void renderBasicTooltip(Text text, DrawContext context, int mouseX, int mouseY) {
+        context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(text, 200), mouseX, mouseY);
     }
 
     /**
@@ -130,7 +139,12 @@ public class BaseModScreen extends GameOptionsScreen {
                 new CustomPanoramaScreen(parent, options),
                 new SpeedrunnersTotemScreen(parent, options),
                 new InfiniPearlScreen(parent, options),
-                new EnderMatterScreen(parent, options));
+                new EnderMatterScreen(parent, options),
+                new FirstTimePlayingScreen(parent, options),
+                new KeyPointsScreen(parent, options),
+                new PlayingModeOption(parent, options),
+                new ReadyToPlayScreen(parent, options),
+                new FTPRestartRequiredScreen(parent, options));
     }
 
     /**

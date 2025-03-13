@@ -53,8 +53,7 @@ public class ModItems {
     public static final Item SPEEDRUNNER_SHOVEL = Items.register(of("speedrunner_shovel"), settings -> new ShovelItem(
             ModToolMaterials.SPEEDRUNNER_SHOVEL_AXE_HOE, 4, -3.0F, settings));
 
-    public static final Item SPEEDRUNNER_PICKAXE = Items.register(of("speedrunner_pickaxe"), settings -> new PickaxeItem(
-            ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE, 3, -2.8F, settings));
+    public static final Item SPEEDRUNNER_PICKAXE = Items.register(of("speedrunner_pickaxe"), settings -> new SpeedrunnerPickaxeItem());
 
     public static final Item SPEEDRUNNER_AXE = Items.register(of("speedrunner_axe"), settings -> new AxeItem(
             ModToolMaterials.SPEEDRUNNER_SHOVEL_AXE_HOE, 8, -3.05F, settings));

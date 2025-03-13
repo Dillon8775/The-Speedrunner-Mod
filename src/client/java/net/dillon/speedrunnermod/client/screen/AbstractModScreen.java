@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.client.screen.features.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.features.ScreenCategory;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.client.util.ModLinks;
-import net.dillon.speedrunnermod.client.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
@@ -170,13 +170,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * A simplified way to render a tooltip.
-     */
-    protected void renderBasicTooltip(Text text, DrawContext context, int mouseX, int mouseY) {
-        context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(text, 200), mouseX, mouseY);
-    }
-
-    /**
      * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
      */
     @ChatGPT(Credit.FULL_CREDIT)
@@ -190,12 +183,16 @@ public abstract class AbstractModScreen extends BaseModScreen {
         for (int pageNum = 1; pageNum <= maxPageNumber; pageNum++) {
             for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
                 if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
-                    this.buttons.add(ButtonWidget.builder(ModTexts.featureTitleText(screenCategory, screen.linesKey()), button -> {
+                    this.buttons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
                         this.client.setScreen(screen);
                     }).build());
                 }
             }
         }
+    }
+
+    private static Text featureTitleText(ScreenCategory category, String lang) {
+        return Text.translatable("speedrunnermod.title.features." + category.toString().toLowerCase() + "." + lang);
     }
 
     /**

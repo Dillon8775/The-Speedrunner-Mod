@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,8 +34,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     private ServerStatHandler statHandler;
     @Shadow
     public abstract void sendMessage(Text message, boolean actionBar);
-
-    @Shadow public abstract ServerWorld getServerWorld();
+    @Shadow
+    public abstract ServerWorld getServerWorld();
+    @Shadow
+    public abstract void sendMessageToClient(Text message, boolean overlay);
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
@@ -47,6 +50,19 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     private void sendCords(DamageSource source, CallbackInfo ci) {
         if (options().client.showDeathCords && this.getServerWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
             this.sendMessage(SpeedrunnerMod.deathCords(this.getX(), this.getY(), this.getZ()), false);
+        }
+    }
+
+    /**
+     * Sends the tutorial mode chat message.
+     */
+    @Inject(method = "onSpawn", at = @At("TAIL"))
+    private void sendTutorialMessage(CallbackInfo ci) {
+        if (this.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0 && options().main.tutorialMode && !options().tutorialMode.enterWorld) {
+            this.sendMessageToClient(Text.translatable("speedrunnermod.tutorial_mode.prefix").append(Text.translatable("speedrunnermod.tutorial_mode.greeting")), false);
+            this.sendMessageToClient(Text.translatable("speedrunnermod.tutorial_mode.prefix").append(Text.translatable("speedrunnermod.tutorial_mode.obtain_speedrunner_pickaxe")), false);
+            options().tutorialMode.enterWorld = true;
+            ModOptions.saveConfig();
         }
     }
 

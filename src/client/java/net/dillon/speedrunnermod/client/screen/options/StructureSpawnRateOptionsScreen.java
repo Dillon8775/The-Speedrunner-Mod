@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.client.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.client.util.TranslationStringKeys;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.option.ModOptions;

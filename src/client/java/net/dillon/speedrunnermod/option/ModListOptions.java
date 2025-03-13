@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.option;
 
 import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.client.util.InactiveableOption;
-import net.dillon.speedrunnermod.client.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.client.util.TranslationStringKeys;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -6,6 +6,7 @@ import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.LeaderboardsSafeScreen;
 import net.dillon.speedrunnermod.client.screen.SafeBootScreen;
 import net.dillon.speedrunnermod.client.screen.SpeedrunIGTMissingScreen;
+import net.dillon.speedrunnermod.client.screen.features.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.QuickPlay;
@@ -30,6 +31,8 @@ public abstract class MinecraftClientMixin {
     @Shadow
     protected abstract void createInitScreens(List<Function<Runnable, Screen>> list);
 
+    @Shadow public abstract void setScreenAndRender(Screen screen);
+
     /**
      * @author Dillon8775
      * @reason Adds the {@code Safe Mode} feature.
@@ -46,6 +49,8 @@ public abstract class MinecraftClientMixin {
                 if (SpeedrunnerMod.safeBoot) {
                     this.setScreen(new SafeBootScreen(null, MinecraftClient.getInstance().options));
                     warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
+                } else if (options().client.firstTimePlaying) {
+                    this.setScreen(new FirstTimePlayingScreen(null, MinecraftClient.getInstance().options));
                 } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().main.leaderboardsMode) {
                     this.setScreen(new LeaderboardsSafeScreen(null, MinecraftClient.getInstance().options));
                     warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");

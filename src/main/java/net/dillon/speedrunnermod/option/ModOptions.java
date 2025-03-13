@@ -36,6 +36,7 @@ public class ModOptions {
     public final Client client = new Client();
     public final Advanced advanced = new Advanced();
     public final StructureSpawnRates structureSpawnRates = new StructureSpawnRates();
+    public final TutorialMode tutorialMode = new TutorialMode();
     public final Mixins mixins = new Mixins();
 
     /**
@@ -43,6 +44,11 @@ public class ModOptions {
      * <p>See additional comments inside of static class for option documentation.</p>
      */
     public static class Main {
+
+        /**
+         * Tutorial mode, takes the player through various different features in the mod.
+         */
+        public boolean tutorialMode = false;
 
         /**
          * Determines the playing mode of the mod. The mode determines what features are added.
@@ -237,6 +243,11 @@ public class ModOptions {
      * <p>Not labeled as {@code environment-type client} due to certain things breaking on the server-side.</p>
      */
     public static class Client {
+
+        /**
+         * Determines if the first-time playing screens should load.
+         */
+        public boolean firstTimePlaying = true;
 
         /**
          * Enable/disable Minecraft's default fog.
@@ -451,6 +462,15 @@ public class ModOptions {
          * When on doom mode, the dragon cannot die if there is a nearby wither. This option specifies the range that the wither has to be in from the dragon in order for it to be immune.
          */
         public double[] dragonImmunityDetectionDistanceForWither = createListOption(300.0D, 300.0D, 300.0D);
+    }
+
+    /**
+     * All booleans for doing certain things in the tutorial mode.
+     */
+    public static class TutorialMode {
+
+        public boolean enterWorld = false;
+        public boolean obtainedSpeedrunnerPickaxe = false;
     }
 
     /**

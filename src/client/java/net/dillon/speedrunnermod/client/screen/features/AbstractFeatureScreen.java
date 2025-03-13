@@ -2,11 +2,14 @@ package net.dillon.speedrunnermod.client.screen.features;
 
 import net.dillon.speedrunnermod.client.screen.BaseModScreen;
 import net.dillon.speedrunnermod.client.screen.features.blocksanditems.SpeedrunnerIngotsScreen;
+import net.dillon.speedrunnermod.client.screen.features.firsttimeplaying.FirstTimePlayingScreen;
+import net.dillon.speedrunnermod.client.screen.features.firsttimeplaying.RefreshingScreen;
 import net.dillon.speedrunnermod.client.screen.features.more.TripledDropsScreen;
 import net.dillon.speedrunnermod.client.screen.features.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.features.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
-import net.dillon.speedrunnermod.client.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.fabricmc.api.EnvType;
@@ -25,7 +28,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
 /**
  * Used to create {@code feature screens}, for the soul purpose of displaying some of Speedrunner Mod's features.
@@ -47,6 +55,10 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
     private Screen category4Screen;
     @Nullable
     private Text category4Text;
+    public ArrayList<ButtonWidget> buttons = new ArrayList<>();
+    private ButtonWidget refreshButton;
+    private final Map<ButtonWidget, Integer[]> buttonMap = new HashMap<>();
+    public static boolean restartRequired = false;
 
     /**
      * A basic feature screen constructor.
@@ -114,6 +126,10 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
      */
     @Override
     protected void init() {
+        if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
+            this.buttons.clear();
+        }
+
         int width = this.getButtonsWidth();
         int height = this.getButtonsHeight();
 
@@ -192,6 +208,29 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             height += 24;
             this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).dimensions(this.getButtonsWidth(), height, 150, 20).build());
         }
+
+        // For custom screen types.
+        else if (this.getScreenType() == ScreenType.FIRST_TIME_PLAYING) {
+            this.addButtons();
+            for (ButtonWidget button : buttons) {
+                button.setDimensionsAndPosition(this.getButtonsX(), 20, this.getButtonsWidth(), height);
+                this.buttonMap.put(button, new Integer[]{this.getButtonsX(), 20, this.getButtonsWidth(), height});
+                this.addDrawableChild(button);
+                height += 24;
+            }
+            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, button -> {
+                int pageNumber = this.getPageNumber(); // do this so page # isn't changed when refreshing the screen
+                this.client.setScreen(new RefreshingScreen(parent, options));
+                this.client.setScreen(this.determineRefreshedScreen(pageNumber));
+            }).dimensions(this.getButtonsWidth() - 24, this.getButtonsHeight(), 20, 20).build());
+            this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.quit"), button -> {
+                if (this.getPageNumber() == this.getMaxPages()) {
+                    options().client.firstTimePlaying = false;
+                    ModOptions.saveConfig();
+                }
+                this.client.scheduleStop();
+            }).dimensions(this.getButtonsWidth(), height, this.getButtonsX(), 20).build());
+        }
     }
 
     /**
@@ -209,6 +248,8 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             this.client.setScreen(new MoreScreen(this.parent, MinecraftClient.getInstance().options));
         } else if (this.getScreenCategory() == ScreenCategory.DOOM_MODE) {
             this.client.setScreen(new DoomModeScreen(this.parent, MinecraftClient.getInstance().options));
+        } else if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
+            warn("Cannot close!");
         } else {
             this.client.setScreen(new FeaturesScreen(this.parent, MinecraftClient.getInstance().options));
         }
@@ -220,7 +261,9 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, 16777215);
+        if (this.shouldRenderTitleText()) {
+            context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, 16777215);
+        }
 
         List<OrderedText> screenText = this.client.textRenderer.wrapLines(this.textToDisplay(), 396);
         int textHeight = 100 - (screenText.size() - 2) * 10;
@@ -251,7 +294,18 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
         if (this.getDownscaledImage() != null) {
             this.renderFullResolutionDownscaledImage(context);
         }
+
+        if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
+            int middle = this.width / 2 - 128;
+            int logoHeight = 10;
+            context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, logoHeight, 0.0F, 0.0F, 258, 32, 258, 32);
+            context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/button/refresh.png"), this.buttons.getFirst().getX() - 22, this.buttons.getFirst().getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+            if (this.refreshButton.isHovered()) {
+                this.renderBasicTooltip(ModTexts.REFRESH_TOOLTIP, context, mouseX, mouseY);
+            }
+        }
         this.renderCustomImage(context);
+        this.renderTooltips(context, mouseX, mouseY);
     }
 
     /**
@@ -260,7 +314,13 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_A) {
-            this.client.setScreen(this.getPreviousScreen());  
+            if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
+                if (this.getPageNumber() != 1) {
+                    this.client.setScreen(this.getPreviousScreen());
+                }
+            } else {
+                this.client.setScreen(this.getPreviousScreen());
+            }
             return true;
         } else if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
             this.client.setScreen(this.getNextScreen());
@@ -289,6 +349,9 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             case DOOM_MODE -> {
                 return calculateMaxPages(ScreenCategory.DOOM_MODE);
             }
+            case FIRST_TIME_PLAYING ->  {
+                return calculateMaxPages(ScreenCategory.FIRST_TIME_PLAYING);
+            }
             default -> {
                 return 0;
             }
@@ -315,6 +378,9 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             case DOOM_MODE -> {
                 return determineScreen(pageNumber, ScreenCategory.DOOM_MODE);
             }
+            case FIRST_TIME_PLAYING -> {
+                return determineScreen(pageNumber, ScreenCategory.FIRST_TIME_PLAYING);
+            }
             default -> {
                 return new FeaturesScreen(this.parent, this.options);
             }
@@ -332,6 +398,18 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             }
         }
         return new FeaturesScreen(this.parent, this.options);
+    }
+
+    /**
+     * Determines the refreshed screen for first time playing screens.
+     */
+    private Screen determineRefreshedScreen(int pageNumber) {
+        for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
+            if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
+                return screen;
+            }
+        }
+        return new FirstTimePlayingScreen(this.parent, this.options);
     }
 
     /**
@@ -368,7 +446,7 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
      * Returns the text to display on the feature screen.
      */
     private Text textToDisplay() {
-        return Text.translatable("speedrunnermod.features" + this.linesCategory() + this.linesKey() + ".text");
+        return this.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING ? Text.translatable("speedrunnermod.features" + this.linesCategory() + this.linesKey() + ".text") : Text.translatable("speedrunnermod." + this.linesKey());
     }
 
     /**
@@ -377,6 +455,13 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
      */
     protected int getButtonsWidth() {
         return this.renderCraftingRecipe || this.moveButtons ? this.width / 2 - 175 : this.width / 2 - 75;
+    }
+
+    /**
+     * Returns the width for first time playing buttons width.
+     */
+    protected int getButtonsX() {
+        return 150;
     }
 
     /**
@@ -448,9 +533,28 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
     }
 
     /**
+     * Render custom tooltips on screen.
+     */
+    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+    }
+
+    /**
      * Render a custom image on a feature screen.
      */
     protected void renderCustomImage(DrawContext context) {
+    }
+
+    /**
+     * Adds buttons to the {@code buttons} variable. Used to add all buttons to the screen.
+     */
+    protected void addButtons() {
+    }
+
+    /**
+     * Determines if the screen should render the title text.
+     */
+    protected boolean shouldRenderTitleText() {
+        return true;
     }
 
     /**

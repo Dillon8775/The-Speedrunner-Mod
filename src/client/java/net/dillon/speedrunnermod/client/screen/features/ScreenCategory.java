@@ -12,5 +12,6 @@ public enum ScreenCategory {
     TOOLS_AND_ARMOR,
     ORES_AND_WORLDGEN,
     MORE,
-    DOOM_MODE
+    DOOM_MODE,
+    FIRST_TIME_PLAYING
 }

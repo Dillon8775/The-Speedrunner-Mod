@@ -64,7 +64,9 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
                         entries.add(ModItems.SPEEDRUNNER_SHIELD);
                         entries.add(ModItems.SPEEDRUNNERS_TOTEM);
-                        entries.add(ModBlockItems.SPEEDRUNNERS_WORKBENCH);
+                        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                            entries.add(ModBlockItems.SPEEDRUNNERS_WORKBENCH);
+                        }
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
                         if (options().main.playingMode.easy()) {
                             entries.add(ModItems.ENDER_THRUSTER);
@@ -75,7 +77,9 @@ public class ModItemGroups {
                             entries.add(ModItems.PIGLIN_AWAKENER);
                             entries.add(ModItems.BLAZE_SPOTTER);
                             entries.add(ModItems.RAID_ERADICATOR);
-                            entries.add(ModItems.ANNUL_EYE);
+                        }
+                        entries.add(ModItems.ANNUL_EYE);
+                        if (options().main.playingMode.easy()) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
                         entries.add(ItemUtil.unbreakableComponentItem());
@@ -83,7 +87,9 @@ public class ModItemGroups {
                         entries.add(ModItems.CRAFTABLE_INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);
-                        entries.add(ModItems.DRAGONS_SWORD);
+                        if (options().main.playingMode.easy()) {
+                            entries.add(ModItems.DRAGONS_SWORD);
+                        }
                         entries.add(ModItems.WITHER_SWORD);
                         entries.add(ModItems.WITHER_BONE);
                         entries.add(ModItems.SPEEDRUNNER_BOAT);

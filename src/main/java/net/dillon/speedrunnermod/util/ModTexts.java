@@ -1,16 +1,13 @@
-package net.dillon.speedrunnermod.client.util;
+package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.client.screen.features.ScreenCategory;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 /**
  * All {@code translation keys} for the Speedrunner Mod.
  */
-@Environment(EnvType.CLIENT)
 public class ModTexts {
+    public static final Text PREFIX = Text.translatable("speedrunnermod.prefix");
     public static final Text BLANK = Text.literal("");
     public static final Text OK = Text.translatable("speedrunnermod.ok");
     public static final Text SAVE = Text.translatable("speedrunnermod.save");
@@ -119,6 +116,7 @@ public class ModTexts {
     public static final Text RESET = Text.translatable("speedrunnermod.reset");
     public static final Text RESET_CONFIRM = Text.translatable("speedrunnermod.reset_confirm");
     public static final Text NOT_NOW = Text.translatable("speedrunnermod.not_now");
+    public static final Text REFRESH_TOOLTIP = Text.translatable("speedrunnermod.refresh");
 
     public static final Text RESTART_NOW = Text.translatable("speedrunnermod.restart_now");
     public static final Text RESTART_LATER = Text.translatable("speedrunnermod.restart_later");
@@ -146,8 +144,4 @@ public class ModTexts {
     public static final Text MANNYQUESO_YOUTUBE_TOOLTIP = Text.translatable("speedrunnermod.mannyqueso_youtube.tooltip");
     public static final Text NUZLAND_YOUTUBE_TOOLTIP = Text.translatable("speedrunnermod.nuzland_youtube.tooltip");
     public static final Text WIKI_TOOLTIP = Text.translatable("speedrunnermod.menu.title_screen.external.wiki.tooltip");
-
-    public static Text featureTitleText(ScreenCategory category, String lang) {
-        return Text.translatable("speedrunnermod.title.features." + category.toString().toLowerCase() + "." + lang);
-    }
 }
