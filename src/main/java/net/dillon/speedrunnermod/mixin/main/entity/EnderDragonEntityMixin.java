@@ -1,7 +1,10 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.item.TutorialMode;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
@@ -27,13 +30,11 @@ import java.util.List;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
-public abstract class EnderDragonEntityMixin extends MobEntity {
+public abstract class EnderDragonEntityMixin extends MobEntity implements TutorialMode {
     @Shadow
     private float damageDuringSitting;
-
     @Shadow
     protected abstract void parentDamage(ServerWorld world, DamageSource source, float amount);
-
     @Shadow
     @Final
     public EnderDragonPart head;
@@ -105,6 +106,13 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         if (options().main.playingMode.doom() && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
             this.setHealth(1.0F);
         } else {
+            EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+            LivingEntity livingEntity = dragon.getAttacker();
+            if (livingEntity instanceof PlayerEntity player && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && options().tutorialMode.enteredEnd && !options().tutorialMode.killedDragon) {
+                this.send("speedrunnermod.tutorial_mode.killed_dragon", player);
+                options().tutorialMode.killedDragon = true;
+                ModOptions.saveConfig();
+            }
             super.onDeath(source);
         }
     }

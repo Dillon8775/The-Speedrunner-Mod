@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TimeCalculator;
@@ -32,7 +33,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that teleports {@code nearby piglin} to the player.
  */
-public class PiglinAwakenerItem extends Item {
+public class PiglinAwakenerItem extends Item implements TutorialMode {
     private boolean confirm = !options().client.confirmMessages;
 
     public PiglinAwakenerItem(Settings settings) {
@@ -63,13 +64,13 @@ public class PiglinAwakenerItem extends Item {
 
                         if (isSafe) {
                             if (hasGold) {
+                                boolean sneakingWhenClicked = player.isSneaking();
                                 if (confirm) {
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_ANGRY, SoundCategory.HOSTILE, 3.0F, 1.0F);
                                     player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
                                     if (!player.getAbilities().creativeMode) {
                                         stack.decrement(1);
                                     }
-                                    boolean sneakingWhenClicked = player.isSneaking();
                                     new Timer().schedule(new TimerTask() {
                                         @Override
                                         public void run() {
@@ -88,6 +89,12 @@ public class PiglinAwakenerItem extends Item {
                                                 if (maxNumberOfPiglin >= SpeedrunnerMod.getMaximumAmountOfPiglinAllowedViaPiglinAwakener()) {
                                                     break;
                                                 }
+                                            }
+                                            if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && !options().tutorialMode.usedPiglinAwakener) {
+                                                send("speedrunnermod.tutorial_mode.used_piglin_awakener", player);
+                                                send("speedrunnermod.tutorial_mode.obtain_blaze_spotter", player);
+                                                options().tutorialMode.usedPiglinAwakener = true;
+                                                ModOptions.saveConfig();
                                             }
                                         }
                                     }, TimeCalculator.secondsToMilliseconds(2));

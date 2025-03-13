@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TimeCalculator;
@@ -29,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
  */
-public class DragonsPearlItem extends Item {
+public class DragonsPearlItem extends Item implements TutorialMode {
 
     public DragonsPearlItem(Settings settings) {
         super(settings.maxCount(16).rarity(Rarity.EPIC));
@@ -56,6 +57,11 @@ public class DragonsPearlItem extends Item {
                                 public void run() {
                                     enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
+                                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && options().tutorialMode.enteredEnd && !options().tutorialMode.usedDragonsPearl) {
+                                        send("speedrunnermod.tutorial_mode.used_dragons_pearl", player);
+                                        options().tutorialMode.usedDragonsPearl = true;
+                                        ModOptions.saveConfig();
+                                    }
                                 }
                             }, TimeCalculator.secondsToMilliseconds(2));
                             return ActionResult.SUCCESS;

@@ -474,6 +474,19 @@ public class ModOptions {
         public boolean obtainedSpeedrunnerBoat = false;
         public boolean obtainedInfernoEye = false;
         public boolean usedInfernoEye = false;
+        public boolean obtainedPiglinAwakener = false;
+        public boolean usedPiglinAwakener = false;
+        public boolean obtainedBlazeSpotter = false;
+        public boolean usedBlazeSpotter = false;
+        public boolean obtainedSpeedrunnersEye = false;
+        public boolean changedSpeedrunnersEyeLocator = false;
+        public boolean usedSpeedrunnersEye = false;
+        public boolean obtainedDragonsPearl = false;
+        public boolean obtainedAnnulEye = false;
+        public boolean usedAnnulEyeTeleporter = false;
+        public boolean enteredEnd = false;
+        public boolean usedDragonsPearl = false;
+        public boolean killedDragon = false;
     }
 
     /**

@@ -1,9 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.util.*;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EyeOfEnderEntity;
@@ -35,7 +33,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
-public class AnnulEyeItem extends Item {
+public class AnnulEyeItem extends Item implements TutorialMode {
     private boolean confirm = !options().client.confirmMessages;
 
     public AnnulEyeItem(Settings settings) {
@@ -100,6 +98,13 @@ public class AnnulEyeItem extends Item {
                                     player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, true);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                                     player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
+
+                                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
+                                        this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter", player);
+                                        options().tutorialMode.usedAnnulEyeTeleporter = true;
+                                        ModOptions.saveConfig();
+                                    }
+
                                     if (!player.getAbilities().creativeMode) {
                                         itemStack.decrement(1);
                                         for (int i = 0; i < player.getInventory().size(); i++) {

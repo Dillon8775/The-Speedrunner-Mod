@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
-public class SpeedrunnersEyeItem extends Item {
+public class SpeedrunnersEyeItem extends Item implements TutorialMode {
     private String structureType = "Village";
     private TagKey<Structure> type = StructureTags.VILLAGE;
 
@@ -69,6 +70,12 @@ public class SpeedrunnersEyeItem extends Item {
                             structureType = "Desert Pyramid";
                             type = ModStructureTags.DESERT_PYRAMIDS;
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 3.0F, 1.0F);
+                            if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && !options().tutorialMode.changedSpeedrunnersEyeLocator) {
+                                this.send("speedrunnermod.tutorial_mode.changed_speedrunners_eye_locator", player);
+                                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 1.0F, 1.0F);
+                                options().tutorialMode.changedSpeedrunnersEyeLocator = true;
+                                ModOptions.saveConfig();
+                            }
                         }
                         case "Desert Pyramid" -> {
                             structureType = "Ancient City";
@@ -96,6 +103,13 @@ public class SpeedrunnersEyeItem extends Item {
                     int structureDistance = MathHelper.floor(ItemUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     player.sendMessage(Text.translatable("item.speedrunnermod.speedrunners_eye.blocks_away", structureType, structureDistance).formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && !options().tutorialMode.usedSpeedrunnersEye) {
+                        this.send("speedrunnermod.tutorial_mode.used_speedrunners_eye", player);
+                        this.send("speedrunnermod.tutorial_mode.obtain_dragons_pearl", player);
+                        options().tutorialMode.usedSpeedrunnersEye = true;
+                        ModOptions.saveConfig();
+                    }
 
                     if (!player.getAbilities().creativeMode) {
                         itemStack.decrement(1);

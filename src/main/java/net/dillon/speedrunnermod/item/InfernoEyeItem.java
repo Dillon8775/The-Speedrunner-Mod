@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +25,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
  */
-public class InfernoEyeItem extends Item {
+public class InfernoEyeItem extends Item implements TutorialMode {
     private String structureType = "Fortress";
     private TagKey<Structure> type = ModStructureTags.FORTRESSES;
 
@@ -54,6 +55,12 @@ public class InfernoEyeItem extends Item {
                     ItemUtil.findStructureAndShoot(world, player, itemStack, type);
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", structureType).formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
+                        this.send("speedrunnermod.tutorial_mode.used_inferno_eye", player);
+                        this.send("speedrunnermod.tutorial_mode.obtain_piglin_awakener", player);
+                        options().tutorialMode.usedInfernoEye = true;
+                        ModOptions.saveConfig();
+                    }
 
                     if (!player.getAbilities().creativeMode) {
                         itemStack.decrement(1);

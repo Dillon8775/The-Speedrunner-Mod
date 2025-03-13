@@ -228,6 +228,19 @@ public class SpeedrunnerMod implements ModInitializer {
         options().tutorialMode.obtainedSpeedrunnerBoat = false;
         options().tutorialMode.obtainedInfernoEye = false;
         options().tutorialMode.usedInfernoEye = false;
+        options().tutorialMode.obtainedPiglinAwakener = false;
+        options().tutorialMode.usedPiglinAwakener = false;
+        options().tutorialMode.obtainedBlazeSpotter = false;
+        options().tutorialMode.usedBlazeSpotter = false;
+        options().tutorialMode.obtainedSpeedrunnersEye = false;
+        options().tutorialMode.changedSpeedrunnersEyeLocator = false;
+        options().tutorialMode.usedSpeedrunnersEye = false;
+        options().tutorialMode.obtainedDragonsPearl = false;
+        options().tutorialMode.obtainedAnnulEye = false;
+        options().tutorialMode.usedAnnulEyeTeleporter = false;
+        options().tutorialMode.enteredEnd = false;
+        options().tutorialMode.usedDragonsPearl = false;
+        options().tutorialMode.killedDragon = false;
         ModOptions.saveConfig();
     }
 

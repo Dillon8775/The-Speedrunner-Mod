@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 
-public interface TutorialItem {
+public interface TutorialMode {
 
     /**
      * Pulled from Keybindings class.

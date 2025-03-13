@@ -4,7 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModBlockItems;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.item.TutorialItem;
+import net.dillon.speedrunnermod.item.TutorialMode;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -18,30 +18,27 @@ import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(Item.class)
-public class ItemMixin implements TutorialItem {
+public class ItemMixin implements TutorialMode {
 
     /**
      * Main tutorial mode stuff.
      */
     @Unique
     private void tutorialMode(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (!options().main.playingMode.doom()) {
+        if (options().main.playingMode.easy()) {
             if (entity instanceof PlayerEntity player) {
 
                 if (stack.isOf(ModItems.SPEEDRUNNER_PICKAXE)) {
@@ -69,20 +66,63 @@ public class ItemMixin implements TutorialItem {
                         ModOptions.saveConfig();
                     }
                 }
-            }
-        }
-    }
 
-    @Inject(method = "use", at = @At("HEAD"))
-    private void tutorialModeUse(World world, PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        ItemStack stack = player.getStackInHand(hand);
-        if (!options().main.playingMode.doom()) {
+                if (stack.isOf(ModItems.PIGLIN_AWAKENER)) {
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && !options().tutorialMode.obtainedPiglinAwakener) {
+                        this.send("speedrunnermod.tutorial_mode.obtained_piglin_awakener", player);
+                        options().tutorialMode.obtainedPiglinAwakener = true;
+                        ModOptions.saveConfig();
+                        boolean hasGold = false;
+                        for (int i = 0; i < player.getInventory().size(); i++) {
+                            ItemStack inventorySlot = player.getInventory().getStack(i);
+                            if (inventorySlot.isOf(Items.GOLD_INGOT)) {
+                                hasGold = true;
+                            }
+                        }
+                        if (!hasGold) {
+                            ItemStack gold = new ItemStack(Items.GOLD_INGOT, 64);
+                            for (int i = 0; i < player.getInventory().size(); i++) {
+                                ItemStack blankSlot = player.getInventory().getStack(i);
+                                if (blankSlot.isEmpty()) {
+                                    player.getInventory().setStack(i, gold);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
 
-            if (stack.isOf(ModItems.INFERNO_EYE)) {
-                if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
-                    this.send("speedrunnermod.tutorial_mode.used_inferno_eye", player);
-                    options().tutorialMode.usedInfernoEye = true;
-                    ModOptions.saveConfig();
+                if (stack.isOf(ModItems.BLAZE_SPOTTER)) {
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && !options().tutorialMode.obtainedBlazeSpotter) {
+                        this.send("speedrunnermod.tutorial_mode.obtained_blaze_spotter", player);
+                        options().tutorialMode.obtainedBlazeSpotter = true;
+                        ModOptions.saveConfig();
+                    }
+                }
+
+                if (stack.isOf(ModItems.SPEEDRUNNERS_EYE)) {
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && !options().tutorialMode.obtainedSpeedrunnersEye) {
+                        this.send("speedrunnermod.tutorial_mode.obtained_speedrunners_eye", player);
+                        options().tutorialMode.obtainedSpeedrunnersEye = true;
+                        ModOptions.saveConfig();
+                    }
+                }
+
+                if (stack.isOf(ModItems.DRAGONS_PEARL)) {
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && !options().tutorialMode.obtainedDragonsPearl) {
+                        this.send("speedrunnermod.tutorial_mode.obtained_dragons_pearl", player);
+                        this.send("speedrunnermod.tutorial_mode.obtain_annul_eye", player);
+                        options().tutorialMode.obtainedDragonsPearl = true;
+                        ModOptions.saveConfig();
+                    }
+                }
+
+                if (stack.isOf(ModItems.ANNUL_EYE)) {
+                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && !options().tutorialMode.obtainedAnnulEye) {
+                        this.send("speedrunnermod.tutorial_mode.obtained_annul_eye", player);
+                        options().tutorialMode.obtainedAnnulEye = true;
+                        ModOptions.saveConfig();
+                    }
                 }
             }
         }

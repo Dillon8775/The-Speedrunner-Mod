@@ -98,6 +98,7 @@
     "main.world.NetherFortressFeatureMixin",
     "main.world.NetherFortressGeneratorMixin",
     "main.world.RuinedPortalStructureMixin",
+    "main.world.ServerWorldMixin",
     "main.world.StrongholdFeatureMixin",
     "main.world.StrongholdGeneratorMixin",
     "main.world.StrongholdPortalRoomMixin",
