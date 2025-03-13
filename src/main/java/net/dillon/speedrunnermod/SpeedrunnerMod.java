@@ -225,6 +225,9 @@ public class SpeedrunnerMod implements ModInitializer {
     public static void resetTutorialMode() {
         options().tutorialMode.enterWorld = false;
         options().tutorialMode.obtainedSpeedrunnerPickaxe = false;
+        options().tutorialMode.obtainedSpeedrunnerBoat = false;
+        options().tutorialMode.obtainedInfernoEye = false;
+        options().tutorialMode.usedInfernoEye = false;
         ModOptions.saveConfig();
     }
 

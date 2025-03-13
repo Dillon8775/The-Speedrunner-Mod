@@ -12,7 +12,7 @@
   "speedrunnermod.playing_mode.easy.tooltip": "Enables all features, results in the quickest speedrunning times.",
   "speedrunnermod.playing_mode.normal.tooltip": "Limits some features, making the game more balanced, resulting in quick speedrunning times.",
   "speedrunnermod.playing_mode.doom.tooltip": "Good luck with this one...",
-  "speedrunnermod.ready_to_play": "Alright! Now that you have selected the mode that you want to play on, you are ready to play!\n\n§a§lDo you want to enter tutorial mode?",
+  "speedrunnermod.ready_to_play": "Alright! Now that you have selected the mode that you want to play on, you are ready to play!\n\n§aDo you want to enter tutorial mode?",
   "speedrunnermod.enter_tutorial_mode": "§aEnter Tutorial Mode",
   "speedrunnermod.begin_playing": "§bBegin Playing",
   "speedrunnermod.begin_playing.tooltip": "If you are a first-time player, I highly recommend the tutorial mode.",
@@ -22,6 +22,10 @@
   "speedrunnermod.tutorial_mode.greeting": "§bWelcome to the Speedrunner Mod tutorial mode!",
   "speedrunnermod.tutorial_mode.obtain_speedrunner_pickaxe": "§aYour first task is to obtain a §bspeedrunner pickaxe! §aTo do this, you will need to either find some §bspeedrunner ingots §a(found in almost every loot table chest), or look for a §blight-blue colored ore§a underground.",
   "speedrunnermod.tutorial_mode.obtained_speedrunner_pickaxe": "§aGreat job! The §bspeedrunner pickaxe (and all other speedrunner tools and armor)§a are faster than diamond, but has less durability.",
+  "speedrunnermod.tutorial_mode.obtain_speedrunner_boat": "§aYour next task to obtain a §bspeedrunner boat.§a You can do this by using §b5 speedrunner planks§a to craft it.",
+  "speedrunnermod.tutorial_mode.obtained_speedrunner_boat": "§aAwesome! Now, what's so special about the speedrunner boat? Well, it's faster than normal boats, and can also be ridden in §6lava!",
+  "speedrunnermod.tutorial_mode.obtain_inferno_eye": "§aNow that you can ride in §6lava,§a your next task is to craft an §6Eye of Inferno.§a To do this, go to §cthe nether§a and get an §9ender pearl§a and a §6fire charge,§a and use those items to craft it.",
+  "speedrunnermod.tutorial_mode.obtained_inferno_eye": "§aGood job. The §6Eye of Inferno§a can be used to locate nearby §cnether fortresses§a and §7bastions.§a Right-click it to see!",
 
   "item.speedrunnermod.speedrunner_ingot": "Speedrunner Ingot",
   "item.speedrunnermod.speedrunner_ingot.tooltip.line1": "Faster than iron, used to create",
@@ -207,6 +211,7 @@
   "item.speedrunnermod.eye_of_inferno.wrong_dimension": "You must be in the nether to use this item!",
 
   "item.speedrunnermod.item_disabled": "This item only works on §b§leasy§r mode.",
+  "item.speedrunnermod.item_disabled_twomode": "This item only works on §b§leasy§r mode or §c§ldoom§r mode.",
   "item.speedrunnermod.function_disabled": "This item function only works on §b§leasy§r mode.",
 
   "item.speedrunnermod.speedrunners_eye.looking_for": "Now looking for a %s.",

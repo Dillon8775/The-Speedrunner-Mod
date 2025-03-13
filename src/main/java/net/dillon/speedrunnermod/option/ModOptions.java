@@ -471,6 +471,9 @@ public class ModOptions {
 
         public boolean enterWorld = false;
         public boolean obtainedSpeedrunnerPickaxe = false;
+        public boolean obtainedSpeedrunnerBoat = false;
+        public boolean obtainedInfernoEye = false;
+        public boolean usedInfernoEye = false;
     }
 
     /**

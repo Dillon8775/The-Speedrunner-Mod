@@ -7,6 +7,7 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -44,6 +45,13 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
         this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
         }).build());
+    }
+
+    @Override
+    protected void renderTooltips(DrawContext context, int x, int y) {
+        if (this.buttons.get(1).isHovered()) {
+            this.renderBasicTooltip(Text.translatable("speedrunnermod.begin_playing.tooltip"), context, x, y);
+        }
     }
 
     @Override
