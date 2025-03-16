@@ -90,7 +90,7 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
                                                     break;
                                                 }
                                             }
-                                            if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && !options().tutorialMode.usedPiglinAwakener) {
+                                            if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && !options().tutorialMode.usedPiglinAwakener) {
                                                 send("speedrunnermod.tutorial_mode.used_piglin_awakener", player);
                                                 send("speedrunnermod.tutorial_mode.obtain_blaze_spotter", player);
                                                 options().tutorialMode.usedPiglinAwakener = true;

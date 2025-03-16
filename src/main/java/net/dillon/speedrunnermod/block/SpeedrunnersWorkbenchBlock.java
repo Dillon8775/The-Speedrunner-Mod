@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.block;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.dillon.speedrunnermod.item.TutorialMode;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ItemUtil;
@@ -30,7 +31,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * A block that allows transferring of enchantments to other items.
  * <p>Also used as the retired speedrunner's job site block, acts like a smithing table.</p>
  */
-public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
+public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements TutorialMode {
 
     public SpeedrunnersWorkbenchBlock(Settings settings) {
         super(settings);
@@ -209,6 +210,9 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         player.addExperienceLevels(-cost);
         player.setStackInHand(hand, mainHandStack);
+        if (options().main.tutorialMode && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && !options().tutorialMode.transferedEnchantments) {
+
+        }
     }
 
     /**

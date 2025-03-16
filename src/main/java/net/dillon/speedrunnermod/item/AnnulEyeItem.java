@@ -1,7 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.*;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EyeOfEnderEntity;
@@ -99,7 +102,7 @@ public class AnnulEyeItem extends Item implements TutorialMode {
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                                     player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
 
-                                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
+                                    if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
                                         this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter", player);
                                         options().tutorialMode.usedAnnulEyeTeleporter = true;
                                         ModOptions.saveConfig();

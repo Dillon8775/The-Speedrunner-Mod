@@ -2,9 +2,9 @@ package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;

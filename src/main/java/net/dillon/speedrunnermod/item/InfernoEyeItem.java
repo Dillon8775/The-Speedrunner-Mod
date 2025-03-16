@@ -55,7 +55,7 @@ public class InfernoEyeItem extends Item implements TutorialMode {
                     ItemUtil.findStructureAndShoot(world, player, itemStack, type);
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", structureType).formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                    if (options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
+                    if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
                         this.send("speedrunnermod.tutorial_mode.used_inferno_eye", player);
                         this.send("speedrunnermod.tutorial_mode.obtain_piglin_awakener", player);
                         options().tutorialMode.usedInfernoEye = true;

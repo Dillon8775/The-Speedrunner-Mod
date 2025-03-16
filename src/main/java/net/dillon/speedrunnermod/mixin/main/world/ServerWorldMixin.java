@@ -16,15 +16,20 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin implements TutorialMode {
 
+    /**
+     * For tutorial mode.
+     */
     @Inject(method = "onDimensionChanged", at = @At("TAIL"))
     private void tutorialModeDimensionChange(Entity entity, CallbackInfo ci) {
         boolean tutorialModeCriteria = options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && !options().tutorialMode.enteredEnd;
-        if (entity instanceof PlayerEntity player) {
+        if (options().main.tutorialMode && entity instanceof PlayerEntity player) {
             if (tutorialModeCriteria && player.getWorld().getRegistryKey() == World.END) {
                 this.send("speedrunnermod.tutorial_mode.enter_end", player);
                 options().tutorialMode.enteredEnd = true;
                 ModOptions.saveConfig();
-            } else if (options().tutorialMode.killedDragon && player.getWorld().getRegistryKey() == World.OVERWORLD) {
+            }
+
+            if (options().tutorialMode.killedDragon && player.getWorld().getRegistryKey() == World.OVERWORLD) {
                 this.send("speedrunnermod.tutorial_mode.exit_end", player);
             }
         }

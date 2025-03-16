@@ -241,6 +241,9 @@ public class SpeedrunnerMod implements ModInitializer {
         options().tutorialMode.enteredEnd = false;
         options().tutorialMode.usedDragonsPearl = false;
         options().tutorialMode.killedDragon = false;
+        options().tutorialMode.brokenExperienceOre = false;
+        options().tutorialMode.obtainedSpeedrunnersWorkbench = false;
+        options().tutorialMode.transferedEnchantments = false;
         ModOptions.saveConfig();
     }
 

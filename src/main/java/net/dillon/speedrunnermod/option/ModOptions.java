@@ -487,6 +487,9 @@ public class ModOptions {
         public boolean enteredEnd = false;
         public boolean usedDragonsPearl = false;
         public boolean killedDragon = false;
+        public boolean brokenExperienceOre = false;
+        public boolean obtainedSpeedrunnersWorkbench = false;
+        public boolean transferedEnchantments = false;
     }
 
     /**
