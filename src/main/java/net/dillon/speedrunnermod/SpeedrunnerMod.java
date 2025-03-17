@@ -244,6 +244,14 @@ public class SpeedrunnerMod implements ModInitializer {
         options().tutorialMode.brokenExperienceOre = false;
         options().tutorialMode.obtainedSpeedrunnersWorkbench = false;
         options().tutorialMode.transferedEnchantments = false;
+        options().tutorialMode.interactedWithRetiredSpeedrunner = false;
+        options().tutorialMode.obtainedEnderThruster = false;
+        options().tutorialMode.usedEnderThruster = false;
+        options().tutorialMode.obtainedDragonsSword = false;
+        options().tutorialMode.obtainedWitherBone = false;
+        options().tutorialMode.obtainedWitherSword = false;
+        options().tutorialMode.obtainedEnderMatter = false;
+        options().tutorialMode.obtainedInfiniPearl = false;
         ModOptions.saveConfig();
     }
 

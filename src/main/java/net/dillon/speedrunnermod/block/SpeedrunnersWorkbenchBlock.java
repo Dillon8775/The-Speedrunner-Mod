@@ -1,11 +1,8 @@
 package net.dillon.speedrunnermod.block;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.dillon.speedrunnermod.item.TutorialMode;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.MathUtil;
+import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.util.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SmithingTableBlock;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -211,7 +208,10 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements Tu
         player.addExperienceLevels(-cost);
         player.setStackInHand(hand, mainHandStack);
         if (options().main.tutorialMode && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && !options().tutorialMode.transferedEnchantments) {
-
+            this.send("speedrunnermod.tutorial_mode.transferred_enchantments", player);
+            this.playDing(player);
+            options().tutorialMode.transferedEnchantments = true;
+            ModOptions.saveConfig();
         }
     }
 

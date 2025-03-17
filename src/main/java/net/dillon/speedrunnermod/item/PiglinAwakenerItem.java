@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TimeCalculator;
+import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;
@@ -91,8 +92,8 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
                                                 }
                                             }
                                             if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && !options().tutorialMode.usedPiglinAwakener) {
-                                                send("speedrunnermod.tutorial_mode.used_piglin_awakener", player);
-                                                send("speedrunnermod.tutorial_mode.obtain_blaze_spotter", player);
+                                                send("speedrunnermod.tutorial_mode.used_piglin_awakener.easy", player);
+                                                send("speedrunnermod.tutorial_mode.obtain_blaze_spotter.easy", player);
                                                 options().tutorialMode.usedPiglinAwakener = true;
                                                 ModOptions.saveConfig();
                                             }

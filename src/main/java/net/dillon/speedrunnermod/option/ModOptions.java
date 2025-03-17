@@ -490,6 +490,14 @@ public class ModOptions {
         public boolean brokenExperienceOre = false;
         public boolean obtainedSpeedrunnersWorkbench = false;
         public boolean transferedEnchantments = false;
+        public boolean interactedWithRetiredSpeedrunner = false;
+        public boolean obtainedEnderThruster = false;
+        public boolean usedEnderThruster = false;
+        public boolean obtainedDragonsSword = false;
+        public boolean obtainedWitherBone = false;
+        public boolean obtainedWitherSword = false;
+        public boolean obtainedEnderMatter = false;
+        public boolean obtainedInfiniPearl = false;
     }
 
     /**

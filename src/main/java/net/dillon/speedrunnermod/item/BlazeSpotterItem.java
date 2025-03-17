@@ -1,10 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
@@ -56,8 +53,8 @@ public class BlazeSpotterItem extends Item implements TutorialMode {
                             player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(world.random.nextInt(4) + 7), 0, false, true, true));
                             player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(30));
                             if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && !options().tutorialMode.usedBlazeSpotter) {
-                                this.send("speedrunnermod.tutorial_mode.used_blaze_spotter", player);
-                                this.send("speedrunnermod.tutorial_mode.obtain_speedrunners_eye", player);
+                                this.send("speedrunnermod.tutorial_mode.used_blaze_spotter.easy", player);
+                                this.send("speedrunnermod.tutorial_mode.obtain_speedrunners_eye.easy", player);
                                 options().tutorialMode.usedBlazeSpotter = true;
                                 ModOptions.saveConfig();
                             }

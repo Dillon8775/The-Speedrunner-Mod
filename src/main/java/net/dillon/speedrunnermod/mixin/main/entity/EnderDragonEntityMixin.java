@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
-import net.dillon.speedrunnermod.item.TutorialMode;
 import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -108,8 +108,10 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Tutori
         } else {
             EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
             LivingEntity livingEntity = dragon.getAttacker();
-            if (livingEntity instanceof PlayerEntity player && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && options().tutorialMode.enteredEnd && !options().tutorialMode.killedDragon) {
-                this.send("speedrunnermod.tutorial_mode.killed_dragon", player);
+            if (livingEntity instanceof PlayerEntity player && options().main.tutorialMode) {
+                if (options().main.playingMode.easy() && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && options().tutorialMode.enteredEnd && !options().tutorialMode.killedDragon) {
+                    this.send("speedrunnermod.tutorial_mode.killed_dragon.easy", player);
+                }
                 options().tutorialMode.killedDragon = true;
                 ModOptions.saveConfig();
             }

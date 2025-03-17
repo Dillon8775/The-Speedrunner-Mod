@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TimeCalculator;
+import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,7 +59,7 @@ public class DragonsPearlItem extends Item implements TutorialMode {
                                     enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
                                     if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && options().tutorialMode.enteredEnd && !options().tutorialMode.usedDragonsPearl) {
-                                        send("speedrunnermod.tutorial_mode.used_dragons_pearl", player);
+                                        send("speedrunnermod.tutorial_mode.used_dragons_pearl.easy", player);
                                         options().tutorialMode.usedDragonsPearl = true;
                                         ModOptions.saveConfig();
                                     }

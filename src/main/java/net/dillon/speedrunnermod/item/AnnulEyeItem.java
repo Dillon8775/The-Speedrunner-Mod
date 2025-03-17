@@ -1,10 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.*;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EyeOfEnderEntity;
@@ -103,7 +100,7 @@ public class AnnulEyeItem extends Item implements TutorialMode {
                                     player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
 
                                     if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
-                                        this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter", player);
+                                        this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy", player);
                                         options().tutorialMode.usedAnnulEyeTeleporter = true;
                                         ModOptions.saveConfig();
                                     }

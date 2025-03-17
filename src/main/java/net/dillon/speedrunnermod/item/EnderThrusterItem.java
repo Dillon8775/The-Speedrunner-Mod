@@ -1,9 +1,11 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.MathUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -28,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
-public class EnderThrusterItem extends Item {
+public class EnderThrusterItem extends Item implements TutorialMode {
     private boolean confirm = !options().client.confirmMessages;
 
     public EnderThrusterItem(Settings settings) {
@@ -70,6 +72,13 @@ public class EnderThrusterItem extends Item {
 
                             player.teleport(player.getX(), y, player.getZ(), true);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                            if (options().main.tutorialMode && options().main.playingMode.easy() && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && options().tutorialMode.transferedEnchantments && options().tutorialMode.interactedWithRetiredSpeedrunner && options().tutorialMode.obtainedEnderThruster && !options().tutorialMode.usedEnderThruster) {
+                                this.send("speedrunnermod.tutorial_mode.used_ender_thruster.easy", player);
+                                this.send("speedrunnermod.tutorial_mode.obtain_dragons_sword.easy", player);
+                                this.playDing(player);
+                                options().tutorialMode.usedEnderThruster = true;
+                                ModOptions.saveConfig();
+                            }
                         } else {
                             player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.confirm").formatted(Formatting.WHITE), false);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);

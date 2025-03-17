@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -72,6 +73,7 @@ public class SpeedrunnersEyeItem extends Item implements TutorialMode {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 3.0F, 1.0F);
                             if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && !options().tutorialMode.changedSpeedrunnersEyeLocator) {
                                 this.send("speedrunnermod.tutorial_mode.changed_speedrunners_eye_locator", player);
+                                this.playDing(player);
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 1.0F, 1.0F);
                                 options().tutorialMode.changedSpeedrunnersEyeLocator = true;
                                 ModOptions.saveConfig();
@@ -105,8 +107,8 @@ public class SpeedrunnersEyeItem extends Item implements TutorialMode {
                     player.sendMessage(Text.translatable("item.speedrunnermod.speedrunners_eye.blocks_away", structureType, structureDistance).formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
 
                     if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && !options().tutorialMode.usedSpeedrunnersEye) {
-                        this.send("speedrunnermod.tutorial_mode.used_speedrunners_eye", player);
-                        this.send("speedrunnermod.tutorial_mode.obtain_dragons_pearl", player);
+                        this.send("speedrunnermod.tutorial_mode.used_speedrunners_eye.easy", player);
+                        this.send("speedrunnermod.tutorial_mode.obtain_dragons_pearl.easy", player);
                         options().tutorialMode.usedSpeedrunnersEye = true;
                         ModOptions.saveConfig();
                     }
