@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/the_end_is_near",
+  "parent": "speedrunnermod:items/perch_already",
   "display": {
     "icon": {
       "id": "minecraft:zombie_head"

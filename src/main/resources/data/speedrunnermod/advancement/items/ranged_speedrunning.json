@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/speedrunning_time",
+  "parent": "speedrunnermod:items/suited_for_speedrunning",
   "display": {
     "icon": {
       "id": "speedrunnermod:speedrunner_bow"

@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/hardest_rock",
+  "parent": "speedrunnermod:items/speedrunning_time",
   "display": {
     "icon": {
       "id": "speedrunnermod:speedrunner_bulk"

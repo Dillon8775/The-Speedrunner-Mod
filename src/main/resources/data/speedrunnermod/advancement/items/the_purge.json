@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "parent": "speedrunnermod:items/perch_already",
   "display": {
     "icon": {
       "id": "speedrunnermod:raid_eradicator"

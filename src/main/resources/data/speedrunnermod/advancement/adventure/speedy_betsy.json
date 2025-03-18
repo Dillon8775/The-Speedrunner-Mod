@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:adventure/root",
+  "parent": "speedrunnermod:items/ranged_speedrunning",
   "display": {
     "icon": {
       "id": "speedrunnermod:speedrunner_crossbow"

@@ -2,7 +2,7 @@
   "parent": "speedrunnermod:items/perch_already",
   "display": {
     "icon": {
-      "id": "minecraft:dragon_head"
+      "id": "speedrunnermod:dragons_sword"
     },
     "title": {
       "translate": "advancements.speedrunnermod.one_hit_one_kill.title"

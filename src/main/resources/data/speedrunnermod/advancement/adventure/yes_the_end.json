@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/the_end_is_near",
+  "parent": "speedrunnermod:adventure/goliath",
   "display": {
     "icon": {
       "id": "minecraft:dragon_head"

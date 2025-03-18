@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/speedrunning_time",
+  "parent": "speedrunnermod:root",
   "display": {
     "icon": {
       "id": "speedrunnermod:igneous_rock"

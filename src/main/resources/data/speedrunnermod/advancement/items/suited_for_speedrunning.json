@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/speedrunning_time",
+  "parent": "speedrunnermod:items/quicker_pick",
   "display": {
     "icon": {
       "id": "speedrunnermod:speedrunner_chestplate"

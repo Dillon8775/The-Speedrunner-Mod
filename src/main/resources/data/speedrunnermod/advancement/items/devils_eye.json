@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/hardest_rock",
+  "parent": "speedrunnermod:items/eye_of_the_structures",
   "display": {
     "icon": {
       "id": "speedrunnermod:inferno_eye"

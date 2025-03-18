@@ -104,7 +104,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
         if (options().main.playingMode.doom()) {
-            this.bossBar = new ServerBossBar(this.getDisplayName(), BossBar.Color.GREEN, BossBar.Style.PROGRESS);
+            this.bossBar = new ServerBossBar(Text.translatable("entity.minecraft.giant.speedrunner_mod"), BossBar.Color.GREEN, BossBar.Style.PROGRESS);
             this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
             this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
             this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
