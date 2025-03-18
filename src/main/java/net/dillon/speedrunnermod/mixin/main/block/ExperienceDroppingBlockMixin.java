@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.mixin.main.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
@@ -65,7 +66,7 @@ public class ExperienceDroppingBlockMixin extends Block implements TutorialMode 
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 100, true);
-        if (options().main.tutorialMode && player != null && options().tutorialMode.killedDragon && !options().tutorialMode.brokenExperienceOre) {
+        if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null && options().tutorialMode.killedDragon && !options().tutorialMode.brokenExperienceOre) {
             this.send("speedrunnermod.tutorial_mode.broken_experience_ore", player);
             options().tutorialMode.brokenExperienceOre = true;
             ModOptions.saveConfig();
