@@ -2,7 +2,7 @@
   "parent": "speedrunnermod:items/the_ends_matter",
   "display": {
     "icon": {
-      "id": "speedrunnermod:infini_pearl_craftable"
+      "id": "speedrunnermod:infini_pearl"
     },
     "title": {
       "translate": "advancements.speedrunnermod.to_infini_and_beyond.title"
@@ -22,7 +22,7 @@
         "items": [
           {
             "items": [
-              "speedrunnermod:infini_pearl_craftable"
+              "speedrunnermod:infini_pearl"
             ]
           }
         ]

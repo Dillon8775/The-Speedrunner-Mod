@@ -139,7 +139,6 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_TOTEM, Models.GENERATED);
         itemModelGenerator.register(ModItems.INFERNO_EYE, Models.GENERATED);
         itemModelGenerator.registerWithTextureSource(ModItems.INFINI_PEARL, Items.ENDER_PEARL, Models.GENERATED);
-        itemModelGenerator.registerWithTextureSource(ModItems.CRAFTABLE_INFINI_PEARL, Items.ENDER_PEARL, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDER_MATTER, Models.GENERATED);
         itemModelGenerator.register(ModItems.PIGLIN_AWAKENER, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLAZE_SPOTTER, Models.GENERATED);

@@ -241,7 +241,6 @@ public class ModItems {
     public static final Item DRAGONS_SWORD = Items.register(of("dragons_sword"), DragonsSwordItem::new);
     public static final Item DRAGONS_PEARL = Items.register(of("dragons_pearl"), DragonsPearlItem::new);
     public static final Item INFINI_PEARL = Items.register(of("infini_pearl"), InfiniPearlItem::new);
-    public static final Item CRAFTABLE_INFINI_PEARL = Items.register(of("infini_pearl_craftable"), CraftableInfiniPearlItem::new);
     public static final Item KNOCKBACK_STICK = Items.register(of("knockback_stick"), KnockbackStickItem::new);
     public static final Item SPEEDRUNNERS_TOTEM = Items.register(of("speedrunners_totem"), SpeedrunnersTotemItem::new);
 

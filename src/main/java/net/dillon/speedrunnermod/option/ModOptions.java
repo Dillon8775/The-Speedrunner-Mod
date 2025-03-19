@@ -4,6 +4,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.mixin.main.command.argument.ItemStackArgumentTypeMixin;
 import net.dillon.speedrunnermod.util.TimeCalculator;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.TranslatableOption;
@@ -321,6 +322,12 @@ public class ModOptions {
      * All {@code Advanced Speedrunner Mod options.}
      */
     public static class Advanced {
+
+        /**
+         * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.
+         * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
+         */
+        public String[] modIds = new String[]{"minecraft", MOD_ID};
 
         /**
          * Allows strongholds to generate differently, or smaller.

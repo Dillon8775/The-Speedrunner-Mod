@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod;
 
 import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.component.ModComponents;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModBoats;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
@@ -21,10 +22,6 @@ import net.dillon.speedrunnermod.world.ModWorldGen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.minecraft.command.argument.IdentifierArgumentType;
-import net.minecraft.registry.Registries;
-import net.minecraft.server.command.CommandManager;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -59,6 +56,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModBoats.initializeBoats();
 
+        ModComponents.init();
         ModBlocks.initializeBlocks();
         ModBlockFamilies.initializeBlockFamilies();
         ModBlockItems.initializeBlockItems();

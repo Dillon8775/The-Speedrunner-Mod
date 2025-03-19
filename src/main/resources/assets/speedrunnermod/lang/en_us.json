@@ -199,6 +199,7 @@
   "item.speedrunnermod.infini_pearl": "InfiniPearl™",
   "item.speedrunnermod.infini_pearl.tooltip.line1": "An ender pearl that does not get",
   "item.speedrunnermod.infini_pearl.tooltip.line2": "consumed nor do damage upon use.",
+  "item.speedrunnermod.infini_pearl.unbreakable": "Unbreakable",
 
   "item.speedrunnermod.blaze_spotter.found_blaze_spawner": "Found blaze spawner.",
   "item.speedrunnermod.blaze_spotter.confirm": "Do you wish to teleport to the nearest blaze spawner? Right-click to confirm.",

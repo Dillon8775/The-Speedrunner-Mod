@@ -1,21 +1,32 @@
 package net.dillon.speedrunnermod.component;
 
+import com.mojang.serialization.Codec;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.TickCalculator;
+import net.minecraft.component.ComponentType;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.DeathProtectionComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.item.consume.ClearAllEffectsConsumeEffect;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 
 import java.util.List;
 
+import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.minecraft.component.type.ConsumableComponents.food;
 
 /**
  * Different types of components for mod items.
  */
 public class ModComponents {
+    @ChatGPT(Credit.FULL_CREDIT)
+    public static final ComponentType<Boolean> DAMAGEABLE = Registry.register(
+            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("damageable"), ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
+
     public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
             List.of(
                     new ClearAllEffectsConsumeEffect(),
@@ -66,4 +77,7 @@ public class ModComponents {
                     )
             )
             .build();
+
+    public static void init() {
+    }
 }

@@ -86,7 +86,7 @@ public class ModItemGroups {
                         }
                         entries.add(ItemUtil.unbreakableComponentItem());
                         entries.add(ItemUtil.flightDurationComponentItem(1));
-                        entries.add(ModItems.CRAFTABLE_INFINI_PEARL);
+                        entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);
                         if (options().main.playingMode.easy()) {

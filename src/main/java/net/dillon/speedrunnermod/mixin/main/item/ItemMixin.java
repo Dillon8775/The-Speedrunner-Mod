@@ -192,7 +192,7 @@ public class ItemMixin implements TutorialMode {
                         }
                     }
 
-                    if (stack.isIn(ModItemTags.INFINI_PEARLS)) {
+                    if (stack.isOf(ModItems.INFINI_PEARL)) {
                         if (options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && options().tutorialMode.transferedEnchantments && options().tutorialMode.interactedWithRetiredSpeedrunner && options().tutorialMode.obtainedEnderThruster && options().tutorialMode.usedEnderThruster && options().tutorialMode.obtainedDragonsSword && options().tutorialMode.obtainedWitherBone && options().tutorialMode.obtainedWitherSword && options().tutorialMode.obtainedEnderMatter && !options().tutorialMode.obtainedInfiniPearl) {
                             this.send("speedrunnermod.tutorial_mode.completed.easy", player);
                             this.playDing(player);

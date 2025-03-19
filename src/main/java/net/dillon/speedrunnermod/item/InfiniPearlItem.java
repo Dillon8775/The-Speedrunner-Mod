@@ -1,9 +1,11 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.component.ModComponents;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.util.ItemUtil;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
@@ -30,7 +32,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public class InfiniPearlItem extends EnderPearlItem {
 
     public InfiniPearlItem(Settings settings) {
-        super(settings.maxCount(1).component(DataComponentTypes.CUSTOM_NAME, Text.translatable("item.speedrunnermod.infini_pearl").formatted(Formatting.AQUA).formatted(Formatting.ITALIC)));
+        super(settings.maxCount(1).maxDamage(128).component(ModComponents.DAMAGEABLE, false).component(DataComponentTypes.CUSTOM_NAME, Text.translatable("item.speedrunnermod.infini_pearl").formatted(Formatting.AQUA).formatted(Formatting.ITALIC)));
     }
 
     /**
@@ -48,9 +50,24 @@ public class InfiniPearlItem extends EnderPearlItem {
             ProjectileEntity.spawnWithVelocity(EnderPearlEntity::new, serverWorld, itemStack, player, 0.0F, 1.5F, 1.0F);
         }
 
+        // Safer boolean check
+        if (Boolean.TRUE.equals(itemStack.get(ModComponents.DAMAGEABLE))) {
+            itemStack.damage(1, player, EquipmentSlot.MAINHAND);
+        }
+
         player.incrementStat(Stats.USED.getOrCreateStat(this));
 
         return ActionResult.SUCCESS;
+    }
+
+    /**
+     * If crafted, set damageable to true, meaning the infini pearl will take damage upon use.
+     * <p>The only way to obtain an {@code Unbreakable InfiniPearl} is by enabling {@code InfiniPearl mode} upon world creation.</p>
+     */
+    @Override
+    public void onCraftByPlayer(ItemStack stack, World world, PlayerEntity player) {
+        stack.set(ModComponents.DAMAGEABLE, true);
+        super.onCraftByPlayer(stack, world, player);
     }
 
     /**
@@ -66,6 +83,9 @@ public class InfiniPearlItem extends EnderPearlItem {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line1"));
             tooltip.add(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line2"));
+            if (Boolean.FALSE.equals(stack.get(ModComponents.DAMAGEABLE))) {
+                tooltip.add(Text.translatable("item.speedrunnermod.infini_pearl.unbreakable").formatted(Formatting.DARK_GRAY));
+            }
         }
     }
 }

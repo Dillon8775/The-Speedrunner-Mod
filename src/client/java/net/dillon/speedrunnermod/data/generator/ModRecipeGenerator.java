@@ -993,7 +993,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_string", this.conditionsFromItem(Items.STRING))
                         .offerTo(this.exporter, helper.speedrunnerModRecipe("string_from_wool"));
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.CRAFTABLE_INFINI_PEARL)
+                this.createShapeless(RecipeCategory.MISC, ModItems.INFINI_PEARL)
                         .input(Items.ENDER_PEARL)
                         .input(ModItems.SPEEDRUNNERS_EYE)
                         .input(ModItems.ENDER_THRUSTER)
@@ -1004,7 +1004,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 this.createShapeless(RecipeCategory.COMBAT, ModItems.SPEEDRUNNERS_TOTEM)
                         .input(Items.TOTEM_OF_UNDYING)
                         .input(ModItems.SPEEDRUNNERS_EYE)
-                        .input(ModItemTags.INFINI_PEARLS)
+                        .input(ModItems.INFINI_PEARL)
                         .criterion("has_totem", this.conditionsFromItem(Items.TOTEM_OF_UNDYING))
                         .offerTo(this.exporter);
             }

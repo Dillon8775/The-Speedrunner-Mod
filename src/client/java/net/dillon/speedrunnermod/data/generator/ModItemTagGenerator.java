@@ -52,7 +52,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .forceAddTag(ConventionalItemTags.SHIELD_TOOLS)
                 .add(Items.ENDER_PEARL)
                 .add(ModItems.INFINI_PEARL)
-                .add(ModItems.CRAFTABLE_INFINI_PEARL)
                 .add(Items.CHORUS_FRUIT);
 
         getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_TOOLS)
@@ -118,10 +117,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModItemTags.IGNITABLES)
                 .forceAddTag(ConventionalItemTags.IGNITER_TOOLS)
                 .add(Items.FIRE_CHARGE);
-
-        getOrCreateTagBuilder(ModItemTags.INFINI_PEARLS)
-                .add(ModItems.INFINI_PEARL)
-                .add(ModItems.CRAFTABLE_INFINI_PEARL);
 
         getOrCreateTagBuilder(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
                 .forceAddTag(ModItemTags.GOLDEN_FOOD_ITEMS)

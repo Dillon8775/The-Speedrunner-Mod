@@ -15,7 +15,6 @@
     "main.block.RedstoneOreBlockMixin",
     "main.block.SpawnerBlockMixin",
     "main.command.argument.ItemStackArgumentTypeMixin",
-    "main.command.CommandSourceMixin",
     "main.enchantment.AnvilScreenHandlerMixin",
     "main.entity.AbstractSkeletonEntityMixin",
     "main.entity.ArrowEntitiesMixin",
