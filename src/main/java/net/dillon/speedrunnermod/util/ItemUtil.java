@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.util;
 
+import net.dillon.speedrunnermod.item.ModItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
@@ -97,6 +98,15 @@ public class ItemUtil {
         ItemStack fireworks = new ItemStack(Items.FIREWORK_ROCKET, count);
         fireworks.set(DataComponentTypes.FIREWORKS, new FireworksComponent(3, List.of()));
         return fireworks;
+    }
+
+    /**
+     * Returns an infini pearl that is breakable.
+     */
+    public static ItemStack infiniPearl() {
+        ItemStack infiniPearl = new ItemStack(ModItems.INFINI_PEARL);
+        infiniPearl.set(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true));
+        return infiniPearl;
     }
 
     /**

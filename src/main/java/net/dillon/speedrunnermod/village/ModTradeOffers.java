@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.village;
 
-import net.dillon.speedrunnermod.component.ModComponents;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
@@ -72,8 +71,6 @@ public class ModTradeOffers {
             factories.add(new TradeOffers.SellItemFactory(ModItems.DRAGONS_PEARL, 3, 1, 12, 12));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
-            ItemStack infiniPearl = new ItemStack(ModItems.INFINI_PEARL);
-            infiniPearl.getItem().getDefaultStack().set(ModComponents.DAMAGEABLE, true);
             factories.add(new TradeOffers.SellItemFactory(ModItems.INFINI_PEARL, 24, 1, 1, 14));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {

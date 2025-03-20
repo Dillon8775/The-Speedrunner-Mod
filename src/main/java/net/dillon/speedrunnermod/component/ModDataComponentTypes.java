@@ -13,6 +13,9 @@ import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.item.consume.ClearAllEffectsConsumeEffect;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.TagKey;
+import net.minecraft.world.gen.structure.Structure;
 
 import java.util.List;
 
@@ -22,10 +25,13 @@ import static net.minecraft.component.type.ConsumableComponents.food;
 /**
  * Different types of components for mod items.
  */
-public class ModComponents {
+public class ModDataComponentTypes {
     @ChatGPT(Credit.FULL_CREDIT)
-    public static final ComponentType<Boolean> DAMAGEABLE = Registry.register(
-            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("damageable"), ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
+    public static final ComponentType<Boolean> BOOLEAN = Registry.register(
+            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("boolean"), ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
+
+    public static final ComponentType<TagKey<Structure>> LOCATING_STRUCTURE = Registry.register(
+            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("locating_structure"), ComponentType.<TagKey<Structure>>builder().codec(TagKey.codec(RegistryKeys.STRUCTURE)).build());
 
     public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
             List.of(

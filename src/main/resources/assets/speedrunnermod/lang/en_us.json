@@ -145,10 +145,8 @@
   "item.speedrunnermod.inferno_eye": "Eye of Inferno",
   "item.speedrunnermod.eye_of_inferno.tooltip": "Locates nearby fortresses and bastions.",
   "item.speedrunnermod.annul_eye": "Eye of Annul",
-  "item.speedrunnermod.eye_of_annul.tooltip.line1": "Gives the user the exact distance",
-  "item.speedrunnermod.eye_of_annul.tooltip.line2": "of the nearest stronghold, in blocks.",
-  "item.speedrunnermod.eye_of_annul.tooltip.line3": "Shift + right click to locate and teleport",
-  "item.speedrunnermod.eye_of_annul.tooltip.line4": "to the nearest portal room.",
+  "item.speedrunnermod.eye_of_annul.tooltip.line1": "Teleports the player directly to",
+  "item.speedrunnermod.eye_of_annul.tooltip.line2": "the nearest stronghold portal room.",
   "item.speedrunnermod.speedrunners_eye": "Speedrunner's Eye",
   "item.speedrunnermod.speedrunners_eye.tooltip": "Locates certain overworld structures.",
   "item.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
@@ -199,7 +197,6 @@
   "item.speedrunnermod.infini_pearl": "InfiniPearl™",
   "item.speedrunnermod.infini_pearl.tooltip.line1": "An ender pearl that does not get",
   "item.speedrunnermod.infini_pearl.tooltip.line2": "consumed nor do damage upon use.",
-  "item.speedrunnermod.infini_pearl.unbreakable": "Unbreakable",
 
   "item.speedrunnermod.blaze_spotter.found_blaze_spawner": "Found blaze spawner.",
   "item.speedrunnermod.blaze_spotter.confirm": "Do you wish to teleport to the nearest blaze spawner? Right-click to confirm.",
@@ -218,7 +215,8 @@
   "item.speedrunnermod.raid_eradicator.confirm": "Do you wish to purge all nearby raider entities? Right-click to confirm.",
   "item.speedrunnermod.raid_eradicator.no_totem": "Where's your totem...?",
   "item.speedrunnermod.raid_eradicator.couldnt_find_raiders": "Couldn't find any nearby raider entities.",
-  "item.speedrunnermod.raid_eradicator.success": "THE RAIDERS HAVE BEEN PURGED.",
+  "item.speedrunnermod.raid_eradicator.success": "%s...",
+  "item.speedrunnermod.raid_eradicator.purged": "THE RAIDERS HAVE BEEN PURGED.",
 
   "item.speedrunnermod.ender_thruster.confirm": "Do you wish to teleport to the surface? Right-click to confirm.",
   "item.speedrunnermod.ender_thruster.wrong_dimension": "You can't use this item in the nether.",
@@ -235,7 +233,6 @@
   "item.speedrunnermod.eye_of_annul.couldnt_find_portal_room": "Couldn't find portal room.",
   "item.speedrunnermod.eye_of_annul.doom_mode": "Haha... that doesn't work on doom mode! >:)",
   "item.speedrunnermod.eye_of_annul.confirm": "Do you wish to teleport to the portal room? Shift + right-click to confirm.",
-  "item.speedrunnermod.eye_of_annul.calculating": "Calculating distance... This may take a moment.",
   "item.speedrunnermod.eye_of_annul.teleporting": "The gatekeeper wishes you luck.",
   "item.speedrunnermod.eye_of_annul.wrong_dimension": "You must be in the overworld to use this item!",
   "item.speedrunnermod.eye_of_annul.no_ender_eye": "The gatekeeper requests an ender eye.",
@@ -244,19 +241,19 @@
   "item.speedrunnermod.eye_of_annul.teleporter_enabled": "Teleporter enabled.",
   "item.speedrunnermod.eye_of_annul.teleporter_disabled": "Teleporter disabled.",
 
-  "item.speedrunnermod.eye_of_inferno.looking_for": "Eye of Inferno is now looking for a %s!",
-  "item.speedrunnermod.eye_of_inferno.looking_for.tooltip": "Currently Locating: %s",
   "item.speedrunnermod.eye_of_inferno.located": "Located %s! (may not be perfectly accurate)",
   "item.speedrunnermod.eye_of_inferno.wrong_dimension": "You must be in the nether to use this item!",
 
   "item.speedrunnermod.item_disabled": "This item only works on §b§leasy§r mode.",
   "item.speedrunnermod.item_disabled_twomode": "This item only works on §b§leasy§r mode or §c§ldoom§r mode.",
-  "item.speedrunnermod.function_disabled": "This item function only works on §b§leasy§r mode.",
 
-  "item.speedrunnermod.speedrunners_eye.looking_for": "Now looking for a %s.",
-  "item.speedrunnermod.speedrunners_eye.looking_for.tooltip": "Currently Locating: %s",
-  "item.speedrunnermod.speedrunners_eye.blocks_away": "The nearest %s is %s blocks away. (may not be perfectly accurate)",
+  "item.speedrunnermod.speedrunners_eye.blocks_away": "The nearest %s is %s blocks away.",
   "item.speedrunnermod.speedrunners_eye.wrong_dimension": "You must be in the overworld to use this item!",
+
+  "item.speedrunnermod.eye.looking_for": "Now looking for a %s.",
+  "item.speedrunnermod.eye.distance": "%s",
+  "item.speedrunnermod.eye.looking_for.tooltip": "§lCurrently Locating:§r %s",
+  "item.speedrunnermod.eye.calculating": "Calculating distance... This may take a moment.",
 
   "item.speedrunnermod.state_of_the_art.tooltip.enabled": "Functions for this item are enabled.",
   "item.speedrunnermod.state_of_the_art.tooltip.disabled": "Functions for this item are disabled.",
@@ -1088,6 +1085,7 @@
   "speedrunnermod.help_button.tooltip": "Help...",
   "speedrunnermod.directory_button.tooltip": "Open config directory...",
   "speedrunnermod.player_death_cords": "You died at X: %.2f, Y = %.2f, Z = %.2f",
+  "speedrunnermod.teleport_to_player_death_cords": "Click here to your death cords.",
 
   "speedrunnermod.fog.mixin_disabled": "Fog mixin has been disabled. Re-enable it in the advanced Speedrunner Mod options to use this feature.",
 

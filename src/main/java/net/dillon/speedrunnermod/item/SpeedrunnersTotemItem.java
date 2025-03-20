@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.component.ModComponents;
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.minecraft.component.DataComponentTypes;
@@ -26,7 +26,7 @@ public class SpeedrunnersTotemItem extends Item {
     private static final byte BYTE_ID = 77;
 
     public SpeedrunnersTotemItem(Settings settings) {
-        super(settings.maxCount(3).rarity(Rarity.RARE).component(DataComponentTypes.DEATH_PROTECTION, ModComponents.TOTEM_SPEEDRUNNERS)
+        super(settings.maxCount(3).rarity(Rarity.RARE).component(DataComponentTypes.DEATH_PROTECTION, ModDataComponentTypes.TOTEM_SPEEDRUNNERS)
                 .registryKey(RegistryKey.of(RegistryKeys.ITEM, ofSpeedrunnerMod("speedrunners_totem"))));
     }
 

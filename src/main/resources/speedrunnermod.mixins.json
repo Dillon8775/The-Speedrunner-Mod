@@ -81,6 +81,7 @@
     "main.fix.TntBlockMixin",
     "main.fix.TripwireBlockMixin",
     "main.item.ConsumableComponentsMixin",
+    "main.item.EnderEyeItemMixin",
     "main.item.EnderPearlItemMixin",
     "main.item.FirechargeItemMixin",
     "main.item.FoodComponentMixin",

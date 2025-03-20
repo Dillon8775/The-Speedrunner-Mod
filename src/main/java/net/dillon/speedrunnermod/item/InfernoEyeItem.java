@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ItemUtil;
@@ -26,12 +27,11 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
  */
-public class InfernoEyeItem extends Item implements TutorialMode {
-    private String structureType = "Fortress";
-    private TagKey<Structure> type = ModStructureTags.FORTRESSES;
+public class InfernoEyeItem extends Item implements EyeItem, TutorialMode {
+    private TagKey<Structure> structureType = ModStructureTags.FORTRESSES;
 
     public InfernoEyeItem(Settings settings) {
-        super(settings.fireproof());
+        super(settings.component(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.FORTRESSES).fireproof());
     }
 
     @Override
@@ -41,20 +41,19 @@ public class InfernoEyeItem extends Item implements TutorialMode {
         if (!world.isClient) {
             if (world.getRegistryKey() == World.NETHER) {
                 if (player.isSneaking()) {
-                    if (structureType.equals("Fortress")) {
-                        structureType = "Bastion";
-                        type = ModStructureTags.BASTIONS;
+                    if (structureType.equals(ModStructureTags.FORTRESSES)) {
+                        structureType = ModStructureTags.BASTIONS;
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.HOSTILE, 2.0F, 1.0F);
-                    } else if (structureType.equals("Bastion")) {
-                        structureType = "Fortress";
-                        type = ModStructureTags.FORTRESSES;
+                    } else if (structureType.equals(ModStructureTags.BASTIONS)) {
+                        structureType = ModStructureTags.FORTRESSES;
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 2.0F, 1.0F);
                     }
 
-                    player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.looking_for", structureType).formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                    player.sendMessage(Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(structureType)), options().client.itemMessages.isActionbar());
                 } else {
-                    ItemUtil.findStructureAndShoot(world, player, itemStack, type);
-                    player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", structureType).formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                    player.sendMessage(this.calculatingText(), false);
+                    ItemUtil.findStructureAndShoot(world, player, itemStack, structureType);
+                    player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(structureType)), options().client.itemMessages.isActionbar());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
                         this.send("speedrunnermod.tutorial_mode.used_inferno_eye.easy", player);
@@ -84,6 +83,6 @@ public class InfernoEyeItem extends Item implements TutorialMode {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.eye_of_inferno.tooltip"));
         }
-        tooltip.add(Text.translatable("item.speedrunnermod.eye_of_inferno.looking_for.tooltip", structureType).formatted(Formatting.BOLD));
+        tooltip.add(Text.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(structureType)).formatted(Formatting.BOLD));
     }
 }

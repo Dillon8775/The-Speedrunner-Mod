@@ -21,7 +21,7 @@ public abstract class VillagerEntityMixin implements TutorialMode {
 
     @Inject(method = "beginTradeWith", at = @At("TAIL"))
     private void speedrunnersWorkbenchBlock(PlayerEntity customer, CallbackInfo ci) {
-        if (options().main.tutorialMode && options().main.playingMode.easy() && !options().tutorialMode.interactedWithRetiredSpeedrunner && this.getVillagerData().getProfession().equals(ModVillagers.RETIRED_SPEEDRUNNER)) {
+        if (options().main.tutorialMode && options().main.playingMode.easy() && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && options().tutorialMode.transferedEnchantments && !options().tutorialMode.interactedWithRetiredSpeedrunner && this.getVillagerData().getProfession().equals(ModVillagers.RETIRED_SPEEDRUNNER)) {
             this.send("speedrunnermod.tutorial_mode.interacted_with_retired_speedrunner", customer);
             this.send("speedrunnermod.tutorial_mode.obtain_ender_thruster.easy", customer);
             this.playDing(customer);

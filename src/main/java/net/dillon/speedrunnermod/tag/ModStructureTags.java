@@ -14,6 +14,7 @@ public class ModStructureTags {
     public static final TagKey<Structure> BASTIONS = of("bastions");
     public static final TagKey<Structure> DESERT_PYRAMIDS = of("desert_pyramids");
     public static final TagKey<Structure> FORTRESSES = of("fortresses");
+    public static final TagKey<Structure> STRONGHOLDS = of("strongholds");
 
     /**
      * Registers a {@code structure tag.}

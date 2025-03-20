@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod;
 
 import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.component.ModComponents;
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModBoats;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
@@ -22,6 +22,9 @@ import net.dillon.speedrunnermod.world.ModWorldGen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -56,7 +59,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModBoats.initializeBoats();
 
-        ModComponents.init();
+        ModDataComponentTypes.init();
         ModBlocks.initializeBlocks();
         ModBlockFamilies.initializeBlockFamilies();
         ModBlockItems.initializeBlockItems();
@@ -268,7 +271,13 @@ public class SpeedrunnerMod implements ModInitializer {
      * Returns the player's death coordinates.
      */
     public static Text deathCords(double x, double y, double z) {
-        return Text.translatable("speedrunnermod.player_death_cords", MathUtil.roundToOneDecimalPlace(x), MathUtil.roundToOneDecimalPlace(y), MathUtil.roundToOneDecimalPlace(z));
+        return Text.translatable("speedrunnermod.player_death_cords",
+                MathUtil.roundToOneDecimalPlace(x),
+                MathUtil.roundToOneDecimalPlace(y),
+                MathUtil.roundToOneDecimalPlace(z))
+                .setStyle(Style.EMPTY
+                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("speedrunnermod.teleport_to_player_death_cords")))
+                        .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/teleport @s " + x + " " + y + " " + z)));
     }
 
     /**

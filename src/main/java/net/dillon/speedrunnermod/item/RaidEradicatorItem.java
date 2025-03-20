@@ -12,6 +12,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
+import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -59,6 +62,7 @@ public class RaidEradicatorItem extends Item {
                             if (!player.getAbilities().creativeMode) {
                                 stack.decrement(1);
                             }
+                            ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
                             new Timer().schedule(new TimerTask() {
                                 @Override
                                 public void run() {
@@ -75,7 +79,12 @@ public class RaidEradicatorItem extends Item {
                                         }
                                     }
                                     player.damage(serverWorld, player.getDamageSources().generic(), player.getHealth());
-                                    player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.success").formatted(Formatting.RED), false);
+
+                                    Text purgedText = Text.translatable("item.speedrunnermod.raid_eradicator.purged").formatted(Formatting.RED);
+                                    serverPlayer.networkHandler.sendPacket(new TitleS2CPacket(Text.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).formatted(Formatting.AQUA).formatted(Formatting.BOLD)));
+                                    serverPlayer.networkHandler.sendPacket(new SubtitleS2CPacket(purgedText));
+                                    player.sendMessage(purgedText, false);
+                                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_DEATH, SoundCategory.HOSTILE, 3.0F, 1.0F);
                                 }
                             }, TimeCalculator.secondsToMilliseconds(3));
                         } else {

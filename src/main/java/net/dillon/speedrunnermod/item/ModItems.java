@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
-import net.dillon.speedrunnermod.component.ModComponents;
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.ModBoats;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
 import net.minecraft.item.*;
@@ -139,10 +139,10 @@ public class ModItems {
                 tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
             }
         }
-    }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModComponents.SPEEDRUNNER_BULK));
+    }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModDataComponentTypes.SPEEDRUNNER_BULK));
 
     public static final Item ROTTEN_SPEEDRUNNER_BULK = Items.register(of("rotten_speedrunner_bulk"), Item::new,
-            new Item.Settings().food(ModFoodComponents.ROTTEN_SPEEDRUNNER_BULK, ModComponents.ROTTEN_SPEEDRUNNER_BULK));
+            new Item.Settings().food(ModFoodComponents.ROTTEN_SPEEDRUNNER_BULK, ModDataComponentTypes.ROTTEN_SPEEDRUNNER_BULK));
 
     public static final Item COOKED_FLESH = Items.register(of("cooked_flesh"), Item::new,
             new Item.Settings().food(ModFoodComponents.COOKED_FLESH));
