@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.dillon.speedrunnermod.util.TimeCalculator;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
@@ -86,10 +85,10 @@ public class RaidEradicatorItem extends Item {
                                     player.sendMessage(purgedText, false);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_DEATH, SoundCategory.HOSTILE, 3.0F, 1.0F);
                                 }
-                            }, TimeCalculator.secondsToMilliseconds(3));
+                            }, ModUtil.millisecondsAsSeconds(3));
                         } else {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_VINDICATOR_AMBIENT, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                            player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.found_raiders").formatted(ItemUtil.toFormatting(Formatting.YELLOW, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                            player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.found_raiders").formatted(ModUtil.toFormatting(Formatting.YELLOW, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                             player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.confirm"), false);
                         }
                         if (options().client.confirmMessages) {
@@ -122,7 +121,7 @@ public class RaidEradicatorItem extends Item {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
-            ItemUtil.stateOfTheArtItem(tooltip);
+            ModUtil.stateOfTheArtItem(tooltip);
         }
     }
 }

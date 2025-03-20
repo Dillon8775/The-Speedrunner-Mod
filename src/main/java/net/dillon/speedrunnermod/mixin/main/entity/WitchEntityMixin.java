@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -29,7 +29,7 @@ public abstract class WitchEntityMixin extends RaiderEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((WitchEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitchEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
         }
         return super.getExperienceToDrop(world);
     }

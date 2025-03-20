@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -41,7 +41,7 @@ public class InfiniPearlItem extends EnderPearlItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
-        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment(player, ModEnchantments.COOLDOWN), player);
+        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment(player, ModEnchantments.COOLDOWN), player);
         int cooldown = coolEnchantment > 3 ? 0 : coolEnchantment == 3 ? 5 : coolEnchantment == 2 ? 10 : coolEnchantment == 1 ? 15 : 20;
         player.getItemCooldownManager().set(this.getDefaultStack(), cooldown);
 

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -27,7 +27,7 @@ public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 20 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((PiglinBruteEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
+            this.experiencePoints = 20 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PiglinBruteEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
         }
         return super.getExperienceToDrop(world);
     }

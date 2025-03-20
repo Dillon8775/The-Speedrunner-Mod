@@ -1,16 +1,13 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.*;
 import net.minecraft.text.Text;
 
@@ -84,8 +81,8 @@ public class ModItemGroups {
                         if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
-                        entries.add(ItemUtil.unbreakableComponentItem());
-                        entries.add(ItemUtil.flightDurationComponentItem(1));
+                        entries.add(ModUtil.unbreakableItem(Items.ELYTRA));
+                        entries.add(ModUtil.flightDurationComponentItem(1));
                         entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);

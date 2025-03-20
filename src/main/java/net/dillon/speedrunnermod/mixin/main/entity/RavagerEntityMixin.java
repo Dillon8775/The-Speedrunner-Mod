@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -37,7 +37,7 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((RavagerEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((RavagerEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
         }
         return super.getExperienceToDrop(world);
     }

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -30,7 +30,7 @@ public class SpiderEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((SpiderEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SpiderEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
         }
         return super.getExperienceToDrop(world);
     }

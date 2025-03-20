@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.SpawnerBlock;
@@ -28,7 +28,7 @@ public abstract class SpawnerBlockMixin extends BlockWithEntity {
     @Inject(method = "onStacksDropped", at = @At("TAIL"))
     private void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
-        int f = player != null ? EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 172 : 1;
+        int f = player != null ? EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 172 : 1;
         int i = 512 + world.random.nextInt(524) + world.random.nextInt(128) + f;
         this.dropExperience(world, pos, i);
     }

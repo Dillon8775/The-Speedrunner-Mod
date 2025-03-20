@@ -2,9 +2,8 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.dillon.speedrunnermod.util.TimeCalculator;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -98,10 +97,10 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
                                                 ModOptions.saveConfig();
                                             }
                                         }
-                                    }, TimeCalculator.secondsToMilliseconds(2));
+                                    }, ModUtil.millisecondsAsSeconds(2));
                                 } else {
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                                    player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.got_piglins").formatted(ItemUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                                    player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.got_piglins").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                                     player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.confirm"), false);
                                 }
                                 if (options().client.confirmMessages) {
@@ -111,17 +110,17 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
                                 return ActionResult.SUCCESS;
                             } else {
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 3.0F, 1.0F);
-                                player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot").formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                                player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                             }
                         } else {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.5F, 1.0F);
-                            player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.unsafe").formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                            player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.unsafe").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                         }
                     } else {
-                        player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins").formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                        player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension").formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                    player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
@@ -141,7 +140,7 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.piglin_awakener.tooltip"));
-            ItemUtil.stateOfTheArtItem(tooltip);
+            ModUtil.stateOfTheArtItem(tooltip);
         }
     }
 }

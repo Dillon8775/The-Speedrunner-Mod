@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
@@ -82,7 +82,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     private void takeShieldHit(LivingEntity attacker, CallbackInfo ci) {
         if (options().main.playingMode.doom()) {
             if (attacker instanceof GiantEntity) {
-                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
+                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
                 int shieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 10 : coolEnchantment == 4 ? 25 : coolEnchantment == 3 ? 50 : coolEnchantment == 2 ? 100 : coolEnchantment == 1 ? 150 : 200;
                 int speedrunnerShieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 15 : coolEnchantment == 3 ? 25 : coolEnchantment == 2 ? 75 : coolEnchantment == 1 ? 150 : 180;
                 this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), shieldCooldown);

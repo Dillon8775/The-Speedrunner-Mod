@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -93,8 +93,8 @@ public class SpeedrunnersEyeItem extends Item implements EyeItem, TutorialMode {
                         itemStack.set(ModDataComponentTypes.BOOLEAN, true);
                     }
 
-                    ItemUtil.findStructureAndShoot(world, player, itemStack, itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
-                    int structureDistance = MathHelper.floor(ItemUtil.getDistance(playerpos.getX(), playerpos.getZ(), newBlockPos.getX(), newBlockPos.getZ()));
+                    ModUtil.findStructureAndShoot(world, player, itemStack, itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
+                    int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), newBlockPos.getX(), newBlockPos.getZ()));
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), options().client.itemMessages.isActionbar());
                     // check and set currentBlockPos to the new (or current) structure location
@@ -119,7 +119,7 @@ public class SpeedrunnersEyeItem extends Item implements EyeItem, TutorialMode {
                 player.swingHand(hand, true);
                 return ActionResult.SUCCESS;
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.speedrunners_eye.wrong_dimension").formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                player.sendMessage(Text.translatable("item.speedrunnermod.speedrunners_eye.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
             }
         }
 

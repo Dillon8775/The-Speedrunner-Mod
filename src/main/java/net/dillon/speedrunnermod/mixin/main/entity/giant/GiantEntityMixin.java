@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.entity.giant;
 import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.MathUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -78,7 +77,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150 : 0;
+        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150 : 0;
         this.experiencePoints = 50 + looting;
         int i = this.experiencePoints;
 
@@ -219,13 +218,13 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
             if (this.getHealth() <= 150 && entity instanceof ProjectileEntity projectile) {
                 if (projectile.getOwner() != null) {
                     this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 5.0F, 1.0F);
-                    projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), MathUtil.randomFloat(1.0F, 3.0F));
+                    projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloat(1.0F, 3.0F));
                 }
                 return false;
             }
 
             if (this.getHealth() <= 100 && entity instanceof PlayerEntity) {
-                this.heal(MathUtil.randomFloat(1.15F, 2.95F));
+                this.heal(ModUtil.randomFloat(1.15F, 2.95F));
             }
 
             if (this.random.nextFloat() < 0.10F) {

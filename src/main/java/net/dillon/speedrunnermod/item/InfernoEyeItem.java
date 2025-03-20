@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -52,7 +52,7 @@ public class InfernoEyeItem extends Item implements EyeItem, TutorialMode {
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(structureType)), options().client.itemMessages.isActionbar());
                 } else {
                     player.sendMessage(this.calculatingText(), false);
-                    ItemUtil.findStructureAndShoot(world, player, itemStack, structureType);
+                    ModUtil.findStructureAndShoot(world, player, itemStack, structureType);
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(structureType)), options().client.itemMessages.isActionbar());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
@@ -71,7 +71,7 @@ public class InfernoEyeItem extends Item implements EyeItem, TutorialMode {
                 player.swingHand(hand, true);
                 return ActionResult.SUCCESS;
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.wrong_dimension").formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
             }
         }
 

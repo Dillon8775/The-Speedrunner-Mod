@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.block;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModBlockTags;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.minecraft.block.Block;
@@ -48,14 +48,14 @@ public class ExperienceDroppingBlockMixin extends Block implements TutorialMode 
     @Override
     public ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if (!world.isClient && itemStack.isSuitableFor(state) && EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.SILK_TOUCH), itemStack) > 0 && options().main.rightClickToRemoveSilkTouch) {
+        if (!world.isClient && itemStack.isSuitableFor(state) && EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.SILK_TOUCH), itemStack) > 0 && options().main.rightClickToRemoveSilkTouch) {
             ItemEnchantmentsComponent itemEnchantmentsComponent = EnchantmentHelper.apply(itemStack, builder -> builder.remove(enchantmentRegistryEntry -> enchantmentRegistryEntry.matchesKey(Enchantments.SILK_TOUCH)));
             EnchantmentHelper.set(itemStack, itemEnchantmentsComponent);
             world.playSound(null, pos, SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.BLOCKS, 1.0F, 1.0F);
             if (player instanceof ServerPlayerEntity) {
                 ((ServerPlayerEntity)player).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F, world.getRandom().nextLong()));
             }
-            player.sendMessage(Text.translatable("speedrunnermod.removed_silk_touch").formatted(ItemUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+            player.sendMessage(Text.translatable("speedrunnermod.removed_silk_touch").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
             player.setStackInHand(hand, itemStack);
             return ActionResult.SUCCESS;
         } else {
@@ -79,184 +79,184 @@ public class ExperienceDroppingBlockMixin extends Block implements TutorialMode 
     @Inject(method = "onStacksDropped", at = @At("TAIL"))
     public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
-        if (player != null && EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
+        if (player != null && EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;
             int i;
             if (world.getBiome(pos) == ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY) {
                 if (state.isOf(Blocks.GOLD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
                     i = 10 + world.random.nextInt(20) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_GOLD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 86;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 86;
                     i = 10 + world.random.nextInt(20) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.IRON_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 52;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 52;
                     i = 5 + world.random.nextInt(10) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_IRON_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
                     i = 5 + world.random.nextInt(10) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.COAL_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 20;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 20;
                     i = 4 + world.random.nextInt(8) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_COAL_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 30;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 30;
                     i = 4 + world.random.nextInt(8) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.NETHER_GOLD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 38;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 38;
                     i = 5 + world.random.nextInt(8) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.LAPIS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
                     i = 8 + world.random.nextInt(17) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_LAPIS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
                     i = 8 + world.random.nextInt(17) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DIAMOND_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 70;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 70;
                     i = 17 + world.random.nextInt(28) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_DIAMOND_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 101;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 101;
                     i = 17 + world.random.nextInt(28) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.EMERALD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
                     i = 13 + world.random.nextInt(23) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_EMERALD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
                     i = 13 + world.random.nextInt(23) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.NETHER_QUARTZ_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 42;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 42;
                     i = 11 + world.random.nextInt(17) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.SPEEDRUNNER_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 70;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 70;
                     i = 20 + world.random.nextInt(25) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 100;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 100;
                     i = 20 + world.random.nextInt(25) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.NETHER_SPEEDRUNNER_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
                     i = 15 + world.random.nextInt(20) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.IGNEOUS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 64;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 64;
                     i = 17 + world.random.nextInt(25) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.DEEPSLATE_IGNEOUS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 94;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 94;
                     i = 17 + world.random.nextInt(25) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.NETHER_IGNEOUS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 58;
                     i = 15 + world.random.nextInt(20) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.EXPERIENCE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1516;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1516;
                     i = 1516 + world.random.nextInt(1024) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.DEEPSLATE_EXPERIENCE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1864;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1864;
                     i = 2048 + world.random.nextInt(1512) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.NETHER_EXPERIENCE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 32;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 32;
                     i = 256 + world.random.nextInt(256) + f;
                     this.dropExperience(world, pos, i);
                 }
             } else {
                 if (state.isOf(Blocks.GOLD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
                     i = 2 + world.random.nextInt(5) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_GOLD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 81;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 81;
                     i = 2 + world.random.nextInt(5) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.IRON_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 48;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 48;
                     i = 1 + world.random.nextInt(2) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_IRON_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
                     i = 1 + world.random.nextInt(2) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.COAL_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 18;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 18;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.DEEPSLATE_COAL_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 27;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 27;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.NETHER_GOLD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 36;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 36;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.LAPIS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.DEEPSLATE_LAPIS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.DIAMOND_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 66;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 66;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.DEEPSLATE_DIAMOND_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 99;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 99;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.EMERALD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.DEEPSLATE_EMERALD_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.NETHER_QUARTZ_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 36;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 36;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(ModBlocks.SPEEDRUNNER_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 63;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 63;
                     i = 2 + world.random.nextInt(6) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 95;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 95;
                     i = 2 + world.random.nextInt(6) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.NETHER_SPEEDRUNNER_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
                     i = 1 + world.random.nextInt(3) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.IGNEOUS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 60;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 60;
                     i = 2 + world.random.nextInt(6) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.DEEPSLATE_IGNEOUS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 90;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 90;
                     i = 2 + world.random.nextInt(6) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.NETHER_IGNEOUS_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 54;
                     i = 2 + world.random.nextInt(6) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.EXPERIENCE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1024;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1024;
                     i = 1024 + world.random.nextInt(824) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.DEEPSLATE_EXPERIENCE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1512;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 1512;
                     i = 1512 + world.random.nextInt(1024) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(ModBlocks.NETHER_EXPERIENCE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ItemUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 512;
+                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 512;
                     i = 1024 + world.random.nextInt(512) + f;
                     this.dropExperience(world, pos, i);
                 }

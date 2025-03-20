@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantments;
@@ -79,35 +79,35 @@ public class DoomBlock {
             ItemStack stack;
             if (world.random.nextFloat() < 0.10F) {
                 stack = new ItemStack(Items.DIAMOND_SWORD);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.SHARPNESS), world.random.nextInt(3) + 3);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.SHARPNESS), world.random.nextInt(3) + 3);
                 if (world.random.nextFloat() < 0.40F) {
-                    stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.KNOCKBACK), world.random.nextInt(2) + 1);
+                    stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.KNOCKBACK), world.random.nextInt(2) + 1);
                 }
             } else if (world.random.nextFloat() < 0.10F) {
                 stack = new ItemStack(Items.NETHERITE_CHESTPLATE);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.PROTECTION), world.random.nextInt(2) + 3);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.THORNS), world.random.nextInt(3) + 1);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.PROTECTION), world.random.nextInt(2) + 3);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.THORNS), world.random.nextInt(3) + 1);
             } else if (world.random.nextFloat() < 0.10F) {
                 stack = new ItemStack(ModItems.SPEEDRUNNER_BOW);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.POWER), world.random.nextInt(3) + 4);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.FLAME), 1);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.POWER), world.random.nextInt(3) + 4);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.FLAME), 1);
             } else if (world.random.nextInt() < 0.10F) {
                 stack = new ItemStack(ModItems.SPEEDRUNNER_CROSSBOW);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.QUICK_CHARGE), 3);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.MULTISHOT), 1);
-                stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.UNBREAKING), world.random.nextInt(2) + 2);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.QUICK_CHARGE), 3);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.MULTISHOT), 1);
+                stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.UNBREAKING), world.random.nextInt(2) + 2);
             } else if (world.random.nextFloat() < 0.10F) {
                stack = new ItemStack(Items.IRON_CHESTPLATE);
-               stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.PROTECTION), world.random.nextInt(2) + 3);
-               stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.UNBREAKING), 3);
+               stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.PROTECTION), world.random.nextInt(2) + 3);
+               stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.UNBREAKING), 3);
                stack.setDamage(world.random.nextInt(50));
             } else if (world.random.nextFloat() < 0.10F) {
                stack = new ItemStack(Items.DIAMOND_SWORD);
-               stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.SHARPNESS), world.random.nextInt(2) + 4);
-               stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.UNBREAKING), 3);
-               stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.FIRE_ASPECT), world.random.nextInt(2) + 1);
+               stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.SHARPNESS), world.random.nextInt(2) + 4);
+               stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.UNBREAKING), 3);
+               stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.FIRE_ASPECT), world.random.nextInt(2) + 1);
                if (world.random.nextFloat() < 0.40F) {
-                   stack.addEnchantment(ItemUtil.entityEnchantment(player, Enchantments.KNOCKBACK), world.random.nextInt(4) + 2);
+                   stack.addEnchantment(ModUtil.entityEnchantment(player, Enchantments.KNOCKBACK), world.random.nextInt(4) + 2);
                }
             } else if (world.random.nextFloat() < 0.10F) {
                 stack = new ItemStack(Items.ENCHANTED_GOLDEN_APPLE);

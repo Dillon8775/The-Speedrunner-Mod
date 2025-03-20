@@ -1,9 +1,8 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.dillon.speedrunnermod.util.TimeCalculator;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
@@ -64,7 +63,7 @@ public class DragonsPearlItem extends Item implements TutorialMode {
                                         ModOptions.saveConfig();
                                     }
                                 }
-                            }, TimeCalculator.secondsToMilliseconds(2));
+                            }, ModUtil.millisecondsAsSeconds(2));
                             return ActionResult.SUCCESS;
                         } else {
                             if (!isDragonDead(enderDragon)) {
@@ -128,7 +127,7 @@ public class DragonsPearlItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
-            ItemUtil.stateOfTheArtItem(tooltip);
+            ModUtil.stateOfTheArtItem(tooltip);
         }
     }
 }

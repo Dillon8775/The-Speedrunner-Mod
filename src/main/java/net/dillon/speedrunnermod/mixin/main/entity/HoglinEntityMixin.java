@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -28,7 +28,7 @@ public abstract class HoglinEntityMixin extends AnimalEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((HoglinEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36 : 0;
+        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((HoglinEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36 : 0;
         return this.experiencePoints + looting;
     }
 

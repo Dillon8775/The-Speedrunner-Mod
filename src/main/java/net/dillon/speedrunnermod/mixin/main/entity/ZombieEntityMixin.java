@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -33,7 +33,7 @@ public class ZombieEntityMixin extends HostileEntity {
     @Inject(method = "getExperienceToDrop", at = @At("HEAD"))
     private void getExperiencePoints(CallbackInfoReturnable<Integer> cir) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((ZombieEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((ZombieEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
         }
     }
 

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -26,7 +26,7 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ItemUtil.entityEnchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150;
+            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150;
         }
         return super.getExperienceToDrop(world);
     }

@@ -2,7 +2,10 @@ package net.dillon.speedrunnermod.block;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.*;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SmithingTableBlock;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -143,7 +146,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements Tu
 
             // No enchantments were transferred, because they were all incompatible
             if (incompatibleEnchantmentsFailed) {
-                player.sendMessage(Text.translatable("speedrunnermod.incompatible_enchantments_failed").formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                player.sendMessage(Text.translatable("speedrunnermod.incompatible_enchantments_failed").formatted(ModUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
             }
 
             // Tells the player how many levels are needed to transfer enchantments
@@ -186,7 +189,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements Tu
      * Corrects the {@code cost} variable to equal the total amount of enchantments transferred multiplied by itself.
      */
     private int initializeCost(PlayerEntity player, ItemEnchantmentsComponent.Builder enchantmentLevel, Object2IntMap.Entry<RegistryEntry<Enchantment>> entry, int totalTransferred) {
-        int cost = MathUtil.multiplyEnchantments(enchantmentLevel, entry, totalTransferred);
+        int cost = ModUtil.multiplyEnchantments(enchantmentLevel, entry, totalTransferred);
 
         if (cost > options().main.anvilCostLimit && options().main.anvilCostLimit != 50) {
             cost = options().main.anvilCostLimit;
@@ -203,7 +206,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements Tu
      * A successful enchantment transfer.
      */
     private void success(World world, BlockPos pos, PlayerEntity player, Hand hand, ItemStack mainHandStack, int cost) {
-        player.sendMessage(Text.translatable("speedrunnermod.transferred_enchantments").formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+        player.sendMessage(Text.translatable("speedrunnermod.transferred_enchantments").formatted(ModUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
         world.playSound(null, pos, SoundEvents.BLOCK_SMITHING_TABLE_USE, SoundCategory.BLOCKS, 1.0F, world.random.nextFloat() * 0.1F + 0.9F);
         player.addExperienceLevels(-cost);
         player.setStackInHand(hand, mainHandStack);
@@ -219,7 +222,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements Tu
      * Failed to transfer any enchantments.
      */
     private void fail(PlayerEntity player, int cost) {
-        player.sendMessage(Text.translatable("speedrunnermod.no_enchantments_transferred").formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+        player.sendMessage(Text.translatable("speedrunnermod.no_enchantments_transferred").formatted(ModUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
         if (!(player.experienceLevel >= cost)) {
             player.sendMessage(Text.translatable("speedrunnermod.levels_needed", cost), false);
         }

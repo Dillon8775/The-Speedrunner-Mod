@@ -2,8 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.MathUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.block.Blocks;
@@ -46,7 +45,7 @@ public class EnderThrusterItem extends Item implements TutorialMode {
                 if (!(world.getRegistryKey() == World.NETHER)) {
                     int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
                     BlockPos pos = new BlockPos(player.getBlockX(), y - 1, player.getBlockZ());
-                    double playerY = MathUtil.roundToOneDecimalPlace(player.getY());
+                    double playerY = ModUtil.roundToNearestTenthsPlace(player.getY());
 
                     if (y != playerY && !(playerY > y)) {
                         if (confirm) {
@@ -92,7 +91,7 @@ public class EnderThrusterItem extends Item implements TutorialMode {
                         player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.couldnt_teleport"), options().client.itemMessages.isActionbar());
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.wrong_dimension").formatted(ItemUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                    player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.AQUA, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.BLUE), false);
@@ -110,7 +109,7 @@ public class EnderThrusterItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.ender_thruster.tooltip"));
-            ItemUtil.stateOfTheArtItem(tooltip);
+            ModUtil.stateOfTheArtItem(tooltip);
         }
     }
 }

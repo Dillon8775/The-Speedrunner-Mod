@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.mixin.main.item;
 
 import net.dillon.speedrunnermod.item.EyeItem;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
 import net.minecraft.registry.tag.StructureTags;
@@ -30,7 +30,7 @@ public class EnderEyeItemMixin implements EyeItem {
     private void locateExactDistance(World world, PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         BlockPos blockPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, player.getBlockPos(), 100, false);
         BlockPos playerpos = player.getBlockPos();
-        int structureDistance = MathHelper.floor(ItemUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
+        int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
         player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.blocks_away", this.structureTexts(ModStructureTags.STRONGHOLDS), this.distanceFormatting(structureDistance)), options().client.itemMessages.isActionbar());
     }
 }

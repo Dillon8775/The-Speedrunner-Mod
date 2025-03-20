@@ -2,8 +2,9 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 
 import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -74,15 +75,15 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
             ItemStack item;
             if (options().main.iCarusMode) {
-                item = ItemUtil.unbreakableComponentItem();
-                ItemStack fireworks = ItemUtil.flightDurationComponentItem(64);
+                item = ModUtil.unbreakableItem(ModItems.INFINI_PEARL);
+                ItemStack fireworks = ModUtil.flightDurationComponentItem(64);
 
                 this.getInventory().armor.set(2, item);
                 this.getInventory().main.set(options().advanced.iCarusFireworksInventorySlot - 1, fireworks);
             }
 
             if (options().main.infiniPearlMode) {
-                ItemStack infiniPearl = ItemUtil.infiniPearl();
+                ItemStack infiniPearl = ModUtil.unbreakableItem(ModItems.INFINI_PEARL);
                 int slot = options().advanced.infiniPearlInventorySlot - 1;
 
                 if (options().main.iCarusMode && options().advanced.iCarusFireworksInventorySlot == options().advanced.infiniPearlInventorySlot) {

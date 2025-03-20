@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.main.command.argument.ItemStackArgumentTypeMixin;
-import net.dillon.speedrunnermod.util.TimeCalculator;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
@@ -26,7 +28,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
  * <p>- Determine if it is leaderboard-eligible, and then implement into {@link Leaderboards}.</p>
  * <p>- An {@code "isBroken"} check safe boot screen and in {@link ModOptions#safeCheck()}</p>
  * <p>- A ModListOption,</p>
- * <p>- A reset option in {@link SpeedrunnerMod#resetOptions()}.</p>
+ * <p>- A reset option in {@link ModOptions#resetAllOptions()}.</p>
  */
 public class ModOptions {
     public static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
@@ -624,7 +626,7 @@ public class ModOptions {
      * Returns the current {@code Dragon Perch Time} option in milliseconds.
      */
     public int getDragonPerchTime() {
-        return TimeCalculator.secondsToMilliseconds(options().main.dragonPerchTime);
+        return ModUtil.millisecondsAsSeconds(options().main.dragonPerchTime);
     }
 
     /**
@@ -1315,5 +1317,143 @@ public class ModOptions {
         if (!options().isEyeOfEnderBreakingCooldownValid()) {
             warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.eyeOfEnderBreakingCooldown");
         }
+    }
+
+    /**
+     * Resets all of the {@code speedrunner mod options} back to factory default.
+     */
+    @Environment(EnvType.CLIENT)
+    public static void resetAllOptions() {
+        options().main.tutorialMode = false;
+        options().main.playingMode = ModOptions.PlayingMode.EASY;
+        options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
+        options().main.fasterBlockBreaking = true;
+        options().main.blockBreakingMultiplier = 1;
+        options().main.betterBiomes = true;
+        options().main.iCarusMode = false;
+        options().main.infiniPearlMode = false;
+        options().main.dragonPerchTime = 8;
+        options().main.killGhastOnFireball = false;
+        options().main.betterVillagerTrades = true;
+        options().main.fireproofItems = true;
+        options().main.customBiomesAndCustomBiomeFeatures = true;
+        options().main.commonOres = true;
+        options().main.lavaBoats = true;
+        options().main.netherWater = true;
+        options().main.betterFoods = true;
+        options().main.fallDamage = true;
+        options().main.kineticDamage = true;
+        options().main.strongholdDistance = 4;
+        options().main.strongholdSpread = 3;
+        options().main.strongholdCount = 128;
+        options().main.strongholdPortalRoomCount = 3;
+        options().main.strongholdLibraryCount = 2;
+        options().main.mobSpawningRate = ModOptions.MobSpawningRate.HIGH;
+        options().main.fasterSpawners = true;
+        options().main.netherPortalDelay = 2;
+        options().main.throwableFireballs = true;
+        options().main.arrowsDestroyBeds = true;
+        options().main.globalNetherPortals = true;
+        options().main.betterAnvil = true;
+        options().main.anvilCostLimit = 10;
+        options().main.higherEnchantmentLevels = true;
+        options().main.rightClickToRemoveSilkTouch = true;
+        options().main.customDataGeneration = true;
+        options().main.leaderboardsMode = false;
+
+        options().client.firstTimePlaying = false;
+        options().client.fog = true;
+        options().client.itemTooltips = true;
+        options().client.customPanorama = true;
+        options().client.itemMessages = ModOptions.ItemMessages.ACTIONBAR;
+        options().client.confirmMessages = true;
+        options().client.socialButtons = false;
+        options().client.fastWorldCreation = true;
+        options().client.gameMode = ModOptions.GameMode.SURVIVAL;
+        options().client.difficulty = ModOptions.Difficulty.EASY;
+        options().client.allowCheats = false;
+        options().client.showDeathCords = true;
+
+        options().advanced.modifiedStrongholdGeneration = true;
+        options().advanced.modifiedStrongholdYGeneration = true;
+        options().advanced.modifiedNetherFortressGeneration = true;
+        options().advanced.showResetButton = true;
+        options().advanced.higherBreathTime = true;
+        options().advanced.generateSpeedrunnerWood = true;
+        options().advanced.speedrunnersWastelandBiomeWeight = 9;
+        options().advanced.longerDragonPerchStayTime = true;
+        options().advanced.decreasedZombifiedPiglinScareDistance = true;
+        options().advanced.enderEyeBreakingCooldown = 60;
+        options().advanced.piglinAwakenerPiglinCount = 10;
+        options().advanced.iCarusFireworksInventorySlot = 1;
+        options().advanced.infiniPearlInventorySlot = 1;
+        options().advanced.fireballExplosionPower = 1;
+        options().advanced.minimumBrightness = 0.0D;
+        options().advanced.maximumBrightness = 12.0D;
+        options().advanced.dragonKillsNearbyHostileEntities = true;
+        options().advanced.dragonImmunityFromGiantAndWither = true;
+        options().advanced.annulEyePortalRoomDistanceXYZ = createListOption(-128, -128, -128, 128, 128, 128);
+        options().advanced.piglinAwakenerPiglinDistanceXYZ = createListOption(100.0D, 100.0D, 100.0D);
+        options().advanced.blazeSpotterDistanceXYZ = createListOption(-156, -72, -156, 156, 72, 156);
+        options().advanced.raidEradicatorDistanceXYZ = createListOption(300.0D, 300.0D, 300.0D);
+        options().advanced.dragonsPearlDragonDistanceXYZ = createListOption(150.0D, 150.0D, 150.0D);
+        options().advanced.dragonKillsHostileEntitiesDistance = createListOption(200.0D, 200.0D, 200.0D);
+        options().advanced.dragonImmunityDetectionDistanceForGiant = createListOption(200.0D, 200.0D, 200.0D);
+        options().advanced.dragonImmunityDetectionDistanceForWither = createListOption(300.0D, 300.0D, 300.0D);
+
+        options().structureSpawnRates.ancientCities = createStructureSpawnRateOption(16, 8);
+        options().structureSpawnRates.villages = createStructureSpawnRateOption(16, 8);
+        options().structureSpawnRates.desertPyramids = createStructureSpawnRateOption(10, 5);
+        options().structureSpawnRates.junglePyramids = createStructureSpawnRateOption(10, 5);
+        options().structureSpawnRates.pillagerOutposts = createStructureSpawnRateOption(10, 5);
+        options().structureSpawnRates.endCities = createStructureSpawnRateOption(7, 3);
+        options().structureSpawnRates.woodlandMansions = createStructureSpawnRateOption(25, 12);
+        options().structureSpawnRates.ruinedPortals = createStructureSpawnRateOption(9, 4);
+        options().structureSpawnRates.shipwrecks = createStructureSpawnRateOption(10, 5);
+        options().structureSpawnRates.trialChambers = createStructureSpawnRateOption(12, 6);
+        options().structureSpawnRates.netherComplexes = createStructureSpawnRateOption(8, 4);
+
+        options().mixins.terraBlenderSurfaceRuleDataMixin = true;
+        options().mixins.backgroundRendererMixin = true;
+        options().mixins.simpleOptionMixin = true;
+        options().mixins.logoDrawerMixin = true;
+        options().mixins.renderLayersMixin = true;
+        resetTutorialMode();
+    }
+
+    /**
+     * Resets all tutorial mode options.
+     */
+    public static void resetTutorialMode() {
+        options().tutorialMode.enterWorld = false;
+        options().tutorialMode.obtainedSpeedrunnerPickaxe = false;
+        options().tutorialMode.obtainedSpeedrunnerBoat = false;
+        options().tutorialMode.obtainedInfernoEye = false;
+        options().tutorialMode.usedInfernoEye = false;
+        options().tutorialMode.obtainedPiglinAwakener = false;
+        options().tutorialMode.usedPiglinAwakener = false;
+        options().tutorialMode.obtainedBlazeSpotter = false;
+        options().tutorialMode.usedBlazeSpotter = false;
+        options().tutorialMode.obtainedSpeedrunnersEye = false;
+        options().tutorialMode.changedSpeedrunnersEyeLocator = false;
+        options().tutorialMode.usedSpeedrunnersEye = false;
+        options().tutorialMode.obtainedDragonsPearl = false;
+        options().tutorialMode.obtainedAnnulEye = false;
+        options().tutorialMode.usedAnnulEyeTeleporter = false;
+        options().tutorialMode.enteredEnd = false;
+        options().tutorialMode.usedDragonsPearl = false;
+        options().tutorialMode.killedDragon = false;
+        options().tutorialMode.brokenExperienceOre = false;
+        options().tutorialMode.obtainedSpeedrunnersWorkbench = false;
+        options().tutorialMode.transferedEnchantments = false;
+        options().tutorialMode.interactedWithRetiredSpeedrunner = false;
+        options().tutorialMode.obtainedEnderThruster = false;
+        options().tutorialMode.usedEnderThruster = false;
+        options().tutorialMode.obtainedDragonsSword = false;
+        options().tutorialMode.obtainedWitherBone = false;
+        options().tutorialMode.obtainedWitherSword = false;
+        options().tutorialMode.obtainedEnderMatter = false;
+        options().tutorialMode.obtainedInfiniPearl = false;
+        ModOptions.saveConfig();
     }
 }

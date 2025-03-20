@@ -1,14 +1,16 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.item.ModItems;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryKey;
@@ -26,13 +28,14 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
- * Helper methods used for other items.
+ * Helper methods for various different things (ex. items and math calculations)
  */
-public class ItemUtil {
+public class ModUtil {
 
     /**
      * Locates structures.
@@ -83,12 +86,12 @@ public class ItemUtil {
     }
 
     /**
-     * Returns an unbreakable elytra.
+     * Returns an item with the {@link UnbreakableComponent}.
      */
-    public static ItemStack unbreakableComponentItem() {
-        ItemStack elytra = new ItemStack(Items.ELYTRA);
-        elytra.set(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true));
-        return elytra;
+    public static ItemStack unbreakableItem(Item item) {
+        ItemStack stack = new ItemStack(item);
+        stack.set(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true));
+        return stack;
     }
 
     /**
@@ -98,15 +101,6 @@ public class ItemUtil {
         ItemStack fireworks = new ItemStack(Items.FIREWORK_ROCKET, count);
         fireworks.set(DataComponentTypes.FIREWORKS, new FireworksComponent(3, List.of()));
         return fireworks;
-    }
-
-    /**
-     * Returns an infini pearl that is breakable.
-     */
-    public static ItemStack infiniPearl() {
-        ItemStack infiniPearl = new ItemStack(ModItems.INFINI_PEARL);
-        infiniPearl.set(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true));
-        return infiniPearl;
     }
 
     /**
@@ -125,5 +119,34 @@ public class ItemUtil {
      */
     public static Formatting toFormatting(Formatting actionbarOn, Formatting actionbarOff) {
         return options().client.itemMessages.isActionbar() ? actionbarOn : actionbarOff;
+    }
+
+    /**
+     * Multiplies the cost based on the enchantment levels.
+     */
+    public static int multiplyEnchantments(ItemEnchantmentsComponent.Builder enchantmentLevel, Object2IntMap.Entry<RegistryEntry<Enchantment>> entry, int totalTransferred) {
+        return enchantmentLevel.getLevel(entry.getKey()) == 1 ? totalTransferred * totalTransferred : (totalTransferred * totalTransferred) + enchantmentLevel.getLevel(entry.getKey());
+    }
+
+    /**
+     * Rounds the inputted number to the nearest one decimal place (or nearest tenths place)
+     */
+    public static double roundToNearestTenthsPlace(double number) {
+        return Math.round(number * 10.0D) / 10.0D;
+    }
+
+    /**
+     * Returns a random float, with a minimum and maximum value.
+     */
+    public static float randomFloat(float min, float max) {
+        Random random = new Random();
+        return min + random.nextFloat() * (max - min);
+    }
+
+    /**
+     * Converts seconds to milliseconds.
+     */
+    public static int millisecondsAsSeconds(int seconds) {
+        return seconds * 1000;
     }
 }

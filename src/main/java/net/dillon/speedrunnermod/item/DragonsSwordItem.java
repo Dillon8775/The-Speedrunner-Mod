@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
-import net.dillon.speedrunnermod.util.MathUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -38,7 +37,7 @@ public class DragonsSwordItem extends SwordItem {
                 dragon.setHealth(0.0F);
             } else {
                 if (options().main.playingMode.doom()) {
-                    attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), MathUtil.randomFloat(2.0F, 3.0F));
+                    attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloat(2.0F, 3.0F));
                     attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TickCalculator.seconds(5), 0, false, true, true));
                     attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, TickCalculator.seconds(2), 0, false, true, true));
                     if (attacker instanceof PlayerEntity) {
@@ -66,7 +65,7 @@ public class DragonsSwordItem extends SwordItem {
             if (options().main.playingMode.doom()) {
                 tooltip.add(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
             }
-            ItemUtil.stateOfTheArtItem(tooltip);
+            ModUtil.stateOfTheArtItem(tooltip);
         }
     }
 }

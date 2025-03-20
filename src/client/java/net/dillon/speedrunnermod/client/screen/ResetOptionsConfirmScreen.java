@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.client.screen;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -25,7 +24,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
     protected void init() {
         int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET_CONFIRM, (buttonWidget) -> {
-            SpeedrunnerMod.resetOptions();
+            ModOptions.resetAllOptions();
             ModOptions.saveConfig();
             info("Successfully reset all options. Restart the game to take full effect.");
             this.client.setScreen(new ResetOptionsScreen(this.parent, MinecraftClient.getInstance().options));

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.util.ItemUtil;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
@@ -31,7 +31,7 @@ public class KnockbackStickItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (!stack.hasEnchantments()) {
-            stack.addEnchantment(ItemUtil.worldEnchantment(world, Enchantments.KNOCKBACK), 5);
+            stack.addEnchantment(ModUtil.worldEnchantment(world, Enchantments.KNOCKBACK), 5);
         }
     }
 

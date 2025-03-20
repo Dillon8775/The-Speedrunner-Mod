@@ -62,7 +62,7 @@ public class BlazeSpotterItem extends Item implements TutorialMode {
                                 itemStack.decrement(1);
                             }
                         } else {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.found_blaze_spawner").formatted(ItemUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                            player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.found_blaze_spawner").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                             player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.confirm"), false);
                         }
                         if (options().client.confirmMessages) {
@@ -72,11 +72,11 @@ public class BlazeSpotterItem extends Item implements TutorialMode {
                         return ActionResult.SUCCESS;
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 3.0F);
-                        player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner").formatted(ItemUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                        player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                     }
                 } else {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
-                    player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.wrong_dimension").formatted(ItemUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                    player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
@@ -120,7 +120,7 @@ public class BlazeSpotterItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.blaze_spotter.tooltip"));
-            ItemUtil.stateOfTheArtItem(tooltip);
+            ModUtil.stateOfTheArtItem(tooltip);
         }
     }
 }
