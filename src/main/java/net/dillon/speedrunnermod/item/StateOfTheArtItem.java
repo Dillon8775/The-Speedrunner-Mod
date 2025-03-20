@@ -1,16 +1,21 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.tag.ModStructureTags;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.gen.structure.Structure;
 
+import java.util.List;
+
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+
 /**
- * For all speedrunner mod "eye" items, which are used to locate exact distances of structures and print them.
+ * For all speedrunner mod "eye" items and "state of the art items" which are used to locate exact distances of structures and print them.
  */
-public interface EyeItem {
+public interface StateOfTheArtItem {
 
     /**
      * The text to send when the eye has located a structure.
@@ -65,5 +70,14 @@ public interface EyeItem {
      */
     default Text calculatingText() {
         return Text.translatable("item.speedrunnermod.eye.calculating").formatted(Formatting.RED);
+    }
+
+    /**
+     * Adds the tooltips for {@code State-Of-The-Art} items.
+     */
+    default void addStateOfTheArtItemTooltip(List<Text> tooltip) {
+        if (!options().main.playingMode.easy()) {
+            tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
+        }
     }
 }

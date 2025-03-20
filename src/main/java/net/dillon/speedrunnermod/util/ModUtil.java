@@ -19,7 +19,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -56,17 +55,6 @@ public class ModUtil {
         }
 
         world.syncWorldEvent(null, 1003, player.getBlockPos(), 0);
-    }
-
-    /**
-     * Adds the tooltips for {@code State-Of-The-Art} items.
-     */
-    public static void stateOfTheArtItem(List<Text> tooltip) {
-        if (options().main.playingMode.easy()) {
-            tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip.enabled").formatted(Formatting.GREEN).formatted(Formatting.ITALIC));
-        } else {
-            tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art.tooltip.disabled").formatted(Formatting.RED).formatted(Formatting.ITALIC));
-        }
     }
 
     /**
@@ -119,6 +107,13 @@ public class ModUtil {
      */
     public static Formatting toFormatting(Formatting actionbarOn, Formatting actionbarOff) {
         return options().client.itemMessages.isActionbar() ? actionbarOn : actionbarOff;
+    }
+
+    /**
+     * Returns a specific type of formatting based on a certain condition.
+     */
+    public static Formatting toFormatting(boolean bl, Formatting t, Formatting f) {
+        return bl ? t : f;
     }
 
     /**

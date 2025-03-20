@@ -30,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
  */
-public class DragonsPearlItem extends Item implements TutorialMode {
+public class DragonsPearlItem extends Item implements StateOfTheArtItem, TutorialMode {
 
     public DragonsPearlItem(Settings settings) {
         super(settings.maxCount(16).rarity(Rarity.EPIC));
@@ -88,6 +88,7 @@ public class DragonsPearlItem extends Item implements TutorialMode {
                 player.swingHand(hand, true);
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.LIGHT_PURPLE), false);
+                player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 itemStack.decrement(1);
                 player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
@@ -127,7 +128,7 @@ public class DragonsPearlItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
-            ModUtil.stateOfTheArtItem(tooltip);
+            this.addStateOfTheArtItemTooltip(tooltip);
         }
     }
 }

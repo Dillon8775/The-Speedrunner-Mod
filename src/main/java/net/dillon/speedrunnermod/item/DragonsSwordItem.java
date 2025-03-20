@@ -21,7 +21,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * A weapon that {@code one-shots} the {@code ender dragon.}
  */
-public class DragonsSwordItem extends SwordItem {
+public class DragonsSwordItem extends SwordItem implements StateOfTheArtItem {
 
     public DragonsSwordItem(Settings settings) {
         super(ModToolMaterials.DRAGONS_SWORD, 9, -2.4F, settings);
@@ -65,7 +65,7 @@ public class DragonsSwordItem extends SwordItem {
             if (options().main.playingMode.doom()) {
                 tooltip.add(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
             }
-            ModUtil.stateOfTheArtItem(tooltip);
+            this.addStateOfTheArtItemTooltip(tooltip);
         }
     }
 }

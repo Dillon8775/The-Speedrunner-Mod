@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.*;
 import net.minecraft.block.Blocks;
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.StructureTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -29,7 +31,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
-public class AnnulEyeItem extends Item implements EyeItem, TutorialMode {
+public class AnnulEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
     private boolean confirm = !options().client.confirmMessages;
 
     public AnnulEyeItem(Settings settings) {
@@ -64,6 +66,8 @@ public class AnnulEyeItem extends Item implements EyeItem, TutorialMode {
                                 player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, true);
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                                 player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
+
+                                ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
                                 if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
                                     this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy", player);
@@ -117,6 +121,12 @@ public class AnnulEyeItem extends Item implements EyeItem, TutorialMode {
                     }
                 } else {
                     player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.LIGHT_PURPLE), false);
+                    player.swingHand(hand, true);
+                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 0.5F);
+                    itemStack.decrement(1);
+                    player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
+                    player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
+                    player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.GREEN, Formatting.WHITE)), options().client.itemMessages.isActionbar());
@@ -161,10 +171,13 @@ public class AnnulEyeItem extends Item implements EyeItem, TutorialMode {
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
-            if (options().main.playingMode.easy()) {
-                tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2").formatted(Formatting.GRAY));
+            if (!options().main.playingMode.easy()) {
+                tooltip.set(1, tooltip.get(1).copy().formatted(Formatting.STRIKETHROUGH));
+                tooltip.set(2, tooltip.get(2).copy().formatted(Formatting.STRIKETHROUGH));
             }
         }
+        this.addStateOfTheArtItemTooltip(tooltip);
     }
 }

@@ -33,7 +33,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that teleports {@code nearby piglin} to the player.
  */
-public class PiglinAwakenerItem extends Item implements TutorialMode {
+public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, TutorialMode {
     private boolean confirm = !options().client.confirmMessages;
 
     public PiglinAwakenerItem(Settings settings) {
@@ -124,6 +124,7 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
+                player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 stack.decrement(1);
                 for (int i = 0; i < 8; i++) {
@@ -140,7 +141,7 @@ public class PiglinAwakenerItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.piglin_awakener.tooltip"));
-            ModUtil.stateOfTheArtItem(tooltip);
+            this.addStateOfTheArtItemTooltip(tooltip);
         }
     }
 }

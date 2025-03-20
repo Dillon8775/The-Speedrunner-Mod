@@ -27,7 +27,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
  */
-public class InfernoEyeItem extends Item implements EyeItem, TutorialMode {
+public class InfernoEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
     private TagKey<Structure> structureType = ModStructureTags.FORTRESSES;
 
     public InfernoEyeItem(Settings settings) {

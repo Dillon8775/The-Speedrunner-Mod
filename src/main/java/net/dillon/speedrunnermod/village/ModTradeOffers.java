@@ -35,16 +35,10 @@ public class ModTradeOffers {
      */
     public static void registerTradeOffers() {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 1, factories -> {
-            factories.add(new TradeOffers.BuyItemFactory(ModItems.SPEEDRUNNER_INGOT, 1, 24, 3));
-        });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 1, factories -> {
             factories.add(new TradeOffers.SellItemFactory(Items.BOOK, 1, 3, 12, 4));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 1, factories -> {
             factories.add(new MaxedEnchantBookFactory(3, 4, 0.2F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
-        });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 2, factories -> {
-            factories.add(new TradeOffers.ProcessItemFactory(Items.COOKED_BEEF, 1, 1, ModItems.GOLDEN_BEEF, 1, 24, 5, 0.2F));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 2, factories -> {
             factories.add(new MaxedEnchantBookFactory(3, 6, 0.0F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
@@ -58,22 +52,13 @@ public class ModTradeOffers {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 3, factories -> {
             factories.add(new MaxedEnchantBookFactory(3, 10, 0.0F, 16, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 3, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(ModItems.ENDER_THRUSTER, 3, 1, 12, 9));
-        });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
             factories.add(new TradeOffers.SellItemFactory(Items.GOLDEN_APPLE, 4, 3, 16, 12));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.ENCHANTED_GOLDEN_APPLE, 12, 1, 3, 14));
-        });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(ModItems.DRAGONS_PEARL, 3, 1, 12, 12));
-        });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
             factories.add(new TradeOffers.SellItemFactory(ModItems.INFINI_PEARL, 24, 1, 1, 14));
         });
-        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 4, factories -> {
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 5, factories -> {
             factories.add(new TradeOffers.SellItemFactory(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 15));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 5, factories -> {

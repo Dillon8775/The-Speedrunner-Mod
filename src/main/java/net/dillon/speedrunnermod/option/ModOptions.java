@@ -287,7 +287,7 @@ public class ModOptions {
          * Enable/disable the confirmation messages when using certain items (ex. eye of annul, ender thruster, piglin awakener, etc.).
          */
         @RequiresRestart
-        public boolean confirmMessages = true;
+        public boolean confirmMessages = false;
 
         /**
          * Display the external link buttons across different screens.
@@ -1366,7 +1366,7 @@ public class ModOptions {
         options().client.itemTooltips = true;
         options().client.customPanorama = true;
         options().client.itemMessages = ModOptions.ItemMessages.ACTIONBAR;
-        options().client.confirmMessages = true;
+        options().client.confirmMessages = false;
         options().client.socialButtons = false;
         options().client.fastWorldCreation = true;
         options().client.gameMode = ModOptions.GameMode.SURVIVAL;

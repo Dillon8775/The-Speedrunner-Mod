@@ -165,6 +165,10 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.STICK)
                 .add(ModItems.SPEEDRUNNER_STICK);
 
+        getOrCreateTagBuilder(ModItemTags.TOTEMS)
+                .add(Items.TOTEM_OF_UNDYING)
+                .add(ModItems.SPEEDRUNNERS_TOTEM);
+
         getOrCreateTagBuilder(ModItemTags.WITHER_TOOL_MATERIALS)
                 .add(ModItems.WITHER_BONE);
 

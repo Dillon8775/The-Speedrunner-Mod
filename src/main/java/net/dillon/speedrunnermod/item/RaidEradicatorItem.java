@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -33,7 +34,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that kills all nearby {@link RaiderEntity}s.
  */
-public class RaidEradicatorItem extends Item {
+public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
     private boolean confirm = !options().client.confirmMessages;
 
     public RaidEradicatorItem(Settings settings) {
@@ -49,7 +50,7 @@ public class RaidEradicatorItem extends Item {
                 List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ[0], options().advanced.raidEradicatorDistanceXYZ[1], options().advanced.raidEradicatorDistanceXYZ[2]), entity -> true);
 
                 if (!raiders.isEmpty()) {
-                    boolean hasTotemEquipped = player.getInventory().contains(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack()) || player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING) || player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING);
+                    boolean hasTotemEquipped = player.getMainHandStack().isIn(ModItemTags.TOTEMS) || player.getOffHandStack().isIn(ModItemTags.TOTEMS);
                     if (player.getAbilities().creativeMode) {
                         hasTotemEquipped = true;
                     }
@@ -121,7 +122,7 @@ public class RaidEradicatorItem extends Item {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
-            ModUtil.stateOfTheArtItem(tooltip);
+            this.addStateOfTheArtItemTooltip(tooltip);
         }
     }
 }

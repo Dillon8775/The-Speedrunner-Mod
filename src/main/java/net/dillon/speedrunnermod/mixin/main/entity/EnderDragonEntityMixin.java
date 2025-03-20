@@ -91,7 +91,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Tutori
                     dragon.getBoundingBox().expand(options().advanced.dragonKillsHostileEntitiesDistance[0], options().advanced.dragonKillsHostileEntitiesDistance[1], options().advanced.dragonKillsHostileEntitiesDistance[2]), entity -> true);
 
             for (HostileEntity hostile : hostiles) {
-                if (!(hostile instanceof EndermanEntity)) {
+                if (!(hostile instanceof EndermanEntity) && !hostile.hasCustomName()) {
                     hostile.kill(serverWorld);
                 }
             }

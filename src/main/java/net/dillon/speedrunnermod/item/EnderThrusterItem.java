@@ -29,7 +29,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
-public class EnderThrusterItem extends Item implements TutorialMode {
+public class EnderThrusterItem extends Item implements StateOfTheArtItem, TutorialMode {
     private boolean confirm = !options().client.confirmMessages;
 
     public EnderThrusterItem(Settings settings) {
@@ -95,6 +95,7 @@ public class EnderThrusterItem extends Item implements TutorialMode {
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.BLUE), false);
+                player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 itemStack.decrement(1);
                 player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
@@ -109,7 +110,7 @@ public class EnderThrusterItem extends Item implements TutorialMode {
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.ender_thruster.tooltip"));
-            ModUtil.stateOfTheArtItem(tooltip);
+            this.addStateOfTheArtItemTooltip(tooltip);
         }
     }
 }

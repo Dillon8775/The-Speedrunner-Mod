@@ -32,11 +32,11 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
-public class SpeedrunnersEyeItem extends Item implements EyeItem, TutorialMode {
+public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
     private BlockPos currentBlockPos = null;
 
     public SpeedrunnersEyeItem(Settings settings) {
-        super(settings.component(ModDataComponentTypes.BOOLEAN, false).component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
+        super(settings.maxCount(16).component(ModDataComponentTypes.BOOLEAN, false).component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
     }
 
     @ChatGPT(Credit.PARTIAL_CREDIT)

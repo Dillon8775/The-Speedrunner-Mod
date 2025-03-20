@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
-import net.dillon.speedrunnermod.item.EyeItem;
+import net.dillon.speedrunnermod.item.StateOfTheArtItem;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(EnderEyeItem.class)
-public class EnderEyeItemMixin implements EyeItem {
+public class EnderEyeItemMixin implements StateOfTheArtItem {
 
     /**
      * Locates the exact distance of the nearest stronghold and sends it to the player.
