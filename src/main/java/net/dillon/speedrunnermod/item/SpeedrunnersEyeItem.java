@@ -33,10 +33,10 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
 public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
-    private BlockPos currentBlockPos = null;
+    private BlockPos currentBlockPos;
 
     public SpeedrunnersEyeItem(Settings settings) {
-        super(settings.maxCount(16).component(ModDataComponentTypes.BOOLEAN, false).component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
+        super(settings.maxCount(16).component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
     }
 
     @ChatGPT(Credit.PARTIAL_CREDIT)
@@ -82,26 +82,14 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, Tuto
 
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), options().client.itemMessages.isActionbar());
                 } else {
+                    player.sendMessage(this.calculatingText(), false);
                     ServerWorld serverWorld = (ServerWorld)world;
-                    // if structure blockpos is the same as before, don't warn the player about calculating distance, as it doesn't need to since the location is the same
                     BlockPos playerpos = player.getBlockPos();
-                    BlockPos oldBlockPos = currentBlockPos;
-                    BlockPos newBlockPos = serverWorld.locateStructure(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE), playerpos, 100, false);
-
-                    if (oldBlockPos == null || !oldBlockPos.equals(newBlockPos)) {
-                        player.sendMessage(this.calculatingText(), false);
-                        itemStack.set(ModDataComponentTypes.BOOLEAN, true);
-                    }
-
                     ModUtil.findStructureAndShoot(world, player, itemStack, itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
-                    int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), newBlockPos.getX(), newBlockPos.getZ()));
+                    BlockPos blockPos = serverWorld.locateStructure(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE), playerpos, 100, false);
+                    int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), options().client.itemMessages.isActionbar());
-                    // check and set currentBlockPos to the new (or current) structure location
-                    if (!newBlockPos.equals(oldBlockPos)) {
-                        itemStack.set(ModDataComponentTypes.BOOLEAN, false);
-                        currentBlockPos = newBlockPos;
-                    }
 
                     if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && !options().tutorialMode.usedSpeedrunnersEye) {
                         this.send("speedrunnermod.tutorial_mode.used_speedrunners_eye.easy", player);

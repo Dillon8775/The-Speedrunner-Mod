@@ -6,25 +6,26 @@ import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.AdvancementEntry;
-import net.minecraft.advancement.AdvancementFrame;
-import net.minecraft.advancement.AdvancementRequirements;
+import net.minecraft.advancement.*;
+import net.minecraft.advancement.criterion.ChangedDimensionCriterion;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
+import net.minecraft.advancement.criterion.OnKilledCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
-
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod advancements.
@@ -37,13 +38,14 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
 
     @Override
     public void generateAdvancement(RegistryWrapper.WrapperLookup wrapperLookup, Consumer<AdvancementEntry> exporter) {
+        RegistryEntryLookup<EntityType<?>> entityLookup = wrapperLookup.getOrThrow(RegistryKeys.ENTITY_TYPE);
         RegistryEntryLookup<Item> itemLookup = wrapperLookup.getOrThrow(RegistryKeys.ITEM);
         AdvancementEntry root = Advancement.Builder.create()
                 .display(
                         ModBlockItems.SPEEDRUNNERS_WORKBENCH,
                         Text.translatable("advancements.speedrunnermod.title"),
                         Text.translatable("advancements.speedrunnermod.description"),
-                        ofSpeedrunnerMod("minecraft:textures/gui/advancements/backgrounds/stone.png"),
+                        Identifier.ofVanilla("textures/gui/advancements/backgrounds/stone.png"),
                         AdvancementFrame.TASK,
                         false,
                         false,
@@ -193,7 +195,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .build(exporter, "speedrunnermod:items/ranged_speedrunning");
 
         Advancement.Builder.create()
-                .parent(suitedForSpeedrunning)
+                .parent(rangedSpeedrunning)
                 .display(
                         ModItems.SPEEDRUNNER_CROSSBOW,
                         Text.translatable("advancements.speedrunnermod.speedy_betsy.title"),
@@ -222,7 +224,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.ANNUL_EYE))
                 .build(exporter, "speedrunnermod:items/the_end_is_near");
 
-        AdvancementEntry backToTheSurface = Advancement.Builder.create()
+        Advancement.Builder.create()
                 .parent(eyeOfTheStructures)
                 .display(
                         ModItems.ENDER_THRUSTER,
@@ -281,6 +283,117 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 )
                 .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.PIGLIN_AWAKENER))
                 .build(exporter, "speedrunnermod:items/piglin_rally");
+
+        Advancement.Builder.create()
+                .parent(piglinRally)
+                .display(
+                        ModItems.BLAZE_SPOTTER,
+                        Text.translatable("advancements.speedrunnermod.the_blazez_awaitz.title"),
+                        Text.translatable("advancements.speedrunnermod.the_blazez_awaitz.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.BLAZE_SPOTTER))
+                .build(exporter, "speedrunnermod:items/the_blazez_awaitz");
+
+        AdvancementEntry goliath = Advancement.Builder.create()
+                .parent(perchAlready)
+                .display(
+                        Items.ZOMBIE_HEAD,
+                        Text.translatable("advancements.speedrunnermod.goliath.title"),
+                        Text.translatable("advancements.speedrunnermod.goliath.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        true
+                )
+                .criterion("killed_goliath", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                                .type(entityLookup, EntityType.GIANT)))
+                .build(exporter,"speedrunnermod:adventure/goliath");
+
+        Advancement.Builder.create()
+                .parent(goliath)
+                .display(
+                        ModItems.RAID_ERADICATOR,
+                        Text.translatable("advancements.speedrunnermod.the_purge.title"),
+                        Text.translatable("advancements.speedrunnermod.the_purge.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.RAID_ERADICATOR))
+                .build(exporter, "speedrunnermod:items/the_purge");
+
+        AdvancementEntry oneHitOneKill = Advancement.Builder.create()
+                .parent(perchAlready)
+                .display(
+                        ModItems.DRAGONS_SWORD,
+                        Text.translatable("advancements.speedrunnermod.one_hit_one_kill.title"),
+                        Text.translatable("advancements.speedrunnermod.one_hit_one_kill.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        true
+                )
+                .criterion("killed_dragon", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                        .type(entityLookup, EntityType.ENDER_DRAGON)))
+                .criterion("used_dragons_sword", UsedItemCriterion.Conditions.item(itemLookup, ModItems.DRAGONS_SWORD))
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .build(exporter, "speedrunnermod:items/one_hit_one_kill");
+
+        AdvancementEntry yesTheEnd = Advancement.Builder.create()
+                .parent(oneHitOneKill)
+                .display(
+                        Items.DRAGON_HEAD,
+                        Text.translatable("advancements.speedrunnermod.yes_the_end.title"),
+                        Text.translatable("advancements.speedrunnermod.yes_the_end.description"),
+                        null,
+                        AdvancementFrame.GOAL,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("exited_end", ChangedDimensionCriterion.Conditions.create(World.END, World.OVERWORLD))
+                .build(exporter, "speedrunnermod:adventure/exited_end");
+
+        AdvancementEntry theEndsMatter = Advancement.Builder.create()
+                .parent(yesTheEnd)
+                .display(
+                        ModItems.ENDER_MATTER,
+                        Text.translatable("advancements.speedrunnermod.the_ends_matter.title"),
+                        Text.translatable("advancements.speedrunnermod.the_ends_matter.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.ENDER_MATTER))
+                .build(exporter, "speedrunnermod:items/the_ends_matter");
+
+        Advancement.Builder.create()
+                .parent(theEndsMatter)
+                .display(
+                        ModItems.INFINI_PEARL,
+                        Text.translatable("advancements.speedrunnermod.to_infini_and_beyond.title"),
+                        Text.translatable("advancements.speedrunnermod.to_infini_and_beyond.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.INFINI_PEARL))
+                .build(exporter, "speedrunnermod:items/to_infini_and_beyond");
     }
 
     /**

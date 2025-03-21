@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
@@ -50,7 +51,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                 List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ[0], options().advanced.raidEradicatorDistanceXYZ[1], options().advanced.raidEradicatorDistanceXYZ[2]), entity -> true);
 
                 if (!raiders.isEmpty()) {
-                    boolean hasTotemEquipped = player.getMainHandStack().isIn(ModItemTags.TOTEMS) || player.getOffHandStack().isIn(ModItemTags.TOTEMS);
+                    boolean hasTotemEquipped = player.getInventory().contains(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack()) || player.getMainHandStack().isIn(ModItemTags.TOTEMS) || player.getOffHandStack().isIn(ModItemTags.TOTEMS);
                     if (player.getAbilities().creativeMode) {
                         hasTotemEquipped = true;
                     }
@@ -79,6 +80,8 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                                         }
                                     }
                                     player.damage(serverWorld, player.getDamageSources().generic(), player.getHealth());
+
+                                    ModCriterions.USED_ITEM.trigger(serverPlayer, stack);
 
                                     Text purgedText = Text.translatable("item.speedrunnermod.raid_eradicator.purged").formatted(Formatting.RED);
                                     serverPlayer.networkHandler.sendPacket(new TitleS2CPacket(Text.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).formatted(Formatting.AQUA).formatted(Formatting.BOLD)));

@@ -171,8 +171,8 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem, TutorialMod
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1").formatted(Formatting.GRAY));
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2").formatted(Formatting.GRAY));
+            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1"));
+            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2"));
             if (!options().main.playingMode.easy()) {
                 tooltip.set(1, tooltip.get(1).copy().formatted(Formatting.STRIKETHROUGH));
                 tooltip.set(2, tooltip.get(2).copy().formatted(Formatting.STRIKETHROUGH));

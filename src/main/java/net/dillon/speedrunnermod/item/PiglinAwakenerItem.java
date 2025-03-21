@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
@@ -15,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -96,6 +98,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, Tutor
                                                 options().tutorialMode.usedPiglinAwakener = true;
                                                 ModOptions.saveConfig();
                                             }
+                                            ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, stack);
                                         }
                                     }, ModUtil.millisecondsAsSeconds(2));
                                 } else {

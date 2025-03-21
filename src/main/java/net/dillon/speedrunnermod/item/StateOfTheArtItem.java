@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;

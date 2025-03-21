@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.entity.EquipmentSlot;
@@ -11,8 +12,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Rarity;
 
 import java.util.List;
 
@@ -24,7 +27,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public class DragonsSwordItem extends SwordItem implements StateOfTheArtItem {
 
     public DragonsSwordItem(Settings settings) {
-        super(ModToolMaterials.DRAGONS_SWORD, 9, -2.4F, settings);
+        super(ModToolMaterials.DRAGONS_SWORD, 9, -2.4F, settings.rarity(Rarity.EPIC));
     }
 
     /**
@@ -32,9 +35,10 @@ public class DragonsSwordItem extends SwordItem implements StateOfTheArtItem {
      */
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (target instanceof EnderDragonEntity dragon) {
+        if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
             if (!options().main.playingMode.doom() && !options().main.playingMode.normal()) {
                 dragon.setHealth(0.0F);
+                ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, stack);
             } else {
                 if (options().main.playingMode.doom()) {
                     attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloat(2.0F, 3.0F));

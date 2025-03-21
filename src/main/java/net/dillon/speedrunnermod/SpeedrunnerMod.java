@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
@@ -57,7 +58,9 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModBoats.initializeBoats();
 
+        ModCriterions.initializeCriterions();
         ModDataComponentTypes.init();
+
         ModBlocks.initializeBlocks();
         ModBlockFamilies.initializeBlockFamilies();
         ModBlockItems.initializeBlockItems();

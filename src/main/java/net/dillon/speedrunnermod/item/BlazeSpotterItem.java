@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.*;
 import net.minecraft.block.Blocks;
@@ -13,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -44,6 +46,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem, Tutoria
         if (!world.isClient) {
             if (options().main.playingMode.easy()) {
                 if (world.getRegistryKey() == World.NETHER) {
+                    player.sendMessage(this.calculatingText(), false);
                     BlockPos blazeSpawnerPos = this.findNearestBlazeSpawner((ServerWorld)world, player.getBlockPos());
                     if (blazeSpawnerPos != null) {
                         if (confirm) {
@@ -58,6 +61,9 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem, Tutoria
                                 options().tutorialMode.usedBlazeSpotter = true;
                                 ModOptions.saveConfig();
                             }
+
+                            ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);
                             }
