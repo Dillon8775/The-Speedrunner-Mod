@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BedBlock.class)
-public abstract class BedBlockMixin {
+public class BedBlockMixin {
 
     /**
      * Cancels the original explosion method, and creates a new one, increasing the explosion power with beds in the end.

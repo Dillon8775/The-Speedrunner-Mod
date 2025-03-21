@@ -15,7 +15,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.structure.Structure;
 
 import java.util.List;

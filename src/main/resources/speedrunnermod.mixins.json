@@ -88,7 +88,7 @@
     "main.item.FoodComponentsMixin",
     "main.item.ItemEntityMixin",
     "main.item.ItemMixin",
-    "main.item.UseCooldownComponent",
+    "main.item.UseCooldownComponentMixin",
     "main.nether.DimensionTypeMixin",
     "main.nether.portal.AbstractFireBlockMixin",
     "main.nether.portal.NetherPortalBlockMixin",

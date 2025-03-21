@@ -27,7 +27,7 @@ public class ModListOptions {
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.PlayingMode.values()), Codec.INT.xmap(ModOptions.PlayingMode::byId, ModOptions.PlayingMode::getId)),
                     options().main.playingMode, value -> options().main.playingMode = value);
 
-    public static final SimpleOption<ModOptions.StructureSpawnRate> STRUCTURE_SPAWN_RATES =
+    public static final SimpleOption<ModOptions.StructureSpawnRate> STRUCTURE_SPAWN_RATE =
             new SimpleOption<>("speedrunnermod.options.structure_spawn_rates", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.structure_spawn_rates.tooltip")), SimpleOption.enumValueText(),
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
                     options().main.structureSpawnRates, value -> options().main.structureSpawnRates = value);

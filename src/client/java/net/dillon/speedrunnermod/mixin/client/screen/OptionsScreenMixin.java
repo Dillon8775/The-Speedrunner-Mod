@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.dillon.speedrunnermod.client.screen.MainScreen;
+import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.dillon.speedrunnermod.client.util.ModIcons;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;

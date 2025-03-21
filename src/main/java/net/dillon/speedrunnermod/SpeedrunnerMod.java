@@ -675,19 +675,19 @@ public class SpeedrunnerMod implements ModInitializer {
 
     public static int getNetherComplexesSpacing() {
         if (options().main.structureSpawnRates.everywhere()) {
-            return 4;
+            return 5;
         } else if (options().main.structureSpawnRates.veryCommon()) {
-            return 6;
+            return 7;
         } else if (options().main.structureSpawnRates.common()) {
-            return 8;
+            return 10;
         } else if (options().main.structureSpawnRates.normal()) {
-            return 15;
+            return 17;
         } else if (options().main.structureSpawnRates.ddefault()) {
-            return 27;
+            return 30;
         } else if (options().main.structureSpawnRates.rare()) {
-            return 34;
-        } else if (options().main.structureSpawnRates.veryRare()) {
             return 40;
+        } else if (options().main.structureSpawnRates.veryRare()) {
+            return 50;
         } else {
             return options().structureSpawnRates.netherComplexes[0];
         }
@@ -695,18 +695,18 @@ public class SpeedrunnerMod implements ModInitializer {
 
     public static int getNetherComplexesSeparation() {
         if (options().main.structureSpawnRates.everywhere()) {
-            return 2;
+            return 3;
         } else if (options().main.structureSpawnRates.veryCommon()) {
-            return 5;
-        } else if (options().main.structureSpawnRates.common()) {
             return 7;
+        } else if (options().main.structureSpawnRates.common()) {
+            return 8;
         } else if (options().main.structureSpawnRates.normal() ||
                 options().main.structureSpawnRates.rare()) {
-            return 8;
+            return 10;
         } else if (options().main.structureSpawnRates.ddefault()) {
             return 4;
         } else if (options().main.structureSpawnRates.veryRare()) {
-            return 10;
+            return 14;
         } else {
             return options().structureSpawnRates.netherComplexes[1];
         }

@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.client.impl;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import net.dillon.speedrunnermod.client.screen.MainScreen;
+import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
