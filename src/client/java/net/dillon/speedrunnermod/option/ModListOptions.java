@@ -179,8 +179,8 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> DRAGON_KILLS_NEARBY_HOSTILE_ENTITIES = new SimpleOption<>("speedrunnermod.options.dragon_kills_nearby_hostile_entities", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip")),
             (optionText, value) -> !value ? ModTexts.NO : ModTexts.YES, SimpleOption.BOOLEAN, options().advanced.dragonKillsNearbyHostileEntities, value -> options().advanced.dragonKillsNearbyHostileEntities = value);
 
-    public static final SimpleOption<Boolean> DRAGON_IMMUNITY_FROM_GIANT_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_giant_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_immunity_from_giant_and_wither.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGiantAndWither, value -> options().advanced.dragonImmunityFromGiantAndWither = value);
+    public static final SimpleOption<Boolean> DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip")),
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGoliathAndWither, value -> options().advanced.dragonImmunityFromGoliathAndWither = value);
 
     public static final SimpleOption<Boolean> THROWING_FIREBALL_REQUIRES_SHIFTING = new SimpleOption<>("speedrunnermod.options.throwing_fireball_requires_shifting", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.throwing_fireball_requires_shifting.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.throwingFireballRequiresShifting, value -> options().advanced.throwingFireballRequiresShifting = value);
@@ -428,7 +428,7 @@ public class ModListOptions {
     }
 
     /**
-     * {@code "Inactivable"} options, which are buttons that can be disabled, or grayed out under certain conditions.
+     * {@code "Inactivable"} options (or IAO, In-Activeable Options), which are buttons that can be disabled, or grayed out under certain conditions.
      */
     public static class Inactiveable {
 
@@ -456,8 +456,8 @@ public class ModListOptions {
                 (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.allowCheats, value -> options().client.allowCheats = value);
 
         @InactiveableOption
-        public static final SimpleOption<Boolean> IAO_DRAGON_IMMUNITY_FROM_GIANT_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_giant_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.doom_mode_required")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGiantAndWither, value -> options().advanced.dragonImmunityFromGiantAndWither = value);
+        public static final SimpleOption<Boolean> IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.doom_mode_required")),
+                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGoliathAndWither, value -> options().advanced.dragonImmunityFromGoliathAndWither = value);
 
         @InactiveableOption
         public static final SimpleOption<Integer> IAO_PIGLIN_AWAKENER_PIGLIN_COUNT =

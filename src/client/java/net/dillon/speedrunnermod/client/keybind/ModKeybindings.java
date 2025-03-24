@@ -25,7 +25,7 @@ public class ModKeybindings {
     /**
      * Initializes all {@code Speedrunner Mod} keybindings.
      */
-    public static void clinit() {
+    public static void initializeKeybinds() {
         info("Initialized keybinds.");
         if (isSimpleKeybindsLoaded()) {
             info("Simple Keybinds mod is loaded, compatibility has been added.");

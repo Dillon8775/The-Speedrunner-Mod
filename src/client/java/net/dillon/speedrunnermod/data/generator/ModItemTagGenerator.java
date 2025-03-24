@@ -267,6 +267,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModBlockItems.DEAD_SPEEDRUNNER_HANGING_SIGN);
 
         getOrCreateTagBuilder(ModItemTags.Block.TEXTURE_CREATOR_MANNYQUESO)
+                .add(ModBlockItems.SPEEDRUNNERS_WORKBENCH)
                 .add(ModBlockItems.THRUSTED_BLOCK);
 
         getOrCreateTagBuilder(ModItemTags.Block.TEXTURE_CREATOR_KREVIKUS)

@@ -1,0 +1,30 @@
+# §aRemoved §b§lState-of-the-Art items§r §boption§f (see more info below).
+
+## §aRemoved §c§lDoom Mode option, §areplaced with §a§onew§r§a option, §b§lPlaying Mode:
+    §a- There are three levels to the §a§lPlaying Mode:§r§a Easy, §bNormal,§a and §cDoom. §a§oEasy§r§a is the default option.
+
+##  §a§l§nEasy Mode
+- Enables state-of-the-art items/features (eye of annul blaze spotter, dragons pearl, etc.)
+- Makes certain structures smaller for easier navigation.
+- Makes certain ores generate more commonly.
+- Makes experience orbs generate throughout the world.
+- Makes ender eyes have a higher chance of generating pre-filled in the stronghold.
+
+##  §b§l§nNormal Mode
+- §lDisables§r state-of-the-art items/features (items like the dragons pearl and eye of annul will §l§onot§r work on this playing mode).
+
+##  §c§l§nDoom Mode
+- It's just Doom Mode, but in a different setting. For more info on Doom Mode, refer to the features page.
+
+#### §b§oThis was added to balance the mod, and give players the option to play as a very beginner speedrunner, or to just speedrun with only a few changes to the game, instead of basically playing on a "baby mode".
+
+# §b§lWorld Generation Changes
+- §cNether fortresses§f and §7bastions§f are now §c§oslightly more rare§r§f to make the §6eye of inferno§a more useful.
+
+# §d§l"Eye-Item" Changes
+- The §dEye of Annul §c§ono longer locates§r§f the §cexact distance of the stronghold, §fthe §aeye of ender§f now does this.
+- The §aEye of Ender§f behaves normally, with the §a§oaddition§r§f of §asending the exact distance of the nearest stronghold (in blocks) to the player.
+- The §dEye of Annul is now §b§lonly used§r§f for §ateleporting directly to the stronghold portal room.
+- The §b§lSpeedrunner's Eye§r§f and §6§lEye of Inferno§r§f now have a custom data component, called §b"locating_structure",§f which §astores what structure that the item is currently locating.
+- §bSpeedrunner's Eyes now only stack to 16.
+- §aThrowing§f a §cdisabled item§f (ex. on playing mode §eNormal mode§f or §cDoom Mode)§f will §aconsume the item, but §b§ogive the resources to craft it back to the player.

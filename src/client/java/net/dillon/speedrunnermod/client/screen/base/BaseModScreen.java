@@ -2,13 +2,17 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.screen.base.feature.*;
 import net.dillon.speedrunnermod.client.screen.base.options.*;
+import net.dillon.speedrunnermod.client.screen.base.text.ChangelogsScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.Version110Changelog;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
+import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.*;
 import net.dillon.speedrunnermod.client.screen.feature.doommode.*;
 import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.*;
 import net.dillon.speedrunnermod.client.screen.feature.more.*;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.*;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -17,6 +21,7 @@ import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
@@ -28,6 +33,7 @@ import java.util.List;
  */
 @Environment(EnvType.CLIENT)
 public class BaseModScreen extends GameOptionsScreen {
+    public ButtonWidget refreshButton;
     protected final GameOptions options = MinecraftClient.getInstance().options;
 
     public BaseModScreen(Screen parent, GameOptions options, Text title) {
@@ -66,6 +72,23 @@ public class BaseModScreen extends GameOptionsScreen {
     }
 
     /**
+     * Refreshes a base mod screen.
+     */
+    public void refreshScreen(String id) {
+        ModOptions.saveConfig();
+        this.client.setScreen(new RefreshingScreen(parent, options));
+        this.client.setScreen(this.determineRefreshedScreen(id));
+    }
+
+    /**
+     * Refreshes a feature screen.
+     */
+    public void refreshFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
+        this.client.setScreen(new RefreshingScreen(parent, options));
+        this.client.setScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
+    }
+
+    /**
      * Determines the refreshed screen for base screens.
      */
     public Screen determineRefreshedScreen(String pageId) {
@@ -75,6 +98,18 @@ public class BaseModScreen extends GameOptionsScreen {
             }
         }
         return new MainScreen(this.parent, this.options);
+    }
+
+    /**
+     * Determines the refreshed screen for feature screens.
+     */
+    public Screen determineRefreshedFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
+        for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
+            if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == screenCategory) {
+                return screen;
+            }
+        }
+        return new FirstTimePlayingScreen(this.parent, this.options);
     }
 
     /**
@@ -104,7 +139,7 @@ public class BaseModScreen extends GameOptionsScreen {
                 new BasicsScreen(parent, options),
                 new BossesScreen(parent, options),
                 new DoomBlocksScreen(parent, options),
-                new GiantScreen(parent, options),
+                new GoliathScreen(parent, options),
                 new OtherThingsToKnowScreen(parent, options),
                 new FasterBlockBreakingScreen(parent, options),
                 new FogKeyScreen(parent, options),
@@ -196,7 +231,9 @@ public class BaseModScreen extends GameOptionsScreen {
                 new FastWorldCreationOptionsScreen(parent, options),
                 new MainOptionsScreen(parent, options),
                 new MixinOptionsScreen(parent, options),
-                new StructureSpawnRateOptionsScreen(parent, options)
+                new StructureSpawnRateOptionsScreen(parent, options),
+                new ChangelogsScreen(parent, options),
+                new Version110Changelog(parent, options)
         );
     }
 

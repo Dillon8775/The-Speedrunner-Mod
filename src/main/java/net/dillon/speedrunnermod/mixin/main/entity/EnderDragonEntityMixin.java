@@ -103,7 +103,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Tutori
      */
     @Override
     public void onDeath(DamageSource source) {
-        if (options().main.playingMode.doom() && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
+        if (options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) {
             this.setHealth(1.0F);
         } else {
             EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
@@ -137,7 +137,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Tutori
                 return false;
             }
 
-            if (options().main.playingMode.doom() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGiantAndWither && this.isGiantOrWitherAlive()) {
+            if (options().main.playingMode.doom() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) {
                 return false;
             } else {
                 if (source.getAttacker() instanceof PlayerEntity || source.isIn(DamageTypeTags.ALWAYS_HURTS_ENDER_DRAGONS)) {
@@ -170,7 +170,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity implements Tutori
     private boolean isGiantOrWitherAlive() {
         EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
         List<GiantEntity> giants = this.getWorld().getEntitiesByClass(GiantEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForGiant[0], options().advanced.dragonImmunityDetectionDistanceForGiant[1], options().advanced.dragonImmunityDetectionDistanceForGiant[2]), entity -> true);
+                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForGoliath[0], options().advanced.dragonImmunityDetectionDistanceForGoliath[1], options().advanced.dragonImmunityDetectionDistanceForGoliath[2]), entity -> true);
         List<WitherEntity> withers = this.getWorld().getEntitiesByClass(WitherEntity.class,
                 dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForWither[0], options().advanced.dragonImmunityDetectionDistanceForWither[1], options().advanced.dragonImmunityDetectionDistanceForWither[2]), entity -> true);
 

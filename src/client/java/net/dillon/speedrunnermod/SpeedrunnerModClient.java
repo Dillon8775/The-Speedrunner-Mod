@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod;
 
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
 import net.dillon.speedrunnermod.client.render.ModRenderers;
+import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.option.BrokenModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.ClientModInitializer;
@@ -23,14 +24,15 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      */
     @Override
     public void onInitializeClient() {
-        ModRenderers.init();
+        ModRenderers.initializeRenderers();
+        ModHandledScreens.registerScreens();
 
         if (options().main.leaderboardsMode && !isSpeedrunIGTLoaded()) {
             speedrunIGTMissing = true;
             warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
         }
 
-        ModKeybindings.clinit();
+        ModKeybindings.initializeKeybinds();
 
         info("Client-side Speedrunner Mod features have successfully loaded!");
     }

@@ -62,6 +62,9 @@ public class ModTexts {
     public static final Text MENU_RESOURCES = Text.translatable("speedrunnermod.menu.resources");
     public static final Text MENU_RESOURCES_TOOLTIP = Text.translatable("speedrunnermod.menu.resources.tooltip");
     public static final Text TITLE_RESOURCES = Text.translatable("speedrunnermod.title.resources");
+    public static final Text MENU_CHANGELOGS = Text.translatable("speedrunnermod.menu.changelogs").formatted(Formatting.GREEN);
+    public static final Text MENU_CHANGELOGS_TOOLTIP = Text.translatable("speedrunnermod.menu.changelogs.tooltip");
+    public static final Text TITLE_CHANGELOGS = Text.translatable("speedrunnedmod.title.changelogs");
     public static final Text MENU_MODS = Text.translatable("speedrunnermod.menu.resources.mods").formatted(Formatting.AQUA);
     public static final Text TITLE_MODS = Text.translatable("speedrunnermod.title.resources.mods");
     public static final Text MENU_TUTORIALS = Text.translatable("speedrunnermod.menu.resources.tutorials").formatted(Formatting.DARK_AQUA);
@@ -72,8 +75,6 @@ public class ModTexts {
     public static final Text ENABLE_DOOM_MODE = Text.translatable("speedrunnermod.doom_mode.enable").formatted(Formatting.RED);
     public static final Text MENU_DOOM_MODE = Text.translatable("speedrunnermod.menu.doom_mode");
     public static final Text TITLE_DOOM_MODE = Text.translatable("speedrunnermod.title.doom_mode");
-    public static final Text TITLE_TRANSFER_OPTIONS_TO_PLAYER = Text.translatable("speedrunnermod.title.transfer_options_to_player");
-    public static final Text FIND_AND_SEND = Text.translatable("speedrunnermod.find_and_send");
 
     public static final Text EASIER_SPEEDRUNNING_MOD = Text.translatable("speedrunnermod.the_easier_speedrunning_mod");
     public static final Text EASIER_SPEEDRUNNING_MOD_TOOLTIP = Text.translatable("speedrunnermod.the_easier_speedrunning_mod.tooltip");
@@ -116,7 +117,7 @@ public class ModTexts {
     public static final Text RESET = Text.translatable("speedrunnermod.reset");
     public static final Text RESET_CONFIRM = Text.translatable("speedrunnermod.reset_confirm");
     public static final Text NOT_NOW = Text.translatable("speedrunnermod.not_now");
-    public static final Text REFRESH_TOOLTIP = Text.translatable("speedrunnermod.refresh");
+    public static final Text REFRESH_SCREEN_TOOLTIP = Text.translatable("speedrunnermod.refresh_screen");
 
     public static final Text RESTART_NOW = Text.translatable("speedrunnermod.restart_now");
     public static final Text RESTART_LATER = Text.translatable("speedrunnermod.restart_later");

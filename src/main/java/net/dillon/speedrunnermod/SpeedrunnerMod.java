@@ -15,6 +15,7 @@ import net.dillon.speedrunnermod.mixin.main.registry.RegistryLoaderMixin;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
+import net.dillon.speedrunnermod.screen.ModScreenHandlerTypes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.*;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -38,7 +39,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.resetTutorialMode;
  */
 public class SpeedrunnerMod implements ModInitializer {
     public static final String MOD_ID = "speedrunnermod";
-    public static final String MOD_VERSION = "v1.9.9";
+    public static final String MOD_VERSION = "v1.10";
     public static final String MC_VERSION = "1.21.4x";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
@@ -83,6 +84,8 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModVillagers.initializeVillagerProfessions();
         ModTradeOffers.registerTradeOffers();
+
+        ModScreenHandlerTypes.initializeScreenHandlers();
 
         safeBoot = false;
         ModOptions.loadConfig();

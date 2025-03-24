@@ -314,6 +314,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("killed_goliath", OnKilledCriterion.Conditions.createPlayerKilledEntity(
                         EntityPredicate.Builder.create()
                                 .type(entityLookup, EntityType.GIANT)))
+                .rewards(AdvancementRewards.Builder.experience(200))
                 .build(exporter,"speedrunnermod:adventure/goliath");
 
         Advancement.Builder.create()
@@ -380,7 +381,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.ENDER_MATTER))
                 .build(exporter, "speedrunnermod:items/the_ends_matter");
 
-        Advancement.Builder.create()
+        AdvancementEntry toInfiniAndBeyond = Advancement.Builder.create()
                 .parent(theEndsMatter)
                 .display(
                         ModItems.INFINI_PEARL,
@@ -393,7 +394,24 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         false
                 )
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.INFINI_PEARL))
+                .rewards(AdvancementRewards.Builder.experience(300))
                 .build(exporter, "speedrunnermod:items/to_infini_and_beyond");
+
+        Advancement.Builder.create()
+                .parent(toInfiniAndBeyond)
+                .display(
+                        ModItems.SPEEDRUNNERS_TOTEM,
+                        Text.translatable("advancements.speedrunnermod.immortal.title"),
+                        Text.translatable("advancements.speedrunnermod.immortal.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        true
+                )
+                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.SPEEDRUNNERS_TOTEM))
+                .rewards(AdvancementRewards.Builder.experience(500))
+                .build(exporter, "speedrunnermod:adventure/immortal");
     }
 
     /**

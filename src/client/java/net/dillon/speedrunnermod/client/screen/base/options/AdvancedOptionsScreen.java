@@ -54,7 +54,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(options().main.iCarusMode ? ModListOptions.ICARUS_FIREWORKS_INVENTORY_SLOT : ModListOptions.Inactiveable.IAO_ICARUS_FIREWORKS_INVENTORY_SLOT);
         this.optionList.addSingleOptionEntry(options().main.infiniPearlMode ? ModListOptions.INFINI_PEARL_INVENTORY_SLOT : ModListOptions.Inactiveable.IAO_INFINI_PEARL_INVENTORY_SLOT);
         this.optionList.addSingleOptionEntry(ModListOptions.DRAGON_KILLS_NEARBY_HOSTILE_ENTITIES);
-        this.optionList.addSingleOptionEntry(options().main.playingMode.doom() ? ModListOptions.DRAGON_IMMUNITY_FROM_GIANT_AND_WITHER : ModListOptions.Inactiveable.IAO_DRAGON_IMMUNITY_FROM_GIANT_AND_WITHER);
+        this.optionList.addSingleOptionEntry(options().main.playingMode.doom() ? ModListOptions.DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER : ModListOptions.Inactiveable.IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER);
         this.optionList.addAll(advancedOptions());
 
         this.deactivateButton(8, ButtonSide.LARGE, options().main.playingMode.easy());

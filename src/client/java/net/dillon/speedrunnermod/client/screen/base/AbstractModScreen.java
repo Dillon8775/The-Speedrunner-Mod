@@ -24,15 +24,14 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.
@@ -43,7 +42,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected File configFile; // This returns null unless the screen is an options screen
     protected final File configDirectory = new File(FabricLoader.getInstance().getConfigDir().toUri()); // The directory for the speedrunner mod's configuration file
     protected final Screen parent;
-    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, reloadButton, doneButton;
+    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton;
     protected OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
@@ -76,11 +75,8 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.close();
                 Util.getOperatingSystem().open(this.configDirectory);
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
-            this.reloadButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
-                ModOptions.saveConfig();
-                String pageId = this.pageId();
-                this.client.setScreen(new RefreshingScreen(parent, options));
-                this.client.setScreen(this.determineRefreshedScreen(pageId));
+            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
+                this.refreshScreen(this.pageId());
             }).dimensions(this.getButtonsLeftSide() - 24, this.getDoneButtonsHeight(), 20, 20).build());
         } else {
             if (this.buttonList != null) {
@@ -88,6 +84,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.addSelectableChild(this.buttonList);
             }
             this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.doneButtonFunction()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
+            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> this.refreshScreen(this.pageId())).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonsHeight(), 20, 20).build());
         }
     }
 
@@ -148,12 +145,31 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
         if (this.isOptionsScreen()) {
             this.optionList.render(context, mouseX, mouseY, delta);
-            context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+            context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
         } else if (buttonList != null) {
             this.buttonList.render(context, mouseX, mouseY, delta);
         }
+
+        if (this.refreshButton != null) {
+            context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/button/refresh.png"), this.refreshButton.getX() + 2, this.refreshButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+            if (this.refreshButton.isHovered()) {
+                this.renderBasicTooltip(ModTexts.REFRESH_SCREEN_TOOLTIP, context, mouseX, mouseY);
+            }
+        }
         this.renderCustomObjects(context);
         this.renderTooltips(context, mouseX, mouseY);
+    }
+
+    /**
+     * Allows the user to reload the screen by pressing "R" on their keyboard.
+     */
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_R) {
+            this.refreshScreen(this.pageId());
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     /**

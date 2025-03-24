@@ -6,7 +6,7 @@
 
   "speedrunnermod.first_time_playing.welcome": "Welcome to the §bSpeedrunner Mod!§f\nBefore you begin playing, lets explore what this mod is and it's main features.\n\nUse arrow keys < > to navigate pages.",
   "speedrunnermod.lets_go": "Lets go!",
-  "speedrunnermod.refresh": "Refresh the screen to align buttons correctly.",
+  "speedrunnermod.refresh_screen": "Refresh the screen to align buttons correctly (or press \"R\").",
   "speedrunnermod.key_points": "§e§lKey Features:\n§f● Structures generate more commonly.\n● New biome, called the §bSpeedrunner's Wasteland,§f which contains great resources for speedrunning.\n● §aLoot tables§f are buffed!\n● Various new items to help with §aevery aspect§f of §bspeedrunning.",
   "speedrunnermod.playing_mode_option": "There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lNormal,§r§f and §c§lDoom.\n§b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.\n§e§lNormal§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.\n§c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.\n\n§a§lWhich mode do you want to play on?",
   "speedrunnermod.playing_mode.easy.tooltip": "Enables all features, results in the quickest speedrunning times.",
@@ -73,7 +73,7 @@
   "item.speedrunnermod.speedrunner_nugget": "Speedrunner Nugget",
   "item.speedrunnermod.speedrunner_sword": "Speedrunner Sword",
   "item.speedrunnermod.speedrunner_sword.tooltip.line1": "Deals more damage to withers.",
-  "item.speedrunnermod.speedrunner_sword.tooltip.line2": "...and Giants!",
+  "item.speedrunnermod.speedrunner_sword.tooltip.line2": "...and Goliath!",
   "item.speedrunnermod.speedrunner_shovel": "Speedrunner Shovel",
   "item.speedrunnermod.speedrunner_pickaxe": "Speedrunner Pickaxe",
   "item.speedrunnermod.speedrunner_axe": "Speedrunner Axe",
@@ -150,10 +150,10 @@
   "item.speedrunnermod.speedrunners_eye": "Speedrunner's Eye",
   "item.speedrunnermod.speedrunners_eye.tooltip": "Locates certain overworld structures.",
   "item.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line1": "Acts like a smithing table.",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line2": "Job site block for the",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line3": "Retired Speedrunner villager profession.",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line4": "Can also transfer enchantments.",
+  "item.speedrunnermod.speedrunners_workbench.tooltip.line1": "A block used to",
+  "item.speedrunnermod.speedrunners_workbench.tooltip.line2": "transfer enchantments.",
+  "item.speedrunnermod.speedrunners_workbench.tooltip.line3": "Also used as the",
+  "item.speedrunnermod.speedrunners_workbench.tooltip.line4": "Retired Speedrunner's job site block.",
   "item.speedrunnermod.speedrunner_stick": "Speedrunner Stick",
   "item.speedrunnermod.knockback_stick": "Knockback Stick",
   "item.speedrunnermod.knockback_stick.tooltip": "You know what this is.",
@@ -207,8 +207,8 @@
   "item.speedrunnermod.piglin_awakener.confirm": "Do you wish to teleport summon nearby piglin? Right-click to confirm.",
   "item.speedrunnermod.piglin_awakener.couldnt_find_piglins": "Couldn't find any nearby piglin!",
   "item.speedrunnermod.piglin_awakener.wrong_dimension": "You must be in the nether to use this item!",
-  "item.speedrunnermod.piglin_awakener.unsafe": "Piglins say... no gold armor, no rally! >:(",
-  "item.speedrunnermod.piglin_awakener.no_gold_ingot": "Piglins say... where's the gold at?",
+  "item.speedrunnermod.piglin_awakener.unsafe": "The piglins require you to put on some gold armor.",
+  "item.speedrunnermod.piglin_awakener.no_gold_ingot": "The piglins require that you have gold in your inventory.",
   "item.speedrunnermod.piglin_awakener_craftable": "Can be used to craft the piglin awakener item.",
 
   "item.speedrunnermod.raid_eradicator.found_raiders": "The raiders are coming... brace for impact.",
@@ -232,7 +232,7 @@
   "item.speedrunnermod.eye_of_annul.found_portal_room": "The portal room has been found!",
   "item.speedrunnermod.eye_of_annul.couldnt_find_portal_room": "Couldn't find a portal room!",
   "item.speedrunnermod.eye_of_annul.doom_mode": "Haha... that doesn't work on doom mode! >:)",
-  "item.speedrunnermod.eye_of_annul.confirm": "Do you wish to teleport to the portal room? Shift + right-click to confirm.",
+  "item.speedrunnermod.eye_of_annul.confirm": "Do you wish to teleport to the portal room? Right-click to confirm.",
   "item.speedrunnermod.eye_of_annul.teleporting": "The gatekeeper wishes you luck.",
   "item.speedrunnermod.eye_of_annul.wrong_dimension": "You must be in the overworld to use this item!",
   "item.speedrunnermod.eye_of_annul.no_ender_eye": "The gatekeeper requests an ender eye.",
@@ -256,6 +256,11 @@
   "item.speedrunnermod.state_of_the_art_item.disabled": "Disabled.",
 
   "block.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
+  "block.speedrunnermod.speedrunners_workbench.disabled": "This block is disabled on Normal Mode.",
+  "block.speedrunnermod.speedrunners_workbench.cost": "Transfer Cost: %s",
+  "block.speedrunnermod.speedrunners_workbench.enchanted_tool": "Add item with enchantments that you want to transfer over.",
+  "block.speedrunnermod.speedrunners_workbench.unenchanted_tool": "Add the item that you want the enchantments transferred to.",
+  "block.speedrunnermod.speedrunners_workbench.output": "The resulted item with the transferred enchantments.",
   "block.speedrunnermod.speedrunner_log": "Speedrunner Log",
   "block.speedrunnermod.stripped_speedrunner_log": "Stripped Speedrunner Log",
   "block.speedrunnermod.speedrunner_wood": "Speedrunner Wood",
@@ -315,13 +320,6 @@
 
   "speedrunnermod:speedrunners_wasteland": "Speedrunner's Wasteland",
 
-  "speedrunnermod.transferred_enchantments": "Transferred enchantments!",
-  "speedrunnermod.enchantment_levels_upgraded": "Enchantment levels upgraded!",
-  "speedrunnermod.some_incompatible_enchantments_failed": "Some incompatible enchantments were not transferred.",
-  "speedrunnermod.incompatible_enchantments_failed": "Incompatible enchantments: no enchantments were transferred.",
-  "speedrunnermod.no_enchantments_transferred": "No enchantments were transferred.",
-  "speedrunnermod.levels_needed": "You need at least %s level(s) to perform this action.",
-
   "speedrunnermod.removed_silk_touch": "Removed silk touch!",
 
   "enchantment.speedrunnermod.dash": "Dash",
@@ -375,6 +373,8 @@
   "advancements.speedrunnermod.the_ends_matter.description": "Obtain the dark, unknown substance, ender matter.",
   "advancements.speedrunnermod.to_infini_and_beyond.title": "To Infini™, and Beyond!",
   "advancements.speedrunnermod.to_infini_and_beyond.description": "Craft an InfiniPearl, and traverse the world harmlessly, forever!",
+  "advancements.speedrunnermod.immortal.title": "Immortal",
+  "advancements.speedrunnermod.immortal.description": "Free fall into the void with a totem, proving yourself, immortal.",
   "advancements.speedrunnermod.quicker_pick.title": "Quicker Pick",
   "advancements.speedrunnermod.quicker_pick.description": "Obtain a Speedrunner Pickaxe, slightly better than iron with more durability.",
 
@@ -461,7 +461,7 @@
   "speedrunnermod.leaderboards.ineligible_options.global_nether_portals": "§lGlobal Nether Portals§r = §c§lON§r, must be §aOFF.",
 
   "speedrunnermod.title.options": "Speedrunner Mod Options",
-  "speedrunnermod.title.options.tooltip": "Speedrunner Mod options...",
+  "speedrunnermod.title.options.tooltip": "Speedrunner Mod main menu...",
   "speedrunnermod.menu.options.tooltip": "Configure the Speedrunner Mod!",
   "speedrunnermod.menu.options.main": "Main...",
   "speedrunnermod.menu.options.main.tooltip": "Configure world gen, different modes, item and block functions, etc.",
@@ -654,8 +654,8 @@
   "speedrunnermod.options.apply_fog_mixin_required": "§l\"Apply Fog Mixin\"§r must be §aenabled§r to modify this option!\n\nSee §badvanced options.",
   "speedrunnermod.options.dragon_kills_nearby_hostile_entities": "Ender Dragon Kills Nearby Hostile Entities upon Death",
   "speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip": "Makes the ender dragon kill all nearby hostile entities upon death, excluding enderman.",
-  "speedrunnermod.options.dragon_immunity_from_giant_and_wither": "Ender Dragon Immunity from Giant and Wither",
-  "speedrunnermod.options.dragon_immunity_from_giant_and_wither.tooltip": "On doom mode, the ender dragon cannot be killed by any means if the Giant and Wither are still alive in the end.",
+  "speedrunnermod.options.dragon_immunity_from_goliath_and_wither": "Ender Dragon Immunity from Goliath and Wither",
+  "speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip": "On doom mode, the ender dragon cannot be killed by any means if Goliath and the Wither are still alive in the end.",
 
   "speedrunnermod.menu.options.structure_spawn_rates": "Structure Spawn Rates...",
   "speedrunnermod.menu.options.structure_spawn_rates.tooltip": "Change how often each structure generates individually.",
@@ -820,13 +820,13 @@
   "speedrunnermod.title.features.doom_mode": "§cDoom Mode",
 
   "speedrunnermod.title.features.doom_mode.basics": "§cBasics",
-  "speedrunnermod.features.doom_mode.basics.text": "Doom mode is a special hard-coded mode, which makes the game extremely difficult to beat. Mobs have more health, speed, and do more damage. §lEverything else§r does basically double damage, and upon entering the end, not only will an §dEnder Dragon§r spawn, but along with a §7wither§r and a §agiant.",
+  "speedrunnermod.features.doom_mode.basics.text": "Doom mode is a special hard-coded mode, which makes the game extremely difficult to beat. Mobs have more health, speed, and do more damage. §lEverything else§r does basically double damage, and upon entering the end, not only will an §dEnder Dragon§r spawn, but along with a §7wither§r and a §agiant (known as Goliath).",
 
   "speedrunnermod.title.features.doom_mode.bosses": "§cBosses",
   "speedrunnermod.features.doom_mode.bosses.text": "When the end fight begins, the §dender dragon§r will spawn like normal, but with §cquintuple§r the amount of health. A §7wither§r will also spawn, with almost double the amount of health. All withers also regenerate extremely fast. And finally, a §a§lgiant§r will spawn. In vanilla Minecraft, the §agiant§r does not have any AI. However, this mode §lgives it§r a function.",
 
-  "speedrunnermod.title.features.doom_mode.giant": "§a§lThe Giant",
-  "speedrunnermod.features.doom_mode.giant.text": "The §a§lGiant§r will target anything in it's path, and slowly regenerate at all times. It cannot be killed from the void. If it gets knocked into the void, it will simply teleport back to the middle of the end island. Once the giant reaches half health, ranged weapons are no good. The giant will also randomly spawn §c§lTNT§r around itself when taking damage, so watch out for that. The giant is completely immune to explosives, fall damage, fire and lava damage. Good luck with this boss. §a>:)",
+  "speedrunnermod.title.features.doom_mode.goliath": "§a§lGoliath",
+  "speedrunnermod.features.doom_mode.goliath.text": "The §a§lGiant§r (also known as §aGoliath)§r will target anything in it's path, and slowly regenerate at all times. It cannot be killed from the void. If it gets knocked into the void, it will simply teleport back to the middle of the end island. Once the giant reaches half health, ranged weapons are no good. The giant will also randomly spawn §c§lTNT§r around itself when taking damage, so watch out for that. The giant is completely immune to explosives, fall damage, fire and lava damage. Good luck with this boss. §a>:)",
 
   "speedrunnermod.title.features.doom_mode.doom_blocks": "§cDoom Blocks",
   "speedrunnermod.features.doom_mode.doom_blocks.text": "The doom blocks will generate in the end, and if broken, they will spawn various hostile mobs, along with some lava. You can avoid these things if you break these blocks with a speedrunner or golden speedrunner tool. However, they will also drop a variety of helpful items to make the end fight a little bit easier, including armor, crossbows, etc.",
@@ -930,6 +930,10 @@
   "speedrunnermod.features.more.more.text": "§a§lCongratulations!§r You are now an official §bSpeedrunner Mod pro,§r and you know about all of it's §amain features!§r\nFor more info, refer to §l\"Learn More...\"§r button below, or go back and re-read some things if you didn't fully understand everything!",
 
   "speedrunnermod.features.tooltip": "View all Speedrunner Mod features...",
+
+  "speedrunnermod.menu.changelogs": "Changelogs...",
+  "speedrunnermod.menu.changelogs.tooltip": "View the changelog for the latest version!",
+  "speedrunnermod.title.changelogs": "Changelogs",
 
   "speedrunnermod.menu.resources": "Resources...",
   "speedrunnermod.menu.resources.tooltip": "Mods, tutorials, and more!",

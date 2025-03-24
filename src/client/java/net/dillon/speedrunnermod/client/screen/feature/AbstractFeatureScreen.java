@@ -1,10 +1,8 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.BaseModScreen;
-import net.dillon.speedrunnermod.client.screen.base.RefreshingScreen;
 import net.dillon.speedrunnermod.client.screen.base.feature.*;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.client.screen.feature.more.TripledDropsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
@@ -57,7 +55,6 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
     @Nullable
     private Text category4Text;
     public ArrayList<ButtonWidget> buttons = new ArrayList<>();
-    private ButtonWidget refreshButton;
     private final Map<ButtonWidget, Integer[]> buttonMap = new HashMap<>();
     public static boolean restartRequired = false;
 
@@ -220,9 +217,7 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
                 height += 24;
             }
             this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, button -> {
-                int pageNumber = this.getPageNumber(); // do this so page # isn't changed when refreshing the screen
-                this.client.setScreen(new RefreshingScreen(parent, options));
-                this.client.setScreen(this.determineRefreshedScreen(pageNumber));
+                this.refreshFeatureScreen(this.getPageNumber(), ScreenCategory.FIRST_TIME_PLAYING);
             }).dimensions(this.getButtonsWidth() - 24, this.getButtonsHeight(), 20, 20).build());
             this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.quit"), button -> {
                 if (this.getPageNumber() == this.getMaxPages()) {
@@ -302,7 +297,7 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, logoHeight, 0.0F, 0.0F, 258, 32, 258, 32);
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/button/refresh.png"), this.buttons.getFirst().getX() - 22, this.buttons.getFirst().getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
             if (this.refreshButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.REFRESH_TOOLTIP, context, mouseX, mouseY);
+                this.renderBasicTooltip(ModTexts.REFRESH_SCREEN_TOOLTIP, context, mouseX, mouseY);
             }
         }
         this.renderCustomImage(context);
@@ -310,7 +305,7 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
     }
 
     /**
-     * Allows for navigation between pages by using the left and right arrow keys.
+     * Allows for navigation between pages by using the left and right arrow keys, and to reload the screen based if the user presses "R" on their keyboard.
      */
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
@@ -325,6 +320,9 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             return true;
         } else if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
             this.client.setScreen(this.getNextScreen());
+            return true;
+        } else if (keyCode == GLFW.GLFW_KEY_R) {
+            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -399,15 +397,6 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
             }
         }
         return new FeaturesScreen(this.parent, this.options);
-    }
-
-    public Screen determineRefreshedScreen(int pageNumber) {
-        for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
-            if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-                return screen;
-            }
-        }
-        return new FirstTimePlayingScreen(this.parent, this.options);
     }
 
     /**

@@ -427,9 +427,9 @@ public class ModOptions {
         public boolean dragonKillsNearbyHostileEntities = true;
 
         /**
-         * On doom mode, the ender dragon cannot be killed by any means if the Giant and Wither are still alive in the end.
+         * On doom mode, the ender dragon cannot be killed by any means if Goliath and the Wither are still alive in the end.
          */
-        public boolean dragonImmunityFromGiantAndWither = true;
+        public boolean dragonImmunityFromGoliathAndWither = true;
 
         /**
          * When using the eye of annul stronghold portal room teleporter feature, it iterates through [-X, -Y, -Z, X, Y, Z] all blocks in this location to locate the portal room block. Negative values go below the player, positive values go above.
@@ -463,9 +463,9 @@ public class ModOptions {
         public double[] dragonKillsHostileEntitiesDistance = createListOption(200.0D, 200.0D, 200.0D);
 
         /**
-         * When on doom mode, the dragon cannot die if there is a nearby giant. This option specifies the range that the giant has to be in from the dragon in order for it to be immune.
+         * When on doom mode, the dragon cannot die if there is a nearby Goliath. This option specifies the range that the Goliath has to be in from the dragon in order for it to be immune.
          */
-        public double[] dragonImmunityDetectionDistanceForGiant = createListOption(200.0D, 200.0D, 200.0D);
+        public double[] dragonImmunityDetectionDistanceForGoliath = createListOption(200.0D, 200.0D, 200.0D);
 
         /**
          * When on doom mode, the dragon cannot die if there is a nearby wither. This option specifies the range that the wither has to be in from the dragon in order for it to be immune.
@@ -1391,14 +1391,14 @@ public class ModOptions {
         options().advanced.minimumBrightness = 0.0D;
         options().advanced.maximumBrightness = 12.0D;
         options().advanced.dragonKillsNearbyHostileEntities = true;
-        options().advanced.dragonImmunityFromGiantAndWither = true;
+        options().advanced.dragonImmunityFromGoliathAndWither = true;
         options().advanced.annulEyePortalRoomDistanceXYZ = createListOption(-128, -128, -128, 128, 128, 128);
         options().advanced.piglinAwakenerPiglinDistanceXYZ = createListOption(100.0D, 100.0D, 100.0D);
         options().advanced.blazeSpotterDistanceXYZ = createListOption(-156, -72, -156, 156, 72, 156);
         options().advanced.raidEradicatorDistanceXYZ = createListOption(300.0D, 300.0D, 300.0D);
         options().advanced.dragonsPearlDragonDistanceXYZ = createListOption(150.0D, 150.0D, 150.0D);
         options().advanced.dragonKillsHostileEntitiesDistance = createListOption(200.0D, 200.0D, 200.0D);
-        options().advanced.dragonImmunityDetectionDistanceForGiant = createListOption(200.0D, 200.0D, 200.0D);
+        options().advanced.dragonImmunityDetectionDistanceForGoliath = createListOption(200.0D, 200.0D, 200.0D);
         options().advanced.dragonImmunityDetectionDistanceForWither = createListOption(300.0D, 300.0D, 300.0D);
 
         options().structureSpawnRates.ancientCities = createStructureSpawnRateOption(16, 8);

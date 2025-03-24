@@ -16,16 +16,16 @@ import org.jetbrains.annotations.NotNull;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 
 @Environment(EnvType.CLIENT)
-public class GiantScreen extends AbstractFeatureScreen {
+public class GoliathScreen extends AbstractFeatureScreen {
 
-    public GiantScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.giant"), false, false);
+    public GoliathScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.goliath"), false, false);
     }
 
     @Override
     @NotNull
     public String linesKey() {
-        return "giant";
+        return "goliath";
     }
 
     @Override
@@ -35,7 +35,7 @@ public class GiantScreen extends AbstractFeatureScreen {
 
     @Override
     protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/other/giant.png"), this.width / 2 + 65, 180, 0.0F, 0.0F, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
+        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/other/goliath.png"), this.width / 2 + 65, 180, 0.0F, 0.0F, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
     }
 
     @Override

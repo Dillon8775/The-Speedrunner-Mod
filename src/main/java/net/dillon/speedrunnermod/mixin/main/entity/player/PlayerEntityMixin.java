@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity.player;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -22,6 +23,7 @@ import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -129,9 +131,17 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 } else if (this.getWorld().getBlockState(pos).isOf(Blocks.LAVA)) {
                     this.getWorld().setBlockState(pos, Blocks.LAVA.getDefaultState());
                 }
+                boolean isAir = this.getWorld().getBlockState(pos.up()).isAir() && this.getWorld().getBlockState(pos.up(1)).isAir();
+                if (!isAir) {
+                    for (int i = 1; i < 3; i++) {
+                        this.getWorld().setBlockState(pos.up(i), Blocks.AIR.getDefaultState(), 3);
+                    }
+                }
+
                 this.teleport(0.5, y, 0.5, true);
                 this.serverDamage(this.getDamageSources().generic(), Integer.MAX_VALUE);
                 this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
+                ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
             }
         } else {
             super.attemptTickInVoid();

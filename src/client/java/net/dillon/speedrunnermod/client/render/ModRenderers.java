@@ -51,7 +51,7 @@ public class ModRenderers {
     /**
      * Initializes all {@code Speedrunner Mod} renderers.
      */
-    public static void init() {
+    public static void initializeRenderers() {
         initializeBlockRenderers();
         initializeOtherRenderers();
     }

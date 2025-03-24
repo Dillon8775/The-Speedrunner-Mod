@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.screen.base.feature.FeaturesScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.ChangelogsScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -44,35 +45,39 @@ public class MainScreen extends AbstractModScreen {
             this.client.setScreen(new FeaturesScreen(this, options));
         }).build());
 
-        this.buttons.add(2, ButtonWidget.builder(ModTexts.MENU_RESOURCES, (button) -> {
+        this.buttons.add(2, ButtonWidget.builder(ModTexts.MENU_CHANGELOGS, (button) -> {
+            this.client.setScreen(new ChangelogsScreen(this, options));
+        }).build());
+
+        this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_RESOURCES, (button) -> {
             this.client.setScreen(new ResourcesScreen(this, options));
         }).build());
 
-        this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_EXTERNAL, (button) -> {
+        this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_EXTERNAL, (button) -> {
             this.client.setScreen(new ExternalScreen(this, options));
         }).build());
 
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
+        this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
             this.client.setScreen(new ModCreditsScreen(this, options));
         }).build());
 
-        this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
+        this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
             this.client.setScreen(new LeaderboardsScreen(this, this.options));
         }).build());
-        this.buttons.get(5).active = false;
+        this.buttons.get(6).active = false;
 
-        this.buttons.add(6, ButtonWidget.builder(ModTexts.EASIER_SPEEDRUNNING_MOD, (button) -> {
+        this.buttons.add(7, ButtonWidget.builder(ModTexts.EASIER_SPEEDRUNNING_MOD, (button) -> {
             this.openLink(ModLinks.EASIER_SPEEDRUNNING_WIKI, true);
         }).build());
 
-        this.buttons.add(7, ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
+        this.buttons.add(8, ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
             if (SecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
                 this.client.setScreen(new SecretDoomModeScreen.ScreenFive(this, options));
             } else {
                 this.client.setScreen(new SecretDoomModeScreen(this, options));
             }
         }).build());
-        this.buttons.get(7).visible = options().main.playingMode.doom();
+        this.buttons.get(8).visible = options().main.playingMode.doom();
 
         super.init();
     }
@@ -94,12 +99,15 @@ public class MainScreen extends AbstractModScreen {
             this.renderBasicTooltip(ModTexts.MENU_FEATURES_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.buttons.get(2).isHovered()) {
+            this.renderBasicTooltip(ModTexts.MENU_CHANGELOGS_TOOLTIP, context, mouseX, mouseY);
+        }
+        if (this.buttons.get(3).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_RESOURCES_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(5).isHovered()) {
+        if (this.buttons.get(6).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_LEADERBOARDS_DISABLED, context, mouseX, mouseY);
         }
-        if (this.buttons.get(6).isHovered()) {
+        if (this.buttons.get(7).isHovered()) {
             this.renderBasicTooltip(ModTexts.EASIER_SPEEDRUNNING_MOD_TOOLTIP, context, mouseX, mouseY);
         }
         super.renderTooltips(context, mouseX, mouseY);
