@@ -17,6 +17,7 @@ repositories {
 	maven {
 		url "https://maven.minecraftforge.net/"
 	}
+	mavenCentral()
 }
 
 loom {
@@ -50,6 +51,9 @@ dependencies {
 	// TerraBlender
 	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${project.minecraft_version}-${project.terrablender_version}"
 	include "com.github.glitchfiend:TerraBlender-fabric:${project.minecraft_version}-${project.terrablender_version}"
+
+	modImplementation "org.reflections:reflections:${project.reflections_verison}"
+	include "org.reflections:reflections:${project.reflections_verison}"
 
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"

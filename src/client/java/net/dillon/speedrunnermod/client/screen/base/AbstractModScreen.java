@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
@@ -30,6 +31,7 @@ import org.lwjgl.glfw.GLFW;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
@@ -197,14 +199,16 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     protected void iterate(ScreenCategory screenCategory) {
-        int maxPageNumber = this.allFeatureScreens().stream()
+        int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
+                .map(constructor -> constructor.apply(this.parent, this.options))
                 .filter(screen -> screen.getScreenCategory() == screenCategory)
                 .mapToInt(AbstractFeatureScreen::getPageNumber)
                 .max()
                 .orElse(0);
 
         for (int pageNum = 1; pageNum <= maxPageNumber; pageNum++) {
-            for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
+            for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+                AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
                 if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
                     this.buttons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
                         this.client.setScreen(screen);

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.AllFeaturesScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,23 +21,27 @@ public class FeaturesScreen extends AbstractModScreen {
     protected void init() {
         this.initializeCustomButtonListWidget();
 
-        this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), (buttonWidget) -> {
+        this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.all_features"), (buttonWidget) -> {
+            this.client.setScreen(new AllFeaturesScreen(this.parent, this.options));
+        }).build());
+
+        this.buttons.add(1, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), (buttonWidget) -> {
             this.client.setScreen(new BlocksAndItemsScreen(this.parent, this.options));
         }).build());
 
-        this.buttons.add(1, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), (buttonWidget) -> {
+        this.buttons.add(2, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), (buttonWidget) -> {
             this.client.setScreen(new ToolsAndArmorScreen(this.parent, this.options));
         }).build());
 
-        this.buttons.add(2, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), (buttonWidget) -> {
+        this.buttons.add(3, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), (buttonWidget) -> {
             this.client.setScreen(new OresAndWorldgenScreen(this.parent, this.options));
         }).build());
 
-        this.buttons.add(3, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.doom_mode"), (buttonWidget) -> {
+        this.buttons.add(4, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.doom_mode"), (buttonWidget) -> {
             this.client.setScreen(new DoomModeScreen(this.parent, this.options));
         }).build());
 
-        this.buttons.add(4, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.more"), (buttonWidget) -> {
+        this.buttons.add(5, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.more"), (buttonWidget) -> {
             this.client.setScreen(new MoreScreen(this.parent, this.options));
         }).build());
 

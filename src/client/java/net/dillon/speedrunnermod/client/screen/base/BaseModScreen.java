@@ -1,17 +1,9 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
-import net.dillon.speedrunnermod.client.screen.base.feature.*;
-import net.dillon.speedrunnermod.client.screen.base.options.*;
-import net.dillon.speedrunnermod.client.screen.base.text.ChangelogsScreen;
-import net.dillon.speedrunnermod.client.screen.base.text.Version110Changelog;
+import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
-import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.*;
-import net.dillon.speedrunnermod.client.screen.feature.doommode.*;
-import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.*;
-import net.dillon.speedrunnermod.client.screen.feature.more.*;
-import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.*;
-import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
+import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,7 +18,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
-import java.util.List;
+import java.util.function.BiFunction;
 
 /**
  * The base screen for any {@code Speedrunner Mod} screen.
@@ -92,7 +84,8 @@ public class BaseModScreen extends GameOptionsScreen {
      * Determines the refreshed screen for base screens.
      */
     public Screen determineRefreshedScreen(String pageId) {
-        for (AbstractModScreen screen : this.allModScreens()) {
+        for (BiFunction<Screen, GameOptions, AbstractModScreen> modScreenConstructor : SpeedrunnerModClient.ALL_MOD_SCREENS) {
+            AbstractModScreen screen = modScreenConstructor.apply(this.parent, this.options);
             if (screen.pageId().equals(pageId)) {
                 return screen;
             }
@@ -104,137 +97,13 @@ public class BaseModScreen extends GameOptionsScreen {
      * Determines the refreshed screen for feature screens.
      */
     public Screen determineRefreshedFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
-        for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
+        for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == screenCategory) {
                 return screen;
             }
         }
         return new FirstTimePlayingScreen(this.parent, this.options);
-    }
-
-    /**
-     * <p>The list of all feature screens.</p>
-     * These are not in order, and each time a new feature screen is created, it MUST be added to this list.
-     */
-    protected List<AbstractFeatureScreen> allFeatureScreens() {
-        return List.of(
-                new BlazeSpotterScreen(parent, options),
-                new DragonsPearlScreen(parent, options),
-                new EnderThrusterScreen(parent, options),
-                new EyeOfAnnulScreen(parent, options),
-                new EyeOfInfernoScreen(parent, options),
-                new GoldenFoodItemsScreen(parent, options),
-                new IgneousRocksScreen(parent, options),
-                new MoreBoatsScreen(parent, options),
-                new PiglinAwakenerScreen(parent, options),
-                new RaidEradicatorScreen(parent, options),
-                new RetiredSpeedrunnerScreen(parent, options),
-                new SpeedrunnerBlocksScreen(parent, options),
-                new SpeedrunnerBulkScreen(parent, options),
-                new SpeedrunnerIngotsScreen(parent, options),
-                new SpeedrunnerNuggetsScreen(parent, options),
-                new SpeedrunnersEyeScreen(parent, options),
-                new SpeedrunnersWorkbenchScreen(parent, options),
-                new SpeedrunnerWoodScreen(parent, options),
-                new BasicsScreen(parent, options),
-                new BossesScreen(parent, options),
-                new DoomBlocksScreen(parent, options),
-                new GoliathScreen(parent, options),
-                new OtherThingsToKnowScreen(parent, options),
-                new FasterBlockBreakingScreen(parent, options),
-                new FogKeyScreen(parent, options),
-                new ICarusModeScreen(parent, options),
-                new InfiniPearlModeScreen(parent, options),
-                new EndScreen(parent, options),
-                new NoMorePiglinBrutesScreen(parent, options),
-                new BetterPiglinBarteringScreen(parent, options),
-                new PiglinPorkScreen(parent, options),
-                new ResetKeyScreen(parent, options),
-                new TripledDropsScreen(parent, options),
-                new CommonOresScreen(parent, options),
-                new ExperienceOresScreen(parent, options),
-                new FortressesBastionsAndStrongholdsScreen(parent, options),
-                new IgneousOresScreen(parent, options),
-                new SpeedrunnerOresScreen(parent, options),
-                new SpeedrunnersWastelandBiomeScreen(parent, options),
-                new StructuresScreen(parent, options),
-                new CooldownEnchantmentScreen(parent, options),
-                new DashEnchantmentScreen(parent, options),
-                new DragonsSwordScreen(parent, options),
-                new GoldenSpeedrunnerArmorScreen(parent, options),
-                new SpeedrunnerArmorScreen(parent, options),
-                new WitherSwordScreen(parent, options),
-                new FullbrightKeyScreen(parent, options),
-                new SpeedrunnerSafeBootsScreen(parent, options),
-                new DeadSpeedrunnerWoodScreen(parent, options),
-                new NetherPortalsScreen(parent, options),
-                new CookedFleshScreen(parent, options),
-                new FireproofItemsScreen(parent, options),
-                new BuffedLootTablesScreen(parent, options),
-                new BlazeSpawnersInBastionsScreen(parent, options),
-                new BlazesDropGoldScreen(parent, options),
-                new BetterVillagerTradesScreen(parent, options),
-                new ThrowableFireballsScreen(parent, options),
-                new BetterDeathScreen(parent, options),
-                new BetterAnvilsScreen(parent, options),
-                new TotemsWorkInVoidScreen(parent, options),
-                new NeverBreakingEnderEyesScreen(parent, options),
-                new ReverseCraftingScreen(parent, options),
-                new LessFallDamageScreen(parent, options),
-                new BetterHotkeysScreen(parent, options),
-                new ArrowsExplodeBedsScreen(parent, options),
-                new SpeedrunnerEditionScreen(parent, options),
-                new MoreExperienceScreen(parent, options),
-                new CustomPanoramaScreen(parent, options),
-                new SpeedrunnersTotemScreen(parent, options),
-                new InfiniPearlScreen(parent, options),
-                new EnderMatterScreen(parent, options),
-                new FirstTimePlayingScreen(parent, options),
-                new KeyPointsScreen(parent, options),
-                new PlayingModeOption(parent, options),
-                new ReadyToPlayScreen(parent, options),
-                new FTPRestartRequiredScreen(parent, options));
-    }
-
-    /**
-     * A list of all mod screens.
-     */
-    protected List<AbstractModScreen> allModScreens() {
-        return List.of(
-                new MainScreen(parent, options),
-                new ModCreditsScreen(parent, options),
-                new ModOptionsScreen(parent, options),
-                new ModsScreen(parent, options),
-                new RefreshingScreen(parent, options),
-                new ResetOptionsConfirmScreen(parent, options),
-                new ResetOptionsScreen(parent, options),
-                new ResourcesScreen(parent, options),
-                new RestartRequiredScreen(parent, options),
-                new SafeBootScreen(parent, options),
-                new SpeedrunIGTMissingScreen(parent, options),
-                new TutorialsScreen(parent, options),
-                new TutorialsScreen.BastionRoutesScreen(parent, options),
-                new TutorialsScreen.MicrolensingScreen(parent, options),
-                new ExternalScreen(parent, options),
-                new LeaderboardsIneligibleOptionsScreen(parent, options),
-                new LeaderboardsIneligibleScreen(parent, options),
-                new LeaderboardsSafeScreen(parent, options),
-                new LeaderboardsSafeScreen(parent, options),
-                new BlocksAndItemsScreen(parent, options),
-                new DoomModeScreen(parent, options),
-                new FeaturesScreen(parent, options),
-                new MoreScreen(parent, options),
-                new OresAndWorldgenScreen(parent, options),
-                new ToolsAndArmorScreen(parent, options),
-                new AdvancedOptionsScreen(parent, options),
-                new ClientOptionsScreen(parent, options),
-                new FastWorldCreationOptionsScreen(parent, options),
-                new MainOptionsScreen(parent, options),
-                new MixinOptionsScreen(parent, options),
-                new StructureSpawnRateOptionsScreen(parent, options),
-                new ChangelogsScreen(parent, options),
-                new Version110Changelog(parent, options)
-        );
     }
 
     /**

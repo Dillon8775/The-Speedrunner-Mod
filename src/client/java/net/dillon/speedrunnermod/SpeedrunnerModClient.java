@@ -3,12 +3,27 @@ package net.dillon.speedrunnermod;
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
 import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
+import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.AbstractScrollableTextScreen;
+import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.option.BrokenModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.option.GameOptions;
+import org.reflections.Reflections;
+import org.reflections.scanners.Scanners;
+
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
@@ -17,11 +32,14 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
  */
 @Environment(EnvType.CLIENT)
 public class SpeedrunnerModClient implements ClientModInitializer {
+    public static final List<BiFunction<Screen, GameOptions, AbstractModScreen>> ALL_MOD_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractModScreen
+    public static final List<BiFunction<Screen, GameOptions, AbstractFeatureScreen>> ALL_FEATURE_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractFeatureScreen
     public static boolean speedrunIGTMissing = false;
 
     /**
      * Initializes all the client-side {@code speedrunner mod} renderers, configurations, etc.
      */
+    @ChatGPT(Credit.PARTIAL_CREDIT)
     @Override
     public void onInitializeClient() {
         ModRenderers.initializeRenderers();
@@ -33,6 +51,50 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         }
 
         ModKeybindings.initializeKeybinds();
+
+        // For adding all screens to a list, without having to manually add them all
+        Reflections modScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.base", Scanners.SubTypes);
+        Reflections featureScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.feature", Scanners.SubTypes);
+        Set<Class<? extends AbstractModScreen>> modScreenClasses = modScreenDirectory.getSubTypesOf(AbstractModScreen.class);
+        Set<Class<? extends AbstractFeatureScreen>> featureScreenClasses = featureScreenDirectory.getSubTypesOf(AbstractFeatureScreen.class);
+
+        // Add all instances of AbstractModScreen to ALL_MOD_SCREENS list
+        for (Class<? extends AbstractModScreen> modScreen : modScreenClasses) {
+            try {
+                Constructor<? extends AbstractModScreen> constructor = modScreen.getConstructor(Screen.class, GameOptions.class);
+
+                BiFunction<Screen, GameOptions, AbstractModScreen> creator = (parent, options) -> {
+                    try {
+                        return constructor.newInstance(parent, options);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Failed to instantiate " + modScreen.getName(), e);
+                    }
+                };
+
+                SpeedrunnerModClient.ALL_MOD_SCREENS.add(creator);
+            } catch (NoSuchMethodException e) {
+                SpeedrunnerMod.warn("Skipping " + modScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
+            }
+        }
+
+        // Add all instances of AbstractFeatureScreen to ALL_FEATURE_SCREENS list
+        for (Class<? extends AbstractFeatureScreen> featureScreen : featureScreenClasses) {
+            try {
+                Constructor<? extends AbstractFeatureScreen> constructor = featureScreen.getConstructor(Screen.class, GameOptions.class);
+
+                BiFunction<Screen, GameOptions, AbstractFeatureScreen> creator = (parent, options) -> {
+                    try {
+                        return constructor.newInstance(parent, options);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Failed to instantiate " + featureScreen.getName(), e);
+                    }
+                };
+
+                SpeedrunnerModClient.ALL_FEATURE_SCREENS.add(creator);
+            } catch (NoSuchMethodException e) {
+                SpeedrunnerMod.warn("Skipping " + featureScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
+            }
+        }
 
         info("Client-side Speedrunner Mod features have successfully loaded!");
     }

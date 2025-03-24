@@ -699,6 +699,9 @@
   "speedrunnermod.menu.features.learn_more": "Learn More...",
   "speedrunnermod.title.features": "Features",
 
+  "speedrunnermod.menu.features.all_features": "ALL Features...",
+  "speedrunnermod.title.features.all_features": "All Features",
+
   "speedrunnermod.menu.features.blocks_and_items": "Blocks and Items...",
   "speedrunnermod.title.features.blocks_and_items": "Blocks and Items",
 

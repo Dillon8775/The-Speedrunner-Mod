@@ -16,7 +16,7 @@ class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     private final Screen parent;
     public static boolean fromInitialBoot = true;
 
-    protected LeaderboardsIneligibleOptionsScreen(Screen parent, GameOptions options) {
+    public LeaderboardsIneligibleOptionsScreen(Screen parent, GameOptions options) {
         super(parent, options, ModTexts.TITLE_INELIGIBLE_OPTIONS);
         this.parent = parent;
     }

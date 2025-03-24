@@ -11,7 +11,7 @@ import net.minecraft.client.option.GameOptions;
 @Environment(EnvType.CLIENT)
 public class ExternalScreen extends AbstractModScreen {
 
-    protected ExternalScreen(Screen parent, GameOptions options) {
+    public ExternalScreen(Screen parent, GameOptions options) {
         super(parent, options, ModTexts.TITLE_EXTERNAL);
     }
 

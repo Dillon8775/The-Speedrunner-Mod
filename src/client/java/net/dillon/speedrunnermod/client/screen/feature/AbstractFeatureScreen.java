@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
+import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.base.BaseModScreen;
 import net.dillon.speedrunnermod.client.screen.base.feature.*;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
@@ -391,7 +393,8 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     private Screen determineScreen(int pageNumber, ScreenCategory category) {
-        for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
+        for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == category) {
                 return screen;
             }
@@ -404,7 +407,8 @@ public abstract class AbstractFeatureScreen extends BaseModScreen {
      */
     protected int calculateMaxPages(ScreenCategory category) {
         int i = 0;
-        for (AbstractFeatureScreen screen : this.allFeatureScreens()) {
+        for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
             if (screen.getScreenCategory() == category) {
                 i++;
             }

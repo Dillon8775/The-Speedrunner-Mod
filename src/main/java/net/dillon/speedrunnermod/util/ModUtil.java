@@ -117,13 +117,6 @@ public class ModUtil {
     }
 
     /**
-     * Multiplies the cost based on the enchantment levels.
-     */
-    public static int multiplyEnchantments(ItemEnchantmentsComponent.Builder enchantmentLevel, Object2IntMap.Entry<RegistryEntry<Enchantment>> entry, int totalTransferred) {
-        return enchantmentLevel.getLevel(entry.getKey()) == 1 ? totalTransferred * totalTransferred : (totalTransferred * totalTransferred) + enchantmentLevel.getLevel(entry.getKey());
-    }
-
-    /**
      * Rounds the inputted number to the nearest one decimal place (or nearest tenths place)
      */
     public static double roundToNearestTenthsPlace(double number) {

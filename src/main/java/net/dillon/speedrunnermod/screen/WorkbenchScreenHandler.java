@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -22,8 +22,8 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.ForgingSlotsManager;
 import net.minecraft.sound.SoundEvents;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
@@ -31,9 +31,9 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * Screen and enchantment transferring handling for the {@code Speedrunner's Workbench.}
  */
 public class WorkbenchScreenHandler extends ForgingScreenHandler implements TutorialMode {
-    private final Property levelCost = Property.create();
-    private List<RegistryEntry> enchantmentsToRemove = new ArrayList<>();
-    private List<Object2IntMap.Entry<RegistryEntry<Enchantment>>> enchantmentsToTransfer = new ArrayList<>();
+    private final Property levelCost = Property.create(); // Level cost variable
+    private final Map<RegistryEntry, Integer> enchantmentsToRemove = new HashMap<>(); // List of enchantments to remove from the item, with their respective level
+    private final Map<Object2IntMap.Entry<RegistryEntry<Enchantment>>, Integer> enchantmentsToTransfer = new HashMap<>(); // List of enchantments to transfer over, with their respective level (mapped)
 
     /**
      * Constructor for registering this screen handler.
@@ -86,7 +86,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler implements Tuto
 
         ItemStack newSlot1 = this.input.getStack(0);
         // Remove the enchantment from the main hand item if it was transferred/upgraded to the offhand
-        for (RegistryEntry registryEntry : this.enchantmentsToRemove) {
+        for (RegistryEntry registryEntry : enchantmentsToRemove.keySet()) {
             EnchantmentHelper.apply(newSlot1, builder -> builder.remove(enchantmentRegistryEntry -> enchantmentRegistryEntry.equals(registryEntry)));
         }
         this.input.setStack(0, newSlot1);
@@ -101,61 +101,55 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler implements Tuto
     @ChatGPT(Credit.PARTIAL_CREDIT)
     @Override
     public void updateResult() {
-        ItemStack slot1 = this.input.getStack(0); // Get the players main hand stack
-        ItemStack slot2 = this.input.getStack(1); // Get the players offhand stack
-        ItemEnchantmentsComponent slot1Enchantments = EnchantmentHelper.getEnchantments(slot1); // Get the enchantments on the players main hand item, using an item enchantments component
-        ItemEnchantmentsComponent slot2Enchantments = EnchantmentHelper.getEnchantments(slot2); // Get the enchantments on the players offhand item, using an item enchantments component
-        ItemEnchantmentsComponent.Builder slot1Builder = new ItemEnchantmentsComponent.Builder(slot1Enchantments); // An item enchantments component builder for the players main hand enchantments
-        ItemEnchantmentsComponent.Builder slot2Builder = new ItemEnchantmentsComponent.Builder(slot2Enchantments); // An item enchantments component builder for the players offhand enchantments
+        ItemStack firstSlot = this.input.getStack(0); // Get the stack in the first slot
+        ItemStack secondSlot = this.input.getStack(1); // Get the stack in the second slot
+        ItemEnchantmentsComponent slot1Enchantments = EnchantmentHelper.getEnchantments(firstSlot); // Enchantments on first slot stack
+        ItemEnchantmentsComponent slot2Enchantments = EnchantmentHelper.getEnchantments(secondSlot); // Enchantments on second slot stack
+        ItemEnchantmentsComponent.Builder firstSlotBuilder = new ItemEnchantmentsComponent.Builder(slot1Enchantments); // Build enchantments component on first slot
+        ItemEnchantmentsComponent.Builder secondSlotBuilder = new ItemEnchantmentsComponent.Builder(slot2Enchantments); // Build enchantments component on second slot
 
-        this.output.setStack(0, ItemStack.EMPTY); // Set the output initially to nothing
-        this.levelCost.set(0); // Reset level cost
+        this.output.setStack(0, ItemStack.EMPTY); // Reset the output initially to nothing
+        this.levelCost.set(0); // Reset the level cost
+        this.enchantmentsToTransfer.clear(); // Reset enchantments to transfer
+        this.enchantmentsToRemove.clear(); // Reset enchantments to remove
 
-        if (slot1.isEmpty() || slot2.isEmpty()) { // if slot 1 or 2 is empty make sure nothing is returned
+        // If slot 1 or 2 is empty make sure nothing is returned
+        if (firstSlot.isEmpty() || secondSlot.isEmpty()) {
             return;
         }
 
-        ItemEnchantmentsComponent.Builder outputBuilder = new ItemEnchantmentsComponent.Builder(slot2Enchantments);
-        int totalTransferred = 0; // The total amount of enchantments successfully transferred
-
-        // Run through all main hand enchantments
+        // Run through all enchantments in the first slot
         for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : slot1Enchantments.getEnchantmentEntries()) {
             RegistryEntry registryEntry = entry.getKey();
             Enchantment enchantment = (Enchantment)registryEntry.value();
 
-            if (!slot2.hasEnchantments()) { // If the players offhand item has no enchantments, "successWithNoEnchantments" returns true, and enchantments are transferred
-                totalTransferred++;
-                this.levelCost.set( this.initializedCost(player, slot1Builder, entry, totalTransferred));
-                if (totalTransferred != 0 && enchantment.isAcceptableItem(slot2)) {
-                    this.enchantmentsToTransfer.add(entry);
-                    this.enchantmentsToRemove.add(registryEntry);
-                    this.sendContentUpdates();
-                }
-            } else { // Otherwise, start running through all offhand enchantments
-                boolean allIsCompatible = true;
-                for (RegistryEntry<Enchantment> registryEntry2 : slot2Builder.getEnchantments()) {
+            // If second slot has no enchantments, and the enchantment wanting to be transferred is acceptable, transfer the enchantment
+            if (!secondSlot.hasEnchantments() && enchantment.isAcceptableItem(secondSlot)) {
+                enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
+                enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
+                this.sendContentUpdates();
+            } else { // Otherwise, start running through all second slot enchantments to determine acceptability
+                boolean allIsCompatible = true; // All enchantments are compatible
+                for (RegistryEntry<Enchantment> registryEntry2 : secondSlotBuilder.getEnchantments()) {
 
-                    // Compare main hand and offhand enchantments and determine if they are compatible
-                    for (RegistryEntry<Enchantment> existingEnchantment : slot2Builder.getEnchantments()) {
+                    // Compare first second and second slot enchantments and determine if they are compatible with each other
+                    for (RegistryEntry<Enchantment> existingEnchantment : secondSlotBuilder.getEnchantments()) {
                         if (!Enchantment.canBeCombined(existingEnchantment, registryEntry) && !registryEntry2.equals(registryEntry)) {
-                            allIsCompatible = false;
-                            break;
+                            allIsCompatible = false; // If not, not all enchantments are compatible
+                            break; // Break out of the loop, no further action needed here
                         }
                     }
 
-                    // Determines if an enchantment on the offhand can be upgraded to a higher level
-                    boolean canUpgrade = registryEntry2.equals(registryEntry) && slot2Builder.getLevel(registryEntry2) < slot1Builder.getLevel(registryEntry);
+                    // Determines if an enchantment in second slot can be upgraded to a higher level
+                    boolean alreadyPresentButUpgradable = registryEntry2.equals(registryEntry) && secondSlotBuilder.getLevel(registryEntry2) < firstSlotBuilder.getLevel(registryEntry);
 
-                    // If all enchantments are compatible with each other and can be combined,
-                    // "successWithEnchantments" returns true, and enchantments are transferred
-                    if (allIsCompatible && Enchantment.canBeCombined(registryEntry, registryEntry2) && enchantment.isAcceptableItem(slot2) || canUpgrade) {
-
-                        totalTransferred++;
-                        this.levelCost.set(this.initializedCost(this.player, slot1Builder, entry, totalTransferred));
-
-                        if (totalTransferred != 0) {
-                            this.enchantmentsToTransfer.add(entry);
-                            this.enchantmentsToRemove.add(entry.getKey());
+                    // If all enchantments are compatible with each other and can be combined, OR can be upgraded
+                    // Try to transfer enchantments
+                    if ((allIsCompatible && enchantment.isAcceptableItem(secondSlot)) || alreadyPresentButUpgradable) {
+                        // However, if second slot enchantment is already at max level, don't transfer enchantment, we cannot transfer enchantment over max level
+                        if (secondSlotBuilder.getLevel(entry.getKey()) != enchantment.getMaxLevel()) {
+                            enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
+                            enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
                             this.sendContentUpdates();
                         }
                     }
@@ -164,43 +158,36 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler implements Tuto
         }
 
         // Applies the transferred enchantments to the output item.
-        if (totalTransferred > 0) {
-            ItemStack output = slot2.copy();
-            for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : this.enchantmentsToTransfer) {
-                int slot1Level = slot1Builder.getLevel(entry.getKey());
-                int slot2Level = slot2Builder.getLevel(entry.getKey());
+        ItemStack output = secondSlot.copy(); // Copy second slot stack
+        // Run through all enchantments to transfer
+        for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantmentsToTransfer.keySet()) {
+            int firstSlotLevel = firstSlotBuilder.getLevel(entry.getKey());
+            int secondSlotLevel = secondSlotBuilder.getLevel(entry.getKey());
 
-                // Check if the offhand already has the enchantment
-                if (slot2Level > 0) {
-                    // If offhand has a lower level, upgrade it
-                    if (slot2Level < slot1Level) {
-                        EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), slot1Level));
-                    }
-                    // No further action needed if the levels are equal or offhand has a higher level
-                } else {
-                    // If the offhand does not have the enchantment, transfer it
-                    EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), slot1Level));
+            // Check if second slot already has the enchantment
+            if (secondSlotLevel > 0) {
+                // If second slot has a lower level, upgrade it
+                if (secondSlotLevel < firstSlotLevel) {
+                    EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), firstSlotLevel));
                 }
+                // No further action needed if the levels are equal or second slot has a higher level
+            } else {
+                // If second slot does not have the enchantment, transfer it
+                EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), firstSlotLevel));
             }
-            this.output.setStack(0, output);
         }
-    }
-
-    /**
-     * Corrects the {@code cost} variable to equal the total amount of enchantments transferred multiplied by itself.
-     */
-    private int initializedCost(PlayerEntity player, ItemEnchantmentsComponent.Builder enchantmentLevel, Object2IntMap.Entry<RegistryEntry<Enchantment>> entry, int totalTransferred) {
-        int cost = ModUtil.multiplyEnchantments(enchantmentLevel, entry, totalTransferred);
-
-        if (cost > options().main.anvilCostLimit && options().main.anvilCostLimit != 50) {
-            cost = options().main.anvilCostLimit;
+        // Total transferred enchantments equals the number of enchantments to transfer (map cannot contain duplicates, so the size is correct)
+        int totalTransferredEnchantments = enchantmentsToTransfer.size();
+        int cost = 0; // Cost variable (initially set to 0).
+        if (totalTransferredEnchantments > 0) { // as long as at least one enchantment is transferred...
+            cost += totalTransferredEnchantments; // set cost to total transferred enchantments
+            // For each enchantment, get the enchantment level, and add it to cost
+            for (Map.Entry<Object2IntMap.Entry<RegistryEntry<Enchantment>>, Integer> entry : enchantmentsToTransfer.entrySet()) {
+                cost += entry.getValue(); // cost = (totalTransferredEnchantments + (eachEnchantmentsLevel))
+            }
+            this.output.setStack(0, output); // Set the output
+            this.levelCost.set(cost); // Set the cost
         }
-
-        if (player.getAbilities().creativeMode) {
-            cost = 0;
-        }
-
-        return cost;
     }
 
     /**

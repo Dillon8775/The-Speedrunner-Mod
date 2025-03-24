@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base.text;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.base.ResourcesScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.changelog.balancingupdate.v110;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,7 +26,7 @@ public class ChangelogsScreen extends AbstractModScreen {
         this.initializeCustomButtonListWidget();
 
         this.buttonList.addSingleButton(ButtonWidget.builder(Text.literal("v1.10 Changelog").formatted(Formatting.GREEN), (button) -> {
-            this.client.setScreen(new Version110Changelog(parent, options));
+            this.client.setScreen(new v110(parent, options));
         }).build());
 
         super.init();

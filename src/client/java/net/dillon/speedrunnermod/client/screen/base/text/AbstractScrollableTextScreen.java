@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base.text;
 
+import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
@@ -49,6 +50,10 @@ public abstract class AbstractScrollableTextScreen extends AbstractModScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     private void loadAndPrintText(Identifier path) {
+        if (path == null) {
+            SpeedrunnerMod.warn("No text file found for this screen.");
+            return;
+        }
         try (BufferedReader reader = new BufferedReader(this.client.getResourceManager().openAsReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -375,6 +380,38 @@ public abstract class AbstractScrollableTextScreen extends AbstractModScreen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
+    /**
+     * Default columns for all scrollable screens is 2.
+     */
+    @Override
+    protected int columns() {
+        return 2;
+    }
+
+    /**
+     * Do not render version text.
+     */
+    @Override
+    protected boolean shouldRenderVersionText() {
+        return false;
+    }
+
+    /**
+     * Not an options screen.
+     */
+    @Override
+    protected boolean isOptionsScreen() {
+        return false;
+    }
+
+    /**
+     * Render title text.
+     */
+    @Override
+    protected boolean shouldRenderTitleText() {
+        return true;
+    }
+
     @Override
     public void close() {
         this.client.setScreen(this.parent);
@@ -385,6 +422,13 @@ public abstract class AbstractScrollableTextScreen extends AbstractModScreen {
      */
     protected String inChangelogsFolder(String fileName) {
         return "texts/changelogs/" + fileName + ".txt";
+    }
+
+    /**
+     * Helper for referencing file paths in texts directory.
+     */
+    protected String inTextsFolder(String fileName) {
+        return "texts/" + fileName + ".txt";
     }
 
     /**

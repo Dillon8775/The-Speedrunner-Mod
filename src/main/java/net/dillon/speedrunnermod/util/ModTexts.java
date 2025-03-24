@@ -58,13 +58,15 @@ public class ModTexts {
     public static final Text MENU_FEATURES_TOOLTIP = Text.translatable("speedrunnermod.menu.features.tooltip");
     public static final Text MENU_FEATURES = Text.translatable("speedrunnermod.menu.features").formatted(Formatting.AQUA);
     public static final Text TITLE_FEATURES = Text.translatable("speedrunnermod.title.features");
+    public static final Text MENU_ALL_FEATURES = Text.translatable("speedrunnermod.menu.features..all_features").formatted(Formatting.BOLD);
+    public static final Text TITLE_ALL_FEATURES = Text.translatable("speedrunnermod.title.features.all_features").formatted(Formatting.AQUA);
     public static final Text MENU_WIKI = Text.translatable("speedrunnermod.menu.resources.wiki").formatted(Formatting.LIGHT_PURPLE);
     public static final Text MENU_RESOURCES = Text.translatable("speedrunnermod.menu.resources");
     public static final Text MENU_RESOURCES_TOOLTIP = Text.translatable("speedrunnermod.menu.resources.tooltip");
     public static final Text TITLE_RESOURCES = Text.translatable("speedrunnermod.title.resources");
     public static final Text MENU_CHANGELOGS = Text.translatable("speedrunnermod.menu.changelogs").formatted(Formatting.GREEN);
     public static final Text MENU_CHANGELOGS_TOOLTIP = Text.translatable("speedrunnermod.menu.changelogs.tooltip");
-    public static final Text TITLE_CHANGELOGS = Text.translatable("speedrunnedmod.title.changelogs");
+    public static final Text TITLE_CHANGELOGS = Text.translatable("speedrunnermod.title.changelogs");
     public static final Text MENU_MODS = Text.translatable("speedrunnermod.menu.resources.mods").formatted(Formatting.AQUA);
     public static final Text TITLE_MODS = Text.translatable("speedrunnermod.title.resources.mods");
     public static final Text MENU_TUTORIALS = Text.translatable("speedrunnermod.menu.resources.tutorials").formatted(Formatting.DARK_AQUA);
