@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class DragonsSwordScreen extends AbstractFeatureScreen {
 
     public DragonsSwordScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class DragonsSwordScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 4;
-    }
-
-    @Override
-    protected @NotNull Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/dragons_sword.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected @NotNull Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/dragons_sword_crafting_recipe.png");
     }
 
     @Override

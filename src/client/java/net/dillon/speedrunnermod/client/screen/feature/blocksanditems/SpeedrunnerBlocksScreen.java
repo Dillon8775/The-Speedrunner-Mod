@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnerBlocksScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerBlocksScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_blocks"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_blocks"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class SpeedrunnerBlocksScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 3;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/blocks/speedrunner_block.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/speedrunner_block_crafting_recipe.png");
     }
 
     @Override

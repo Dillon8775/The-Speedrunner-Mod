@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class FogKeyScreen extends AbstractFeatureScreen {
 
     public FogKeyScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.fog_key"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.fog_key"));
     }
 
     @Override
@@ -29,36 +29,6 @@ public class FogKeyScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 2;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/keybinds/toggle_fog_keybind.png");
-    }
-
-    @Override
-    protected int getImageX() {
-        return this.width / 2 - 125;
-    }
-
-    @Override
-    protected int getImageY() {
-        return 170;
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 256;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 21;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

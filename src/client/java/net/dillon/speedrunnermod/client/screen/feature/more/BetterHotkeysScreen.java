@@ -19,7 +19,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class BetterHotkeysScreen extends AbstractFeatureScreen {
 
     public BetterHotkeysScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.better_hotkeys"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.better_hotkeys"));
     }
 
     @Override
@@ -33,34 +33,8 @@ public class BetterHotkeysScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/keybinds/toggle_chunk_borders_keybind.png"), this.width / 2 + 23, 190, 0, 0, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/keybinds/toggle_hitboxes_keybind.png"), this.width / 2 + 23, 210, 0, 0, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 256;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 21;
-    }
-
-    @Override
     protected int getButtonsHeight() {
         return this.height / 6 + 123;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

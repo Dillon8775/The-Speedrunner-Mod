@@ -58,7 +58,7 @@ public class ModTexts {
     public static final Text MENU_FEATURES_TOOLTIP = Text.translatable("speedrunnermod.menu.features.tooltip");
     public static final Text MENU_FEATURES = Text.translatable("speedrunnermod.menu.features").formatted(Formatting.AQUA);
     public static final Text TITLE_FEATURES = Text.translatable("speedrunnermod.title.features");
-    public static final Text MENU_ALL_FEATURES = Text.translatable("speedrunnermod.menu.features..all_features").formatted(Formatting.BOLD);
+    public static final Text MENU_ALL_FEATURES = Text.translatable("speedrunnermod.menu.features.all_features").formatted(Formatting.BOLD);
     public static final Text TITLE_ALL_FEATURES = Text.translatable("speedrunnermod.title.features.all_features").formatted(Formatting.AQUA);
     public static final Text MENU_WIKI = Text.translatable("speedrunnermod.menu.resources.wiki").formatted(Formatting.LIGHT_PURPLE);
     public static final Text MENU_RESOURCES = Text.translatable("speedrunnermod.menu.resources");

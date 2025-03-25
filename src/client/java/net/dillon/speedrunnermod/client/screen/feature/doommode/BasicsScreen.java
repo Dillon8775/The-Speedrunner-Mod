@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class BasicsScreen extends AbstractFeatureScreen {
 
     public BasicsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.basics"), false, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.basics"));
     }
 
     @Override
@@ -28,17 +28,6 @@ public class BasicsScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 1;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

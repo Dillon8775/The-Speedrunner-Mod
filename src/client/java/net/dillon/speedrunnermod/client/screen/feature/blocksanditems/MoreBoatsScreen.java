@@ -19,7 +19,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class MoreBoatsScreen extends AbstractFeatureScreen {
 
     public MoreBoatsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.more_boats"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.more_boats"));
     }
 
     @Override
@@ -32,32 +32,6 @@ public class MoreBoatsScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 6;
     }
-
-    @Override
-    protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/other/more_boats.png"), this.width / 2, 200, 0.0F, 0.0F, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 233;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 84;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

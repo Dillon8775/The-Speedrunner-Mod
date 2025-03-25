@@ -20,7 +20,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class WitherSwordScreen extends AbstractFeatureScreen {
 
     public WitherSwordScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword"), true, true, new SpeedrunnersWastelandBiomeScreen(parent, options), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), new ResetKeyScreen(parent, options), Text.translatable("speedrunnermod.menu.features.more"), new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), false, null, null);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword"), new SpeedrunnersWastelandBiomeScreen(parent, options), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), new ResetKeyScreen(parent, options), Text.translatable("speedrunnermod.menu.features.more"), new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), false, null, null);
     }
 
     @Override
@@ -32,26 +32,6 @@ public class WitherSwordScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return this.getMaxPages();
-    }
-
-    @Override
-    protected @NotNull Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/wither_sword.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected @NotNull Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/wither_sword_crafting_recipe.png");
     }
 
     @Override

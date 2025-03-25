@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class CooldownEnchantmentScreen extends AbstractFeatureScreen {
 
     public CooldownEnchantmentScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.cooldown_enchantment"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.cooldown_enchantment"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class CooldownEnchantmentScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 6;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/enchanted_book.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 28;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

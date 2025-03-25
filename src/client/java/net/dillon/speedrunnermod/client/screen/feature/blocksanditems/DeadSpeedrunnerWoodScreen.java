@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class DeadSpeedrunnerWoodScreen extends AbstractFeatureScreen {
 
     public DeadSpeedrunnerWoodScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.dead_speedrunner_wood"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.dead_speedrunner_wood"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class DeadSpeedrunnerWoodScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 5;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/blocks/dead_speedrunner_wood.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

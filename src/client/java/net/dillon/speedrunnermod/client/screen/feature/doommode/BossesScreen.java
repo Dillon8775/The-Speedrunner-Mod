@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class BossesScreen extends AbstractFeatureScreen {
 
     public BossesScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.bosses"), false, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.bosses"));
     }
 
     @Override
@@ -28,17 +28,6 @@ public class BossesScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 2;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

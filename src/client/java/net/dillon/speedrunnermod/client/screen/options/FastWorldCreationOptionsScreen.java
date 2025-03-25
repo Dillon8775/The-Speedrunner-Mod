@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.client.screen.base.options;
+package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
@@ -17,37 +17,36 @@ import java.io.File;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
- * The Speedrunner Mod's {@code client options screen.}
+ * The Speedrunner Mod's {@code "fast world creation"} options, which set the settings of each new world created.
  */
 @Environment(EnvType.CLIENT)
-public class ClientOptionsScreen extends AbstractModScreen {
+public class FastWorldCreationOptionsScreen extends AbstractModScreen {
 
-    public ClientOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_OPTIONS_CLIENT);
+    public FastWorldCreationOptionsScreen(Screen parent, GameOptions options) {
+        super(parent, options, ModTexts.TITLE_FAST_WORLD_CREATION);
     }
 
     /**
-     * All of the {@code client-side speedrunner mod options.}
+     * All of the {@code fast world creation options.}
      */
-    private SimpleOption<?>[] clientOptions(GameOptions gameOptions) {
+    private SimpleOption<?>[] fwcOptions() {
         return new SimpleOption[]{
-                options().mixins.backgroundRendererMixin ? ModListOptions.FOG : ModListOptions.Inactiveable.IAO_FOG,
-                gameOptions.getGamma(),
-                ModListOptions.ITEM_TOOLTIPS,
-                ModListOptions.TEXTURE_TOOLTIPS,
-                ModListOptions.ITEM_MESSAGES,
-                ModListOptions.SHOW_DEATH_CORDS,
-                ModListOptions.CONFIRM_MESSAGES,
-                ModListOptions.PANORAMA,
-                ModListOptions.SOCIAL_BUTTONS
+                ModListOptions.FAST_WORLD_CREATION,
+                options().client.fastWorldCreation ? ModListOptions.GAMEMODE : ModListOptions.Inactiveable.IAO_GAMEMODE,
+                options().client.fastWorldCreation ? ModListOptions.DIFFICULTY : ModListOptions.Inactiveable.IAO_DIFFICULTY,
+                options().client.fastWorldCreation ? ModListOptions.ALLOW_CHEATS : ModListOptions.Inactiveable.IAO_ALLOW_CHEATS
         };
     }
 
     @Override
     protected void init() {
         this.initializeOptionListWidget();
-        this.optionList.addAll(clientOptions(this.gameOptions));
-        this.deactivateButton(0, ButtonSide.LARGE, options().mixins.backgroundRendererMixin);
+
+        this.optionList.addAll(fwcOptions());
+        this.deactivateButton(0, ButtonSide.RIGHT, options().client.fastWorldCreation);
+        this.deactivateButton(1, ButtonSide.LEFT, options().client.fastWorldCreation);
+        this.deactivateButton(1, ButtonSide.RIGHT, options().client.fastWorldCreation);
+
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 
@@ -56,7 +55,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
 
     @Override
     protected String pageId() {
-        return "giiadsaa";
+        return "gfnipfioad";
     }
 
     @Override

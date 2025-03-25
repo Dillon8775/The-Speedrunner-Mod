@@ -23,29 +23,30 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 public class PlayingModeOption extends AbstractFeatureScreen {
 
     public PlayingModeOption(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK, false, false);
+        super(parent, options, ModTexts.BLANK);
     }
 
     @Override
-    protected void addButtons() {
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.easy"), button -> {
+    protected void init() {
+        super.init();
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.easy"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.EASY;
             ModOptions.saveConfig();
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.normal"), button -> {
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.normal"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.NORMAL;
             ModOptions.saveConfig();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.doom"), button -> {
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.doom"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.DOOM;
             ModOptions.saveConfig();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
         }).build());
     }
@@ -80,17 +81,6 @@ public class PlayingModeOption extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 3;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;

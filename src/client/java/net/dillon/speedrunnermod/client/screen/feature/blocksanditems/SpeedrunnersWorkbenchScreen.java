@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersWorkbenchScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_workbench"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_workbench"));
     }
 
     @Override
@@ -30,27 +30,6 @@ public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 20;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/blocks/speedrunners_workbench.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/speedrunners_workbench_crafting_recipe.png");
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

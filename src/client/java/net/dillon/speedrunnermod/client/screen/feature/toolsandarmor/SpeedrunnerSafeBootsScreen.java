@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnerSafeBootsScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerSafeBootsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots"));
     }
 
     @Override
@@ -29,21 +29,6 @@ public class SpeedrunnerSafeBootsScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 3;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/speedrunner_safe_boots.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

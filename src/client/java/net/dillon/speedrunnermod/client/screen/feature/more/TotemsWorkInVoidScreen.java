@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class TotemsWorkInVoidScreen extends AbstractFeatureScreen {
 
     public TotemsWorkInVoidScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.totems_work_in_void"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.totems_work_in_void"));
     }
 
     @Override
@@ -28,21 +28,6 @@ public class TotemsWorkInVoidScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 21;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/totems_work_in_void.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

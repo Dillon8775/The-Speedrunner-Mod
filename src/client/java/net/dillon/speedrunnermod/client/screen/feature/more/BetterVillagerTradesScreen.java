@@ -19,7 +19,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class BetterVillagerTradesScreen extends AbstractFeatureScreen {
 
     public BetterVillagerTradesScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.better_villager_trades"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.better_villager_trades"));
     }
 
     @Override
@@ -30,31 +30,6 @@ public class BetterVillagerTradesScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 17;
-    }
-
-    @Override
-    protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/gui/better_villager_trades.png"), this.width / 2 + 35, 184, 0, 0, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 128;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 116;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

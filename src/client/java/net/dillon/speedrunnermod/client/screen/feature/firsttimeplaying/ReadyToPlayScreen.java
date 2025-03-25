@@ -24,25 +24,26 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 public class ReadyToPlayScreen extends AbstractFeatureScreen {
 
     public ReadyToPlayScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK, false, false);
+        super(parent, options, ModTexts.BLANK);
     }
 
     @Override
-    protected void addButtons() {
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.enter_tutorial_mode"), button -> {
+    protected void init() {
+        super.init();
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.enter_tutorial_mode"), button -> {
             options().main.tutorialMode = true;
             ModOptions.saveConfig();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.begin_playing"), button -> {
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.begin_playing"), button -> {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
                 this.client.setScreen(new TitleScreen());
             }
         }).build());
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
         }).build());
     }
@@ -72,16 +73,6 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 4;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

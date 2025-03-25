@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class PiglinAwakenerScreen extends AbstractFeatureScreen {
 
     public PiglinAwakenerScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.piglin_awakener"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.piglin_awakener"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class PiglinAwakenerScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 15;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/piglin_awakener.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/piglin_awakener_crafting_recipe.png");
     }
 
     @Override

@@ -1,7 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base.feature;
+package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -9,16 +8,17 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class OresAndWorldgenScreen extends AbstractModScreen {
+public class MoreScreen extends AbstractModScreen {
 
-    public OresAndWorldgenScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen"));
+    public MoreScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more"));
     }
 
     @Override
     protected void init() {
         this.initializeCustomButtonListWidget();
-        this.iterate(ScreenCategory.ORES_AND_WORLDGEN);
+        this.iterate(ScreenCategory.MORE);
+
         super.init();
     }
 
@@ -29,7 +29,7 @@ public class OresAndWorldgenScreen extends AbstractModScreen {
 
     @Override
     protected String pageId() {
-        return "dfijoeijaw";
+        return "gfipi0ads";
     }
 
     @Override

@@ -19,7 +19,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class GoliathScreen extends AbstractFeatureScreen {
 
     public GoliathScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.goliath"), false, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.goliath"));
     }
 
     @Override
@@ -31,36 +31,6 @@ public class GoliathScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 3;
-    }
-
-    @Override
-    protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/other/goliath.png"), this.width / 2 + 65, 180, 0.0F, 0.0F, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-    }
-
-    @Override
-    protected int getButtonsWidth() {
-        return this.width / 2 - 150;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 79;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 128;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

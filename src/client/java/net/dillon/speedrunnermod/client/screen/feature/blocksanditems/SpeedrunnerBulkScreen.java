@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnerBulkScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerBulkScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_bulk"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_bulk"));
     }
 
     @Override
@@ -30,27 +30,6 @@ public class SpeedrunnerBulkScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 19;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/speedrunner_bulk.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 30;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

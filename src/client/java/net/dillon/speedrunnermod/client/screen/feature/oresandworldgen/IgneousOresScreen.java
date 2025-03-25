@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class IgneousOresScreen extends AbstractFeatureScreen {
 
     public IgneousOresScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.igneous_ores"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.igneous_ores"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class IgneousOresScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 4;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/blocks/igneous_ores.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

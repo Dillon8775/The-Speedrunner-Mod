@@ -19,7 +19,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class ReverseCraftingScreen extends AbstractFeatureScreen {
 
     public ReverseCraftingScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.reverse_crafting"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.reverse_crafting"));
     }
 
     @Override
@@ -30,32 +30,6 @@ public class ReverseCraftingScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 23;
-    }
-
-    @Override
-    protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/recipes/wool_to_string.png"), this.width / 2 + 35, 155, 0, 0, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/recipes/sticks_to_planks.png"), this.width / 2 + 35, 235, 0, 0, this.getImageWidth(), this.getImageHeight(), this.getImageWidth(), this.getImageHeight());
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 118;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 71;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

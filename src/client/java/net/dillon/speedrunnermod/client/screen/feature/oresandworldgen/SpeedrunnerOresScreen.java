@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnerOresScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerOresScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunner_ores"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunner_ores"));
     }
 
     @Override
@@ -29,21 +29,6 @@ public class SpeedrunnerOresScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 2;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/speedrunner_ores.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

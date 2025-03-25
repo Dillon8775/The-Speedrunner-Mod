@@ -1,7 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base.feature;
+package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -9,16 +8,16 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class ToolsAndArmorScreen extends AbstractModScreen {
+public class OresAndWorldgenScreen extends AbstractModScreen {
 
-    public ToolsAndArmorScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor"));
+    public OresAndWorldgenScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen"));
     }
 
     @Override
     protected void init() {
         this.initializeCustomButtonListWidget();
-        this.iterate(ScreenCategory.TOOLS_AND_ARMOR);
+        this.iterate(ScreenCategory.ORES_AND_WORLDGEN);
         super.init();
     }
 
@@ -29,7 +28,7 @@ public class ToolsAndArmorScreen extends AbstractModScreen {
 
     @Override
     protected String pageId() {
-        return "gfnipiads";
+        return "dfijoeijaw";
     }
 
     @Override

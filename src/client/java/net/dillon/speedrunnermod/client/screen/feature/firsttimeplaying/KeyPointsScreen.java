@@ -17,15 +17,16 @@ import org.jetbrains.annotations.NotNull;
 public class KeyPointsScreen extends AbstractFeatureScreen {
 
     public KeyPointsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK, false, false);
+        super(parent, options, ModTexts.BLANK);
     }
 
     @Override
-    protected void addButtons() {
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.next"), button -> {
+    protected void init() {
+        super.init();
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.next"), button -> {
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
         }).build());
     }
@@ -38,16 +39,6 @@ public class KeyPointsScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 2;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

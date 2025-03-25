@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class NeverBreakingEnderEyesScreen extends AbstractFeatureScreen {
 
     public NeverBreakingEnderEyesScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.never_breaking_ender_eyes"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.never_breaking_ender_eyes"));
     }
 
     @Override
@@ -28,21 +28,6 @@ public class NeverBreakingEnderEyesScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 22;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/never_breaking_ender_eyes.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base.text.changelog.worldupdate;
 
-import net.dillon.speedrunnermod.client.screen.base.text.AbstractScrollableTextScreen;
+import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -8,7 +8,7 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class v18 extends AbstractScrollableTextScreen {
+public class v18 extends AbstractScrollableScreen {
 
     public v18(Screen parent, GameOptions options) {
         super(parent, options, Text.literal("v1.8 Changelog"));

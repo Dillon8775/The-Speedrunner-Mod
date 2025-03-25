@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class StructuresScreen extends AbstractFeatureScreen {
 
     public StructuresScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.structures"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.structures"));
     }
 
     @Override
@@ -29,31 +29,6 @@ public class StructuresScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 6;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/structures.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 240;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 135;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

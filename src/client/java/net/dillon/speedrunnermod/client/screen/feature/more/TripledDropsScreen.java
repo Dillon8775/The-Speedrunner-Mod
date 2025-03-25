@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class TripledDropsScreen extends AbstractFeatureScreen {
 
     public TripledDropsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.tripled_drops"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.tripled_drops"));
     }
 
     @Override
@@ -29,21 +29,6 @@ public class TripledDropsScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 10;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/tripled_drops.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
 import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.base.text.AbstractScrollableTextScreen;
+import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.option.BrokenModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
@@ -34,6 +34,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 public class SpeedrunnerModClient implements ClientModInitializer {
     public static final List<BiFunction<Screen, GameOptions, AbstractModScreen>> ALL_MOD_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractModScreen
     public static final List<BiFunction<Screen, GameOptions, AbstractFeatureScreen>> ALL_FEATURE_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractFeatureScreen
+    public static final List<BiFunction<Screen, GameOptions, AbstractScrollableScreen>> ALL_CHANGELOG_SCREENS = new ArrayList<>();
     public static boolean speedrunIGTMissing = false;
 
     /**
@@ -53,10 +54,12 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         ModKeybindings.initializeKeybinds();
 
         // For adding all screens to a list, without having to manually add them all
-        Reflections modScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.base", Scanners.SubTypes);
+        Reflections modScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen", Scanners.SubTypes);
         Reflections featureScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.feature", Scanners.SubTypes);
+        Reflections changelogsDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.base.text.changelog", Scanners.SubTypes);
         Set<Class<? extends AbstractModScreen>> modScreenClasses = modScreenDirectory.getSubTypesOf(AbstractModScreen.class);
         Set<Class<? extends AbstractFeatureScreen>> featureScreenClasses = featureScreenDirectory.getSubTypesOf(AbstractFeatureScreen.class);
+        Set<Class<? extends AbstractScrollableScreen>> scrollableTextScreenClasses = changelogsDirectory.getSubTypesOf(AbstractScrollableScreen.class);
 
         // Add all instances of AbstractModScreen to ALL_MOD_SCREENS list
         for (Class<? extends AbstractModScreen> modScreen : modScreenClasses) {
@@ -93,6 +96,25 @@ public class SpeedrunnerModClient implements ClientModInitializer {
                 SpeedrunnerModClient.ALL_FEATURE_SCREENS.add(creator);
             } catch (NoSuchMethodException e) {
                 SpeedrunnerMod.warn("Skipping " + featureScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
+            }
+        }
+
+        // Add all instances of AbstractScrollableTextScreen (in changelogs directory, so only changelogs) to ALL_CHANGELOG_SCREENS list
+        for (Class<? extends AbstractScrollableScreen> scrollableTextScreen : scrollableTextScreenClasses) {
+            try {
+                Constructor<? extends AbstractScrollableScreen> constructor = scrollableTextScreen.getConstructor(Screen.class, GameOptions.class);
+
+                BiFunction<Screen, GameOptions, AbstractScrollableScreen> creator = (parent, options) -> {
+                    try {
+                        return constructor.newInstance(parent, options);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Failed to instantiate " + scrollableTextScreen.getName(), e);
+                    }
+                };
+
+                SpeedrunnerModClient.ALL_CHANGELOG_SCREENS.add(creator);
+            } catch (NoSuchMethodException e) {
+                SpeedrunnerMod.warn("Skipping " + scrollableTextScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
             }
         }
 

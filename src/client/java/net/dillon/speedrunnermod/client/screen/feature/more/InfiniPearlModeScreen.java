@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class InfiniPearlModeScreen extends AbstractFeatureScreen {
 
     public InfiniPearlModeScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.infini_pearl_mode"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.infini_pearl_mode"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class InfiniPearlModeScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 6;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/infini_pearl.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
 
     public FasterBlockBreakingScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.faster_block_breaking"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.faster_block_breaking"));
     }
 
     @Override
@@ -29,21 +29,6 @@ public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 4;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/faster_block_breaking.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

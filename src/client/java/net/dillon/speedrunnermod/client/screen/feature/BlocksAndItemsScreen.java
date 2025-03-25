@@ -1,7 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base.feature;
+package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -9,16 +8,16 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class DoomModeScreen extends AbstractModScreen {
+public class BlocksAndItemsScreen extends AbstractModScreen {
 
-    public DoomModeScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode"));
+    public BlocksAndItemsScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items"));
     }
 
     @Override
     protected void init() {
         this.initializeCustomButtonListWidget();
-        this.iterate(ScreenCategory.DOOM_MODE);
+        this.iterate(ScreenCategory.BLOCKS_AND_ITEMS);
         super.init();
     }
 
@@ -29,7 +28,7 @@ public class DoomModeScreen extends AbstractModScreen {
 
     @Override
     protected String pageId() {
-        return "gkpiiads";
+        return "gfipiads";
     }
 
     @Override

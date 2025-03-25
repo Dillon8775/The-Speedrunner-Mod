@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.client.screen.base.options;
+package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;

@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnerNuggetsScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerNuggetsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_nuggets"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_nuggets"));
     }
 
     @Override
@@ -30,27 +30,6 @@ public class SpeedrunnerNuggetsScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 2;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/speedrunner_nugget.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 34;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 26;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

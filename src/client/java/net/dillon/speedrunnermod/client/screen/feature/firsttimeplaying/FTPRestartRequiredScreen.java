@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -20,12 +19,13 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
 
     public FTPRestartRequiredScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK, false, false);
+        super(parent, options, ModTexts.BLANK);
     }
 
     @Override
-    protected void addButtons() {
-        this.buttons.add(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+    protected void init() {
+        super.init();
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
         }).build());
     }
@@ -49,17 +49,6 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 5;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
-    }
-
     @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;

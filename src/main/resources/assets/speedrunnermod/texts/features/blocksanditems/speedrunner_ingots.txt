@@ -1,0 +1,4 @@
+### Obtained from §bspeedrunner ores§f that generate around the world, and loot chests.
+#### Can be used to craft the §bspeedrunner armor, tools and weapons,§f and also acts as an §liron ingot§r§f in any crafting recipe.
+
+!image:textures/gui/features/items/speedrunner_ingot.png

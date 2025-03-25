@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class BlazesDropGoldScreen extends AbstractFeatureScreen {
 
     public BlazesDropGoldScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.blazes_drop_gold"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.blazes_drop_gold"));
     }
 
     @Override
@@ -26,23 +26,8 @@ public class BlazesDropGoldScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/blazes_drop_gold.png");
-    }
-
-    @Override
     public int getPageNumber() {
         return 16;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

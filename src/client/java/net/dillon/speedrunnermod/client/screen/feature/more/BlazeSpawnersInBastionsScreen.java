@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class BlazeSpawnersInBastionsScreen extends AbstractFeatureScreen {
 
     public BlazeSpawnersInBastionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.blaze_spawners_in_bastions"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.blaze_spawners_in_bastions"));
     }
 
     @Override
@@ -28,21 +28,6 @@ public class BlazeSpawnersInBastionsScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 15;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/blaze_spawners_in_bastions.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

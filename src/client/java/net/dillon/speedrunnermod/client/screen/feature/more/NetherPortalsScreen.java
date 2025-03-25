@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class NetherPortalsScreen extends AbstractFeatureScreen {
 
     public NetherPortalsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.nether_portals"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.nether_portals"));
     }
 
     @Override
@@ -28,21 +28,6 @@ public class NetherPortalsScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 11;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/nether_portals.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

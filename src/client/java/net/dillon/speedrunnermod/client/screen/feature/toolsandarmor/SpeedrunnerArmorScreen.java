@@ -19,7 +19,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnerArmorScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerArmorScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_armor"), true, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_armor"));
     }
 
     @Override
@@ -31,31 +31,6 @@ public class SpeedrunnerArmorScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 1;
-    }
-
-    @Override
-    protected void renderCustomImage(DrawContext context) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/features/other/speedrunner_armor.png"), this.width / 2 + 65, 160, 0.0F, 0.0F, 83, 151, 83, 151);
-    }
-
-    @Override
-    protected @NotNull Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/speedrunner_chestplate.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 30;
-    }
-
-    @Override
-    protected @NotNull Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

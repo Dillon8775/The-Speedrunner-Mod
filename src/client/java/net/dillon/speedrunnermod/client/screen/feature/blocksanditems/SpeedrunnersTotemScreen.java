@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnersTotemScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersTotemScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_totem"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_totem"));
     }
 
     @Override
@@ -29,27 +29,6 @@ public class SpeedrunnersTotemScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 13;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/speedrunners_totem.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/speedrunners_totem_crafting_recipe.png");
-    }
-
     @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

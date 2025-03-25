@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class CommonOresScreen extends AbstractFeatureScreen {
 
     public CommonOresScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores"));
     }
 
     @Override
@@ -29,21 +29,6 @@ public class CommonOresScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 5;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/common_ores.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

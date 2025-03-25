@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class RaidEradicatorScreen extends AbstractFeatureScreen {
 
     public RaidEradicatorScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.raid_eradicator"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.raid_eradicator"));
     }
 
     @Override
@@ -30,27 +30,6 @@ public class RaidEradicatorScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 18;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/raid_eradicator.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/raid_eradicator_crafting_recipe.png");
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

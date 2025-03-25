@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class PiglinPorkScreen extends AbstractFeatureScreen {
 
     public PiglinPorkScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.piglin_pork"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.piglin_pork"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class PiglinPorkScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 8;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/piglin_pork.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 30;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class ThrowableFireballsScreen extends AbstractFeatureScreen {
 
     public ThrowableFireballsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.throwable_fireballs"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.throwable_fireballs"));
     }
 
     @Override
@@ -28,21 +28,6 @@ public class ThrowableFireballsScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 18;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/throwable_fireballs.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

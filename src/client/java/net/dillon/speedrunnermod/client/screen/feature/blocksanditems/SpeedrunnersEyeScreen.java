@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnersEyeScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersEyeScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_eye"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_eye"));
     }
 
     @Override
@@ -30,27 +30,6 @@ public class SpeedrunnersEyeScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 10;
     }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/speedrunners_eye.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/speedrunners_eye_crafting_recipe.png");
-    }
-
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

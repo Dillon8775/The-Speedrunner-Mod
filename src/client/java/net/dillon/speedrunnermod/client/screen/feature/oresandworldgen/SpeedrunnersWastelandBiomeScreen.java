@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnersWastelandBiomeScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersWastelandBiomeScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunners_wasteland"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunners_wasteland"));
     }
 
     @Override
@@ -29,21 +29,6 @@ public class SpeedrunnersWastelandBiomeScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 1;
-    }
-
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/speedrunners_wasteland_biome.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

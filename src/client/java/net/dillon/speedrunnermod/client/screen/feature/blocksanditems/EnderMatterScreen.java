@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class EnderMatterScreen extends AbstractFeatureScreen {
 
     public EnderMatterScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_matter"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_matter"));
     }
 
     @Override
@@ -28,26 +28,6 @@ public class EnderMatterScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 11;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/ender_matter.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

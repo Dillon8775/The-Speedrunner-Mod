@@ -218,6 +218,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
         }
     }
 
+    /**
+     * Used to build title text.
+     */
     private static Text featureTitleText(ScreenCategory category, String lang) {
         return Text.translatable("speedrunnermod.title.features." + category.toString().toLowerCase() + "." + lang);
     }

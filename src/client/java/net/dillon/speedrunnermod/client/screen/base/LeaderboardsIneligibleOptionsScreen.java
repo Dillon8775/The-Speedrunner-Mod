@@ -12,7 +12,7 @@ import net.minecraft.client.option.GameOptions;
 
 @Deprecated
 @Environment(EnvType.CLIENT)
-class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
+public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     private final Screen parent;
     public static boolean fromInitialBoot = true;
 

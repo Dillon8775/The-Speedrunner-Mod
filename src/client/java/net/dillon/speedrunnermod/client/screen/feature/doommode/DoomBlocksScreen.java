@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class DoomBlocksScreen extends AbstractFeatureScreen {
 
     public DoomBlocksScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.doom_blocks"), true, false);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode.doom_blocks"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class DoomBlocksScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 4;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/blocks/doom_block.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

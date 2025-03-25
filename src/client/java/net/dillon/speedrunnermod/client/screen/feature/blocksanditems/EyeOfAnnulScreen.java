@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class EyeOfAnnulScreen extends AbstractFeatureScreen {
 
     public EyeOfAnnulScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.eye_of_annul"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.eye_of_annul"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class EyeOfAnnulScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 9;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/eye_of_annul.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/eye_of_annul_crafting_recipe.png");
     }
 
     @Override

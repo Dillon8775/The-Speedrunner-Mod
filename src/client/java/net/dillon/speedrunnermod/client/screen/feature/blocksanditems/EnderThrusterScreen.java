@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class EnderThrusterScreen extends AbstractFeatureScreen {
 
     public EnderThrusterScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_thruster"), true, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_thruster"));
     }
 
     @Override
@@ -29,26 +29,6 @@ public class EnderThrusterScreen extends AbstractFeatureScreen {
     @Override
     public int getPageNumber() {
         return 17;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return ofSpeedrunnerMod("textures/gui/features/items/ender_thruster.png");
-    }
-
-    @Override
-    protected int getImageWidth() {
-        return 32;
-    }
-
-    @Override
-    protected int getImageHeight() {
-        return 32;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return ofSpeedrunnerMod("textures/gui/features/recipes/ender_thruster_crafting_recipe.png");
     }
 
     @Override

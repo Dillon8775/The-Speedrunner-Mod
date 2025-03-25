@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class BetterDeathScreen extends AbstractFeatureScreen {
 
     public BetterDeathScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.better_death_screen"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.better_death_screen"));
     }
 
     @Override
@@ -26,23 +26,8 @@ public class BetterDeathScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/better_death_screen.png");
-    }
-
-    @Override
     public int getPageNumber() {
         return 19;
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
-    protected Identifier getCraftingRecipeImage() {
-        return null;
     }
 
     @Override

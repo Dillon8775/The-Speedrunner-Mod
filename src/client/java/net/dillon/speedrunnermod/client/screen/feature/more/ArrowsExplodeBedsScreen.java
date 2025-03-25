@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 public class ArrowsExplodeBedsScreen extends AbstractFeatureScreen {
 
     public ArrowsExplodeBedsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.more.arrows_explode_beds"), false, false, true);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.more.arrows_explode_beds"));
     }
 
     @Override
@@ -30,17 +30,6 @@ public class ArrowsExplodeBedsScreen extends AbstractFeatureScreen {
         return 26;
     }
 
-    @Override
-    protected Identifier getDownscaledImage() {
-        return ofSpeedrunnerMod("textures/gui/features/screenshots/arrows_destroy_beds.png");
-    }
-
-    @Override
-    protected Identifier getImage() {
-        return null;
-    }
-
-    @Override
     protected Identifier getCraftingRecipeImage() {
         return null;
     }

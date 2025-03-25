@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.client.screen.base.feature;
+package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.base.text.AllFeaturesScreen;
@@ -21,7 +21,7 @@ public class FeaturesScreen extends AbstractModScreen {
     protected void init() {
         this.initializeCustomButtonListWidget();
 
-        this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.all_features"), (buttonWidget) -> {
+        this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_ALL_FEATURES, (buttonWidget) -> {
             this.client.setScreen(new AllFeaturesScreen(this.parent, this.options));
         }).build());
 
