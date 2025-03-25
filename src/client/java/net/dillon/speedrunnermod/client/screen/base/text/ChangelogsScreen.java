@@ -38,7 +38,7 @@ public class ChangelogsScreen extends AbstractModScreen {
         }).build());
 
         // Add all changelogs to screen
-        List<AbstractScrollableScreen> sortedScreens = SpeedrunnerModClient.ALL_CHANGELOG_SCREENS.stream()
+        List<AbstractChangelogScreen> sortedScreens = SpeedrunnerModClient.ALL_CHANGELOG_SCREENS.stream()
                 .map(constructor -> constructor.apply(this, this.options))
                 .sorted((a, b) -> {
                     List<Integer> versionA = parseVersion(a.getTitle().getString());

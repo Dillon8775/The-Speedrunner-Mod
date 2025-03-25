@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base.text.changelog.balancingupdate;
 
-import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
-public class v110 extends AbstractScrollableScreen {
+public class v110 extends AbstractChangelogScreen {
 
     public v110(Screen parent, GameOptions options) {
         super(parent, options, Text.literal("v1.10 Changelog").formatted(Formatting.GREEN));

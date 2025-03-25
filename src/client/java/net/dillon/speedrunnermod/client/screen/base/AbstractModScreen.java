@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.client.screen.base;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
+import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
@@ -86,7 +87,16 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.addSelectableChild(this.buttonList);
             }
             this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.doneButtonFunction()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
-            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> this.refreshScreen(this.pageId())).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonsHeight(), 20, 20).build());
+            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
+                // Check what to refresh correctly
+                if (this instanceof AbstractChangelogScreen changelogScreen) {
+                    changelogScreen.refreshChangelogScreen(changelogScreen.pageId());
+                } else if (this instanceof AbstractFeatureScreen featureScreen) {
+                    featureScreen.refreshFeatureScreen(featureScreen.getPageNumber(), featureScreen.getScreenCategory());
+                } else {
+                    this.refreshScreen(this.pageId());
+                 }
+            }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonsHeight(), 20, 20).build());
         }
     }
 

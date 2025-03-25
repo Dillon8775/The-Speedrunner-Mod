@@ -33,7 +33,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     protected final Screen parent;
     public final List<ObjectToDisplay> objectsToDisplay = new ArrayList<>();
     private final int scrollSpeed = 12;
-    private int scrollOffset;
+    private float scrollOffset;
     private float targetScrollOffset;
     private static final float SCROLL_LERP_SPEED = 0.2F;
     private boolean isDraggingScrollbar = false;
@@ -71,31 +71,47 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     private ObjectToDisplay parseLine(String line) {
-        int headingLevel = 0;
-
+        // Handle image line with optional scale
         if (line.startsWith("!image:")) {
-            String imagePath = line.substring("!image:".length()).trim();
+            String imageLine = line.substring("!image:".length()).trim();
+
+            // Extract scale if present
+            float customScale = -1.0F; // Use -1 to indicate no custom scale
+            String[] parts = imageLine.split("\\s+");
+            String imagePath = parts[0];
+
+            for (int i = 1; i < parts.length; i++) {
+                if (parts[i].startsWith("scale=")) {
+                    try {
+                        customScale = Float.parseFloat(parts[i].substring("scale=".length()));
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid scale format in line: " + line);
+                    }
+                }
+            }
 
             Identifier imageId = ofSpeedrunnerMod(imagePath);
 
             try {
-                NativeImage nativeImage = NativeImage.read(this.client.getResourceManager().open(imageId));
-                int originalWidth = nativeImage.getWidth();
-                int originalHeight = nativeImage.getHeight();
+                NativeImage image = NativeImage.read(this.client.getResourceManager().open(imageId));
+                int originalWidth = image.getWidth();
+                int originalHeight = image.getHeight();
 
-                int maxWidth = 300;
-                float scale = Math.min(1.0F, (float) maxWidth / originalWidth);
+                // Use custom scale if provided, otherwise calculate scale to fit max width
+                float scale = (customScale > 0) ? Math.min(customScale, 1.0F) : Math.min(1.0F, 300.0F / originalWidth);
+
                 int scaledWidth = (int)(originalWidth * scale);
                 int scaledHeight = (int)(originalHeight * scale);
 
-                return new ObjectToDisplay(null, 0.0F, imageId, scaledWidth, scaledHeight, null);
+                return new ObjectToDisplay(null, 1.0F, imageId, scaledWidth, scaledHeight, null);
             } catch (IOException e) {
                 e.printStackTrace();
                 return new ObjectToDisplay(Text.literal("[Image Load Failed]"), 1.0F, null, 0, 0, null);
             }
         }
 
-        // Handle header text
+        // Handle headers / regular text
+        int headingLevel = 0;
         while (headingLevel < line.length() && line.charAt(headingLevel) == '#') {
             headingLevel++;
         }
@@ -197,9 +213,9 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
         for (ObjectToDisplay line : this.objectsToDisplay) {
             if (line.isImage()) {
-                totalHeight += line.imageHeight + 8;
+                totalHeight += line.imageHeight + 16;
             } else if (line.isButton()) {
-                totalHeight += 20;
+                totalHeight += 20 + 4;
             } else if (line.isText()) {
                 List<OrderedText> wrapped = this.textRenderer.wrapLines(line.text, this.getWrapWidth(line));
                 int lineHeight = (int)((this.textRenderer.fontHeight + 2) * line.scale);
@@ -229,6 +245,13 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     }
 
     /**
+     * Determines if the text on the screen should be center aligned.
+     */
+    public boolean centerAligned() {
+        return true;
+    }
+
+    /**
      * Initializes the screen: loads content and adds the Done button.
      */
     @Override
@@ -248,11 +271,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (!isDraggingScrollbar && !isDraggingAnywhere) {
-            this.scrollOffset += (int)((targetScrollOffset - scrollOffset) * SCROLL_LERP_SPEED);
+            this.scrollOffset += (targetScrollOffset - scrollOffset) * SCROLL_LERP_SPEED;
             int maxScroll = getAccurateMaxScroll();
             this.scrollOffset = Math.max(0, Math.min(this.scrollOffset, maxScroll));
         } else {
-            this.scrollOffset = (int) targetScrollOffset;
+            this.scrollOffset = targetScrollOffset;
         }
         super.render(context, mouseX, mouseY, delta);
         this.buttonList.render(context, mouseX, mouseY, delta);
@@ -277,10 +300,15 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                         y += lineHeight;
                         continue;
                     }
-                    if (y >= bottom) break;
+                    if (y >= bottom) {
+                        break;
+                    }
+
+                    int textWidth = this.textRenderer.getWidth(wrappedLine);
+                    double textX = (this.width - textWidth * scale) / 2.0;
 
                     context.getMatrices().push();
-                    context.getMatrices().translate(this.width / 2.0 - 175, y, 0);
+                    context.getMatrices().translate(this.centerAligned() ? textX : this.width / 2 - 175, y, 0);
                     context.getMatrices().scale(scale, scale, 1);
                     context.drawTextWithShadow(this.textRenderer, wrappedLine, 0, 0, 0xFFFFFF);
                     context.getMatrices().pop();
@@ -294,7 +322,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 int scaledHeight = line.imageHeight;
 
                 if (y + scaledHeight < top) {
-                    y += scaledHeight + 8;
+                    y += scaledHeight + 16;
                     continue;
                 }
                 if (y >= bottom) {
@@ -310,7 +338,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                     context.drawTexture(RenderLayer::getGuiTextured, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
                 }
 
-                y += scaledHeight + 8;
+                y += scaledHeight + 16;
                 continue;
             }
 
@@ -318,12 +346,18 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 ButtonWidget button = line.button();
                 button.setWidth(this.getButtonsWidth());
                 button.setHeight(20);
-                button.setY((int) y);
                 button.setX(this.width / 2 - 75);
+                button.setY((int) y); // Scrolls with the rest of the content
 
                 if (y + button.getHeight() < top || y >= (bottom - 8)) {
                     button.visible = false;
                     continue;
+                }
+
+                button.visible = true;
+
+                if (!this.children().contains(button)) {
+                    this.addDrawableChild(button);
                 }
 
                 button.visible = true;
@@ -332,7 +366,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 }
                 button.render(context, mouseX, mouseY, delta);
 
-                y += button.getHeight() + 2;
+                y += button.getHeight() + 4;
+                continue;
             }
         }
 
@@ -405,8 +440,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         this.targetScrollOffset -= verticalAmount * scrollSpeed;
-        int maxScroll = getAccurateMaxScroll();
-        this.targetScrollOffset = Math.max(0, Math.min(this.targetScrollOffset, maxScroll));
+        float maxScroll = getAccurateMaxScroll();
+        this.targetScrollOffset = Math.max(0.0F, Math.min(this.targetScrollOffset - (float)(verticalAmount * scrollSpeed), maxScroll));
         return true;
     }
 
@@ -419,7 +454,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         initializeTopAndBottom();
         int scrollbarHeight = bottom - top;
         int contentHeight = getTotalContentHeight();
-        int maxScroll = getAccurateMaxScroll();
+        float maxScroll = getAccurateMaxScroll();
 
         if (isDraggingScrollbar) {
             int thumbHeight = Math.max((int)(scrollbarHeight * ((float)scrollbarHeight / contentHeight)), 10);
@@ -429,13 +464,13 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             percent = Math.max(0.0F, Math.min(1.0F, percent));
 
             this.targetScrollOffset = percent * maxScroll;
-            this.scrollOffset = (int) targetScrollOffset;
+            this.scrollOffset = targetScrollOffset;
             return true;
         } else if (isDraggingAnywhere) {
             int dy = (int)(mouseY - lastMouseY);
             this.targetScrollOffset -= dy;
             this.targetScrollOffset = Math.max(0, Math.min(this.targetScrollOffset, maxScroll));
-            this.scrollOffset = (int) targetScrollOffset;
+            this.scrollOffset = targetScrollOffset;
             lastMouseY = (int) mouseY;
             return true;
         }
@@ -449,7 +484,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     @ChatGPT(Credit.FULL_CREDIT)
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        int maxScroll = getAccurateMaxScroll();
+        float maxScroll = getAccurateMaxScroll();
 
         if (keyCode == 264) { // Down arrow
             this.targetScrollOffset = Math.min(this.targetScrollOffset + scrollSpeed, maxScroll);

@@ -1,0 +1,5 @@
+### Found in §6deserts, §cbadlands, §fand §7soul sand valleys,§f the §3dead speedrunner wood§r acts pretty much like normal wood.
+
+#### Unlike the §bspeedrunner wood,§f however, it does burn,§f and can only craft normal sticks.
+
+!image:textures/gui/features/blocks/dead_speedrunner_wood.png scale=.1

@@ -1,0 +1,4 @@
+### The §deye of annul§f allows you to teleport §b§odirectly§r§f to the nearest §astronghold portal room.
+
+!image:textures/gui/features/items/eye_of_annul.png scale=.2
+!image:textures/gui/features/recipes/eye_of_annul_crafting_recipe.png scale=.4

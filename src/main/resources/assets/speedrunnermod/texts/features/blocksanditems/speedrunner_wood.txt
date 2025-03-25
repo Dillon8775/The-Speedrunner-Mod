@@ -1,0 +1,5 @@
+### A new type of wood, which can be found across §lall biomes§r in the §loverworld,§r as well as in the §onewly added biome,§r the §b§lSpeedrunner's Wasteland.
+
+#### The §bspeedrunner wood§f acts like any other type of wood, like being able to be used as a §lfuel source,§r but it §6doesn't burn from fire or lava.
+
+!image:textures/gui/features/blocks/speedrunner_wood.png scale=.1

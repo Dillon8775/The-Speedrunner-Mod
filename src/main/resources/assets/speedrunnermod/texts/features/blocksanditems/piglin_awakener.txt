@@ -1,0 +1,8 @@
+### A very... interesting, but useful item for §bspeedrunning.
+
+#### Upon right-clicking §c§o(in the nether),§r all nearby piglin within a §a§l100 block radius §r§f§o(excluding named and baby piglin) will be §ateleported §ltowards the§r §lplayer§r§f (directly towards if the player is shifting).
+
+I know, it sounds stupid, but §ltrust me...§r when you can't find any §6piglin,§f§o this item can be very useful.
+
+!image:textures/gui/features/items/piglin_awakener.png scale=.2
+!image:textures/gui/features/recipes/piglin_awakener_crafting_recipe.png scale=.4

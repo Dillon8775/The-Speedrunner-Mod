@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
+import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.option.BrokenModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
@@ -34,7 +35,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 public class SpeedrunnerModClient implements ClientModInitializer {
     public static final List<BiFunction<Screen, GameOptions, AbstractModScreen>> ALL_MOD_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractModScreen
     public static final List<BiFunction<Screen, GameOptions, AbstractFeatureScreen>> ALL_FEATURE_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractFeatureScreen
-    public static final List<BiFunction<Screen, GameOptions, AbstractScrollableScreen>> ALL_CHANGELOG_SCREENS = new ArrayList<>();
+    public static final List<BiFunction<Screen, GameOptions, AbstractChangelogScreen>> ALL_CHANGELOG_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractScrollableScreens (in changelogs directory)
     public static boolean speedrunIGTMissing = false;
 
     /**
@@ -59,7 +60,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         Reflections changelogsDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.base.text.changelog", Scanners.SubTypes);
         Set<Class<? extends AbstractModScreen>> modScreenClasses = modScreenDirectory.getSubTypesOf(AbstractModScreen.class);
         Set<Class<? extends AbstractFeatureScreen>> featureScreenClasses = featureScreenDirectory.getSubTypesOf(AbstractFeatureScreen.class);
-        Set<Class<? extends AbstractScrollableScreen>> scrollableTextScreenClasses = changelogsDirectory.getSubTypesOf(AbstractScrollableScreen.class);
+        Set<Class<? extends AbstractChangelogScreen>> changelogScreenClasses = changelogsDirectory.getSubTypesOf(AbstractChangelogScreen.class);
 
         // Add all instances of AbstractModScreen to ALL_MOD_SCREENS list
         for (Class<? extends AbstractModScreen> modScreen : modScreenClasses) {
@@ -100,11 +101,11 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         }
 
         // Add all instances of AbstractScrollableTextScreen (in changelogs directory, so only changelogs) to ALL_CHANGELOG_SCREENS list
-        for (Class<? extends AbstractScrollableScreen> scrollableTextScreen : scrollableTextScreenClasses) {
+        for (Class<? extends AbstractChangelogScreen> scrollableTextScreen : changelogScreenClasses) {
             try {
-                Constructor<? extends AbstractScrollableScreen> constructor = scrollableTextScreen.getConstructor(Screen.class, GameOptions.class);
+                Constructor<? extends AbstractChangelogScreen> constructor = scrollableTextScreen.getConstructor(Screen.class, GameOptions.class);
 
-                BiFunction<Screen, GameOptions, AbstractScrollableScreen> creator = (parent, options) -> {
+                BiFunction<Screen, GameOptions, AbstractChangelogScreen> creator = (parent, options) -> {
                     try {
                         return constructor.newInstance(parent, options);
                     } catch (Exception e) {

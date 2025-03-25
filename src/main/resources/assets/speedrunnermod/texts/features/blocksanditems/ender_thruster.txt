@@ -1,0 +1,6 @@
+### Upon right-clicking, this item will §a§lteleport the player§r§f to the §9surface of the§f §9world§r§o (or the highest available air block near or on the surface).§r
+
+#### Especially useful when underground or in caves with no exit.
+
+!image:textures/gui/features/items/ender_thruster.png scale=.2
+!image:textures/gui/features/recipes/ender_thruster_crafting_recipe.png scale=.4

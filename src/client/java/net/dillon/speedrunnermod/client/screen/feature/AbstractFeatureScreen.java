@@ -91,9 +91,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             this.addButtonObject(ButtonWidget.builder(ModTexts.NEXT, button -> {
                 this.client.setScreen(this.getNextScreen());
             }).build());
-            this.addButtonObject(ButtonWidget.builder(ScreenTexts.DONE, button -> {
-                this.close();
-            }).build());
         }
 
         // A normal feature screen, which is any page between the first and last page of a certain category of features,
@@ -101,7 +98,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         else if (this.getScreenType() == ScreenType.NORMAL) {
             this.addButtonObject(ButtonWidget.builder(ModTexts.NEXT, button -> this.client.setScreen(this.getNextScreen())).build());
             this.addButtonObject(ButtonWidget.builder(ModTexts.PREVIOUS, button -> this.client.setScreen(this.getPreviousScreen())).build());
-            this.addButtonObject(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).build());
         }
 
         // A final feature screen (the last page of a certain category of features),
@@ -114,7 +110,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 this.addButtonObject(ButtonWidget.builder(this.category4Text, button -> this.client.setScreen(this.category4Screen)).build());
             }
             this.addButtonObject(ButtonWidget.builder(ModTexts.PREVIOUS, button -> this.client.setScreen(this.getPreviousScreen())).build());
-            this.addButtonObject(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).build());
         }
 
         // An "end" feature screen, which is only used for the last page of a certain category and the last actual category,
@@ -139,8 +134,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             this.addButtonObject(ButtonWidget.builder(ModTexts.PREVIOUS, button -> {
                 this.client.setScreen(new TripledDropsScreen(this.parent, MinecraftClient.getInstance().options));
             }).build());
-
-            this.addButtonObject(ButtonWidget.builder(ScreenTexts.DONE, button -> this.close()).build());
         }
     }
 
@@ -347,6 +340,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      * Render custom tooltips on screen.
      */
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+        if (this.getScreenType() == ScreenType.STARTER || this.getScreenType() == ScreenType.NORMAL) {
+            if (this.buttons.get(0).isHovered()) {
+                this.renderBasicTooltip(ModTexts.NEXT_TOOLTIP, context, mouseX, mouseY);
+            }
+            if (this.getScreenType() == ScreenType.NORMAL && this.buttons.get(1).isHovered()) {
+                this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
+            }
+        }
     }
 
     /**

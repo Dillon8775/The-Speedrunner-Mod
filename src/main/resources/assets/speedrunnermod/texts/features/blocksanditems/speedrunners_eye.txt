@@ -1,0 +1,4 @@
+### Acts just like an §aeye of ender,§f but only locates overworld structures, including §6villages,§f §druined portals,§f §eshipwrecks,§f §9ocean monuments,§f §6woodland mansions§f and §6desert temples.
+
+!image:textures/gui/features/items/speedrunners_eye.png scale=.2
+!image:textures/gui/features/recipes/speedrunners_eye_crafting_recipe.png scale=.4

@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
@@ -87,6 +88,15 @@ public class BaseModScreen extends GameOptionsScreen {
     }
 
     /**
+     * Refreshes a changelog screen.
+     */
+    public void refreshChangelogScreen(String id) {
+        ModOptions.saveConfig();
+        this.client.setScreen(new RefreshingScreen(parent, options));
+        this.client.setScreen(this.determineRefreshedChangelogScreen(id));
+    }
+
+    /**
      * Determines the refreshed screen for base screens.
      */
     public Screen determineRefreshedScreen(String pageId) {
@@ -110,6 +120,19 @@ public class BaseModScreen extends GameOptionsScreen {
             }
         }
         return new FirstTimePlayingScreen(this.parent, this.options);
+    }
+
+    /**
+     * Determines the refreshed screen for changelog screens.
+     */
+    public Screen determineRefreshedChangelogScreen(String pageId) {
+        for (BiFunction<Screen, GameOptions, AbstractChangelogScreen> modScreenConstructor : SpeedrunnerModClient.ALL_CHANGELOG_SCREENS) {
+            AbstractChangelogScreen screen = modScreenConstructor.apply(this.parent, this.options);
+            if (screen.pageId().equals(pageId)) {
+                return screen;
+            }
+        }
+        return new MainScreen(this.parent, this.options);
     }
 
     /**

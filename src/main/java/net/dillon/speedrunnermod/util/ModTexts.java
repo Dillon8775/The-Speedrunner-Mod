@@ -13,7 +13,9 @@ public class ModTexts {
     public static final Text SAVE = Text.translatable("speedrunnermod.save");
     public static final Text SAVE_TOOLTIP = Text.translatable("speedrunnermod.save.tooltip");
     public static final Text NEXT = Text.translatable("speedrunnermod.next");
+    public static final Text NEXT_TOOLTIP = Text.translatable("speedrunnermod.next.tooltip");
     public static final Text PREVIOUS = Text.translatable("speedrunnermod.previous");
+    public static final Text PREVIOUS_TOOLTIP = Text.translatable("speedrunnermod.previous.tooltip");
     public static final Text BACK = Text.translatable("speedrunnermod.back");
     public static final Text HELP_TOOLTIP = Text.translatable("speedrunnermod.help_button.tooltip");
     public static final Text DIRECTORY_TOOLTIP = Text.translatable("speedrunnermod.directory_button.tooltip");

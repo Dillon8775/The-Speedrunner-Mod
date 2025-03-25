@@ -1,0 +1,8 @@
+### A §lvery powerful§r item, especially when playing on §c§lDoom Mode.
+
+#### Upon right-clicking, all nearby §7raider entities§f (vindicators, evokers, ravagers, pillagers, etc.) within a §a§l300 block radius§r§f will be §ckilled,§f and all §9witches§r will be §a§lteleported directly towards the player.
+
+To use this item, you must be holding a §etotem of undying, §b(or have a speedrunner's totem in your inventory),§f and upon use, the player will be deducted their §c§lmaximum health.
+
+!image:textures/gui/features/items/raid_eradicator.png scale=.2
+!image:textures/gui/features/recipes/raid_eradicator_crafting_recipe.png scale=.45
