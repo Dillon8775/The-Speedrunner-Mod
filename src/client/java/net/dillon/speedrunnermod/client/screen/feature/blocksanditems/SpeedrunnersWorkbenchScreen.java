@@ -39,6 +39,6 @@ public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.END;
+        return ScreenType.FINAL;
     }
 }

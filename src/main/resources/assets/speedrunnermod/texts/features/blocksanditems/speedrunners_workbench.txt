@@ -2,8 +2,8 @@
 
 !image:textures/gui/features/blocks/speedrunners_workbench.png scale=.1
 
-### In the §9first slot,§f place the item with the enchantments that you want to §etransfer over.
-### In the §dsecond slot,§f place the item that you want the enchantments transferred §ato.
+#### In the §9first slot,§f place the item with the enchantments that you want to §etransfer over.
+#### In the §dsecond slot,§f place the item that you want the enchantments transferred §ato.
 
 !image:textures/gui/features/screenshots/speedrunners_workbench_interface.png scale=.15
 §aThe cost for §dtransferring enchantments§f is calculated by getting the number of §dall transferred enchantments, §bplus each §denchantment's level.
