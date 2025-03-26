@@ -23,6 +23,7 @@ public class ModTexts {
     public static final Text OFF = Text.literal("OFF").formatted(Formatting.RED);
     public static final Text YES = Text.literal("YES").formatted(Formatting.GREEN);
     public static final Text NO = Text.literal("NO").formatted(Formatting.RED);
+    public static final Text REFRESHING = Text.literal("Refreshing...");
     public static final Text ENABLED = Text.literal("Enabled").formatted(Formatting.GREEN);
     public static final Text DISABLED = Text.literal("DISABLED").formatted(Formatting.BOLD).formatted(Formatting.RED);
     public static final Text FEATURE_DISABLED = Text.literal("Feature Disabled");

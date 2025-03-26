@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
@@ -142,17 +141,6 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern("###")
                 .pattern(" X ")
                 .criterion("has_plank", this.conditionsFromItem(plank))
-                .offerTo(this.exporter);
-    }
-
-    protected void createGoldenFoodItem(ItemConvertible input, ItemConvertible output) {
-        this.createShaped(RecipeCategory.FOOD, output)
-                .input('#', ConventionalItemTags.GOLD_NUGGETS)
-                .input('i', input)
-                .pattern("###")
-                .pattern("#i#")
-                .pattern("###")
-                .criterion("has_food", this.conditionsFromItem(input))
                 .offerTo(this.exporter);
     }
 

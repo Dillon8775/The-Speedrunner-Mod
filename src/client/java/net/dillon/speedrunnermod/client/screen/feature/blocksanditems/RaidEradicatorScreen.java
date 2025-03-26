@@ -30,6 +30,7 @@ public class RaidEradicatorScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 18;
     }
+
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

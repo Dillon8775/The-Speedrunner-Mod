@@ -17,7 +17,7 @@ public class RefreshingScreen extends AbstractModScreen {
 
     @Override
     protected void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("Refreshing..."), this.width / 2, 100, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.REFRESHING, this.width / 2, 100, 16777215);
     }
 
     @Override

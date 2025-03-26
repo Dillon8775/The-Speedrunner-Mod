@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.client.screen.base.RefreshingScreen;
 import net.dillon.speedrunnermod.client.screen.base.text.AllFeaturesScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;

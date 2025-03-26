@@ -29,7 +29,7 @@ public class BetterHotkeysScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 25;
+        return 26;
     }
 
     @Override

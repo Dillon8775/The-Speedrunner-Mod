@@ -30,6 +30,7 @@ public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 20;
     }
+
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
@@ -38,6 +39,6 @@ public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.NORMAL;
+        return ScreenType.END;
     }
 }

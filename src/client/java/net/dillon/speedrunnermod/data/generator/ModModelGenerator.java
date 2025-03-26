@@ -114,17 +114,6 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.COOKED_FLESH, Models.GENERATED);
         itemModelGenerator.register(ModItems.PIGLIN_PORK, Models.GENERATED);
         itemModelGenerator.register(ModItems.COOKED_PIGLIN_PORK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_PIGLIN_PORK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_BEEF, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_PORKCHOP, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_MUTTON, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_CHICKEN, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_RABBIT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_COD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_SALMON, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_BREAD, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_POTATO, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_BEETROOT, Models.GENERATED);
         itemModelGenerator.register(ModItems.IGNEOUS_ROCK, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_BOAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_CHEST_BOAT, Models.GENERATED);

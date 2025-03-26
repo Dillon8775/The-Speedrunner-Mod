@@ -353,10 +353,9 @@ public class TradeOffersMixin {
                         2, new TradeOffers.Factory[]{
                                 new TradeOffers.BuyItemFactory(Items.COAL, 2, 32, 2),
                                 new TradeOffers.SellItemFactory(Items.COOKED_BEEF, 1, 8, 32, 5),
-                                new TradeOffers.SellItemFactory(ModItems.GOLDEN_BEEF, 2, 8, 24, 5)},
+                                new TradeOffers.SellItemFactory(Items.GOLDEN_CARROT, 2, 8, 24, 5)},
                         3, new TradeOffers.Factory[]{
-                                new TradeOffers.SellItemFactory(ModItems.GOLDEN_MUTTON, 2, 8, 32, 20),
-                                new TradeOffers.SellItemFactory(ModItems.GOLDEN_PORKCHOP, 3, 8, 32, 20)},
+                                new TradeOffers.SellItemFactory(Items.MUTTON, 3, 8, 32, 20)},
                         4, new TradeOffers.Factory[]{
                                 new TradeOffers.BuyItemFactory(Items.DRIED_KELP_BLOCK, 1, 24, 30)},
                         5, new TradeOffers.Factory[]{

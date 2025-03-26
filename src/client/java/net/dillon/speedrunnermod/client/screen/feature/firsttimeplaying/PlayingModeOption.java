@@ -81,6 +81,7 @@ public class PlayingModeOption extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 3;
     }
+
     @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;

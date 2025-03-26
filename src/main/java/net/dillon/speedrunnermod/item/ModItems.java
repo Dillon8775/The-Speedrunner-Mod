@@ -153,39 +153,6 @@ public class ModItems {
     public static final Item COOKED_PIGLIN_PORK = Items.register(of("cooked_piglin_pork"), Item::new,
             new Item.Settings().food(ModFoodComponents.COOKED_PIGLIN_PORK));
 
-    public static final Item GOLDEN_PIGLIN_PORK = Items.register(of("golden_piglin_pork"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_PIGLIN_PORK));
-
-    public static final Item GOLDEN_BEEF = Items.register(of("golden_beef"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_BEEF));
-
-    public static final Item GOLDEN_PORKCHOP = Items.register(of("golden_porkchop"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_PORKCHOP));
-
-    public static final Item GOLDEN_MUTTON = Items.register(of("golden_mutton"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_MUTTON));
-
-    public static final Item GOLDEN_CHICKEN = Items.register(of("golden_chicken"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_CHICKEN));
-
-    public static final Item GOLDEN_RABBIT = Items.register(of("golden_rabbit"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_RABBIT));
-
-    public static final Item GOLDEN_COD = Items.register(of("golden_cod"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_COD));
-
-    public static final Item GOLDEN_SALMON = Items.register(of("golden_salmon"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_SALMON));
-
-    public static final Item GOLDEN_BREAD = Items.register(of("golden_bread"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_BREAD));
-
-    public static final Item GOLDEN_POTATO = Items.register(of("golden_potato"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_POTATO));
-
-    public static final Item GOLDEN_BEETROOT = Items.register(of("golden_beetroot"), Item::new,
-            new Item.Settings().food(ModFoodComponents.GOLDEN_BEETROOT));
-
     public static final Item IGNEOUS_ROCK = Items.register(of("igneous_rock"), settings -> new Item(
             settings) {
 

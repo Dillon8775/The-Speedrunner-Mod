@@ -29,6 +29,7 @@ public class SpeedrunnersTotemScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 13;
     }
+
     @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

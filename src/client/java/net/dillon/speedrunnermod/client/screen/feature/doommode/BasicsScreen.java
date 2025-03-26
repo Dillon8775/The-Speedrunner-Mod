@@ -28,6 +28,7 @@ public class BasicsScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 1;
     }
+
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

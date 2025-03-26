@@ -98,18 +98,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModItemTags.GOLDEN_FOOD_ITEMS)
                 .add(Items.GOLDEN_APPLE)
                 .add(Items.ENCHANTED_GOLDEN_APPLE)
-                .add(Items.GOLDEN_CARROT)
-                .add(ModItems.GOLDEN_PIGLIN_PORK)
-                .add(ModItems.GOLDEN_BEEF)
-                .add(ModItems.GOLDEN_PORKCHOP)
-                .add(ModItems.GOLDEN_MUTTON)
-                .add(ModItems.GOLDEN_CHICKEN)
-                .add(ModItems.GOLDEN_RABBIT)
-                .add(ModItems.GOLDEN_COD)
-                .add(ModItems.GOLDEN_SALMON)
-                .add(ModItems.GOLDEN_BREAD)
-                .add(ModItems.GOLDEN_POTATO)
-                .add(ModItems.GOLDEN_BEETROOT);
+                .add(Items.GOLDEN_CARROT);
 
         getOrCreateTagBuilder(ModItemTags.GOLDEN_SPEEDRUNNER_TOOL_MATERIALS)
                 .add(Items.GOLD_INGOT);
@@ -314,8 +303,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ItemTags.PIGLIN_FOOD)
                 .add(ModItems.PIGLIN_PORK)
-                .add(ModItems.COOKED_PIGLIN_PORK)
-                .add(ModItems.GOLDEN_PIGLIN_PORK);
+                .add(ModItems.COOKED_PIGLIN_PORK);
 
         getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SWORD)

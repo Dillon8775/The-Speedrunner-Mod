@@ -18,7 +18,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -147,7 +146,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         int rightSide = leftSide + 160;
         int farRightSide = rightSide + 273;
         int height = this.height - 24;
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("§lPage:§r " + this.getPageNumber() + "/" + this.getMaxPages()), farRightSide, height, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), farRightSide, height, 16777215);
 
         if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
             int middle = this.width / 2 - 128;
@@ -187,7 +186,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_A) {
             if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-                if (this.getPageNumber() != 1) {
+                if (getPageNumber() != 1) {
                     this.client.setScreen(this.getPreviousScreen());
                 }
             } else {
@@ -198,7 +197,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             this.client.setScreen(this.getNextScreen());
             return true;
         } else if (keyCode == GLFW.GLFW_KEY_R) {
-            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+            this.refreshFeatureScreen(getPageNumber(), this.getScreenCategory());
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -355,7 +354,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     @Nullable
     protected Screen getNextScreen() {
-        return this.page(this.getPageNumber() + 1);
+        return this.page(getPageNumber() + 1);
     }
 
     /**
@@ -364,9 +363,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     @Nullable
     protected Screen getPreviousScreen() {
-        return this.page(this.getPageNumber() - 1);
+        return this.page(getPageNumber() - 1);
     }
-
 
     /**
      * Helper for referencing file paths in features/blocksanditems directory.
@@ -411,15 +409,15 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
+     * Returns the page number of a screen.
+     */
+    public abstract int getPageNumber();
+
+    /**
      * Gets the key of the main feature on the feature screen.
      */
     @NotNull
     public abstract String linesKey();
-
-    /**
-     * Returns the page number of an {@link AbstractFeatureScreen}.
-     */
-    public abstract int getPageNumber();
 
     /**
      * Returns the screen category that the feature screen fits in.

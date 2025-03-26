@@ -30,6 +30,7 @@ public class SpeedrunnerNuggetsScreen extends AbstractFeatureScreen {
     public int getPageNumber() {
         return 2;
     }
+
     @Override
     @NotNull
     public ScreenCategory getScreenCategory() {

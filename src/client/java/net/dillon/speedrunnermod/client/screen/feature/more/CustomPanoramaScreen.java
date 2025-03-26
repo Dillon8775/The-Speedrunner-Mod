@@ -27,7 +27,7 @@ public class CustomPanoramaScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 29;
+        return 30;
     }
 
     @Override

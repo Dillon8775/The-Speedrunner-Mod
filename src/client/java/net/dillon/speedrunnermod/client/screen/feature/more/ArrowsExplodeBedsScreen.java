@@ -27,11 +27,7 @@ public class ArrowsExplodeBedsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 26;
-    }
-
-    protected Identifier getCraftingRecipeImage() {
-        return null;
+        return 27;
     }
 
     @Override

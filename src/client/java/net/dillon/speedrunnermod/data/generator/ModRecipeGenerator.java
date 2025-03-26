@@ -125,18 +125,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS);
                 helper.createBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS);
 
-                helper.createGoldenFoodItem(Items.COOKED_BEEF, ModItems.GOLDEN_BEEF);
-                helper.createGoldenFoodItem(Items.BEETROOT, ModItems.GOLDEN_BEETROOT);
-                helper.createGoldenFoodItem(Items.BREAD, ModItems.GOLDEN_BREAD);
-                helper.createGoldenFoodItem(Items.COOKED_CHICKEN, ModItems.GOLDEN_CHICKEN);
-                helper.createGoldenFoodItem(Items.COOKED_COD, ModItems.GOLDEN_COD);
-                helper.createGoldenFoodItem(Items.COOKED_MUTTON, ModItems.GOLDEN_MUTTON);
-                helper.createGoldenFoodItem(ModItems.COOKED_PIGLIN_PORK, ModItems.GOLDEN_PIGLIN_PORK);
-                helper.createGoldenFoodItem(Items.COOKED_PORKCHOP, ModItems.GOLDEN_PORKCHOP);
-                helper.createGoldenFoodItem(Items.BAKED_POTATO, ModItems.GOLDEN_POTATO);
-                helper.createGoldenFoodItem(Items.COOKED_RABBIT, ModItems.GOLDEN_RABBIT);
-                helper.createGoldenFoodItem(Items.COOKED_SALMON, ModItems.GOLDEN_SALMON);
-
                 helper.offerBannerRecipe(Items.BLACK_BANNER, Blocks.BLACK_WOOL);
                 helper.offerBannerRecipe(Items.BLUE_BANNER, Blocks.BLUE_WOOL);
                 helper.offerBannerRecipe(Items.BROWN_BANNER, Blocks.BROWN_WOOL);
