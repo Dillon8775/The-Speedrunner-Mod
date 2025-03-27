@@ -1,0 +1,5 @@
+### The doom blocks will generate in the end, and if broken, they will spawn various hostile mobs, along with some lava.
+
+#### You can avoid these things if you break these blocks with a speedrunner or golden speedrunner tool. However, they will also drop a variety of helpful items to make the end fight a little bit easier, including armor, crossbows, etc.
+
+!image:textures/gui/features/blocks/doom_block.png scale=.1

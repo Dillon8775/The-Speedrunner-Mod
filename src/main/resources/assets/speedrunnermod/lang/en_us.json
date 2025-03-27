@@ -752,16 +752,9 @@
 
   "speedrunnermod.title.features.doom_mode.basics": "§cBasics",
   "speedrunnermod.title.features.doom_mode.bosses": "§cBosses",
-  "speedrunnermod.features.doom_mode.bosses.text": "When the end fight begins, the §dender dragon§r will spawn like normal, but with §cquintuple§r the amount of health. A §7wither§r will also spawn, with almost double the amount of health. All withers also regenerate extremely fast. And finally, a §a§lgiant§r will spawn. In vanilla Minecraft, the §agiant§r does not have any AI. However, this mode §lgives it§r a function.",
-
   "speedrunnermod.title.features.doom_mode.goliath": "§a§lGoliath",
-  "speedrunnermod.features.doom_mode.goliath.text": "The §a§lGiant§r (also known as §aGoliath)§r will target anything in it's path, and slowly regenerate at all times. It cannot be killed from the void. If it gets knocked into the void, it will simply teleport back to the middle of the end island. Once the giant reaches half health, ranged weapons are no good. The giant will also randomly spawn §c§lTNT§r around itself when taking damage, so watch out for that. The giant is completely immune to explosives, fall damage, fire and lava damage. Good luck with this boss. §a>:)",
-
   "speedrunnermod.title.features.doom_mode.doom_blocks": "§cDoom Blocks",
-  "speedrunnermod.features.doom_mode.doom_blocks.text": "The doom blocks will generate in the end, and if broken, they will spawn various hostile mobs, along with some lava. You can avoid these things if you break these blocks with a speedrunner or golden speedrunner tool. However, they will also drop a variety of helpful items to make the end fight a little bit easier, including armor, crossbows, etc.",
-
   "speedrunnermod.title.features.doom_mode.other_things_to_know": "Other Things To Know",
-  "speedrunnermod.features.doom_mode.other_things_to_know.text": "§cHostile mobs§r inflict the player with §7slowness§r when attacking, and skeletons shoot §9slowness arrows. Ghasts shoot §9fireballs§r at an extremely fast rate, right-clicking a §acreeper§r with a flint and steel will make it §linstantly explode,§r end crystals do more damage, §9ender pearls§r give §lblindness§r upon use, §aender eyes§f will always break, §lstrongholds are extremely large,§f and generate close to the bottom of the world. §c§oIf you're up for the challenge, I wish you luck.",
   "speedrunnermod.doom_mode.enable": "Enable Doom Mode",
   "speedrunnermod.doom_mode.already_enabled": "Doom mode is already enabled!",
 

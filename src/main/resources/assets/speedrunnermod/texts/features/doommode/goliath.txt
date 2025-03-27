@@ -1,0 +1,7 @@
+### The §a§lGiant§r (also known as §aGoliath)§r will target anything in it's path, and slowly regenerate at all times.
+
+#### It cannot be killed from the void. If it gets knocked into the void, it will simply teleport back to the middle of the end island. Once the giant reaches half health, ranged weapons are no good.
+The giant will also randomly spawn §c§lTNT§r around itself when taking damage, so watch out for that.
+The giant is completely immune to explosives, fall damage, fire and lava damage. Good luck with this boss. §a>:)
+
+!image:textures/gui/features/other/goliath.png scale=.20

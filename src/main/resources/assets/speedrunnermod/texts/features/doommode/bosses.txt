@@ -1,0 +1,4 @@
+### When the end fight begins, the §dender dragon§r will spawn like normal, but with §cquintuple§r the amount of health.
+
+#### A §7wither§r will also spawn, with almost double the amount of health. All withers also regenerate extremely fast. And finally, a §a§lgiant§r will spawn. In vanilla Minecraft, the §agiant§r does not have any AI. However, this mode §lgives it§r a function.
+

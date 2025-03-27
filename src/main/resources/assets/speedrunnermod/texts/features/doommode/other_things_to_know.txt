@@ -1,0 +1,10 @@
+#### §cHostile mobs§r inflict the player with §7slowness§r when attacking, and skeletons shoot §9slowness arrows.
+
+#### Ghasts shoot §9fireballs§r at an extremely fast rate,
+#### right-clicking a §acreeper§r with a flint and steel will make it §linstantly explode,
+#### end crystals do more damage, §9ender pearls§r give §lblindness§r upon use,
+#### §aender eyes§f will always break,
+#### §lstrongholds are extremely large,§f and generate close to the bottom of the world.
+
+## §c§oIf you're up for the challenge, I wish you luck.
+
