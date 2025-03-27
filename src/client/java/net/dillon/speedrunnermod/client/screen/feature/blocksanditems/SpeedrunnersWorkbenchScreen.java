@@ -32,7 +32,7 @@ public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 20;
+        return this.getMaxPages();
     }
 
     @Override

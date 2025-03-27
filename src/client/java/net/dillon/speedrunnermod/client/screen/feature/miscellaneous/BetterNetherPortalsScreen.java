@@ -24,7 +24,7 @@ public class BetterNetherPortalsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 11;
+        return 13;
     }
 
     @Override

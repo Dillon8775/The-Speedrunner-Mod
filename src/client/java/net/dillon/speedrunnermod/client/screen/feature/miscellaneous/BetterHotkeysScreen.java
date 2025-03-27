@@ -24,12 +24,7 @@ public class BetterHotkeysScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 26;
-    }
-
-    @Override
-    protected int getButtonsHeight() {
-        return this.height / 6 + 123;
+        return 1;
     }
 
     @Override

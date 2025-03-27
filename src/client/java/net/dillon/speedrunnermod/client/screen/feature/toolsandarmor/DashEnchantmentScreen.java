@@ -25,7 +25,7 @@ public class DashEnchantmentScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 5;
+        return 4;
     }
 
     @Override

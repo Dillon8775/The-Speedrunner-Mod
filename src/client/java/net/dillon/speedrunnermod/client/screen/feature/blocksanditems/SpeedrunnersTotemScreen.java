@@ -24,7 +24,7 @@ public class SpeedrunnersTotemScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 13;
+        return 14;
     }
 
     @Override

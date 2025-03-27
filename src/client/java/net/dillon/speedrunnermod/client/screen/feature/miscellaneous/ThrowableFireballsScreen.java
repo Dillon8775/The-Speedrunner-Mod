@@ -24,7 +24,7 @@ public class ThrowableFireballsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 18;
+        return 17;
     }
 
     @Override

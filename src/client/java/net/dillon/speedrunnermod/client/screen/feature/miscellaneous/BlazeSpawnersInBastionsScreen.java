@@ -24,7 +24,7 @@ public class BlazeSpawnersInBastionsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 15;
+        return 14;
     }
 
     @Override

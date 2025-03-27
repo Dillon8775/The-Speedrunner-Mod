@@ -25,7 +25,7 @@ public class ResetKeyScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 1;
+        return 2;
     }
 
     @Override

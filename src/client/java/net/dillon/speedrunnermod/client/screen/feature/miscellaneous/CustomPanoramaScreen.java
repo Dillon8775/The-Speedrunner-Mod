@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 public class CustomPanoramaScreen extends AbstractFeatureScreen {
 
     public CustomPanoramaScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.custom_panorama.txt"));
+        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.custom_panorama"));
     }
 
     @Override
     public @NotNull String linesKey() {
-        return "custom_panorama.txt";
+        return "custom_panorama";
     }
 
     @Override

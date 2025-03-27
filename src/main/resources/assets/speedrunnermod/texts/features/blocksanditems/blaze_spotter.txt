@@ -1,6 +1,4 @@
-### Another goofy, but useful item for §bspeedrunning.
-
-#### Upon right-clicking §c§o(in the nether),§r this item will §a§lteleport the player§r§f to the §enearest blaze spawner,§r completely getting rid of the need to locate a §cnether fortress.
+## §dTeleports the player §b§odirectly §fto the nearest §6blaze spawner.
 
 !image:textures/gui/features/items/blaze_spotter.png scale=.15
 !image:textures/gui/features/recipes/blaze_spotter_crafting_recipe.png scale=.5

@@ -1,5 +1,7 @@
-#### Along with the §bspeedrunner boat,§r there are now also §ccrimson§r and §9warped§r boats.
+### Introducing the §bSpeedrunner Boat, §3Dead Speedrunner Boat, §cCrimson Boat, §fand §9Warped Boat.
 
-#### They can be crafted just like any ordinary boat, and can §6ride in lava. §f(excluding the §3dead speedrunner boat§f).
+#### All three types of boats can be ridden in lava, except the §3dead speedrunner boat,§f which §6burns in lava.
+
+#### Additionally, the §bSpeedrunner Boat§f and §3Dead Speedrunner Boat§f ride faster in §9any fluid.
 
 !image:textures/gui/features/other/more_boats.png scale=.15

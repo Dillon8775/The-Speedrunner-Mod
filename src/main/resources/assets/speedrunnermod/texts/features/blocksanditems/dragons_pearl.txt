@@ -1,6 +1,4 @@
-### A §overy overpowered§r and useful item for §dthe end.
-
-#### Upon right-clicking §o(in the end),§r you can §lforce§r the §dender dragon§f to §linstantly perch,§r no matter where the dragon is, removing those long, last few minutes in every average speedrun.
+## Forces the §dender dragon §fto perch in the end, removing those long, last few minutes in a speedrun.
 
 !image:textures/gui/features/items/dragons_pearl.png scale=.15
 !image:textures/gui/features/recipes/dragons_pearl_crafting_recipe.png scale=.5

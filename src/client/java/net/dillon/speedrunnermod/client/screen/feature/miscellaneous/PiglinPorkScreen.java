@@ -25,7 +25,7 @@ public class PiglinPorkScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 8;
+        return 9;
     }
 
     @Override

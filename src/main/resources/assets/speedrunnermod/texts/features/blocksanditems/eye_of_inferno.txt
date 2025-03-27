@@ -1,6 +1,6 @@
-### Similar to the §aeye of ender,§f but with a different purpose.
+### Locates nearby §cnether fortresses §fand §b7bastions.
 
-#### Instead of locating the nearest stronghold, it locates the nearest §cnether fortress,§f or §7bastion,§f you get to choose which one it locates, just shift + right-click to swap between the two structures.
+#### §aShift + right click§f to swap between the two structures.
 
 !image:textures/gui/features/items/eye_of_inferno.png scale=.15
 !image:textures/gui/features/recipes/eye_of_inferno_crafting_recipe.png scale=.5

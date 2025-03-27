@@ -1,7 +1,7 @@
 ### Crafted with §b2 speedrunner ingots§r and §b4 speedrunner planks,§r the §b§lSpeedrunner's Workbench§r can be used to §5transfer enchantments§f to §aother items!
 
 !image:textures/gui/features/blocks/speedrunners_workbench.png scale=.1
-
+!image:textures/gui/features/recipes/speedrunners_workbench_crafting_recipe.png scale=.3
 #### In the §9first slot,§f place the item with the enchantments that you want to §etransfer over.
 #### In the §dsecond slot,§f place the item that you want the enchantments transferred §ato.
 

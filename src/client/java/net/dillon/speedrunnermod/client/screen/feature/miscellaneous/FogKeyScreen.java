@@ -25,7 +25,7 @@ public class FogKeyScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 2;
+        return 3;
     }
 
     @Override

@@ -17,10 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class WitherSwordScreen extends AbstractFeatureScreen {
 
     public WitherSwordScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword"),
-                new SpeedrunnersWastelandBiomeScreen(parent, options), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
-                new ResetKeyScreen(parent, options), Text.translatable("speedrunnermod.menu.features.more"),
-                new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), false, null, null);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword"));
     }
 
     @Override
@@ -31,7 +28,7 @@ public class WitherSwordScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return this.getMaxPages();
+        return 6;
     }
 
     @Override
@@ -42,6 +39,6 @@ public class WitherSwordScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FINAL;
+        return ScreenType.NORMAL;
     }
 }

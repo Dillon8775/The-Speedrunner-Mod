@@ -24,7 +24,7 @@ public class BetterLootTablesScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 14;
+        return 20;
     }
 
     @Override

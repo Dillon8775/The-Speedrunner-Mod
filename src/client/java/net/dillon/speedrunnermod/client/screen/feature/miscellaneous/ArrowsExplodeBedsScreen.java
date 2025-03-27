@@ -24,7 +24,7 @@ public class ArrowsExplodeBedsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 27;
+        return 28;
     }
 
     @Override

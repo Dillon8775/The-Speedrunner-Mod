@@ -25,7 +25,7 @@ public class ICarusModeScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 5;
+        return 6;
     }
 
     @Override

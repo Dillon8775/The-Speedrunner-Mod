@@ -25,7 +25,7 @@ public class CooldownEnchantmentScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 6;
+        return 5;
     }
 
     @Override

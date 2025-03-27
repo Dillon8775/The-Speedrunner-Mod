@@ -24,7 +24,7 @@ public class FireproofItemsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 13;
+        return 16;
     }
 
     @Override

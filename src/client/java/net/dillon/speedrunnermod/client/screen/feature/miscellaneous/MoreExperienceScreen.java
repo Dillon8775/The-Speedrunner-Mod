@@ -24,7 +24,7 @@ public class MoreExperienceScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 29;
+        return 12;
     }
 
     @Override

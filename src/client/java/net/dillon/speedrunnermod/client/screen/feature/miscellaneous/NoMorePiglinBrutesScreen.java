@@ -25,7 +25,7 @@ public class NoMorePiglinBrutesScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 9;
+        return 10;
     }
 
     @Override

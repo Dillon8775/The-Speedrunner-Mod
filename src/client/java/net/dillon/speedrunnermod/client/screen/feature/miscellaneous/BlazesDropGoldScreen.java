@@ -24,7 +24,7 @@ public class BlazesDropGoldScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 16;
+        return 15;
     }
 
     @Override

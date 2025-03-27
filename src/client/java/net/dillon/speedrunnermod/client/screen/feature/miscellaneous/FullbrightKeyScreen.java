@@ -25,7 +25,7 @@ public class FullbrightKeyScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 3;
+        return 4;
     }
 
     @Override

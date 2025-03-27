@@ -11,16 +11,16 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class EndScreen extends AbstractFeatureScreen {
+public class AndMoreScreen extends AbstractFeatureScreen {
 
-    public EndScreen(Screen parent, GameOptions options) {
+    public AndMoreScreen(Screen parent, GameOptions options) {
         super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.more"));
     }
 
     @Override
     @NotNull
     public String linesKey() {
-        return "more";
+        return "and_more";
     }
 
     @Override

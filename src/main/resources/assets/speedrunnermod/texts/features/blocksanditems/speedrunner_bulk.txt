@@ -1,3 +1,5 @@
-### Found only in loot chests, the §bspeedrunner bulk§r is a very powerful food item that gives §6fire resistance§r and §9water breathing,§r and also has a chance to give §bspeed, §ehaste,§r and §cregeneration§r when eaten.
+### Gives §6fire resistance§r and §9water breathing,§f and also has a chance to give §bspeed, §ehaste,§r and §cregeneration§f upon consumption.
+
+#### Found only in loot chests.
 
 !image:textures/gui/features/items/speedrunner_bulk.png scale=.2

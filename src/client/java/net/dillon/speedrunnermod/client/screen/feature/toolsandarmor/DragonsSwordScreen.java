@@ -3,6 +3,9 @@ package net.dillon.speedrunnermod.client.screen.feature.toolsandarmor;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
+import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
+import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.ResetKeyScreen;
+import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
@@ -14,7 +17,10 @@ import org.jetbrains.annotations.NotNull;
 public class DragonsSwordScreen extends AbstractFeatureScreen {
 
     public DragonsSwordScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword"));
+        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword"),
+                new SpeedrunnersWastelandBiomeScreen(parent, options), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
+                new ResetKeyScreen(parent, options), Text.translatable("speedrunnermod.menu.features.miscellaneous"),
+                new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), false, null, null);
     }
 
     @Override
@@ -25,7 +31,7 @@ public class DragonsSwordScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 4;
+        return this.getMaxPages();
     }
 
     @Override
@@ -36,6 +42,6 @@ public class DragonsSwordScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.NORMAL;
+        return ScreenType.FINAL;
     }
 }

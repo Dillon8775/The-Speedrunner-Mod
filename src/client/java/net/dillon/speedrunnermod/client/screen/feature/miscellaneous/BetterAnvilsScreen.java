@@ -24,7 +24,7 @@ public class BetterAnvilsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 20;
+        return 25;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class BetterVillagerTradesScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 17;
+        return 18;
     }
 
     @Override

@@ -25,7 +25,7 @@ public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 4;
+        return 5;
     }
 
     @Override

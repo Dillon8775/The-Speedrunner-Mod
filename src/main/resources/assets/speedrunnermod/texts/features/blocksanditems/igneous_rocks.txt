@@ -1,5 +1,6 @@
-### A rock obtained from the §7igneous ores§f that generate throughout the world.
+### A rock obtained from §7Igneous Ores§f that generate throughout the world.
 
-#### It only has one use: §lcrafting obsidian,§r that's it.
+#### It only has one use: §7§lcrafting obsidian.
 
 !image:textures/gui/features/items/igneous_rock.png scale=.2
+!image:textures/gui/features/recipes/igneous_rock_crafting.png scale=.5
