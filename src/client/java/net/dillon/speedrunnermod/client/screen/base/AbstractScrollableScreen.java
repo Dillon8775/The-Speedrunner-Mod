@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
+import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.fabricmc.api.EnvType;
@@ -19,6 +20,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +64,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 this.objectsToDisplay.add(parseLine(line));
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            if (e instanceof FileNotFoundException) {
+                SpeedrunnerMod.warn("No text file found for " + this.getClass().getSimpleName() + ": " + path);
+            } else {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -105,7 +111,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
                 return new ObjectToDisplay(null, 1.0F, imageId, scaledWidth, scaledHeight, null);
             } catch (IOException e) {
-                e.printStackTrace();
+                if (e instanceof FileNotFoundException) {
+                    SpeedrunnerMod.error("No image file found in referencing text file " + this.getClass().getSimpleName() + ": " + imageId);
+                } else {
+                    e.printStackTrace();
+                }
                 return new ObjectToDisplay(Text.literal("[Image Load Failed]"), 1.0F, null, 0, 0, null);
             }
         }
@@ -367,7 +377,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 button.render(context, mouseX, mouseY, delta);
 
                 y += button.getHeight() + 4;
-                continue;
             }
         }
 
@@ -375,7 +384,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             float scrollRatio = (float) scrollbarHeight / contentHeight;
             int thumbHeight = Math.max((int)(scrollbarHeight * scrollRatio), 10);
             int maxScroll = getAccurateMaxScroll();
-            float scrollPercent = (float) this.scrollOffset / maxScroll;
+            float scrollPercent = this.scrollOffset / maxScroll;
             int thumbY = top + (int)(scrollPercent * (scrollbarHeight - thumbHeight));
 
             // Draw track
@@ -572,7 +581,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Data structure representing a line of text with a scale factor.
      */
     @ChatGPT(Credit.FULL_CREDIT)
-    private record ObjectToDisplay(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ButtonWidget button) {
+    public record ObjectToDisplay(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ButtonWidget button) {
         public boolean isImage() {
             return imageId != null;
         }

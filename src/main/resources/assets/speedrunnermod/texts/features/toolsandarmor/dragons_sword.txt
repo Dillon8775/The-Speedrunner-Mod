@@ -1,0 +1,5 @@
+### A §overy powerful weapon,§r used against the §d§lender dragon,§r which will instantly kill it in §lone hit.
+
+#### §oDon't try it on §c§oDoom Mode,§r§o though...
+
+!image:textures/gui/features/items/dragons_sword.png scale=.2

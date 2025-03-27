@@ -1,0 +1,5 @@
+### The §bspeedrunner armor§r acts almost like iron armor, but slightly more powerful.
+
+#### It applies more protection and has more durability, and can be crafted just like any other armor piece would, using §bspeedrunner ingots.
+
+!image:textures/gui/features/other/speedrunner_armor.png scale=.15

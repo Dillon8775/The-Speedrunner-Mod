@@ -1,0 +1,5 @@
+### Certain ores, including §bdiamonds§f and §9lapis§f will generate more commonly all throughout the overworld.
+
+#### §bSpeedrunner ores, diamond ores, §aexperience ores§f and §9lapis§r will all generate even §omore§r commonly in the §b§lSpeedrunner's Wasteland biome.
+
+!image:textures/gui/features/screenshots/common_ores.png scale=.14

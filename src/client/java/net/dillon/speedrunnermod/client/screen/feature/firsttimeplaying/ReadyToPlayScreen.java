@@ -13,7 +13,6 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -53,6 +52,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
         if (this.buttons.get(1).isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.begin_playing.tooltip"), context, x, y);
         }
+        super.renderTooltips(context, x, y);
     }
 
     @Override

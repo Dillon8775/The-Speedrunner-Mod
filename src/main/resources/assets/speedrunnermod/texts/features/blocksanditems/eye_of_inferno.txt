@@ -2,5 +2,5 @@
 
 #### Instead of locating the nearest stronghold, it locates the nearest §cnether fortress,§f or §7bastion,§f you get to choose which one it locates, just shift + right-click to swap between the two structures.
 
-!image:textures/gui/features/items/eye_of_inferno.png scale=.2
-!image:textures/gui/features/recipes/eye_of_inferno_crafting_recipe.png scale=.4
+!image:textures/gui/features/items/eye_of_inferno.png scale=.15
+!image:textures/gui/features/recipes/eye_of_inferno_crafting_recipe.png scale=.5

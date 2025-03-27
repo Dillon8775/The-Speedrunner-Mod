@@ -8,21 +8,20 @@ import net.dillon.speedrunnermod.client.screen.feature.more.ResetKeyScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
-
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 
 @Environment(EnvType.CLIENT)
 public class FortressesBastionsAndStrongholdsScreen extends AbstractFeatureScreen {
 
     public FortressesBastionsAndStrongholdsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.fortresses_bastions_and_strongholds"), new ResetKeyScreen(parent, options), Text.translatable("speedrunnermod.menu.features.more"), new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), new SpeedrunnerArmorScreen(parent, options), Text.translatable("speedrunnermod.menu.features.tools_and_armor"), false, null, null);
+        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.fortresses_bastions_and_strongholds"),
+                new ResetKeyScreen(parent, options), Text.translatable("speedrunnermod.menu.features.more"),
+                new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"),
+                new SpeedrunnerArmorScreen(parent, options), Text.translatable("speedrunnermod.menu.features.tools_and_armor"),
+                false, null, null);
     }
 
     @Override

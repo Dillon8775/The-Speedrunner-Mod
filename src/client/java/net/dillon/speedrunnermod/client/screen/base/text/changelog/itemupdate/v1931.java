@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.client.screen.base.text.changelog.itemupdate;
 
-import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

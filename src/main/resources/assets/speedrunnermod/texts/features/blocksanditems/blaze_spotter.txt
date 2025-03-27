@@ -2,5 +2,5 @@
 
 #### Upon right-clicking §c§o(in the nether),§r this item will §a§lteleport the player§r§f to the §enearest blaze spawner,§r completely getting rid of the need to locate a §cnether fortress.
 
-!image:textures/gui/features/items/blaze_spotter.png scale=.2
-!image:textures/gui/features/recipes/blaze_spotter_crafting_recipe.png scale=.4
+!image:textures/gui/features/items/blaze_spotter.png scale=.15
+!image:textures/gui/features/recipes/blaze_spotter_crafting_recipe.png scale=.5

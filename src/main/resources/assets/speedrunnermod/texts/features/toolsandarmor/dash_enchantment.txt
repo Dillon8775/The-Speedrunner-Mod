@@ -1,0 +1,5 @@
+### A new enchantment, which can be found in various different §bloot chests§f and via §6piglin bartering.
+
+#### This enchantment will give the player the §b§lSpeed effect,§r with it's amplifier being multiplied for each level of the enchantment (max level = §l3,§r only applicable on boots).
+
+!image:textures/gui/features/items/enchanted_book.png scale=.2

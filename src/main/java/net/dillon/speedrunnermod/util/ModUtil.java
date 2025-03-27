@@ -1,10 +1,8 @@
 package net.dillon.speedrunnermod.util;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;

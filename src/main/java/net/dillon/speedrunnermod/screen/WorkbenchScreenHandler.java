@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;

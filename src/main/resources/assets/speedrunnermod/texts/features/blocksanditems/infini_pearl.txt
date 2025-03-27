@@ -1,4 +1,4 @@
 ### Acts like a regular ender pearl, but does not get consumed upon use, and does not do any damage to the player upon landing.
 
-!image:textures/gui/features/items/infini_pearl.png scale=.2
-!image:textures/gui/features/recipes/infini_pearl_crafting_recipe.png scale=.3
+!image:textures/gui/features/items/infini_pearl.png scale=.15
+!image:textures/gui/features/recipes/infini_pearl_crafting_recipe.png scale=.4

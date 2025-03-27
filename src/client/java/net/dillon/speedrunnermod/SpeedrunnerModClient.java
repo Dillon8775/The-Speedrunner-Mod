@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
 import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.option.BrokenModOptions;

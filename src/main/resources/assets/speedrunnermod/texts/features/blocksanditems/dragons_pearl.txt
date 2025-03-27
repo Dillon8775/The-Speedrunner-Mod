@@ -2,5 +2,5 @@
 
 #### Upon right-clicking §o(in the end),§r you can §lforce§r the §dender dragon§f to §linstantly perch,§r no matter where the dragon is, removing those long, last few minutes in every average speedrun.
 
-!image:textures/gui/features/items/dragons_pearl.png scale=.2
-!image:textures/gui/features/recipes/dragons_pearl_crafting_recipe.png scale=.4
+!image:textures/gui/features/items/dragons_pearl.png scale=.15
+!image:textures/gui/features/recipes/dragons_pearl_crafting_recipe.png scale=.5

@@ -48,7 +48,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton;
     protected OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
-    protected final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
+    public final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
 
     public AbstractModScreen(Screen parent, GameOptions options, Text title) {
         super(parent, options, title);

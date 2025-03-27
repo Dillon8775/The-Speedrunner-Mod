@@ -1,0 +1,5 @@
+### The §7igneous ores§r will drop §l2-5§r§7 igneous rocks,§r which can be used to craft obsidian.
+
+#### Found in the §b§lSpeedrunner's Wasteland biome§r and in §cthe nether.
+
+!image:textures/gui/features/blocks/igneous_ores.png scale=.1

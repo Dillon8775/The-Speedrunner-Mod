@@ -1,0 +1,5 @@
+### Structures of almost all types, including §6villages, §cnether fortresses, §7bastions, §6buried treasures, §1shipwrecks, §cruined portals, §dend cities, §6desert pyramids, §7pillager outposts, §ajungle temples §fand §6woodland mansions§f will generate more commonly!
+
+#### §oThe spawn rate of these structures can be configured in the §b§ospeedrunner mod options menu.
+
+!image:textures/gui/features/screenshots/structures.png scale=.14

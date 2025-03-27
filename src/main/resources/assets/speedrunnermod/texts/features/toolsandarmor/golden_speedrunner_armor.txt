@@ -1,0 +1,5 @@
+### This is basically an upgrade for the normal §6golden armor.
+
+### It has more durability than normal gold, it's faster than normal gold, and it can §lkeep you safe from piglin.
+
+!image:textures/gui/features/other/golden_speedrunner_armor.png scale=.15

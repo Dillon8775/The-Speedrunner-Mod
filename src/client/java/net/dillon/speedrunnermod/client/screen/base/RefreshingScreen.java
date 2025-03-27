@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class RefreshingScreen extends AbstractModScreen {

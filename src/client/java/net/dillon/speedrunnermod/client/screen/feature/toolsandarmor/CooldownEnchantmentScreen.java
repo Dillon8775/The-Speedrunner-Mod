@@ -8,10 +8,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
-
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 
 @Environment(EnvType.CLIENT)
 public class CooldownEnchantmentScreen extends AbstractFeatureScreen {

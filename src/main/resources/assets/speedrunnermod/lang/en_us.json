@@ -704,7 +704,6 @@
 
   "speedrunnermod.menu.features.blocks_and_items": "Blocks and Items...",
   "speedrunnermod.title.features.blocks_and_items": "Blocks and Items",
-
   "speedrunnermod.title.features.blocks_and_items.speedrunner_ingots": "§bSpeedrunner Ingots",
   "speedrunnermod.title.features.blocks_and_items.speedrunner_nuggets": "§bSpeedrunner Nuggets",
   "speedrunnermod.title.features.blocks_and_items.speedrunner_blocks": "§bSpeedrunner Blocks",
@@ -729,58 +728,29 @@
 
   "speedrunnermod.menu.features.tools_and_armor": "Tools and Armor...",
   "speedrunnermod.title.features.tools_and_armor": "Tools and Armor",
-
   "speedrunnermod.title.features.tools_and_armor.speedrunner_armor": "§bSpeedrunner Armor",
-  "speedrunnermod.features.tools_and_armor.speedrunner_armor.text": "The §bspeedrunner armor§r acts almost like iron armor, but slightly more powerful. It applies more protection and has more durability, and can be crafted just like any other armor piece would, using §bspeedrunner ingots.",
-
   "speedrunnermod.title.features.tools_and_armor.golden_speedrunner_armor": "§6Golden Speedrunner Armor",
-  "speedrunnermod.features.tools_and_armor.golden_speedrunner_armor.text": "This is basically an upgrade for the normal §6golden armor.§r It has more durability than normal gold, it's faster than normal gold, and it can §lkeep you safe from piglin.",
-
   "speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots": "§bSpeedrunner Safe Boots",
-  "speedrunnermod.features.tools_and_armor.speedrunner_safe_boots.text": "§bSpeedrunner boots§r (or §6golden speedrunner boots)§r can be worn by the player, giving infinite speed, and protects the player from sensing off §bsculk sensor blocks.",
-
   "speedrunnermod.title.features.tools_and_armor.dragons_sword": "§dDragon's Sword",
-  "speedrunnermod.features.tools_and_armor.dragons_sword.text": "A §overy powerful weapon,§r used against the §d§lender dragon,§r which will instantly kill it in §lone hit.§r\n§oDon't try it on §c§oDoom Mode,§r§o though...",
-
   "speedrunnermod.title.features.tools_and_armor.dash_enchantment": "§bDash Enchantment",
-  "speedrunnermod.features.tools_and_armor.dash_enchantment.text": "A new enchantment, which can be found in various different §bloot chests§f and via §6piglin bartering,§r this enchantment will give the player the §b§lSpeed effect,§r with it's amplifier being multiplied for each level of the enchantment (max level = §l3,§r only applicable on boots).",
-
   "speedrunnermod.title.features.tools_and_armor.cooldown_enchantment": "§bCooldown Enchantment",
-  "speedrunnermod.features.tools_and_armor.cooldown_enchantment.text": "A new enchantment, which can also be found in various different §bloot chests,§r this enchantment decreases the cooldown time on certain items, such as §9ender pearls,§d chorus fruit,§f and§7 shields.",
-
   "speedrunnermod.title.features.tools_and_armor.wither_sword": "§7Wither Sword",
-  "speedrunnermod.features.tools_and_armor.wither_sword.text": "A new weapon that can §lone-shot§r§7 wither skeletons,§f and will give them a §l100%§r §lchance§r to drop a §7wither skeleton skull§f upon §cdeath.§r\nTo craft §7wither bones,§r you will need two §lnormal bones§r and two pieces of §7coal.",
 
   "speedrunnermod.menu.features.ores_and_worldgen": "Ores and Worldgen...",
   "speedrunnermod.title.features.ores_and_worldgen": "Ores and Worldgen",
 
-  "speedrunnermod.title.features.ores_and_worldgen.speedrunners_wasteland": "§bThe §b§lSpeedrunner's Wasteland Biome",
-  "speedrunnermod.features.ores_and_worldgen.speedrunners_wasteland.text": "A new §abiome,§f which will will generate pretty commonly throughout the overworld. A §lgreat place§r for §bspeedrunning,§r because mobs spawn less (except for §denderman),§f §bdiamonds§f and §9lapis§f generate more commonly, and big amounts of §bspeedrunner trees§r generate.",
-
+  "speedrunnermod.title.features.ores_and_worldgen.speedrunners_wasteland_biome": "§bThe Speedrunner's Wasteland Biome",
   "speedrunnermod.title.features.ores_and_worldgen.speedrunner_ores": "§bSpeedrunner Ores",
-  "speedrunnermod.features.ores_and_worldgen.speedrunner_ores.text": "Found across §lall biomes§r in the §aoverworld§f and in §cthe nether,§f the §bspeedrunner ores§f will drop §bspeedrunner ingots,§r which can be used to craft all of the speedrunner tools, blocks, and armor, and can be found more commonly in the §b§lSpeedrunner's Wasteland§r biome.",
-
   "speedrunnermod.title.features.ores_and_worldgen.experience_ores": "§aExperience Ores",
-  "speedrunnermod.features.ores_and_worldgen.experience_ores.text": "Found across §lall biomes§r in the §aoverworld§f and in §cthe nether,§f the §aexperience ores§f will simply drop a §lbunch of experience§r when mined.\nThe §aamount of experience dropped§f can be increased with the §5fortune enchantment.",
-
   "speedrunnermod.title.features.ores_and_worldgen.igneous_ores": "§7Igneous Ores",
-  "speedrunnermod.features.ores_and_worldgen.igneous_ores.text": "Found in the §b§lSpeedrunner's Wasteland biome§r and in §cthe nether,§r the §7igneous ores§r will drop §l2-5§r§7 igneous rocks,§r which can be used to craft obsidian.",
-
   "speedrunnermod.title.features.ores_and_worldgen.common_ores": "§bOres are More Common!",
-  "speedrunnermod.features.ores_and_worldgen.common_ores.text": "Certain ores, including §bdiamonds§f and §9lapis§f will generate more commonly all throughout the overworld.\n§bSpeedrunner ores, diamond ores, §aexperience ores§f and §9lapis§r will all generate even §omore§r commonly in the §b§lSpeedrunner's Wasteland biome.",
-
   "speedrunnermod.title.features.ores_and_worldgen.structures": "§aStructures are More Common!",
-  "speedrunnermod.features.ores_and_worldgen.structures.text": "Structures of almost all types, including §6villages, §cnether fortresses, §7bastions, §6buried treasures, §1shipwrecks, §cruined portals, §dend cities, §6desert pyramids, §7pillager outposts, §ajungle temples §fand §6woodland mansions§f will generate more commonly!\n§o The spawn rate of these structures can be configured in the §b§ospeedrunner mod options menu.",
-
   "speedrunnermod.title.features.ores_and_worldgen.fortresses_bastions_and_strongholds": "§cNether Fortresses, §7Bastions§r and §bStrongholds",
-  "speedrunnermod.features.ores_and_worldgen.fortresses_bastions_and_strongholds.text": "§cNether fortresses§f are much smaller now, and contain more than §e§l2 §eblaze spawners§f per fortress.\n§7Treasure bastions§f will now generate with a §eblaze spawner§r at the bottom, instead of a §6magma cube§f spawner.\nAdditionally, §bstrongholds§r are much smaller, each containing more than §l1 portal room§r per stronghold.\nThis should make navigating these structures much easier!",
 
   "speedrunnermod.menu.features.doom_mode": "§cDoom Mode...",
   "speedrunnermod.title.features.doom_mode": "§cDoom Mode",
 
   "speedrunnermod.title.features.doom_mode.basics": "§cBasics",
-  "speedrunnermod.features.doom_mode.basics.text": "Doom mode is a special hard-coded mode, which makes the game extremely difficult to beat. Mobs have more health, speed, and do more damage. §lEverything else§r does basically double damage, and upon entering the end, not only will an §dEnder Dragon§r spawn, but along with a §7wither§r and a §agiant (known as Goliath).",
-
   "speedrunnermod.title.features.doom_mode.bosses": "§cBosses",
   "speedrunnermod.features.doom_mode.bosses.text": "When the end fight begins, the §dender dragon§r will spawn like normal, but with §cquintuple§r the amount of health. A §7wither§r will also spawn, with almost double the amount of health. All withers also regenerate extremely fast. And finally, a §a§lgiant§r will spawn. In vanilla Minecraft, the §agiant§r does not have any AI. However, this mode §lgives it§r a function.",
 

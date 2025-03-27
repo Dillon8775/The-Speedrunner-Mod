@@ -4,5 +4,5 @@
 
 I know, it sounds stupid, but §ltrust me...§r when you can't find any §6piglin,§f§o this item can be very useful.
 
-!image:textures/gui/features/items/piglin_awakener.png scale=.2
-!image:textures/gui/features/recipes/piglin_awakener_crafting_recipe.png scale=.4
+!image:textures/gui/features/items/piglin_awakener.png scale=.15
+!image:textures/gui/features/recipes/piglin_awakener_crafting_recipe.png scale=.5

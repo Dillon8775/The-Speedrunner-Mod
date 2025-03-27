@@ -184,20 +184,19 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_R) {
+            this.refreshFeatureScreen(getPageNumber(), this.getScreenCategory());
+            return true;
+        }
         if (keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_A) {
-            if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-                if (getPageNumber() != 1) {
-                    this.client.setScreen(this.getPreviousScreen());
-                }
-            } else {
+            if (this.getPageNumber() != 1) {
                 this.client.setScreen(this.getPreviousScreen());
             }
             return true;
         } else if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
-            this.client.setScreen(this.getNextScreen());
-            return true;
-        } else if (keyCode == GLFW.GLFW_KEY_R) {
-            this.refreshFeatureScreen(getPageNumber(), this.getScreenCategory());
+            if (this.getPageNumber() != this.getMaxPages()) {
+                this.client.setScreen(this.getNextScreen());
+            }
             return true;
         }
         return super.keyPressed(keyCode, scanCode, modifiers);
@@ -344,6 +343,10 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 this.renderBasicTooltip(ModTexts.NEXT_TOOLTIP, context, mouseX, mouseY);
             }
             if (this.getScreenType() == ScreenType.NORMAL && this.buttons.get(1).isHovered()) {
+                this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
+            }
+        } else if (this.getScreenType() == ScreenType.FINAL || this.getScreenType() == ScreenType.END) {
+            if (this.buttons.get(hasFourthCategory ? 4 : 3).isHovered()) {
                 this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
             }
         }

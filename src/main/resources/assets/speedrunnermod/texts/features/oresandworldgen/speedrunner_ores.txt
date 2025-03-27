@@ -1,0 +1,5 @@
+### The §bspeedrunner ores§f will drop §bspeedrunner ingots,§r which can be used to craft all of the speedrunner tools, blocks, and armor, and can be found more commonly in the §b§lSpeedrunner's Wasteland§r biome.
+
+#### Found across §lall biomes§r in the §aoverworld§f and in §cthe nether.
+
+!image:textures/gui/features/screenshots/speedrunner_ores.png scale=.13

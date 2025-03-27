@@ -2,5 +2,5 @@
 
 #### Especially useful when underground or in caves with no exit.
 
-!image:textures/gui/features/items/ender_thruster.png scale=.2
-!image:textures/gui/features/recipes/ender_thruster_crafting_recipe.png scale=.4
+!image:textures/gui/features/items/ender_thruster.png scale=.15
+!image:textures/gui/features/recipes/ender_thruster_crafting_recipe.png scale=.5

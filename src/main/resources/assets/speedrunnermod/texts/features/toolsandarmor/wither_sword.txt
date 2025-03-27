@@ -1,0 +1,6 @@
+### A new weapon that can §lone-shot§r§7 wither skeletons,§f and will give them a §l100%§r §lchance§r to drop a §7wither skeleton skull§f upon §cdeath.§r
+
+#### To craft §7wither bones,§r you will need two §lnormal bones§r and two pieces of §7coal.
+
+!image:textures/gui/features/items/wither_sword.png scale=.15
+!image:textures/gui/features/recipes/wither_sword_crafting_recipe.png scale=.5

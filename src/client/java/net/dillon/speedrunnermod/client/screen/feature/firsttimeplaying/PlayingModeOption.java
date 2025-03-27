@@ -12,7 +12,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
@@ -60,6 +59,7 @@ public class PlayingModeOption extends AbstractFeatureScreen {
         } else if (this.buttons.get(2).isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.doom.tooltip"), context, x, y);
         }
+        super.renderTooltips(context, x, y);
     }
 
     @Override
