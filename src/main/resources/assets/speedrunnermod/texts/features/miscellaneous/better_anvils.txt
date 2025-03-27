@@ -1,0 +1,11 @@
+### §7Anvils§f have been §bimproved...§f§o a lot.§r
+
+####Say goodbye to that annoying §l"Too Expensive!"§r feature! Now, you can combine §5items/add enchantments§f to §lany item,§r and never have a cost limit.
+
+!image:textures/gui/features/gui/no_more_too_expensive.png scale=.4
+#### What's even better is, you can §bcap§r the cost in the §bspeedrunner mod options§f §bmenu,§f so the cost for §lany anvil usage§r will §onot§r go over the capped number.
+
+!image:textures/gui/features/gui/anvil_cost_limit_option.png scale=.4
+#### §lFinally,§r you can go over §lmaximum enchant level§r for §5any enchantment.§f This means if you have §5two sharpness 5 books,§f you can combine the books to get §d§lSharpness 6.
+
+!image:textures/gui/features/gui/break_enchantment_level_cap.png scale=.3

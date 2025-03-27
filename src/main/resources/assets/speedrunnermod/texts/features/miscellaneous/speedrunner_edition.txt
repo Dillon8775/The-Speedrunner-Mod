@@ -1,0 +1,6 @@
+### The §l"Java Edition"§r text has been replaced with §b§l"Speedrunner Edition"!§r
+
+!image:textures/gui/features/gui/speedrunner_edition_text.png scale=.4
+
+##### (Thanks to §6MannyQUESO§f for the texture).
+

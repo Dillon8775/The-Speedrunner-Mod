@@ -41,8 +41,8 @@ public class FeaturesScreen extends AbstractModScreen {
             this.client.setScreen(new DoomModeScreen(this.parent, this.options));
         }).build());
 
-        this.buttons.add(5, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.more"), (buttonWidget) -> {
-            this.client.setScreen(new MoreScreen(this.parent, this.options));
+        this.buttons.add(5, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.miscellaneous"), (buttonWidget) -> {
+            this.client.setScreen(new MiscellaneousScreen(this.parent, this.options));
         }).build());
 
         super.init();

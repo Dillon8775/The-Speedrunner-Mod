@@ -1,0 +1,3 @@
+### When a §eblaze §fdies, they will have a chance to drop a few §egold blocks, §fand/or §6fire charges.
+
+!image:textures/gui/features/screenshots/blazes_drop_gold.png scale=.14

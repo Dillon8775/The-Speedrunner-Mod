@@ -1,0 +1,3 @@
+### §6Magma cube spawners §fin bastions have been replaced with §eblaze spawners, §fbecause how are §6magma cubes §fgoing to benefit you in §bspeedrunning?
+
+!image:textures/gui/features/screenshots/blaze_spawners_in_bastions.png scale=.14

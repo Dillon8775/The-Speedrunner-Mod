@@ -1,0 +1,6 @@
+### Turning on §e§lhitboxes§r and §e§lchunk borders§r are much easier now, as each now has their own §lsingular keybind!§r
+
+#### You can set these keybinds to whatever you'd like in the §l"Controls"§r menu.
+
+!image:textures/gui/features/keybinds/toggle_chunk_borders_keybind.png scale=.5
+!image:textures/gui/features/keybinds/toggle_hitboxes_keybind.png scale=.5

@@ -724,7 +724,7 @@
   "speedrunnermod.title.features.blocks_and_items.raid_eradicator": "§7Raid Eradicator",
   "speedrunnermod.title.features.blocks_and_items.speedrunner_bulk": "§bSpeedrunner Bulk",
   "speedrunnermod.title.features.blocks_and_items.speedrunners_workbench": "§bSpeedrunner's Workbench",
-  "speedrunnermod.title.features.more.retired_speedrunner": "§bRetired Speedrunner",
+  "speedrunnermod.title.features.miscellaneous.retired_speedrunner": "§bRetired Speedrunner",
 
   "speedrunnermod.menu.features.tools_and_armor": "Tools and Armor...",
   "speedrunnermod.title.features.tools_and_armor": "Tools and Armor",
@@ -758,80 +758,39 @@
   "speedrunnermod.doom_mode.enable": "Enable Doom Mode",
   "speedrunnermod.doom_mode.already_enabled": "Doom mode is already enabled!",
 
-  "speedrunnermod.menu.features.more": "More...",
-  "speedrunnermod.title.features.more": "More",
+  "speedrunnermod.menu.features.miscellaneous": "Miscellaneous...",
+  "speedrunnermod.title.features.miscellaneous": "Miscellaneous",
 
-  "speedrunnermod.title.features.more.reset_key": "§bReset Key",
-  "speedrunnermod.title.features.more.fog_key": "§bFog Key",
-  "speedrunnermod.title.features.more.fullbright_key": "§bFullbright Key",
-  "speedrunnermod.title.features.more.faster_block_breaking": "§bFaster Block Breaking",
-  "speedrunnermod.title.features.more.icarus_mode": "§7iCarus Mode",
-  "speedrunnermod.title.features.more.infini_pearl_mode": "§9Infini Pearl Mode",
-  "speedrunnermod.title.features.more.piglin_bartering": "§6Better Piglin Bartering",
-  "speedrunnermod.title.features.more.piglin_pork": "§6Piglin Pork",
-  "speedrunnermod.title.features.more.no_more_piglin_brutes": "§6No More Piglin Brutes!",
-  "speedrunnermod.title.features.more.tripled_drops": "§eTripled Drops",
-  "speedrunnermod.features.more.tripled_drops.text": "Basically §aeverything§f drops §lx3 more§r of what it would normally drop.\nThis includes §aexperience from ores and mobs,§f §1mob drops,§f and more!",
-
-  "speedrunnermod.title.features.more.nether_portals": "§dNether Portals",
-  "speedrunnermod.features.more.nether_portals.text": "§dNether portals§f can now be built with §7obsidian§f§o and §5crying obsidian!",
-
-  "speedrunnermod.title.features.more.cooked_flesh": "§eCooked Flesh",
-  "speedrunnermod.features.more.cooked_flesh.text": "§6Rotten flesh§f can now be cooked into §ecooked flesh,§f which restores §lway more hunger§r than §6rotten flesh§f does, and doesn't give the §2hunger effect.",
-
-  "speedrunnermod.title.features.more.fireproof_items": "§6Fireproof Items",
-  "speedrunnermod.features.more.fireproof_items.text": "Certain items are now §6fireproof!§f\nBy default, this includes §eblaze rods, blaze powder,§f and §6fire charges.",
-
-  "speedrunnermod.title.features.more.buffed_loot_tables": "§bBuffed Loot Tables",
-  "speedrunnermod.features.more.buffed_loot_tables.text": "Almost §lall loot tables§r have been buffed to be §lextremely overpowered§r.\nThis includes §7bastion chests, §6village chests, §cnether fortress chests, §bburied treasures, §fand §lmuch more!",
-
-  "speedrunnermod.title.features.more.blaze_spawners_in_bastions": "§eBlaze Spawners §fin §7Bastions",
-  "speedrunnermod.features.more.blaze_spawners_in_bastions.text": "§6Magma cube spawners §fin bastions have been replaced with §eblaze spawners, §fbecause how are §6magma cubes §fgoing to benefit you in §bspeedrunning?",
-
-  "speedrunnermod.title.features.more.blazes_drop_gold": "§eBlazes Drop Gold",
-  "speedrunnermod.features.more.blazes_drop_gold.text": "When a §eblaze §fdies, they will have a chance to drop a few §egold blocks, §fand/or §6fire charges.",
-
-  "speedrunnermod.title.features.more.better_villager_trades": "Better Villager Trades",
-  "speedrunnermod.features.more.better_villager_trades.text": "Not only is the §b§lRetired Speedrunner§r extremely overpowered, but normal villagers are too!\n§lAll villager trades§r have been changed, with lower prices and better items, for §oevery villager profession!",
-
-  "speedrunnermod.title.features.more.throwable_fireballs": "§6Throwable Fireballs",
-  "speedrunnermod.features.more.throwable_fireballs.text": "§6Fireballs§f can be thrown!\nLike in §cbedwars...",
-
-  "speedrunnermod.title.features.more.better_death_screen": "§cBetter Death Screen",
-  "speedrunnermod.features.more.better_death_screen.text": "The §cdeath screen now§f displays the §lexact coordinates§f of where the player died, and also sends a chat message to the player.\nAdditionally, the §atext§f on the §cdeath screen§f has been §lchanged,§r to fit the theme of §bspeedrunning.",
-
-  "speedrunnermod.title.features.more.better_anvils": "§bBetter Anvils",
-  "speedrunnermod.features.more.better_anvils.text": "§7Anvils§f have been §bimproved...§f§o a lot.§r\nSay goodbye to that annoying §l\"Too Expensive!\"§r feature! Now, you can combine §5items/add enchantments§f to §lany item,§r and never have a cost limit.\nWhat's even better is, you can §bcap§r the cost in the §bspeedrunner mod options§f §bmenu,§f so the cost for §lany anvil usage§r will §onot§r go over the capped number.\n§lFinally,§r you can go over §lmaximum enchant level§r for §5any enchantment.§f This means if you have §5two sharpness 5 books,§f you can combine the books to get §d§lSharpness 6.",
-
-  "speedrunnermod.title.features.more.totems_work_in_void": "§eTotems Work in The Void",
-  "speedrunnermod.features.more.totems_work_in_void.text": "Free-fall into the void with a §etotem of undying§f IF equipped, and you will be §dteleported§f to the §lcenter of the end island!§r\nAt the cost of your §etotem,§f obviously...\nIf you have a §bSpeedrunner's Totem,§f it will work anywhere in your inventory.",
-
-  "speedrunnermod.title.features.more.never_breaking_ender_eyes": "§2Never Breaking §aEnder Eyes",
-  "speedrunnermod.features.more.never_breaking_ender_eyes.text": "§aEnder eyes§r §lnever break!§r\n§oUnless you're on §c§oDoom Mode,§r§o then they will break §c§oevery time.",
-
-  "speedrunnermod.title.features.more.reverse_crafting": "Reverse Crafting",
-  "speedrunnermod.features.more.reverse_crafting.text": "You can \"reverse craft\" certain things, including turning §lwool§r back into §lstring,§r and §6sticks§f back into §6planks.",
-
-  "speedrunnermod.title.features.more.less_fall_damage": "Less Fall Damage",
-  "speedrunnermod.features.more.less_fall_damage.text": "Players take less §cfall damage!§f\nAdditionally, if you §lshift§r while falling, you will take §l~0.25%§r §oless§r damage!\nYou can also disable fall damage §lentirely§r in the §bspeedrunner mod options§f §bmenu§r (followed by §lkenetic damage,§r the damage taken when flying into walls with an §7elytra§f).",
-
-  "speedrunnermod.title.features.more.better_hotkeys": "§bBetter Hotkeys",
-  "speedrunnermod.features.more.better_hotkeys.text": "Turning on §e§lhitboxes§r and §e§lchunk borders§r are much easier now, as each now has their own §lsingular keybind!§r\nYou can set these keybinds to whatever you'd like in the §l\"Controls\"§r menu.",
-
-  "speedrunnermod.title.features.more.arrows_explode_beds": "§lArrows§r Explode Beds",
-  "speedrunnermod.features.more.arrows_explode_beds.text": "Shoot an arrow at a §lbed§r and watch it explode!\n§o(This can be disabled in the §b§ospeedrunner mod options menu).",
-
-  "speedrunnermod.title.features.more.speedrunner_edition": "§lSpeedrunner Edition!",
-  "speedrunnermod.features.more.speedrunner_edition.text": "The §l\"Java Edition\"§r text has been replaced with §b§l\"Speedrunner Edition\"!§r\n(Thanks to §6MannyQUESO§f for the texture).",
-
-  "speedrunnermod.title.features.more.more_experience": "§aMore Experience",
-  "speedrunnermod.features.more.more_experience.text": "§aMobs§f and §bores§f will drop more experience based on if the player has the §b§llooting§r or §d§lfortune§r enchantment on their weapon/tool.",
-
-  "speedrunnermod.title.features.more.custom_panorama": "§bCustom Panorama!",
-  "speedrunnermod.features.more.custom_panorama.text": "The §bmod§f comes with a new built-in panorama!\nYou can disable the custom panorama in the speedrunner mod options.",
-
-  "speedrunnermod.title.features.more.more": "§bAnd More!",
-  "speedrunnermod.features.more.more.text": "§a§lCongratulations!§r You are now an official §bSpeedrunner Mod pro,§r and you know about all of it's §amain features!§r\nFor more info, refer to §l\"Learn More...\"§r button below, or go back and re-read some things if you didn't fully understand everything!",
+  "speedrunnermod.title.features.miscellaneous.reset_key": "§bReset Key",
+  "speedrunnermod.title.features.miscellaneous.fog_key": "§bFog Key",
+  "speedrunnermod.title.features.miscellaneous.fullbright_key": "§bFullbright Key",
+  "speedrunnermod.title.features.miscellaneous.faster_block_breaking": "§bFaster Block Breaking",
+  "speedrunnermod.title.features.miscellaneous.icarus_mode": "§7iCarus Mode",
+  "speedrunnermod.title.features.miscellaneous.infini_pearl_mode": "§9Infini Pearl Mode",
+  "speedrunnermod.title.features.miscellaneous.piglin_bartering": "§6Better Piglin Bartering",
+  "speedrunnermod.title.features.miscellaneous.piglin_pork": "§6Piglin Pork",
+  "speedrunnermod.title.features.miscellaneous.no_more_piglin_brutes": "§6No More Piglin Brutes!",
+  "speedrunnermod.title.features.miscellaneous.tripled_drops": "§eTripled Drops",
+  "speedrunnermod.title.features.miscellaneous.better_nether_portals": "§dBetter Nether Portals",
+  "speedrunnermod.title.features.miscellaneous.cooked_flesh": "§eCooked Flesh",
+  "speedrunnermod.title.features.miscellaneous.fireproof_items": "§6Fireproof Items",
+  "speedrunnermod.title.features.miscellaneous.better_loot_tables": "§bBetter Loot Tables",
+  "speedrunnermod.title.features.miscellaneous.blaze_spawners_in_bastions": "§eBlaze Spawners §fin §7Bastions",
+  "speedrunnermod.title.features.miscellaneous.blazes_drop_gold": "§eBlazes Drop Gold",
+  "speedrunnermod.title.features.miscellaneous.better_villager_trades": "Better Villager Trades",
+  "speedrunnermod.title.features.miscellaneous.throwable_fireballs": "§6Throwable Fireballs",
+  "speedrunnermod.title.features.miscellaneous.better_death_screen": "§cBetter Death Screen",
+  "speedrunnermod.title.features.miscellaneous.better_anvils": "§bBetter Anvils",
+  "speedrunnermod.title.features.miscellaneous.totems_work_in_void": "§eTotems Work in The Void",
+  "speedrunnermod.title.features.miscellaneous.ender_eyes_never_break": "§aEnder Eyes §2Never Break",
+  "speedrunnermod.title.features.miscellaneous.reverse_crafting": "Reverse Crafting",
+  "speedrunnermod.title.features.miscellaneous.less_fall_damage": "Less Fall Damage",
+  "speedrunnermod.title.features.miscellaneous.better_hotkeys": "§bBetter Hotkeys",
+  "speedrunnermod.title.features.miscellaneous.arrows_explode_beds": "§lArrows§r Explode Beds",
+  "speedrunnermod.title.features.miscellaneous.speedrunner_edition": "§lSpeedrunner Edition!",
+  "speedrunnermod.title.features.miscellaneous.more_experience": "§aMore Experience",
+  "speedrunnermod.title.features.miscellaneous.custom_panorama": "§bCustom Panorama!",
+  "speedrunnermod.title.features.miscellaneous.more": "§bAnd More!",
 
   "speedrunnermod.features.tooltip": "View all Speedrunner Mod features...",
 

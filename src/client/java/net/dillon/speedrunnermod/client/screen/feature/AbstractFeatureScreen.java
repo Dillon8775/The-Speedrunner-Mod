@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.client.screen.feature;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.client.screen.feature.more.TripledDropsScreen;
+import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.TripledDropsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
@@ -168,8 +168,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             this.client.setScreen(new ToolsAndArmorScreen(this.parent, MinecraftClient.getInstance().options));
         } else if (this.getScreenCategory() == ScreenCategory.ORES_AND_WORLDGEN) {
             this.client.setScreen(new OresAndWorldgenScreen(this.parent, MinecraftClient.getInstance().options));
-        } else if (this.getScreenCategory() == ScreenCategory.MORE) {
-            this.client.setScreen(new MoreScreen(this.parent, MinecraftClient.getInstance().options));
+        } else if (this.getScreenCategory() == ScreenCategory.MISCELLANEOUS) {
+            this.client.setScreen(new MiscellaneousScreen(this.parent, MinecraftClient.getInstance().options));
         } else if (this.getScreenCategory() == ScreenCategory.DOOM_MODE) {
             this.client.setScreen(new DoomModeScreen(this.parent, MinecraftClient.getInstance().options));
         } else if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
@@ -225,8 +225,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             case FIRST_TIME_PLAYING -> {
                 return this.inFirstTimePlayingFolder(this.linesKey());
             }
-            case MORE -> {
-                return this.inMoreFolder(this.linesKey());
+            case MISCELLANEOUS -> {
+                return this.inMiscellaneousFolder(this.linesKey());
             }
             case ORES_AND_WORLDGEN -> {
                 return this.inOresAndWorldgenFolder(this.linesKey());
@@ -262,8 +262,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             case ORES_AND_WORLDGEN -> {
                 return calculateMaxPages(ScreenCategory.ORES_AND_WORLDGEN);
             }
-            case MORE -> {
-                return calculateMaxPages(ScreenCategory.MORE);
+            case MISCELLANEOUS -> {
+                return calculateMaxPages(ScreenCategory.MISCELLANEOUS);
             }
             case DOOM_MODE -> {
                 return calculateMaxPages(ScreenCategory.DOOM_MODE);
@@ -291,8 +291,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             case ORES_AND_WORLDGEN -> {
                 return determineScreen(pageNumber, ScreenCategory.ORES_AND_WORLDGEN);
             }
-            case MORE -> {
-                return determineScreen(pageNumber, ScreenCategory.MORE);
+            case MISCELLANEOUS -> {
+                return determineScreen(pageNumber, ScreenCategory.MISCELLANEOUS);
             }
             case DOOM_MODE -> {
                 return determineScreen(pageNumber, ScreenCategory.DOOM_MODE);
@@ -393,8 +393,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     /**
      * Helper for referencing file paths in features/referencing directory.
      */
-    protected String inMoreFolder(String fileName) {
-        return "texts/features/more/" + fileName + ".txt";
+    protected String inMiscellaneousFolder(String fileName) {
+        return "texts/features/miscellaneous/" + fileName + ".txt";
     }
 
     /**

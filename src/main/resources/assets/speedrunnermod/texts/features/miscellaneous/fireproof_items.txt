@@ -1,0 +1,5 @@
+### Certain items are now §6fireproof!§f
+
+#### By default, this includes §eblaze rods, blaze powder,§f and §6fire charges.\
+
+!image:textures/gui/features/screenshots/fireproof_items.png scale=.14

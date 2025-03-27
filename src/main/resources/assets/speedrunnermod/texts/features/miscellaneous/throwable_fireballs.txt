@@ -1,0 +1,5 @@
+### §6Fireballs§f can be thrown!
+
+##### Like in §cbedwars...
+
+!image:textures/gui/features/screenshots/throwable_fireballs.png scale=.14

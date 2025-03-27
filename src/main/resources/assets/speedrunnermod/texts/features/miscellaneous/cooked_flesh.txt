@@ -1,0 +1,3 @@
+### §6Rotten flesh§f can now be cooked into §ecooked flesh,§f which restores §lway more hunger§r than §6rotten flesh§f does, and doesn't give the §2hunger effect.
+
+!image:textures/gui/features/recipes/cooked_flesh_recipe.png scale=.4
