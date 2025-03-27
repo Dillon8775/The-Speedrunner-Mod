@@ -1,0 +1,7 @@
+### Automatically create a new world, on the easiest difficulty, within the press of a button!
+
+#### Default key = §lR.§r
+
+You can set this to whatever you'd like in the §l"Controls"§r options menu, and configure the §bfast world creation settings§r in the §bspeedrunner mod options menu.
+
+!image:textures/gui/features/keybinds/fast_world_creation_keybind.png scale=.5

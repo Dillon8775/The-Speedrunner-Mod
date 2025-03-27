@@ -1,0 +1,5 @@
+### Give yourself a §ahead start§f in §bevery speedrun§f with an §7§lunbreakable elytra§r and a §lstack§r of §c§lfirework rockets!
+
+#### You can enable this mode in the §bspeedrunner mod options menu.
+
+!image:textures/gui/features/screenshots/icarus_mode.png scale=.14

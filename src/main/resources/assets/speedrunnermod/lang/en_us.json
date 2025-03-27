@@ -762,32 +762,14 @@
   "speedrunnermod.title.features.more": "More",
 
   "speedrunnermod.title.features.more.reset_key": "§bReset Key",
-  "speedrunnermod.features.more.reset_key.text": "Automatically create a new world, on the easiest difficulty, within the press of a button!\nDefault key = §lR.§r\nYou can set this to whatever you'd like in the §l\"Controls\"§r options menu, and configure the §bfast world creation settings§r in the §bspeedrunner mod options menu.",
-
   "speedrunnermod.title.features.more.fog_key": "§bFog Key",
-  "speedrunnermod.features.more.fog_key.text": "Automatically enable/disable §a§lMinecraft's fog§r with the press of a button!\nDefault key = §lH.§r\nYou can change this to whatever you'd like in the §l\"Controls\"§r menu.",
-
   "speedrunnermod.title.features.more.fullbright_key": "§bFullbright Key",
-  "speedrunnermod.features.more.fullbright_key.text": "Instantly set your brightness to 1000% to see in the dark areas.\nDefault key is §lO.§r\nYou can change this to whatever you'd like in the §l\"Controls\"§r menu.",
-
   "speedrunnermod.title.features.more.faster_block_breaking": "§bFaster Block Breaking",
-  "speedrunnermod.features.more.faster_block_breaking.text": "A §lbunch of blocks§r can be broken faster now, including §6wood, §7stone, §bores, §cnetherrack, §7end stone,§f and §lmuch more!§r\n§oThis can be disabled or increased in the §b§ospeedrunner mod options menu.",
-
   "speedrunnermod.title.features.more.icarus_mode": "§7iCarus Mode",
-  "speedrunnermod.features.more.icarus_mode.text": "Give yourself a §ahead start§f in §bevery speedrun§f with an §7§lunbreakable elytra§r and a §lstack§r of §c§lfirework rockets!§r\nYou can enable this mode in the §bspeedrunner mod options menu.",
-
   "speedrunnermod.title.features.more.infini_pearl_mode": "§9Infini Pearl Mode",
-  "speedrunnermod.features.more.infini_pearl_mode.text": "Give yourself an §9ender pearl§f that does §lno damage§r and §blasts forever.§r\nYou can enable this mode in the §bspeedrunner mod options menu.",
-
   "speedrunnermod.title.features.more.piglin_bartering": "§6Better Piglin Bartering",
-  "speedrunnermod.features.more.piglin_bartering.text": "§6Piglin bartering§f is now §lEXTREMELY overpowered.§r\n§9 Ender pearls§r are much more common, along with string, §egolden apples, §bspeedrunner ingots, §6wood,§f and much more!",
-
   "speedrunnermod.title.features.more.piglin_pork": "§6Piglin Pork",
-  "speedrunnermod.features.more.piglin_pork.text": "When §6piglin§f (or §6piglin brutes)§r are killed, they will drop a §enew food item,§f called §6§l\"Piglin Pork\"!§r\nIt's basically just an alternative for §eporkchop...",
-
   "speedrunnermod.title.features.more.no_more_piglin_brutes": "§6No More Piglin Brutes!",
-  "speedrunnermod.features.more.no_more_piglin_brutes.text": "Screw these guys...\n§6Piglin brutes§f will §lno longer spawn§r in §7bastions!§r\n§c§oUnless you're on doom mode...",
-
   "speedrunnermod.title.features.more.tripled_drops": "§eTripled Drops",
   "speedrunnermod.features.more.tripled_drops.text": "Basically §aeverything§f drops §lx3 more§r of what it would normally drop.\nThis includes §aexperience from ores and mobs,§f §1mob drops,§f and more!",
 

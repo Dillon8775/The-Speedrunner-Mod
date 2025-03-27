@@ -1,0 +1,7 @@
+### Screw these guys...
+
+##§6Piglin brutes§f will §lno longer spawn§r in §7bastions!§r
+
+§c§oUnless you're on doom mode...
+
+!image:textures/gui/features/other/piglin_brute.png scale=.15

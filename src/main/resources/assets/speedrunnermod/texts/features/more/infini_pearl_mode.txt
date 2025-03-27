@@ -1,0 +1,5 @@
+### Give yourself an §9ender pearl§f that does §lno damage§r and §blasts forever.§r
+
+#### You can enable this mode in the §bspeedrunner mod options menu.
+
+!image:textures/gui/features/items/infini_pearl.png scale=.2
