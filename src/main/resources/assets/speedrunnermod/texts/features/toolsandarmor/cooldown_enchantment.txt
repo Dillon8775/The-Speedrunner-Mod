@@ -4,3 +4,4 @@
 Applicable with §oany item §r§fwith a §acooldown effect.
 
 !image:textures/gui/features/items/enchanted_book.png scale=.2
+!image:textures/gui/features/gui/cooldown_enchantment_on_ender_pearl.png scale=.4

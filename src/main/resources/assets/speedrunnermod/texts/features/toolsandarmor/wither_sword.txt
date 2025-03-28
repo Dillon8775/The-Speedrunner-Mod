@@ -3,4 +3,4 @@
 #### To craft §7wither bones,§r you need §atwo §lnormal bones§r§f and §atwo §fpieces of §7coal.
 
 !image:textures/gui/features/items/wither_sword.png scale=.15
-!image:textures/gui/features/recipes/wither_sword_crafting_recipe.png scale=.5
+!image:textures/gui/features/recipes/wither_sword_crafting_recipe.png scale=.4

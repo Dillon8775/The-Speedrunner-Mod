@@ -193,7 +193,7 @@
   "item.speedrunnermod.blaze_spotter": "Blaze Spotter",
   "item.speedrunnermod.blaze_spotter.tooltip": "Teleports to the closest blaze spawner.",
   "item.speedrunnermod.ender_matter": "Ender Matter",
-  "item.speedrunnermod.ender_matter.tooltip": "Used to craft an infini pearl.",
+  "item.speedrunnermod.ender_matter.tooltip": "Used to craft an infini pearl and the Dragon's pearl.",
   "item.speedrunnermod.infini_pearl": "InfiniPearl™",
   "item.speedrunnermod.infini_pearl.tooltip.line1": "An ender pearl that does not get",
   "item.speedrunnermod.infini_pearl.tooltip.line2": "consumed nor do damage upon use.",

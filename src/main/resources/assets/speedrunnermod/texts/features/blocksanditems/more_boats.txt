@@ -5,3 +5,4 @@
 #### Additionally, the §bSpeedrunner Boat§f and §3Dead Speedrunner Boat§f ride faster in §9any fluid.
 
 !image:textures/gui/features/other/more_boats.png scale=.15
+!image:textures/gui/features/screenshots/lava_boats.png scale=.14
