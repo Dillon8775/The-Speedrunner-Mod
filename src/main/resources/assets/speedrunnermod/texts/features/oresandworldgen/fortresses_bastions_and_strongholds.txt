@@ -8,6 +8,5 @@
 
 
 !image:textures/gui/features/screenshots/stronghold_gen.png scale=.12
-
 ### §oConfigurable in the §bspeedrunner mod options menu.
 

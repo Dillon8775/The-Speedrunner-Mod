@@ -103,7 +103,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
 
         // A final feature screen (the last page of a certain category of features),
         // Consists of all the other remaining categories to explore, along with a "Previous" and "Done" button.
-        else if (this.getScreenType() == ScreenType.FINAL) {
+        if (this.getScreenType() == ScreenType.FINAL) {
             this.addButtonObject(ButtonWidget.builder(this.category1Text, button -> this.client.setScreen(this.category1Screen)).build());
             this.addButtonObject(ButtonWidget.builder(this.category2Text, button -> this.client.setScreen(this.category2Screen)).build());
             this.addButtonObject(ButtonWidget.builder(this.category3Text, button -> this.client.setScreen(this.category3Screen)).build());
@@ -114,7 +114,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
 
         // An "end" feature screen, which is only used for the last page of a certain category and the last actual category,
         // Consists of all the other categories to re-explore, as well as a "Previous" and "Done" button.
-        else if (this.getScreenType() == ScreenType.END) {
+        if (this.getScreenType() == ScreenType.END) {
             this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.learn_more"), button -> {
                 this.openLink(ModLinks.WIKI, true);
             }).build());

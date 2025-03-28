@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 public class AndMoreScreen extends AbstractFeatureScreen {
 
     public AndMoreScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.more"));
+        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.and_more"));
     }
 
     @Override
