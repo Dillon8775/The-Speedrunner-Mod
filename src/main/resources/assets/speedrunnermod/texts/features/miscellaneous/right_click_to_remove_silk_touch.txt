@@ -1,0 +1,5 @@
+## Right-click on an §aore block §fand remove the §bsilk touch §denchantment §ffrom the item.
+
+#### Useful when trying to §amine ores, §fbut you can't because your tool has §bsilk touch.
+
+!image:textures/gui/features/screenshots/right_click_to_remove_silk_touch.png scale=.14
