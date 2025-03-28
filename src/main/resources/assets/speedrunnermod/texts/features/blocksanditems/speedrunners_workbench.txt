@@ -9,4 +9,3 @@
 §aThe cost for §dtransferring enchantments§f is calculated by getting the number of §dall transferred enchantments, §bplus each §denchantment's level.
 
 ##### This block is also used as the §b§lRetired Speedrunner's§r§f §ajob site block.
-

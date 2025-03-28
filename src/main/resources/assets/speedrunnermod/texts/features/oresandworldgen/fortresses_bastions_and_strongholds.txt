@@ -1,13 +1,13 @@
-#### §cNether fortresses§f are much smaller now, and contain more than §e§l2 §eblaze spawners§f per fortress.
+#### §cNether fortresses§f are §amuch smaller now, §fand contain more than §e§l2 §eblaze spawners §r§fper fortress.
 
 #### §7Treasure bastions§f will also generate with a §eblaze spawner§r at the bottom, instead of a §6magma cube§f spawner.
 
 !image:textures/gui/features/screenshots/nether_fortress_gen.png scale=.12
 
-### Additionally, §astrongholds§r are much smaller, each containing more than §l1 portal room§r per stronghold.
+### Additionally, §astrongholds§r are much smaller, each containing more than §a§l1 portal room §r§fper stronghold.
 
 
 !image:textures/gui/features/screenshots/stronghold_gen.png scale=.12
 
-### This should make navigating these structures much easier!
+### §oConfigurable in the §bspeedrunner mod options menu.
 

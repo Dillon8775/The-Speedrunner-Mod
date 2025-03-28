@@ -1,5 +1,6 @@
-### A new enchantment, which can also be found in various different §bloot chests.
+### Decreases the §acooldown §fon certain items, such as §9ender pearls, §7shields, §dchorus fruit, §fetc.
 
-#### This enchantment decreases the cooldown time on certain items, such as §9ender pearls,§d chorus fruit,§f and§7 shields.
+#### Found in various different §bloot chests.
+Applicable with §oany item §r§fwith a §acooldown effect.
 
 !image:textures/gui/features/items/enchanted_book.png scale=.2

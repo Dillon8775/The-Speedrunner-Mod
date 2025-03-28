@@ -1,3 +1,4 @@
 ### You can "reverse craft" certain things, including turning §lwool§r back into §lstring,§r and §6sticks§f back into §6planks.
 
-!image:textures/gui/features/recipes/wool_to_string.png scale=.5
+!image:textures/gui/features/recipes/wool_to_string.png scale=.4
+!image:textures/gui/features/recipes/stick_to_planks.png scale=.4

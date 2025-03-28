@@ -3,7 +3,8 @@
 §9Witches are §eexcluded §ffrom the kill list, instead they §dteleport §b§odirectly §r§ftowards the player.
 
 ### To use this item, you must be holding a §etotem of undying, §b§lor, §rhave a §bspeedrunner's totem §a§osomewhere §r§fin your inventory.
-### The player will §close §c§l100%§r of their health.
+
+#### The player will §close §c§l100%§r of their health.
 
 !image:textures/gui/features/items/raid_eradicator.png scale=.15
 !image:textures/gui/features/recipes/raid_eradicator_crafting_recipe.png scale=.55

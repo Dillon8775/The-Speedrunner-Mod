@@ -810,9 +810,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.DRAGONS_PEARL))
                         .offerTo(this.exporter);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.DRAGONS_SWORD)
+                this.createShapeless(RecipeCategory.COMBAT, ModItems.DRAGONS_SWORD)
                         .input(ModItems.SPEEDRUNNER_SWORD)
                         .input(ModItems.DRAGONS_PEARL)
+                        .input(ModItems.ENDER_MATTER)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.DRAGONS_SWORD))
                         .offerTo(this.exporter);
 

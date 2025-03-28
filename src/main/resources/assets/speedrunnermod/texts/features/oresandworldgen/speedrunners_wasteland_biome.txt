@@ -1,5 +1,5 @@
-### A new §abiome,§f which will will generate pretty commonly throughout the overworld.
+### A new §abiome,§f which will will generate §bpretty commonly §fthroughout the §aoverworld.
 
-#### A §lgreat place§r for §bspeedrunning,§r because mobs spawn less (except for §denderman),§f §bdiamonds§f and §9lapis§f generate more commonly, and big amounts of §bspeedrunner trees§r generate.
+#### A §lgreat place§r for §bspeedrunning,§r because mobs spawn less (except for §denderman),§f §bdiamonds§f and §9lapis§f generate §oway §rmore commonly, and big amounts of §bspeedrunner trees§r are found here.
 
 !image:textures/gui/features/screenshots/speedrunners_wasteland_biome.png scale=.13

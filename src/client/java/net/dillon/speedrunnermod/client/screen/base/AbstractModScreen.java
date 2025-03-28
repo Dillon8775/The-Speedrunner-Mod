@@ -80,7 +80,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
             this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 this.refreshScreen(this.pageId());
-            }).dimensions(this.getButtonsLeftSide() - 24, this.getDoneButtonsHeight(), 20, 20).build());
+            }).dimensions(this.getRefreshButtonWidth(), this.getDoneButtonsHeight(), 20, 20).build());
         } else {
             if (this.buttonList != null) {
                 this.buttonList.addAll(this.buttons);
@@ -96,7 +96,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 } else {
                     this.refreshScreen(this.pageId());
                  }
-            }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonsHeight(), 20, 20).build());
+            }).dimensions(this.getRefreshButtonWidth(), this.getDoneButtonsHeight(), 20, 20).build());
         }
     }
 
@@ -312,6 +312,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected int getDoneButtonsHeight() {
         return this.height - 29;
+    }
+
+    /**
+     * Returns the default width of the refresh button.
+     */
+    protected int getRefreshButtonWidth() {
+        return this.isOptionsScreen() ? this.getButtonsLeftSide() - 24 : this.getButtonsLeftSide() + 30;
     }
 
     /**

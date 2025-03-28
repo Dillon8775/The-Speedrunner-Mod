@@ -1,5 +1,6 @@
-### A §overy powerful weapon,§r used against the §d§lender dragon,§r which will instantly kill it in §lone hit.
+# §aOne-shots §fthe §dender dragon.
 
-#### §oDon't try it on §c§oDoom Mode,§r§o though...
+Don't try it on §cDoom Mode, though...
 
 !image:textures/gui/features/items/dragons_sword.png scale=.2
+!image:textures/gui/features/recipes/dragons_sword_crafting_recipe.png scale=.3

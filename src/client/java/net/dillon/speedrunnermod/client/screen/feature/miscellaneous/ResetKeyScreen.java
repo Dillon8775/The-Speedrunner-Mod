@@ -36,6 +36,6 @@ public class ResetKeyScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.STARTER;
+        return ScreenType.NORMAL;
     }
 }
