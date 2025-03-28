@@ -1,5 +1,5 @@
-### The §cdeath screen now§f displays the §lexact coordinates§f of where the player died, and also sends a chat message to the player.
+### The §cdeath screen now§f displays the §oexact coordinates§r of where the §aplayer §cdied, §fand also sends a §bchat message §fto the §aplayer.
 
-#### Additionally, the §atext§f on the §cdeath screen§f has been §lchanged,§r to fit the theme of §bspeedrunning.
+#### Additionally, the §atext§f on the §cdeath screen§f has been modified to fit the theme of §bspeedrunning.
 
 !image:textures/gui/features/screenshots/better_death_screen.png scale=.14

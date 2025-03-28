@@ -34,7 +34,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.
@@ -104,7 +105,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     public void close() {
         if (this.isOptionsScreen()) {
             ModOptions.saveConfig();
-            info("Saved changes.");
 
             LeaderboardsIneligibleScreen.needsRestart = false;
             LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = false;

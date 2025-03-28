@@ -1,5 +1,5 @@
-### Almost §lall loot tables§r have been buffed to be §lextremely overpowered§r.
+### Almost §a§lall§f§r §aloot tables§r have been §bbuffed.
 
-#### This includes §7bastion chests, §6village chests, §cnether fortress chests, §bburied treasures, §fand §lmuch more!
+#### This includes §7bastion chests, §6village chests, §cnether fortress chests, §bburied treasure chests, §fand §lmuch more!
 
 !image:textures/gui/features/gui/better_loot_tables.png scale=.4

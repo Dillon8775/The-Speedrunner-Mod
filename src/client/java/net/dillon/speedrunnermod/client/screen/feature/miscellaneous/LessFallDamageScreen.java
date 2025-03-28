@@ -24,7 +24,7 @@ public class LessFallDamageScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 22;
+        return 23;
     }
 
     @Override

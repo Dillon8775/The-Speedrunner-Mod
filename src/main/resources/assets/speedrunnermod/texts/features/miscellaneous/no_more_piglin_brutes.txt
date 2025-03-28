@@ -1,6 +1,6 @@
 ### Screw these guys...
 
-##§6Piglin brutes§f will §lno longer spawn§r in §7bastions!§r
+##§6Piglin brutes§f §lno longer spawn§r in §7bastions!§r
 
 §c§oUnless you're on doom mode...
 

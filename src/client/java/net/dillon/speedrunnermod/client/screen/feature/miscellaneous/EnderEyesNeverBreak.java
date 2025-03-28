@@ -24,7 +24,7 @@ public class EnderEyesNeverBreak extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 27;
+        return 30;
     }
 
     @Override

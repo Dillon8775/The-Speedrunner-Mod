@@ -24,7 +24,7 @@ public class BetterDeathScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 24;
+        return 26;
     }
 
     @Override

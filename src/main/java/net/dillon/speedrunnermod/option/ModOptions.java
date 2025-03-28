@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
@@ -477,7 +478,6 @@ public class ModOptions {
      * All booleans for doing certain things in the tutorial mode.
      */
     public static class TutorialMode {
-
         public boolean enterWorld = false;
         public boolean obtainedSpeedrunnerPickaxe = false;
         public boolean obtainedSpeedrunnerBoat = false;
@@ -1148,6 +1148,7 @@ public class ModOptions {
         File file = getConfigFile();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(GSON.toJson(SpeedrunnerMod.options()));
+            SpeedrunnerMod.info("Saved changes.");
         } catch (Exception e) {
             e.printStackTrace();
         }

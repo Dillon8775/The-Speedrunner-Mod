@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
+import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -53,6 +54,9 @@ public class RestartRequiredScreen extends AbstractModScreen {
             ModOptions.saveConfig();
             info("Changes reverted.");
             this.client.setScreen(this.parent);
+            if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
+                this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
+            }
         }).dimensions(this.getButtonsMiddle(), this.getButtonsHeight(), 100, 20).build());
         this.addDrawableChild(ButtonWidget.builder(ModTexts.NOT_NOW, (buttonWidget) -> {
             this.close();
@@ -62,8 +66,10 @@ public class RestartRequiredScreen extends AbstractModScreen {
     @Override
     public void close() {
         ModOptions.saveConfig();
-        info("Saved changes.");
         this.client.setScreen(this.parent);
+        if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
+            this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
+        }
     }
 
     @Override

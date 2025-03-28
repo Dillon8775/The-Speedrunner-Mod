@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 
-import net.dillon.speedrunnermod.client.screen.base.ModOptionsScreen;
-import net.dillon.speedrunnermod.client.screen.base.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
@@ -18,31 +16,31 @@ import org.jetbrains.annotations.NotNull;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Environment(EnvType.CLIENT)
-public class CustomPanoramaScreen extends AbstractFeatureScreen {
+public class WaterInNetherScreen extends AbstractFeatureScreen {
 
-    public CustomPanoramaScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.custom_panorama"));
+    public WaterInNetherScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.water_in_nether"));
     }
 
     @Override
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().client.customPanorama ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            RestartRequiredScreen.getCurrentOptions();
-            this.client.setScreen(new RestartRequiredScreen(this, this.options));
-            options().client.customPanorama = !options().client.customPanorama;
+        this.addButtonObject(ButtonWidget.builder(options().main.netherWater ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.netherWater = !options().main.netherWater;
+            ModOptions.saveConfig();
+            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
         }).build());
     }
 
     @Override
-    public @NotNull String linesKey() {
-        return "custom_panorama";
+    public int getPageNumber() {
+        return 16;
     }
 
     @Override
-    public int getPageNumber() {
-        return 33;
+    public @NotNull String linesKey() {
+        return "water_in_nether";
     }
 
     @Override

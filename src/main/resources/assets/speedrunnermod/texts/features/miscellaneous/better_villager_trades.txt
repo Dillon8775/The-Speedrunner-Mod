@@ -1,5 +1,3 @@
-### Not only is the §b§lRetired Speedrunner§r extremely overpowered, but normal villagers are too!
-
-#### §lAll villager trades§r have been changed, with lower prices and better items, for §oevery villager profession!
+## §lAll villager trades §rhave been §bbuffed, §fwith §alower prices §fand §abetter items, §ffor §bevery villager profession.
 
 !image:textures/gui/features/gui/better_villager_trades.png scale=.4

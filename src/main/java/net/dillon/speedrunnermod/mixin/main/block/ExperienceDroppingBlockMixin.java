@@ -57,6 +57,7 @@ public class ExperienceDroppingBlockMixin extends Block implements TutorialMode 
             }
             player.sendMessage(Text.translatable("speedrunnermod.removed_silk_touch").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
             player.setStackInHand(hand, itemStack);
+            player.swingHand(hand, true);
             return ActionResult.SUCCESS;
         } else {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);

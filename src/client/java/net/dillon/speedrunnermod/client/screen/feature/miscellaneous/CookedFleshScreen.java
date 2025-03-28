@@ -24,7 +24,7 @@ public class CookedFleshScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 23;
+        return 24;
     }
 
     @Override

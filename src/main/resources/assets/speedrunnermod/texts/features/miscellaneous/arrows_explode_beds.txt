@@ -1,5 +1,5 @@
-## Shoot an arrow at a §lbed§r and watch it explode!
+## Shooting an arrow at a §lbed§r and makes it §cexplode.
 
-§o(This can be disabled in the §b§ospeedrunner mod options menu).
+§oThis can be disabled in the §b§ospeedrunner mod options menu.
 
 !image:textures/gui/features/screenshots/arrows_destroy_beds.png scale=.14

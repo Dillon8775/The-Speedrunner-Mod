@@ -1,5 +1,5 @@
-### A §lbunch of blocks§r can be broken faster now, including §6wood, §7stone, §bores, §cnetherrack, §7end stone,§f and §lmuch more!
+### §aCertain blocks §fbreak quicker, including §6wood, §7stone, §bores, §cnetherrack, §7end stone,§f and §lmuch more!
 
-#### §oThis can be disabled or increased in the §b§ospeedrunner mod options menu.
+#### §oThis can be disabled and configured in the §b§ospeedrunner mod options menu.
 
 !image:textures/gui/features/screenshots/faster_block_breaking.png scale=.14

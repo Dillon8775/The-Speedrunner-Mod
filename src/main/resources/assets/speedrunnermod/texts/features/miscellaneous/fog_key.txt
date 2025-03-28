@@ -1,7 +1,7 @@
-### Automatically enable/disable §a§lMinecraft's fog§r with the press of a button!
+### Enable / disable §aMinecraft's annoying fog.
 
-#### Default key = §lH.§r
+# Default key = §lH.§r
 
-You can change this to whatever you'd like in the §l"Controls"§r menu.
+You can configure to whatever you'd like in the §l"Controls"§r menu.
 
 !image:textures/gui/features/keybinds/toggle_fog_keybind.png scale=.5

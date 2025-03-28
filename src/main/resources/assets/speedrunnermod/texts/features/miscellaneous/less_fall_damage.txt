@@ -1,7 +1,7 @@
 ## Players take less §cfall damage!§f
 
-### Additionally, if you §lshift§r while falling, you will take §l~0.25%§r §oless§r damage!
+### Additionally, if you §lshift§r while falling, you will take around §a0.25% §f§oless§r damage!
 
-!image:textures/gui/features/screenshots/less_fall_damage.png scale=.5
-!image:textures/gui/features/screenshots/less_fall_damage_shifting.png scale=.5
-### You can also disable fall damage §lentirely§r in the §bspeedrunner mod options§f §bmenu§r (followed by §lkenetic damage,§r the damage taken when flying into walls with an §7elytra§f).
+!image:textures/gui/features/screenshots/less_fall_damage.png scale=.45
+!image:textures/gui/features/screenshots/less_fall_damage_shifting.png scale=.45
+##### You can also disable fall damage §lentirely§r in the §bspeedrunner mod options§f §bmenu§r (followed by §7kenetic damage,§r§f the damage taken when flying into walls with an §7elytra§f).

@@ -1,14 +1,10 @@
 package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 
-import net.dillon.speedrunnermod.client.screen.base.ModOptionsScreen;
-import net.dillon.speedrunnermod.client.screen.base.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
@@ -17,32 +13,31 @@ import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
-@Environment(EnvType.CLIENT)
-public class CustomPanoramaScreen extends AbstractFeatureScreen {
+public class BetterFoodsScreen extends AbstractFeatureScreen {
 
-    public CustomPanoramaScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.custom_panorama"));
+    public BetterFoodsScreen(Screen parent, GameOptions options) {
+        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.better_foods"));
     }
 
     @Override
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().client.customPanorama ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            RestartRequiredScreen.getCurrentOptions();
-            this.client.setScreen(new RestartRequiredScreen(this, this.options));
-            options().client.customPanorama = !options().client.customPanorama;
+        this.addButtonObject(ButtonWidget.builder(options().main.betterFoods ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.betterFoods = !options().main.betterFoods;
+            ModOptions.saveConfig();
+            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
         }).build());
     }
 
     @Override
-    public @NotNull String linesKey() {
-        return "custom_panorama";
+    public int getPageNumber() {
+        return 25;
     }
 
     @Override
-    public int getPageNumber() {
-        return 33;
+    public @NotNull String linesKey() {
+        return "better_foods";
     }
 
     @Override

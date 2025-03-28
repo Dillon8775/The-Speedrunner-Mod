@@ -3,3 +3,4 @@
 #### Found in the §b§lSpeedrunner's Wasteland biome§r and in §cthe nether.
 
 !image:textures/gui/features/blocks/igneous_ores.png scale=.1
+!image:textures/gui/features/screenshots/igneous_ores.png scale=.14

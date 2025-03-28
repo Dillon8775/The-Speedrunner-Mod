@@ -93,7 +93,7 @@ public class BaseModScreen extends GameOptionsScreen {
     /**
      * Determines the refreshed screen for base screens.
      */
-    public Screen determineRefreshedScreen(String pageId) {
+    private Screen determineRefreshedScreen(String pageId) {
         for (BiFunction<Screen, GameOptions, AbstractModScreen> modScreenConstructor : SpeedrunnerModClient.ALL_MOD_SCREENS) {
             AbstractModScreen screen = modScreenConstructor.apply(this.parent, this.options);
             if (screen.pageId().equals(pageId)) {
@@ -106,7 +106,7 @@ public class BaseModScreen extends GameOptionsScreen {
     /**
      * Determines the refreshed screen for feature screens.
      */
-    public Screen determineRefreshedFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
+    private Screen determineRefreshedFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
         for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
             AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == screenCategory) {
@@ -119,7 +119,7 @@ public class BaseModScreen extends GameOptionsScreen {
     /**
      * Determines the refreshed screen for changelog screens.
      */
-    public Screen determineRefreshedChangelogScreen(String pageId) {
+    private Screen determineRefreshedChangelogScreen(String pageId) {
         for (BiFunction<Screen, GameOptions, AbstractChangelogScreen> modScreenConstructor : SpeedrunnerModClient.ALL_CHANGELOG_SCREENS) {
             AbstractChangelogScreen screen = modScreenConstructor.apply(this.parent, this.options);
             if (screen.pageId().equals(pageId)) {

@@ -1,5 +1,7 @@
-### Found across §a§lall biomes§f§r in the §aoverworld§f and in §cthe nether, §athe experience ores§f drop a §a§lbunch of experience §r§fwhen mined.
+### Drop a §alarge amount of experience §fupon mining.
 
-#### The §aamount of experience dropped§f can be increased with the §5fortune enchantment.
+#### Found across §a§lall biomes§r§f in the §aoverworld§f and in §cthe nether §fand found even §amore commonly in the §b§lSpeedrunner's Wasteland§r biome.
+
+##### The §aamount of experience dropped§f can be increased with the §5fortune enchantment.
 
 !image:textures/gui/features/screenshots/experience_ores.png scale=.13

@@ -30,8 +30,9 @@ public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
 
         this.addButtonObject(ButtonWidget.builder(ModTexts.OK, button -> this.close()).build());
         ButtonWidget enableDoomMode = this.addButtonObject(ButtonWidget.builder(ModTexts.ENABLE_DOOM_MODE, button -> {
+            RestartRequiredScreen.getCurrentOptions();
             if (!options().main.playingMode.doom()) {
-                this.client.setScreen(new RestartRequiredScreen(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new RestartRequiredScreen(this, MinecraftClient.getInstance().options));
             }
             options().main.playingMode = ModOptions.PlayingMode.DOOM;
         }).build());

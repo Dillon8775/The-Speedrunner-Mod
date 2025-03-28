@@ -1,5 +1,3 @@
-### §6Piglin bartering§f is now §lEXTREMELY overpowered.§r
-
-#### §9 Ender pearls§r are much more common, along with string, §egolden apples, §bspeedrunner ingots, §6wood,§f and much more!
+## §9 Ender pearls§r are much more common, along with string, §egolden apples, §bspeedrunner ingots, §6wood,§f and much more!
 
 !image:textures/gui/features/gui/better_piglin_bartering.png scale=.4

@@ -7,7 +7,6 @@ import net.minecraft.util.Formatting;
  * All {@code translation keys} for the Speedrunner Mod.
  */
 public class ModTexts {
-    public static final Text PREFIX = Text.translatable("speedrunnermod.prefix");
     public static final Text BLANK = Text.literal("");
     public static final Text OK = Text.translatable("speedrunnermod.ok");
     public static final Text SAVE = Text.translatable("speedrunnermod.save");
@@ -80,6 +79,19 @@ public class ModTexts {
     public static final Text ENABLE_DOOM_MODE = Text.translatable("speedrunnermod.doom_mode.enable").formatted(Formatting.RED);
     public static final Text MENU_DOOM_MODE = Text.translatable("speedrunnermod.menu.doom_mode");
     public static final Text TITLE_DOOM_MODE = Text.translatable("speedrunnermod.title.doom_mode");
+    public static final Text DISABLE_LAVA_BOATS = Text.translatable("speedrunnermod.options.lava_boats.disable").formatted(Formatting.GOLD);
+    public static final Text ENABLE_LAVA_BOATS = Text.translatable("speedrunnermod.options.lava_boats.enable").formatted(Formatting.GREEN);
+    public static final Text STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING = Text.translatable("speedrunnermod.options.stop_speedrunners_wasteland_biome_from_generating").formatted(Formatting.RED);
+    public static final Text ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE = Text.translatable("speedrunnermod.options.allow_speedrunners_wasteland_biome_to_generate").formatted(Formatting.AQUA);
+    public static final Text DISABLE_THIS_FEATURE = Text.translatable("speedrunnermod.disable_this_feature").formatted(Formatting.RED);
+    public static final Text ENABLE_THIS_FEATURE = Text.translatable("speedrunnermod.enable_this_feature").formatted(Formatting.GREEN);
+    public static final Text DISABLE_ICARUS_MODE = Text.translatable("speedrunnermod.disable_icarus_mode").formatted(Formatting.GRAY);
+    public static final Text ENABLE_ICARUS_MODE = Text.translatable("speedrunnermod.enable_icarus_mode").formatted(Formatting.GRAY);
+    public static final Text DISABLE_INFINI_PEARL_MODE = Text.translatable("speedrunnermod.disable_infini_pearl_mode").formatted(Formatting.BLUE);
+    public static final Text ENABLE_INFINI_PEARL_MODE = Text.translatable("speedrunnermod.enable_infini_pearl_mode").formatted(Formatting.BLUE);
+    public static final Text DISABLE_HIGHER_ENCHANT_LEVELS = Text.translatable("speedrunnermod.disable_higher_enchant_levels").formatted(Formatting.RED);
+    public static final Text ENABLE_HIGHER_ENCHANT_LEVELS = Text.translatable("speedrunnermod.enable_higher_enchant_levels").formatted(Formatting.LIGHT_PURPLE);
+    public static final Text CONFIGURE_OPTION = Text.translatable("speedrunnermod.configure_option");
 
     public static final Text EASIER_SPEEDRUNNING_MOD = Text.translatable("speedrunnermod.the_easier_speedrunning_mod");
     public static final Text EASIER_SPEEDRUNNING_MOD_TOOLTIP = Text.translatable("speedrunnermod.the_easier_speedrunning_mod.tooltip");

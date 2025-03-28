@@ -24,7 +24,7 @@ public class TotemsWorkInVoidScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 26;
+        return 29;
     }
 
     @Override

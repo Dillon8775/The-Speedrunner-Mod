@@ -1,4 +1,4 @@
-### When §6piglin§f (or §6piglin brutes)§r are killed, they will drop a §enew food item,§f called §6§l"Piglin Pork"!
+### When §6piglin§f (or §6piglin brutes)§r are killed, they will drop a §enew food item,§f called §6§lPiglin Pork.
 
 It's basically just an alternative for §eporkchop...
 

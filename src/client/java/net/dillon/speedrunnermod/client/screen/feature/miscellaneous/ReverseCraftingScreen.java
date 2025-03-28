@@ -24,7 +24,7 @@ public class ReverseCraftingScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 21;
+        return 22;
     }
 
     @Override

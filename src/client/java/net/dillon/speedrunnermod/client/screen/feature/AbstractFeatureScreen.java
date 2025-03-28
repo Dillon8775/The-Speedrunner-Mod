@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.feature;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.TripledDropsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
