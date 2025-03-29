@@ -81,7 +81,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                                     }
                                     player.damage(serverWorld, player.getDamageSources().generic(), player.getHealth());
 
-                                    ModCriterions.USED_ITEM.trigger(serverPlayer, stack);
+                                    ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, stack);
 
                                     Text purgedText = Text.translatable("item.speedrunnermod.raid_eradicator.purged").formatted(Formatting.RED);
                                     serverPlayer.networkHandler.sendPacket(new TitleS2CPacket(Text.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).formatted(Formatting.AQUA).formatted(Formatting.BOLD)));

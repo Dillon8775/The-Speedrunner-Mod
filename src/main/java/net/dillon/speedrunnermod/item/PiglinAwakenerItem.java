@@ -98,7 +98,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, Tutor
                                                 options().tutorialMode.usedPiglinAwakener = true;
                                                 ModOptions.saveConfig();
                                             }
-                                            ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, stack);
+                                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
                                         }
                                     }, ModUtil.millisecondsAsSeconds(2));
                                 } else {

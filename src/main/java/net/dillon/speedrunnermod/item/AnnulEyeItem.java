@@ -69,7 +69,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem, TutorialMod
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                                 player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
 
-                                ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+                                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
                                 if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
                                     this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy", player);

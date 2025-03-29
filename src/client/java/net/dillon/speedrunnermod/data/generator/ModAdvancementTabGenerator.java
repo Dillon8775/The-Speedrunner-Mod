@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
-import net.dillon.speedrunnermod.advancement.UsedItemCriterion;
+import net.dillon.speedrunnermod.advancement.TriggeredByItemCriterion;
 import net.dillon.speedrunnermod.item.ModBlockItems;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
@@ -68,7 +68,8 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 )
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_INGOT))
                 .build(exporter, "speedrunnermod:items/speedrunning_time");
-        requireSpeedrunnersWasteland(Advancement.Builder.create(), wrapperLookup)
+
+        AdvancementEntry whatAWasteland = requireSpeedrunnersWasteland(Advancement.Builder.create(), wrapperLookup)
                 .parent(speedrunningTime)
                 .display(
                         ModBlockItems.SPEEDRUNNER_SAPLING,
@@ -221,7 +222,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.ANNUL_EYE))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.ANNUL_EYE))
                 .build(exporter, "speedrunnermod:items/the_end_is_near");
 
         Advancement.Builder.create()
@@ -236,7 +237,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.ENDER_THRUSTER))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.ENDER_THRUSTER))
                 .build(exporter, "speedrunnermod:items/back_to_the_surface");
 
         AdvancementEntry devilsEye = Advancement.Builder.create()
@@ -281,7 +282,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.PIGLIN_AWAKENER))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.PIGLIN_AWAKENER))
                 .build(exporter, "speedrunnermod:items/piglin_rally");
 
         Advancement.Builder.create()
@@ -296,7 +297,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.BLAZE_SPOTTER))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.BLAZE_SPOTTER))
                 .build(exporter, "speedrunnermod:items/the_blazez_awaitz");
 
         AdvancementEntry goliath = Advancement.Builder.create()
@@ -329,7 +330,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.RAID_ERADICATOR))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.RAID_ERADICATOR))
                 .build(exporter, "speedrunnermod:items/the_purge");
 
         AdvancementEntry oneHitOneKill = Advancement.Builder.create()
@@ -342,12 +343,12 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         AdvancementFrame.CHALLENGE,
                         true,
                         true,
-                        true
+                        false
                 )
                 .criterion("killed_dragon", OnKilledCriterion.Conditions.createPlayerKilledEntity(
                         EntityPredicate.Builder.create()
                         .type(entityLookup, EntityType.ENDER_DRAGON)))
-                .criterion("used_dragons_sword", UsedItemCriterion.Conditions.item(itemLookup, ModItems.DRAGONS_SWORD))
+                .criterion("used_dragons_sword", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.DRAGONS_SWORD))
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .build(exporter, "speedrunnermod:items/one_hit_one_kill");
 
@@ -407,11 +408,139 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         AdvancementFrame.CHALLENGE,
                         true,
                         true,
-                        true
+                        false
                 )
-                .criterion("used_item", UsedItemCriterion.Conditions.item(itemLookup, ModItems.SPEEDRUNNERS_TOTEM))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.SPEEDRUNNERS_TOTEM))
                 .rewards(AdvancementRewards.Builder.experience(500))
                 .build(exporter, "speedrunnermod:adventure/immortal");
+
+        Advancement.Builder.create()
+                .parent(yesTheEnd)
+                .display(
+                        Items.PLAYER_HEAD,
+                        Text.translatable("advancements.speedrunnermod.dominion.title"),
+                        Text.translatable("advancements.speedrunnermod.dominion.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
+                .criterion("killed_dragon", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                                .type(entityLookup, EntityType.ENDER_DRAGON)))
+                .criterion("killed_elder_guardian", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                                .type(entityLookup, EntityType.ELDER_GUARDIAN)))
+                .criterion("killed_wither", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                                .type(entityLookup, EntityType.WITHER)))
+                .criterion("killed_warden", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                                .type(entityLookup, EntityType.WARDEN)))
+                .rewards(AdvancementRewards.Builder.experience(250))
+                .build(exporter, "speedrunnermod:adventure/dominion");
+
+        Advancement.Builder.create()
+                .parent(quickerPick)
+                .display(
+                        Items.DIAMOND_SWORD,
+                        Text.translatable("advancements.speedrunnermod.sword_collector.title"),
+                        Text.translatable("advancements.speedrunnermod.sword_collector.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
+                .criterion("has_wood_sword", InventoryChangedCriterion.Conditions.items(Items.WOODEN_SWORD))
+                .criterion("has_stone_sword", InventoryChangedCriterion.Conditions.items(Items.STONE_SWORD))
+                .criterion("has_golden_sword", InventoryChangedCriterion.Conditions.items(Items.GOLDEN_SWORD))
+                .criterion("has_diamond_sword", InventoryChangedCriterion.Conditions.items(Items.DIAMOND_SWORD))
+                .criterion("has_netherite_sword", InventoryChangedCriterion.Conditions.items(Items.NETHERITE_SWORD))
+                .criterion("has_speedrunner_sword", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_SWORD))
+                .criterion("has_golden_speedrunner_sword", InventoryChangedCriterion.Conditions.items(ModItems.GOLDEN_SPEEDRUNNER_SWORD))
+                .criterion("has_wither_sword", InventoryChangedCriterion.Conditions.items(ModItems.WITHER_SWORD))
+                .criterion("has_dragons_sword", InventoryChangedCriterion.Conditions.items(ModItems.DRAGONS_SWORD))
+                .rewards(AdvancementRewards.Builder.experience(50))
+                .build(exporter, "speedrunnermod:items/sword_collector");
+
+        Advancement.Builder.create()
+                .parent(whatAWasteland)
+                .display(
+                        Items.OAK_LOG,
+                        Text.translatable("advancements.speedrunnermod.lumberjack.title"),
+                        Text.translatable("advancements.speedrunnermod.lumberjack.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
+                .criterion("has_oak_log", InventoryChangedCriterion.Conditions.items(Items.OAK_LOG))
+                .criterion("has_birch_log", InventoryChangedCriterion.Conditions.items(Items.BIRCH_LOG))
+                .criterion("has_acacia_log", InventoryChangedCriterion.Conditions.items(Items.ACACIA_LOG))
+                .criterion("has_cherry_log", InventoryChangedCriterion.Conditions.items(Items.CHERRY_LOG))
+                .criterion("has_jungle_log", InventoryChangedCriterion.Conditions.items(Items.JUNGLE_LOG))
+                .criterion("has_dark_oak_log", InventoryChangedCriterion.Conditions.items(Items.DARK_OAK_LOG))
+                .criterion("has_mangrove_log", InventoryChangedCriterion.Conditions.items(Items.MANGROVE_LOG))
+                .criterion("has_pale_oak_log", InventoryChangedCriterion.Conditions.items(Items.PALE_OAK_LOG))
+                .criterion("has_spruce_log", InventoryChangedCriterion.Conditions.items(Items.SPRUCE_LOG))
+                .criterion("has_speedrunner_log", InventoryChangedCriterion.Conditions.items(ModBlockItems.SPEEDRUNNER_LOG))
+                .criterion("has_dead_speedrunner_log", InventoryChangedCriterion.Conditions.items(ModBlockItems.DEAD_SPEEDRUNNER_LOG))
+                .rewards(AdvancementRewards.Builder.experience(25))
+                .build(exporter, "speedrunnermod:items/lumberjack");
+
+        AdvancementEntry shepherd = Advancement.Builder.create()
+                .parent(speedrunningTime)
+                .display(
+                        Items.WHITE_WOOL,
+                        Text.translatable("advancements.speedrunnermod.shepherd.title"),
+                        Text.translatable("advancements.speedrunnermod.shepherd.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
+                .criterion("has_white_wool", InventoryChangedCriterion.Conditions.items(Items.WHITE_WOOL))
+                .criterion("has_orange_wool", InventoryChangedCriterion.Conditions.items(Items.ORANGE_WOOL))
+                .criterion("has_blue_wool", InventoryChangedCriterion.Conditions.items(Items.BLUE_WOOL))
+                .criterion("has_yellow_wool", InventoryChangedCriterion.Conditions.items(Items.YELLOW_WOOL))
+                .criterion("has_cyan_wool", InventoryChangedCriterion.Conditions.items(Items.CYAN_WOOL))
+                .criterion("has_green_wool", InventoryChangedCriterion.Conditions.items(Items.GREEN_WOOL))
+                .criterion("has_lime_wool", InventoryChangedCriterion.Conditions.items(Items.LIME_WOOL))
+                .criterion("has_light_blue_wool", InventoryChangedCriterion.Conditions.items(Items.LIGHT_BLUE_WOOL))
+                .criterion("has_gray_wool", InventoryChangedCriterion.Conditions.items(Items.GRAY_WOOL))
+                .criterion("has_light_gray_wool", InventoryChangedCriterion.Conditions.items(Items.LIGHT_GRAY_WOOL))
+                .criterion("has_black_Wool", InventoryChangedCriterion.Conditions.items(Items.BLACK_WOOL))
+                .criterion("has_red_wool", InventoryChangedCriterion.Conditions.items(Items.RED_WOOL))
+                .criterion("has_brown_wool", InventoryChangedCriterion.Conditions.items(Items.BROWN_WOOL))
+                .criterion("has_magenta_wool", InventoryChangedCriterion.Conditions.items(Items.MAGENTA_WOOL))
+                .criterion("has_purple_wool", InventoryChangedCriterion.Conditions.items(Items.PURPLE_WOOL))
+                .criterion("has_pink_wool", InventoryChangedCriterion.Conditions.items(Items.PINK_WOOL))
+                .rewards(AdvancementRewards.Builder.experience(50))
+                .build(exporter, "speedrunnermod:items/shepherd");
+
+        Advancement.Builder.create()
+                .parent(shepherd)
+                .display(
+                        Items.LIME_WOOL,
+                        Text.translatable("advancements.speedrunnermod.expert_shepherd.title"),
+                        Text.translatable("advancements.speedrunnermod.expert_shepherd.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_stack_of_lime_wool", TriggeredByItemCriterion.Conditions.item(itemLookup, Items.LIME_WOOL))
+                .rewards(AdvancementRewards.Builder.experience(25))
+                .build(exporter, "speedrunnermod:items/expert_shepherd");
     }
 
     /**

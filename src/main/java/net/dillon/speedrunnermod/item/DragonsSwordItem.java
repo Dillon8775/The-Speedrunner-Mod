@@ -38,7 +38,7 @@ public class DragonsSwordItem extends SwordItem implements StateOfTheArtItem {
         if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
             if (!options().main.playingMode.doom() && !options().main.playingMode.normal()) {
                 dragon.setHealth(0.0F);
-                ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, stack);
+                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
             } else {
                 if (options().main.playingMode.doom()) {
                     attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloat(2.0F, 3.0F));

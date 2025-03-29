@@ -62,7 +62,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem, Tutoria
                                 ModOptions.saveConfig();
                             }
 
-                            ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);

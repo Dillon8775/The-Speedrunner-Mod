@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModBlockItems;
 import net.dillon.speedrunnermod.item.ModItems;
@@ -17,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
@@ -207,10 +209,22 @@ public class ItemMixin implements TutorialMode {
     }
 
     /**
-     * For tutorial mode.
+     * For tutorial mode and {@code Expert Shepherd} advancement.
      */
     @Inject(method = "inventoryTick", at = @At("HEAD"))
-    private void inventoryTickTutorialMode(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
+    private void modifiedInventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
+        if (entity instanceof ServerPlayerEntity player) {
+            int j = 0;
+            for (int i = 0; i < player.getInventory().size(); i++) {
+                if (player.getInventory().getStack(i).isOf(Items.LIME_WOOL)) {
+                    j += player.getInventory().getStack(i).getCount();
+                }
+                if (j >= 64) {
+                    ModCriterions.TRIGGERED_BY_ITEM.trigger(player, Items.LIME_WOOL.getDefaultStack());
+                    break;
+                }
+            }
+        }
         this.tutorialMode(stack, world, entity, slot, selected, ci);
     }
 
@@ -218,7 +232,7 @@ public class ItemMixin implements TutorialMode {
      * For tutorial mode.
      */
     @Inject(method = "onCraftByPlayer", at = @At("HEAD"))
-    private void onCraftByPlayerTutorialMode(ItemStack stack, World world, PlayerEntity player, CallbackInfo ci) {
+    private void modifiedOnCraftByPlayer(ItemStack stack, World world, PlayerEntity player, CallbackInfo ci) {
         this.tutorialMode(stack, world, player, 0, false, ci);
     }
 

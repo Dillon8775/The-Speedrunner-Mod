@@ -50,8 +50,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public abstract ItemStack getEquippedStack(EquipmentSlot slot);
     @Shadow
     public abstract boolean damage(ServerWorld world, DamageSource source, float amount);
-
-    @Shadow @Final private PlayerInventory inventory;
+    @Shadow @Final
+    private PlayerInventory inventory;
 
     public PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
@@ -141,7 +141,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.teleport(0.5, y, 0.5, true);
                 this.serverDamage(this.getDamageSources().generic(), Integer.MAX_VALUE);
                 this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
-                ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
+                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
             }
         } else {
             super.attemptTickInVoid();

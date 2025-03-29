@@ -74,7 +74,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem, Tutori
                             player.teleport(player.getX(), y, player.getZ(), true);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
-                            ModCriterions.USED_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
                             if (options().main.tutorialMode && options().main.playingMode.easy() && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && options().tutorialMode.transferedEnchantments && options().tutorialMode.interactedWithRetiredSpeedrunner && options().tutorialMode.obtainedEnderThruster && !options().tutorialMode.usedEnderThruster) {
                                 this.send("speedrunnermod.tutorial_mode.used_ender_thruster.easy", player);

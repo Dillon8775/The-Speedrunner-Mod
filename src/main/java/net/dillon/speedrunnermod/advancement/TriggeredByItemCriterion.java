@@ -19,10 +19,10 @@ import java.util.Optional;
 /**
  * The used item criterion.
  */
-public class UsedItemCriterion extends AbstractCriterion<UsedItemCriterion.Conditions> {
+public class TriggeredByItemCriterion extends AbstractCriterion<TriggeredByItemCriterion.Conditions> {
     @Override
-    public Codec<UsedItemCriterion.Conditions> getConditionsCodec() {
-        return UsedItemCriterion.Conditions.CODEC;
+    public Codec<TriggeredByItemCriterion.Conditions> getConditionsCodec() {
+        return TriggeredByItemCriterion.Conditions.CODEC;
     }
 
     public void trigger(ServerPlayerEntity player, ItemStack stack) {
@@ -30,17 +30,17 @@ public class UsedItemCriterion extends AbstractCriterion<UsedItemCriterion.Condi
     }
 
     public record Conditions(Optional<LootContextPredicate> player, Optional<ItemPredicate> item) implements AbstractCriterion.Conditions {
-        public static final Codec<UsedItemCriterion.Conditions> CODEC = RecordCodecBuilder.create(
+        public static final Codec<TriggeredByItemCriterion.Conditions> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
-                                EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(UsedItemCriterion.Conditions::player),
-                                ItemPredicate.CODEC.optionalFieldOf("item").forGetter(UsedItemCriterion.Conditions::item)
+                                EntityPredicate.LOOT_CONTEXT_PREDICATE_CODEC.optionalFieldOf("player").forGetter(TriggeredByItemCriterion.Conditions::player),
+                                ItemPredicate.CODEC.optionalFieldOf("item").forGetter(TriggeredByItemCriterion.Conditions::item)
                         )
-                        .apply(instance, UsedItemCriterion.Conditions::new)
+                        .apply(instance, TriggeredByItemCriterion.Conditions::new)
         );
 
-        public static AdvancementCriterion<UsedItemCriterion.Conditions> item(RegistryEntryLookup<Item> itemRegistry, ItemConvertible item) {
-            return ModCriterions.USED_ITEM
-                    .create(new UsedItemCriterion.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(itemRegistry, item).build())));
+        public static AdvancementCriterion<TriggeredByItemCriterion.Conditions> item(RegistryEntryLookup<Item> itemRegistry, ItemConvertible item) {
+            return ModCriterions.TRIGGERED_BY_ITEM
+                    .create(new TriggeredByItemCriterion.Conditions(Optional.empty(), Optional.of(ItemPredicate.Builder.create().items(itemRegistry, item).build())));
         }
 
         public boolean matches(ItemStack stack) {

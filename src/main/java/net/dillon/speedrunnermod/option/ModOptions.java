@@ -17,7 +17,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;

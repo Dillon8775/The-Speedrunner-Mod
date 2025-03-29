@@ -24,4 +24,9 @@ public class v110 extends AbstractChangelogScreen {
     protected String pageId() {
         return "gfbopkoasdoasd";
     }
+
+    @Override
+    protected boolean hasChangelogFile() {
+        return true;
+    }
 }
