@@ -55,7 +55,7 @@ public class EndermanEntityMixin extends HostileEntity {
             RegistryEntry<Enchantment> registryEntry = optional.get();
             int looting = EnchantmentHelper.getEquipmentLevel(registryEntry, attacker);
             boolean attackerHasSpeedrunnerSword = attacker.getMainHandStack().isIn(ModItemTags.SPEEDRUNNER_SWORDS);
-            double chance = looting > 3 ? 0.1 : looting == 3 ? 0.075 : looting == 2 ? 0.065 : 0.05;
+            double chance = looting >= 3 ? 0.10 : looting == 2 ? 0.075 : looting == 1 ? 0.06 : 0.05;
             if (attackerHasSpeedrunnerSword) {
                 chance += 0.015;
             }
