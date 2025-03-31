@@ -792,6 +792,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(Items.ENDER_PEARL)
                         .input(Items.FIRE_CHARGE)
                         .input(Items.BLAZE_POWDER)
+                        .input(Items.ENDER_EYE)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL))
                         .offerTo(this.exporter);
 
@@ -799,7 +800,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(Items.ENDER_PEARL)
                         .input(Items.FIRE_CHARGE)
                         .input(Items.LAVA_BUCKET)
-                        .criterion("has_items", this.conditionsFromItem(Items.LAVA_BUCKET))
+                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER))
                         .offerTo(this.exporter);
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.DRAGONS_PEARL)
@@ -834,7 +835,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(Items.FIRE_CHARGE)
                         .input(Items.ENCHANTED_GOLDEN_APPLE)
                         .input(ModItems.SPEEDRUNNERS_EYE)
-                        .criterion("has_items", this.conditionsFromItem(Items.ENCHANTED_GOLDEN_APPLE))
+                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.RAID_ERADICATOR))
                         .offerTo(this.exporter);
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.SPEEDRUNNERS_EYE)
@@ -846,7 +847,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 this.createShapeless(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_FLINT_AND_STEEL)
                         .input(Items.FLINT)
                         .input(ModItems.SPEEDRUNNER_INGOT)
-                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .criterion("has_speedrunner_ingot", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL))
                         .group("flint_and_steels")
                         .offerTo(this.exporter);
 
@@ -858,7 +859,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .pattern("#C#")
                         .pattern("###")
                         .showNotification(true)
-                        .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_BLOCK))
+                        .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_INGOT))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.RAW_SPEEDRUNNER_BLOCK)
@@ -876,7 +877,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .pattern("###")
                         .pattern("#X#")
                         .pattern("###")
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES))
+                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
@@ -885,7 +886,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .pattern("@@")
                         .pattern("##")
                         .pattern("##")
-                        .criterion("has_planks", this.conditionsFromTag(ModItemTags.Block.SPEEDRUNNER_PLANKS))
+                        .criterion("has_planks", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_BOW)

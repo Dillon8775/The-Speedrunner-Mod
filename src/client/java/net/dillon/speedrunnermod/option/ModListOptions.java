@@ -104,8 +104,9 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> BETTER_FOODS = new SimpleOption<>("speedrunnermod.options.better_foods", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_foods.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.betterFoods, value -> options().main.betterFoods = value);
 
+    @Deprecated(forRemoval = true)
     public static final SimpleOption<Boolean> BETTER_BIOMES = new SimpleOption<>("speedrunnermod.options.better_biomes", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_biomes.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.betterFoods, value -> options().main.betterFoods = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.betterBiomes, value -> options().main.betterBiomes = value);
 
     public static final SimpleOption<Boolean> FALL_DAMAGE = new SimpleOption<>("speedrunnermod.options.fall_damage", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fall_damage.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.fallDamage, value -> options().main.fallDamage = value);

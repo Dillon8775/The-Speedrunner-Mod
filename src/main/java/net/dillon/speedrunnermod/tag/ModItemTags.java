@@ -39,10 +39,15 @@ public class ModItemTags {
      */
     public static class AdvancementCriterions {
         public static TagKey<Item> EYE_OF_ANNUL = ofAdvancement("eye_of_annul");
+        public static TagKey<Item> BLAZE_SPOTTER = ofAdvancement("blaze_spotter");
         public static TagKey<Item> DRAGONS_PEARL = ofAdvancement("dragons_pearl");
         public static TagKey<Item> DRAGONS_SWORD = ofAdvancement("dragons_sword");
         public static TagKey<Item> ENDER_THRUSTER = ofAdvancement("ender_thruster");
         public static TagKey<Item> INFERNO_EYE = ofAdvancement("inferno_eye");
+        public static TagKey<Item> RAID_ERADICATOR = ofAdvancement("raid_eradicator");
+        public static TagKey<Item> PIGLIN_AWAKENER = ofAdvancement("piglin_awakener");
+        public static TagKey<Item> SPEEDRUNNER_FLINT_AND_STEEL = ofAdvancement("speedrunner_flint_and_steel");
+        public static TagKey<Item> SPEEDRUNNERS_WORKBENCH = ofAdvancement("speedrunners_workbench");
     }
 
     /**

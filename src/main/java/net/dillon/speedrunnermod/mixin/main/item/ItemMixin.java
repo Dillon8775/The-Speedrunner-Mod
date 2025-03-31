@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.mixin.main.item;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
-import net.dillon.speedrunnermod.item.ModBlockItems;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
@@ -136,7 +135,7 @@ public class ItemMixin implements TutorialMode {
                         }
                     }
 
-                    if (stack.isOf(ModBlockItems.SPEEDRUNNERS_WORKBENCH)) {
+                    if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
                         if (options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && !options().tutorialMode.obtainedSpeedrunnersWorkbench) {
                             this.send("speedrunnermod.tutorial_mode.obtained_speedrunners_workbench", player);
                             this.send("speedrunnermod.tutorial_mode.transfer_enchantments", player);
@@ -245,7 +244,7 @@ public class ItemMixin implements TutorialMode {
             if (stack.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
                 tooltip.add(Text.translatable("item.speedrunnermod.piglin_awakener_craftable").formatted(Formatting.GOLD));
             }
-            if (stack.isOf(ModBlockItems.SPEEDRUNNERS_WORKBENCH)) {
+            if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
                 tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
                 tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
                 tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));

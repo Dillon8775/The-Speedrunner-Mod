@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.advancement.TriggeredByItemCriterion;
-import net.dillon.speedrunnermod.item.ModBlockItems;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -42,7 +41,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
         RegistryEntryLookup<Item> itemLookup = wrapperLookup.getOrThrow(RegistryKeys.ITEM);
         AdvancementEntry root = Advancement.Builder.create()
                 .display(
-                        ModBlockItems.SPEEDRUNNERS_WORKBENCH,
+                        ModItems.SPEEDRUNNERS_WORKBENCH,
                         Text.translatable("advancements.speedrunnermod.title"),
                         Text.translatable("advancements.speedrunnermod.description"),
                         Identifier.ofVanilla("textures/gui/advancements/backgrounds/stone.png"),
@@ -72,7 +71,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
         AdvancementEntry whatAWasteland = requireSpeedrunnersWasteland(Advancement.Builder.create(), wrapperLookup)
                 .parent(speedrunningTime)
                 .display(
-                        ModBlockItems.SPEEDRUNNER_SAPLING,
+                        ModItems.SPEEDRUNNER_SAPLING,
                         Text.translatable("advancements.speedrunnermod.what_a_wasteland.title"),
                         Text.translatable("advancements.speedrunnermod.what_a_wasteland.description"),
                         null,
@@ -489,8 +488,8 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("has_mangrove_log", InventoryChangedCriterion.Conditions.items(Items.MANGROVE_LOG))
                 .criterion("has_pale_oak_log", InventoryChangedCriterion.Conditions.items(Items.PALE_OAK_LOG))
                 .criterion("has_spruce_log", InventoryChangedCriterion.Conditions.items(Items.SPRUCE_LOG))
-                .criterion("has_speedrunner_log", InventoryChangedCriterion.Conditions.items(ModBlockItems.SPEEDRUNNER_LOG))
-                .criterion("has_dead_speedrunner_log", InventoryChangedCriterion.Conditions.items(ModBlockItems.DEAD_SPEEDRUNNER_LOG))
+                .criterion("has_speedrunner_log", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_LOG))
+                .criterion("has_dead_speedrunner_log", InventoryChangedCriterion.Conditions.items(ModItems.DEAD_SPEEDRUNNER_LOG))
                 .rewards(AdvancementRewards.Builder.experience(25))
                 .build(exporter, "speedrunnermod:items/lumberjack");
 

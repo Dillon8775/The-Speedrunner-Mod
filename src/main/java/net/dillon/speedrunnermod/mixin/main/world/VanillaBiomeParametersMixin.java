@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Deprecated(forRemoval = true)
 @Mixin(VanillaBiomeParameters.class)
 public class VanillaBiomeParametersMixin {
     @Shadow @Final @Mutable
@@ -46,33 +47,6 @@ public class VanillaBiomeParametersMixin {
                             BiomeKeys.FOREST,
                             BiomeKeys.JUNGLE,
                             BiomeKeys.PLAINS},
-                    {BiomeKeys.DESERT,
-                            BiomeKeys.DESERT,
-                            BiomeKeys.DESERT,
-                            BiomeKeys.DESERT,
-                            BiomeKeys.DESERT}};
-        } else {
-            this.commonBiomes = new RegistryKey[][]{
-                    {BiomeKeys.SNOWY_PLAINS,
-                            BiomeKeys.SNOWY_PLAINS,
-                            BiomeKeys.SNOWY_PLAINS,
-                            BiomeKeys.SNOWY_TAIGA,
-                            BiomeKeys.TAIGA},
-                    {BiomeKeys.PLAINS,
-                            BiomeKeys.PLAINS,
-                            BiomeKeys.FOREST,
-                            BiomeKeys.TAIGA,
-                            BiomeKeys.OLD_GROWTH_SPRUCE_TAIGA},
-                    {BiomeKeys.FLOWER_FOREST,
-                            BiomeKeys.PLAINS,
-                            BiomeKeys.FOREST,
-                            BiomeKeys.BIRCH_FOREST,
-                            BiomeKeys.DARK_FOREST},
-                    {BiomeKeys.SAVANNA,
-                            BiomeKeys.SAVANNA,
-                            BiomeKeys.FOREST,
-                            BiomeKeys.JUNGLE,
-                            BiomeKeys.JUNGLE},
                     {BiomeKeys.DESERT,
                             BiomeKeys.DESERT,
                             BiomeKeys.DESERT,

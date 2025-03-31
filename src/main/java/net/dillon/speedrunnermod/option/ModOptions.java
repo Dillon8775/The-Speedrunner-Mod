@@ -77,8 +77,9 @@ public class ModOptions {
         /**
          * Allows certain biomes, such as plains, deserts, savannas, etc., to generate more commonly.
          */
+        @Deprecated(forRemoval = true)
         @RequiresRestart
-        public boolean betterBiomes = true;
+        public boolean betterBiomes = false;
 
         /**
          * Grants the player with a pre-equipped unbreakable elytra and a stack of flight duration 3 firework rockets.
@@ -1329,7 +1330,7 @@ public class ModOptions {
         options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
         options().main.fasterBlockBreaking = true;
         options().main.blockBreakingMultiplier = 1;
-        options().main.betterBiomes = true;
+        options().main.betterBiomes = false;
         options().main.iCarusMode = false;
         options().main.infiniPearlMode = false;
         options().main.dragonPerchTime = 8;
