@@ -17,7 +17,7 @@ public class DoomModeScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.initializeCustomButtonListWidget();
-        this.iterate(ScreenCategory.DOOM_MODE);
+        this.addButtonsIteratively(ScreenCategory.DOOM_MODE);
         super.init();
     }
 

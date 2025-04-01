@@ -4,8 +4,8 @@ import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
 import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
-import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
+import net.dillon.speedrunnermod.client.screen.feature.*;
+import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
@@ -208,7 +208,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
      */
     @ChatGPT(Credit.FULL_CREDIT)
-    protected void iterate(ScreenCategory screenCategory) {
+    protected void addButtonsIteratively(ScreenCategory screenCategory) {
         int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
                 .map(constructor -> constructor.apply(this.parent, this.options))
                 .filter(screen -> screen.getScreenCategory() == screenCategory)

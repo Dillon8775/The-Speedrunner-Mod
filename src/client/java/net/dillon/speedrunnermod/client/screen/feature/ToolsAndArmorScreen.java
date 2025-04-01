@@ -17,7 +17,7 @@ public class ToolsAndArmorScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.initializeCustomButtonListWidget();
-        this.iterate(ScreenCategory.TOOLS_AND_ARMOR);
+        this.addButtonsIteratively(ScreenCategory.TOOLS_AND_ARMOR);
         super.init();
     }
 

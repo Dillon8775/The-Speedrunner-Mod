@@ -146,7 +146,9 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler implements Tuto
                     // Try to transfer enchantments
                     if ((allIsCompatible && enchantment.isAcceptableItem(secondSlot)) || alreadyPresentButUpgradable) {
                         // However, if second slot enchantment is already at max level, don't transfer enchantment, we cannot transfer enchantment over max level
-                        if (secondSlotBuilder.getLevel(entry.getKey()) != enchantment.getMaxLevel()) {
+                        if (secondSlotBuilder.getLevel(entry.getKey()) != enchantment.getMaxLevel()
+                                && firstSlotBuilder.getLevel(entry.getKey()) != secondSlotBuilder.getLevel(entry.getKey())
+                                && !(secondSlotBuilder.getLevel(entry.getKey()) < firstSlotBuilder.getLevel(entry.getKey()))) {
                             enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
                             enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
                             this.sendContentUpdates();

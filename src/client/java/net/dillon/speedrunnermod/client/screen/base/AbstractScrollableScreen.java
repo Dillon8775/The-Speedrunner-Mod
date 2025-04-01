@@ -275,7 +275,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
         loadAndPrintText(!this.hasChangelogFile() && this instanceof AbstractChangelogScreen ? null : ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> this.client.setScreen(this.parent)).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> this.doneButtonFunction()).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
         super.init();
     }
 
