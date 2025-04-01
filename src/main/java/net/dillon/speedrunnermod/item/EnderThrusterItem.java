@@ -2,10 +2,9 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -31,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
-public class EnderThrusterItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class EnderThrusterItem extends Item implements StateOfTheArtItem {
     private boolean confirm = !options().client.confirmMessages;
 
     public EnderThrusterItem(Settings settings) {
@@ -76,12 +75,10 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem, Tutori
 
                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                            if (options().main.tutorialMode && options().main.playingMode.easy() && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && options().tutorialMode.transferedEnchantments && options().tutorialMode.interactedWithRetiredSpeedrunner && options().tutorialMode.obtainedEnderThruster && !options().tutorialMode.usedEnderThruster) {
-                                this.send("speedrunnermod.tutorial_mode.used_ender_thruster.easy", player);
-                                this.send("speedrunnermod.tutorial_mode.obtain_dragons_sword.easy", player);
-                                this.playDing(player);
-                                options().tutorialMode.usedEnderThruster = true;
-                                ModOptions.saveConfig();
+                            if (options().main.tutorialMode) {
+                                options().tutorialMode.completeStep(TutorialStep.USED_ENTER_THRUSTER, player,
+                                        "speedrunnermod.tutorial_mode.used_ender_thruster.easy",
+                                        "speedrunnermod.tutorial_mode.obtain_dragons_sword.easy");
                             }
                         } else {
                             player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.confirm").formatted(Formatting.WHITE), false);

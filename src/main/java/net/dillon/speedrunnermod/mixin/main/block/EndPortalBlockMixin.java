@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
-import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.EndPortalBlock;
 import net.minecraft.entity.Entity;
@@ -15,12 +14,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(EndPortalBlock.class)
-public class EndPortalBlockMixin implements TutorialMode {
+public class EndPortalBlockMixin {
 
     @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;detachForDimensionChange()V"))
     private void exitEndTutorialMode(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci) {
-        if (entity instanceof ServerPlayerEntity player && options().main.tutorialMode && options().main.playingMode.easy() && options().tutorialMode.killedDragon) {
-            this.send("speedrunnermod.tutorial_mode.find_experience_ore", player);
+        if (options().main.tutorialMode && entity instanceof ServerPlayerEntity player) {
+            options().tutorialMode.send("speedrunnermod.tutorial_mode.find_experience_ore", player);
         }
     }
 }

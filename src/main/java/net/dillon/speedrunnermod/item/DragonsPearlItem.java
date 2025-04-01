@@ -1,9 +1,8 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,7 +29,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
  */
-public class DragonsPearlItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class DragonsPearlItem extends Item implements StateOfTheArtItem {
 
     public DragonsPearlItem(Settings settings) {
         super(settings.maxCount(16).rarity(Rarity.EPIC));
@@ -57,10 +56,8 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem, Tutoria
                                 public void run() {
                                     enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
-                                    if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && options().tutorialMode.usedAnnulEyeTeleporter && options().tutorialMode.enteredEnd && !options().tutorialMode.usedDragonsPearl) {
-                                        send("speedrunnermod.tutorial_mode.used_dragons_pearl.easy", player);
-                                        options().tutorialMode.usedDragonsPearl = true;
-                                        ModOptions.saveConfig();
+                                    if (options().main.tutorialMode) {
+                                        options().tutorialMode.completeStep(TutorialStep.USED_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl.easy");
                                     }
                                 }
                             }, ModUtil.millisecondsAsSeconds(2));

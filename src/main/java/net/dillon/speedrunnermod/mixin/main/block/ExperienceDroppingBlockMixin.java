@@ -1,10 +1,9 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -36,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Mixin(ExperienceDroppingBlock.class)
-public class ExperienceDroppingBlockMixin extends Block implements TutorialMode {
+public class ExperienceDroppingBlockMixin extends Block {
 
     public ExperienceDroppingBlockMixin(Settings settings) {
         super(settings);
@@ -67,10 +66,8 @@ public class ExperienceDroppingBlockMixin extends Block implements TutorialMode 
     @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 100, true);
-        if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null && options().tutorialMode.killedDragon && !options().tutorialMode.brokenExperienceOre) {
-            this.send("speedrunnermod.tutorial_mode.broken_experience_ore", player);
-            options().tutorialMode.brokenExperienceOre = true;
-            ModOptions.saveConfig();
+        if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
+            options().tutorialMode.completeStep(TutorialStep.BROKEN_EXPERIENCE_ORE, player, "speedrunnermod.tutorial_mode.broken_experience_ore");
         }
     }
 

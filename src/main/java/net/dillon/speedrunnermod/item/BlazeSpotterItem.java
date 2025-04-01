@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -32,7 +31,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
  */
-public class BlazeSpotterItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
     private boolean confirm = !options().client.confirmMessages;
 
     public BlazeSpotterItem(Settings settings) {
@@ -55,11 +54,11 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem, Tutoria
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 3.0F, 0.6F);
                             player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(world.random.nextInt(4) + 7), 0, false, true, true));
                             player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(30));
-                            if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && !options().tutorialMode.usedBlazeSpotter) {
-                                this.send("speedrunnermod.tutorial_mode.used_blaze_spotter.easy", player);
-                                this.send("speedrunnermod.tutorial_mode.obtain_speedrunners_eye.easy", player);
-                                options().tutorialMode.usedBlazeSpotter = true;
-                                ModOptions.saveConfig();
+
+                            if (options().main.tutorialMode) {
+                                options().tutorialMode.completeStep(TutorialStep.USED_BLAZE_SPOTTER, player,
+                                        "speedrunnermod.tutorial_mode.used_blaze_spotter.easy",
+                                        "speedrunnermod.tutorial_mode.obtain_speedrunners_eye.easy");
                             }
 
                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);

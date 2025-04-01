@@ -1,10 +1,11 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.dillon.speedrunnermod.village.ModVillagers;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.village.VillagerData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,12 +22,8 @@ public abstract class VillagerEntityMixin implements TutorialMode {
 
     @Inject(method = "beginTradeWith", at = @At("TAIL"))
     private void speedrunnersWorkbenchBlock(PlayerEntity customer, CallbackInfo ci) {
-        if (options().main.tutorialMode && options().main.playingMode.easy() && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && options().tutorialMode.transferedEnchantments && !options().tutorialMode.interactedWithRetiredSpeedrunner && this.getVillagerData().getProfession().equals(ModVillagers.RETIRED_SPEEDRUNNER)) {
-            this.send("speedrunnermod.tutorial_mode.interacted_with_retired_speedrunner", customer);
-            this.send("speedrunnermod.tutorial_mode.obtain_ender_thruster.easy", customer);
-            this.playDing(customer);
-            options().tutorialMode.interactedWithRetiredSpeedrunner = true;
-            ModOptions.saveConfig();
+        if (options().main.tutorialMode && this.getVillagerData().getProfession().equals(ModVillagers.RETIRED_SPEEDRUNNER)) {
+            options().tutorialMode.completeStep(TutorialStep.INTERACTED_WITH_RETIRED_SPEEDRUNNER, customer, "speedrunnermod.tutorial_mode.interacted_with_retired_speedrunner");
         }
     }
 }

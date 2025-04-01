@@ -3,15 +3,13 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.StructureTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -32,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
-public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
     private BlockPos currentBlockPos;
 
     public SpeedrunnersEyeItem(Settings settings) {
@@ -62,12 +60,8 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, Tuto
                     } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
                         itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.DESERT_PYRAMIDS);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 3.0F, 1.0F);
-                        if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && !options().tutorialMode.changedSpeedrunnersEyeLocator) {
-                            this.send("speedrunnermod.tutorial_mode.changed_speedrunners_eye_locator", player);
-                            this.playDing(player);
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                            options().tutorialMode.changedSpeedrunnersEyeLocator = true;
-                            ModOptions.saveConfig();
+                        if (options().main.tutorialMode) {
+                            options().tutorialMode.completeStep(TutorialStep.CHANGED_SPEEDRUNNERS_EYE_LOCATOR, player, "speedrunnermod.tutorial_mode.changed_speedrunners_eye_locator");
                         }
                     } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.DESERT_PYRAMIDS)) {
                         itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.ANCIENT_CITIES);
@@ -91,11 +85,10 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, Tuto
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), options().client.itemMessages.isActionbar());
 
-                    if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && !options().tutorialMode.usedSpeedrunnersEye) {
-                        this.send("speedrunnermod.tutorial_mode.used_speedrunners_eye.easy", player);
-                        this.send("speedrunnermod.tutorial_mode.obtain_dragons_pearl.easy", player);
-                        options().tutorialMode.usedSpeedrunnersEye = true;
-                        ModOptions.saveConfig();
+                    if (options().main.tutorialMode) {
+                        options().tutorialMode.completeStep(TutorialStep.USED_SPEEDRUNNERS_EYE, player,
+                                "speedrunnermod.tutorial_mode.used_speedrunners_eye.easy",
+                                "speedrunnermod.tutorial_mode.obtain_dragons_pearl.easy");
                     }
 
                     if (!player.getAbilities().creativeMode) {

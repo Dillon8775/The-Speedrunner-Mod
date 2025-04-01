@@ -5,7 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.main.command.argument.ItemStackArgumentTypeMixin;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
@@ -477,7 +480,8 @@ public class ModOptions {
     /**
      * All booleans for doing certain things in the tutorial mode.
      */
-    public static class TutorialMode {
+    @ChatGPT(Credit.MOST_CREDIT)
+    public static class TutorialMode implements net.dillon.speedrunnermod.util.TutorialMode {
         public boolean enterWorld = false;
         public boolean obtainedSpeedrunnerPickaxe = false;
         public boolean obtainedSpeedrunnerBoat = false;
@@ -492,7 +496,7 @@ public class ModOptions {
         public boolean usedSpeedrunnersEye = false;
         public boolean obtainedDragonsPearl = false;
         public boolean obtainedAnnulEye = false;
-        public boolean usedAnnulEyeTeleporter = false;
+        public boolean usedAnnulEye = false;
         public boolean enteredEnd = false;
         public boolean usedDragonsPearl = false;
         public boolean killedDragon = false;
@@ -507,6 +511,76 @@ public class ModOptions {
         public boolean obtainedWitherSword = false;
         public boolean obtainedEnderMatter = false;
         public boolean obtainedInfiniPearl = false;
+
+        @Override
+        public boolean getStep(TutorialStep step) {
+            return switch (step) {
+                case ENTERED_WORLD -> enterWorld;
+                case OBTAINED_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
+                case OBTAINED_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
+                case OBTAINED_INFERNO_EYE -> obtainedInfernoEye;
+                case USED_INFERNO_EYE -> usedInfernoEye;
+                case OBTAINED_PIGLIN_AWAKENER -> obtainedPiglinAwakener;
+                case USED_PIGLIN_AWAKENER -> usedPiglinAwakener;
+                case OBTAINED_BLAZE_SPOTTER -> obtainedBlazeSpotter;
+                case USED_BLAZE_SPOTTER -> usedBlazeSpotter;
+                case OBTAINED_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye;
+                case CHANGED_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator;
+                case USED_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye;
+                case OBTAINED_DRAGONS_PEARL -> obtainedDragonsPearl;
+                case OBTAINED_ANNUL_EYE -> obtainedAnnulEye;
+                case USED_ANNUL_EYE -> usedAnnulEye;
+                case ENTERED_END -> enteredEnd;
+                case USED_DRAGONS_PEARL -> usedDragonsPearl;
+                case KILLED_DRAGON -> killedDragon;
+                case BROKEN_EXPERIENCE_ORE -> brokenExperienceOre;
+                case OBTAINED_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench;
+                case TRANSFERRED_ENCHANTMENTS -> transferedEnchantments;
+                case INTERACTED_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner;
+                case OBTAINED_ENTER_THRUSTER -> obtainedEnderThruster;
+                case USED_ENTER_THRUSTER -> usedEnderThruster;
+                case OBTAINED_DRAGONS_SWORD -> obtainedDragonsSword;
+                case OBTAINED_WITHER_BONE -> obtainedWitherBone;
+                case OBTAINED_WITHER_SWORD -> obtainedWitherSword;
+                case OBTAINED_ENDER_MATTER -> obtainedEnderMatter;
+                case OBTAINED_INFINI_PEARL -> obtainedInfiniPearl;
+            };
+        }
+
+        @Override
+        public void setStep(TutorialStep step, boolean value) {
+            switch (step) {
+                case ENTERED_WORLD -> enterWorld = value;
+                case OBTAINED_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
+                case OBTAINED_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
+                case OBTAINED_INFERNO_EYE -> obtainedInfernoEye = value;
+                case USED_INFERNO_EYE -> usedInfernoEye = value;
+                case OBTAINED_PIGLIN_AWAKENER -> obtainedPiglinAwakener = value;
+                case USED_PIGLIN_AWAKENER -> usedPiglinAwakener = value;
+                case OBTAINED_BLAZE_SPOTTER -> obtainedBlazeSpotter = value;
+                case USED_BLAZE_SPOTTER -> usedBlazeSpotter = value;
+                case OBTAINED_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye = value;
+                case CHANGED_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator = value;
+                case USED_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye = value;
+                case OBTAINED_DRAGONS_PEARL -> obtainedDragonsPearl = value;
+                case OBTAINED_ANNUL_EYE -> obtainedAnnulEye = value;
+                case USED_ANNUL_EYE -> usedAnnulEye = value;
+                case ENTERED_END -> enteredEnd = value;
+                case USED_DRAGONS_PEARL -> usedDragonsPearl = value;
+                case KILLED_DRAGON -> killedDragon = value;
+                case BROKEN_EXPERIENCE_ORE -> brokenExperienceOre = value;
+                case OBTAINED_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench = value;
+                case TRANSFERRED_ENCHANTMENTS -> transferedEnchantments = value;
+                case INTERACTED_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner = value;
+                case OBTAINED_ENTER_THRUSTER -> obtainedEnderThruster = value;
+                case USED_ENTER_THRUSTER -> usedEnderThruster = value;
+                case OBTAINED_DRAGONS_SWORD -> obtainedDragonsSword = value;
+                case OBTAINED_WITHER_BONE -> obtainedWitherBone = value;
+                case OBTAINED_WITHER_SWORD -> obtainedWitherSword = value;
+                case OBTAINED_ENDER_MATTER -> obtainedEnderMatter = value;
+                case OBTAINED_INFINI_PEARL -> obtainedInfiniPearl = value;
+            }
+        }
     }
 
     /**
@@ -1440,7 +1514,7 @@ public class ModOptions {
         options().tutorialMode.usedSpeedrunnersEye = false;
         options().tutorialMode.obtainedDragonsPearl = false;
         options().tutorialMode.obtainedAnnulEye = false;
-        options().tutorialMode.usedAnnulEyeTeleporter = false;
+        options().tutorialMode.usedAnnulEye = false;
         options().tutorialMode.enteredEnd = false;
         options().tutorialMode.usedDragonsPearl = false;
         options().tutorialMode.killedDragon = false;

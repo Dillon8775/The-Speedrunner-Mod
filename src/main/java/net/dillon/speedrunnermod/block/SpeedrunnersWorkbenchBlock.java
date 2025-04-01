@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
-import net.dillon.speedrunnermod.util.TutorialMode;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SmithingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +20,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * A block that allows transferring of enchantments to other items.
  * <p>Also used as the retired speedrunner's job site block</p>
  */
-public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock implements TutorialMode {
+public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
 
     public SpeedrunnersWorkbenchBlock(Settings settings) {
         super(settings);

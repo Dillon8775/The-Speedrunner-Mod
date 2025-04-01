@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -58,11 +59,10 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      */
     @Inject(method = "onSpawn", at = @At("TAIL"))
     private void sendTutorialMessage(CallbackInfo ci) {
-        if (this.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0 && options().main.tutorialMode && !options().tutorialMode.enterWorld) {
-            this.sendMessageToClient(Text.translatable("speedrunnermod.tutorial_mode.prefix").append(Text.translatable("speedrunnermod.tutorial_mode.greeting")), false);
-            this.sendMessageToClient(Text.translatable("speedrunnermod.tutorial_mode.prefix").append(Text.translatable("speedrunnermod.tutorial_mode.obtain_speedrunner_pickaxe")), false);
-            options().tutorialMode.enterWorld = true;
-            ModOptions.saveConfig();
+        if (options().main.tutorialMode && this.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
+            options().tutorialMode.completeStep(TutorialStep.ENTERED_WORLD, this,
+                    "speedrunnermod.tutorial_mode.greeting",
+                    "speedrunnermod.tutorial_mode.obtain_speedrunner_pickaxe");
         }
     }
 

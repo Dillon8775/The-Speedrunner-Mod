@@ -29,6 +29,7 @@ public class MainOptionsScreen extends AbstractModScreen {
      */
     private SimpleOption<?>[] mainOptions() {
         return new SimpleOption[]{
+                ModListOptions.TUTORIAL_MODE,
                 ModListOptions.FASTER_BLOCK_BREAKING,
                 ModListOptions.BLOCK_BREAKING_MULTIPLIER,
                 ModListOptions.DRAGON_PERCH_TIME,

@@ -1,15 +1,15 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -27,7 +27,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
  */
-public class InfernoEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class InfernoEyeItem extends Item implements StateOfTheArtItem {
     private TagKey<Structure> structureType = ModStructureTags.FORTRESSES;
 
     public InfernoEyeItem(Settings settings) {
@@ -55,11 +55,11 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem, TutorialM
                     ModUtil.findStructureAndShoot(world, player, itemStack, structureType);
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(structureType)), options().client.itemMessages.isActionbar());
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                    if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && !options().tutorialMode.usedInfernoEye) {
-                        this.send("speedrunnermod.tutorial_mode.used_inferno_eye.easy", player);
-                        this.send("speedrunnermod.tutorial_mode.obtain_piglin_awakener.easy", player);
-                        options().tutorialMode.usedInfernoEye = true;
-                        ModOptions.saveConfig();
+
+                    if (options().main.tutorialMode) {
+                        options().tutorialMode.completeStep(TutorialStep.USED_INFERNO_EYE, player,
+                                "speedrunnermod.tutorial_mode.used_inferno_eye.easy",
+                                "speedrunnermod.tutorial_mode.obtain_piglin_awakener.easy");
                     }
 
                     if (!player.getAbilities().creativeMode) {

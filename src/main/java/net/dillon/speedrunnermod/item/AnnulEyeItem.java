@@ -31,7 +31,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
-public class AnnulEyeItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class AnnulEyeItem extends Item implements StateOfTheArtItem {
     private boolean confirm = !options().client.confirmMessages;
 
     public AnnulEyeItem(Settings settings) {
@@ -71,10 +71,8 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem, TutorialMod
 
                                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                                if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && options().tutorialMode.usedPiglinAwakener && options().tutorialMode.obtainedBlazeSpotter && options().tutorialMode.usedBlazeSpotter && options().tutorialMode.obtainedSpeedrunnersEye && options().tutorialMode.changedSpeedrunnersEyeLocator && options().tutorialMode.usedSpeedrunnersEye && options().tutorialMode.obtainedDragonsPearl && options().tutorialMode.obtainedAnnulEye && !options().tutorialMode.usedAnnulEyeTeleporter) {
-                                    this.send("speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy", player);
-                                    options().tutorialMode.usedAnnulEyeTeleporter = true;
-                                    ModOptions.saveConfig();
+                                if (options().main.tutorialMode) {
+                                    options().tutorialMode.completeStep(TutorialStep.USED_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy");
                                 }
 
                                 if (!player.getAbilities().creativeMode) {

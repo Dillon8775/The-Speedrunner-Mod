@@ -2,10 +2,9 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;
@@ -35,7 +34,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * An item that teleports {@code nearby piglin} to the player.
  */
-public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, TutorialMode {
+public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
     private boolean confirm = !options().client.confirmMessages;
 
     public PiglinAwakenerItem(Settings settings) {
@@ -92,11 +91,10 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, Tutor
                                                     break;
                                                 }
                                             }
-                                            if (options().main.tutorialMode && options().tutorialMode.obtainedSpeedrunnerPickaxe && options().tutorialMode.obtainedSpeedrunnerBoat && options().tutorialMode.obtainedInfernoEye && options().tutorialMode.usedInfernoEye && options().tutorialMode.obtainedPiglinAwakener && !options().tutorialMode.usedPiglinAwakener) {
-                                                send("speedrunnermod.tutorial_mode.used_piglin_awakener.easy", player);
-                                                send("speedrunnermod.tutorial_mode.obtain_blaze_spotter.easy", player);
-                                                options().tutorialMode.usedPiglinAwakener = true;
-                                                ModOptions.saveConfig();
+                                            if (options().main.tutorialMode) {
+                                                options().tutorialMode.completeStep(TutorialStep.USED_PIGLIN_AWAKENER, player,
+                                                        "speedrunnermod.tutorial_mode.used_piglin_awakener.easy",
+                                                        "speedrunnermod.tutorial_mode.obtain_blaze_spotter.easy");
                                             }
                                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
                                         }

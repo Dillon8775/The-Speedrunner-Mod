@@ -2,10 +2,9 @@ package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.TutorialMode;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -29,7 +28,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 /**
  * Screen and enchantment transferring handling for the {@code Speedrunner's Workbench.}
  */
-public class WorkbenchScreenHandler extends ForgingScreenHandler implements TutorialMode {
+public class WorkbenchScreenHandler extends ForgingScreenHandler {
     private final Property levelCost = Property.create(); // Level cost variable
     private final Map<RegistryEntry, Integer> enchantmentsToRemove = new HashMap<>(); // List of enchantments to remove from the item, with their respective level
     private final Map<Object2IntMap.Entry<RegistryEntry<Enchantment>>, Integer> enchantmentsToTransfer = new HashMap<>(); // List of enchantments to transfer over, with their respective level (mapped)
@@ -197,11 +196,8 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler implements Tuto
     private void success(PlayerEntity player) {
         player.playSound(SoundEvents.BLOCK_SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.addExperienceLevels(this.levelCost.get());
-        if (options().main.tutorialMode && options().tutorialMode.killedDragon && options().tutorialMode.brokenExperienceOre && options().tutorialMode.obtainedSpeedrunnersWorkbench && !options().tutorialMode.transferedEnchantments) {
-            this.send("speedrunnermod.tutorial_mode.transferred_enchantments", player);
-            this.playDing(player);
-            options().tutorialMode.transferedEnchantments = true;
-            ModOptions.saveConfig();
+        if (options().main.tutorialMode) {
+            options().tutorialMode.completeStep(TutorialStep.TRANSFERRED_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.transferred_enchantments");
         }
     }
 
