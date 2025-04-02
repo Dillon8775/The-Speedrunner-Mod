@@ -40,21 +40,21 @@ public class ItemMixin {
      */
     @Unique
     private void tutorialMode(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (options().main.tutorialMode) {
+        if (options().main.tutorialMode && entity instanceof PlayerEntity player) {
+            if (stack.isOf(ModItems.SPEEDRUNNER_PICKAXE)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNER_PICKAXE, player,
+                        "speedrunnermod.tutorial_mode.obtained_speedrunner_pickaxe",
+                        "speedrunnermod.tutorial_mode.obtain_speedrunner_boat");
+            }
+
+            if (stack.isOf(ModItems.SPEEDRUNNER_BOAT)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNER_BOAT, player,
+                        "speedrunnermod.tutorial_mode.obtained_speedrunner_boat",
+                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.obtain_inferno_eye");
+            }
+
             if (options().main.playingMode.easy()) {
                 if (entity instanceof ServerPlayerEntity player) {
-
-                    if (stack.isOf(ModItems.SPEEDRUNNER_PICKAXE)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNER_PICKAXE, player,
-                                "speedrunnermod.tutorial_mode.obtained_speedrunner_pickaxe",
-                                "speedrunnermod.tutorial_mode.obtain_speedrunner_boat");
-                    }
-
-                    if (stack.isOf(ModItems.SPEEDRUNNER_BOAT)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNER_BOAT, player,
-                                "speedrunnermod.tutorial_mode.obtained_speedrunner_boat",
-                                "speedrunnermod.tutorial_mode.obtain_inferno_eye.easy");
-                    }
 
                     if (stack.isOf(ModItems.INFERNO_EYE)) {
                         options().tutorialMode.completeStep(TutorialStep.OBTAINED_INFERNO_EYE, player, "speedrunnermod.tutorial_mode.obtained_inferno_eye.easy");

@@ -31,8 +31,6 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static net.dillon.speedrunnermod.option.ModOptions.resetTutorialMode;
-
 /**
  * The home initializer for the Speedrunner Mod.
  */
@@ -52,8 +50,6 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Override
     public void onInitialize() {
-        resetTutorialMode(); // for testing purposes, will be moved later
-
         ModWorldGen.initializeWorldGenFeatures();
 
         ModBoats.initializeBoats();

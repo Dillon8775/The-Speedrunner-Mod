@@ -19,51 +19,88 @@
   "speedrunnermod.restart_required": "To fully sync the playing mode, you will need to restart your game. Then, you will be booted into the title screen, where you can create a new world. You will see some §blight-blue boots,§f press that to §aautomatically create a new world.",
 
   "speedrunnermod.tutorial_mode.prefix": "§b§l[Speedrunner Mod]: ",
-  "speedrunnermod.tutorial_mode.greeting": "§bWelcome to the Speedrunner Mod tutorial mode!",
-  "speedrunnermod.tutorial_mode.obtain_speedrunner_pickaxe": "§aYour first task is to obtain a §bspeedrunner pickaxe! §aTo do this, you will need to either find some §bspeedrunner ingots §a(found in almost every loot table chest), or look for a §blight-blue colored ore§a underground.",
-  "speedrunnermod.tutorial_mode.obtained_speedrunner_pickaxe": "§aGreat job! The §bspeedrunner pickaxe (and all other speedrunner tools and armor)§a are faster than diamond, but has less durability.",
-  "speedrunnermod.tutorial_mode.obtain_speedrunner_boat": "§aYour next task to obtain a §bspeedrunner boat.§a You can do this by using §b5 speedrunner planks§a to craft it.",
-  "speedrunnermod.tutorial_mode.obtained_speedrunner_boat": "§aAwesome! Now, what's so special about the speedrunner boat? Well, it's faster than normal boats, and can also be ridden in §6lava!",
-  "speedrunnermod.tutorial_mode.changed_speedrunners_eye_locator": "§bNow, right-click to locate the exact distance of the nearest §eDesert Pyramid.",
-  "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, let's go underground and find some §aexperience ore.",
-  "speedrunnermod.tutorial_mode.broken_experience_ore": "§a§lBOOM!§r§a Now that we have some levels, craft a §bSpeedrunner's Workbench, §ausing §b2 speedrunner ingots §aand §b4 speedrunner planks, §ajust like you would craft a §7smithing table.",
-  "speedrunnermod.tutorial_mode.obtained_speedrunners_workbench": "§bThe Speedrunner's Workbench acts just like a smithing table, however, it also allows you to transfer enchantments from one item to another. Let's try it out!",
-  "speedrunnermod.tutorial_mode.transfer_enchantments": "§aGrab an enchanted tool, likely a §6golden one§a that you likely found in a §cruined portal§a or elsewhere, and then grab a better §ounenchanted§r§a tool, like a speedrunner pickaxe or diamond pickaxe. Then, hold the §ounenchanted tool§r§a in your §ooffhand,§r§a and then hold the §o§6enchanted tool§r§a in your mainhand. §aRight-click §bthe workbench§a and watch the magic happen!",
-  "speedrunnermod.tutorial_mode.transferred_enchantments": "§aNice! Now, go and find a villager and place the §bSpeedrunner's Workbench§a next to it.",
-  "speedrunnermod.tutorial_mode.interacted_with_retired_speedrunner": "§bThe §b§lRetired Speedrunner§r§b sells very overpowered items with good enchantments, for very cheap prices. You won't have to worry about getting stacked or losing resources!",
-  "speedrunnermod.tutorial_mode.obtain_wither_bone": "§cNow it's time to craft a §7Wither sword, §cwhich makes §7wither skeletons§c have a §a65% drop rate§c for §7wither skeleton skulls. §cTo do this, you will need a §bspeedrunner stick, §cand §72 wither bones. §cTo get the §7wither bones, §cyou need to kill §7wither skeletons. §cGo for it!",
-  "speedrunnermod.tutorial_mode.obtained_wither_bone": "§cNice! Now, make sure you have §72 wither bones, §cthen place them in the crafting table like you're crafting a sword, with the §bspeedrunner stick§c (not a normal stick).",
-  "speedrunnermod.tutorial_mode.obtained_wither_sword": "§7The Wither Sword will break if the wither skeleton drops a skull. Still very useful, though, if you want to speedrun killing the wither.",
-  "speedrunnermod.tutorial_mode.obtain_ender_matter": "§9One of your last steps is to craft an §9§oInfiniPearl, §r§9which is an ender pearl that does not get consumed nor do damage upon use. To get this, you will need to find an item called §9§lEnder Matter, §r§9which can mainly be obtained from killing enderman. They also have a small chance of generating in §dend city chests §9and §bshipwreck chests. Tip: Use a speedrunner sword or the looting enchantment to increase your chances of getting the §9ender matter!",
-  "speedrunnermod.tutorial_mode.obtained_ender_matter": "§9Nice! Now, to craft an §9§oInfiniPearl, §r§9you will need a regular ender pearl, an ender thruster, the ender matter that you just got, and a §bspeedrunner's eye. §9Craft away!",
 
-  "speedrunnermod.tutorial_mode.obtain_inferno_eye.easy": "§aNow that you can ride in §6lava,§a your next task is to craft an §6§lEye of Inferno.§r§a To do this, go to §cthe nether§a and use an §9ender pearl§a and a §6fire charge§a to craft it.",
-  "speedrunnermod.tutorial_mode.obtained_inferno_eye.easy": "§cGood job. The §6§lEye of Inferno§c can be used to locate nearby nether fortresses§c and §7bastions.§c Right-click it to see!",
-  "speedrunnermod.tutorial_mode.used_inferno_eye.easy": "§cNice! You can also §bshift + right-click§c to swap between locating fortresses and §7bastions.",
-  "speedrunnermod.tutorial_mode.obtain_piglin_awakener.easy": "§cNow that you are in the nether, it's time to craft a §6§lPiglin Awakener.§r§c To do this, get §68 gold ingots §cand §6any sort of golden food item,§b§l OR, §cyou can use an §9ender pearl§c or §6blaze powder. §cPlace the golden food item / ender pearl / blaze powder in the center of the crafting table, surrounded with the §68 gold ingots.",
-  "speedrunnermod.tutorial_mode.obtained_piglin_awakener.easy": "§cNow that you have a §6§lPiglin Awakener, §r§cdig yourself into a §b2-block deep hole§c, make sure you are wearing some sort of §6gold armor,§c and then §6shift + right click§c with the §6§lPiglin Awakener, §r§cand see what happens!",
-  "speedrunnermod.tutorial_mode.used_piglin_awakener.easy": "§6§lBOOM!§r§6 Now throw the piglin your gold!",
-  "speedrunnermod.tutorial_mode.obtain_blaze_spotter.easy": "§cAfter you have traded with the piglin, your next task is to craft a §6§lBlaze Spotter. §r§cTo do this, use an §9ender pearl, §6fire charge§c and a §6lava bucket§c to craft it.",
-  "speedrunnermod.tutorial_mode.obtained_blaze_spotter.easy": "§cNice job! Now, §c§lright-click §r§cthe §6Blaze Spotter.",
-  "speedrunnermod.tutorial_mode.used_blaze_spotter.easy": "§6§lBAM!§r§c Now kill the blazes and get your blaze rods!",
-  "speedrunnermod.tutorial_mode.obtain_speedrunners_eye.easy": "§aAfter you do that, your next task is to craft a §bSpeedrunner's Eye,§a which can be used to locate §boverworld structures.§a To craft it, you only need an §9ender pearl§a and a §bspeedrunner ingot.",
-  "speedrunnermod.tutorial_mode.obtained_speedrunners_eye.easy": "§bAwesome! Now, §b§lshift + right click§r§b to change the structure locator to a §eDesert Pyramid.",
-  "speedrunnermod.tutorial_mode.used_speedrunners_eye.easy": "§bNice! Now, you can either go to the §edesert pyramid§b to get the loot, §b§lor,§r§b craft another Speedrunner's Eye to craft the next item on the list, the §d§lDragon's Pearl.",
-  "speedrunnermod.tutorial_mode.obtain_dragons_pearl.easy": "§dTo craft the §d§lDragon's Pearl,§r§d you will need an §9ender pearl, §da §6fire charge, §eblaze powder, §dand a §bspeedrunner's eye.",
-  "speedrunnermod.tutorial_mode.obtained_dragons_pearl.easy": "§dI would recommend crafting 2-3 of these pearls, as they will be very helpful in the end fight.",
-  "speedrunnermod.tutorial_mode.obtain_annul_eye.easy": "§dNow, let's craft an §d§lEye of Annul,§r§d which teleports you right into the nearest stronghold's portal room! To do this, you will need an §9ender pearl, §eblaze powder, §dand a §6fire charge.",
-  "speedrunnermod.tutorial_mode.obtained_annul_eye.easy": "§dAwesome! Now, right click to teleport! (make sure you have an §9ender pearl§d and a piece of §6blaze powder,§d in your inventory, because the §agatekeeper §drequires it...)",
-  "speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy": "§d§lBAM!!!§r§d Now place the eyes of ender in the port- wait, there are a lot of eyes already in there... Not a problem! Fill the rest of the eyes and enter the end.",
-  "speedrunnermod.tutorial_mode.enter_end.easy": "§dYou've made it to the dragon! Now, if you have beds, you can use those. If you want to do the old-style way with a bow and sword, you can do that as well. But remember, you got the §d§lDragon's Pearl,§r§d which means you can command the dragon to perch whenever you want! Craft more if you need to, good luck!",
-  "speedrunnermod.tutorial_mode.used_dragons_pearl.easy": "§dThe dragon is perching §d§lNOW!§r§d Get it!",
-  "speedrunnermod.tutorial_mode.killed_dragon.easy": "§dCongratulations!!!§b You've completed your first speedrun with the §b§lSpeedrunner Mod,§r§b but there's still much to explore in this mod. So, let's go back to the overworld and uncover a few more features.",
-  "speedrunnermod.tutorial_mode.obtain_ender_thruster.easy": "§9After you've looked through those trades, it's time to craft an §9§lEnder Thruster.§r§9 It can be crafted with an ender pearl and a §bspeedrunner's eye.",
-  "speedrunnermod.tutorial_mode.obtained_ender_thruster.easy": "§9Nice! Ok, now this is going to seem weird, but this item will be very useful for future speedruns when you are stuck underground. Dig yourself few blocks underground and box yourself in. Then, right-click the Ender Thruster and see what happens!",
-  "speedrunnermod.tutorial_mode.used_ender_thruster.easy": "§9Awesome! You can easily get out of caves, dark holes, or other small underground spaces with this item, without having to dig yourself out! Remember that for future speedruns...",
-  "speedrunnermod.tutorial_mode.obtain_dragons_sword.easy": "§dNow it's time to craft a really broken and overpowered item, the §d§lDragon's Sword.§r§d To craft it, you will need a §bspeedrunner sword §dand a dragon's pearl.",
-  "speedrunnermod.tutorial_mode.obtained_dragons_sword.easy": "§aNote this for future speedruns: this item will one-shot the ender dragon. Not a joke...",
-  "speedrunnermod.tutorial_mode.almost_done.easy": "§bYou're almost done with §atutorial mode! §bJust a couple of more things to cover...",
-  "speedrunnermod.tutorial_mode.completed.easy": "§9§lCONGRATULATIONS! §aYou have successfully completed the §a§lTutorial Mode! §bI would also recommend trying out §c§lDoom Mode, §r§aas that mode is a lot more challenging and fun for already experienced speedrunner's, and will open the door for you to explore a couple of other crazy features that this mod has to offer. But, otherwise, YOU DID IT! §bNow, enjoy speedrunning, and try to go as fast as you can with all of these features in mind! ;)",
+  "speedrunnermod.tutorial_mode.greeting": "§bWelcome to the Speedrunner Mod tutorial mode!",
+  "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe": "§aYour first task is to obtain a §bspeedrunner pickaxe! §aTo do this, you will need to either find some §bspeedrunner ingots §a(found in almost every loot table chest), or look for a §blight-blue colored ore§a underground.",
+  "speedrunnermod.tutorial_mode.speedrunner_pickaxe_description": "§aGreat job! The §bspeedrunner pickaxe (and all other speedrunner tools and armor)§a are faster than diamond, but has less durability.",
+
+  "speedrunnermod.tutorial_mode.craft_speedrunner_boat": "§aYour next task to obtain a §bspeedrunner boat.§a You can do this by using §b5 speedrunner planks§a to craft it.",
+  "speedrunnermod.tutorial_mode.speedrunner_boat_description": "§aAwesome! Now, what's so special about the speedrunner boat? Well, it's faster than normal boats, and can also be ridden in §6lava!",
+
+  "speedrunnermod.tutorial_mode.craft_speedrunner_armor": "§aNow that you can ride in §6lava,§a your next task is to craft a §bfull set of speedrunner armor. §aTo do this, you will need to get §b27 speedrunner ingots, §afor each armor piece.",
+  "speedrunnermod.tutorial_mode.craft_speedrunner_shield": "§aAwesome! Now, craft yourself a §bspeedrunner shield, §ausing another §bspeedrunner ingot!",
+
+  "speedrunnermod.tutorial_mode.craft_inferno_eye": "§aNow that you can ride in §6lava,§a your next task is to craft an §6§lEye of Inferno.§r§a To do this, go to §cthe nether§a and use an §9ender pearl§a and a §6fire charge§a to craft it.",
+  "speedrunnermod.tutorial_mode.inferno_eye_description": "§cGood job. The §6§lEye of Inferno§c can be used to locate nearby nether fortresses§c and §7bastions.§c Right-click it to see!",
+  "speedrunnermod.tutorial_mode.used_inferno_eye": "§cNice! You can also §bshift + right-click§c to swap between locating fortresses and §7bastions.",
+
+  "speedrunnermod.tutorial_mode.craft_piglin_awakener": "§cNow that you are in the nether, it's time to craft a §6§lPiglin Awakener.§r§c To do this, get §68 gold ingots §cand §6any sort of golden food item,§b§l OR, §cyou can use an §9ender pearl§c or §6blaze powder. §cPlace the golden food item / ender pearl / blaze powder in the center of the crafting table, surrounded with the §68 gold ingots.",
+  "speedrunnermod.tutorial_mode.use_piglin_awakener": "§cNow that you have a §6§lPiglin Awakener, §r§cdig yourself into a §b2-block deep hole§c, make sure you are wearing some sort of §6gold armor,§c and then §6shift + right click§c with the §6§lPiglin Awakener, §r§cand see what happens!",
+  "speedrunnermod.tutorial_mode.used_piglin_awakener": "§6§lBOOM!§r§6 Now throw the piglin your gold!",
+
+  "speedrunnermod.tutorial_mode.craft_blaze_spotter": "§cAfter you have traded with the piglin, your next task is to craft a §6§lBlaze Spotter. §r§cTo do this, use an §9ender pearl, §6fire charge§c and a §6lava bucket§c to craft it.",
+  "speedrunnermod.tutorial_mode.use_blaze_spotter": "§cNice job! Now, §c§lright-click §r§cthe §6Blaze Spotter.",
+  "speedrunnermod.tutorial_mode.used_blaze_spotter": "§6§lBAM!§r§c Now kill the blazes and get your blaze rods!",
+
+  "speedrunnermod.tutorial_mode.craft_speedrunners_eye": "§aYour next task is to craft a §bSpeedrunner's Eye,§a which can be used to locate §boverworld structures.§a To craft it, you only need an §9ender pearl§a and a §bspeedrunner ingot.",
+  "speedrunnermod.tutorial_mode.change_speedrunners_eye_locator": "§bAwesome! Now, §b§lshift + right click§r§b to change the structure locator to a §eDesert Pyramid.",
+  "speedrunnermod.tutorial_mode.use_speedrunners_eye": "§bNow, right-click to locate the exact distance of the nearest §eDesert Pyramid.",
+
+  "speedrunnermod.tutorial_mode.craft_dragons_pearl": "§bNice! Now, you can either go to the §edesert pyramid§b to get the loot, §b§lor,§r§b craft another Speedrunner's Eye to craft the next item on the list, the §d§lDragon's Pearl.",
+  "speedrunnermod.tutorial_mode.dragons_pearl_recipe": "§dTo craft the §d§lDragon's Pearl,§r§d you will need an §9ender pearl, §da §6fire charge, §eblaze powder, §dand a §bspeedrunner's eye.",
+  "speedrunnermod.tutorial_mode.obtained_dragons_pearl": "§dI would recommend crafting 2-3 of these pearls, as they will be very helpful in the end fight.",
+
+  "speedrunnermod.tutorial_mode.craft_annul_eye": "§dNow, let's craft an §d§lEye of Annul,§r§d which teleports you right into the nearest stronghold's portal room! To do this, you will need an §9ender pearl, §eblaze powder, §dan §aender eye, §dand a §6fire charge.",
+  "speedrunnermod.tutorial_mode.use_annul_eye": "§dAwesome! Now, right click to teleport! (make sure you have an §9ender pearl§d and a piece of §6blaze powder,§d in your inventory, because the §agatekeeper §drequires it...)",
+  "speedrunnermod.tutorial_mode.enter_end": "§d§lBAM!!!§r§d Now place the eyes of ender in the port- wait, there are a lot of eyes already in there... Not a problem! Fill the rest of the eyes and enter the end.",
+
+  "speedrunnermod.tutorial_mode.entered_end.easy": "§dYou've made it to the dragon! Now, if you have beds, you can use those. If you want to do the old-style way with a bow and sword, you can do that as well. But remember, you got the §d§lDragon's Pearl,§r§d which means you can command the dragon to perch whenever you want! Craft more if you need to, good luck!",
+  "speedrunnermod.tutorial_mode.entered_end.normal": "§dYou made it to the end! If you have beds, use 'em! If you want to do the old-styled method by using a bow and a sword, do it!",
+  "speedrunnermod.tutorial_mode.entered_end.doom": "§dYou made it to the final boss(es)... Watch our for §a§lGoliath,§r§f §7the §7§lwither §r§fand the §d§ldragon §r§f§dall at once.",
+
+  "speedrunnermod.tutorial_mode.obtain_totem": "§dTo make your life a bit easier here, find yourself an §eevoker §dand kill it to get a §etotem of undying!",
+
+  "speedrunnermod.tutorial_mode.free_fall_into_void": "§dOk, you're making progress! Now, with the totem in your hand, §ejump into the void! §d(I'm not kidding, just do it, but make sure the totem is equipped...)",
+
+  "speedrunnermod.tutorial_mode.obtain_speedrunners_totem": "§d§lBAM!!! §r§dJumping into the void with a §etotem §dsaves you! Now, go get another totem and let's craft a §bspeedrunner's totem. §dYou will need a §bspeedrunner's eye, §da §enormal totem, §dand §9ender matter §dto craft it. If you do not already have those items, you should have just been provided them.",
+  "speedrunnermod.tutorial_mode.speedrunners_totem_description": "§bThe §b§lSpeedrunner's Totem §r§bstacks to §b§l3, §r§bworks §aanywhere in the players inventory §e(including free-falling into the void), §band gives better effects upon use.",
+
+  "speedrunnermod.tutorial_mode.kill_goliath": "§dNow let's get to boss killing. You should know, you §d§lcannot §r§dkill the dragon until §a§lGoliath §r§dand the §7wither §dare §cdead. §dSo, go kill Goliath first!",
+  "speedrunnermod.tutorial_mode.goliath_description": "§aGoliath has special abilities, such as §csummoning TNT upon taking damage, §aappling §6extreme knockback §ato it's enemies, and immune to §cseveral types of damage. §aYou can use a bow against Goliath, but have you know, once he reaches §chalf health, §a§lit's immune to arrows!",
+
+  "speedrunnermod.tutorial_mode.kill_wither": "§a§lNICE JOB! §aNow, §7§lKILL THE WITHER!!!",
+
+  "speedrunnermod.tutorial_mode.use_dragons_pearl": "§dUse the dragon's pearl before proceeding with the rest of tutorial mode!",
+  "speedrunnermod.tutorial_mode.used_dragons_pearl": "§dThe dragon is perching §d§lNOW!§r§d Get it!",
+
+  "speedrunnermod.tutorial_mode.killed_dragon": "§dCongratulations!!!§b You've completed your first speedrun with the §b§lSpeedrunner Mod,§r§b but there's still much to explore in this mod. So, let's go back to the overworld and uncover a few more features.",
+
+  "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, let's go underground and find some §aexperience ore.",
+
+  "speedrunnermod.tutorial_mode.craft_speedrunners_workbench": "§a§lBOOM!§r§a Now that we have some levels, craft a §bSpeedrunner's Workbench, §ausing §b2 speedrunner ingots §aand §b4 speedrunner planks, §ajust like you would craft a §7smithing table.",
+  "speedrunnermod.tutorial_mode.speedrunners_workbench_description": "§bThe Speedrunner's Workbench acts just like a smithing table, however, it also allows you to transfer enchantments from one item to another. Let's try it out!",
+
+  "speedrunnermod.tutorial_mode.transfer_enchantments": "§aGrab an enchanted tool, likely a §6golden one§a that you likely found in a §cruined portal§a or elsewhere, and then grab a better §ounenchanted§r§a tool, like a speedrunner pickaxe or diamond pickaxe. Then, hold the §ounenchanted tool§r§a in your §ooffhand,§r§a and then hold the §o§6enchanted tool§r§a in your mainhand. §aRight-click §bthe workbench§a and watch the magic happen!",
+  "speedrunnermod.tutorial_mode.find_retired_speedrunner": "§aNice! Now, go and find a villager and place the §bSpeedrunner's Workbench§a next to it.",
+
+  "speedrunnermod.tutorial_mode.retired_speedrunner_description": "§bThe §b§lRetired Speedrunner§r§b sells very overpowered items with good enchantments, for very cheap prices. You won't have to worry about getting stacked or losing resources!",
+
+  "speedrunnermod.tutorial_mode.craft_wither_bone": "§cNow it's time to craft a §7Wither sword, §cwhich makes §7wither skeletons§c have a §a65% drop rate§c for §7wither skeleton skulls. §cTo do this, you will need a §bspeedrunner stick, §cand §72 wither bones. §cTo craft §7wither bones, §cyou will need §f2 normal bones §cand §72 pieces of coal. §cGo for it!",
+  "speedrunnermod.tutorial_mode.craft_wither_sword": "§cNice! Now, make sure you have §72 wither bones, §cthen place them in the crafting table like you're crafting a sword, with the §bspeedrunner stick§c (not a normal stick).",
+
+  "speedrunnermod.tutorial_mode.wither_sword_description": "§7The Wither Sword will break if the wither skeleton drops a skull. Still very useful, though, if you want to speedrun killing the wither.",
+
+  "speedrunnermod.tutorial_mode.craft_ender_thruster": "§9After you've looked through those trades, it's time to craft an §9§lEnder Thruster.§r§9 It can be crafted with an ender pearl and a §bspeedrunner's eye.",
+  "speedrunnermod.tutorial_mode.use_ender_thruster": "§9Nice! Ok, now this is going to seem weird, but this item will be very useful for future speedruns when you are stuck underground. Dig yourself few blocks underground and box yourself in. Then, right-click the Ender Thruster and see what happens!",
+  "speedrunnermod.tutorial_mode.ender_thruster_description": "§9Awesome! You can easily get out of caves, dark holes, or other small underground spaces with this item, without having to dig yourself out! Remember that for future speedruns...",
+
+  "speedrunnermod.tutorial_mode.craft_dragons_sword": "§dNow it's time to craft a really broken and overpowered item, the §d§lDragon's Sword.§r§d To craft it, you will need a §bspeedrunner sword §dand a dragon's pearl.",
+  "speedrunnermod.tutorial_mode.dragons_sword_description": "§aNote this for future speedruns: this item will one-shot the ender dragon. Not a joke...",
+
+  "speedrunnermod.tutorial_mode.almost_done": "§bYou're almost done with §atutorial mode! §bJust a couple of more things to cover...",
+  "speedrunnermod.tutorial_mode.obtain_ender_matter": "§9One of your last steps is to craft an §9§oInfiniPearl, §r§9which is an ender pearl that does not get consumed nor do damage upon use. To get this, you will need to find an item called §9§lEnder Matter, §r§9which can mainly be obtained from killing enderman. They also have a small chance of generating in §dend city chests §9and §bshipwreck chests. Tip: Use a speedrunner sword or the looting enchantment to increase your chances of getting the §9ender matter!",
+  "speedrunnermod.tutorial_mode.craft_infini_pearl": "§9Nice! Now, to craft an §9§oInfiniPearl, §r§9you will need a regular ender pearl, an ender thruster, the ender matter that you just got, and a §bspeedrunner's eye. §9Craft away!",
+  "speedrunnermod.tutorial_mode.completed": "§9§lCONGRATULATIONS! §aYou have successfully completed the §a§lTutorial Mode! §bI would also recommend trying out §c§lDoom Mode, §r§aas that mode is a lot more challenging and fun for already experienced speedrunner's, and will open the door for you to explore a couple of other crazy features that this mod has to offer. But, otherwise, YOU DID IT! §bNow, enjoy speedrunning, and try to go as fast as you can with all of these features in mind! ;)",
 
   "item.speedrunnermod.speedrunner_ingot": "Speedrunner Ingot",
   "item.speedrunnermod.speedrunner_ingot.tooltip.line1": "Faster than iron, used to create",

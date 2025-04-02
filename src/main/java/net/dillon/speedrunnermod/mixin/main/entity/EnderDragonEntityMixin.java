@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -103,11 +104,15 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Override
     public void onDeath(DamageSource source) {
-        if (options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) {
+        boolean bl = !options().tutorialMode.getStep(TutorialStep.USED_DRAGONS_PEARL);
+        EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        LivingEntity livingEntity = dragon.getAttacker();
+        if ((options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
             this.setHealth(1.0F);
+            if (livingEntity instanceof PlayerEntity player && bl) {
+                player.sendMessage(Text.translatable("speedrunnermod.tutorial_mode.use_dragons_pearl.easy"), false);
+            }
         } else {
-            EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
-            LivingEntity livingEntity = dragon.getAttacker();
             if (options().main.tutorialMode && livingEntity instanceof PlayerEntity player) {
                 options().tutorialMode.completeStep(TutorialStep.KILLED_DRAGON, player, "speedrunnermod.tutorial_mode.killed_dragon.easy");
             }

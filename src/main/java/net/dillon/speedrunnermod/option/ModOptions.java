@@ -485,6 +485,8 @@ public class ModOptions {
         public boolean enterWorld = false;
         public boolean obtainedSpeedrunnerPickaxe = false;
         public boolean obtainedSpeedrunnerBoat = false;
+        public boolean obtainedSpeedrunnerArmor = false;
+        public boolean obtainedSpeedrunnerShield = false;
         public boolean obtainedInfernoEye = false;
         public boolean usedInfernoEye = false;
         public boolean obtainedPiglinAwakener = false;
@@ -498,6 +500,11 @@ public class ModOptions {
         public boolean obtainedAnnulEye = false;
         public boolean usedAnnulEye = false;
         public boolean enteredEnd = false;
+        public boolean obtainedTotem = false;
+        public boolean freeFalledIntoVoid = false;
+        public boolean obtainedSpeedrunnersTotem = false;
+        public boolean killedGoliath = false;
+        public boolean killedWither = false;
         public boolean usedDragonsPearl = false;
         public boolean killedDragon = false;
         public boolean brokenExperienceOre = false;
@@ -518,6 +525,8 @@ public class ModOptions {
                 case ENTERED_WORLD -> enterWorld;
                 case OBTAINED_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
                 case OBTAINED_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
+                case OBTAINED_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor;
+                case OBTAINED_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield;
                 case OBTAINED_INFERNO_EYE -> obtainedInfernoEye;
                 case USED_INFERNO_EYE -> usedInfernoEye;
                 case OBTAINED_PIGLIN_AWAKENER -> obtainedPiglinAwakener;
@@ -531,6 +540,11 @@ public class ModOptions {
                 case OBTAINED_ANNUL_EYE -> obtainedAnnulEye;
                 case USED_ANNUL_EYE -> usedAnnulEye;
                 case ENTERED_END -> enteredEnd;
+                case OBTAINED_TOTEM -> obtainedTotem;
+                case FREE_FALLED_INTO_VOID -> freeFalledIntoVoid;
+                case OBTAINED_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem;
+                case KILLED_GOLIATH -> killedGoliath;
+                case KILLED_WITHER -> killedWither;
                 case USED_DRAGONS_PEARL -> usedDragonsPearl;
                 case KILLED_DRAGON -> killedDragon;
                 case BROKEN_EXPERIENCE_ORE -> brokenExperienceOre;
@@ -553,6 +567,8 @@ public class ModOptions {
                 case ENTERED_WORLD -> enterWorld = value;
                 case OBTAINED_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
                 case OBTAINED_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
+                case OBTAINED_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor = value;
+                case OBTAINED_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield = value;
                 case OBTAINED_INFERNO_EYE -> obtainedInfernoEye = value;
                 case USED_INFERNO_EYE -> usedInfernoEye = value;
                 case OBTAINED_PIGLIN_AWAKENER -> obtainedPiglinAwakener = value;
@@ -566,6 +582,11 @@ public class ModOptions {
                 case OBTAINED_ANNUL_EYE -> obtainedAnnulEye = value;
                 case USED_ANNUL_EYE -> usedAnnulEye = value;
                 case ENTERED_END -> enteredEnd = value;
+                case OBTAINED_TOTEM -> obtainedTotem = value;
+                case FREE_FALLED_INTO_VOID -> freeFalledIntoVoid = value;
+                case OBTAINED_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem = value;
+                case KILLED_GOLIATH -> killedGoliath = value;
+                case KILLED_WITHER -> killedWither = value;
                 case USED_DRAGONS_PEARL -> usedDragonsPearl = value;
                 case KILLED_DRAGON -> killedDragon = value;
                 case BROKEN_EXPERIENCE_ORE -> brokenExperienceOre = value;
@@ -1493,13 +1514,7 @@ public class ModOptions {
         options().mixins.simpleOptionMixin = true;
         options().mixins.logoDrawerMixin = true;
         options().mixins.renderLayersMixin = true;
-        resetTutorialMode();
-    }
 
-    /**
-     * Resets all tutorial mode options.
-     */
-    public static void resetTutorialMode() {
         options().tutorialMode.enterWorld = false;
         options().tutorialMode.obtainedSpeedrunnerPickaxe = false;
         options().tutorialMode.obtainedSpeedrunnerBoat = false;
@@ -1529,6 +1544,5 @@ public class ModOptions {
         options().tutorialMode.obtainedWitherSword = false;
         options().tutorialMode.obtainedEnderMatter = false;
         options().tutorialMode.obtainedInfiniPearl = false;
-        ModOptions.saveConfig();
     }
 }
