@@ -4,9 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.TutorialMode;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -28,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
@@ -42,81 +41,118 @@ public class ItemMixin {
     private void tutorialMode(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
         if (options().main.tutorialMode && entity instanceof PlayerEntity player) {
             if (stack.isOf(ModItems.SPEEDRUNNER_PICKAXE)) {
-                options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNER_PICKAXE, player,
-                        "speedrunnermod.tutorial_mode.obtained_speedrunner_pickaxe",
-                        "speedrunnermod.tutorial_mode.obtain_speedrunner_boat");
+                options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_PICKAXE, player,
+                        "speedrunnermod.tutorial_mode.speedrunner_pickaxe_description",
+                        "speedrunnermod.tutorial_mode.craft_speedrunner_boat");
             }
 
             if (stack.isOf(ModItems.SPEEDRUNNER_BOAT)) {
-                options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNER_BOAT, player,
-                        "speedrunnermod.tutorial_mode.obtained_speedrunner_boat",
-                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.obtain_inferno_eye");
+                options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_BOAT, player,
+                        "speedrunnermod.tutorial_mode.speedrunner_boat_description",
+                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.craft_inferno_eye");
+            }
+
+            if (options().main.playingMode.doom()) {
+                int j = 0;
+                for (int i = 0; i < player.getInventory().size(); i++) {
+                    List<Item> armorItems = new ArrayList<>(List.of(ModItems.SPEEDRUNNER_HELMET, ModItems.SPEEDRUNNER_CHESTPLATE, ModItems.SPEEDRUNNER_LEGGINGS, ModItems.SPEEDRUNNER_BOOTS));
+                    for (Item item : armorItems) {
+                        if (player.getInventory().getStack(i).isOf(item)) {
+                            armorItems.remove(item);
+                            j++;
+                            if (j >= 4) break;
+                        }
+                    }
+                }
+                if (j >= 4) {
+                    options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_ARMOR, player, "speedrunnermod.tutorial_mode.craft_speedrunner_shield");
+                }
+
+                for (int i = 0; i < player.getInventory().size(); i++) {
+                    if (player.getInventory().getStack(i).isOf(ModItems.SPEEDRUNNER_SHIELD)) {
+                        options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_SHIELD, player, "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
+                        break;
+                    }
+                }
+
+                if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
+                    options().tutorialMode.completeStep(TutorialStep.OBTAIN_TOTEM_OF_UNDYING, player, "speedrunnermod.tutorial_mode.free_fall_into_void");
+                }
+
+                if (stack.isOf(ModItems.SPEEDRUNNERS_TOTEM)) {
+                    options().tutorialMode.completeStep(TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM, player,
+                            "speedrunnermod.tutorial_mode.speedrunners_totem_description",
+                            "speedrunnermod.tutorial_mode.kill_goliath",
+                            "speedrunnermod.tutorial_mode.goliath_description");
+                }
+            }
+
+            if (stack.isOf(ModItems.INFERNO_EYE)) {
+                options().tutorialMode.completeStep(TutorialStep.CRAFT_INFERNO_EYE, player, "speedrunnermod.tutorial_mode.inferno_eye_description");
             }
 
             if (options().main.playingMode.easy()) {
-                if (entity instanceof ServerPlayerEntity player) {
-
-                    if (stack.isOf(ModItems.INFERNO_EYE)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_INFERNO_EYE, player, "speedrunnermod.tutorial_mode.obtained_inferno_eye.easy");
-                    }
-
-                    if (stack.isOf(ModItems.PIGLIN_AWAKENER)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_PIGLIN_AWAKENER, player, "speedrunnermod.tutorial_mode.obtained_piglin_awakener.easy");
-                    }
-
-                    if (stack.isOf(ModItems.BLAZE_SPOTTER)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_BLAZE_SPOTTER, player, "speedrunnermod.tutorial_mode.obtained_blaze_spotter.easy");
-                    }
-
-                    if (stack.isOf(ModItems.SPEEDRUNNERS_EYE)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.obtained_speedrunners_eye.easy");
-                    }
-
-                    if (stack.isOf(ModItems.DRAGONS_PEARL)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_DRAGONS_PEARL, player,
-                                "speedrunnermod.tutorial_mode.obtained_dragons_pearl.easy",
-                                "speedrunnermod.tutorial_mode.obtain_annul_eye.easy");
-                    }
-
-                    if (stack.isOf(ModItems.ANNUL_EYE)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.obtained_annul_eye.easy");
-                    }
-
-                    if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_SPEEDRUNNERS_WORKBENCH, player,
-                                "speedrunnermod.tutorial_mode.obtained_speedrunners_workbench",
-                                "speedrunnermod.tutorial_mode.transfer_enchantments");
-                    }
-
-                    if (stack.isOf(ModItems.ENDER_THRUSTER)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_ENTER_THRUSTER, player, "speedrunnermod.tutorial_mode.obtained_ender_thruster.easy");
-                    }
-
-                    if (stack.isOf(ModItems.DRAGONS_SWORD)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_DRAGONS_SWORD, player,
-                                "speedrunnermod.tutorial_mode.obtained_dragons_sword.easy",
-                                "speedrunnermod.tutorial_mode.obtain_wither_bone");
-                    }
-
-                    if (stack.isOf(ModItems.WITHER_BONE)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_WITHER_BONE, player, "speedrunnermod.tutorial_mode.obtained_wither_bone");
-                    }
-
-                    if (stack.isOf(ModItems.WITHER_SWORD)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_WITHER_SWORD, player,
-                                "speedrunnermod.tutorial_mode.obtained_wither_sword",
-                                "speedrunnermod.tutorial_mode.almost_done.easy",
-                                "speedrunnermod.tutorial_mode.obtain_ender_matter");
-                    }
-
-                    if (stack.isOf(ModItems.ENDER_MATTER)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_ENDER_MATTER, player, "speedrunnermod.tutorial_mode.obtained_ender_matter");
-                    }
-
-                    if (stack.isOf(ModItems.INFINI_PEARL)) {
-                        options().tutorialMode.completeStep(TutorialStep.OBTAINED_INFINI_PEARL, player, "speedrunnermod.tutorial_mode.completed.easy");
-                    }
+                if (stack.isOf(ModItems.PIGLIN_AWAKENER)) {
+                    options().tutorialMode.completeStep(TutorialStep.CRAFT_PIGLIN_AWAKENER, player, "speedrunnermod.tutorial_mode.use_piglin_awakener");
                 }
+
+                if (stack.isOf(ModItems.BLAZE_SPOTTER)) {
+                    options().tutorialMode.completeStep(TutorialStep.CRAFT_BLAZE_SPOTTER, player, "speedrunnermod.tutorial_mode.use_blaze_spotter");
+                }
+
+                if (stack.isOf(ModItems.ENDER_THRUSTER)) {
+                    options().tutorialMode.completeStep(TutorialStep.OBTAIN_ENDER_THRUSTER, player, "speedrunnermod.tutorial_mode.use_ender_thruster");
+                }
+
+                if (stack.isOf(ModItems.DRAGONS_SWORD)) {
+                    options().tutorialMode.completeStep(TutorialStep.OBTAIN_DRAGONS_SWORD, player,
+                            "speedrunnermod.tutorial_mode.dragons_sword_description",
+                            "speedrunnermod.tutorial_mode.craft_wither_bone");
+                }
+            }
+
+            if (stack.isOf(ModItems.SPEEDRUNNERS_EYE)) {
+                options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.change_speedrunners_eye_locator");
+            }
+
+            if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                if (stack.isOf(ModItems.DRAGONS_PEARL)) {
+                    options().tutorialMode.completeStep(TutorialStep.CRAFT_DRAGONS_PEARL, player,
+                            "speedrunnermod.tutorial_mode.dragons_pearl_recipe",
+                            "speedrunnermod.tutorial_mode.obtained_dragons_pearl",
+                            "speedrunnermod.tutorial_mode.craft_annul_eye");
+                }
+
+                if (stack.isOf(ModItems.ANNUL_EYE)) {
+                    options().tutorialMode.completeStep(TutorialStep.CRAFT_ANNUL_EYE, player,
+                            options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_speedrunners_workbench" : "speedrunnermod.tutorial_mode.use_annul_eye");
+                }
+
+                if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
+                    options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNERS_WORKBENCH, player,
+                            "speedrunnermod.tutorial_mode.speedrunners_workbench_description",
+                            options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.find_experience_ore" :
+                                    "speedrunnermod.tutorial_mode.transfer_enchantments");
+                }
+            }
+
+            if (stack.isOf(ModItems.WITHER_BONE)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAIN_WITHER_BONE, player, "speedrunnermod.tutorial_mode.craft_wither_sword");
+            }
+
+            if (stack.isOf(ModItems.WITHER_SWORD)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAIN_WITHER_SWORD, player,
+                        "speedrunnermod.tutorial_mode.wither_sword_description",
+                        "speedrunnermod.tutorial_mode.almost_done",
+                        "speedrunnermod.tutorial_mode.obtain_ender_matter");
+            }
+
+            if (stack.isOf(ModItems.ENDER_MATTER)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAIN_ENDER_MATTER, player, "speedrunnermod.tutorial_mode.craft_infini_pearl");
+            }
+
+            if (stack.isOf(ModItems.INFINI_PEARL)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAIN_INFINI_PEARL, player, "speedrunnermod.tutorial_mode.completed");
             }
         }
     }

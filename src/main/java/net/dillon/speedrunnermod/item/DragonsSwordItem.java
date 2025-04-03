@@ -36,7 +36,7 @@ public class DragonsSwordItem extends SwordItem implements StateOfTheArtItem {
     @Override
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
-            if (!options().main.playingMode.doom() && !options().main.playingMode.normal()) {
+            if (!options().main.playingMode.doom() && !options().main.playingMode.balanced()) {
                 dragon.setHealth(0.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
             } else {

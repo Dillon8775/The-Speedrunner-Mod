@@ -34,7 +34,7 @@ public class PlayingModeOption extends AbstractFeatureScreen {
             this.client.setScreen(this.getNextScreen());
         }).build());
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.normal"), button -> {
-            options().main.playingMode = ModOptions.PlayingMode.NORMAL;
+            options().main.playingMode = ModOptions.PlayingMode.BALANCED;
             ModOptions.saveConfig();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());

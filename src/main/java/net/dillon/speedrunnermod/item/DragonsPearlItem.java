@@ -57,7 +57,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                                     enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
                                     if (options().main.tutorialMode) {
-                                        options().tutorialMode.completeStep(TutorialStep.USED_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl.easy");
+                                        options().tutorialMode.completeStep(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
                                     }
                                 }
                             }, ModUtil.millisecondsAsSeconds(2));

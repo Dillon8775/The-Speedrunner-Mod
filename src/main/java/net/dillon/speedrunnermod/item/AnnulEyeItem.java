@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -72,7 +71,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
                                 if (options().main.tutorialMode) {
-                                    options().tutorialMode.completeStep(TutorialStep.USED_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.used_annul_eye_teleporter.easy");
+                                    options().tutorialMode.completeStep(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
                                 }
 
                                 if (!player.getAbilities().creativeMode) {

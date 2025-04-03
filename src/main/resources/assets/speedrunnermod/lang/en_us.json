@@ -8,9 +8,9 @@
   "speedrunnermod.lets_go": "Lets go!",
   "speedrunnermod.refresh_screen": "Refresh the screen to align buttons correctly (or press \"R\").",
   "speedrunnermod.key_points": "§e§lKey Features:\n§f● Structures generate more commonly.\n● New biome, called the §bSpeedrunner's Wasteland,§f which contains great resources for speedrunning.\n● §aLoot tables§f are buffed!\n● Various new items to help with §aevery aspect§f of §bspeedrunning.",
-  "speedrunnermod.playing_mode_option": "There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lNormal,§r§f and §c§lDoom.\n§b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.\n§e§lNormal§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.\n§c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.\n\n§a§lWhich mode do you want to play on?",
+  "speedrunnermod.playing_mode_option": "There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lBalanced,§r§f and §c§lDoom.\n§b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.\n§e§lBalanced§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.\n§c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.\n\n§a§lWhich mode do you want to play on?",
   "speedrunnermod.playing_mode.easy.tooltip": "Enables all features, results in the quickest speedrunning times.",
-  "speedrunnermod.playing_mode.normal.tooltip": "Limits some features, making the game more balanced, resulting in quick speedrunning times.",
+  "speedrunnermod.playing_mode.balanced.tooltip": "Limits some features, making the game more balanced, resulting in quick speedrunning times.",
   "speedrunnermod.playing_mode.doom.tooltip": "Good luck with this one...",
   "speedrunnermod.ready_to_play": "Alright! Now that you have selected the mode that you want to play on, you are ready to play!\n\n§aDo you want to enter tutorial mode?",
   "speedrunnermod.enter_tutorial_mode": "§aEnter Tutorial Mode",
@@ -52,6 +52,9 @@
 
   "speedrunnermod.tutorial_mode.craft_annul_eye": "§dNow, let's craft an §d§lEye of Annul,§r§d which teleports you right into the nearest stronghold's portal room! To do this, you will need an §9ender pearl, §eblaze powder, §dan §aender eye, §dand a §6fire charge.",
   "speedrunnermod.tutorial_mode.use_annul_eye": "§dAwesome! Now, right click to teleport! (make sure you have an §9ender pearl§d and a piece of §6blaze powder,§d in your inventory, because the §agatekeeper §drequires it...)",
+
+  "speedrunnermod.tutorial_mode.craft_ender_eye": "*type craft ender eye*",
+
   "speedrunnermod.tutorial_mode.enter_end": "§d§lBAM!!!§r§d Now place the eyes of ender in the port- wait, there are a lot of eyes already in there... Not a problem! Fill the rest of the eyes and enter the end.",
 
   "speedrunnermod.tutorial_mode.entered_end.easy": "§dYou've made it to the dragon! Now, if you have beds, you can use those. If you want to do the old-style way with a bow and sword, you can do that as well. But remember, you got the §d§lDragon's Pearl,§r§d which means you can command the dragon to perch whenever you want! Craft more if you need to, good luck!",
@@ -62,7 +65,7 @@
 
   "speedrunnermod.tutorial_mode.free_fall_into_void": "§dOk, you're making progress! Now, with the totem in your hand, §ejump into the void! §d(I'm not kidding, just do it, but make sure the totem is equipped...)",
 
-  "speedrunnermod.tutorial_mode.obtain_speedrunners_totem": "§d§lBAM!!! §r§dJumping into the void with a §etotem §dsaves you! Now, go get another totem and let's craft a §bspeedrunner's totem. §dYou will need a §bspeedrunner's eye, §da §enormal totem, §dand §9ender matter §dto craft it. If you do not already have those items, you should have just been provided them.",
+  "speedrunnermod.tutorial_mode.craft_speedrunners_totem": "§d§lBAM!!! §r§dJumping into the void with a §etotem §dsaves you! Now, go get another totem and let's craft a §bspeedrunner's totem. §dYou will need a §bspeedrunner's eye, §da §enormal totem, §dand §9ender matter §dto craft it. If you do not already have those items, you should have just been provided them.",
   "speedrunnermod.tutorial_mode.speedrunners_totem_description": "§bThe §b§lSpeedrunner's Totem §r§bstacks to §b§l3, §r§bworks §aanywhere in the players inventory §e(including free-falling into the void), §band gives better effects upon use.",
 
   "speedrunnermod.tutorial_mode.kill_goliath": "§dNow let's get to boss killing. You should know, you §d§lcannot §r§dkill the dragon until §a§lGoliath §r§dand the §7wither §dare §cdead. §dSo, go kill Goliath first!",
@@ -70,10 +73,15 @@
 
   "speedrunnermod.tutorial_mode.kill_wither": "§a§lNICE JOB! §aNow, §7§lKILL THE WITHER!!!",
 
+  "speedrunnermod.tutorial_mode.kill_dragon": "§dYou've made it this far, don't give up now! §d§lKILL THE DRAGON!! §r§d(use your Dragon's Pearl!)",
+
   "speedrunnermod.tutorial_mode.use_dragons_pearl": "§dUse the dragon's pearl before proceeding with the rest of tutorial mode!",
   "speedrunnermod.tutorial_mode.used_dragons_pearl": "§dThe dragon is perching §d§lNOW!§r§d Get it!",
 
   "speedrunnermod.tutorial_mode.killed_dragon": "§dCongratulations!!!§b You've completed your first speedrun with the §b§lSpeedrunner Mod,§r§b but there's still much to explore in this mod. So, let's go back to the overworld and uncover a few more features.",
+  "speedrunnermod.tutorial_mode.killed_dragon.doom": "§dYou did it. Congrats...",
+
+  "speedrunnermod.tutorial_mode.exit_end.doom": "§c§lGG §r§con Doom Mode.",
 
   "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, let's go underground and find some §aexperience ore.",
 
@@ -293,7 +301,7 @@
   "item.speedrunnermod.state_of_the_art_item.disabled": "Disabled.",
 
   "block.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
-  "block.speedrunnermod.speedrunners_workbench.disabled": "This block is disabled on Normal Mode.",
+  "block.speedrunnermod.speedrunners_workbench.disabled": "This block is disabled on Balanced Mode.",
   "block.speedrunnermod.speedrunners_workbench.cost": "Transfer Cost: %s",
   "block.speedrunnermod.speedrunners_workbench.enchanted_tool": "Add item with enchantments that you want to transfer over.",
   "block.speedrunnermod.speedrunners_workbench.unenchanted_tool": "Add the item that you want the enchantments transferred to.",
@@ -515,7 +523,7 @@
   "speedrunnermod.title.options.main": "Main Options",
   "speedrunnermod.options.playing_mode": "Playing Mode",
   "speedrunnermod.options.playing_mode.easy": "§b§lEASY",
-  "speedrunnermod.options.playing_mode.normal": "§e§lNORMAL",
+  "speedrunnermod.options.playing_mode.normal": "§e§lBALANCED",
   "speedrunnermod.options.playing_mode.doom": "§c§lDOOM",
   "speedrunnermod.options.playing_mode.tooltip": "The §b§lPlaying Mode§r allows certain features and items to be enabled.\n\n§lBy default,§r this is set to §bEasy. Easy mode§f enables §oall features,§r like §deye of annul, §5dragons pearl,§r §ddragons sword,§r etc.\n\n§eNormal mode§r disables those items, disables §aexperience ores§r from generating, and disables other features to make the game a little more balanced.\n\n§b§cDoom mode§r takes the mod's description and flips it §cupside down.§f §oGood luck ;)",
   "speedrunnermod.options.structure_spawn_rates": "Structure Spawn Rate",

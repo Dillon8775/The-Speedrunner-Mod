@@ -522,84 +522,84 @@ public class ModOptions {
         @Override
         public boolean getStep(TutorialStep step) {
             return switch (step) {
-                case ENTERED_WORLD -> enterWorld;
-                case OBTAINED_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
-                case OBTAINED_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
-                case OBTAINED_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor;
-                case OBTAINED_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield;
-                case OBTAINED_INFERNO_EYE -> obtainedInfernoEye;
-                case USED_INFERNO_EYE -> usedInfernoEye;
-                case OBTAINED_PIGLIN_AWAKENER -> obtainedPiglinAwakener;
-                case USED_PIGLIN_AWAKENER -> usedPiglinAwakener;
-                case OBTAINED_BLAZE_SPOTTER -> obtainedBlazeSpotter;
-                case USED_BLAZE_SPOTTER -> usedBlazeSpotter;
-                case OBTAINED_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye;
-                case CHANGED_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator;
-                case USED_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye;
-                case OBTAINED_DRAGONS_PEARL -> obtainedDragonsPearl;
-                case OBTAINED_ANNUL_EYE -> obtainedAnnulEye;
-                case USED_ANNUL_EYE -> usedAnnulEye;
-                case ENTERED_END -> enteredEnd;
-                case OBTAINED_TOTEM -> obtainedTotem;
-                case FREE_FALLED_INTO_VOID -> freeFalledIntoVoid;
-                case OBTAINED_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem;
-                case KILLED_GOLIATH -> killedGoliath;
-                case KILLED_WITHER -> killedWither;
-                case USED_DRAGONS_PEARL -> usedDragonsPearl;
-                case KILLED_DRAGON -> killedDragon;
-                case BROKEN_EXPERIENCE_ORE -> brokenExperienceOre;
-                case OBTAINED_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench;
-                case TRANSFERRED_ENCHANTMENTS -> transferedEnchantments;
-                case INTERACTED_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner;
-                case OBTAINED_ENTER_THRUSTER -> obtainedEnderThruster;
-                case USED_ENTER_THRUSTER -> usedEnderThruster;
-                case OBTAINED_DRAGONS_SWORD -> obtainedDragonsSword;
-                case OBTAINED_WITHER_BONE -> obtainedWitherBone;
-                case OBTAINED_WITHER_SWORD -> obtainedWitherSword;
-                case OBTAINED_ENDER_MATTER -> obtainedEnderMatter;
-                case OBTAINED_INFINI_PEARL -> obtainedInfiniPearl;
+                case ENTER_WORLD -> enterWorld;
+                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
+                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
+                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor;
+                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield;
+                case CRAFT_INFERNO_EYE -> obtainedInfernoEye;
+                case USE_INFERNO_EYE -> usedInfernoEye;
+                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener;
+                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener;
+                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter;
+                case USE_BLAZE_SPOTTER -> usedBlazeSpotter;
+                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye;
+                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator;
+                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye;
+                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl;
+                case CRAFT_ANNUL_EYE -> obtainedAnnulEye;
+                case USE_ANNUL_EYE -> usedAnnulEye;
+                case ENTER_END -> enteredEnd;
+                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem;
+                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid;
+                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem;
+                case KILL_GOLIATH -> killedGoliath;
+                case KILL_WITHER -> killedWither;
+                case USE_DRAGONS_PEARL -> usedDragonsPearl;
+                case KILL_DRAGON -> killedDragon;
+                case MINE_EXPERIENCE_ORE -> brokenExperienceOre;
+                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench;
+                case TRANSFER_ENCHANTMENTS -> transferedEnchantments;
+                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner;
+                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster;
+                case USE_ENTER_THRUSTER -> usedEnderThruster;
+                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword;
+                case OBTAIN_WITHER_BONE -> obtainedWitherBone;
+                case OBTAIN_WITHER_SWORD -> obtainedWitherSword;
+                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter;
+                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl;
             };
         }
 
         @Override
         public void setStep(TutorialStep step, boolean value) {
             switch (step) {
-                case ENTERED_WORLD -> enterWorld = value;
-                case OBTAINED_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
-                case OBTAINED_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
-                case OBTAINED_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor = value;
-                case OBTAINED_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield = value;
-                case OBTAINED_INFERNO_EYE -> obtainedInfernoEye = value;
-                case USED_INFERNO_EYE -> usedInfernoEye = value;
-                case OBTAINED_PIGLIN_AWAKENER -> obtainedPiglinAwakener = value;
-                case USED_PIGLIN_AWAKENER -> usedPiglinAwakener = value;
-                case OBTAINED_BLAZE_SPOTTER -> obtainedBlazeSpotter = value;
-                case USED_BLAZE_SPOTTER -> usedBlazeSpotter = value;
-                case OBTAINED_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye = value;
-                case CHANGED_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator = value;
-                case USED_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye = value;
-                case OBTAINED_DRAGONS_PEARL -> obtainedDragonsPearl = value;
-                case OBTAINED_ANNUL_EYE -> obtainedAnnulEye = value;
-                case USED_ANNUL_EYE -> usedAnnulEye = value;
-                case ENTERED_END -> enteredEnd = value;
-                case OBTAINED_TOTEM -> obtainedTotem = value;
-                case FREE_FALLED_INTO_VOID -> freeFalledIntoVoid = value;
-                case OBTAINED_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem = value;
-                case KILLED_GOLIATH -> killedGoliath = value;
-                case KILLED_WITHER -> killedWither = value;
-                case USED_DRAGONS_PEARL -> usedDragonsPearl = value;
-                case KILLED_DRAGON -> killedDragon = value;
-                case BROKEN_EXPERIENCE_ORE -> brokenExperienceOre = value;
-                case OBTAINED_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench = value;
-                case TRANSFERRED_ENCHANTMENTS -> transferedEnchantments = value;
-                case INTERACTED_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner = value;
-                case OBTAINED_ENTER_THRUSTER -> obtainedEnderThruster = value;
-                case USED_ENTER_THRUSTER -> usedEnderThruster = value;
-                case OBTAINED_DRAGONS_SWORD -> obtainedDragonsSword = value;
-                case OBTAINED_WITHER_BONE -> obtainedWitherBone = value;
-                case OBTAINED_WITHER_SWORD -> obtainedWitherSword = value;
-                case OBTAINED_ENDER_MATTER -> obtainedEnderMatter = value;
-                case OBTAINED_INFINI_PEARL -> obtainedInfiniPearl = value;
+                case ENTER_WORLD -> enterWorld = value;
+                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
+                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
+                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor = value;
+                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield = value;
+                case CRAFT_INFERNO_EYE -> obtainedInfernoEye = value;
+                case USE_INFERNO_EYE -> usedInfernoEye = value;
+                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener = value;
+                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener = value;
+                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter = value;
+                case USE_BLAZE_SPOTTER -> usedBlazeSpotter = value;
+                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye = value;
+                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator = value;
+                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye = value;
+                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl = value;
+                case CRAFT_ANNUL_EYE -> obtainedAnnulEye = value;
+                case USE_ANNUL_EYE -> usedAnnulEye = value;
+                case ENTER_END -> enteredEnd = value;
+                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem = value;
+                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid = value;
+                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem = value;
+                case KILL_GOLIATH -> killedGoliath = value;
+                case KILL_WITHER -> killedWither = value;
+                case USE_DRAGONS_PEARL -> usedDragonsPearl = value;
+                case KILL_DRAGON -> killedDragon = value;
+                case MINE_EXPERIENCE_ORE -> brokenExperienceOre = value;
+                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench = value;
+                case TRANSFER_ENCHANTMENTS -> transferedEnchantments = value;
+                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner = value;
+                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster = value;
+                case USE_ENTER_THRUSTER -> usedEnderThruster = value;
+                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword = value;
+                case OBTAIN_WITHER_BONE -> obtainedWitherBone = value;
+                case OBTAIN_WITHER_SWORD -> obtainedWitherSword = value;
+                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter = value;
+                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl = value;
             }
         }
     }
@@ -824,7 +824,7 @@ public class ModOptions {
 
     public enum PlayingMode implements TranslatableOption {
         EASY(0, "speedrunnermod.options.playing_mode.easy"),
-        NORMAL(1, "speedrunnermod.options.playing_mode.normal"),
+        BALANCED(1, "speedrunnermod.options.playing_mode.balanced"),
         DOOM(2, "speedrunnermod.options.playing_mode.doom");
 
         private static final PlayingMode[] VALUES = Arrays.stream(PlayingMode.values()).sorted(Comparator.comparingInt(PlayingMode::getId)).toArray(PlayingMode[]::new);
@@ -863,8 +863,8 @@ public class ModOptions {
             return options().main.playingMode.equals(PlayingMode.EASY);
         }
 
-        public boolean normal() {
-            return options().main.playingMode.equals(PlayingMode.NORMAL);
+        public boolean balanced() {
+            return options().main.playingMode.equals(PlayingMode.BALANCED);
         }
 
         public boolean doom() {
@@ -877,7 +877,7 @@ public class ModOptions {
          */
         public boolean isSafe() {
             return options().main.playingMode.equals(EASY) ||
-                    options().main.playingMode.equals(NORMAL) ||
+                    options().main.playingMode.equals(BALANCED) ||
                     options().main.playingMode.equals(DOOM);
         }
     }

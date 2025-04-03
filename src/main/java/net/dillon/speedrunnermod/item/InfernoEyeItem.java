@@ -9,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -57,9 +56,12 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
 
                     if (options().main.tutorialMode) {
-                        options().tutorialMode.completeStep(TutorialStep.USED_INFERNO_EYE, player,
-                                "speedrunnermod.tutorial_mode.used_inferno_eye.easy",
-                                "speedrunnermod.tutorial_mode.obtain_piglin_awakener.easy");
+                        if (options().main.playingMode.easy()) {
+                            options().tutorialMode.completeStep(TutorialStep.USE_INFERNO_EYE, player,
+                                    "speedrunnermod.tutorial_mode.used_inferno_eye",
+                                    options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
+                                            "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
+                        }
                     }
 
                     if (!player.getAbilities().creativeMode) {

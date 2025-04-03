@@ -37,12 +37,12 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
     }
 
     /**
-     * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link ModOptions.PlayingMode} is {@link ModOptions.PlayingMode#NORMAL}.
+     * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link ModOptions.PlayingMode} is {@link ModOptions.PlayingMode#BALANCED}.
      */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
-            if (!options().main.playingMode.normal()) {
+            if (!options().main.playingMode.balanced()) {
                 player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
             } else {
                 player.sendMessage(Text.translatable("block.speedrunnermod.speedrunners_workbench.disabled"), false);

@@ -14,49 +14,49 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 public interface TutorialMode {
     List<TutorialStep> EXCLUDED_EASY_MODE_STEPS = List.of(
-            TutorialStep.OBTAINED_SPEEDRUNNER_ARMOR,
-            TutorialStep.OBTAINED_SPEEDRUNNER_SHIELD,
-            TutorialStep.OBTAINED_TOTEM,
-            TutorialStep.FREE_FALLED_INTO_VOID,
-            TutorialStep.OBTAINED_SPEEDRUNNERS_TOTEM,
-            TutorialStep.KILLED_GOLIATH,
-            TutorialStep.KILLED_WITHER
+            TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
+            TutorialStep.CRAFT_SPEEDRUNNER_SHIELD,
+            TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
+            TutorialStep.FREE_FALL_INTO_VOID,
+            TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
+            TutorialStep.KILL_GOLIATH,
+            TutorialStep.KILL_WITHER
     );
     List<TutorialStep> EXCLUDED_NORMAL_MODE_STEPS = List.of(
-            TutorialStep.OBTAINED_PIGLIN_AWAKENER,
-            TutorialStep.USED_PIGLIN_AWAKENER,
-            TutorialStep.OBTAINED_BLAZE_SPOTTER,
-            TutorialStep.USED_BLAZE_SPOTTER,
-            TutorialStep.OBTAINED_DRAGONS_PEARL,
-            TutorialStep.OBTAINED_ANNUL_EYE,
-            TutorialStep.USED_ANNUL_EYE,
-            TutorialStep.USED_DRAGONS_PEARL,
-            TutorialStep.OBTAINED_ENTER_THRUSTER,
-            TutorialStep.USED_ENTER_THRUSTER,
-            TutorialStep.OBTAINED_DRAGONS_SWORD
+            TutorialStep.CRAFT_PIGLIN_AWAKENER,
+            TutorialStep.USE_PIGLIN_AWAKENER,
+            TutorialStep.CRAFT_BLAZE_SPOTTER,
+            TutorialStep.USE_BLAZE_SPOTTER,
+            TutorialStep.CRAFT_DRAGONS_PEARL,
+            TutorialStep.CRAFT_ANNUL_EYE,
+            TutorialStep.USE_ANNUL_EYE,
+            TutorialStep.USE_DRAGONS_PEARL,
+            TutorialStep.OBTAIN_ENDER_THRUSTER,
+            TutorialStep.USE_ENTER_THRUSTER,
+            TutorialStep.OBTAIN_DRAGONS_SWORD
     );
     List<TutorialStep> DOOM_MODE_STEPS = List.of(
-            TutorialStep.ENTERED_WORLD,
-            TutorialStep.OBTAINED_SPEEDRUNNER_PICKAXE,
-            TutorialStep.OBTAINED_SPEEDRUNNER_BOAT,
-            TutorialStep.OBTAINED_SPEEDRUNNER_ARMOR,
-            TutorialStep.OBTAINED_SPEEDRUNNER_SHIELD,
-            TutorialStep.OBTAINED_SPEEDRUNNERS_EYE,
-            TutorialStep.OBTAINED_DRAGONS_PEARL,
-            TutorialStep.OBTAINED_ANNUL_EYE,
-            TutorialStep.OBTAINED_SPEEDRUNNERS_WORKBENCH,
-            TutorialStep.USED_ANNUL_EYE,
-            TutorialStep.BROKEN_EXPERIENCE_ORE,
-            TutorialStep.TRANSFERRED_ENCHANTMENTS,
-            TutorialStep.INTERACTED_WITH_RETIRED_SPEEDRUNNER,
-            TutorialStep.ENTERED_END,
-            TutorialStep.OBTAINED_TOTEM,
-            TutorialStep.FREE_FALLED_INTO_VOID,
-            TutorialStep.OBTAINED_SPEEDRUNNERS_TOTEM,
-            TutorialStep.KILLED_GOLIATH,
-            TutorialStep.KILLED_WITHER,
-            TutorialStep.USED_DRAGONS_PEARL,
-            TutorialStep.KILLED_DRAGON
+            TutorialStep.ENTER_WORLD,
+            TutorialStep.CRAFT_SPEEDRUNNER_PICKAXE,
+            TutorialStep.CRAFT_SPEEDRUNNER_BOAT,
+            TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
+            TutorialStep.CRAFT_SPEEDRUNNER_SHIELD,
+            TutorialStep.CRAFT_SPEEDRUNNERS_EYE,
+            TutorialStep.CRAFT_DRAGONS_PEARL,
+            TutorialStep.CRAFT_ANNUL_EYE,
+            TutorialStep.CRAFT_SPEEDRUNNERS_WORKBENCH,
+            TutorialStep.MINE_EXPERIENCE_ORE,
+            TutorialStep.TRANSFER_ENCHANTMENTS,
+            TutorialStep.INTERACT_WITH_RETIRED_SPEEDRUNNER,
+            TutorialStep.USE_ANNUL_EYE,
+            TutorialStep.ENTER_END,
+            TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
+            TutorialStep.FREE_FALL_INTO_VOID,
+            TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
+            TutorialStep.KILL_GOLIATH,
+            TutorialStep.KILL_WITHER,
+            TutorialStep.USE_DRAGONS_PEARL,
+            TutorialStep.KILL_DRAGON
     );
 
     /**
@@ -78,7 +78,7 @@ public interface TutorialMode {
     default boolean canComplete(TutorialStep step) {
         TutorialStep[] steps;
         List<TutorialStep> stepsList = new ArrayList<>(Arrays.stream(TutorialStep.values()).toList());
-        if (options().main.playingMode.normal()) {
+        if (options().main.playingMode.balanced()) {
             for (TutorialStep excludedStep : EXCLUDED_NORMAL_MODE_STEPS) {
                 stepsList.remove(excludedStep);
             }

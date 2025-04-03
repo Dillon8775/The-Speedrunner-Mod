@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
@@ -142,6 +143,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.serverDamage(this.getDamageSources().generic(), Integer.MAX_VALUE);
                 this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
+                if (options().main.playingMode.doom() && options().main.tutorialMode) {
+                    options().tutorialMode.completeStep(TutorialStep.FREE_FALL_INTO_VOID, (PlayerEntity)(Object)this,
+                            "speedrunnermod.tutorial_mode.craft_speedrunners_totem");
+                }
             }
         } else {
             super.attemptTickInVoid();

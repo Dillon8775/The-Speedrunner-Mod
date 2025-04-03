@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -185,8 +186,11 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         super.onDeath(source);
         if (options().main.playingMode.doom()) {
             this.onGiantDeath();
-            if (!this.isSilent()) {
-                if (attackingPlayer != null && attackingPlayer instanceof ServerPlayerEntity) {
+            if (attackingPlayer != null) {
+                if (options().main.tutorialMode) {
+                    options().tutorialMode.completeStep(TutorialStep.KILL_GOLIATH, attackingPlayer, "speedrunnermod.tutorial_mode.kill_wither");
+                }
+                if (!this.isSilent() && attackingPlayer instanceof ServerPlayerEntity) {
                     ((ServerPlayerEntity)attackingPlayer).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, this.attackingPlayer.getX(), this.attackingPlayer.getY(), this.attackingPlayer.getZ(), 1.0F, 1.0F, this.getWorld().getRandom().nextLong()));
                 }
             }

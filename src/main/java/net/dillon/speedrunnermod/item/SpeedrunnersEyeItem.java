@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,7 +8,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.StructureTags;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -61,7 +59,7 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                         itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.DESERT_PYRAMIDS);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 3.0F, 1.0F);
                         if (options().main.tutorialMode) {
-                            options().tutorialMode.completeStep(TutorialStep.CHANGED_SPEEDRUNNERS_EYE_LOCATOR, player, "speedrunnermod.tutorial_mode.changed_speedrunners_eye_locator");
+                            options().tutorialMode.completeStep(TutorialStep.CHANGE_SPEEDRUNNERS_EYE_LOCATOR, player, "speedrunnermod.tutorial_mode.use_speedrunners_eye");
                         }
                     } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.DESERT_PYRAMIDS)) {
                         itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.ANCIENT_CITIES);
@@ -86,9 +84,12 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                     player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), options().client.itemMessages.isActionbar());
 
                     if (options().main.tutorialMode) {
-                        options().tutorialMode.completeStep(TutorialStep.USED_SPEEDRUNNERS_EYE, player,
-                                "speedrunnermod.tutorial_mode.used_speedrunners_eye.easy",
-                                "speedrunnermod.tutorial_mode.obtain_dragons_pearl.easy");
+                        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                            options().tutorialMode.completeStep(TutorialStep.USE_SPEEDRUNNERS_EYE, player,
+                                    "speedrunnermod.tutorial_mode.craft_dragons_pearl", "speedrunnermod.tutorial_mode.dragons_pearl_recipe");
+                        } else {
+                            options().tutorialMode.completeStep(TutorialStep.USE_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.craft_ender_eye");
+                        }
                     }
 
                     if (!player.getAbilities().creativeMode) {

@@ -56,9 +56,9 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                             player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(30));
 
                             if (options().main.tutorialMode) {
-                                options().tutorialMode.completeStep(TutorialStep.USED_BLAZE_SPOTTER, player,
-                                        "speedrunnermod.tutorial_mode.used_blaze_spotter.easy",
-                                        "speedrunnermod.tutorial_mode.obtain_speedrunners_eye.easy");
+                                options().tutorialMode.completeStep(TutorialStep.USE_BLAZE_SPOTTER, player,
+                                        "speedrunnermod.tutorial_mode.used_blaze_spotter",
+                                        "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
                             }
 
                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
