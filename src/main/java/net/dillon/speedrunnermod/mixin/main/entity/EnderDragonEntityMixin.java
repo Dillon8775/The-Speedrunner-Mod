@@ -103,14 +103,15 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Override
     public void onDeath(DamageSource source) {
-        boolean bl = !options().tutorialMode.getStep(TutorialStep.USE_DRAGONS_PEARL);
+        boolean bl = !options().tutorialMode.getStep(TutorialStep.USE_DRAGONS_PEARL) && !options().main.playingMode.balanced();
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
         if ((options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
             this.setHealth(1.0F);
             if (livingEntity instanceof PlayerEntity player && bl) {
-                player.sendMessage(Text.translatable("speedrunnermod.tutorial_mode.use_dragons_pearl"), false);
+                options().tutorialMode.send("speedrunnermod.tutorial_mode.use_dragons_pearl", player);
             }
+            SpeedrunnerMod.error("nope");
         } else {
             if (options().main.tutorialMode && livingEntity instanceof PlayerEntity player) {
                 options().tutorialMode.completeStep(TutorialStep.KILL_DRAGON, player,
@@ -118,6 +119,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                                 "speedrunnermod.tutorial_mode.killed_dragon");
             }
             super.onDeath(source);
+            SpeedrunnerMod.error("nopey");
         }
     }
 

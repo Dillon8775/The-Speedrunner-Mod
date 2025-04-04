@@ -16,13 +16,17 @@ public interface TutorialMode {
     List<TutorialStep> EXCLUDED_EASY_MODE_STEPS = List.of(
             TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
             TutorialStep.CRAFT_SPEEDRUNNER_SHIELD,
+            TutorialStep.CRAFT_ENDER_EYE,
+            TutorialStep.USE_ENDER_EYE,
             TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
             TutorialStep.FREE_FALL_INTO_VOID,
             TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
             TutorialStep.KILL_GOLIATH,
             TutorialStep.KILL_WITHER
     );
-    List<TutorialStep> EXCLUDED_NORMAL_MODE_STEPS = List.of(
+    List<TutorialStep> EXCLUDED_BALANCED_MODE_STEPS = List.of(
+            TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
+            TutorialStep.CRAFT_SPEEDRUNNER_SHIELD,
             TutorialStep.CRAFT_PIGLIN_AWAKENER,
             TutorialStep.USE_PIGLIN_AWAKENER,
             TutorialStep.CRAFT_BLAZE_SPOTTER,
@@ -30,6 +34,11 @@ public interface TutorialMode {
             TutorialStep.CRAFT_DRAGONS_PEARL,
             TutorialStep.CRAFT_ANNUL_EYE,
             TutorialStep.USE_ANNUL_EYE,
+            TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
+            TutorialStep.FREE_FALL_INTO_VOID,
+            TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
+            TutorialStep.KILL_GOLIATH,
+            TutorialStep.KILL_WITHER,
             TutorialStep.USE_DRAGONS_PEARL,
             TutorialStep.OBTAIN_ENDER_THRUSTER,
             TutorialStep.USE_ENTER_THRUSTER,
@@ -42,6 +51,8 @@ public interface TutorialMode {
             TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
             TutorialStep.CRAFT_SPEEDRUNNER_SHIELD,
             TutorialStep.CRAFT_SPEEDRUNNERS_EYE,
+            TutorialStep.CHANGE_SPEEDRUNNERS_EYE_LOCATOR,
+            TutorialStep.USE_SPEEDRUNNERS_EYE,
             TutorialStep.CRAFT_DRAGONS_PEARL,
             TutorialStep.CRAFT_ANNUL_EYE,
             TutorialStep.CRAFT_SPEEDRUNNERS_WORKBENCH,
@@ -76,10 +87,13 @@ public interface TutorialMode {
      */
     @ChatGPT(Credit.PARTIAL_CREDIT)
     default boolean canComplete(TutorialStep step) {
+        if (!options().main.tutorialMode) {
+            return false;
+        }
         TutorialStep[] steps;
         List<TutorialStep> stepsList = new ArrayList<>(Arrays.stream(TutorialStep.values()).toList());
         if (options().main.playingMode.balanced()) {
-            for (TutorialStep excludedStep : EXCLUDED_NORMAL_MODE_STEPS) {
+            for (TutorialStep excludedStep : EXCLUDED_BALANCED_MODE_STEPS) {
                 stepsList.remove(excludedStep);
             }
         } else if (options().main.playingMode.doom()) {

@@ -53,8 +53,10 @@
   "speedrunnermod.tutorial_mode.craft_annul_eye": "§dNow, let's craft an §d§lEye of Annul,§r§d which teleports you right into the nearest stronghold's portal room! To do this, you will need an §9ender pearl, §eblaze powder, §dan §aender eye, §dand a §6fire charge.",
   "speedrunnermod.tutorial_mode.use_annul_eye": "§dAwesome! Now, right click to teleport! (make sure you have an §9ender pearl§d and a piece of §6blaze powder,§d in your inventory, because the §agatekeeper §drequires it...)",
 
-  "speedrunnermod.tutorial_mode.craft_ender_eye": "*type craft ender eye*",
+  "speedrunnermod.tutorial_mode.craft_ender_eye": "§aNice! Now, craft yourself an eye of ender.",
+  "speedrunnermod.tutorial_mode.use_ender_eye": "§aWhen using the eye of ender, it will tell you the exact distance of where the nearest stronghold is. Right-click to see!",
 
+  "speedrunnermod.tutorial_mode.enter_end.balanced": "§dNow find the portal room and enter the end!",
   "speedrunnermod.tutorial_mode.enter_end": "§d§lBAM!!!§r§d Now place the eyes of ender in the port- wait, there are a lot of eyes already in there... Not a problem! Fill the rest of the eyes and enter the end.",
 
   "speedrunnermod.tutorial_mode.entered_end.easy": "§dYou've made it to the dragon! Now, if you have beds, you can use those. If you want to do the old-style way with a bow and sword, you can do that as well. But remember, you got the §d§lDragon's Pearl,§r§d which means you can command the dragon to perch whenever you want! Craft more if you need to, good luck!",
@@ -85,6 +87,7 @@
 
   "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, let's go underground and find some §aexperience ore.",
 
+  "speedrunnermod.tutorial_mode.craft_speedrunners_workbench.doom": "",
   "speedrunnermod.tutorial_mode.craft_speedrunners_workbench": "§a§lBOOM!§r§a Now that we have some levels, craft a §bSpeedrunner's Workbench, §ausing §b2 speedrunner ingots §aand §b4 speedrunner planks, §ajust like you would craft a §7smithing table.",
   "speedrunnermod.tutorial_mode.speedrunners_workbench_description": "§bThe Speedrunner's Workbench acts just like a smithing table, however, it also allows you to transfer enchantments from one item to another. Let's try it out!",
 
@@ -273,7 +276,8 @@
   "item.speedrunnermod.dragons_pearl.cannot_find_dragon": "Couldn't find ender dragon within reasonable distance.",
   "item.speedrunnermod.dragons_pearl.wrong_dimension": "You must be in the end to use this item!",
 
-  "item.speedrunnermod.eye_of_annul.blocks_away": "The nearest %s is %s blocks away.",
+  "item.speedrunnermod.ender_eye.blocks_away": "The nearest %s is %s blocks away.",
+
   "item.speedrunnermod.eye_of_annul.found_portal_room": "The portal room has been found!",
   "item.speedrunnermod.eye_of_annul.couldnt_find_portal_room": "Couldn't find a portal room!",
   "item.speedrunnermod.eye_of_annul.doom_mode": "Haha... that doesn't work on doom mode! >:)",
@@ -301,7 +305,6 @@
   "item.speedrunnermod.state_of_the_art_item.disabled": "Disabled.",
 
   "block.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
-  "block.speedrunnermod.speedrunners_workbench.disabled": "This block is disabled on Balanced Mode.",
   "block.speedrunnermod.speedrunners_workbench.cost": "Transfer Cost: %s",
   "block.speedrunnermod.speedrunners_workbench.enchanted_tool": "Add item with enchantments that you want to transfer over.",
   "block.speedrunnermod.speedrunners_workbench.unenchanted_tool": "Add the item that you want the enchantments transferred to.",
@@ -523,7 +526,7 @@
   "speedrunnermod.title.options.main": "Main Options",
   "speedrunnermod.options.playing_mode": "Playing Mode",
   "speedrunnermod.options.playing_mode.easy": "§b§lEASY",
-  "speedrunnermod.options.playing_mode.normal": "§e§lBALANCED",
+  "speedrunnermod.options.playing_mode.balanced": "§e§lBALANCED",
   "speedrunnermod.options.playing_mode.doom": "§c§lDOOM",
   "speedrunnermod.options.playing_mode.tooltip": "The §b§lPlaying Mode§r allows certain features and items to be enabled.\n\n§lBy default,§r this is set to §bEasy. Easy mode§f enables §oall features,§r like §deye of annul, §5dragons pearl,§r §ddragons sword,§r etc.\n\n§eNormal mode§r disables those items, disables §aexperience ores§r from generating, and disables other features to make the game a little more balanced.\n\n§b§cDoom mode§r takes the mod's description and flips it §cupside down.§f §oGood luck ;)",
   "speedrunnermod.options.structure_spawn_rates": "Structure Spawn Rate",

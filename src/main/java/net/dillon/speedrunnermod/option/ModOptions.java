@@ -54,6 +54,7 @@ public class ModOptions {
         /**
          * Tutorial mode, takes the player through various different features in the mod.
          */
+        @RequiresRestart
         public boolean tutorialMode = false;
 
         /**
@@ -496,6 +497,8 @@ public class ModOptions {
         public boolean obtainedSpeedrunnersEye = false;
         public boolean changedSpeedrunnersEyeLocator = false;
         public boolean usedSpeedrunnersEye = false;
+        public boolean obtainedEnderEye = false;
+        public boolean usedEnderEye = false;
         public boolean obtainedDragonsPearl = false;
         public boolean obtainedAnnulEye = false;
         public boolean usedAnnulEye = false;
@@ -536,8 +539,10 @@ public class ModOptions {
                 case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye;
                 case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator;
                 case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye;
-                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl;
+                case USE_ENDER_EYE -> usedEnderEye;
                 case CRAFT_ANNUL_EYE -> obtainedAnnulEye;
+                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl;
+                case CRAFT_ENDER_EYE -> obtainedEnderEye;
                 case USE_ANNUL_EYE -> usedAnnulEye;
                 case ENTER_END -> enteredEnd;
                 case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem;
@@ -578,6 +583,8 @@ public class ModOptions {
                 case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye = value;
                 case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator = value;
                 case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye = value;
+                case CRAFT_ENDER_EYE -> obtainedEnderEye = value;
+                case USE_ENDER_EYE -> usedEnderEye = value;
                 case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl = value;
                 case CRAFT_ANNUL_EYE -> obtainedAnnulEye = value;
                 case USE_ANNUL_EYE -> usedAnnulEye = value;
@@ -1527,6 +1534,8 @@ public class ModOptions {
         options().tutorialMode.obtainedSpeedrunnersEye = false;
         options().tutorialMode.changedSpeedrunnersEyeLocator = false;
         options().tutorialMode.usedSpeedrunnersEye = false;
+        options().tutorialMode.obtainedEnderEye = false;
+        options().tutorialMode.usedEnderEye = false;
         options().tutorialMode.obtainedDragonsPearl = false;
         options().tutorialMode.obtainedAnnulEye = false;
         options().tutorialMode.usedAnnulEye = false;

@@ -16,6 +16,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @Environment(EnvType.CLIENT)
 public class RestartRequiredScreen extends AbstractModScreen {
+    public static boolean currentTutorialMode;
     public static boolean currentLeaderboardsMode;
     public static boolean currentBetterBiomes;
     public static ModOptions.PlayingMode currentPlayingMode;
@@ -109,6 +110,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     public static void getCurrentOptions() {
+        currentTutorialMode = options().main.tutorialMode;
         currentLeaderboardsMode = options().main.leaderboardsMode;
         currentBetterBiomes = options().main.betterBiomes;
         currentPlayingMode = options().main.playingMode;
@@ -133,7 +135,8 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     public static boolean needsRestart() {
-        return currentLeaderboardsMode != options().main.leaderboardsMode ||
+        return currentTutorialMode != options().main.tutorialMode ||
+                currentLeaderboardsMode != options().main.leaderboardsMode ||
                 currentBetterBiomes != options().main.betterBiomes ||
                 currentPlayingMode != options().main.playingMode ||
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
@@ -157,6 +160,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     private static void revertChanges() {
+        options().main.tutorialMode = currentTutorialMode;
         options().main.leaderboardsMode = currentLeaderboardsMode;
         options().main.betterBiomes = currentBetterBiomes;
         options().main.playingMode = currentPlayingMode;

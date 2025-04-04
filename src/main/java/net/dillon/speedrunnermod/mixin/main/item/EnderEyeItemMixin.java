@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.item;
 import net.dillon.speedrunnermod.item.StateOfTheArtItem;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
 import net.minecraft.registry.tag.StructureTags;
@@ -31,6 +32,9 @@ public class EnderEyeItemMixin implements StateOfTheArtItem {
         BlockPos blockPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, player.getBlockPos(), 100, false);
         BlockPos playerpos = player.getBlockPos();
         int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
-        player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.blocks_away", this.structureTexts(ModStructureTags.STRONGHOLDS), this.distanceFormatting(structureDistance)), options().client.itemMessages.isActionbar());
+        player.sendMessage(Text.translatable("item.speedrunnermod.ender_eye.blocks_away", this.structureTexts(ModStructureTags.STRONGHOLDS), this.distanceFormatting(structureDistance)), options().client.itemMessages.isActionbar());
+        if (options().main.tutorialMode) {
+            options().tutorialMode.completeStep(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
+        }
     }
 }

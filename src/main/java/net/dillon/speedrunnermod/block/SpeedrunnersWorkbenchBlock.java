@@ -42,11 +42,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (!world.isClient) {
-            if (!options().main.playingMode.balanced()) {
-                player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
-            } else {
-                player.sendMessage(Text.translatable("block.speedrunnermod.speedrunners_workbench.disabled"), false);
-            }
+            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
         }
 
         return ActionResult.SUCCESS;

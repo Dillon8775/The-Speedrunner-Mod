@@ -56,12 +56,10 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
 
                     if (options().main.tutorialMode) {
-                        if (options().main.playingMode.easy()) {
-                            options().tutorialMode.completeStep(TutorialStep.USE_INFERNO_EYE, player,
-                                    "speedrunnermod.tutorial_mode.used_inferno_eye",
-                                    options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
-                                            "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
-                        }
+                        options().tutorialMode.completeStep(TutorialStep.USE_INFERNO_EYE, player,
+                                "speedrunnermod.tutorial_mode.used_inferno_eye",
+                                options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
+                                        "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
                     }
 
                     if (!player.getAbilities().creativeMode) {
