@@ -158,6 +158,7 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_BULK);
                         entries.add(ModItems.ROTTEN_SPEEDRUNNER_BULK);
                         entries.add(ModItems.COOKED_FLESH);
+                        entries.add(ModItems.FLESH_BLOCK);
                     }).build());
 
     /**
@@ -280,6 +281,7 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.EXPERIENCE_ORE);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DEEPSLATE_EXPERIENCE_ORE);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.NETHER_EXPERIENCE_ORE);
+        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.FLESH_BLOCK);
 
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_STONE);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_LOG);

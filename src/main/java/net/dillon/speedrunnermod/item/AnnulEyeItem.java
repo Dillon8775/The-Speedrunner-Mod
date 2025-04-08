@@ -43,7 +43,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
         player.setCurrentHand(hand);
         if (!world.isClient) {
             if (world.getRegistryKey() == World.OVERWORLD) {
-                if (options().main.playingMode.easy()) {
+                if (!options().main.playingMode.balanced()) {
                     ItemStack enderEye = new ItemStack(Items.ENDER_EYE);
                     ItemStack enderPearl = new ItemStack(Items.ENDER_PEARL);
                     boolean hasEnderEye = player.getInventory().contains(enderEye);
@@ -70,9 +70,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
 
                                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                                if (options().main.tutorialMode) {
-                                    options().tutorialMode.completeStep(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
-                                }
+                                options().tutorialMode.completeStep(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
 
                                 if (!player.getAbilities().creativeMode) {
                                     itemStack.decrement(1);
@@ -119,7 +117,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                         }
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.LIGHT_PURPLE), false);
+                    player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
                     player.swingHand(hand, true);
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 0.5F);
                     itemStack.decrement(1);
@@ -172,7 +170,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
         if (options().client.itemTooltips) {
             tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1"));
             tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2"));
-            if (!options().main.playingMode.easy()) {
+            if (options().main.playingMode.balanced()) {
                 tooltip.set(1, tooltip.get(1).copy().formatted(Formatting.STRIKETHROUGH));
                 tooltip.set(2, tooltip.get(2).copy().formatted(Formatting.STRIKETHROUGH));
             }

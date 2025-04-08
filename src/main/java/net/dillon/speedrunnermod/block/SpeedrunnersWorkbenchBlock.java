@@ -14,8 +14,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
-
 /**
  * A block that allows transferring of enchantments to other items.
  * <p>Also used as the retired speedrunner's job site block</p>

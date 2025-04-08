@@ -91,11 +91,9 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                                     break;
                                                 }
                                             }
-                                            if (options().main.tutorialMode) {
-                                                options().tutorialMode.completeStep(TutorialStep.USE_PIGLIN_AWAKENER, player,
-                                                        "speedrunnermod.tutorial_mode.used_piglin_awakener",
-                                                        "speedrunnermod.tutorial_mode.craft_blaze_spotter");
-                                            }
+                                            options().tutorialMode.completeStep(TutorialStep.USE_PIGLIN_AWAKENER, player,
+                                                    "speedrunnermod.tutorial_mode.used_piglin_awakener",
+                                                    "speedrunnermod.tutorial_mode.craft_blaze_spotter");
                                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
                                         }
                                     }, ModUtil.millisecondsAsSeconds(2));

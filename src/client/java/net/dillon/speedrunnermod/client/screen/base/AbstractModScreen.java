@@ -4,8 +4,8 @@ import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
 import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
-import net.dillon.speedrunnermod.client.screen.feature.*;
-import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
+import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
+import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
@@ -69,7 +69,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).dimensions(this.getButtonsMiddle(), this.getDoneButtonsHeight(), 100, 20).build());
 
             this.resetOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET, (button) -> {
-                this.client.setScreen(new ResetOptionsConfirmScreen(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ResetOptionsConfirmScreen(this.parent, MinecraftClient.getInstance().options, false));
             }).dimensions(this.getButtonsRightSide(), this.getDoneButtonsHeight(), 100, 20).build());
 
             this.helpButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {

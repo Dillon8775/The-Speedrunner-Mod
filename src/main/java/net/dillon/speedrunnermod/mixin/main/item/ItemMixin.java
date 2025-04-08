@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
@@ -39,7 +38,7 @@ public class ItemMixin {
      */
     @Unique
     private void tutorialMode(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (options().main.tutorialMode && entity instanceof PlayerEntity player) {
+        if (entity instanceof PlayerEntity player) {
             if (stack.isOf(ModItems.SPEEDRUNNER_PICKAXE)) {
                 options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_PICKAXE, player,
                         "speedrunnermod.tutorial_mode.speedrunner_pickaxe_description",
@@ -86,8 +85,7 @@ public class ItemMixin {
             if (stack.isOf(ModItems.SPEEDRUNNERS_TOTEM)) {
                 options().tutorialMode.completeStep(TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM, player,
                         "speedrunnermod.tutorial_mode.speedrunners_totem_description",
-                        "speedrunnermod.tutorial_mode.kill_goliath",
-                        "speedrunnermod.tutorial_mode.goliath_description");
+                        "speedrunnermod.tutorial_mode.break_doom_block");
             }
 
             if (stack.isOf(ModItems.INFERNO_EYE)) {

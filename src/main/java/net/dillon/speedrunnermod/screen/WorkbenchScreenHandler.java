@@ -196,9 +196,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
     private void success(PlayerEntity player) {
         player.playSound(SoundEvents.BLOCK_SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.addExperienceLevels(this.levelCost.get());
-        if (options().main.tutorialMode) {
-            options().tutorialMode.completeStep(TutorialStep.TRANSFER_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.find_retired_speedrunner");
-        }
+        options().tutorialMode.completeStep(TutorialStep.TRANSFER_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.find_retired_speedrunner");
     }
 
     /**

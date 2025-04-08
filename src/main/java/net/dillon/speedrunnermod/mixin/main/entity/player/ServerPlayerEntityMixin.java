@@ -56,7 +56,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      */
     @Inject(method = "onSpawn", at = @At("TAIL"))
     private void sendTutorialMessage(CallbackInfo ci) {
-        if (options().main.tutorialMode && this.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
+        if (this.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
             options().tutorialMode.completeStep(TutorialStep.ENTER_WORLD, this,
                     "speedrunnermod.tutorial_mode.greeting",
                     "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe");

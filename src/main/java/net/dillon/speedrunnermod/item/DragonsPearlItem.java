@@ -39,7 +39,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (!world.isClient) {
-            if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+            if (!options().main.playingMode.balanced()) {
                 if (world.getRegistryKey() == World.END) {
                     List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlDragonDistanceXYZ[0], options().advanced.dragonsPearlDragonDistanceXYZ[1], options().advanced.dragonsPearlDragonDistanceXYZ[2]), entity -> true);
 
@@ -56,9 +56,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                                 public void run() {
                                     enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
-                                    if (options().main.tutorialMode) {
-                                        options().tutorialMode.completeStep(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
-                                    }
+                                    options().tutorialMode.completeStep(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
                                 }
                             }, ModUtil.millisecondsAsSeconds(2));
                             return ActionResult.SUCCESS;
@@ -84,7 +82,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                 }
                 player.swingHand(hand, true);
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.LIGHT_PURPLE), false);
+                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
                 player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 itemStack.decrement(1);

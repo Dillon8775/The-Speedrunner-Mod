@@ -17,7 +17,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -99,6 +98,21 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     }
 
     /**
+     * Checks if a wither and/or giant are alive every tick, for tutorial mode on doom mode.
+     */
+    @Override
+    public void tick() {
+        super.tick();
+        EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        PlayerEntity player = dragon.getWorld().getClosestPlayer(dragon, 300.0D);
+        if (!this.isGiantOrWitherAlive()) {
+            options().tutorialMode.completeStep(TutorialStep.KILL_WITHER, player,
+                    "speedrunnermod.tutorial_mode.wither_died",
+                    "speedrunnermod.tutorial_mode.kill_dragon");
+        }
+    }
+
+    /**
      * Stops the dragon from dying if there is a nearby wither and/or giant, only on doom mode.
      */
     @Override
@@ -111,15 +125,13 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             if (livingEntity instanceof PlayerEntity player && bl) {
                 options().tutorialMode.send("speedrunnermod.tutorial_mode.use_dragons_pearl", player);
             }
-            SpeedrunnerMod.error("nope");
         } else {
-            if (options().main.tutorialMode && livingEntity instanceof PlayerEntity player) {
+            if (livingEntity instanceof PlayerEntity player) {
                 options().tutorialMode.completeStep(TutorialStep.KILL_DRAGON, player,
                         options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
                                 "speedrunnermod.tutorial_mode.killed_dragon");
             }
             super.onDeath(source);
-            SpeedrunnerMod.error("nopey");
         }
     }
 

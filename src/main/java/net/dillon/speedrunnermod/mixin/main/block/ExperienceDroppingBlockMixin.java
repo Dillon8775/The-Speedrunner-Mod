@@ -67,7 +67,9 @@ public class ExperienceDroppingBlockMixin extends Block {
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 100, true);
         if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
-            options().tutorialMode.completeStep(TutorialStep.MINE_EXPERIENCE_ORE, player, "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
+            options().tutorialMode.completeStep(TutorialStep.MINE_EXPERIENCE_ORE, player,
+                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.transfer_enchantments" :
+                            "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
         }
     }
 

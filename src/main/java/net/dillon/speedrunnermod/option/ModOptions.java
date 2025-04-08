@@ -486,7 +486,7 @@ public class ModOptions {
         public boolean enterWorld = false;
         public boolean obtainedSpeedrunnerPickaxe = false;
         public boolean obtainedSpeedrunnerBoat = false;
-        public boolean obtainedSpeedrunnerArmor = false;
+        public boolean obtainedSpeedrunnerArmorSet = false;
         public boolean obtainedSpeedrunnerShield = false;
         public boolean obtainedInfernoEye = false;
         public boolean usedInfernoEye = false;
@@ -506,6 +506,7 @@ public class ModOptions {
         public boolean obtainedTotem = false;
         public boolean freeFalledIntoVoid = false;
         public boolean obtainedSpeedrunnersTotem = false;
+        public boolean brokenDoomBlock = false;
         public boolean killedGoliath = false;
         public boolean killedWither = false;
         public boolean usedDragonsPearl = false;
@@ -528,7 +529,7 @@ public class ModOptions {
                 case ENTER_WORLD -> enterWorld;
                 case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
                 case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
-                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor;
+                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet;
                 case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield;
                 case CRAFT_INFERNO_EYE -> obtainedInfernoEye;
                 case USE_INFERNO_EYE -> usedInfernoEye;
@@ -548,6 +549,7 @@ public class ModOptions {
                 case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem;
                 case FREE_FALL_INTO_VOID -> freeFalledIntoVoid;
                 case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem;
+                case BREAK_DOOM_BLOCK -> brokenDoomBlock;
                 case KILL_GOLIATH -> killedGoliath;
                 case KILL_WITHER -> killedWither;
                 case USE_DRAGONS_PEARL -> usedDragonsPearl;
@@ -572,7 +574,7 @@ public class ModOptions {
                 case ENTER_WORLD -> enterWorld = value;
                 case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
                 case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
-                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmor = value;
+                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet = value;
                 case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield = value;
                 case CRAFT_INFERNO_EYE -> obtainedInfernoEye = value;
                 case USE_INFERNO_EYE -> usedInfernoEye = value;
@@ -592,6 +594,7 @@ public class ModOptions {
                 case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem = value;
                 case FREE_FALL_INTO_VOID -> freeFalledIntoVoid = value;
                 case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem = value;
+                case BREAK_DOOM_BLOCK -> brokenDoomBlock = value;
                 case KILL_GOLIATH -> killedGoliath = value;
                 case KILL_WITHER -> killedWither = value;
                 case USE_DRAGONS_PEARL -> usedDragonsPearl = value;
@@ -1522,9 +1525,15 @@ public class ModOptions {
         options().mixins.logoDrawerMixin = true;
         options().mixins.renderLayersMixin = true;
 
+        resetAllTutorialModeOptions();
+    }
+
+    public static void resetAllTutorialModeOptions() {
         options().tutorialMode.enterWorld = false;
         options().tutorialMode.obtainedSpeedrunnerPickaxe = false;
         options().tutorialMode.obtainedSpeedrunnerBoat = false;
+        options().tutorialMode.obtainedSpeedrunnerArmorSet = false;
+        options().tutorialMode.obtainedSpeedrunnerShield = false;
         options().tutorialMode.obtainedInfernoEye = false;
         options().tutorialMode.usedInfernoEye = false;
         options().tutorialMode.obtainedPiglinAwakener = false;
@@ -1540,6 +1549,11 @@ public class ModOptions {
         options().tutorialMode.obtainedAnnulEye = false;
         options().tutorialMode.usedAnnulEye = false;
         options().tutorialMode.enteredEnd = false;
+        options().tutorialMode.obtainedTotem = false;
+        options().tutorialMode.freeFalledIntoVoid = false;
+        options().tutorialMode.obtainedSpeedrunnersTotem = false;
+        options().tutorialMode.killedGoliath = false;
+        options().tutorialMode.killedWither = false;
         options().tutorialMode.usedDragonsPearl = false;
         options().tutorialMode.killedDragon = false;
         options().tutorialMode.brokenExperienceOre = false;

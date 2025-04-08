@@ -15,16 +15,22 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
 
 @Environment(EnvType.CLIENT)
 public class ResetOptionsConfirmScreen extends AbstractModScreen {
+    private final boolean tutorial;
 
-    public ResetOptionsConfirmScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_OPTIONS_RESET);
+    public ResetOptionsConfirmScreen(Screen parent, GameOptions options, boolean tutorial) {
+        super(parent, options, tutorial ? ModTexts.TITLE_TUTORIAL_MODE_OPTIONS_RESET : ModTexts.TITLE_OPTIONS_RESET);
+        this.tutorial = tutorial;
     }
 
     @Override
     protected void init() {
         int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET_CONFIRM, (buttonWidget) -> {
-            ModOptions.resetAllOptions();
+            if (tutorial) {
+                ModOptions.resetAllTutorialModeOptions();
+            } else {
+                ModOptions.resetAllOptions();
+            }
             ModOptions.saveConfig();
             info("Successfully reset all options. Restart the game to take full effect.");
             this.client.setScreen(new ResetOptionsScreen(this.parent, MinecraftClient.getInstance().options));
@@ -41,7 +47,9 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.reset_options_confirm"), this.width / 2, 110, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable(
+                tutorial ? "speedrunnermod.reset_tutorial_mode_options_confirm" : "speedrunnermod.reset_options_confirm"),
+                this.width / 2, 110, 16777215);
     }
 
     @Override

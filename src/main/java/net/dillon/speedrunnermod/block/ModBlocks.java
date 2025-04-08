@@ -273,6 +273,11 @@ public class ModBlocks {
             .instrument(NoteBlockInstrument.BASEDRUM)
             .sounds(BlockSoundGroup.NETHER_ORE));
 
+    public static final Block FLESH_BLOCK = Blocks.register(of("flesh_block"), Block::new, AbstractBlock.Settings.create()
+            .strength(3.0F, 3.0F)
+            .slipperiness(1.01F)
+            .sounds(BlockSoundGroup.HONEY));
+
     public static final Block DOOM_STONE = Blocks.register(of("doom_stone"), DoomBlock.Default::new, Block.Settings.create()
             .requiresTool()
             .strength(1.5F, 3600000.0F)

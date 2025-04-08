@@ -75,12 +75,10 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
 
                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                            if (options().main.tutorialMode) {
-                                options().tutorialMode.completeStep(TutorialStep.USE_ENTER_THRUSTER, player,
-                                        "speedrunnermod.tutorial_mode.ender_thruster_description",
-                                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_wither_bone" :
-                                        "speedrunnermod.tutorial_mode.craft_dragons_sword");
-                            }
+                            options().tutorialMode.completeStep(TutorialStep.USE_ENTER_THRUSTER, player,
+                                    "speedrunnermod.tutorial_mode.ender_thruster_description",
+                                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_wither_bone" :
+                                            "speedrunnermod.tutorial_mode.craft_dragons_sword");
                         } else {
                             player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.confirm").formatted(Formatting.WHITE), false);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);

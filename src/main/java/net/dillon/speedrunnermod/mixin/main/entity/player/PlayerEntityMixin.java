@@ -143,8 +143,20 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.serverDamage(this.getDamageSources().generic(), Integer.MAX_VALUE);
                 this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
-                if (options().main.playingMode.doom() && options().main.tutorialMode) {
-                    options().tutorialMode.completeStep(TutorialStep.FREE_FALL_INTO_VOID, (PlayerEntity)(Object)this,
+                PlayerEntity player = (PlayerEntity) (Object)this;
+                if (!options().tutorialMode.getStep(TutorialStep.FREE_FALL_INTO_VOID)) {
+                    if (!player.getInventory().contains(Items.TOTEM_OF_UNDYING.getDefaultStack())) {
+                        player.getInventory().offerOrDrop(Items.TOTEM_OF_UNDYING.getDefaultStack());
+                    }
+                    if (!player.getInventory().contains(ModItems.SPEEDRUNNERS_EYE.getDefaultStack())) {
+                        player.getInventory().offerOrDrop(ModItems.SPEEDRUNNERS_EYE.getDefaultStack());
+                    }
+                    if (!player.getInventory().contains(ModItems.INFINI_PEARL.getDefaultStack())) {
+                        player.getInventory().offerOrDrop(ModItems.INFINI_PEARL.getDefaultStack());
+                    }
+                }
+                if (player instanceof ServerPlayerEntity serverPlayer) {
+                    options().tutorialMode.completeStep(TutorialStep.FREE_FALL_INTO_VOID, serverPlayer,
                             "speedrunnermod.tutorial_mode.craft_speedrunners_totem");
                 }
             }

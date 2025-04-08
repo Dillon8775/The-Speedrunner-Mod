@@ -52,8 +52,14 @@ public class ModOptionsScreen extends AbstractModScreen {
         }).build());
 
         this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
-            this.client.setScreen(new ResetOptionsConfirmScreen(this, options));
+            this.client.setScreen(new ResetOptionsConfirmScreen(this, options, false));
         }).build());
+
+        if (options().main.tutorialMode) {
+            this.buttons.add(7, ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
+                this.client.setScreen(new ResetOptionsConfirmScreen(this, options, true));
+            }).build());
+        }
 
         super.init();
     }
@@ -84,6 +90,11 @@ public class ModOptionsScreen extends AbstractModScreen {
         }
         if (this.buttons.get(6).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
+        }
+        if (options().main.tutorialMode) {
+            if (this.buttons.get(7).isHovered()) {
+                this.renderBasicTooltip(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
+            }
         }
         super.renderTooltips(context, mouseX, mouseY);
     }

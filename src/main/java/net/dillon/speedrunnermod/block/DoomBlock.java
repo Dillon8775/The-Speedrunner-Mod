@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -33,18 +34,21 @@ public class DoomBlock {
      * Does... stuff.
      */
     private static void whenBroken(World world, BlockPos pos, PlayerEntity player) {
+        boolean generatedItem = false;
         if (!player.getMainHandStack().isIn(ModItemTags.DOOM_STONE_SAFE_TOOLS)) {
             if (world.random.nextFloat() < 0.50F) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState());
+                generatedItem = true;
             }
 
             if (world.random.nextFloat() < 0.40F) {
-                for(int i = 0; i < world.random.nextInt(3) + 1; i++) {
+                for (int i = 0; i < world.random.nextInt(3) + 1; i++) {
                     ZombieEntity zombie = EntityType.ZOMBIE.create(world, SpawnReason.MOB_SUMMONED);
                     zombie.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
                     zombie.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                     world.spawnEntity(zombie);
                 }
+                generatedItem = true;
             } else if (world.random.nextFloat() < 0.25F) {
                 VindicatorEntity vindicator = EntityType.VINDICATOR.create(world, SpawnReason.MOB_SUMMONED);
                 ItemStack axe = new ItemStack(Items.IRON_AXE);
@@ -53,11 +57,13 @@ public class DoomBlock {
                 vindicator.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
                 vindicator.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(vindicator);
+                generatedItem = true;
             } else if (world.random.nextFloat() < 0.10F) {
                 RavagerEntity ravager = EntityType.RAVAGER.create(world, SpawnReason.MOB_SUMMONED);
                 ravager.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
                 ravager.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(ravager);
+                generatedItem = true;
             } else if (world.random.nextFloat() < 0.10F) {
                 PiglinBruteEntity brute = EntityType.PIGLIN_BRUTE.create(world, SpawnReason.MOB_SUMMONED);
                 ItemStack axe = new ItemStack(Items.GOLDEN_AXE);
@@ -67,11 +73,13 @@ public class DoomBlock {
                 brute.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
                 brute.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(brute);
+                generatedItem = true;
             } else if (world.random.nextFloat() < 0.05F) {
                 GhastEntity ghast = EntityType.GHAST.create(world, SpawnReason.MOB_SUMMONED);
                 ghast.setHealth(ghast.getMaxHealth() + 90.0F);
                 ghast.refreshPositionAndAngles(pos.getX() + 1.0F, pos.getY() + 1.5F, pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(ghast);
+                generatedItem = true;
             }
         }
 
@@ -132,6 +140,13 @@ public class DoomBlock {
 
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 3.0F, 1.0F);
             world.spawnEntity(item);
+            generatedItem = true;
+        }
+
+        if (generatedItem) {
+            options().tutorialMode.completeStep(TutorialStep.BREAK_DOOM_BLOCK, player,
+                    "speedrunnermod.tutorial_mode.kill_goliath",
+                    "speedrunnermod.tutorial_mode.goliath_description");
         }
     }
 

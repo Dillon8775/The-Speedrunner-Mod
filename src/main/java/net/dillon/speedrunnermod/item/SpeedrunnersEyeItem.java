@@ -2,7 +2,10 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.*;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

@@ -21,6 +21,7 @@ public interface TutorialMode {
             TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
             TutorialStep.FREE_FALL_INTO_VOID,
             TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
+            TutorialStep.BREAK_DOOM_BLOCK,
             TutorialStep.KILL_GOLIATH,
             TutorialStep.KILL_WITHER
     );
@@ -37,6 +38,7 @@ public interface TutorialMode {
             TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
             TutorialStep.FREE_FALL_INTO_VOID,
             TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
+            TutorialStep.BREAK_DOOM_BLOCK,
             TutorialStep.KILL_GOLIATH,
             TutorialStep.KILL_WITHER,
             TutorialStep.USE_DRAGONS_PEARL,
@@ -64,6 +66,7 @@ public interface TutorialMode {
             TutorialStep.OBTAIN_TOTEM_OF_UNDYING,
             TutorialStep.FREE_FALL_INTO_VOID,
             TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
+            TutorialStep.BREAK_DOOM_BLOCK,
             TutorialStep.KILL_GOLIATH,
             TutorialStep.KILL_WITHER,
             TutorialStep.USE_DRAGONS_PEARL,

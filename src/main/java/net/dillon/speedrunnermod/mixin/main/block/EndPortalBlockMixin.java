@@ -18,7 +18,7 @@ public class EndPortalBlockMixin {
 
     @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;detachForDimensionChange()V"))
     private void exitEndTutorialMode(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci) {
-        if (options().main.tutorialMode && entity instanceof ServerPlayerEntity player) {
+        if (entity instanceof ServerPlayerEntity player) {
             options().tutorialMode.send(
                     options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.exit_end.doom" :
                     "speedrunnermod.tutorial_mode.find_experience_ore", player);

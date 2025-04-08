@@ -34,6 +34,9 @@ public class ModTexts {
     public static final Text TITLE_OPTIONS_CLIENT = Text.translatable("speedrunnermod.title.options.client");
     public static final Text MENU_OPTIONS_RESET = Text.translatable("speedrunnermod.menu.options.reset");
     public static final Text TITLE_OPTIONS_RESET = Text.translatable("speedrunnermod.title.options.reset");
+    public static final Text MENU_TUTORIAL_MODE_OPTIONS_RESET = Text.translatable("speedrunnermod.menu.options.tutorial_mode.reset");
+    public static final Text TITLE_TUTORIAL_MODE_OPTIONS_RESET = Text.translatable("speedrunnermod.title.options.tutorial_mode.reset");
+    public static final Text MENU_TUTORIAL_MODE_OPTIONS_RESET_TOOLTIP = Text.translatable("speedrunnermod.menu.options.tutorial_mode.reset.tooltip");
     public static final Text MENU_OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.menu.options.tooltip");
     public static final Text MENU_OPTIONS_MAIN = Text.translatable("speedrunnermod.menu.options.main");
     public static final Text MENU_OPTIONS_MAIN_TOOLTIP = Text.translatable("speedrunnermod.menu.options.main.tooltip");

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "main.better_loot.OreDropsMixin",
+    "main.block.dispenser.DispenserBehaviorMixin",
     "main.block.AbstractBlockStateMixin",
     "main.block.BedBlockMixin",
     "main.block.BlockMixin",
@@ -13,6 +14,7 @@
     "main.block.FluidBlockMixin",
     "main.block.MobSpawnerLogicMixin",
     "main.block.RedstoneOreBlockMixin",
+    "main.block.SkullBlockMixin",
     "main.block.SpawnerBlockMixin",
     "main.command.argument.ItemStackArgumentTypeMixin",
     "main.enchantment.AnvilScreenHandlerMixin",

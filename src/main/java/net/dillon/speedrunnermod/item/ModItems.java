@@ -286,6 +286,7 @@ public class ModItems {
     public static final Item EXPERIENCE_ORE = Items.register(ModBlocks.EXPERIENCE_ORE, ExperienceOreItem::new);
     public static final Item DEEPSLATE_EXPERIENCE_ORE = Items.register(ModBlocks.DEEPSLATE_EXPERIENCE_ORE, ExperienceOreItem::new);
     public static final Item NETHER_EXPERIENCE_ORE = Items.register(ModBlocks.NETHER_EXPERIENCE_ORE, ExperienceOreItem::new);
+    public static final Item FLESH_BLOCK = Items.register(ModBlocks.FLESH_BLOCK);
     public static final Item DOOM_STONE = Items.register(ModBlocks.DOOM_STONE);
     public static final Item DOOM_LOG = Items.register(ModBlocks.DOOM_LOG);
     public static final Item STRIPPED_DOOM_LOG = Items.register(ModBlocks.STRIPPED_DOOM_LOG);

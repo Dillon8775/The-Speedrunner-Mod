@@ -33,8 +33,6 @@ public class EnderEyeItemMixin implements StateOfTheArtItem {
         BlockPos playerpos = player.getBlockPos();
         int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
         player.sendMessage(Text.translatable("item.speedrunnermod.ender_eye.blocks_away", this.structureTexts(ModStructureTags.STRONGHOLDS), this.distanceFormatting(structureDistance)), options().client.itemMessages.isActionbar());
-        if (options().main.tutorialMode) {
-            options().tutorialMode.completeStep(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
-        }
+        options().tutorialMode.completeStep(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
     }
 }
