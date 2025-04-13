@@ -35,15 +35,7 @@ public class ExternalScreen extends AbstractModScreen {
             this.openLink(ModLinks.WIKI, true);
         }).build());
 
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.YOUTUBE, (buttonWidget) -> {
-            this.openLink(ModLinks.DILLON8775_YOUTUBE, true);
-        }).build());
-
-        this.buttons.add(5, ButtonWidget.builder(ModTexts.DISCORD, (buttonWidget) -> {
-            this.openLink(ModLinks.DISCORD, false);
-        }).build());
-
-        this.buttons.add(6, ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
+        this.buttons.add(4, ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
             this.openLink(ModLinks.MOD_SHOWCASE_VIDEO, true);
         }).build());
 

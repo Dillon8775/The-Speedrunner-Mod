@@ -79,6 +79,10 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT);
 
+        getOrCreateTagBuilder(ModItemTags.FLESH)
+                .add(ModItems.COOKED_FLESH)
+                .add(Items.ROTTEN_FLESH);
+
         getOrCreateTagBuilder(ModItemTags.FIREPROOF_BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
                 .add(ModItems.CRIMSON_BOAT)

@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,6 +14,7 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 
 @Environment(EnvType.CLIENT)
@@ -27,6 +29,11 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
         super.init();
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
+        }).build());
+        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.restart_now"), button -> {
+            options().client.firstTimePlaying = false;
+            ModOptions.saveConfig();
+            this.client.scheduleStop();
         }).build());
     }
 

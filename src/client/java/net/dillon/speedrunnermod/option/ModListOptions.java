@@ -114,9 +114,6 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> FALL_DAMAGE = new SimpleOption<>("speedrunnermod.options.fall_damage", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fall_damage.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.fallDamage, value -> options().main.fallDamage = value);
 
-    public static final SimpleOption<Boolean> SOCIAL_BUTTONS = new SimpleOption<>("speedrunnermod.options.social_buttons", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.social_buttons.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.socialButtons, value -> options().client.socialButtons = value);
-
     public static final SimpleOption<Boolean> ARROWS_DESTROY_BEDS = new SimpleOption<>("speedrunnermod.options.arrows_destroy_beds", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.arrows_destroy_beds.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.arrowsDestroyBeds, value -> options().main.arrowsDestroyBeds = value);
 

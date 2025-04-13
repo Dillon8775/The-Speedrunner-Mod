@@ -1,0 +1,10 @@
+### There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lBalanced,§r§f and §c§lDoom.
+
+#### §b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.
+
+#### §e§lBalanced§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.
+
+#### §c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.
+
+## §a§lWhich mode do you want to play on?
+

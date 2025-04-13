@@ -248,9 +248,9 @@
   "item.speedrunnermod.infini_pearl.tooltip.line1": "An ender pearl that does not get",
   "item.speedrunnermod.infini_pearl.tooltip.line2": "consumed nor do damage upon use.",
 
-  "item.speedrunnermod.blaze_spotter.found_blaze_spawner": "Your blaze spawners await...",
+  "item.speedrunnermod.blaze_spotter.found_blaze_spawner": "The blazes await...",
   "item.speedrunnermod.blaze_spotter.confirm": "Do you wish to teleport to the nearest blaze spawner? Right-click to confirm.",
-  "item.speedrunnermod.blaze_spotter.couldnt_find_spawner": "Couldn't find blaze spawner within a reasonable distance!",
+  "item.speedrunnermod.blaze_spotter.couldnt_find_spawner": "Couldn't find a blaze spawner within a reasonable distance!",
   "item.speedrunnermod.blaze_spotter.wrong_dimension": "You must be in the nether to use this item!",
 
   "item.speedrunnermod.piglin_awakener.got_piglins": "The piglins are waiting to be unleashed...",
@@ -278,7 +278,7 @@
   "item.speedrunnermod.dragons_pearl.cannot_find_dragon": "Couldn't find ender dragon within reasonable distance.",
   "item.speedrunnermod.dragons_pearl.wrong_dimension": "You must be in the end to use this item!",
 
-  "item.speedrunnermod.ender_eye.blocks_away": "The nearest %s is %s blocks away.",
+  "item.speedrunnermod.eye.blocks_away": "The nearest %s is %s blocks away.",
 
   "item.speedrunnermod.eye_of_annul.found_portal_room": "The portal room has been found!",
   "item.speedrunnermod.eye_of_annul.couldnt_find_portal_room": "Couldn't find a portal room!",
@@ -296,7 +296,6 @@
   "item.speedrunnermod.item_disabled": "This item only works on §b§leasy§r mode.",
   "item.speedrunnermod.item_disabled_twomode": "This item only works on §b§leasy§r mode or §c§ldoom§r mode.",
 
-  "item.speedrunnermod.speedrunners_eye.blocks_away": "The nearest %s is %s blocks away.",
   "item.speedrunnermod.speedrunners_eye.wrong_dimension": "You must be in the overworld to use this item!",
 
   "item.speedrunnermod.eye.looking_for": "Now looking for a %s.",
@@ -363,6 +362,7 @@
   "block.speedrunnermod.nether_experience_ore": "Nether Experience Ore",
   "block.speedrunnermod.experience_ore.tooltip.line1": "Drops a bunch of experience",
   "block.speedrunnermod.experience_ore.tooltip.line2": "when mined.",
+  "block.speedrunnermod.flesh_block": "Flesh Block",
   "block.speedrunnermod.doom_stone": "Doom Stone",
   "block.speedrunnermod.doom_log": "Doom Log",
   "block.speedrunnermod.stripped_doom_log": "Stripped Doom Log",
@@ -440,6 +440,7 @@
 
   "entity.minecraft.villager.retired_speedrunner": "Retired Speedrunner",
   "entity.minecraft.giant.speedrunner_mod": "Goliath",
+  "entity.minecraft.giant": "Goliath",
   "entity.speedrunnermod.speedrunner_chest_boat": "Speedrunner Boat with Chest",
   "entity.speedrunnermod.dead_speedrunner_chest_boat": "Dead Speedrunner Boat with Chest",
   "entity.speedrunnermod.crimson_chest_boat": "Crimson Boat with Chest",
@@ -449,7 +450,7 @@
 
   "speedrunnermod.title.safe_mode": "Safe Mode",
   "speedrunnermod.options.error.line1": "The Speedrunner Mod has detected invalid or broken options.",
-  "speedrunnermod.options.error.line2": "Would you like to fix these options to prevent any futher issues?",
+  "speedrunnermod.options.error.line2": "Would you like to fix these options to prevent any further issues?",
 
   "speedrunnermod.menu.leaderboards.rules": "Rules...",
   "speedrunnermod.title.leaderboards.rules": "Rules",
@@ -666,8 +667,6 @@
   "speedrunnermod.options.item_messages.chat": "§aChat",
   "speedrunnermod.options.item_messages.actionbar": "§cActionbar",
   "speedrunnermod.options.item_messages.tooltip": "Choose whether certain messages are sent to the §lchat§r or the §lactionbar§r (located above your hotbar).",
-  "speedrunnermod.options.social_buttons": "Social Buttons",
-  "speedrunnermod.options.social_buttons.tooltip": "Display the external link buttons across different screens.",
   "speedrunnermod.options.show_death_cords": "Show Death Cords",
   "speedrunnermod.options.show_death_cords.tooltip": "Sends the players coordinates to chat upon death, and displays them on the death screen.",
   "speedrunnermod.options.confirm_messages": "Confirmation Messages",

@@ -963,6 +963,14 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_wither_bone", this.conditionsFromItem(ModItems.WITHER_BONE))
                         .offerTo(this.exporter);
 
+                this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModItems.FLESH_BLOCK)
+                        .input('#', ModItemTags.FLESH)
+                        .pattern("###")
+                        .pattern("###")
+                        .pattern("###")
+                        .criterion("has_flesh_item", this.conditionsFromTag(ModItemTags.FLESH))
+                        .offerTo(this.exporter);
+
                 this.createShaped(RecipeCategory.MISC, Blocks.OAK_PLANKS)
                         .input('/', Items.STICK)
                         .pattern("//")
@@ -993,8 +1001,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShapeless(RecipeCategory.COMBAT, ModItems.SPEEDRUNNERS_TOTEM)
                         .input(Items.TOTEM_OF_UNDYING)
-                        .input(ModItems.SPEEDRUNNERS_EYE)
-                        .input(ModItems.INFINI_PEARL)
+                        .input(ModItems.ENDER_MATTER)
                         .criterion("has_totem", this.conditionsFromItem(Items.TOTEM_OF_UNDYING))
                         .offerTo(this.exporter);
             }

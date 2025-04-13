@@ -295,11 +295,6 @@ public class ModOptions {
         public boolean confirmMessages = false;
 
         /**
-         * Display the external link buttons across different screens.
-         */
-        public boolean socialButtons = false;
-
-        /**
          * Create a new world with just one click.
          */
         public boolean fastWorldCreation = true;
@@ -1473,7 +1468,6 @@ public class ModOptions {
         options().client.customPanorama = true;
         options().client.itemMessages = ModOptions.ItemMessages.ACTIONBAR;
         options().client.confirmMessages = false;
-        options().client.socialButtons = false;
         options().client.fastWorldCreation = true;
         options().client.gameMode = ModOptions.GameMode.SURVIVAL;
         options().client.difficulty = ModOptions.Difficulty.EASY;

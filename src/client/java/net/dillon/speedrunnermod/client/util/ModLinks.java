@@ -14,10 +14,6 @@ public class ModLinks {
     public static final String MODRINTH = "https://modrinth.com/mod/speedrunner-mod";
     public static final String GITHUB = "https://github.com/Dillon8775/Speedrunner-Mod";
     public static final String WIKI = "https://sites.google.com/view/dillon8775/the-speedrunner-mod";
-    public static final String DILLON8775_YOUTUBE = "https://www.youtube.com/@dillon8775";
-    public static final String MANNYQUESO_YOUTUBE = "https://www.youtube.com/@mannyqueso";
-    public static final String NUZLAND_YOUTUBE = "https://www.youtube.com/@chargeblader9305";
-    public static final String DISCORD = "https://discord.gg/5NHuMAN4Uq";
     public static final String MOD_SHOWCASE_VIDEO = "https://youtu.be/u37ujBiCMCw";
     public static final String LEADERBOARDS = "https://sites.google.com/view/dillon8775/leaderboards";
     public static final String LEADERBOARDS_SUBMISSION = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScnw-e4gkYyHGEVztWY-DLmm64jIbnqLw_LCIBkF2uQFfqVTg/viewform";

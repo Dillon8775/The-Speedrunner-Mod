@@ -1,0 +1,88 @@
+# §a§lBLOCKS AND ITEMS
+
+- §b§lSpeedrunner tools, armor, §f§rand §b§lweapons. §r§fAll better than iron, but worse than §9diamond. However, they're faster than both §liron §rand §9diamond.
+
+- §b§lSpeedrunner boots §rallow the player to §lmove faster §rin §6§llava §rand §9§lwater. §rThey also prevent §9§lsculk sensors §rfrom sounding off.
+
+- §b§lSpeedrunner Ingots, blocks, nuggets §rand §b§lores. §rThey're all just about as common, if not more common, than §liron.
+
+- §b§lSpeedrunner bow, crossbow, shears, flint and steel, §rand §b§lshield. §rAll better than the vanilla weapons and tools.
+
+- §6§lGolden Speedrunner Tools, armor §rand §6§lweapons. §rBetter than §egold, §rand faster than all tools. Wearing this armor will also protect you from piglins.
+
+- §c§lEye of Inferno: §rpoints to the nearest §cnether fortress §rand/or §7bastion, §ryou get to choose which structure it locates.
+
+- §d§lEye of Annul: §rteleports the player directly to the §anearest stronghold portal room.
+
+- §b§lSpeedrunner's Eye: §rpoints and gives the exact location of overworld structures.
+
+- §d§lDragon's Pearl: §rperches the ender dragon.
+
+- §5§lDragon's Sword: §rone-shots the ender dragon.
+
+- §e§lPiglin Awakener: §rteleports nearby piglin to the player (up to 10 per use, does not teleport baby and/or named piglin).
+
+- §6§lBlaze Spotter: §rteleports the player to the nearest blaze spawner.
+
+- §9§lEnder Thruster: §rteleports the player to the surface, or the highest available air block.
+
+- §7§lRaid Eradicator: §rkills nearby raider entities, at the cost of the player's health.
+
+- §7§lWither Bones: §rbones crafted with §l2 normal bones §rand §7§l2 pieces of coal.
+
+- §7§lWither Sword: §rhas a chance to one-shot wither skeletons, and §lguarantees §ra wither skeleton skull.
+
+- §7§lIgneous Rocks: §ran ore that can be found underground, which can be used to craft obsidian.
+
+- §b§lSpeedrunner Bulk: §ra rare-ish food item that gives a bunch of positive potion effects.
+
+- §4§lRotten Speedrunner Bulk: §rthe worst food item in the mod. Just don't eat it.
+
+- §aNew wood type, §b§lSpeedrunner wood, §rbetter than normal wood and can be §lbroken faster.
+
+- §b§lSpeedrunner Wood §rcan be used as a §lfuel source, §rbut §ocannot §rbe burnt from §6§lfire §ror §6§llava.
+
+- §b§lSpeedrunner Boats §rcan be §6§lridden in lava.
+
+- New §c§lcrimson §rand §9§lwarped boats §rthat can also be §6§lridden in lava.
+
+- §b§lSpeedrunner Boats §rare §lfaster §rthan all other boats.
+
+- §3§lDead Speedrunner Wood, §rwhich is pretty much the same as normal §bspeedrunner wood, §rwith a few exceptions.
+
+- §3§lDead Speedrunner Boat §rvariant, which can §c§lnot §rbe ridden in §6lava, §rhowever they are still §lfaster §rthan other boats.
+
+- §aA new block, §rcalled the §b§lSpeedrunner's Workbench, which §dtransfers enchantments §rfrom §aone item §rto §banother.
+
+- §aA new villager profession, §rcalled the §b§lRetired Speedrunner, §rwhich sell §dextremely overpowered items §rsuch as §denchanted books, §bpotions, §aetc., §rfor §aextremely low prices. §rTo give it the job, place down a §b§lSpeedrunner's Workbench.
+
+- §b§lReinforced speedrunner doors §rand §b§ltrapdoors, §rwhich act like §liron.
+
+- §lRotten flesh §rcan be cooked into §e§lcooked flesh. §rZombies, drowned, husks, etc. will also drop cooked flesh if they die by §6fire §ror §6lava.
+
+- §lPiglins drop food, §rcalled §6§lPiglin Pork.
+
+- An option for §lfireproof items. §e§lBlaze rods, blaze powder §rand §6§lfire charges §rare §limmune §rto §6§lfire.
+
+
+# §a§lWORLDGEN
+
+- §lFully configurable §rwith different modes and options.
+
+- §lStructures §rof almost all types §lgenerate more commonly §r(configurable).
+
+- Biomes such as §lplains, deserts, §rand §lsavannas generate more commonly §r(configurable).
+
+- §aA new biome, §rcalled the §b§lSpeedrunner's Wasteland. §rGreat for speedrunning, because ores are more commony, enderman spawn more often, and all other mobs spawn less in this biome.
+
+- §aA new ore, §rcalled §a§lExperience Ore, §rwhich drops a §a§lbunch of XP §rwhen mined. The amount of XP dropped can be §bmultiplied §rif mined in the §b§lSpeedrunner's Wasteland §r§lbiome, §ror if the player has the §d§lfortune enchantment.
+
+- §b§lSpeedrunner Bushes §rthat will generate in §ldeserts, badlands, §rand §lswamps.
+
+- Almost §aall loot tables §rhave been §b§lbuffed.
+
+- §9§lDiamonds, §1§llapis, §rand §6§lancient debris §r§lgenerate more commonly §r(configurable).
+
+- §6§lPiglin Brutes §rdon't spawn naturally anymore.
+
+- §aStrongholds §rand §cNether Fortresses §r§lgenerate differently, §rbut in a §ogood way. §rStrongholds are very small, making §

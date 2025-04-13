@@ -9,7 +9,6 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModIcons {
     public static final Identifier SPEEDRUNNER_MOD_ICON = ofSpeedrunnerMod("textures/gui/icon.png");
-    public static final Identifier DISCORD_ICON = ofSpeedrunnerMod("textures/gui/button/discord.png");
     public static final Identifier WIKI_ICON = ofSpeedrunnerMod("textures/gui/button/wiki.png");
     public static final Identifier DILLON8775_ICON = ofSpeedrunnerMod("textures/people/dillon8775.png");
     public static final Identifier MANNYQUESO_ICON = ofSpeedrunnerMod("textures/people/mannyqueso.png");

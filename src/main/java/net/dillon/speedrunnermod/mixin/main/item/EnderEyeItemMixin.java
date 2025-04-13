@@ -8,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +31,7 @@ public class EnderEyeItemMixin implements StateOfTheArtItem {
         BlockPos blockPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, player.getBlockPos(), 100, false);
         BlockPos playerpos = player.getBlockPos();
         int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
-        player.sendMessage(Text.translatable("item.speedrunnermod.ender_eye.blocks_away", this.structureTexts(ModStructureTags.STRONGHOLDS), this.distanceFormatting(structureDistance)), options().client.itemMessages.isActionbar());
+        player.sendMessage(this.locationText(structureDistance, this.structureTexts(ModStructureTags.STRONGHOLDS)), options().client.itemMessages.isActionbar());
         options().tutorialMode.completeStep(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
     }
 }

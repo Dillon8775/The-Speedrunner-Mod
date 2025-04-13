@@ -38,7 +38,7 @@ public class TitleScreenMixin extends Screen {
     @Shadow
     private long backgroundFadeStart;
     @Unique
-    private ButtonWidget featuresButton, createWorldButton, optionsButton, discordButton, wikiButton, dillon8775YouTubeButton, nuzlandYouTubeButton, mannyQuesoYouTubeButton;
+    private ButtonWidget featuresButton, createWorldButton, optionsButton, wikiButton;
 
     public TitleScreenMixin(Text title) {
         super(title);
@@ -64,44 +64,6 @@ public class TitleScreenMixin extends Screen {
             this.client.setScreen(new MainScreen(this, MinecraftClient.getInstance().options));
         }).dimensions(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
 
-        if (options().client.socialButtons) {
-            this.dillon8775YouTubeButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
-                    if (openInBrowser) {
-                        Util.getOperatingSystem().open(ModLinks.DILLON8775_YOUTUBE);
-                    }
-                    this.client.setScreen(this);
-                }, ModLinks.DILLON8775_YOUTUBE, true));
-            }).dimensions(this.width / 2 + 104, this.height / 4 + 48, 20, 20).build());
-
-            this.nuzlandYouTubeButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
-                    if (openInBrowser) {
-                        Util.getOperatingSystem().open(ModLinks.NUZLAND_YOUTUBE);
-                    }
-                    this.client.setScreen(this);
-                }, ModLinks.NUZLAND_YOUTUBE, true));
-            }).dimensions(this.width / 2 + 104, this.height / 4 + 72, 20, 20).build());
-
-            this.mannyQuesoYouTubeButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
-                    if (openInBrowser) {
-                        Util.getOperatingSystem().open(ModLinks.MANNYQUESO_YOUTUBE);
-                    }
-                    this.client.setScreen(this);
-                }, ModLinks.MANNYQUESO_YOUTUBE, true));
-            }).dimensions(this.width / 2 + 104, this.height / 4 + 96, 20, 20).build());
-        }
-
-        this.discordButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-            this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
-                if (openInBrowser) {
-                    Util.getOperatingSystem().open(ModLinks.DISCORD);
-                }
-                this.client.setScreen(this);
-            }, ModLinks.DISCORD, false));
-        }).dimensions(options().client.socialButtons ? this.width / 2 + 128 : this.width / 2 + 104, this.height / 4 + 72, 20, 20).build());
-
         this.wikiButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
             this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
                 if (openInBrowser) {
@@ -109,7 +71,7 @@ public class TitleScreenMixin extends Screen {
                 }
                 this.client.setScreen(this);
             }, ModLinks.WIKI, true));
-        }).dimensions(options().client.socialButtons ? this.width / 2 + 128 : this.width / 2 + 104, this.height / 4 + 96, 20, 20).build());
+        }).dimensions(this.width / 2 + 104, this.height / 4 + 96, 20, 20).build());
     }
 
     /**
@@ -125,15 +87,6 @@ public class TitleScreenMixin extends Screen {
 
         context.drawTexture(RenderLayer::getGuiTextured, ModIcons.SPEEDRUNNER_MOD_ICON, optionsButton.getX() + 1, optionsButton.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18);
 
-        if (options().client.socialButtons) {
-            context.drawTexture(RenderLayer::getGuiTextured, ModIcons.DILLON8775_ICON, dillon8775YouTubeButton.getX() + 1, dillon8775YouTubeButton.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18);
-
-            context.drawTexture(RenderLayer::getGuiTextured, ModIcons.NUZLAND_ICON, nuzlandYouTubeButton.getX() + 1, nuzlandYouTubeButton.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18);
-
-            context.drawTexture(RenderLayer::getGuiTextured, ModIcons.MANNYQUESO_ICON, mannyQuesoYouTubeButton.getX() + 1, mannyQuesoYouTubeButton.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18);
-        }
-
-        context.drawTexture(RenderLayer::getGuiTextured, ModIcons.DISCORD_ICON, discordButton.getX() + 2, discordButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
         context.drawTexture(RenderLayer::getGuiTextured, ModIcons.WIKI_ICON, wikiButton.getX() + 2, wikiButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
 
         this.renderTooltips(context, mouseX, mouseY);
@@ -159,24 +112,6 @@ public class TitleScreenMixin extends Screen {
 
         if (this.optionsButton.isHovered()) {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
-        }
-
-        if (options().client.socialButtons) {
-            if (this.dillon8775YouTubeButton.isHovered()) {
-                context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.DILLON8775_YOUTUBE_TOOLTIP, 200), mouseX, mouseY);
-            }
-
-            if (this.nuzlandYouTubeButton.isHovered()) {
-                context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.NUZLAND_YOUTUBE_TOOLTIP, 200), mouseX, mouseY);
-            }
-
-            if (this.mannyQuesoYouTubeButton.isHovered()) {
-                context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.MANNYQUESO_YOUTUBE_TOOLTIP, 200), mouseX, mouseY);
-            }
-        }
-
-        if (this.discordButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.DISCORD_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.wikiButton.isHovered()) {

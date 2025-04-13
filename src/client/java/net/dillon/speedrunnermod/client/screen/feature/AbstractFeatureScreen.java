@@ -86,7 +86,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
 
         // A starter feature screen (or the first page of a certain category of features)
         // consists of only a "Next" and "Done" button
-        if (this.getScreenType() != ScreenType.FINAL && this.getScreenType() != ScreenType.END) {
+        if (this.getScreenType() != ScreenType.FINAL && this.getScreenType() != ScreenType.END && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
             this.nextButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.NEXT, button -> {
                 this.client.setScreen(this.getNextScreen());
             }).dimensions(this.getButtonsRightSide() + 100, this.getDoneButtonsHeight(), 20, 20).build());
@@ -94,7 +94,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
 
         // A normal feature screen, which is any page between the first and last page of a certain category of features,
         // consists of a "Next", "Previous" and "Done" button
-        if (this.getScreenType() != ScreenType.STARTER) {
+        if (this.getScreenType() != ScreenType.STARTER && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
             this.previousButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PREVIOUS, button -> {
                 this.client.setScreen(this.getPreviousScreen());
             }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonsHeight(), 20, 20).build());
@@ -241,7 +241,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     @Override
     protected int getRefreshButtonWidth() {
-        return this.getScreenType() != ScreenType.STARTER ? this.getButtonsLeftSide() + 5 : super.getRefreshButtonWidth();
+        return this.getScreenType() != ScreenType.STARTER && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING ? this.getButtonsLeftSide() + 5 : super.getRefreshButtonWidth();
     }
 
     /**

@@ -21,7 +21,7 @@ public interface StateOfTheArtItem {
      */
     default Text locationText(int structureDistance, Text structureTexts) {
         Text distance = Text.translatable("item.speedrunnermod.eye.distance", structureDistance).formatted(this.distanceFormatting(structureDistance));
-        return Text.translatable("item.speedrunnermod.speedrunners_eye.blocks_away", structureTexts, distance);
+        return Text.translatable("item.speedrunnermod.eye.blocks_away", structureTexts, distance);
     }
 
     /**

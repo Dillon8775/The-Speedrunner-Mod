@@ -15,6 +15,7 @@ public class ModItemTags {
     public static TagKey<Item> DRAGON_TOOL_MATERIALS = of("dragon_tool_materials");
     public static TagKey<Item> FASTER_BOATS = of("faster_boats");
     public static TagKey<Item> FASTER_CHEST_BOATS = of("faster_chest_boats");
+    public static TagKey<Item> FLESH = of("flesh");
     public static TagKey<Item> FIREPROOF_BOATS = of("fireproof_boats");
     public static TagKey<Item> FIREPROOF_CHEST_BOATS = of("fireproof_chest_boats");
     public static TagKey<Item> FIREPROOF_ITEMS = of("fireproof_items");
