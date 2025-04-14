@@ -245,14 +245,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
-     * Correct screen parent.
-     */
-    @Override
-    protected void doneButtonFunction() {
-        this.close();
-    }
-
-    /**
      * No page ID's for feature screens, we use page numbers instead.
      */
     @Override

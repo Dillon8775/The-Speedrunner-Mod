@@ -87,7 +87,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.buttonList.addAll(this.buttons);
                 this.addSelectableChild(this.buttonList);
             }
-            this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.doneButtonFunction()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
+            this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
             this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 // Check what to refresh correctly
                 if (this instanceof AbstractChangelogScreen changelogScreen) {
@@ -261,13 +261,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected void initializeCustomButtonListWidget() {
         this.buttonList = this.addDrawableChild(new CustomButtonListWidget(this.client, this.width, this));
         this.clearButtons();
-    }
-
-    /**
-     * The function for the {@code "done"} button.
-     */
-    protected void doneButtonFunction() {
-        this.client.setScreen(this.parent);
     }
 
     /**

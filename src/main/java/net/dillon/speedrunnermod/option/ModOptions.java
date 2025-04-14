@@ -1248,7 +1248,7 @@ public class ModOptions {
         File file = getConfigFile();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(GSON.toJson(SpeedrunnerMod.options()));
-            SpeedrunnerMod.info("Saved changes.");
+            SpeedrunnerMod.info("Flushed changes.");
         } catch (Exception e) {
             e.printStackTrace();
         }

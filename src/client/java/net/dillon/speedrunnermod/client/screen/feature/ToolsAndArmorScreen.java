@@ -22,11 +22,6 @@ public class ToolsAndArmorScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void doneButtonFunction() {
-        this.close();
-    }
-
-    @Override
     protected String pageId() {
         return "gfnipiads";
     }

@@ -32,4 +32,9 @@ public class AllFeaturesScreen extends AbstractScrollableScreen {
     public void close() {
         this.client.setScreen(new FeaturesScreen(this.parent, this.options));
     }
+
+    @Override
+    protected boolean shouldRenderVersionText() {
+        return true;
+    }
 }

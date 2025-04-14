@@ -22,11 +22,6 @@ public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void doneButtonFunction() {
-        this.close();
-    }
-
-    @Override
     public void close() {
         if (fromInitialBoot) {
             this.client.setScreen(new LeaderboardsSafeScreen(this.parent, this.options));

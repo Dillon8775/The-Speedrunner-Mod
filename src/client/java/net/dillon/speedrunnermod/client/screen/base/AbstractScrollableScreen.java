@@ -34,7 +34,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 @Environment(EnvType.CLIENT)
 public abstract class AbstractScrollableScreen extends AbstractModScreen {
     protected final Screen parent;
-    public final List<ObjectToDisplay> objectsToDisplay = new ArrayList<>();
+    public final List<LineObject> objectsToDisplay = new ArrayList<>();
     private final int scrollSpeed = 12;
     private float scrollOffset;
     private float targetScrollOffset;
@@ -55,14 +55,14 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     @ChatGPT(Credit.FULL_CREDIT)
     private void loadAndPrintText(Identifier path) {
         if (path == null && !this.hasChangelogFile() && this instanceof AbstractChangelogScreen) {
-            this.objectsToDisplay.add(new ObjectToDisplay(Text.literal("See webpage for this changelog."), 1.0F, null, 0, 0, null));
+            this.objectsToDisplay.add(new LineObject(Text.literal("See webpage for this changelog."), 1.0F, null, 0, 0, null));
             return;
         }
         try (BufferedReader reader = new BufferedReader(this.client.getResourceManager().openAsReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) {
-                    this.objectsToDisplay.add(new ObjectToDisplay(Text.literal(" "), 1.0F, null, 0, 0, null));
+                    this.objectsToDisplay.add(new LineObject(Text.literal(" "), 1.0F, null, 0, 0, null));
                     continue;
                 }
 
@@ -81,7 +81,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Parses a line, detecting headers ("#") and applying scaled formatting.
      */
     @ChatGPT(Credit.FULL_CREDIT)
-    private ObjectToDisplay parseLine(String line) {
+    private LineObject parseLine(String line) {
         // Handle image line with optional scale
         if (line.startsWith("!image:")) {
             String imageLine = line.substring("!image:".length()).trim();
@@ -114,14 +114,14 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 int scaledWidth = (int)(originalWidth * scale);
                 int scaledHeight = (int)(originalHeight * scale);
 
-                return new ObjectToDisplay(null, 1.0F, imageId, scaledWidth, scaledHeight, null);
+                return new LineObject(null, 1.0F, imageId, scaledWidth, scaledHeight, null);
             } catch (IOException e) {
                 if (e instanceof FileNotFoundException) {
                     SpeedrunnerMod.error("No image file found in referencing text file " + this.getClass().getSimpleName() + ": " + imageId);
                 } else {
                     e.printStackTrace();
                 }
-                return new ObjectToDisplay(Text.literal("[Image Load Failed]"), 1.0F, null, 0, 0, null);
+                return new LineObject(Text.literal("[Image Load Failed]"), 1.0F, null, 0, 0, null);
             }
         }
 
@@ -143,7 +143,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         String content = line.substring(headingLevel).stripLeading();
         Text formatted = this.parseLegacyFormattedText(content);
 
-        return new ObjectToDisplay(formatted, scale, null, 0, 0, null);
+        return new LineObject(formatted, scale, null, 0, 0, null);
     }
 
     /**
@@ -203,7 +203,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Gets the wrap width for wrapping text.
      */
-    private int getWrapWidth(ObjectToDisplay line) {
+    private int getWrapWidth(LineObject line) {
         if (line.scale == 2.0F) {
             return 185;
         } else if (line.scale == 1.5F) {
@@ -226,7 +226,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     private int getTotalContentHeight() {
         int totalHeight = 0;
 
-        for (ObjectToDisplay line : this.objectsToDisplay) {
+        for (LineObject line : this.objectsToDisplay) {
             if (line.isImage()) {
                 totalHeight += line.imageHeight + 16;
             } else if (line.isButton()) {
@@ -275,7 +275,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
         loadAndPrintText(!this.hasChangelogFile() && this instanceof AbstractChangelogScreen ? null : ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> this.doneButtonFunction()).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> this.close()).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
         super.init();
     }
 
@@ -303,7 +303,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         int contentHeight = getTotalContentHeight();
         double y = top - this.scrollOffset;
 
-        for (ObjectToDisplay line : this.objectsToDisplay) {
+        for (LineObject line : this.objectsToDisplay) {
             float scale = line.scale;
 
             if (line.isText()) {
@@ -410,7 +410,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     @ChatGPT(Credit.FULL_CREDIT)
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        for (ObjectToDisplay line : objectsToDisplay) {
+        for (LineObject line : objectsToDisplay) {
             if (line.isButton() && line.button.visible && line.button.isMouseOver(mouseX, mouseY)) {
                 line.button.onPress();
                 line.button.playDownSound(MinecraftClient.getInstance().getSoundManager());
@@ -551,7 +551,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Adds a button to scrollable text screen.
      */
     protected ButtonWidget addButtonObject(ButtonWidget button) {
-        this.objectsToDisplay.add(new ObjectToDisplay(null, 1.0F, null, 0, 0, button));
+        this.objectsToDisplay.add(new LineObject(null, 1.0F, null, 0, 0, button));
         this.buttons.add(button);
         return button;
     }
@@ -593,7 +593,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Data structure representing a line of text with a scale factor.
      */
     @ChatGPT(Credit.FULL_CREDIT)
-    public record ObjectToDisplay(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ButtonWidget button) {
+    public record LineObject(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ButtonWidget button) {
         public boolean isImage() {
             return imageId != null;
         }
