@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.component;
 import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.DeathProtectionComponent;
@@ -39,12 +39,12 @@ public class ModDataComponentTypes {
                     new ApplyEffectsConsumeEffect(
                             List.of(
                                     new StatusEffectInstance(StatusEffects.REGENERATION, 1800, 1),
-                                    new StatusEffectInstance(StatusEffects.ABSORPTION, TickCalculator.minutes(1), 1),
-                                    new StatusEffectInstance(StatusEffects.RESISTANCE, TickCalculator.seconds(30)),
-                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.minutes(2)),
-                                    new StatusEffectInstance(StatusEffects.STRENGTH, TickCalculator.seconds(15)),
-                                    new StatusEffectInstance(StatusEffects.SPEED, TickCalculator.seconds(30)),
-                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, TickCalculator.seconds(10))
+                                    new StatusEffectInstance(StatusEffects.ABSORPTION, ModUtil.minutesInTicks(1), 1),
+                                    new StatusEffectInstance(StatusEffects.RESISTANCE, ModUtil.secondsInTicks(30)),
+                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesInTicks(2)),
+                                    new StatusEffectInstance(StatusEffects.STRENGTH, ModUtil.secondsInTicks(15)),
+                                    new StatusEffectInstance(StatusEffects.SPEED, ModUtil.secondsInTicks(30)),
+                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, ModUtil.secondsInTicks(10))
                             )
                     )
             ));

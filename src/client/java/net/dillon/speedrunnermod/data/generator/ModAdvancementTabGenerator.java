@@ -239,12 +239,12 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.ENDER_THRUSTER))
                 .build(exporter, "speedrunnermod:items/back_to_the_surface");
 
-        AdvancementEntry devilsEye = Advancement.Builder.create()
+        AdvancementEntry infernalGaze = Advancement.Builder.create()
                 .parent(eyeOfTheStructures)
                 .display(
                         ModItems.INFERNO_EYE,
-                        Text.translatable("advancements.speedrunnermod.devils_eye.title"),
-                        Text.translatable("advancements.speedrunnermod.devils_eye.description"),
+                        Text.translatable("advancements.speedrunnermod.infernal_gaze.title"),
+                        Text.translatable("advancements.speedrunnermod.infernal_gaze.description"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -252,7 +252,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         false
                 )
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.INFERNO_EYE))
-                .build(exporter, "speedrunnermod:items/devils_eye");
+                .build(exporter, "speedrunnermod:items/infernal_gaze");
 
         AdvancementEntry perchAlready = Advancement.Builder.create()
                 .parent(theEndIsNear)
@@ -270,7 +270,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .build(exporter, "speedrunnermod:items/perch_already");
 
         AdvancementEntry piglinRally = Advancement.Builder.create()
-                .parent(devilsEye)
+                .parent(infernalGaze)
                 .display(
                         ModItems.PIGLIN_AWAKENER,
                         Text.translatable("advancements.speedrunnermod.piglin_rally.title"),

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -65,7 +64,7 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
         super.mobTick(world);
         final int i = options().main.playingMode.doom() ? 600 : 6000;
         if ((this.age + this.getId()) % i == 0) {
-            final int duration = options().main.playingMode.doom() ? TickCalculator.minutes(5) : TickCalculator.seconds(30);
+            final int duration = options().main.playingMode.doom() ? ModUtil.minutesInTicks(5) : ModUtil.secondsInTicks(30);
             final double d = options().main.playingMode.doom() ? 55.0D : 25.0D;
             StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.MINING_FATIGUE, duration, 2);
             List<ServerPlayerEntity> list = StatusEffectUtil.addEffectToPlayersWithinDistance((ServerWorld)this.getWorld(), this, this.getPos(), d, statusEffectInstance, 1200);

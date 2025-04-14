@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '1.9-SNAPSHOT'
 	id 'maven-publish'
+	id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 version = project.mod_version
@@ -55,11 +56,19 @@ dependencies {
 	modImplementation "org.reflections:reflections:${project.reflections_verison}"
 	include "org.reflections:reflections:${project.reflections_verison}"
 
+	modImplementation "org.javassist:javassist:${project.javassist_version}"
+	include "org.javassist:javassist:${project.javassist_version}"
+
 	// Mod Menu
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
 	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+shadowJar {
+	relocate 'org.reflections', 'net.dillon.shadowed.reflections'
+	relocate 'javassist', 'net.dillon.shadowed.javassist'
 }
 
 processResources {

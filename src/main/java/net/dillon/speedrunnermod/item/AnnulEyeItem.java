@@ -66,7 +66,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                                 player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD), options().client.itemMessages.isActionbar());
                                 player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, true);
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
-                                player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(60));
+                                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(1));
 
                                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 

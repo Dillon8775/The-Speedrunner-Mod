@@ -25,8 +25,7 @@ public class RightClickToRemoveSilkTouchScreen extends AbstractFeatureScreen {
 
         this.addButtonObject(ButtonWidget.builder(options().main.rightClickToRemoveSilkTouch ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
             options().main.rightClickToRemoveSilkTouch = !options().main.rightClickToRemoveSilkTouch;
-            ModOptions.saveConfig();
-            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+            this.refreshNonRestartableFeature();
         }).build());
     }
 

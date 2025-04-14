@@ -17,7 +17,7 @@ public class ModBiomeKeys {
     /**
      * Initializes this class, registering the {@code Speedrunner's Wasteland} biome.
      */
-    public static void init() {
+    public static void initializeBiomeKeys() {
         info("Initialized the Speedrunner's Wasteland biome.");
     }
 }

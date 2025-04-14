@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.block;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantments;
@@ -44,7 +43,7 @@ public class DoomBlock {
             if (world.random.nextFloat() < 0.40F) {
                 for (int i = 0; i < world.random.nextInt(3) + 1; i++) {
                     ZombieEntity zombie = EntityType.ZOMBIE.create(world, SpawnReason.MOB_SUMMONED);
-                    zombie.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
+                    zombie.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(30), 0, false, true, false));
                     zombie.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                     world.spawnEntity(zombie);
                 }
@@ -54,13 +53,13 @@ public class DoomBlock {
                 ItemStack axe = new ItemStack(Items.IRON_AXE);
                 axe.setDamage(world.random.nextInt(100));
                 vindicator.handItems.set(0, axe);
-                vindicator.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
+                vindicator.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(30), 0, false, true, false));
                 vindicator.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(vindicator);
                 generatedItem = true;
             } else if (world.random.nextFloat() < 0.10F) {
                 RavagerEntity ravager = EntityType.RAVAGER.create(world, SpawnReason.MOB_SUMMONED);
-                ravager.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
+                ravager.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(30), 0, false, true, false));
                 ravager.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(ravager);
                 generatedItem = true;
@@ -70,7 +69,7 @@ public class DoomBlock {
                 axe.setDamage(world.random.nextInt(24));
                 brute.handItems.set(0, axe);
                 brute.setImmuneToZombification(true);
-                brute.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
+                brute.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(30), 0, false, true, false));
                 brute.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(brute);
                 generatedItem = true;

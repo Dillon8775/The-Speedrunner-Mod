@@ -13,9 +13,9 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class KeyPointsScreen extends AbstractFeatureScreen {
+public class KeyFeaturesScreen extends AbstractFeatureScreen {
 
-    public KeyPointsScreen(Screen parent, GameOptions options) {
+    public KeyFeaturesScreen(Screen parent, GameOptions options) {
         super(parent, options, ModTexts.BLANK);
     }
 

@@ -52,8 +52,8 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                             player.teleport(blazeSpawnerPos.getX() + 0.5F, blazeSpawnerPos.getY() + 1.0F, blazeSpawnerPos.getZ() + 0.5F, true);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 3.0F, 0.6F);
-                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, TickCalculator.seconds(world.random.nextInt(4) + 7), 0, false, true, true));
-                            player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(30));
+                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(world.random.nextInt(4) + 7), 0, false, true, true));
+                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
 
                             options().tutorialMode.completeStep(TutorialStep.USE_BLAZE_SPOTTER, player,
                                     "speedrunnermod.tutorial_mode.used_blaze_spotter",

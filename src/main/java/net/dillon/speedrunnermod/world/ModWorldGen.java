@@ -29,7 +29,7 @@ public class ModWorldGen {
      * Initializes all Speedrunner Mod {@code custom world gen features.}
      */
     public static void initializeWorldGenFeatures() {
-        ModBiomeKeys.init();
+        ModBiomeKeys.initializeBiomeKeys();
 
         addOres();
         addVegetalDecoration();
@@ -145,89 +145,72 @@ public class ModWorldGen {
     }
 
     static {
-        if (options().advanced.modifiedStrongholdGeneration) {
-            STRONGHOLD_GENERATION = options().main.playingMode.doom() ? new StrongholdGenerator.PieceData[]{
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 25, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 50, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 25, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.RightTurn.class, 25, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.SquareRoom.class, 75, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.Stairs.class, 50, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 50, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 50, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 25, 5),
-                    new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 100, options().main.strongholdLibraryCount * 2) {
+        STRONGHOLD_GENERATION = options().main.playingMode.doom() && options().advanced.modifiedStrongholdGeneration ? // Doom Mode generation
+                new StrongholdGenerator.PieceData[]{
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 25, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 50, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 25, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.RightTurn.class, 25, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.SquareRoom.class, 75, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.Stairs.class, 50, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 50, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 50, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 25, 5),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 100, options().main.strongholdLibraryCount * 2) {
 
-                        @Override
-                        public boolean canGenerate(int chainLength) {
-                            return super.canGenerate(chainLength) && chainLength > 3;
-                        }
-                    }, new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 50, 1) {
+                            @Override
+                            public boolean canGenerate(int chainLength) {
+                                return super.canGenerate(chainLength) && chainLength > 3;
+                            }
+                        }, new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 50, 1) {
 
-                        @Override
-                        public boolean canGenerate(int chainLength) {
-                            return super.canGenerate(chainLength) && chainLength > 5;
-                        }
-            }} /* -> NOT Doom Mode, or Normal Generation */ :
-                    new StrongholdGenerator.PieceData[]{new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 20, 2),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 5, 1),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 10, 2),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.RightTurn.class, 10, 2),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.SquareRoom.class, 20, 1),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.Stairs.class, 10, 1),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 10, 1),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 10, 2),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 25, 2),
-                            new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 200, options().main.strongholdPortalRoomCount) {
+                    @Override
+                    public boolean canGenerate(int chainLength) {
+                        return super.canGenerate(chainLength) && chainLength > 5;
+                    }
+                }} /* -> DEFAULT Generation (for balanced mode) */ :
+                options().main.playingMode.easy() && options().advanced.modifiedStrongholdGeneration ?
+                        /* -> Otherwise, do Speedrunner Mod generation */ new StrongholdGenerator.PieceData[]{new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 20, 2),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 5, 1),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 10, 2),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.RightTurn.class, 10, 2),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.SquareRoom.class, 20, 1),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.Stairs.class, 10, 1),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 10, 1),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 10, 2),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 25, 2),
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 200, options().main.strongholdPortalRoomCount) {
 
-                                @Override
-                                public boolean canGenerate(int chainLength) {
-                                    return super.canGenerate(chainLength);
-                                }
-                            }, new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 200, options().main.strongholdLibraryCount) {
+                            @Override
+                            public boolean canGenerate(int chainLength) {
+                                return super.canGenerate(chainLength);
+                            }
+                        }, new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 200, options().main.strongholdLibraryCount) {
 
-                        @Override
-                        public boolean canGenerate(int chainLength) {
-                            return super.canGenerate(chainLength);
-                        }
-                    }};
-        } else {
-            STRONGHOLD_GENERATION = new StrongholdGenerator.PieceData[]{new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 40, 0), new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 5, 5), new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 20, 0), new StrongholdGenerator.PieceData(StrongholdGenerator.RightTurn.class, 20, 0), new StrongholdGenerator.PieceData(StrongholdGenerator.SquareRoom.class, 10, 6), new StrongholdGenerator.PieceData(StrongholdGenerator.Stairs.class, 5, 5), new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 5, 5), new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 5, 4), new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 5, 4), new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 10, 2){
+                    @Override
+                    public boolean canGenerate(int chainLength) {
+                        return super.canGenerate(chainLength);
+                    }
+                }} :
+                        StrongholdGenerator.ALL_PIECES; // Land onto default generation otherwise.
 
-                @Override
-                public boolean canGenerate(int chainLength) {
-                    return super.canGenerate(chainLength) && chainLength > 4;
-                }
-            }, new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 20, 1) {
+        NETHER_FORTRESS_GENERATION_BRIDGE = /* -> DEFAULT Generation if on balanced mode */ options().main.playingMode.balanced() ? NetherFortressGenerator.ALL_BRIDGE_PIECES :
+                new NetherFortressGenerator.PieceData[]{ // Otherwise, use modified generation
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.Bridge.class, 10, 1),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeCrossing.class, 10, 2),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeSmallCrossing.class, 10, 2),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeStairs.class, 10, 1),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgePlatform.class, 50, 3),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorExit.class, 10, 1)};
 
-                @Override
-                public boolean canGenerate(int chainLength) {
-                    return super.canGenerate(chainLength) && chainLength > 5;
-                }
-            }};
-        }
-
-        if (options().advanced.modifiedNetherFortressGeneration) {
-            NETHER_FORTRESS_GENERATION_BRIDGE = new NetherFortressGenerator.PieceData[]{
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.Bridge.class, 10, 1),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeCrossing.class, 10, 2),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeSmallCrossing.class, 10, 2),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeStairs.class, 10, 1),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgePlatform.class, 50, 3),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorExit.class, 10, 1)};
-
-            NETHER_FORTRESS_GENERATION_CORRIDOR = new NetherFortressGenerator.PieceData[]{
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 10, 2),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorCrossing.class, 10, 2),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorRightTurn.class, 25, 3),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorLeftTurn.class, 25, 3),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorStairs.class, 10, 2, true),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2),
-                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 20, 2)};
-        } else {
-            NETHER_FORTRESS_GENERATION_BRIDGE = new NetherFortressGenerator.PieceData[]{new NetherFortressGenerator.PieceData(NetherFortressGenerator.Bridge.class, 30, 0, true), new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeCrossing.class, 10, 4), new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeSmallCrossing.class, 10, 4), new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeStairs.class, 10, 3), new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgePlatform.class, 5, 2), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorExit.class, 5, 1)};
-            NETHER_FORTRESS_GENERATION_CORRIDOR = new NetherFortressGenerator.PieceData[]{new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 25, 0, true), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorCrossing.class, 15, 5), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorRightTurn.class, 5, 10), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorLeftTurn.class, 5, 10), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorStairs.class, 10, 3, true), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2), new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 5, 2)};
-        }
+        NETHER_FORTRESS_GENERATION_CORRIDOR = /* -> DEFALT Generation if on balanced mode */ options().main.playingMode.balanced() ? NetherFortressGenerator.ALL_CORRIDOR_PIECES : new NetherFortressGenerator.PieceData[]{
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 10, 2), // Otherwise, use modified generation
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorCrossing.class, 10, 2),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorRightTurn.class, 25, 3),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorLeftTurn.class, 25, 3),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorStairs.class, 10, 2, true),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2),
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 20, 2)};
 
         NETHER_FORTRESS_MOB_SPAWNS = options().main.playingMode.doom() ?
                 Pool.of(

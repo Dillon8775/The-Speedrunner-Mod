@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -25,8 +24,7 @@ public class BetterFoodsScreen extends AbstractFeatureScreen {
 
         this.addButtonObject(ButtonWidget.builder(options().main.betterFoods ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
             options().main.betterFoods = !options().main.betterFoods;
-            ModOptions.saveConfig();
-            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+            this.refreshNonRestartableFeature();
         }).build());
     }
 

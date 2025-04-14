@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -63,7 +62,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<?> cir) {
         if (options().main.playingMode.doom() && target instanceof PlayerEntity) {
-            ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TickCalculator.seconds(10), 0));
+            ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
         }
     }
 }

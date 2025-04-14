@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.feature.blocksanditems;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,8 +27,7 @@ public class MoreBoatsScreen extends AbstractFeatureScreen {
 
         this.addButtonObject(ButtonWidget.builder(options().main.lavaBoats ? ModTexts.DISABLE_LAVA_BOATS : ModTexts.ENABLE_LAVA_BOATS, button -> {
             options().main.lavaBoats = !options().main.lavaBoats;
-            ModOptions.saveConfig();
-            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+            this.refreshNonRestartableFeature();
         }).build());
     }
 

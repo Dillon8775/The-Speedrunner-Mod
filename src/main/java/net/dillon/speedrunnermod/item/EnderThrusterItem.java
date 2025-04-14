@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -50,7 +49,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
 
                     if (y != playerY && !(playerY > y)) {
                         if (confirm) {
-                            player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(10));
+                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(10));
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);
                             }

@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -65,7 +65,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
                     if (!isInfiniPearl) {
                         if (options().main.playingMode.doom()) {
                             if (!serverPlayerEntity.isCreative() || !serverPlayerEntity.isSpectator()) {
-                                ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, TickCalculator.seconds(3), 0));
+                                ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsInTicks(3), 0));
                             }
                         }
                         entity.damage(serverWorld, entity.getDamageSources().fall(), SpeedrunnerMod.getEnderPearlDamageMultiplier());

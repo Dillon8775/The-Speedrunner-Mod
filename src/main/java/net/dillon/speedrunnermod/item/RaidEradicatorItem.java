@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
@@ -59,7 +58,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                     if (hasTotemEquipped) {
                         if (confirm) {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_ROAR, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.minutes(5));
+                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(5));
                             if (!player.getAbilities().creativeMode) {
                                 stack.decrement(1);
                             }
@@ -72,9 +71,9 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                                             if (!(raider instanceof WitchEntity)) {
                                                 raider.kill(serverWorld);
                                             } else {
-                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TickCalculator.seconds(30), 2, false, true, false));
-                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, TickCalculator.seconds(30), 1, false, true, false));
-                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, TickCalculator.minutes(2), 0, false, true, false));
+                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(30), 2, false, true, false));
+                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsInTicks(30), 1, false, true, false));
+                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesInTicks(2), 0, false, true, false));
                                                 raider.teleport(player.getX() + world.random.nextInt(7) - 3, player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + world.random.nextInt(7) - 3, false);
                                             }
                                         }

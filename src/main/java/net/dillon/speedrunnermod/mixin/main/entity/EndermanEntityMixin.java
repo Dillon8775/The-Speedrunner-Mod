@@ -57,7 +57,7 @@ public class EndermanEntityMixin extends HostileEntity {
             boolean attackerHasSpeedrunnerSword = attacker.getMainHandStack().isIn(ModItemTags.SPEEDRUNNER_SWORDS);
             double chance = looting >= 3 ? 0.10 : looting == 2 ? 0.075 : looting == 1 ? 0.06 : 0.05;
             if (attackerHasSpeedrunnerSword) {
-                chance += 0.015;
+                chance += 0.02;
             }
             if (endermanEntity.getRandom().nextDouble() < chance) {
                 endermanEntity.dropItem(endermanEntity.getServer().getWorld(endermanEntity.getEntityWorld().getRegistryKey()), ModItems.ENDER_MATTER);

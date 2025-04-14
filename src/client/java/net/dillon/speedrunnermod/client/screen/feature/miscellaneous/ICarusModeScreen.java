@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -28,8 +27,7 @@ public class ICarusModeScreen extends AbstractFeatureScreen {
 
         this.addButtonObject(ButtonWidget.builder(options().main.iCarusMode ? ModTexts.DISABLE_ICARUS_MODE : ModTexts.ENABLE_ICARUS_MODE, button -> {
             options().main.iCarusMode = !options().main.iCarusMode;
-            ModOptions.saveConfig();
-            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+            this.refreshNonRestartableFeature();
         }).build());
     }
 

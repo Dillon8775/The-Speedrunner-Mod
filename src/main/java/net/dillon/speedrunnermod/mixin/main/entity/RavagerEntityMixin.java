@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -69,7 +68,7 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (options().main.playingMode.doom() && target instanceof PlayerEntity) {
-            ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, TickCalculator.seconds(10), 0));
+            ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
         }
     }
 }

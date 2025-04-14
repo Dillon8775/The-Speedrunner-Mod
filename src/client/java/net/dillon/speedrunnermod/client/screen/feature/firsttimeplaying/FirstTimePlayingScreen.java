@@ -29,7 +29,7 @@ public class FirstTimePlayingScreen extends AbstractFeatureScreen {
 
     @Override
     public @NotNull String linesKey() {
-        return "first_time_playing.welcome";
+        return "first_time_playing";
     }
 
     @Override

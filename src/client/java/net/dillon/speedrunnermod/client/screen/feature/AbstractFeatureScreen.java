@@ -6,6 +6,7 @@ import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.Speedrunne
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -219,7 +220,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 return this.inDoomModeFolder(this.linesKey());
             }
             case FIRST_TIME_PLAYING -> {
-                return this.inFirstTimePlayingFolder(this.linesKey());
+                return this.inTextsFolder(this.linesKey());
             }
             case MISCELLANEOUS -> {
                 return this.inMiscellaneousFolder(this.linesKey());
@@ -354,6 +355,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
             }
         }
+    }
+
+    /**
+     * Toggles a feature when pressing the enable/disable button.
+     */
+    protected void refreshNonRestartableFeature() {
+        ModOptions.saveConfig();
+        this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
     }
 
     /**

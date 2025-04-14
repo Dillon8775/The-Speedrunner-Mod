@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.FireChargeItem;
@@ -78,7 +78,7 @@ public class FirechargeItemMixin extends Item {
             world.spawnEntity(fireball);
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
-            player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(1));
+            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(1));
             if (!player.getAbilities().creativeMode) {
                 stack.decrement(1);
             }

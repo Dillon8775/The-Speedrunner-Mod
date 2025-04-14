@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
@@ -47,7 +46,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                         EnderDragonEntity enderDragon = dragons.get(0);
                         if (!isDragonAlreadyPerchingOrPerched(enderDragon) && !isDragonDead(enderDragon)) {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 2.0F, 0.3F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), TickCalculator.seconds(30));
+                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);
                             }

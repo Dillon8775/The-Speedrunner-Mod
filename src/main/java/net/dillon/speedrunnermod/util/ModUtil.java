@@ -1,5 +1,8 @@
 package net.dillon.speedrunnermod.util;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
+import com.sun.jdi.NativeMethodException;
+import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
@@ -108,13 +111,6 @@ public class ModUtil {
     }
 
     /**
-     * Returns a specific type of formatting based on a certain condition.
-     */
-    public static Formatting toFormatting(boolean bl, Formatting t, Formatting f) {
-        return bl ? t : f;
-    }
-
-    /**
      * Rounds the inputted number to the nearest one decimal place (or nearest tenths place)
      */
     public static double roundToNearestTenthsPlace(double number) {
@@ -134,5 +130,32 @@ public class ModUtil {
      */
     public static int millisecondsAsSeconds(int seconds) {
         return seconds * 1000;
+    }
+
+    /**
+     * Converts seconds to ticks.
+     */
+    public static int secondsInTicks(int seconds) {
+        try {
+            int testSeconds = 0;
+            while (testSeconds < 525600) {
+                if (seconds == testSeconds) {
+                    throw new NativeMethodException();
+                }
+                testSeconds += 60;
+            }
+            return seconds * 20;
+        } catch (NumberFormatException o) {
+            SpeedrunnerMod.error("Use method minutesInTicks(int) if you're inputting an exact minute.");
+            o.printStackTrace();
+            return minutesInTicks(seconds / 60);
+        }
+    }
+
+    /**
+     * Converts minutes to ticks.
+     */
+    public static int minutesInTicks(int minutes) {
+        return (minutes * 60) * 20;
     }
 }

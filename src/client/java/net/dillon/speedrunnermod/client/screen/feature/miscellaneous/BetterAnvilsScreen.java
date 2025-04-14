@@ -32,8 +32,7 @@ public class BetterAnvilsScreen extends AbstractFeatureScreen {
         }).build());
         this.addButtonObject(ButtonWidget.builder(options().main.higherEnchantmentLevels ? ModTexts.DISABLE_HIGHER_ENCHANT_LEVELS : ModTexts.ENABLE_HIGHER_ENCHANT_LEVELS, button -> {
             options().main.higherEnchantmentLevels = !options().main.higherEnchantmentLevels;
-            ModOptions.saveConfig();
-            this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+            this.refreshNonRestartableFeature();
         }).build());
     }
 
