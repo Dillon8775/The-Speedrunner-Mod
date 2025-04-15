@@ -35,7 +35,7 @@ public class FirechargeItemMixin extends Item {
     private void throwFireballWhenShifting(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         PlayerEntity player = context.getPlayer();
         if (options().main.throwableFireballs) {
-            if (!options().advanced.throwingFireballRequiresShifting) {
+            if (!options().advanced.shiftToThrowFireball) {
                 this.throwAndSetReturnValue(context, player, cir);
             } else {
                 if (player.isSneaking()) {

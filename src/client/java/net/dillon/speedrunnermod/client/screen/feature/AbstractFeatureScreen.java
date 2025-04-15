@@ -2,9 +2,11 @@ package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
+import net.dillon.speedrunnermod.client.screen.base.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
+import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
@@ -363,6 +365,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected void refreshNonRestartableFeature() {
         ModOptions.saveConfig();
         this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+    }
+
+    /**
+     * Toggles a feature that requires a restart when pressing the enable/disable button.
+     */
+    protected void refreshRestartableFeature() {
+        RestartRequiredScreen.getCurrentOptions();
+        this.client.setScreen(new MainOptionsScreen(this, this.options));
     }
 
     /**

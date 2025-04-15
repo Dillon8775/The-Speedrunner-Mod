@@ -27,8 +27,7 @@ public class CustomPanoramaScreen extends AbstractFeatureScreen {
         super.init();
 
         this.addButtonObject(ButtonWidget.builder(options().client.customPanorama ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            RestartRequiredScreen.getCurrentOptions();
-            this.client.setScreen(new RestartRequiredScreen(this, this.options));
+            this.refreshRestartableFeature();
             options().client.customPanorama = !options().client.customPanorama;
         }).build());
     }

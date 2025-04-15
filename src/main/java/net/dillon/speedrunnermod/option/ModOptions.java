@@ -409,7 +409,7 @@ public class ModOptions {
         /**
          * Determines if -- while the player is looking at a block, if they need to be shifting to throw a fireball. Disable this if you want to do things like fireball jump.
          */
-        public boolean throwingFireballRequiresShifting = true;
+        public boolean shiftToThrowFireball = true;
 
         /**
          * The minimum brightness amount for the Speedrunner Mod.

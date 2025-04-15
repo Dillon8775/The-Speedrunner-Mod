@@ -126,11 +126,10 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                 options().tutorialMode.send("speedrunnermod.tutorial_mode.use_dragons_pearl", player);
             }
         } else {
-            if (livingEntity instanceof PlayerEntity player) {
-                options().tutorialMode.completeStep(TutorialStep.KILL_DRAGON, player,
-                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
-                                "speedrunnermod.tutorial_mode.killed_dragon");
-            }
+            PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
+            options().tutorialMode.completeStep(TutorialStep.KILL_DRAGON, player,
+                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
+                            "speedrunnermod.tutorial_mode.killed_dragon");
             super.onDeath(source);
         }
     }

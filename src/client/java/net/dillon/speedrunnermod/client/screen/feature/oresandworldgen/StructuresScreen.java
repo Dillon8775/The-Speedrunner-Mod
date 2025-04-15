@@ -26,8 +26,7 @@ public class StructuresScreen extends AbstractFeatureScreen {
         super.init();
 
         this.addButtonObject(ButtonWidget.builder(ModTexts.CONFIGURE_OPTION, button -> {
-            RestartRequiredScreen.getCurrentOptions();
-            this.client.setScreen(new MainOptionsScreen(this, this.options));
+            this.refreshRestartableFeature();
         }).build());
     }
 

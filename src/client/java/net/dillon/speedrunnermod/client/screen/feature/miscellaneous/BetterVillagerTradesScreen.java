@@ -27,8 +27,7 @@ public class BetterVillagerTradesScreen extends AbstractFeatureScreen {
         super.init();
 
         this.addButtonObject(ButtonWidget.builder(options().main.betterVillagerTrades ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            RestartRequiredScreen.getCurrentOptions();
-            this.client.setScreen(new RestartRequiredScreen(this, this.options));
+            this.refreshRestartableFeature();
             options().main.betterVillagerTrades = !options().main.betterVillagerTrades;
         }).build());
     }

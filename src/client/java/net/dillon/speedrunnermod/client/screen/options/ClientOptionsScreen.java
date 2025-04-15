@@ -46,7 +46,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
     protected void init() {
         this.initializeOptionListWidget();
         this.optionList.addAll(clientOptions(this.gameOptions));
-        this.deactivateButton(0, ButtonSide.LARGE, options().mixins.backgroundRendererMixin);
+        this.deactivateButtonIf(0, ButtonSide.LARGE, options().mixins.backgroundRendererMixin);
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 

@@ -34,7 +34,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 ModListOptions.SHOW_RESET_BUTTON,
                 ModListOptions.HIGHER_BREATH_TIME,
                 options().main.throwableFireballs ? ModListOptions.FIREBALL_EXPLOSION_POWER : ModListOptions.Inactiveable.IAO_FIREBALL_EXPLOSION_POWER,
-                ModListOptions.THROWING_FIREBALL_REQUIRES_SHIFTING
+                ModListOptions.SHIFT_TO_THROW_FIREBALL
         };
     }
 
@@ -57,11 +57,11 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(options().main.playingMode.doom() ? ModListOptions.DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER : ModListOptions.Inactiveable.IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER);
         this.optionList.addAll(advancedOptions());
 
-        this.deactivateButton(8, ButtonSide.LARGE, options().main.playingMode.easy());
-        this.deactivateButton(9, ButtonSide.LARGE, options().main.iCarusMode);
-        this.deactivateButton(10, ButtonSide.LARGE, options().main.infiniPearlMode);
-        this.deactivateButton(12, ButtonSide.LARGE, options().main.playingMode.doom());
-        this.deactivateButton(14, ButtonSide.LEFT, options().main.throwableFireballs);
+        this.deactivateButtonIf(8, ButtonSide.LARGE, options().main.playingMode.easy());
+        this.deactivateButtonIf(9, ButtonSide.LARGE, options().main.iCarusMode);
+        this.deactivateButtonIf(10, ButtonSide.LARGE, options().main.infiniPearlMode);
+        this.deactivateButtonIf(12, ButtonSide.LARGE, options().main.playingMode.doom());
+        this.deactivateButtonIf(14, ButtonSide.LEFT, options().main.throwableFireballs);
 
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);

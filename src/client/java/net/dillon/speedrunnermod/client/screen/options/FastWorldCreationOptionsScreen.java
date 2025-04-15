@@ -43,9 +43,9 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.initializeOptionListWidget();
 
         this.optionList.addAll(fwcOptions());
-        this.deactivateButton(0, ButtonSide.RIGHT, options().client.fastWorldCreation);
-        this.deactivateButton(1, ButtonSide.LEFT, options().client.fastWorldCreation);
-        this.deactivateButton(1, ButtonSide.RIGHT, options().client.fastWorldCreation);
+        this.deactivateButtonIf(0, ButtonSide.RIGHT, options().client.fastWorldCreation);
+        this.deactivateButtonIf(1, ButtonSide.LEFT, options().client.fastWorldCreation);
+        this.deactivateButtonIf(1, ButtonSide.RIGHT, options().client.fastWorldCreation);
 
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
