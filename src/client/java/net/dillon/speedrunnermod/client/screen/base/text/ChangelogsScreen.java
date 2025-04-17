@@ -11,7 +11,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -24,8 +23,8 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class ChangelogsScreen extends AbstractModScreen {
 
-    public ChangelogsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_CHANGELOGS);
+    public ChangelogsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_CHANGELOGS);
     }
 
     @ChatGPT(Credit.FULL_CREDIT)
@@ -34,12 +33,12 @@ public class ChangelogsScreen extends AbstractModScreen {
         this.initializeCustomButtonListWidget();
 
         this.buttonList.addSingleButton(ButtonWidget.builder(Text.literal("v1.10 Changelog").formatted(Formatting.GREEN), (button) -> {
-            this.client.setScreen(new v110(this, this.options));
+            this.client.setScreen(new v110(this));
         }).build());
 
         // Add all changelogs to screen
         List<AbstractChangelogScreen> sortedScreens = SpeedrunnerModClient.ALL_CHANGELOG_SCREENS.stream()
-                .map(constructor -> constructor.apply(this, this.options))
+                .map(constructor -> constructor.apply(this))
                 .sorted((a, b) -> {
                     List<Integer> versionA = parseVersion(a.getTitle().getString());
                     List<Integer> versionB = parseVersion(b.getTitle().getString());

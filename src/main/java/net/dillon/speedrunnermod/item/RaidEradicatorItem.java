@@ -35,7 +35,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * An item that kills all nearby {@link RaiderEntity}s.
  */
 public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
-    private boolean confirm = !options().client.confirmMessages;
+    private boolean confirm = !options().client.confirmationMessages;
 
     public RaidEradicatorItem(Settings settings) {
         super(settings.rarity(Rarity.EPIC).maxCount(1));
@@ -94,7 +94,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                             player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.found_raiders").formatted(ModUtil.toFormatting(Formatting.YELLOW, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                             player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.confirm"), false);
                         }
-                        if (options().client.confirmMessages) {
+                        if (options().client.confirmationMessages) {
                             confirm = !confirm;
                         }
                         player.swingHand(hand, true);

@@ -22,8 +22,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Environment(EnvType.CLIENT)
 public class ClientOptionsScreen extends AbstractModScreen {
 
-    public ClientOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_OPTIONS_CLIENT);
+    public ClientOptionsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_OPTIONS_CLIENT);
     }
 
     /**

@@ -4,14 +4,13 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class DoomModeScreen extends AbstractModScreen {
 
-    public DoomModeScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.doom_mode"));
+    public DoomModeScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.doom_mode"));
     }
 
     @Override
@@ -28,7 +27,7 @@ public class DoomModeScreen extends AbstractModScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new FeaturesScreen(this.parent, this.options));
+        this.client.setScreen(new FeaturesScreen(this.parent));
     }
 
     @Override

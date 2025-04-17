@@ -12,7 +12,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 /**
  * The main class for the leaderboards in the Speedrunner Mod.
  */
-@Deprecated
+@Deprecated // deprecated because it's not used anymore
 public class Leaderboards {
     public static List<Text> ineligibleOptions = new ArrayList<>();
     private static final ModOptions.Main options = options().main;

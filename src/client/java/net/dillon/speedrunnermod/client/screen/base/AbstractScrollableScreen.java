@@ -10,7 +10,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.screen.ScreenTexts;
@@ -44,8 +43,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     private int lastMouseY = -1;
     private int top, bottom;
 
-    public AbstractScrollableScreen(Screen parent, GameOptions options, Text title) {
-        super(parent, options, title);
+    public AbstractScrollableScreen(Screen parent, Text title) {
+        super(parent, title);
         this.parent = parent;
     }
 

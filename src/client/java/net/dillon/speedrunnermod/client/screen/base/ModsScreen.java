@@ -4,17 +4,15 @@ import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 
 @Environment(EnvType.CLIENT)
 public class ModsScreen extends AbstractModScreen {
 
-    public ModsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_MODS);
+    public ModsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_MODS);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class ModsScreen extends AbstractModScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new ResourcesScreen(this.parent, MinecraftClient.getInstance().options));
+        this.client.setScreen(new ResourcesScreen(this.parent));
     }
 
     @Override

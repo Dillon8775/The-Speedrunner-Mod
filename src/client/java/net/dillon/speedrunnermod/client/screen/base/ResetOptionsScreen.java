@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
@@ -14,8 +13,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
 @Environment(EnvType.CLIENT)
 public class ResetOptionsScreen extends AbstractModScreen {
 
-    public ResetOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK);
+    public ResetOptionsScreen(Screen parent) {
+        super(parent, ModTexts.BLANK);
     }
 
     @Override

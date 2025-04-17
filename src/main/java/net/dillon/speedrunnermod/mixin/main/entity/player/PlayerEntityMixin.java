@@ -148,11 +148,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                     if (!player.getInventory().contains(Items.TOTEM_OF_UNDYING.getDefaultStack())) {
                         player.getInventory().offerOrDrop(Items.TOTEM_OF_UNDYING.getDefaultStack());
                     }
-                    if (!player.getInventory().contains(ModItems.SPEEDRUNNERS_EYE.getDefaultStack())) {
-                        player.getInventory().offerOrDrop(ModItems.SPEEDRUNNERS_EYE.getDefaultStack());
-                    }
-                    if (!player.getInventory().contains(ModItems.INFINI_PEARL.getDefaultStack())) {
-                        player.getInventory().offerOrDrop(ModItems.INFINI_PEARL.getDefaultStack());
+                    if (!player.getInventory().contains(ModItems.ENDER_MATTER.getDefaultStack())) {
+                        player.getInventory().offerOrDrop(ModItems.ENDER_MATTER.getDefaultStack());
                     }
                 }
                 if (player instanceof ServerPlayerEntity serverPlayer) {

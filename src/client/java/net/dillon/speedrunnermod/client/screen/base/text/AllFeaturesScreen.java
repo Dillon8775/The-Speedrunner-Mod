@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 
 /**
  * All features screen.
@@ -14,8 +13,8 @@ import net.minecraft.client.option.GameOptions;
 @Environment(EnvType.CLIENT)
 public class AllFeaturesScreen extends AbstractScrollableScreen {
 
-    public AllFeaturesScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_ALL_FEATURES);
+    public AllFeaturesScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_ALL_FEATURES);
     }
 
     @Override
@@ -30,7 +29,7 @@ public class AllFeaturesScreen extends AbstractScrollableScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new FeaturesScreen(this.parent, this.options));
+        this.client.setScreen(new FeaturesScreen(this.parent));
     }
 
     @Override

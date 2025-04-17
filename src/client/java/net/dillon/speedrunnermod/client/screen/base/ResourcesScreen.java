@@ -4,17 +4,15 @@ import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 
 @Environment(EnvType.CLIENT)
 public class ResourcesScreen extends AbstractModScreen {
 
-    public ResourcesScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_RESOURCES);
+    public ResourcesScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_RESOURCES);
     }
 
     @Override
@@ -22,7 +20,7 @@ public class ResourcesScreen extends AbstractModScreen {
         this.initializeCustomButtonListWidget();
 
         this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_MODS, (button) -> {
-            this.client.setScreen(new ModsScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new ModsScreen(this.parent));
         }).build());
 
         this.buttons.add(1, ButtonWidget.builder(ModTexts.QUESTIONS_AND_ISSUES, (button) -> {
@@ -38,7 +36,11 @@ public class ResourcesScreen extends AbstractModScreen {
         }).build());
 
         this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_TUTORIALS, (button) -> {
-            this.client.setScreen(new TutorialsScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new TutorialsScreen(this.parent));
+        }).build());
+
+        this.buttons.add(4, ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
+            this.openLink(ModLinks.RELEASE_TRAILER, true);
         }).build());
 
         super.init();

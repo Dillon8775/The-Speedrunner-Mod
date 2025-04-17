@@ -5,13 +5,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 
 @Environment(EnvType.CLIENT)
 public class RefreshingScreen extends AbstractModScreen {
 
-    public RefreshingScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK);
+    public RefreshingScreen(Screen parent) {
+        super(parent, ModTexts.BLANK);
     }
 
     @Override

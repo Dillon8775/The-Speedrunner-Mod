@@ -9,18 +9,17 @@ import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.Speedrunner
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
-    public SpeedrunnersWorkbenchScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_workbench"),
-                new SpeedrunnerArmorScreen(parent, options), Text.translatable("speedrunnermod.menu.features.tools_and_armor"),
-                new SpeedrunnersWastelandBiomeScreen(parent, options), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
-                new BasicsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.doom_mode"),
+    public SpeedrunnersWorkbenchScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_workbench"),
+                new SpeedrunnerArmorScreen(parent), Text.translatable("speedrunnermod.menu.features.tools_and_armor"),
+                new SpeedrunnersWastelandBiomeScreen(parent), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
+                new BasicsScreen(parent), Text.translatable("speedrunnermod.menu.features.doom_mode"),
                 false, null, null);
     }
 

@@ -7,7 +7,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
@@ -18,8 +17,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Environment(EnvType.CLIENT)
 public class ModOptionsScreen extends AbstractModScreen {
 
-    public ModOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.options"));
+    public ModOptionsScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.options"));
     }
 
     @Override
@@ -27,37 +26,37 @@ public class ModOptionsScreen extends AbstractModScreen {
         this.initializeCustomButtonListWidget();
 
         this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
-            this.client.setScreen(new MainOptionsScreen(this, options));
+            this.client.setScreen(new MainOptionsScreen(this));
         }).build());
 
         this.buttons.add(1, ButtonWidget.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
-            this.client.setScreen(new FastWorldCreationOptionsScreen(this, options));
+            this.client.setScreen(new FastWorldCreationOptionsScreen(this));
         }).build());
 
         this.buttons.add(2, ButtonWidget.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
-            this.client.setScreen(new ClientOptionsScreen(this, options));
+            this.client.setScreen(new ClientOptionsScreen(this));
         }).build());
 
         this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
-            this.client.setScreen(new StructureSpawnRateOptionsScreen(this, options));
+            this.client.setScreen(new StructureSpawnRateOptionsScreen(this));
         }).build());
         this.buttons.get(3).active = options().main.structureSpawnRates.custom();
 
         this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
-            this.client.setScreen(new AdvancedOptionsScreen(this, options));
+            this.client.setScreen(new AdvancedOptionsScreen(this));
         }).build());
 
         this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
-            this.client.setScreen(new MixinOptionsScreen(this, options));
+            this.client.setScreen(new MixinOptionsScreen(this));
         }).build());
 
         this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
-            this.client.setScreen(new ResetOptionsConfirmScreen(this, options, false));
+            this.client.setScreen(new ResetOptionsConfirmScreen(this, false));
         }).build());
 
         if (options().main.tutorialMode) {
             this.buttons.add(7, ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
-                this.client.setScreen(new ResetOptionsConfirmScreen(this, options, true));
+                this.client.setScreen(new ResetOptionsConfirmScreen(this, true));
             }).build());
         }
 

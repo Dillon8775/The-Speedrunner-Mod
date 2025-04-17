@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.main.block.dispenser;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.block.SkullBlockInvoker;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
@@ -59,7 +58,6 @@ public interface DispenserBehaviorMixin {
                             stack.decrement(1);
                             this.setSuccess(true);
                         } else {
-                            SpeedrunnerMod.error("UH OHH.....");
                             this.setSuccess(EquippableDispenserBehavior.dispense(pointer, stack));
                         }
 

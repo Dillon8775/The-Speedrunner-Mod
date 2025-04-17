@@ -6,15 +6,14 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class DashEnchantmentScreen extends AbstractFeatureScreen {
 
-    public DashEnchantmentScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.dash_enchantment"));
+    public DashEnchantmentScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.tools_and_armor.dash_enchantment"));
     }
 
     @Override

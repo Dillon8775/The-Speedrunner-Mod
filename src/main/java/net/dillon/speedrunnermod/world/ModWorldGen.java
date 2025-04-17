@@ -21,9 +21,9 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
  */
 public class ModWorldGen {
     public static final Pool<SpawnSettings.SpawnEntry> NETHER_FORTRESS_MOB_SPAWNS;
-    public static final NetherFortressGenerator.PieceData[] NETHER_FORTRESS_GENERATION_BRIDGE;
-    public static final NetherFortressGenerator.PieceData[] NETHER_FORTRESS_GENERATION_CORRIDOR;
-    public static final StrongholdGenerator.PieceData[] STRONGHOLD_GENERATION;
+    public static final NetherFortressGenerator.PieceData[] MODIFIED_NETHER_FORTRESS_BRIDGE_PIECES;
+    public static final NetherFortressGenerator.PieceData[] MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
+    public static final StrongholdGenerator.PieceData[] MODIFIED_STRONGHOLD_PIECES;
 
     /**
      * Initializes all Speedrunner Mod {@code custom world gen features.}
@@ -145,7 +145,7 @@ public class ModWorldGen {
     }
 
     static {
-        STRONGHOLD_GENERATION = options().main.playingMode.doom() && options().advanced.modifiedStrongholdGeneration ? // Doom Mode generation
+        MODIFIED_STRONGHOLD_PIECES = options().main.playingMode.doom() ? // Doom Mode generation
                 new StrongholdGenerator.PieceData[]{
                         new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 25, 5),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 50, 5),
@@ -168,10 +168,9 @@ public class ModWorldGen {
                     public boolean canGenerate(int chainLength) {
                         return super.canGenerate(chainLength) && chainLength > 5;
                     }
-                }} /* -> DEFAULT Generation (for balanced mode) */ :
-                options().main.playingMode.easy() && options().advanced.modifiedStrongholdGeneration ?
-                        /* -> Otherwise, do Speedrunner Mod generation */ new StrongholdGenerator.PieceData[]{new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 20, 2),
-                        new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 5, 1),
+                }} :
+                /* -> Otherwise, do Speedrunner Mod generation */ new StrongholdGenerator.PieceData[]{new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 20, 2),
+                new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 5, 1),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.LeftTurn.class, 10, 2),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.RightTurn.class, 10, 2),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.SquareRoom.class, 20, 1),
@@ -191,11 +190,9 @@ public class ModWorldGen {
                     public boolean canGenerate(int chainLength) {
                         return super.canGenerate(chainLength);
                     }
-                }} :
-                        StrongholdGenerator.ALL_PIECES; // Land onto default generation otherwise.
+                }};
 
-        NETHER_FORTRESS_GENERATION_BRIDGE = /* -> DEFAULT Generation if on balanced mode */ options().main.playingMode.balanced() ? NetherFortressGenerator.ALL_BRIDGE_PIECES :
-                new NetherFortressGenerator.PieceData[]{ // Otherwise, use modified generation
+        MODIFIED_NETHER_FORTRESS_BRIDGE_PIECES = new NetherFortressGenerator.PieceData[]{
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.Bridge.class, 10, 1),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeCrossing.class, 10, 2),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeSmallCrossing.class, 10, 2),
@@ -203,8 +200,8 @@ public class ModWorldGen {
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgePlatform.class, 50, 3),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorExit.class, 10, 1)};
 
-        NETHER_FORTRESS_GENERATION_CORRIDOR = /* -> DEFALT Generation if on balanced mode */ options().main.playingMode.balanced() ? NetherFortressGenerator.ALL_CORRIDOR_PIECES : new NetherFortressGenerator.PieceData[]{
-                new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 10, 2), // Otherwise, use modified generation
+        MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES = new NetherFortressGenerator.PieceData[]{
+                new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 10, 2),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorCrossing.class, 10, 2),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorRightTurn.class, 25, 3),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorLeftTurn.class, 25, 3),

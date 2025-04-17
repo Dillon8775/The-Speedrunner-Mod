@@ -10,7 +10,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -24,8 +23,8 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     protected static boolean needsRestartFromEnablingLeaderboardsMode = false;
     protected ButtonWidget leftButton, middleButton, rightButton, viewIneligibleOptionsButton, visitSubmissionPageButton;
 
-    public LeaderboardsIneligibleScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_LEADERBOARDS);
+    public LeaderboardsIneligibleScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_LEADERBOARDS);
     }
 
     @Override
@@ -59,9 +58,9 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
         this.rightButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.IGNORE, (buttonWidget) -> {
             Leaderboards.sendIgnoreWarning();
             if (needsRestart && !needsRestartFromEnablingLeaderboardsMode) {
-                this.client.setScreen(new RestartRequiredScreen(this.parent, options));
+                this.client.setScreen(new RestartRequiredScreen(this.parent));
             } else {
-                this.client.setScreen(new MainScreen(this.parent, this.options));
+                this.client.setScreen(new MainScreen(this.parent));
             }
         }).dimensions(this.getButtonsRightSide(), this.getButtonsHeight(), 100, 20).build());
 
@@ -70,7 +69,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
             this.viewIneligibleOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.VIEW_INELIGIBLE_OPTIONS, (buttonWidget) -> {
                 LeaderboardsIneligibleOptionsScreen.fromInitialBoot = false;
                 Leaderboards.checkForIneligibleOptions();
-                this.client.setScreen(new LeaderboardsIneligibleOptionsScreen(this.parent, options));
+                this.client.setScreen(new LeaderboardsIneligibleOptionsScreen(this.parent));
             }).dimensions(this.width / 2 - 100, height, 200, 20).build());
 
             this.visitSubmissionPageButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.VISIT_SUBMISSION_PAGE, (button) -> {

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.enchantment;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -88,9 +87,6 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
                     // If enchantment levels match, get the current value of the enchantment level, and increment by one
                     // Otherwise, return the maximum value between the two enchantment level
                     newEnchantmentLevel = firstSlotLevel == secondSlotLevel ? firstSlotLevel + 1 : Math.max(firstSlotLevel, secondSlotLevel);
-                    SpeedrunnerMod.error(String.valueOf(firstSlotLevel));
-                    SpeedrunnerMod.warn(String.valueOf(secondSlotLevel));
-                    SpeedrunnerMod.info(String.valueOf(newEnchantmentLevel));
                 }
             }
         } else { // Otherwise, run through each enchantment on the second slot

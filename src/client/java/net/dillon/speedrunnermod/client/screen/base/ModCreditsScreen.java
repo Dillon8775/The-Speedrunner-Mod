@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
 
@@ -15,8 +14,8 @@ import net.minecraft.util.Identifier;
 @Environment(EnvType.CLIENT)
 public class ModCreditsScreen extends AbstractModScreen {
 
-    public ModCreditsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_CREDITS);
+    public ModCreditsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_CREDITS);
     }
 
     @Override

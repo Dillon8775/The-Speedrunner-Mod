@@ -3,11 +3,9 @@ package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,8 +13,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 public class RightClickToRemoveSilkTouchScreen extends AbstractFeatureScreen {
 
-    public RightClickToRemoveSilkTouchScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.right_click_to_remove_silk_touch"));
+    public RightClickToRemoveSilkTouchScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.miscellaneous.right_click_to_remove_silk_touch"));
     }
 
     @Override

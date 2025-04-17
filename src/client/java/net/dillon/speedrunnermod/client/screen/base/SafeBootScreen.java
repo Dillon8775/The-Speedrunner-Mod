@@ -8,7 +8,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
@@ -17,8 +16,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 @Environment(EnvType.CLIENT)
 public class SafeBootScreen extends AbstractModScreen {
 
-    public SafeBootScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_SAFE_BOOT);
+    public SafeBootScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_SAFE_BOOT);
     }
 
     @Override

@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 
 import java.io.File;
 
@@ -18,8 +17,8 @@ import java.io.File;
 @Environment(EnvType.CLIENT)
 public class MixinOptionsScreen extends AbstractModScreen {
 
-    public MixinOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_MIXIN_OPTIONS);
+    public MixinOptionsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_MIXIN_OPTIONS);
     }
 
     @Override

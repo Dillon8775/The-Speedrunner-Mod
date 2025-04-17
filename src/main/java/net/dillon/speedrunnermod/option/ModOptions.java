@@ -292,7 +292,7 @@ public class ModOptions {
          * Enable/disable the confirmation messages when using certain items (ex. eye of annul, ender thruster, piglin awakener, etc.).
          */
         @RequiresRestart
-        public boolean confirmMessages = false;
+        public boolean confirmationMessages = false;
 
         /**
          * Create a new world with just one click.
@@ -1467,7 +1467,7 @@ public class ModOptions {
         options().client.itemTooltips = true;
         options().client.customPanorama = true;
         options().client.itemMessages = ModOptions.ItemMessages.ACTIONBAR;
-        options().client.confirmMessages = false;
+        options().client.confirmationMessages = false;
         options().client.fastWorldCreation = true;
         options().client.gameMode = ModOptions.GameMode.SURVIVAL;
         options().client.difficulty = ModOptions.Difficulty.EASY;
@@ -1556,10 +1556,10 @@ public class ModOptions {
         options().tutorialMode.interactedWithRetiredSpeedrunner = false;
         options().tutorialMode.obtainedEnderThruster = false;
         options().tutorialMode.usedEnderThruster = false;
-        options().tutorialMode.obtainedDragonsSword = false;
         options().tutorialMode.obtainedWitherBone = false;
         options().tutorialMode.obtainedWitherSword = false;
         options().tutorialMode.obtainedEnderMatter = false;
+        options().tutorialMode.obtainedDragonsSword = false;
         options().tutorialMode.obtainedInfiniPearl = false;
     }
 }

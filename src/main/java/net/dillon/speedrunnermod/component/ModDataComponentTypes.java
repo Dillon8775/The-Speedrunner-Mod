@@ -1,8 +1,5 @@
 package net.dillon.speedrunnermod.component;
 
-import com.mojang.serialization.Codec;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.type.ConsumableComponent;
@@ -26,10 +23,6 @@ import static net.minecraft.component.type.ConsumableComponents.food;
  * Different types of components for mod items.
  */
 public class ModDataComponentTypes {
-    @ChatGPT(Credit.FULL_CREDIT)
-    public static final ComponentType<Boolean> BOOLEAN = Registry.register(
-            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("boolean"), ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
-
     public static final ComponentType<TagKey<Structure>> LOCATING_STRUCTURE = Registry.register(
             Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("locating_structure"), ComponentType.<TagKey<Structure>>builder().codec(TagKey.codec(RegistryKeys.STRUCTURE)).build());
 

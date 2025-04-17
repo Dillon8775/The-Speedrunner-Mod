@@ -130,7 +130,7 @@ public class ModListOptions {
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.rightClickToRemoveSilkTouch, value -> options().main.rightClickToRemoveSilkTouch = value);
 
     public static final SimpleOption<Boolean> CONFIRM_MESSAGES = new SimpleOption<>("speedrunnermod.options.confirm_messages", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.confirm_messages.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.confirmMessages, value -> options().client.confirmMessages = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.confirmationMessages, value -> options().client.confirmationMessages = value);
 
     public static final SimpleOption<Boolean> SHOW_DEATH_CORDS = new SimpleOption<>("speedrunnermod.options.show_death_cords", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_death_cords.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.showDeathCords, value -> options().client.showDeathCords = value);
@@ -453,11 +453,17 @@ public class ModListOptions {
         });
 
         @InactiveableOption
+        public static final SimpleOption<Integer> IAO_SPEEDRUNNERS_WASTELAND_BIOME_WEIGHT =
+                new SimpleOption<>("speedrunnermod.options.speedrunners_wasteland_biome_weight", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_required.tooltip")),
+                        ModListOptions::getGenericValueText,
+                        new SimpleOption.ValidatingIntSliderCallbacks(2, 32), options().advanced.speedrunnersWastelandBiomeWeight, value -> options().advanced.speedrunnersWastelandBiomeWeight = value);
+
+        @InactiveableOption
         public static final SimpleOption<Boolean> IAO_ALLOW_CHEATS = new SimpleOption<>("speedrunnermod.options.allow_cheats", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fwc_required")),
                 (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.allowCheats, value -> options().client.allowCheats = value);
 
         @InactiveableOption
-        public static final SimpleOption<Boolean> IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.doom_mode_required")),
+        public static final SimpleOption<Boolean> IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip")),
                 (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGoliathAndWither, value -> options().advanced.dragonImmunityFromGoliathAndWither = value);
 
         @InactiveableOption

@@ -34,7 +34,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * An item that teleports {@code nearby piglin} to the player.
  */
 public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
-    private boolean confirm = !options().client.confirmMessages;
+    private boolean confirm = !options().client.confirmationMessages;
 
     public PiglinAwakenerItem(Settings settings) {
         super(settings.maxCount(16));
@@ -101,7 +101,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                     player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.got_piglins").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                                     player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.confirm"), false);
                                 }
-                                if (options().client.confirmMessages) {
+                                if (options().client.confirmationMessages) {
                                     confirm = !confirm;
                                 }
                                 player.swingHand(hand, true);

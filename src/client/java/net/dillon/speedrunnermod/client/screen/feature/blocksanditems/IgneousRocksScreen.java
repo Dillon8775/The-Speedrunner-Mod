@@ -6,15 +6,14 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class IgneousRocksScreen extends AbstractFeatureScreen {
 
-    public IgneousRocksScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.igneous_rocks"));
+    public IgneousRocksScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.igneous_rocks"));
     }
 
     @Override

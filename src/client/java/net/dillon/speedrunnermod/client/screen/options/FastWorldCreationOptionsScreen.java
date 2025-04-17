@@ -9,7 +9,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
 
 import java.io.File;
@@ -22,8 +21,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Environment(EnvType.CLIENT)
 public class FastWorldCreationOptionsScreen extends AbstractModScreen {
 
-    public FastWorldCreationOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_FAST_WORLD_CREATION);
+    public FastWorldCreationOptionsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_FAST_WORLD_CREATION);
     }
 
     /**

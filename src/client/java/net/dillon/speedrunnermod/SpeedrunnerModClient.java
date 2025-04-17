@@ -15,7 +15,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 
@@ -23,7 +22,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
@@ -32,9 +31,9 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
  */
 @Environment(EnvType.CLIENT)
 public class SpeedrunnerModClient implements ClientModInitializer {
-    public static final List<BiFunction<Screen, GameOptions, AbstractModScreen>> ALL_MOD_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractModScreen
-    public static final List<BiFunction<Screen, GameOptions, AbstractFeatureScreen>> ALL_FEATURE_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractFeatureScreen
-    public static final List<BiFunction<Screen, GameOptions, AbstractChangelogScreen>> ALL_CHANGELOG_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractScrollableScreens (in changelogs directory)
+    public static final List<Function<Screen, AbstractModScreen>> ALL_MOD_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractModScreen
+    public static final List<Function<Screen, AbstractFeatureScreen>> ALL_FEATURE_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractFeatureScreen
+    public static final List<Function<Screen, AbstractChangelogScreen>> ALL_CHANGELOG_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractScrollableScreens (in changelogs directory)
     public static boolean speedrunIGTMissing = false;
 
     /**
@@ -64,11 +63,11 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         // Add all instances of AbstractModScreen to ALL_MOD_SCREENS list
         for (Class<? extends AbstractModScreen> modScreen : modScreenClasses) {
             try {
-                Constructor<? extends AbstractModScreen> constructor = modScreen.getConstructor(Screen.class, GameOptions.class);
+                Constructor<? extends AbstractModScreen> constructor = modScreen.getConstructor(Screen.class);
 
-                BiFunction<Screen, GameOptions, AbstractModScreen> creator = (parent, options) -> {
+                Function<Screen, AbstractModScreen> creator = (parent) -> {
                     try {
-                        return constructor.newInstance(parent, options);
+                        return constructor.newInstance(parent);
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to instantiate " + modScreen.getName(), e);
                     }
@@ -76,18 +75,18 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
                 SpeedrunnerModClient.ALL_MOD_SCREENS.add(creator);
             } catch (NoSuchMethodException e) {
-                SpeedrunnerMod.warn("Skipping " + modScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
+                SpeedrunnerMod.warn("Skipping " + modScreen.getName() + ": doesn't have (Screen) constructor.");
             }
         }
 
         // Add all instances of AbstractFeatureScreen to ALL_FEATURE_SCREENS list
         for (Class<? extends AbstractFeatureScreen> featureScreen : featureScreenClasses) {
             try {
-                Constructor<? extends AbstractFeatureScreen> constructor = featureScreen.getConstructor(Screen.class, GameOptions.class);
+                Constructor<? extends AbstractFeatureScreen> constructor = featureScreen.getConstructor(Screen.class);
 
-                BiFunction<Screen, GameOptions, AbstractFeatureScreen> creator = (parent, options) -> {
+                Function<Screen, AbstractFeatureScreen> creator = (parent) -> {
                     try {
-                        return constructor.newInstance(parent, options);
+                        return constructor.newInstance(parent);
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to instantiate " + featureScreen.getName(), e);
                     }
@@ -95,18 +94,18 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
                 SpeedrunnerModClient.ALL_FEATURE_SCREENS.add(creator);
             } catch (NoSuchMethodException e) {
-                SpeedrunnerMod.warn("Skipping " + featureScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
+                SpeedrunnerMod.warn("Skipping " + featureScreen.getName() + ": doesn't have (Screen) constructor.");
             }
         }
 
         // Add all instances of AbstractScrollableTextScreen (in changelogs directory, so only changelogs) to ALL_CHANGELOG_SCREENS list
         for (Class<? extends AbstractChangelogScreen> scrollableTextScreen : changelogScreenClasses) {
             try {
-                Constructor<? extends AbstractChangelogScreen> constructor = scrollableTextScreen.getConstructor(Screen.class, GameOptions.class);
+                Constructor<? extends AbstractChangelogScreen> constructor = scrollableTextScreen.getConstructor(Screen.class);
 
-                BiFunction<Screen, GameOptions, AbstractChangelogScreen> creator = (parent, options) -> {
+                Function<Screen, AbstractChangelogScreen> creator = (parent) -> {
                     try {
-                        return constructor.newInstance(parent, options);
+                        return constructor.newInstance(parent);
                     } catch (Exception e) {
                         throw new RuntimeException("Failed to instantiate " + scrollableTextScreen.getName(), e);
                     }
@@ -114,7 +113,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
                 SpeedrunnerModClient.ALL_CHANGELOG_SCREENS.add(creator);
             } catch (NoSuchMethodException e) {
-                SpeedrunnerMod.warn("Skipping " + scrollableTextScreen.getName() + ": doesn't have (Screen, GameOptions) constructor.");
+                SpeedrunnerMod.warn("Skipping " + scrollableTextScreen.getName() + ": doesn't have (Screen) constructor.");
             }
         }
 

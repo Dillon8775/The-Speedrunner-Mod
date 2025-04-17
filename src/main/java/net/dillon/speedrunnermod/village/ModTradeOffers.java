@@ -40,6 +40,9 @@ public class ModTradeOffers {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 1, factories -> {
             factories.add(new MaxedEnchantBookFactory(3, 4, 0.2F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 1, factories -> {
+            factories.add(new TradeOffers.BuyItemFactory(ModItems.SPEEDRUNNER_BLOCK, 2, 12, 12));
+        });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER, 2, factories -> {
             factories.add(new MaxedEnchantBookFactory(3, 6, 0.0F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });

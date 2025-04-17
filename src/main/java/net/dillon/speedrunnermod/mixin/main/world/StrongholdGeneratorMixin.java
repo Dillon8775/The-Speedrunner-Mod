@@ -2,8 +2,12 @@ package net.dillon.speedrunnermod.mixin.main.world;
 
 import net.dillon.speedrunnermod.world.ModWorldGen;
 import net.minecraft.structure.StrongholdGenerator;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
+
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Makes strongholds smaller, and easier to navigate.
@@ -11,6 +15,12 @@ import org.spongepowered.asm.mixin.Shadow;
  */
 @Mixin(StrongholdGenerator.class)
 public class StrongholdGeneratorMixin {
-    @Shadow
-    private static final StrongholdGenerator.PieceData[] ALL_PIECES = ModWorldGen.STRONGHOLD_GENERATION;
+    @Shadow @Final @Mutable
+    private static StrongholdGenerator.PieceData[] ALL_PIECES;
+
+    static {
+        if (!options().main.playingMode.balanced() || !options().advanced.modifiedStrongholdGeneration) {
+            ALL_PIECES = ModWorldGen.MODIFIED_STRONGHOLD_PIECES;
+        }
+    }
 }

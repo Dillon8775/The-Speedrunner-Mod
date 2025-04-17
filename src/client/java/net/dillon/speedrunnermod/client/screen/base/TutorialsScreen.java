@@ -3,19 +3,17 @@ package net.dillon.speedrunnermod.client.screen.base;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class TutorialsScreen extends AbstractModScreen {
 
-    public TutorialsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_TUTORIALS);
+    public TutorialsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_TUTORIALS);
     }
 
     @Override
@@ -23,7 +21,7 @@ public class TutorialsScreen extends AbstractModScreen {
         this.initializeCustomButtonListWidget();
 
         this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes"), (button) -> {
-            this.client.setScreen(new BastionRoutesScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new BastionRoutesScreen(this.parent));
         }).build());
 
         this.buttons.add(1, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.nether_fortresses"), (button) -> {
@@ -31,7 +29,7 @@ public class TutorialsScreen extends AbstractModScreen {
         }).build());
 
         this.buttons.add(2, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing"), (button) -> {
-            this.client.setScreen(new MicrolensingScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MicrolensingScreen(this.parent));
         }).build());
 
         this.buttons.add(3, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.blind_travel"), (button) -> {
@@ -97,7 +95,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new ResourcesScreen(this.parent, MinecraftClient.getInstance().options));
+        this.client.setScreen(new ResourcesScreen(this.parent));
     }
 
     @Override
@@ -122,8 +120,8 @@ public class TutorialsScreen extends AbstractModScreen {
 
     protected static class BastionRoutesScreen extends AbstractModScreen {
 
-        public BastionRoutesScreen(Screen parent, GameOptions options) {
-            super(parent, options, Text.translatable("speedrunnermod.title.resources.tutorials.bastion_routes"));
+        public BastionRoutesScreen(Screen parent) {
+            super(parent, Text.translatable("speedrunnermod.title.resources.tutorials.bastion_routes"));
         }
 
         @Override
@@ -152,7 +150,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new TutorialsScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new TutorialsScreen(this.parent));
         }
 
         @Override
@@ -183,8 +181,8 @@ public class TutorialsScreen extends AbstractModScreen {
 
     public static class MicrolensingScreen extends AbstractModScreen {
 
-        public MicrolensingScreen(Screen parent, GameOptions options) {
-            super(parent, options, Text.translatable("speedrunnermod.title.resources.tutorials.microlensing"));
+        public MicrolensingScreen(Screen parent) {
+            super(parent, Text.translatable("speedrunnermod.title.resources.tutorials.microlensing"));
         }
 
         @Override
@@ -205,7 +203,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new TutorialsScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new TutorialsScreen(this.parent));
         }
 
         @Override

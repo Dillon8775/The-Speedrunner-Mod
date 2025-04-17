@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
@@ -14,8 +13,8 @@ import org.lwjgl.glfw.GLFW;
 @Environment(EnvType.CLIENT)
 public abstract class AbstractChangelogScreen extends AbstractScrollableScreen {
 
-    public AbstractChangelogScreen(Screen parent, GameOptions options, Text title) {
-        super(parent, options, title);
+    public AbstractChangelogScreen(Screen parent, Text title) {
+        super(parent, title);
     }
 
     /**

@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 
 @Deprecated
 @Environment(EnvType.CLIENT)
@@ -16,17 +15,17 @@ public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     private final Screen parent;
     public static boolean fromInitialBoot = true;
 
-    public LeaderboardsIneligibleOptionsScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_INELIGIBLE_OPTIONS);
+    public LeaderboardsIneligibleOptionsScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_INELIGIBLE_OPTIONS);
         this.parent = parent;
     }
 
     @Override
     public void close() {
         if (fromInitialBoot) {
-            this.client.setScreen(new LeaderboardsSafeScreen(this.parent, this.options));
+            this.client.setScreen(new LeaderboardsSafeScreen(this.parent));
         } else {
-            this.client.setScreen(new LeaderboardsIneligibleScreen(this.parent, this.options));
+            this.client.setScreen(new LeaderboardsIneligibleScreen(this.parent));
         }
     }
 

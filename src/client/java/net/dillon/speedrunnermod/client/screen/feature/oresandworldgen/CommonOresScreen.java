@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,8 +16,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Environment(EnvType.CLIENT)
 public class CommonOresScreen extends AbstractFeatureScreen {
 
-    public CommonOresScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores"));
+    public CommonOresScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores"));
     }
 
     @Override

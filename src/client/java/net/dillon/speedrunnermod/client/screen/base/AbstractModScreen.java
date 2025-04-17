@@ -16,13 +16,11 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.OptionListWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -32,7 +30,7 @@ import org.lwjgl.glfw.GLFW;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
@@ -51,8 +49,8 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     public final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
 
-    public AbstractModScreen(Screen parent, GameOptions options, Text title) {
-        super(parent, options, title);
+    public AbstractModScreen(Screen parent, Text title) {
+        super(parent, title);
         this.parent = parent;
     }
 
@@ -69,7 +67,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).dimensions(this.getButtonsMiddle(), this.getDoneButtonsHeight(), 100, 20).build());
 
             this.resetOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET, (button) -> {
-                this.client.setScreen(new ResetOptionsConfirmScreen(this.parent, MinecraftClient.getInstance().options, false));
+                this.client.setScreen(new ResetOptionsConfirmScreen(this.parent, false));
             }).dimensions(this.getButtonsRightSide(), this.getDoneButtonsHeight(), 100, 20).build());
 
             this.helpButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
@@ -116,20 +114,20 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 }
 
                 if (LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode) {
-                    this.client.setScreen(new LeaderboardsIneligibleScreen(this.parent, options));
+                    this.client.setScreen(new LeaderboardsIneligibleScreen(this.parent));
                 } else if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                     if (RestartRequiredScreen.needsRestart()) {
                         LeaderboardsIneligibleScreen.needsRestart = true;
                     }
                     this.alreadySettingToIneligibleScreen = true;
-                    this.client.setScreen(new LeaderboardsIneligibleScreen(this.parent, this.options));
+                    this.client.setScreen(new LeaderboardsIneligibleScreen(this.parent));
                 } else if (!this.alreadySettingToIneligibleScreen && Leaderboards.wasLeaderboardsModeChanged() || RestartRequiredScreen.needsRestart()) {
-                    this.client.setScreen(new RestartRequiredScreen(this.parent, options));
+                    this.client.setScreen(new RestartRequiredScreen(this.parent));
                 } else {
                     this.client.setScreen(this.parent);
                 }
             } else if (RestartRequiredScreen.needsRestart()) {
-                this.client.setScreen(new RestartRequiredScreen(this.parent, this.options));
+                this.client.setScreen(new RestartRequiredScreen(this.parent));
             } else {
                 this.client.setScreen(this.parent);
             }
@@ -210,15 +208,15 @@ public abstract class AbstractModScreen extends BaseModScreen {
     @ChatGPT(Credit.FULL_CREDIT)
     protected void addButtonsIteratively(ScreenCategory screenCategory) {
         int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
-                .map(constructor -> constructor.apply(this.parent, this.options))
+                .map(constructor -> constructor.apply(this.parent))
                 .filter(screen -> screen.getScreenCategory() == screenCategory)
                 .mapToInt(AbstractFeatureScreen::getPageNumber)
                 .max()
                 .orElse(0);
 
         for (int pageNum = 1; pageNum <= maxPageNumber; pageNum++) {
-            for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-                AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
+            for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+                AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
                 if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
                     this.buttons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
                         this.client.setScreen(screen);

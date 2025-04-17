@@ -34,11 +34,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     private float damageDuringSitting;
     @Shadow
     protected abstract void parentDamage(ServerWorld world, DamageSource source, float amount);
-    @Shadow
-    @Final
+    @Shadow @Final
     public EnderDragonPart head;
-    @Shadow
-    @Final
+    @Shadow @Final
     private PhaseManager phaseManager;
 
     public EnderDragonEntityMixin(EntityType<? extends EnderDragonEntity> entityType, World world) {
@@ -117,10 +115,10 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Override
     public void onDeath(DamageSource source) {
-        boolean bl = !options().tutorialMode.getStep(TutorialStep.USE_DRAGONS_PEARL) && !options().main.playingMode.balanced();
+        boolean bl = options().main.tutorialMode && !options().tutorialMode.getStep(TutorialStep.USE_DRAGONS_PEARL) && !options().main.playingMode.balanced();
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
-        if ((options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
+        if ((options().main.tutorialMode && options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
             this.setHealth(1.0F);
             if (livingEntity instanceof PlayerEntity player && bl) {
                 options().tutorialMode.send("speedrunnermod.tutorial_mode.use_dragons_pearl", player);

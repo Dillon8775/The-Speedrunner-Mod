@@ -11,7 +11,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
@@ -22,8 +21,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 @Environment(EnvType.CLIENT)
 public class ReadyToPlayScreen extends AbstractFeatureScreen {
 
-    public ReadyToPlayScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.BLANK);
+    public ReadyToPlayScreen(Screen parent) {
+        super(parent, ModTexts.BLANK);
     }
 
     @Override

@@ -104,12 +104,6 @@ public class ItemMixin {
                 options().tutorialMode.completeStep(TutorialStep.OBTAIN_ENDER_THRUSTER, player, "speedrunnermod.tutorial_mode.use_ender_thruster");
             }
 
-            if (stack.isOf(ModItems.DRAGONS_SWORD)) {
-                options().tutorialMode.completeStep(TutorialStep.OBTAIN_DRAGONS_SWORD, player,
-                        "speedrunnermod.tutorial_mode.dragons_sword_description",
-                        "speedrunnermod.tutorial_mode.craft_wither_bone");
-            }
-
             if (stack.isOf(ModItems.SPEEDRUNNERS_EYE)) {
                 options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.change_speedrunners_eye_locator");
             }
@@ -149,7 +143,15 @@ public class ItemMixin {
             }
 
             if (stack.isOf(ModItems.ENDER_MATTER)) {
-                options().tutorialMode.completeStep(TutorialStep.OBTAIN_ENDER_MATTER, player, "speedrunnermod.tutorial_mode.craft_infini_pearl");
+                options().tutorialMode.completeStep(TutorialStep.OBTAIN_ENDER_MATTER, player,
+                        options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_dragons_sword" :
+                                "speedrunnermod.tutorial_mode.craft_infini_pearl");
+            }
+
+            if (stack.isOf(ModItems.DRAGONS_SWORD)) {
+                options().tutorialMode.completeStep(TutorialStep.OBTAIN_DRAGONS_SWORD, player,
+                        "speedrunnermod.tutorial_mode.dragons_sword_description",
+                        "speedrunnermod.tutorial_mode.craft_infini_pearl");
             }
 
             if (stack.isOf(ModItems.INFINI_PEARL)) {

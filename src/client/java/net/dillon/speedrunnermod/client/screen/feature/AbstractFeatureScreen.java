@@ -14,11 +14,9 @@ import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -26,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 
@@ -53,16 +51,16 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     /**
      * A basic feature screen constructor.
      */
-    public AbstractFeatureScreen(Screen parent, GameOptions options, Text title) {
-        super(parent, options, title);
+    public AbstractFeatureScreen(Screen parent, Text title) {
+        super(parent, title);
         this.parent = parent;
     }
 
     /**
      * A feature screen constructor, this one is typically used for the last page of a category.
      */
-    public AbstractFeatureScreen(Screen parent, GameOptions options, Text title, Screen category1Screen, Text category1Text, Screen category2Screen, Text category2Text, Screen category3Screen, Text category3Text, boolean hasFourthCategory, @Nullable Screen category4Screen, @Nullable Text category4Text) {
-        super(parent, options, title);
+    public AbstractFeatureScreen(Screen parent, Text title, Screen category1Screen, Text category1Text, Screen category2Screen, Text category2Text, Screen category3Screen, Text category3Text, boolean hasFourthCategory, @Nullable Screen category4Screen, @Nullable Text category4Text) {
+        super(parent, title);
         this.parent = parent;
         this.category1Screen = category1Screen;
         this.category2Screen = category2Screen;
@@ -122,15 +120,15 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             }).build());
 
             this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), button -> {
-                this.client.setScreen(new SpeedrunnerIngotsScreen(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new SpeedrunnerIngotsScreen(this.parent));
             }).build());
 
             this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), button -> {
-                this.client.setScreen(new SpeedrunnerArmorScreen(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new SpeedrunnerArmorScreen(this.parent));
             }).build());
 
             this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), button -> {
-                this.client.setScreen(new SpeedrunnersWastelandBiomeScreen(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new SpeedrunnersWastelandBiomeScreen(this.parent));
             }).build());
         }
     }
@@ -162,19 +160,19 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     @Override
     public void close() {
         if (this.getScreenCategory() == ScreenCategory.BLOCKS_AND_ITEMS) {
-            this.client.setScreen(new BlocksAndItemsScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new BlocksAndItemsScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.TOOLS_AND_ARMOR) {
-            this.client.setScreen(new ToolsAndArmorScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new ToolsAndArmorScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.ORES_AND_WORLDGEN) {
-            this.client.setScreen(new OresAndWorldgenScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new OresAndWorldgenScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.MISCELLANEOUS) {
-            this.client.setScreen(new MiscellaneousScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MiscellaneousScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.DOOM_MODE) {
-            this.client.setScreen(new DoomModeScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new DoomModeScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
             warn("Cannot close!");
         } else {
-            this.client.setScreen(new FeaturesScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new FeaturesScreen(this.parent));
         }
     }
 
@@ -308,7 +306,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 return determineScreen(pageNumber, ScreenCategory.FIRST_TIME_PLAYING);
             }
             default -> {
-                return new FeaturesScreen(this.parent, this.options);
+                return new FeaturesScreen(this.parent);
             }
         }
     }
@@ -318,13 +316,13 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     private Screen determineScreen(int pageNumber, ScreenCategory category) {
-        for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
+        for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == category) {
                 return screen;
             }
         }
-        return new FeaturesScreen(this.parent, this.options);
+        return new FeaturesScreen(this.parent);
     }
 
     /**
@@ -332,8 +330,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     protected int calculateMaxPages(ScreenCategory category) {
         int i = 0;
-        for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
+        for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
             if (screen.getScreenCategory() == category) {
                 i++;
             }
@@ -372,7 +370,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     protected void refreshRestartableFeature() {
         RestartRequiredScreen.getCurrentOptions();
-        this.client.setScreen(new MainOptionsScreen(this, this.options));
+        this.client.setScreen(new MainOptionsScreen(this));
     }
 
     /**

@@ -6,15 +6,14 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class BetterNetherPortalsScreen extends AbstractFeatureScreen {
 
-    public BetterNetherPortalsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.miscellaneous.better_nether_portals"));
+    public BetterNetherPortalsScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.miscellaneous.better_nether_portals"));
     }
 
     @Override

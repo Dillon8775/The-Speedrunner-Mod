@@ -8,7 +8,6 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
@@ -16,8 +15,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     private final Screen parent;
     protected static int doomModeButtonAlreadyClicked = 0;
 
-    protected SecretDoomModeScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_DOOM_MODE);
+    protected SecretDoomModeScreen(Screen parent) {
+        super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
         this.parent = parent;
     }
 
@@ -29,7 +28,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         int height = this.height / 6 + 126;
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.doom_mode_screen.line1.reply"), (buttonWidget) -> {
-            this.client.setScreen(new ScreenTwo(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new ScreenTwo(this.parent));
         }).dimensions(middle, height, 150, 20).build());
 
         height += 24;
@@ -44,7 +43,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+        this.client.setScreen(new MainScreen(this.parent));
     }
 
     @Override
@@ -56,8 +55,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenTwo extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenTwo(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenTwo(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -69,7 +68,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
             int height = this.height / 6 + 126;
 
             this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.doom_mode_screen.line2.reply"), (buttonWidget) -> {
-                this.client.setScreen(new ScreenThree(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ScreenThree(this.parent));
             }).dimensions(middle, height, 150, 20).build());
 
             height += 24;
@@ -84,7 +83,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -97,8 +96,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenThree extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenThree(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenThree(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -110,7 +109,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
             int height = this.height / 6 + 126;
 
             this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.doom_mode_screen.line3.reply"), (buttonWidget) -> {
-                this.client.setScreen(new ScreenFour(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ScreenFour(this.parent));
             }).dimensions(middle, height, 150, 20).build());
 
             height += 24;
@@ -125,7 +124,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -138,8 +137,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenFour extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenFour(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenFour(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -162,7 +161,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -178,8 +177,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenFive extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenFive(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenFive(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -191,7 +190,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
             int height = this.height / 6 + 126;
 
             this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.doom_mode_screen.line7.reply"), (buttonWidget) -> {
-                this.client.setScreen(new ScreenSix(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ScreenSix(this.parent));
             }).dimensions(middle, height, 150, 20).build());
 
             height += 24;
@@ -206,7 +205,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -219,8 +218,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenSix extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenSix(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenSix(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -232,7 +231,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
             int height = this.height / 6 + 126;
 
             this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.doom_mode_screen.line8.reply"), (buttonWidget) -> {
-                this.client.setScreen(new ScreenSeven(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ScreenSeven(this.parent));
             }).dimensions(middle, height, 150, 20).build());
 
             height += 24;
@@ -247,7 +246,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -260,8 +259,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenSeven extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenSeven(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenSeven(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -273,7 +272,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
             int height = this.height / 6 + 126;
 
             this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.doom_mode_screen.line9.reply"), (buttonWidget) -> {
-                this.client.setScreen(new ScreenEight(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ScreenEight(this.parent));
             }).dimensions(middle, height, 150, 20).build());
         }
 
@@ -283,7 +282,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -296,8 +295,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenEight extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenEight(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenEight(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -309,7 +308,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
             int height = this.height / 6 + 126;
 
             this.addDrawableChild(ButtonWidget.builder(ModTexts.OK, (buttonWidget) -> {
-                this.client.setScreen(new ScreenNine(this.parent, MinecraftClient.getInstance().options));
+                this.client.setScreen(new ScreenNine(this.parent));
             }).dimensions(middle, height, 150, 20).build());
         }
 
@@ -319,7 +318,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override
@@ -335,8 +334,8 @@ class SecretDoomModeScreen extends GameOptionsScreen {
     protected static class ScreenNine extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenNine(Screen parent, GameOptions options) {
-            super(parent, options, ModTexts.TITLE_DOOM_MODE);
+        protected ScreenNine(Screen parent) {
+            super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
 
@@ -359,7 +358,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
 
         @Override
         public void close() {
-            this.client.setScreen(new MainScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this.parent));
         }
 
         @Override

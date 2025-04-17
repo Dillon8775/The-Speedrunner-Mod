@@ -6,15 +6,14 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class EnderThrusterScreen extends AbstractFeatureScreen {
 
-    public EnderThrusterScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_thruster"));
+    public EnderThrusterScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_thruster"));
     }
 
     @Override

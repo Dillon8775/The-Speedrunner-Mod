@@ -4,11 +4,9 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
@@ -17,8 +15,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
 public class ResetOptionsConfirmScreen extends AbstractModScreen {
     private final boolean tutorial;
 
-    public ResetOptionsConfirmScreen(Screen parent, GameOptions options, boolean tutorial) {
-        super(parent, options, tutorial ? ModTexts.TITLE_TUTORIAL_MODE_OPTIONS_RESET : ModTexts.TITLE_OPTIONS_RESET);
+    public ResetOptionsConfirmScreen(Screen parent, boolean tutorial) {
+        super(parent,tutorial ? ModTexts.TITLE_TUTORIAL_MODE_OPTIONS_RESET : ModTexts.TITLE_OPTIONS_RESET);
         this.tutorial = tutorial;
     }
 
@@ -33,7 +31,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
             }
             ModOptions.saveConfig();
             info("Successfully reset all options. Restart the game to take full effect.");
-            this.client.setScreen(new ResetOptionsScreen(this.parent, MinecraftClient.getInstance().options));
+            this.client.setScreen(new ResetOptionsScreen(this.parent));
         }).dimensions(this.getButtonsLeftSide(), height, 150, 20).build());
         this.addDrawableChild(ButtonWidget.builder(ModTexts.NOT_NOW, (buttonWidget) -> {
             this.close();
@@ -42,7 +40,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new ModOptionsScreen(this.parent, MinecraftClient.getInstance().options));
+        this.client.setScreen(new ModOptionsScreen(this.parent));
     }
 
     @Override

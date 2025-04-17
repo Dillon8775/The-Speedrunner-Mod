@@ -6,15 +6,14 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class WitherSwordScreen extends AbstractFeatureScreen {
 
-    public WitherSwordScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword"));
+    public WitherSwordScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword"));
     }
 
     @Override

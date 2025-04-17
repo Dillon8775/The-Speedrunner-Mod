@@ -9,18 +9,17 @@ import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.Speedrunn
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class DragonsSwordScreen extends AbstractFeatureScreen {
 
-    public DragonsSwordScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword"),
-                new SpeedrunnersWastelandBiomeScreen(parent, options), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
-                new BetterHotkeysScreen(parent, options), Text.translatable("speedrunnermod.menu.features.miscellaneous"),
-                new SpeedrunnerIngotsScreen(parent, options), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), false, null, null);
+    public DragonsSwordScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword"),
+                new SpeedrunnersWastelandBiomeScreen(parent), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
+                new BetterHotkeysScreen(parent), Text.translatable("speedrunnermod.menu.features.miscellaneous"),
+                new SpeedrunnerIngotsScreen(parent), Text.translatable("speedrunnermod.menu.features.blocks_and_items"), false, null, null);
     }
 
     @Override

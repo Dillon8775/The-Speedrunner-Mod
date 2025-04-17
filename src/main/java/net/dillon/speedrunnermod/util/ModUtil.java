@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.util;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
-import com.sun.jdi.NativeMethodException;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
@@ -140,7 +138,7 @@ public class ModUtil {
             int testSeconds = 0;
             while (testSeconds < 525600) {
                 if (seconds == testSeconds) {
-                    throw new NativeMethodException();
+                    throw new NumberFormatException();
                 }
                 testSeconds += 60;
             }

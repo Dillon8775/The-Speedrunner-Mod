@@ -10,7 +10,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -24,8 +23,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Environment(EnvType.CLIENT)
 public class MainScreen extends AbstractModScreen {
 
-    public MainScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE);
+    public MainScreen(Screen parent) {
+        super(parent, ModTexts.TITLE);
     }
 
     @Override
@@ -38,31 +37,31 @@ public class MainScreen extends AbstractModScreen {
             if (options().main.leaderboardsMode) {
                 Leaderboards.getCurrentOptions();
             }
-            this.client.setScreen(new ModOptionsScreen(this, options));
+            this.client.setScreen(new ModOptionsScreen(this));
         }).build());
 
         this.buttons.add(1, ButtonWidget.builder(ModTexts.MENU_FEATURES, (button) -> {
-            this.client.setScreen(new FeaturesScreen(this, options));
+            this.client.setScreen(new FeaturesScreen(this));
         }).build());
 
         this.buttons.add(2, ButtonWidget.builder(ModTexts.MENU_CHANGELOGS, (button) -> {
-            this.client.setScreen(new ChangelogsScreen(this, options));
+            this.client.setScreen(new ChangelogsScreen(this));
         }).build());
 
         this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_RESOURCES, (button) -> {
-            this.client.setScreen(new ResourcesScreen(this, options));
+            this.client.setScreen(new ResourcesScreen(this));
         }).build());
 
         this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_EXTERNAL, (button) -> {
-            this.client.setScreen(new ExternalScreen(this, options));
+            this.client.setScreen(new ExternalScreen(this));
         }).build());
 
         this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
-            this.client.setScreen(new ModCreditsScreen(this, options));
+            this.client.setScreen(new ModCreditsScreen(this));
         }).build());
 
         this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
-            this.client.setScreen(new LeaderboardsScreen(this, this.options));
+            this.client.setScreen(new LeaderboardsScreen(this));
         }).build());
         this.buttons.get(6).active = false;
 
@@ -72,9 +71,9 @@ public class MainScreen extends AbstractModScreen {
 
         this.buttons.add(8, ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
             if (SecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
-                this.client.setScreen(new SecretDoomModeScreen.ScreenFive(this, options));
+                this.client.setScreen(new SecretDoomModeScreen.ScreenFive(this));
             } else {
-                this.client.setScreen(new SecretDoomModeScreen(this, options));
+                this.client.setScreen(new SecretDoomModeScreen(this));
             }
         }).build());
         this.buttons.get(8).visible = options().main.playingMode.doom();

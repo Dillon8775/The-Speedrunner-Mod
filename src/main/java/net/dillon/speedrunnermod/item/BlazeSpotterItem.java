@@ -1,7 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.util.*;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
@@ -32,7 +35,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
  */
 public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
-    private boolean confirm = !options().client.confirmMessages;
+    private boolean confirm = !options().client.confirmationMessages;
 
     public BlazeSpotterItem(Settings settings) {
         super(settings.maxCount(16));
@@ -68,7 +71,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                             player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.found_blaze_spawner").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
                             player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.confirm"), false);
                         }
-                        if (options().client.confirmMessages) {
+                        if (options().client.confirmationMessages) {
                             confirm = !confirm;
                         }
                         player.swingHand(hand, true);

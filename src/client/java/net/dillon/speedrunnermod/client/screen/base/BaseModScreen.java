@@ -15,11 +15,10 @@ import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * The base screen for any {@code Speedrunner Mod} screen.
@@ -27,10 +26,9 @@ import java.util.function.BiFunction;
 @Environment(EnvType.CLIENT)
 public class BaseModScreen extends GameOptionsScreen {
     public ButtonWidget refreshButton;
-    protected final GameOptions options = MinecraftClient.getInstance().options;
 
-    public BaseModScreen(Screen parent, GameOptions options, Text title) {
-        super(parent, options, title);
+    public BaseModScreen(Screen parent, Text title) {
+        super(parent, MinecraftClient.getInstance().options, title);
     }
 
     /**
@@ -69,7 +67,7 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     public void refreshScreen(String id) {
         ModOptions.saveConfig();
-        this.client.setScreen(new RefreshingScreen(parent, options));
+        this.client.setScreen(new RefreshingScreen(parent));
         this.client.setScreen(this.determineRefreshedScreen(id));
     }
 
@@ -77,7 +75,7 @@ public class BaseModScreen extends GameOptionsScreen {
      * Refreshes a feature screen.
      */
     public void refreshFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
-        this.client.setScreen(new RefreshingScreen(parent, options));
+        this.client.setScreen(new RefreshingScreen(parent));
         this.client.setScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
     }
 
@@ -86,7 +84,7 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     public void refreshChangelogScreen(String id) {
         ModOptions.saveConfig();
-        this.client.setScreen(new RefreshingScreen(parent, options));
+        this.client.setScreen(new RefreshingScreen(parent));
         this.client.setScreen(this.determineRefreshedChangelogScreen(id));
     }
 
@@ -94,39 +92,39 @@ public class BaseModScreen extends GameOptionsScreen {
      * Determines the refreshed screen for base screens.
      */
     private Screen determineRefreshedScreen(String pageId) {
-        for (BiFunction<Screen, GameOptions, AbstractModScreen> modScreenConstructor : SpeedrunnerModClient.ALL_MOD_SCREENS) {
-            AbstractModScreen screen = modScreenConstructor.apply(this.parent, this.options);
+        for (Function<Screen, AbstractModScreen> modScreenConstructor : SpeedrunnerModClient.ALL_MOD_SCREENS) {
+            AbstractModScreen screen = modScreenConstructor.apply(this.parent);
             if (screen.pageId().equals(pageId)) {
                 return screen;
             }
         }
-        return new MainScreen(this.parent, this.options);
+        return new MainScreen(this.parent);
     }
 
     /**
      * Determines the refreshed screen for feature screens.
      */
     private Screen determineRefreshedFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
-        for (BiFunction<Screen, GameOptions, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent, this.options);
+        for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == screenCategory) {
                 return screen;
             }
         }
-        return new FirstTimePlayingScreen(this.parent, this.options);
+        return new FirstTimePlayingScreen(this.parent);
     }
 
     /**
      * Determines the refreshed screen for changelog screens.
      */
     private Screen determineRefreshedChangelogScreen(String pageId) {
-        for (BiFunction<Screen, GameOptions, AbstractChangelogScreen> modScreenConstructor : SpeedrunnerModClient.ALL_CHANGELOG_SCREENS) {
-            AbstractChangelogScreen screen = modScreenConstructor.apply(this.parent, this.options);
+        for (Function<Screen, AbstractChangelogScreen> modScreenConstructor : SpeedrunnerModClient.ALL_CHANGELOG_SCREENS) {
+            AbstractChangelogScreen screen = modScreenConstructor.apply(this.parent);
             if (screen.pageId().equals(pageId)) {
                 return screen;
             }
         }
-        return new MainScreen(this.parent, this.options);
+        return new MainScreen(this.parent);
     }
 
     /**

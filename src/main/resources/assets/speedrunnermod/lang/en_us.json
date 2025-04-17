@@ -84,7 +84,7 @@
   "speedrunnermod.tutorial_mode.used_dragons_pearl": "§dThe dragon is perching §d§lNOW!§r§d Get it!",
 
   "speedrunnermod.tutorial_mode.killed_dragon": "§dCongratulations!!!§b You've completed your first speedrun with the §b§lSpeedrunner Mod,§r§b but there's still much to explore in this mod. So, let's go back to the overworld and uncover a few more features.",
-  "speedrunnermod.tutorial_mode.killed_dragon.doom": "§dYou did it. Congrats...",
+  "speedrunnermod.tutorial_mode.killed_dragon.doom": "§dYou did it.",
 
   "speedrunnermod.tutorial_mode.exit_end.doom": "§c§lGG §r§con Doom Mode.",
 
@@ -570,7 +570,7 @@
   "speedrunnermod.options.kill_ghast_on_fireball": "Kill Ghast On Fireball",
   "speedrunnermod.options.kill_ghast_on_fireball.tooltip": "This does exactly what it says it does.",
   "speedrunnermod.options.dragon_perch_time": "Dragon Perch Time",
-  "speedrunnermod.options.dragon_perch_time.tooltip": "Make the ender dragon automatically perch upon entering the end.",
+  "speedrunnermod.options.dragon_perch_time.tooltip": "Make the ender dragon automatically perch upon entering the end within a set amount of time.",
   "speedrunnermod.options.better_villager_trades": "Better Villager Trades",
   "speedrunnermod.options.better_villager_trades.tooltip": "Improves the vanilla Minecraft villager trades.\n\n§a§lRequires restart.",
   "speedrunnermod.options.fireproof_items": "Fireproof Items",
@@ -720,6 +720,7 @@
   "speedrunnermod.options.shift_to_throw_fireball.tooltip": "Allows the player to right-click + shift on a block with a fireball to be able to throw it, kind of like in bedwars.",
   "speedrunnermod.options.speedrunners_wasteland_biome_weight": "Speedrunner's Wasteland Biome Weight",
   "speedrunnermod.options.speedrunners_wasteland_biome_weight.tooltip": "Changes how often the §bSpeedrunner's Wasteland biome§r generates.\n\nIf you want to disable the biome from generating completely, disable §l\"Custom Biomes and Custom Biome Features\".\n\n§a§lRequires restart.",
+  "speedrunnermod.options.custom_biomes_and_custom_biome_features_required.tooltip": "§l\"Custom Biomes and Custom Biome Features\"§r must be §aenabled §rto modify this option!",
   "speedrunnermod.options.apply_fog_mixin": "Apply Fog Mixin",
   "speedrunnermod.options.apply_fog_mixin.tooltip": "Applies the fog option into the game.\n\nDisable this if you are experiencing compatibility issues with other mods that may also mess with fog settings.\n\n§a§lRequires restart.",
   "speedrunnermod.options.apply_fog_mixin_required": "§l\"Apply Fog Mixin\"§r must be §aenabled§r to modify this option!\n\nSee §badvanced options.",
@@ -954,7 +955,7 @@
   "speedrunnermod.menu.external.youtube": "YouTube...",
   "speedrunnermod.menu.external.discord": "Discord...",
   "speedrunnermod.discord.tooltip": "Become a part of the Speedrunner Mod community, and get notified of new updates, sneak peaks, and more!",
-  "speedrunnermod.menu.external.mod_showcase_video": "Mod Showcase Video...",
+  "speedrunnermod.menu.external.mod_showcase_video": "Release Trailer...",
   "speedrunnermod.menu.external.leaderboards": "Leaderboards...",
   "speedrunnermod.menu.leaderboards.disabled": "The leaderboards have been disabled.",
 

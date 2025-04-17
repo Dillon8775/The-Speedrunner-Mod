@@ -4,14 +4,13 @@ import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class v183 extends AbstractChangelogScreen {
 
-    public v183(Screen parent, GameOptions options) {
-        super(parent, options, Text.literal("v1.8.3 Changelog"));
+    public v183(Screen parent) {
+        super(parent, Text.literal("v1.8.3 Changelog"));
     }
 
     @Override

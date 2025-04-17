@@ -6,13 +6,11 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -24,8 +22,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 public class LeaderboardsSafeScreen extends AbstractModScreen {
     protected ButtonWidget leftButton, middleButton, rightButton, viewIneligibleOptionsButton, viewSubmissionPageButton;
 
-    public LeaderboardsSafeScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_LEADERBOARDS);
+    public LeaderboardsSafeScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_LEADERBOARDS);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
         height += 36;
         this.viewIneligibleOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.VIEW_INELIGIBLE_OPTIONS, (buttonWidget) -> {
             Leaderboards.checkForIneligibleOptions();
-            this.client.setScreen(new LeaderboardsIneligibleOptionsScreen(null, MinecraftClient.getInstance().options));
+            this.client.setScreen(new LeaderboardsIneligibleOptionsScreen(null));
         }).dimensions(this.width / 2 - 100, height, 200, 20).build());
 
         this.viewSubmissionPageButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.VISIT_SUBMISSION_PAGE, (button) -> {

@@ -30,7 +30,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
 public class EnderThrusterItem extends Item implements StateOfTheArtItem {
-    private boolean confirm = !options().client.confirmMessages;
+    private boolean confirm = !options().client.confirmationMessages;
 
     public EnderThrusterItem(Settings settings) {
         super(settings.maxCount(1));
@@ -76,13 +76,12 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
 
                             options().tutorialMode.completeStep(TutorialStep.USE_ENTER_THRUSTER, player,
                                     "speedrunnermod.tutorial_mode.ender_thruster_description",
-                                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_wither_bone" :
-                                            "speedrunnermod.tutorial_mode.craft_dragons_sword");
+                                    "speedrunnermod.tutorial_mode.craft_wither_bone");
                         } else {
                             player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.confirm").formatted(Formatting.WHITE), false);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                         }
-                        if (options().client.confirmMessages) {
+                        if (options().client.confirmationMessages) {
                             confirm = !confirm;
                         }
                         player.swingHand(hand, true);

@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
@@ -59,7 +58,7 @@ public class GameMenuScreenMixin extends Screen {
             }
 
             this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new MainScreen(this, MinecraftClient.getInstance().options));
+                this.client.setScreen(new MainScreen(this));
             }).dimensions(this.width / 2 - 4 - 120 - 2, this.height / 4 + 96 - 16, 20, 20).build());
 
             this.wikiButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {

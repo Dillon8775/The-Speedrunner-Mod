@@ -8,7 +8,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
@@ -39,8 +38,8 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public static int currentStrongholdLibraryCount;
     public static int currentSpeedrunnersWastelandBiomeWeight;
 
-    public RestartRequiredScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_RESTART_REQUIRED);
+    public RestartRequiredScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_RESTART_REQUIRED);
     }
 
     @Override
@@ -117,7 +116,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
         currentBetterVillagerTrades = options().main.betterVillagerTrades;
         currentCustomBiomesAndCustomBiomeFeatures = options().main.customBiomesAndCustomBiomeFeatures;
         currentPanorama = options().client.customPanorama;
-        currentConfirmMessages = options().client.confirmMessages;
+        currentConfirmMessages = options().client.confirmationMessages;
         currentModifiedStrongholdGeneration = options().advanced.modifiedStrongholdGeneration;
         currentModifiedStrongholdYGeneration = options().advanced.modifiedStrongholdYGeneration;
         currentModifiedNetherFortressGeneration = options().advanced.modifiedNetherFortressGeneration;
@@ -142,7 +141,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
                 currentCustomBiomesAndCustomBiomeFeatures != options().main.customBiomesAndCustomBiomeFeatures ||
                 currentPanorama != options().client.customPanorama ||
-                currentConfirmMessages != options().client.confirmMessages ||
+                currentConfirmMessages != options().client.confirmationMessages ||
                 currentModifiedStrongholdGeneration != options().advanced.modifiedStrongholdGeneration ||
                 currentModifiedStrongholdYGeneration != options().advanced.modifiedStrongholdYGeneration ||
                 currentModifiedNetherFortressGeneration != options().advanced.modifiedNetherFortressGeneration ||
@@ -167,7 +166,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
         options().main.betterVillagerTrades = currentBetterVillagerTrades;
         options().main.customBiomesAndCustomBiomeFeatures = currentCustomBiomesAndCustomBiomeFeatures;
         options().client.customPanorama = currentPanorama;
-        options().client.confirmMessages = currentConfirmMessages;
+        options().client.confirmationMessages = currentConfirmMessages;
         options().advanced.modifiedStrongholdGeneration = currentModifiedStrongholdGeneration;
         options().advanced.modifiedStrongholdYGeneration = currentModifiedStrongholdYGeneration;
         options().advanced.modifiedNetherFortressGeneration = currentModifiedNetherFortressGeneration;

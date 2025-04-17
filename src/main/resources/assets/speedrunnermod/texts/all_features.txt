@@ -30,7 +30,7 @@
 
 - §7§lWither Bones: §rbones crafted with §l2 normal bones §rand §7§l2 pieces of coal.
 
-- §7§lWither Sword: §rhas a chance to one-shot wither skeletons, and §lguarantees §ra wither skeleton skull.
+- §7§lWither Sword: §rhas a chance to one-shot wither skeletons, Swith a §7§l45% drop rate §rfor a wither skeleton skull.
 
 - §7§lIgneous Rocks: §ran ore that can be found underground, which can be used to craft obsidian.
 
@@ -170,6 +170,8 @@
 - §lKeybind §rto toggle §bfullbright §aon §rand §coff.
 
 - §lAn option §rto §lincrease §rhow long players can §9breath underwater, §r§oand §rhow long it takes for the player to §lregain §rtheir breath.
+
+- Right-clicking an ore block with a tool that has the silk touch enchantment will remove the silk touch from that tool.
 
 ### - Better villager trades!
 

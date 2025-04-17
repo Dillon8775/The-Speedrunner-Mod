@@ -1,7 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.util.*;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -31,7 +34,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
 public class AnnulEyeItem extends Item implements StateOfTheArtItem {
-    private boolean confirm = !options().client.confirmMessages;
+    private boolean confirm = !options().client.confirmationMessages;
 
     public AnnulEyeItem(Settings settings) {
         super(settings.rarity(Rarity.EPIC));
@@ -44,10 +47,8 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
         if (!world.isClient) {
             if (world.getRegistryKey() == World.OVERWORLD) {
                 if (!options().main.playingMode.balanced()) {
-                    ItemStack enderEye = new ItemStack(Items.ENDER_EYE);
-                    ItemStack enderPearl = new ItemStack(Items.ENDER_PEARL);
-                    boolean hasEnderEye = player.getInventory().contains(enderEye);
-                    boolean hasEnderPearl = player.getInventory().contains(enderPearl);
+                    boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));
+                    boolean hasEnderPearl = player.getInventory().contains(new ItemStack(Items.ENDER_PEARL));
                     boolean hasRequiredItems = hasEnderEye && hasEnderPearl;
 
                     if (player.getAbilities().creativeMode) {
@@ -60,7 +61,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
 
                         if (endPortalFrameBlock != null) {
                             if (confirm) {
-                                if (options().client.confirmMessages) {
+                                if (options().client.confirmationMessages) {
                                     player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.found_portal_room").formatted(Formatting.GREEN), false);
                                 }
                                 player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD), options().client.itemMessages.isActionbar());
@@ -94,7 +95,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                                 player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.confirm"), false);
                             }
 
-                            if (options().client.confirmMessages) {
+                            if (options().client.confirmationMessages) {
                                 confirm = !confirm;
                             }
 

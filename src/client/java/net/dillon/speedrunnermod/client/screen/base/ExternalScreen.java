@@ -6,13 +6,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 
 @Environment(EnvType.CLIENT)
 public class ExternalScreen extends AbstractModScreen {
 
-    public ExternalScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_EXTERNAL);
+    public ExternalScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_EXTERNAL);
     }
 
     @Override
@@ -33,10 +32,6 @@ public class ExternalScreen extends AbstractModScreen {
 
         this.buttons.add(3, ButtonWidget.builder(ModTexts.WEBPAGE, (buttonWidget) -> {
             this.openLink(ModLinks.WIKI, true);
-        }).build());
-
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
-            this.openLink(ModLinks.MOD_SHOWCASE_VIDEO, true);
         }).build());
 
         super.init();

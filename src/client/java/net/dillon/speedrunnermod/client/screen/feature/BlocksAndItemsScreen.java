@@ -4,14 +4,13 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class BlocksAndItemsScreen extends AbstractModScreen {
 
-    public BlocksAndItemsScreen(Screen parent, GameOptions options) {
-        super(parent, options, Text.translatable("speedrunnermod.title.features.blocks_and_items"));
+    public BlocksAndItemsScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items"));
     }
 
     @Override
@@ -28,7 +27,7 @@ public class BlocksAndItemsScreen extends AbstractModScreen {
 
     @Override
     public void close() {
-        this.client.setScreen(new FeaturesScreen(this.parent, this.options));
+        this.client.setScreen(new FeaturesScreen(this.parent));
     }
 
     @Override

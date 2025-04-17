@@ -8,7 +8,6 @@ import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -50,7 +49,7 @@ public class TitleScreenMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void addButtons(CallbackInfo ci) {
         this.featuresButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-            this.client.setScreen(new FeaturesScreen(this, MinecraftClient.getInstance().options));
+            this.client.setScreen(new FeaturesScreen(this));
         }).dimensions(this.width / 2 - 124, this.height / 4 + 48, 20, 20).build());
 
         if (options().advanced.showResetButton) {
@@ -61,7 +60,7 @@ public class TitleScreenMixin extends Screen {
         }
 
         this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-            this.client.setScreen(new MainScreen(this, MinecraftClient.getInstance().options));
+            this.client.setScreen(new MainScreen(this));
         }).dimensions(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
 
         this.wikiButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {

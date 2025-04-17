@@ -8,7 +8,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
@@ -18,8 +17,8 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
 public class SpeedrunIGTMissingScreen extends AbstractModScreen {
     protected ButtonWidget leftButton, middleButton, rightButton;
 
-    public SpeedrunIGTMissingScreen(Screen parent, GameOptions options) {
-        super(parent, options, ModTexts.TITLE_SPEEDRUN_IGT_MISSING);
+    public SpeedrunIGTMissingScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_SPEEDRUN_IGT_MISSING);
     }
 
     @Override
