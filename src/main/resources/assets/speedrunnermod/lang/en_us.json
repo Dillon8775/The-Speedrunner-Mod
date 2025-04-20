@@ -700,7 +700,7 @@
   "speedrunnermod.options.higher_breath_time": "Higher Breath Time",
   "speedrunnermod.options.higher_breath_time.tooltip": "Allows the player to hold their breath for a longer period of time underwater, and quicker regain when exiting the water.",
   "speedrunnermod.options.generate_speedrunner_wood": "Generate Speedrunner Wood",
-  "speedrunnermod.options.generate_speedrunner_wood.tooltip": "Allows all types/variants of speedrunner wodo to generate across the world. This includes different variants of speedrunner trees, dead speedrunner trees, and dead speedrunner bushes.\n\n§a§lRequires Restart.",
+  "speedrunnermod.options.generate_speedrunner_wood.tooltip": "Allows all types/variants of speedrunner wood to generate across the world. This includes different variants of speedrunner trees, dead speedrunner trees, and dead speedrunner bushes.\n\n§a§lRequires Restart.",
   "speedrunnermod.options.decreased_zombified_piglin_scare_distance": "Decreased Zombified Piglin Scare Distance",
   "speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip": "By default, piglins get scared of zombified piglin if they are within 6 blocks of the zombified piglin. You can change that value with this option.",
   "speedrunnermod.options.ender_eye_breaking_cooldown": "Ender Eye Breaking Cooldown",

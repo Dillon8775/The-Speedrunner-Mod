@@ -238,11 +238,21 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * <p>Do not call if {@code optionList} is {@code null.}</p>
      */
     protected void deactivateButtonIf(int buttonListIndex, ButtonSide buttonSide, boolean option) {
-        for (int i = 0; i < this.optionList.children().size(); i++) {
-            OptionListWidget.WidgetEntry widget = this.optionList.children().get(i);
-            if (i == buttonListIndex && !option) {
-                widget.widgets.get(ButtonSide.buttonIndexes(buttonSide)).active = false;
+        try {
+            if (this.optionList != null) {
+                for (int i = 0; i < this.optionList.children().size(); i++) {
+                    OptionListWidget.WidgetEntry widget = this.optionList.children().get(i);
+                    if (i == buttonListIndex && !option) {
+                        widget.widgets.get(ButtonSide.buttonIndexes(buttonSide)).active = false;
+                    }
+                }
+            } else {
+                throw new NullPointerException();
             }
+        } catch (NullPointerException n) {
+            SpeedrunnerMod.error("\"optionList\" variable cannot be null on \"deactivateButtonIf\" call.");
+            this.client.scheduleStop();
+            n.printStackTrace();
         }
     }
 
