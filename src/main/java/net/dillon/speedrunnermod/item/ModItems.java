@@ -251,7 +251,7 @@ public class ModItems {
     public static final Item DEAD_WOODEN_SPEEDRUNNER_DOOR = Items.register(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, TallBlockItem::new);
 
     public static final Item DEAD_SPEEDRUNNER_SIGN = Items.register(ModBlocks.DEAD_SPEEDRUNNER_SIGN, (block, settings) -> new SignItem(
-            ModBlocks.DEAD_SPEEDRUNNER_SIGN, ModBlocks.DEAD_SPEEDRUNNER_WALL_SIGN, settings), new Item.Settings().maxCount(16));
+            ModBlocks.DEAD_SPEEDRUNNER_SIGN, ModBlocks.DEAD_SPEEDRUNNER_WALL_SIGN, settings), new Item.Settings().requires().maxCount(16));
 
     public static final Item DEAD_SPEEDRUNNER_HANGING_SIGN = Items.register(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN, (block, settings) -> new HangingSignItem(
             ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN, ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN, settings), new Item.Settings().maxCount(16));

@@ -10,7 +10,6 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.CLIENT)
 public class ModLinks {
     public static final String CURSEFORGE = "https://www.curseforge.com/minecraft/mc-mods/speedrunner-mod";
-    public static final String EASIER_SPEEDRUNNING_WIKI = "https://sites.google.com/view/dillon8775/easier-speedrunning-mod";
     public static final String MODRINTH = "https://modrinth.com/mod/speedrunner-mod";
     public static final String GITHUB = "https://github.com/Dillon8775/Speedrunner-Mod";
     public static final String WIKI = "https://sites.google.com/view/dillon8775/the-speedrunner-mod";

@@ -65,18 +65,14 @@ public class MainScreen extends AbstractModScreen {
         }).build());
         this.buttons.get(6).active = false;
 
-        this.buttons.add(7, ButtonWidget.builder(ModTexts.EASIER_SPEEDRUNNING_MOD, (button) -> {
-            this.openLink(ModLinks.EASIER_SPEEDRUNNING_WIKI, true);
-        }).build());
-
-        this.buttons.add(8, ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
+        this.buttons.add(7, ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
             if (SecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
                 this.client.setScreen(new SecretDoomModeScreen.ScreenFive(this));
             } else {
                 this.client.setScreen(new SecretDoomModeScreen(this));
             }
         }).build());
-        this.buttons.get(8).visible = options().main.playingMode.doom();
+        this.buttons.get(7).visible = options().main.playingMode.doom();
 
         super.init();
     }
@@ -105,9 +101,6 @@ public class MainScreen extends AbstractModScreen {
         }
         if (this.buttons.get(6).isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_LEADERBOARDS_DISABLED, context, mouseX, mouseY);
-        }
-        if (this.buttons.get(7).isHovered()) {
-            this.renderBasicTooltip(ModTexts.EASIER_SPEEDRUNNING_MOD_TOOLTIP, context, mouseX, mouseY);
         }
         super.renderTooltips(context, mouseX, mouseY);
     }
