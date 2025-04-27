@@ -529,7 +529,7 @@
   "speedrunnermod.options.playing_mode.easy": "§b§lEASY",
   "speedrunnermod.options.playing_mode.balanced": "§e§lBALANCED",
   "speedrunnermod.options.playing_mode.doom": "§c§lDOOM",
-  "speedrunnermod.options.playing_mode.tooltip": "The §b§lPlaying Mode§r allows certain features and items to be enabled.\n\n§lBy default,§r this is set to §bEasy. Easy mode§f enables §oall features,§r like §deye of annul, §5dragons pearl,§r §ddragons sword,§r etc.\n\n§eNormal mode§r disables those items, disables §aexperience ores§r from generating, and disables other features to make the game a little more balanced.\n\n§b§cDoom mode§r takes the mod's description and flips it §cupside down.§f §oGood luck ;)",
+  "speedrunnermod.options.playing_mode.tooltip": "The §b§lPlaying Mode§r allows certain features and items to be enabled.\n\n§lBy default,§r this is set to §bEasy. Easy mode§f enables §oall features,§r like §deye of annul, §5dragons pearl,§r §ddragons sword,§r etc.\n\n§eBalanced mode§r disables those items, disables §aexperience ores§r from generating, and disables other features to make the game a little more balanced with this mod.\n\n§b§cDoom mode§r takes the mod's description and flips it §cupside down.§f §oGood luck ;)",
   "speedrunnermod.options.structure_spawn_rates": "Structure Spawn Rate",
   "speedrunnermod.options.structure_spawn_rates.everywhere": "§bEverywhere",
   "speedrunnermod.options.structure_spawn_rates.very_common": "§2Very Common",

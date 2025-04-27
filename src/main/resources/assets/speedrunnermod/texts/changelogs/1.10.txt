@@ -39,3 +39,122 @@
 - §bSpeedrunner's Eyes now only stack to 16.
 
 - §aThrowing§f a §cdisabled item§f (ex. on playing mode §eNormal mode§f or §cDoom Mode)§f will §aconsume the item, but §b§ogive the resources to craft it back to the player.
+
+
+# §b§lSpeedrunner Workbench Changes
+- The §b§lSpeedrunner's Workbench §rnow has it's §aown functioning user-interface screen, §rinstead of manually having to hold the items to transfer enchantments.
+
+- §bFixed bugs §rwith §a§olevel cost calculations.
+
+- §aLevel cost §rfor §btransfering enchantments §ris now based on the §9total amount of enchantments transferred + each enchantment level.
+##### - §acost = (total amount of enchantments transfred + every enchantment's transferred level).
+
+
+# §aThe §b§lSpeedrunner's Totem!
+- The §b§lSpeedrunner's Totem §rworks §a§oanywhere §rin the player's inventory.
+
+- Stacks to §b§l§o3.
+
+- Gives §cregeneration II §rfor §a§o1.5 minutes, §e§oabsorption II §rfor §a§o1 minute, §r§7resistance, §rand §9speed §rfor §a§o30 seconds, §r§cstrength §rfor §a§o15 minutes, §r§7slow falling §rfor §a§o10 seconds, and §r§6fire resistance §rfor §a§o2 minutes §rupon use.
+
+- The §b§lSpeedrunner's Totem §rwill also work if the player falls into the void, §a§oanywhere in the inventory. §rHowever, a §enormal totem §rwill only work if it is equipped in the player's §9offhand §ror §9mainhand.
+
+- §lCrafting recipe: §r§etotem of undying, §band §9ender matter.
+
+
+# §a§lKnockback Stick Item
+
+- Has §l10 durability points.
+
+- Comes with §lKnockback V.
+
+- Can only be obtained via §c§lDoom Mode.
+
+
+# §c§lFlesh Block
+
+- Crafted with 9 pieces of rotten flesh and/or cooked flesh.
+
+- Has a slipperiness effect.
+
+
+# §a§oGiant? §r§a§lIt's Goliath.
+
+- Renamed the §a§lGiant boss §rto §a§lGoliath.
+
+- §a§lGoliath §ris now no longer §cdoom mode exclusive.
+
+- He can still only be found naturally in §cdoom mode, §rbut, you can §asummon him §ranywhere with §c2 flesh blocks §rand a §azombie head.
+
+- Other optimizations to §a§lGoliath.
+
+
+# §6§lFireball Changes
+
+- §lThrowing §ra §6§lfireball §rnow shows the §a§lcorrect animation.
+
+- You can also §bshift-right click §ron a §ablock §rand still throw a §6fireball.
+
+- Increased default §6§lfireball explosion power §r§lamount §rfrom §c1 §rto §a2.
+
+
+# §9§lInfiniPearl™ Changes
+
+- §9§lInfini Pearls §rare now §bcraftable, §rbut come with §9571 durability. §rThe only way to obtain an §b§lunbreakable §9§linfini pearl §ris to enable §7§liCarus Mode §rupon world creation.
+
+- §9§lInfini Pearls §r§ocannot §rbe repaired via any item or with mending. Once it breaks, you'll have to craft a new one.
+
+- §9§lInfini Pearls §rcan be crafted with a §9regular ender pearl, §ba speedrunner's eye, §9an ender thruster, §rand a new item, called §9§lEnder Matter.
+
+- §9§lInfini Pearls §rnow have a §a§o5 second cooldown.
+
+
+# §9§lEnder Matter
+
+- §9§lEnder Matter §rcan be obtained by killing §denderman §r(which have a 5% drop rate), §dend cities, §rand §bshipwrecks.
+
+- As per mention, §9§lEnder Matter §rhas a §b§l5% §rchance of dropping when killing an §denderman. §rThis chance be increased with §blooting §r(up to §a§l10%§r), but cannot increase how many drop per kill.
+
+- This chance can also be §bincreased §rby an additional §b§l2% §rby killing the §denderman §rwith a §b§lspeedrunner sword §ror §e§lgolden speedrunner sword §r§o(or any speedrunner tool/weapon).
+
+
+# §d§lDragon's Sword Changes
+
+- The §d§lDragon's Sword §ris now crafted with a §ddragon's pearl, §bspeedrunner sword, §a§oand §r§9ender matter.
+
+# §a§lNew Advancements and Advancement Changes
+
+- §6§l"Better Safe Than Sorry!" §r§6for obtaining golden speedrunner armor.
+
+- §d§l"One Hit, One Kill" §r§dfor killing the §d§lender dragon §r§dwith a §d§lDragon's sword.
+
+- §9§l"The Ends Matter" §r§9for obtaining §9§lender matter.
+
+- §9§l"To Infini, and Beyond!" §rfor obtaining an §9§lInfiniPearl™.
+
+- §5§l"Immortal" §r§dfor free falling into the void with a §etotem of undying §r§d(or a §bspeedrunner's totem).
+
+- Some §bspeedrunner mod advancements §rnow §atrigger when the player §b§ouses §rthe item, rather than just obtaining it.
+
+- Many more advancements to give you something else to speedrun.
+
+- Better optimized the order of advancements.
+
+
+# §b§lOther Changes
+
+- The §b§lSpeedrunner's Workbench §rcan now be crafted using §a§oboth types §rof §bspeedrunner wood.
+
+- Renamed §9§l"Thruster Block" to §9§l"Thrusted Block".
+
+- §aYou can now teleport to your player death coords by clicking on the text that sends in chat (if cheats are enabled).
+
+- §a§lTweaks §rand §a§lperfected §b§lRetired Speedrunner Trades.
+
+- §a§lFixed and improved §rcertain command syntax (ex. when trying to /give a speedrunner mod item, it actually suggests it without having to type out the full name of the item / block).
+
+- §d§l"Confirmation Messages" option is now §c§oOFF §rby §adefault.
+
+- §b§l"Better Biomes" §roption is now §c§oOFF §rby §adefault, §rand is §6marked for removal in the future.
+
+- §a§oOptimizations and bug-fixes.
