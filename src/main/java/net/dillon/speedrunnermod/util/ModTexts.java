@@ -161,8 +161,5 @@ public class ModTexts {
     public static final Text CREATE_WORLD_BUTTON_TOOLTIP = Text.translatable("speedrunnermod.create_world_button.desc");
     public static final Text CREATE_WORLD_BUTTON_DISABLED_TOOLTIP = Text.translatable("speedrunnermod.create_world_button.disabled");
     public static final Text OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.title.options.tooltip");
-    public static final Text DILLON8775_YOUTUBE_TOOLTIP = Text.translatable("speedrunnermod.dillon8775_youtube.tooltip");
-    public static final Text MANNYQUESO_YOUTUBE_TOOLTIP = Text.translatable("speedrunnermod.mannyqueso_youtube.tooltip");
-    public static final Text NUZLAND_YOUTUBE_TOOLTIP = Text.translatable("speedrunnermod.nuzland_youtube.tooltip");
     public static final Text WIKI_TOOLTIP = Text.translatable("speedrunnermod.menu.title_screen.external.wiki.tooltip");
 }

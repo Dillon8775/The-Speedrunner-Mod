@@ -45,7 +45,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
                 if (!(world.getRegistryKey() == World.NETHER)) {
                     int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
                     BlockPos pos = new BlockPos(player.getBlockX(), y - 1, player.getBlockZ());
-                    double playerY = ModUtil.roundToNearestTenthsPlace(player.getY());
+                    double playerY = player.getY();
 
                     if (y != playerY && !(playerY > y)) {
                         if (confirm) {

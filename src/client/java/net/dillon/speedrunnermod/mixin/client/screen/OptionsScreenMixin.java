@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = OptionsScreen.class, priority = 1001)
 public class OptionsScreenMixin extends Screen {
     @Unique
-    private ButtonWidget optionsButton, dillon8775YouTubeButton;
+    private ButtonWidget optionsButton;
 
     public OptionsScreenMixin(Text title) {
         super(title);

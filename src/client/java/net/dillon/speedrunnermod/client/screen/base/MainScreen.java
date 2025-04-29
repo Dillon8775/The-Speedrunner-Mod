@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.screen.base.text.ChangelogsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
-import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;

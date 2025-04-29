@@ -104,8 +104,8 @@ public class ModUtil {
     /**
      * Returns a specific type of formatting.
      */
-    public static Formatting toFormatting(Formatting actionbarOn, Formatting actionbarOff) {
-        return options().client.itemMessages.isActionbar() ? actionbarOn : actionbarOff;
+    public static Formatting toFormatting(Formatting actionbar, Formatting chat) {
+        return options().client.itemMessages.isActionbar() ? actionbar : chat;
     }
 
     /**

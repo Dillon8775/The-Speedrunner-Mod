@@ -149,11 +149,11 @@
 
 - §aYou can now teleport to your player death coords by clicking on the text that sends in chat (if cheats are enabled).
 
-- §a§lTweaks §rand §a§lperfected §b§lRetired Speedrunner Trades.
+- §a§lTweaked §rand §a§lperfected §b§lRetired Speedrunner Trades.
 
 - §a§lFixed and improved §rcertain command syntax (ex. when trying to /give a speedrunner mod item, it actually suggests it without having to type out the full name of the item / block).
 
-- §d§l"Confirmation Messages" option is now §c§oOFF §rby §adefault.
+- §d§l"Confirmation Messages" §roption is now §c§oOFF §rby §adefault.
 
 - §b§l"Better Biomes" §roption is now §c§oOFF §rby §adefault, §rand is §6marked for removal in the future.
 
