@@ -80,6 +80,7 @@ public class ModModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EXPERIENCE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NETHER_EXPERIENCE_ORE);
+        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.FLESH_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DOOM_STONE);
 
         // Speedrunner's Workbench is done manually.
