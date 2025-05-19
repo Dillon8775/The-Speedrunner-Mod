@@ -19,7 +19,7 @@ public class RefreshingScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "bfipdfsioads";
     }
 
@@ -34,7 +34,7 @@ public class RefreshingScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

@@ -79,7 +79,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "biperwiqew";
     }
 
@@ -99,7 +99,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 
@@ -111,7 +111,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public static void getCurrentOptions() {
         currentTutorialMode = options().main.tutorialMode;
         currentLeaderboardsMode = options().main.leaderboardsMode;
-        currentBetterBiomes = options().main.betterBiomes;
         currentPlayingMode = options().main.playingMode;
         currentBetterVillagerTrades = options().main.betterVillagerTrades;
         currentCustomBiomesAndCustomBiomeFeatures = options().main.customBiomesAndCustomBiomeFeatures;
@@ -136,7 +135,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public static boolean needsRestart() {
         return currentTutorialMode != options().main.tutorialMode ||
                 currentLeaderboardsMode != options().main.leaderboardsMode ||
-                currentBetterBiomes != options().main.betterBiomes ||
                 currentPlayingMode != options().main.playingMode ||
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
                 currentCustomBiomesAndCustomBiomeFeatures != options().main.customBiomesAndCustomBiomeFeatures ||
@@ -161,7 +159,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     private static void revertChanges() {
         options().main.tutorialMode = currentTutorialMode;
         options().main.leaderboardsMode = currentLeaderboardsMode;
-        options().main.betterBiomes = currentBetterBiomes;
         options().main.playingMode = currentPlayingMode;
         options().main.betterVillagerTrades = currentBetterVillagerTrades;
         options().main.customBiomesAndCustomBiomeFeatures = currentCustomBiomesAndCustomBiomeFeatures;

@@ -37,7 +37,7 @@ public class ResetOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "h9efsids";
     }
 
@@ -52,7 +52,7 @@ public class ResetOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
-import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.fabricmc.api.EnvType;
@@ -53,10 +52,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     private void loadAndPrintText(Identifier path) {
-        if (path == null && !this.hasChangelogFile() && this instanceof AbstractChangelogScreen) {
-            this.objectsToDisplay.add(new LineObject(Text.literal("See webpage for this changelog."), 1.0F, null, 0, 0, null));
-            return;
-        }
         try (BufferedReader reader = new BufferedReader(this.client.getResourceManager().openAsReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -272,7 +267,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     protected void init() {
         this.initializeCustomButtonListWidget(); // Initialize button list widget, mainly used just for rendering the top and bottom lines
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
-        loadAndPrintText(!this.hasChangelogFile() && this instanceof AbstractChangelogScreen ? null : ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
+        loadAndPrintText(ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
         this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> this.close()).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
         super.init();
@@ -529,7 +524,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Not an options screen.
      */
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 
@@ -556,24 +551,10 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     }
 
     /**
-     * Helper for referencing changelog file paths.
-     */
-    protected String inChangelogsFolder(String fileName) {
-        return "texts/changelogs/" + fileName + ".txt";
-    }
-
-    /**
      * Helper for referencing file paths in texts directory.
      */
     protected String inTextsFolder(String fileName) {
         return "texts/" + fileName + ".txt";
-    }
-
-    /**
-     * Return false by default because most changelogs do not have a text file.
-     */
-    protected boolean hasChangelogFile() {
-        return false;
     }
 
     /**

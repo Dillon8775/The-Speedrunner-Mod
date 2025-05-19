@@ -107,10 +107,6 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> BETTER_FOODS = new SimpleOption<>("speedrunnermod.options.better_foods", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_foods.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.betterFoods, value -> options().main.betterFoods = value);
 
-    @Deprecated(forRemoval = true)
-    public static final SimpleOption<Boolean> BETTER_BIOMES = new SimpleOption<>("speedrunnermod.options.better_biomes", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_biomes.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.betterBiomes, value -> options().main.betterBiomes = value);
-
     public static final SimpleOption<Boolean> FALL_DAMAGE = new SimpleOption<>("speedrunnermod.options.fall_damage", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fall_damage.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.fallDamage, value -> options().main.fallDamage = value);
 
@@ -434,18 +430,6 @@ public class ModListOptions {
     public static class Inactiveable {
 
         @InactiveableOption
-        public static final SimpleOption<ModOptions.GameMode> IAO_GAMEMODE =
-                new SimpleOption<>("speedrunnermod.options.gamemode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fwc_required")), SimpleOption.enumValueText(),
-                        new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.GameMode.values()), Codec.INT.xmap(ModOptions.GameMode::byId, ModOptions.GameMode::getId)),
-                        options().client.gameMode, value -> options().client.gameMode = value);
-
-        @InactiveableOption
-        public static final SimpleOption<ModOptions.Difficulty> IAO_DIFFICULTY =
-                new SimpleOption<>("speedrunnermod.options.difficulty", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fwc_required")), SimpleOption.enumValueText(),
-                        new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.Difficulty.values()), Codec.INT.xmap(ModOptions.Difficulty::byId, ModOptions.Difficulty::getId)),
-                        ModOptions.Difficulty.EASY, value -> options().client.difficulty = value);
-
-        @InactiveableOption
         public static final SimpleOption<Boolean> IAO_FOG = new SimpleOption<>("speedrunnermod.options.fog", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.apply_fog_mixin_required")),
                 (optionText, value) -> !options().mixins.backgroundRendererMixin ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.fog, value -> {
             options().client.fog = value;
@@ -460,7 +444,7 @@ public class ModListOptions {
 
         @InactiveableOption
         public static final SimpleOption<Boolean> IAO_ALLOW_CHEATS = new SimpleOption<>("speedrunnermod.options.allow_cheats", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fwc_required")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.allowCheats, value -> options().client.allowCheats = value);
+                (optionText, value) -> ModTexts.DASH, SimpleOption.BOOLEAN, options().client.allowCheats, value -> options().client.allowCheats = value);
 
         @InactiveableOption
         public static final SimpleOption<Boolean> IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip")),

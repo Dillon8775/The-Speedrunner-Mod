@@ -51,7 +51,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gfiefsi";
     }
 
@@ -66,7 +66,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

@@ -20,6 +20,7 @@ public class ModTexts {
     public static final Text DIRECTORY_TOOLTIP = Text.translatable("speedrunnermod.directory_button.tooltip");
     public static final Text ON = Text.literal("ON").formatted(Formatting.GREEN);
     public static final Text OFF = Text.literal("OFF").formatted(Formatting.RED);
+    public static final Text DASH = Text.literal("---").formatted(Formatting.DARK_RED);
     public static final Text YES = Text.literal("YES").formatted(Formatting.GREEN);
     public static final Text NO = Text.literal("NO").formatted(Formatting.RED);
     public static final Text REFRESHING = Text.literal("Refreshing...");

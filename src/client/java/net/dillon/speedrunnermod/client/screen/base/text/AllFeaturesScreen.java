@@ -23,7 +23,7 @@ public class AllFeaturesScreen extends AbstractScrollableScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "jojoefsijodeko";
     }
 

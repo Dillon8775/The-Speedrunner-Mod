@@ -1,11 +1,9 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
-import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -66,7 +64,6 @@ public class BaseModScreen extends GameOptionsScreen {
      * Refreshes a base mod screen.
      */
     public void refreshScreen(String id) {
-        ModOptions.saveConfig();
         this.client.setScreen(new RefreshingScreen(parent));
         this.client.setScreen(this.determineRefreshedScreen(id));
     }
@@ -77,15 +74,6 @@ public class BaseModScreen extends GameOptionsScreen {
     public void refreshFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
         this.client.setScreen(new RefreshingScreen(parent));
         this.client.setScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
-    }
-
-    /**
-     * Refreshes a changelog screen.
-     */
-    public void refreshChangelogScreen(String id) {
-        ModOptions.saveConfig();
-        this.client.setScreen(new RefreshingScreen(parent));
-        this.client.setScreen(this.determineRefreshedChangelogScreen(id));
     }
 
     /**
@@ -112,19 +100,6 @@ public class BaseModScreen extends GameOptionsScreen {
             }
         }
         return new FirstTimePlayingScreen(this.parent);
-    }
-
-    /**
-     * Determines the refreshed screen for changelog screens.
-     */
-    private Screen determineRefreshedChangelogScreen(String pageId) {
-        for (Function<Screen, AbstractChangelogScreen> modScreenConstructor : SpeedrunnerModClient.ALL_CHANGELOG_SCREENS) {
-            AbstractChangelogScreen screen = modScreenConstructor.apply(this.parent);
-            if (screen.pageId().equals(pageId)) {
-                return screen;
-            }
-        }
-        return new MainScreen(this.parent);
     }
 
     /**

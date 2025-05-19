@@ -89,7 +89,7 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gnipfi";
     }
 
@@ -109,7 +109,7 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 
@@ -154,7 +154,7 @@ public class TutorialsScreen extends AbstractModScreen {
         }
 
         @Override
-        protected String pageId() {
+        public String pageId() {
             return "ipei0ew";
         }
 
@@ -169,7 +169,7 @@ public class TutorialsScreen extends AbstractModScreen {
         }
 
         @Override
-        protected boolean isOptionsScreen() {
+        public boolean isOptionsScreen() {
             return false;
         }
 
@@ -207,7 +207,7 @@ public class TutorialsScreen extends AbstractModScreen {
         }
 
         @Override
-        protected String pageId() {
+        public String pageId() {
             return "gfiioads";
         }
 
@@ -222,7 +222,7 @@ public class TutorialsScreen extends AbstractModScreen {
         }
 
         @Override
-        protected boolean isOptionsScreen() {
+        public boolean isOptionsScreen() {
             return false;
         }
 

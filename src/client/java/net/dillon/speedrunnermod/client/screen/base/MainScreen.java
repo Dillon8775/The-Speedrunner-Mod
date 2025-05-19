@@ -104,7 +104,7 @@ public class MainScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "spei0ri09we";
     }
 
@@ -134,7 +134,7 @@ public class MainScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

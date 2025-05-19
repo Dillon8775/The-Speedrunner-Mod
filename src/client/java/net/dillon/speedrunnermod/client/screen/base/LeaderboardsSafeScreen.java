@@ -73,7 +73,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "309grio";
     }
 
@@ -102,7 +102,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

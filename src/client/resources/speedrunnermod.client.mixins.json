@@ -13,6 +13,8 @@
     "client.fix.PlayerEntityRendererMixin",
     "client.fix.RenderLayersMixin",
     "client.fix.SmithingScreenHandlersMixin",
+    "client.gui.widget.ClickableWidgetMixin",
+    "client.gui.widget.SliderWidgetMixin",
     "client.hud.DebugModText",
     "client.network.ClientPlayNetworkHandlerMixin",
     "client.render.CustomWorldEvents",

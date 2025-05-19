@@ -54,7 +54,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "giiadsaa";
     }
 
@@ -69,7 +69,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return true;
     }
 

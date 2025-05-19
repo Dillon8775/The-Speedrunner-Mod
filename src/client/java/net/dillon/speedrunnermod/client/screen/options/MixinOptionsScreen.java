@@ -38,7 +38,7 @@ public class MixinOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "fpoadsioad";
     }
 
@@ -53,7 +53,7 @@ public class MixinOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return true;
     }
 

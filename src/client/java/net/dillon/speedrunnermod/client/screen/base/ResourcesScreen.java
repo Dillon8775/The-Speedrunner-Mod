@@ -57,7 +57,7 @@ public class ResourcesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "t09efi0z";
     }
 
@@ -72,7 +72,7 @@ public class ResourcesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

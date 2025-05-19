@@ -54,7 +54,7 @@ public class ModsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "dfkadsio";
     }
 
@@ -103,7 +103,7 @@ public class ModsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

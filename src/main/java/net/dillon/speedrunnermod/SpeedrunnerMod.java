@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class SpeedrunnerMod implements ModInitializer {
     public static final String MOD_ID = "speedrunnermod";
-    public static final String MOD_VERSION = "v1.10";
+    public static final String MOD_VERSION = "v1.10.1";
     public static final String MC_VERSION = "1.21.4x";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";

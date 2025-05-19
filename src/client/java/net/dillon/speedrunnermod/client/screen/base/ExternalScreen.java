@@ -38,7 +38,7 @@ public class ExternalScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "3rij";
     }
 
@@ -53,7 +53,7 @@ public class ExternalScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

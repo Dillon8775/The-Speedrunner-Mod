@@ -48,7 +48,7 @@ public class FeaturesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "ipaipads";
     }
 
@@ -63,7 +63,7 @@ public class FeaturesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

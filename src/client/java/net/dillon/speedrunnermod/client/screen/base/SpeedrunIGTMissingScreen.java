@@ -61,7 +61,7 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "goei09ew09ads";
     }
 
@@ -76,7 +76,7 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

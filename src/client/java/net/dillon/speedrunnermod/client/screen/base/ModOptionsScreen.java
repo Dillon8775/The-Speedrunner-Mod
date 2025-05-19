@@ -99,7 +99,7 @@ public class ModOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "cbgipesi";
     }
 
@@ -114,7 +114,7 @@ public class ModOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

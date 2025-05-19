@@ -21,7 +21,7 @@ public class OresAndWorldgenScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "dfijoeijaw";
     }
 
@@ -41,7 +41,7 @@ public class OresAndWorldgenScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

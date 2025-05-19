@@ -21,7 +21,7 @@ public class ToolsAndArmorScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gfnipiads";
     }
 
@@ -41,7 +41,7 @@ public class ToolsAndArmorScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

@@ -22,7 +22,7 @@ public class MiscellaneousScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gfipi0ads";
     }
 
@@ -42,7 +42,7 @@ public class MiscellaneousScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

@@ -29,12 +29,17 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
      * All of the {@code fast world creation options.}
      */
     private SimpleOption<?>[] fwcOptions() {
-        return new SimpleOption[]{
-                ModListOptions.FAST_WORLD_CREATION,
-                options().client.fastWorldCreation ? ModListOptions.GAMEMODE : ModListOptions.Inactiveable.IAO_GAMEMODE,
-                options().client.fastWorldCreation ? ModListOptions.DIFFICULTY : ModListOptions.Inactiveable.IAO_DIFFICULTY,
-                options().client.fastWorldCreation ? ModListOptions.ALLOW_CHEATS : ModListOptions.Inactiveable.IAO_ALLOW_CHEATS
-        };
+        return options().client.fastWorldCreation ?
+                new SimpleOption[]{
+                        ModListOptions.FAST_WORLD_CREATION,
+                        ModListOptions.DIFFICULTY,
+                        ModListOptions.GAMEMODE,
+                        ModListOptions.ALLOW_CHEATS
+                } :
+                new SimpleOption[]{
+                        ModListOptions.FAST_WORLD_CREATION,
+                        ModListOptions.Inactiveable.IAO_ALLOW_CHEATS
+                };
     }
 
     @Override
@@ -53,7 +58,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gfnipfioad";
     }
 
@@ -68,7 +73,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return true;
     }
 

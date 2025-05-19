@@ -50,7 +50,7 @@ public class SafeBootScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "bfpogr09wi0w";
     }
 
@@ -65,7 +65,7 @@ public class SafeBootScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

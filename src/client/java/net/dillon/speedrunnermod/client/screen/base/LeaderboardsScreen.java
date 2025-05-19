@@ -57,7 +57,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gripefs";
     }
 
@@ -87,7 +87,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

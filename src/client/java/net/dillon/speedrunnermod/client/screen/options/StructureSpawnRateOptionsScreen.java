@@ -55,7 +55,7 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gads09aw09";
     }
 
@@ -70,7 +70,7 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return true;
     }
 

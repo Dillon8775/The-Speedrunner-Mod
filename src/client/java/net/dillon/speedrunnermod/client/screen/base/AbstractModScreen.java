@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.base;
 import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
-import net.dillon.speedrunnermod.client.screen.base.text.AbstractChangelogScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
@@ -45,7 +44,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected final File configDirectory = new File(FabricLoader.getInstance().getConfigDir().toUri()); // The directory for the speedrunner mod's configuration file
     protected final Screen parent;
     protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton;
-    protected OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
+    public OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     public final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
 
@@ -88,9 +87,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
             this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 // Check what to refresh correctly
-                if (this instanceof AbstractChangelogScreen changelogScreen) {
-                    changelogScreen.refreshChangelogScreen(changelogScreen.pageId());
-                } else if (this instanceof AbstractFeatureScreen featureScreen) {
+                if (this instanceof AbstractFeatureScreen featureScreen) {
                     featureScreen.refreshFeatureScreen(featureScreen.getPageNumber(), featureScreen.getScreenCategory());
                 } else {
                     this.refreshScreen(this.pageId());
@@ -235,6 +232,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
     /**
      * Deactivates certain buttons based on certain boolean values.
+     * <p>Indexes go from top-down-left, then right side.
      * <p>Do not call if {@code optionList} is {@code null.}</p>
      */
     protected void deactivateButtonIf(int buttonListIndex, ButtonSide buttonSide, boolean option) {
@@ -346,7 +344,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Returns the page ID of a screen. This is used to determined the refreshed screen.
      * @return
      */
-    protected abstract String pageId();
+    public abstract String pageId();
 
     /**
      * Determines how many columns should be displayed on the screen.
@@ -361,7 +359,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * Determines if the screen is an options screen.
      */
-    protected abstract boolean isOptionsScreen();
+    public abstract boolean isOptionsScreen();
 
     /**
      * Determines if the screen should render the title text.

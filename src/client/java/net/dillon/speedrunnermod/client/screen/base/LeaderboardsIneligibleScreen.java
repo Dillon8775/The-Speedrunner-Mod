@@ -100,7 +100,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "q39grkd";
     }
 
@@ -158,7 +158,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

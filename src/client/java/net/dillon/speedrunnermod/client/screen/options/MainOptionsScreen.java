@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -11,6 +12,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
 
 import java.io.File;
+
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * The Speedrunner Mod's {@code main options.}
@@ -36,8 +39,6 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.INFINI_PEARL_MODE,
                 ModListOptions.BETTER_VILLAGER_TRADES,
                 ModListOptions.BETTER_FOODS,
-                ModListOptions.BETTER_BIOMES,
-                ModListOptions.CUSTOM_BIOMES_AND_CUSTOM_BIOME_FEATURES,
                 ModListOptions.FIREPROOF_ITEMS,
                 ModListOptions.THROWABLE_FIREBALLS,
                 ModListOptions.FALL_DAMAGE,
@@ -47,7 +48,6 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.STRONGHOLD_SPREAD,
                 ModListOptions.STRONGHOLD_PORTAL_ROOM_COUNT,
                 ModListOptions.STRONGHOLD_LIBRARY_COUNT,
-                ModListOptions.NETHER_PORTAL_DELAY,
                 ModListOptions.GLOBAL_NETHER_PORTALS,
                 ModListOptions.LAVA_BOATS,
                 ModListOptions.NETHER_WATER,
@@ -55,12 +55,10 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.BETTER_ANVIL,
                 ModListOptions.ANVIL_COST_LIMIT,
                 ModListOptions.HIGHER_ENCHANTMENT_LEVELS,
-                ModListOptions.RIGHT_CLICK_TO_REMOVE_SILK_TOUCH,
                 ModListOptions.ARROWS_DESTROY_BEDS,
                 ModListOptions.MOB_SPAWNING_RATE,
                 ModListOptions.FASTER_SPAWNERS,
-                ModListOptions.KILL_GHAST_ON_FIREBALL,
-                ModListOptions.CUSTOM_DATA_GENERATION
+                ModListOptions.KILL_GHAST_ON_FIREBALL
         };
     }
 
@@ -70,6 +68,13 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.PLAYING_MODE);
         this.optionList.addSingleOptionEntry(ModListOptions.STRUCTURE_SPAWN_RATE);
         this.optionList.addAll(mainOptions());
+        this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_DATA_GENERATION);
+        this.optionList.addSingleOptionEntry(ModListOptions.NETHER_PORTAL_DELAY);
+        this.optionList.addSingleOptionEntry(ModListOptions.RIGHT_CLICK_TO_REMOVE_SILK_TOUCH);
+        this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_BIOMES_AND_CUSTOM_BIOME_FEATURES);
+
+        this.deactivateButtonIf(3, ButtonSide.LEFT, options().main.fasterBlockBreaking);
+
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 
@@ -77,7 +82,7 @@ public class MainOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gf-o909aw";
     }
 
@@ -92,7 +97,7 @@ public class MainOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return true;
     }
 

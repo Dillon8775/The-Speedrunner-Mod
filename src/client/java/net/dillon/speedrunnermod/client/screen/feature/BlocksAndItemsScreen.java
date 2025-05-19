@@ -21,7 +21,7 @@ public class BlocksAndItemsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected String pageId() {
+    public String pageId() {
         return "gfipiads";
     }
 
@@ -41,7 +41,7 @@ public class BlocksAndItemsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected boolean isOptionsScreen() {
+    public boolean isOptionsScreen() {
         return false;
     }
 

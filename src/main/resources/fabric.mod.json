@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "speedrunnermod",
-  "version": "1.10+mc1.21.4x",
+  "version": "1.10.1+mc1.21.4x",
   "name": "Speedrunner Mod",
   "description": "A mod that makes speedrunning, easier.",
   "accessWidener": "speedrunnermod.accessWidener",
