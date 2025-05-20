@@ -18,6 +18,6 @@ public class EndGatewayBlockEntityMixin {
      */
     @Redirect(method = "findPortalPosition", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;END_STONE:Lnet/minecraft/block/Block;"))
     private static Block changeBaseBlock() {
-        return options().main.playingMode.doom() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
+        return options().main.customDataGeneration && options().main.playingMode.doom() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

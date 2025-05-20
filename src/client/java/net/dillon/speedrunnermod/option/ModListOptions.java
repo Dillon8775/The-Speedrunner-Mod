@@ -149,13 +149,13 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> PANORAMA = new SimpleOption<>("speedrunnermod.options.custom_panorama", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.custom_panorama.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.customPanorama, value -> options().client.customPanorama = value);
 
-    public static final SimpleOption<Boolean> MODIFIED_STRONGHOLD_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_stronghold_generation", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.modified_stronghold_generation.tooltip")),
+    public static final SimpleOption<Boolean> MODIFIED_STRONGHOLD_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_stronghold_generation", SimpleOption.emptyTooltip(),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.modifiedStrongholdGeneration, value -> options().advanced.modifiedStrongholdGeneration = value);
 
-    public static final SimpleOption<Boolean> MODIFIED_STRONGHOLD_Y_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_stronghold_y_generation", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.modified_stronghold_y_generation.tooltip")),
+    public static final SimpleOption<Boolean> MODIFIED_STRONGHOLD_Y_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_stronghold_y_generation", SimpleOption.emptyTooltip(),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.modifiedStrongholdYGeneration, value -> options().advanced.modifiedStrongholdYGeneration = value);
 
-    public static final SimpleOption<Boolean> MODIFIED_NETHER_FORTRESS_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_nether_fortress_generation", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.modified_nether_fortress_generation.tooltip")),
+    public static final SimpleOption<Boolean> MODIFIED_NETHER_FORTRESS_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_nether_fortress_generation", SimpleOption.emptyTooltip(),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.modifiedNetherFortressGeneration, value -> options().advanced.modifiedNetherFortressGeneration = value);
 
     public static final SimpleOption<Boolean> SHOW_RESET_BUTTON = new SimpleOption<>("speedrunnermod.options.show_reset_button", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_reset_button.tooltip")),
@@ -176,7 +176,7 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> DRAGON_KILLS_NEARBY_HOSTILE_ENTITIES = new SimpleOption<>("speedrunnermod.options.dragon_kills_nearby_hostile_entities", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip")),
             (optionText, value) -> !value ? ModTexts.NO : ModTexts.YES, SimpleOption.BOOLEAN, options().advanced.dragonKillsNearbyHostileEntities, value -> options().advanced.dragonKillsNearbyHostileEntities = value);
 
-    public static final SimpleOption<Boolean> DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip")),
+    public static final SimpleOption<Boolean> DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER = new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither", SimpleOption.emptyTooltip(),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.dragonImmunityFromGoliathAndWither, value -> options().advanced.dragonImmunityFromGoliathAndWither = value);
 
     public static final SimpleOption<Boolean> SHIFT_TO_THROW_FIREBALL = new SimpleOption<>("speedrunnermod.options.shift_to_throw_fireball", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.shift_to_throw_fireball.tooltip")),
@@ -198,7 +198,7 @@ public class ModListOptions {
             (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.renderLayersMixin, value -> options().mixins.renderLayersMixin = value);
 
     public static final SimpleOption<Integer> BLOCK_BREAKING_MULTIPLIER =
-            new SimpleOption<>("speedrunnermod.options.block_breaking_multiplier", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip")),
+            new SimpleOption<>("speedrunnermod.options.block_breaking_multiplier", SimpleOption.emptyTooltip(),
                     (optionText, value) -> {
                         if (value == 1) {
                             return GameOptions.getGenericValueText(optionText, ModTexts.OFF);
@@ -221,27 +221,27 @@ public class ModListOptions {
                     new SimpleOption.ValidatingIntSliderCallbacks(8, 90), options().main.dragonPerchTime, value -> options().main.dragonPerchTime = value);
 
     public static final SimpleOption<Integer> STRONGHOLD_DISTANCE =
-            new SimpleOption<>("speedrunnermod.options.stronghold_distance", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.stronghold_distance.tooltip")),
+            new SimpleOption<>("speedrunnermod.options.stronghold_distance", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
                     new SimpleOption.ValidatingIntSliderCallbacks(3, 64), options().main.strongholdDistance, value -> options().main.strongholdDistance = value);
 
     public static final SimpleOption<Integer> STRONGHOLD_SPREAD =
-            new SimpleOption<>("speedrunnermod.options.stronghold_spread", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.stronghold_spread.tooltip")),
+            new SimpleOption<>("speedrunnermod.options.stronghold_spread", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
                     new SimpleOption.ValidatingIntSliderCallbacks(2, 32), options().main.strongholdSpread, value -> options().main.strongholdSpread = value);
 
     public static final SimpleOption<Integer> STRONGHOLD_COUNT =
-            new SimpleOption<>("speedrunnermod.options.stronghold_count", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.stronghold_count.tooltip")),
+            new SimpleOption<>("speedrunnermod.options.stronghold_count", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
                     new SimpleOption.ValidatingIntSliderCallbacks(4, 156), options().main.strongholdCount, value -> options().main.strongholdCount = value);
 
     public static final SimpleOption<Integer> STRONGHOLD_PORTAL_ROOM_COUNT =
-            new SimpleOption<>("speedrunnermod.options.stronghold_portal_room_count", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip")),
+            new SimpleOption<>("speedrunnermod.options.stronghold_portal_room_count", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
                     new SimpleOption.ValidatingIntSliderCallbacks(1, 3), options().main.strongholdPortalRoomCount, value -> options().main.strongholdPortalRoomCount = value);
 
     public static final SimpleOption<Integer> STRONGHOLD_LIBRARY_COUNT =
-            new SimpleOption<>("speedrunnermod.options.stronghold_library_count", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip")),
+            new SimpleOption<>("speedrunnermod.options.stronghold_library_count", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
                     new SimpleOption.ValidatingIntSliderCallbacks(1, 8), options().main.strongholdLibraryCount, value -> options().main.strongholdLibraryCount = value);
 

@@ -8,8 +8,10 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -73,12 +75,81 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.RIGHT_CLICK_TO_REMOVE_SILK_TOUCH);
         this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_BIOMES_AND_CUSTOM_BIOME_FEATURES);
 
-        this.deactivateButtonIf(3, ButtonSide.LEFT, options().main.fasterBlockBreaking);
+        this.deactivateOptionIf(3, ButtonSide.LEFT, options().main.fasterBlockBreaking);
+        this.deactivateOptionIf(8, ButtonSide.LEFT, options().main.customDataGeneration);
+        this.deactivateOptionIf(8, ButtonSide.RIGHT, options().main.customDataGeneration);
+        this.deactivateOptionIf(9, ButtonSide.LEFT, options().main.customDataGeneration);
+        this.deactivateOptionIf(9, ButtonSide.RIGHT, options().main.customDataGeneration);
+        this.deactivateOptionIf(10, ButtonSide.LEFT, options().main.customDataGeneration);
 
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 
         super.init();
+    }
+
+    @Override
+    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.renderOptionTooltip(
+                3,
+                ButtonSide.LEFT,
+                options().main.fasterBlockBreaking,
+                Text.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip"),
+                Text.translatable("speedrunnermod.options.block_breaking_multiplier.inactive"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                8,
+                ButtonSide.LEFT,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.stronghold_count.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                8,
+                ButtonSide.RIGHT,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.stronghold_distance.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                9,
+                ButtonSide.LEFT,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.stronghold_spread.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                9,
+                ButtonSide.RIGHT,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                10,
+                ButtonSide.LEFT,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
     }
 
     @Override

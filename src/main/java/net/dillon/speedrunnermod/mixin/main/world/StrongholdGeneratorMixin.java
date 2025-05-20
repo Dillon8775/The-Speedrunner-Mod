@@ -19,7 +19,7 @@ public class StrongholdGeneratorMixin {
     private static StrongholdGenerator.PieceData[] ALL_PIECES;
 
     static {
-        if (!options().main.playingMode.balanced() || !options().advanced.modifiedStrongholdGeneration) {
+        if (options().main.customDataGeneration && (!options().main.playingMode.balanced() || !options().advanced.modifiedStrongholdGeneration)) {
             ALL_PIECES = ModWorldGen.MODIFIED_STRONGHOLD_PIECES;
         }
     }

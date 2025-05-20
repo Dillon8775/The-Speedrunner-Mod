@@ -18,6 +18,6 @@ public class EndPortalFeatureMixin {
      */
     @Redirect(method = "generate", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;END_STONE:Lnet/minecraft/block/Block;"))
     private Block changeBaseBlock() {
-        return options().main.playingMode.doom() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
+        return options().main.customDataGeneration && options().main.playingMode.doom() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

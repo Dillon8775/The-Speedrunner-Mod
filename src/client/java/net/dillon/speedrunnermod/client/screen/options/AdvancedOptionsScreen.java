@@ -56,12 +56,15 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(options().main.playingMode.doom() ? ModListOptions.DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER : ModListOptions.Inactiveable.IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER);
         this.optionList.addAll(advancedOptions());
 
-        this.deactivateButtonIf(4, ButtonSide.LARGE, options().main.customBiomesAndCustomBiomeFeatures);
-        this.deactivateButtonIf(8, ButtonSide.LARGE, options().main.playingMode.easy());
-        this.deactivateButtonIf(9, ButtonSide.LARGE, options().main.iCarusMode);
-        this.deactivateButtonIf(10, ButtonSide.LARGE, options().main.infiniPearlMode);
-        this.deactivateButtonIf(12, ButtonSide.LARGE, options().main.playingMode.doom());
-        this.deactivateButtonIf(14, ButtonSide.LEFT, options().main.throwableFireballs);
+        for (int i = 0; i < 3; i++) {
+            this.deactivateOptionIf(i, ButtonSide.LARGE, options().main.customDataGeneration);
+        }
+        this.deactivateOptionIf(4, ButtonSide.LARGE, options().main.customBiomesAndCustomBiomeFeatures);
+        this.deactivateOptionIf(8, ButtonSide.LARGE, options().main.playingMode.easy());
+        this.deactivateOptionIf(9, ButtonSide.LARGE, options().main.iCarusMode);
+        this.deactivateOptionIf(10, ButtonSide.LARGE, options().main.infiniPearlMode);
+        this.deactivateOptionIf(12, ButtonSide.LARGE, options().main.playingMode.doom());
+        this.deactivateOptionIf(14, ButtonSide.LEFT, options().main.throwableFireballs);
 
         this.addSelectableChild(this.optionList);
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);

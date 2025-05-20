@@ -20,6 +20,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.OptionListWidget;
+import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
@@ -165,6 +166,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
         }
         this.renderCustomObjects(context);
         this.renderTooltips(context, mouseX, mouseY);
+        this.renderOptionTooltips(context, mouseX, mouseY);
     }
 
     /**
@@ -195,6 +197,26 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }
             if (this.openOptionsDirectoryButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
+            }
+        }
+    }
+
+    /**
+     * Renders all {@link SimpleOption} tooltips.
+     */
+    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+    }
+
+    /**
+     * Renders a tooltip for a {@link SimpleOption}. Only for simple options that can be activated/deactivated.
+     */
+    protected void renderOptionTooltip(int buttonListIndex, ButtonSide buttonSide, boolean bl, Text tooltipWhenBooleanIsTrue, Text tooltipWhenBooleanIsFalse, DrawContext context, int mouseX, int mouseY) {
+        OptionListWidget.WidgetEntry widget = this.optionList.children().get(buttonListIndex);
+        if (buttonSide.equals(ButtonSide.LARGE) || buttonSide.equals(ButtonSide.LEFT) ? widget.widgets.getFirst().isHovered() : widget.widgets.getLast().isHovered()) {
+            if (bl) {
+                this.renderBasicTooltip(tooltipWhenBooleanIsTrue, context, mouseX, mouseY);
+            } else {
+                this.renderBasicTooltip(tooltipWhenBooleanIsFalse, context, mouseX, mouseY);
             }
         }
     }
@@ -235,7 +257,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * <p>Indexes go from top-down-left, then right side.
      * <p>Do not call if {@code optionList} is {@code null.}</p>
      */
-    protected void deactivateButtonIf(int buttonListIndex, ButtonSide buttonSide, boolean option) {
+    protected void deactivateOptionIf(int buttonListIndex, ButtonSide buttonSide, boolean option) {
         try {
             if (this.optionList != null) {
                 for (int i = 0; i < this.optionList.children().size(); i++) {
