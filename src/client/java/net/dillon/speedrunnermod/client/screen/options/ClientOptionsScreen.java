@@ -8,9 +8,11 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -31,7 +33,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
      */
     private SimpleOption<?>[] clientOptions(GameOptions gameOptions) {
         return new SimpleOption[]{
-                options().mixins.backgroundRendererMixin ? ModListOptions.FOG : ModListOptions.Inactiveable.IAO_FOG,
+                ModListOptions.FOG,
                 gameOptions.getGamma(),
                 ModListOptions.ITEM_TOOLTIPS,
                 ModListOptions.TEXTURE_TOOLTIPS,
@@ -51,6 +53,20 @@ public class ClientOptionsScreen extends AbstractModScreen {
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 
         super.init();
+    }
+
+    @Override
+    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.renderOptionTooltip(
+                0,
+                ButtonSide.LEFT,
+                options().mixins.backgroundRendererMixin,
+                Text.translatable("speedrunnermod.options.fog.tooltip"),
+                Text.translatable("speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
     }
 
     @Override

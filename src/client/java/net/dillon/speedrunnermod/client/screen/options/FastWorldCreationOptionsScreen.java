@@ -8,8 +8,10 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -29,17 +31,12 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
      * All of the {@code fast world creation options.}
      */
     private SimpleOption<?>[] fwcOptions() {
-        return options().client.fastWorldCreation ?
-                new SimpleOption[]{
-                        ModListOptions.FAST_WORLD_CREATION,
-                        ModListOptions.DIFFICULTY,
-                        ModListOptions.GAMEMODE,
-                        ModListOptions.ALLOW_CHEATS
-                } :
-                new SimpleOption[]{
-                        ModListOptions.FAST_WORLD_CREATION,
-                        ModListOptions.Inactiveable.IAO_ALLOW_CHEATS
-                };
+        return new SimpleOption[]{
+                ModListOptions.FAST_WORLD_CREATION,
+                ModListOptions.DIFFICULTY,
+                ModListOptions.GAMEMODE,
+                ModListOptions.ALLOW_CHEATS
+        };
     }
 
     @Override
@@ -55,6 +52,40 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 
         super.init();
+    }
+
+    @Override
+    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.renderOptionTooltip(
+                0,
+                ButtonSide.RIGHT,
+                options().client.fastWorldCreation,
+                Text.translatable("speedrunnermod.options.difficulty.tooltip"),
+                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                1,
+                ButtonSide.LEFT,
+                options().client.fastWorldCreation,
+                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
+                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                1,
+                ButtonSide.RIGHT,
+                options().client.fastWorldCreation,
+                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
+                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
     }
 
     @Override

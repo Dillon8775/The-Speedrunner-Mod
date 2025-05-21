@@ -8,8 +8,10 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
+import net.minecraft.text.Text;
 
 import java.io.File;
 
@@ -32,7 +34,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         return new SimpleOption[]{
                 ModListOptions.SHOW_RESET_BUTTON,
                 ModListOptions.HIGHER_BREATH_TIME,
-                options().main.throwableFireballs ? ModListOptions.FIREBALL_EXPLOSION_POWER : ModListOptions.Inactiveable.IAO_FIREBALL_EXPLOSION_POWER,
+                ModListOptions.FIREBALL_EXPLOSION_POWER,
                 ModListOptions.SHIFT_TO_THROW_FIREBALL
         };
     }
@@ -45,15 +47,15 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.MODIFIED_STRONGHOLD_Y_GENERATION);
         this.optionList.addSingleOptionEntry(ModListOptions.MODIFIED_NETHER_FORTRESS_GENERATION);
         this.optionList.addSingleOptionEntry(ModListOptions.GENERATE_SPEEDRUNNER_WOOD);
-        this.optionList.addSingleOptionEntry(options().main.customBiomesAndCustomBiomeFeatures ? ModListOptions.SPEEDRUNNERS_WASTELAND_BIOME_WEIGHT : ModListOptions.Inactiveable.IAO_SPEEDRUNNERS_WASTELAND_BIOME_WEIGHT);
+        this.optionList.addSingleOptionEntry(ModListOptions.SPEEDRUNNERS_WASTELAND_BIOME_WEIGHT);
         this.optionList.addSingleOptionEntry(ModListOptions.ENDER_EYE_BREAKING_COOLDOWN);
         this.optionList.addSingleOptionEntry(ModListOptions.LONGER_DRAGON_PERCH_STAY_TIME);
         this.optionList.addSingleOptionEntry(ModListOptions.DECREASED_ZOMBIFIED_PIGLIN_SCARE_DISTANCE);
-        this.optionList.addSingleOptionEntry(options().main.playingMode.easy() ? ModListOptions.PIGLIN_AWAKENER_PIGLIN_COUNT : ModListOptions.Inactiveable.IAO_PIGLIN_AWAKENER_PIGLIN_COUNT);
-        this.optionList.addSingleOptionEntry(options().main.iCarusMode ? ModListOptions.ICARUS_FIREWORKS_INVENTORY_SLOT : ModListOptions.Inactiveable.IAO_ICARUS_FIREWORKS_INVENTORY_SLOT);
-        this.optionList.addSingleOptionEntry(options().main.infiniPearlMode ? ModListOptions.INFINI_PEARL_INVENTORY_SLOT : ModListOptions.Inactiveable.IAO_INFINI_PEARL_INVENTORY_SLOT);
+        this.optionList.addSingleOptionEntry(ModListOptions.PIGLIN_AWAKENER_PIGLIN_COUNT);
+        this.optionList.addSingleOptionEntry(ModListOptions.ICARUS_FIREWORKS_INVENTORY_SLOT);
+        this.optionList.addSingleOptionEntry(ModListOptions.INFINI_PEARL_INVENTORY_SLOT);
         this.optionList.addSingleOptionEntry(ModListOptions.DRAGON_KILLS_NEARBY_HOSTILE_ENTITIES);
-        this.optionList.addSingleOptionEntry(options().main.playingMode.doom() ? ModListOptions.DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER : ModListOptions.Inactiveable.IAO_DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER);
+        this.optionList.addSingleOptionEntry(ModListOptions.DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER);
         this.optionList.addAll(advancedOptions());
 
         for (int i = 0; i < 3; i++) {
@@ -70,6 +72,100 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
 
         super.init();
+    }
+
+    @Override
+    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.renderOptionTooltip(
+                0,
+                ButtonSide.LARGE,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.modified_stronghold_generation.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                1,
+                ButtonSide.LARGE,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.modified_stronghold_y_generation.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                2,
+                ButtonSide.LARGE,
+                options().main.customDataGeneration,
+                Text.translatable("speedrunnermod.options.modified_nether_fortress_generation.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                4,
+                ButtonSide.LARGE,
+                options().main.customBiomesAndCustomBiomeFeatures,
+                Text.translatable("speedrunnermod.options.speedrunners_wasteland_biome_weight.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                8,
+                ButtonSide.LARGE,
+                options().main.playingMode.easy(),
+                Text.translatable("speedrunnermod.options.piglin_awakener_piglin_count.tooltip"),
+                Text.translatable("speedrunnermod.options.playing_mode_easy_required.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                9,
+                ButtonSide.LARGE,
+                options().main.iCarusMode,
+                Text.translatable("speedrunnermod.options.icarus_fireworks_inventory_slot.tooltip"),
+                Text.translatable("speedrunnermod.options.icarus_mode_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                10,
+                ButtonSide.LARGE,
+                options().main.infiniPearlMode,
+                Text.translatable("speedrunnermod.options.infini_pearl_inventory_slot.tooltip"),
+                Text.translatable("speedrunnermod.options.infini_pearl_mode_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                12,
+                ButtonSide.LARGE,
+                options().main.playingMode.doom(),
+                Text.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip"),
+                Text.translatable("speedrunnermod.options.playing_mode_doom_required.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                14,
+                ButtonSide.LEFT,
+                options().main.throwableFireballs,
+                Text.translatable("speedrunnermod.options.fireball_explosion_power.tooltip"),
+                Text.translatable("speedrunnermod.options.throwable_fireballs_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
     }
 
     @Override

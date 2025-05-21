@@ -70,9 +70,6 @@ public class ModTexts {
     public static final Text MENU_RESOURCES = Text.translatable("speedrunnermod.menu.resources");
     public static final Text MENU_RESOURCES_TOOLTIP = Text.translatable("speedrunnermod.menu.resources.tooltip");
     public static final Text TITLE_RESOURCES = Text.translatable("speedrunnermod.title.resources");
-    public static final Text MENU_CHANGELOGS = Text.translatable("speedrunnermod.menu.changelogs").formatted(Formatting.GREEN);
-    public static final Text MENU_CHANGELOGS_TOOLTIP = Text.translatable("speedrunnermod.menu.changelogs.tooltip");
-    public static final Text TITLE_CHANGELOGS = Text.translatable("speedrunnermod.title.changelogs");
     public static final Text MENU_MODS = Text.translatable("speedrunnermod.menu.resources.mods").formatted(Formatting.AQUA);
     public static final Text TITLE_MODS = Text.translatable("speedrunnermod.title.resources.mods");
     public static final Text MENU_TUTORIALS = Text.translatable("speedrunnermod.menu.resources.tutorials").formatted(Formatting.DARK_AQUA);
@@ -97,16 +94,10 @@ public class ModTexts {
     public static final Text ENABLE_HIGHER_ENCHANT_LEVELS = Text.translatable("speedrunnermod.enable_higher_enchant_levels").formatted(Formatting.LIGHT_PURPLE);
     public static final Text CONFIGURE_OPTION = Text.translatable("speedrunnermod.configure_option");
 
-    public static final Text EASIER_SPEEDRUNNING_MOD = Text.translatable("speedrunnermod.the_easier_speedrunning_mod");
-    public static final Text EASIER_SPEEDRUNNING_MOD_TOOLTIP = Text.translatable("speedrunnermod.the_easier_speedrunning_mod.tooltip");
-
     public static final Text CURSEFORGE = Text.translatable("speedrunnermod.menu.external.curseforge").formatted(Formatting.GOLD);
     public static final Text MODRINTH = Text.translatable("speedrunnermod.menu.external.modrinth").formatted(Formatting.GREEN);
     public static final Text GITHUB = Text.translatable("speedrunnermod.menu.external.github").formatted(Formatting.GRAY);
     public static final Text WEBPAGE = Text.translatable("speedrunnermod.menu.external.wiki").formatted(Formatting.LIGHT_PURPLE);
-    public static final Text YOUTUBE = Text.translatable("speedrunnermod.menu.external.youtube").formatted(Formatting.RED);
-    public static final Text DISCORD = Text.translatable("speedrunnermod.menu.external.discord").formatted(Formatting.BLUE);
-    public static final Text DISCORD_TOOLTIP = Text.translatable("speedrunnermod.discord.tooltip");
     public static final Text MOD_SHOWCASE_VIDEO = Text.translatable("speedrunnermod.menu.external.mod_showcase_video").formatted(Formatting.AQUA);
     public static final Text MENU_LEADERBOARDS = Text.translatable("speedrunnermod.menu.external.leaderboards").formatted(Formatting.GREEN);
     public static final Text MENU_LEADERBOARDS_DISABLED = Text.translatable("speedrunnermod.menu.leaderboards.disabled");
