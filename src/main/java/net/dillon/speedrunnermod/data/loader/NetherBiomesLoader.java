@@ -237,7 +237,7 @@ public class NetherBiomesLoader {
         enderman.addProperty("type", "minecraft:enderman");
         enderman.addProperty("maxCount", 4);
         enderman.addProperty("minCount", 4);
-        enderman.addProperty("weight", options().main.playingMode.doom() ? 1 : 5);
+        enderman.addProperty("weight", 5);
 
         JsonObject piglin = new JsonObject();
         piglin.addProperty("type", "minecraft:piglin");
