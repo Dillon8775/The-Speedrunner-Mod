@@ -6,10 +6,7 @@ import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.*;
@@ -52,7 +49,7 @@ public class DoomBlock {
                 VindicatorEntity vindicator = EntityType.VINDICATOR.create(world, SpawnReason.MOB_SUMMONED);
                 ItemStack axe = new ItemStack(Items.IRON_AXE);
                 axe.setDamage(world.random.nextInt(100));
-                vindicator.handItems.set(0, axe);
+                vindicator.equipStack(EquipmentSlot.MAINHAND, axe);
                 vindicator.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(30), 0, false, true, false));
                 vindicator.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
                 world.spawnEntity(vindicator);
@@ -67,7 +64,7 @@ public class DoomBlock {
                 PiglinBruteEntity brute = EntityType.PIGLIN_BRUTE.create(world, SpawnReason.MOB_SUMMONED);
                 ItemStack axe = new ItemStack(Items.GOLDEN_AXE);
                 axe.setDamage(world.random.nextInt(24));
-                brute.handItems.set(0, axe);
+                brute.equipStack(EquipmentSlot.MAINHAND, axe);
                 brute.setImmuneToZombification(true);
                 brute.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(30), 0, false, true, false));
                 brute.refreshPositionAndAngles(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.random.nextFloat() * 360.0F, 0.0F);
@@ -152,7 +149,7 @@ public class DoomBlock {
     /**
      * Handles the fall damage when landing on a doom mode block.
      */
-    private static void fallDamage(Entity entity, float fallDistance) {
+    private static void fallDamage(Entity entity, double fallDistance) {
         float fallDamage;
         if (!options().main.fallDamage) {
             fallDamage = 0.0F;
@@ -175,7 +172,7 @@ public class DoomBlock {
         }
 
         @Override
-        public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
             fallDamage(entity, fallDistance);
         }
 
@@ -198,7 +195,7 @@ public class DoomBlock {
         }
 
         @Override
-        public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
             fallDamage(entity, fallDistance);
         }
 
@@ -214,14 +211,14 @@ public class DoomBlock {
     /**
      * See {@link ModBlocks} for more.
      */
-    protected static class Leaves extends LeavesBlock {
+    protected static class Leaves extends TintedParticleLeavesBlock {
 
         protected Leaves(Settings settings) {
-            super(settings);
+            super(0.01F, settings);
         }
 
         @Override
-        public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
             fallDamage(entity, fallDistance);
         }
 

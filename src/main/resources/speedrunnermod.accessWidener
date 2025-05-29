@@ -55,8 +55,6 @@ accessible field net/minecraft/structure/NetherFortressGenerator ALL_BRIDGE_PIEC
 accessible field net/minecraft/structure/NetherFortressGenerator ALL_CORRIDOR_PIECES [Lnet/minecraft/structure/NetherFortressGenerator$PieceData;
 accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_MUSIC Lnet/minecraft/sound/MusicSound;
 accessible field net/minecraft/entity/vehicle/AbstractBoatEntity itemSupplier Ljava/util/function/Supplier;
-accessible field net/minecraft/entity/mob/MobEntity armorItems Lnet/minecraft/util/collection/DefaultedList;
-accessible field net/minecraft/entity/mob/MobEntity handItems Lnet/minecraft/util/collection/DefaultedList;
 accessible field net/minecraft/entity/mob/BlazeEntity$ShootFireballGoal fireballCooldown I
 accessible field net/minecraft/item/CrossbowItem charged Z
 accessible field net/minecraft/item/CrossbowItem loaded Z

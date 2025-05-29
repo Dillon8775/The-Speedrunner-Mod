@@ -47,7 +47,7 @@ public class ModBlocks {
             .instrument(NoteBlockInstrument.BASS)
             .sounds(BlockSoundGroup.WOOD));
 
-    public static final Block SPEEDRUNNER_LEAVES = Blocks.register(of("speedrunner_leaves"), LeavesBlock::new, Block.Settings.create()
+    public static final Block SPEEDRUNNER_LEAVES = Blocks.register(of("speedrunner_leaves"), settings -> new TintedParticleLeavesBlock(0.01F, settings), Block.Settings.create()
             .strength(0.1F)
             .nonOpaque()
             .ticksRandomly()
@@ -146,7 +146,7 @@ public class ModBlocks {
     public static final Block DEAD_STRIPPED_SPEEDRUNNER_LOG = Blocks.register(of("dead_stripped_speedrunner_log"), PillarBlock::new, Block.Settings.copy(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).burnable());
     public static final Block DEAD_SPEEDRUNNER_WOOD = Blocks.register(of("dead_speedrunner_wood"), PillarBlock::new, Block.Settings.copy(ModBlocks.SPEEDRUNNER_WOOD).burnable());
     public static final Block DEAD_STRIPPED_SPEEDRUNNER_WOOD = Blocks.register(of("dead_stripped_speedrunner_wood"), PillarBlock::new, Block.Settings.copy(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD).burnable());
-    public static final Block DEAD_SPEEDRUNNER_LEAVES = Blocks.register(of("dead_speedrunner_leaves"), LeavesBlock::new, Block.Settings.copy(ModBlocks.SPEEDRUNNER_LEAVES).burnable());
+    public static final Block DEAD_SPEEDRUNNER_LEAVES = Blocks.register(of("dead_speedrunner_leaves"), settings -> new TintedParticleLeavesBlock(0.01F, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_LEAVES).burnable());
     public static final Block DEAD_SPEEDRUNNER_SAPLING = Blocks.register(of("dead_speedrunner_sapling"), settings -> new SpeedrunnerSaplingBlock(ModSaplingGenerators.DEAD_SPEEDRUNNER, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_SAPLING).burnable());
     public static final Block DEAD_POTTED_SPEEDRUNNER_SAPLING = Blocks.register(of("dead_potted_speedrunner_sapling"), settings -> new FlowerPotBlock(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, settings), Block.Settings.copy(ModBlocks.DEAD_SPEEDRUNNER_SAPLING).burnable());
     public static final Block DEAD_SPEEDRUNNER_PLANKS = Blocks.register(of("dead_speedrunner_planks"), Block::new, Block.Settings.copy(ModBlocks.SPEEDRUNNER_PLANKS).burnable());
@@ -186,7 +186,7 @@ public class ModBlocks {
             .pistonBehavior(PistonBehavior.DESTROY)
             .sounds(BlockSoundGroup.METAL));
 
-    public static final Block DEAD_SPEEDRUNNER_BUSH = Blocks.register(of("dead_speedrunner_bush"), DeadBushBlock::new, Block.Settings.create()
+    public static final Block DEAD_SPEEDRUNNER_BUSH = Blocks.register(of("dead_speedrunner_bush"), DryVegetationBlock::new, Block.Settings.create()
             .breakInstantly()
             .noCollision()
             .pistonBehavior(PistonBehavior.DESTROY)
