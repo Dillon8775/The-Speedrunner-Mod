@@ -2,12 +2,14 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -22,13 +24,14 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
  */
-public class DragonsPearlItem extends Item implements StateOfTheArtItem {
+public class DragonsPearlItem extends Item implements StateOfTheArtItem, TooltipAppender {
 
     public DragonsPearlItem(Settings settings) {
         super(settings.maxCount(16).rarity(Rarity.EPIC));
@@ -119,10 +122,10 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
-            this.addStateOfTheArtItemTooltip(tooltip);
+            textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
+            this.addStateOfTheArtItemTooltip(textConsumer);
         }
     }
 }

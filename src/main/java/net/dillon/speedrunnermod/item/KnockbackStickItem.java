@@ -1,25 +1,28 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Rarity;
-import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * A knockback stick item. It does exactly what it says.
  */
-public class KnockbackStickItem extends Item {
+public class KnockbackStickItem extends Item implements TooltipAppender {
 
     public KnockbackStickItem(Settings settings) {
         super(settings.maxCount(1).maxDamage(10).rarity(Rarity.EPIC));
@@ -29,18 +32,10 @@ public class KnockbackStickItem extends Item {
      * Makes it so that the knockback stick actually has the knockback enchantment.
      */
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         if (!stack.hasEnchantments()) {
             stack.addEnchantment(ModUtil.worldEnchantment(world, Enchantments.KNOCKBACK), 5);
         }
-    }
-
-    /**
-     * Return true when hitting an entity.
-     */
-    @Override
-    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        return true;
     }
 
     /**
@@ -60,9 +55,9 @@ public class KnockbackStickItem extends Item {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.knockback_stick.tooltip"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.knockback_stick.tooltip"));
         }
     }
 }

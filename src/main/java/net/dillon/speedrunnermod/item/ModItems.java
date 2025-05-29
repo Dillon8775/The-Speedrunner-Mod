@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.ModBoats;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
@@ -17,6 +18,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.Util;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
 
@@ -31,15 +33,15 @@ public class ModItems {
     public static final Identifier SPEEDRUNNER_ARMOR_PATH = Identifier.of(MOD_ID, "speedrunner");
     public static final Identifier GOLDEN_SPEEDRUNNER_ARMOR_PATH = Identifier.of(MOD_ID, "golden_speedrunner");
 
-    public static final Item SPEEDRUNNER_INGOT = Items.register(of("speedrunner_ingot"), settings -> new Item(
+    public static final Item SPEEDRUNNER_INGOT = Items.register(of("speedrunner_ingot"), settings -> new ItemWithTooltip(
             settings) {
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
             if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line1").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line2").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line3").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line1").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line2").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line3").formatted(Formatting.GRAY));
             }
         }
     });

@@ -1,27 +1,29 @@
 package net.dillon.speedrunnermod.item;
 
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Better than iron, worse than diamond, deals more damage to withers and giants.
  */
-public class SpeedrunnerSwordItem extends SwordItem {
+public class SpeedrunnerSwordItem extends Item implements TooltipAppender {
     private static int attackDamage;
 
     public SpeedrunnerSwordItem(int attackDamage, boolean golden, Settings settings) {
-        super(!golden ? ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE : ModToolMaterials.GOLDEN_SPEEDRUNNER, attackDamage, -2.4F, settings);
+        super(settings.sword(!golden ? ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE : ModToolMaterials.GOLDEN_SPEEDRUNNER, attackDamage, -2.4F));
         SpeedrunnerSwordItem.attackDamage = attackDamage;
     }
 
@@ -29,7 +31,7 @@ public class SpeedrunnerSwordItem extends SwordItem {
      * Deals more damage to withers, and giants under certain conditions.
      */
     @Override
-    public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof PlayerEntity) {
             if (target instanceof WitherEntity) {
                 target.serverDamage(attacker.getDamageSources().playerAttack((PlayerEntity)attacker), getAttackDamage() * 4.45F);
@@ -37,7 +39,7 @@ public class SpeedrunnerSwordItem extends SwordItem {
                 target.serverDamage(attacker.getDamageSources().playerAttack((PlayerEntity)attacker), getAttackDamage() * 3.25F);
             }
         }
-        return super.postHit(stack, target, attacker);
+        super.postHit(stack, target, attacker);
     }
 
     /**
@@ -48,11 +50,11 @@ public class SpeedrunnerSwordItem extends SwordItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line1").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line1").formatted(Formatting.GRAY));
             if (options().main.playingMode.doom()) {
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line2"));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line2"));
             }
         }
     }

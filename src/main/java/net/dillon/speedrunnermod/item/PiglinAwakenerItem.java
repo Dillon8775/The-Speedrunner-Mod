@@ -4,14 +4,15 @@ import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -27,13 +28,14 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An item that teleports {@code nearby piglin} to the player.
  */
-public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
+public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private boolean confirm = !options().client.confirmationMessages;
 
     public PiglinAwakenerItem(Settings settings) {
@@ -136,10 +138,10 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.piglin_awakener.tooltip"));
-            this.addStateOfTheArtItemTooltip(tooltip);
+            textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener.tooltip"));
+            this.addStateOfTheArtItemTooltip(textConsumer);
         }
     }
 }

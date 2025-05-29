@@ -5,10 +5,12 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -22,14 +24,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
-public class EnderThrusterItem extends Item implements StateOfTheArtItem {
+public class EnderThrusterItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private boolean confirm = !options().client.confirmationMessages;
 
     public EnderThrusterItem(Settings settings) {
@@ -106,10 +108,10 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.ender_thruster.tooltip"));
-            this.addStateOfTheArtItemTooltip(tooltip);
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_thruster.tooltip"));
+            this.addStateOfTheArtItemTooltip(textConsumer);
         }
     }
 }

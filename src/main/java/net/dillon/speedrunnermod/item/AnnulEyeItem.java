@@ -6,10 +6,12 @@ import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -25,7 +27,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
@@ -33,7 +35,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
-public class AnnulEyeItem extends Item implements StateOfTheArtItem {
+public class AnnulEyeItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private boolean confirm = !options().client.confirmationMessages;
 
     public AnnulEyeItem(Settings settings) {
@@ -167,15 +169,13 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1"));
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2"));
-            if (options().main.playingMode.balanced()) {
-                tooltip.set(1, tooltip.get(1).copy().formatted(Formatting.STRIKETHROUGH));
-                tooltip.set(2, tooltip.get(2).copy().formatted(Formatting.STRIKETHROUGH));
-            }
+            textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1")
+                    .formatted(options().main.playingMode.balanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2")
+                    .formatted(options().main.playingMode.balanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
         }
-        this.addStateOfTheArtItemTooltip(tooltip);
+        this.addStateOfTheArtItemTooltip(textConsumer);
     }
 }

@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
@@ -11,6 +12,7 @@ import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
@@ -28,13 +30,14 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An item that kills all nearby {@link RaiderEntity}s.
  */
-public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
+public class RaidEradicatorItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private boolean confirm = !options().client.confirmationMessages;
 
     public RaidEradicatorItem(Settings settings) {
@@ -121,10 +124,10 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
-            this.addStateOfTheArtItemTooltip(tooltip);
+            textConsumer.accept(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
+            this.addStateOfTheArtItemTooltip(textConsumer);
         }
     }
 }

@@ -54,7 +54,7 @@ public class ModBiomes {
 
         addSpeedrunnersWastelandFeatures(lookupBackedBuilder);
 
-        DefaultBiomeFeatures.addDefaultVegetation(lookupBackedBuilder);
+        DefaultBiomeFeatures.addDefaultVegetation(lookupBackedBuilder, true);
 
         return new Biome.Builder()
                 .precipitation(true)
@@ -112,11 +112,11 @@ public class ModBiomes {
      * @param builder
      */
     private static void addSpeedrunnersWastelandMonsters(SpawnSettings.Builder builder) {
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 25, 4, 4));
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.ZOMBIE, 25, 1, 4));
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.ZOMBIE_VILLAGER, 25, 1, 1));
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 25, 1, 4));
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 25, 1, 4));
-        builder.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.ENDERMAN, 100, 1, 2));
+        builder.spawn(SpawnGroup.MONSTER, 25, new SpawnSettings.SpawnEntry(EntityType.SPIDER, 4, 4));
+        builder.spawn(SpawnGroup.MONSTER, 25, new SpawnSettings.SpawnEntry(EntityType.ZOMBIE, 1, 4));
+        builder.spawn(SpawnGroup.MONSTER, 25, new SpawnSettings.SpawnEntry(EntityType.ZOMBIE_VILLAGER, 1, 1));
+        builder.spawn(SpawnGroup.MONSTER, 25, new SpawnSettings.SpawnEntry(EntityType.SKELETON, 1, 4));
+        builder.spawn(SpawnGroup.MONSTER, 25, new SpawnSettings.SpawnEntry(EntityType.CREEPER, 1, 4));
+        builder.spawn(SpawnGroup.MONSTER, 100, new SpawnSettings.SpawnEntry(EntityType.ENDERMAN, 1, 2));
     }
 }

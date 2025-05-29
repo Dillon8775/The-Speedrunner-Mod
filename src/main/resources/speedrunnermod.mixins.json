@@ -101,7 +101,7 @@
     "main.world.EndGatewayBlockEntityMixin",
     "main.world.EndIslandFeatureMixin",
     "main.world.EndPortalFeatureMixin",
-    "main.world.NetherFortressFeatureMixin",
+    "main.world.NetherFortressStructureMixin",
     "main.world.NetherFortressGeneratorMixin",
     "main.world.RuinedPortalStructureMixin",
     "main.world.ServerWorldMixin",

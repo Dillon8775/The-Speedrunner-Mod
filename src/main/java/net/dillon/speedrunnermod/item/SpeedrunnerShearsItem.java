@@ -29,7 +29,8 @@ public class SpeedrunnerShearsItem extends ShearsItem {
                         ToolComponent.Rule.of(RegistryEntryList.of(Blocks.VINE.getRegistryEntry(), Blocks.GLOW_LICHEN.getRegistryEntry()), 2.0F)
                 ),
                 1.0F,
-                1
+                1,
+                true
         );
     }
 

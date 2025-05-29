@@ -1,13 +1,16 @@
 package net.dillon.speedrunnermod.item;
 
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ChargedProjectilesComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.CrossbowItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -16,14 +19,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * A crossbow which charges faster, shoots farther, and has more durability.
  */
-public class SpeedrunnerCrossbowItem extends CrossbowItem {
+public class SpeedrunnerCrossbowItem extends CrossbowItem implements TooltipAppender {
 
     public SpeedrunnerCrossbowItem(Settings settings) {
         super(settings.maxCount(1).maxDamage(652));
@@ -70,10 +73,9 @@ public class SpeedrunnerCrossbowItem extends CrossbowItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
-        super.appendTooltip(stack, context, tooltip, type);
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_crossbow.tooltip").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_crossbow.tooltip").formatted(Formatting.GRAY));
         }
     }
 }

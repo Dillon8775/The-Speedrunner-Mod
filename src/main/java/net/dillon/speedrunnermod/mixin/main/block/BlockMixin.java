@@ -19,7 +19,7 @@ public class BlockMixin {
      * <p>If the entity is {@code sneaking}, then the damage can be reduced by {@code ~1.25%.}</p>
      */
     @Overwrite
-    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+    public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         float fallDamage;
         if (!options().main.fallDamage) {
             fallDamage = 0.0F;

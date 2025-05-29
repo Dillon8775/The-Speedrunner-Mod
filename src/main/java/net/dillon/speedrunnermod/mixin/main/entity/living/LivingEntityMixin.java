@@ -113,7 +113,7 @@ public abstract class LivingEntityMixin extends Entity {
                 return inventory.getSlotWithStack(speedrunnersTotem) != -1 ? inventory.getStack(inventory.getSlotWithStack(speedrunnersTotem)) : inventory.offHand.get(0);
             }
 
-            if (inventory.offHand.contains(totemUndying) || inventory.main.contains(totemUndying)) { // only works in mainhand/offhand
+            if (inventory.offhand.contains(totemUndying) || inventory.main.contains(totemUndying)) { // only works in mainhand/offhand
                 return inventory.getSlotWithStack(totemUndying) != -1 ? inventory.getStack(inventory.getSlotWithStack(totemUndying)) : inventory.offHand.get(0);
             }
         }

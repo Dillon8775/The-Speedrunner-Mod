@@ -4,9 +4,11 @@ import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
@@ -19,14 +21,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
  */
-public class InfernoEyeItem extends Item implements StateOfTheArtItem {
+public class InfernoEyeItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private TagKey<Structure> structureType = ModStructureTags.FORTRESSES;
 
     public InfernoEyeItem(Settings settings) {
@@ -77,10 +79,10 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.eye_of_inferno.tooltip"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_inferno.tooltip"));
         }
-        tooltip.add(Text.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(structureType)).formatted(Formatting.BOLD));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(structureType)).formatted(Formatting.BOLD));
     }
 }

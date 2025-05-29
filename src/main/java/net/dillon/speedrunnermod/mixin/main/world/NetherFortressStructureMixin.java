@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(NetherFortressStructure.class)
-public class NetherFortressFeatureMixin {
+public class NetherFortressStructureMixin {
 
     /**
      * Changes monster spawning in nether fortresses, see {@link ModWorldGen} for details.

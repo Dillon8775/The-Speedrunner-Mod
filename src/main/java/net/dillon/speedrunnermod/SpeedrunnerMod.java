@@ -138,8 +138,8 @@ public class SpeedrunnerMod implements ModInitializer {
                 ModUtil.roundToNearestTenthsPlace(y),
                 ModUtil.roundToNearestTenthsPlace(z))
                 .setStyle(Style.EMPTY
-                        .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.translatable("speedrunnermod.teleport_to_player_death_cords")))
-                        .withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/teleport @s " + x + " " + y + " " + z)));
+                        .withHoverEvent(new HoverEvent.ShowText(Text.translatable("speedrunnermod.teleport_to_player_death_cords")))
+                        .withClickEvent(new ClickEvent.SuggestCommand("/teleport @s " + x + " " + y + " " + z)));
     }
 
     public static int getSpeedrunnerWaterColor() {

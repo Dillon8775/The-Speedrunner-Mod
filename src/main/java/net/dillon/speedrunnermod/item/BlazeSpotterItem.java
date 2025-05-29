@@ -8,6 +8,7 @@ import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -27,14 +29,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
  */
-public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
+public class BlazeSpotterItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private boolean confirm = !options().client.confirmationMessages;
 
     public BlazeSpotterItem(Settings settings) {
@@ -124,10 +126,10 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.blaze_spotter.tooltip"));
-            this.addStateOfTheArtItemTooltip(tooltip);
+            textConsumer.accept(Text.translatable("item.speedrunnermod.blaze_spotter.tooltip"));
+            this.addStateOfTheArtItemTooltip(textConsumer);
         }
     }
 }

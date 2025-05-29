@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
@@ -9,7 +10,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.item.EnderPearlItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -21,14 +24,14 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An {@code ender pearl} like item that does not get consumed nor do damage upon use.
  */
-public class InfiniPearlItem extends EnderPearlItem {
+public class InfiniPearlItem extends EnderPearlItem implements TooltipAppender {
 
     public InfiniPearlItem(Settings settings) {
         super(settings.maxCount(1).maxDamage(571).component(DataComponentTypes.CUSTOM_NAME, Text.translatable("item.speedrunnermod.infini_pearl").formatted(Formatting.AQUA).formatted(Formatting.ITALIC)));
@@ -68,10 +71,10 @@ public class InfiniPearlItem extends EnderPearlItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line1"));
-            tooltip.add(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line2"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line1"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line2"));
         }
     }
 }

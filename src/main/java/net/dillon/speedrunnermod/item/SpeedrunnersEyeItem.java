@@ -6,9 +6,11 @@ import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
+import net.minecraft.component.ComponentsAccess;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.world.ServerWorld;
@@ -24,14 +26,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
-public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
+public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem, TooltipAppender {
     private BlockPos currentBlockPos;
 
     public SpeedrunnersEyeItem(Settings settings) {
@@ -108,10 +110,11 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
+        ItemStack stack = new ItemStack(this);
         if (options().client.itemTooltips) {
-            tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_eye.tooltip"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_eye.tooltip"));
         }
-        tooltip.add(Text.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
     }
 }

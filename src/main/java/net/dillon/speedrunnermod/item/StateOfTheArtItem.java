@@ -7,7 +7,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.gen.structure.Structure;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
@@ -74,9 +74,9 @@ public interface StateOfTheArtItem {
     /**
      * Adds the tooltips for {@code State-Of-The-Art} items.
      */
-    default void addStateOfTheArtItemTooltip(List<Text> tooltip) {
+    default void addStateOfTheArtItemTooltip(Consumer<Text> textConsumer) {
         if (!options().main.playingMode.easy()) {
-            tooltip.add(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }
 }
