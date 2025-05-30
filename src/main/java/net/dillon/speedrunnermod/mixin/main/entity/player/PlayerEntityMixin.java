@@ -82,7 +82,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      * Makes the Giant disable players' shields.
      */
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
-    private void takeShieldHit(LivingEntity attacker, CallbackInfo ci) {
+    private void takeShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
         if (options().main.playingMode.doom()) {
             if (attacker instanceof GiantEntity) {
                 int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
@@ -102,7 +102,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("TAIL"))
     private void addDragonsSwordParticles(CallbackInfo ci) {
         if (this.getMainHandStack().isOf(ModItems.DRAGONS_SWORD) || this.getOffHandStack().isOf(ModItems.DRAGONS_SWORD)) {
-            this.getWorld().addParticle(ParticleTypes.PORTAL, this.getParticleX(0.5D), this.getRandomBodyY() - 0.25D, this.getParticleZ(0.5D), (this.getWorld().random.nextDouble() - 0.5D) * 2.0D, -this.getWorld().random.nextDouble(), (this.getWorld().random.nextDouble() - 0.5D) * 2.0D);
+            this.getWorld().addParticleClient(ParticleTypes.PORTAL, this.getParticleX(0.5D), this.getRandomBodyY() - 0.25D, this.getParticleZ(0.5D), (this.getWorld().random.nextDouble() - 0.5D) * 2.0D, -this.getWorld().random.nextDouble(), (this.getWorld().random.nextDouble() - 0.5D) * 2.0D);
         }
     }
 

@@ -10,6 +10,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.map.MapDecorationTypes;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.tag.EnchantmentTags;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.util.Util;
@@ -31,7 +32,7 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 @Mixin(TradeOffers.class)
 public class TradeOffersMixin {
     @Shadow
-    public static final Map<VillagerProfession, Int2ObjectMap<TradeOffers.Factory[]>> PROFESSION_TO_LEVELED_TRADE = options().main.betterVillagerTrades ? Util.make(Maps.newHashMap(), map -> {
+    public static final Map<RegistryKey<VillagerProfession>, Int2ObjectMap<TradeOffers.Factory[]>> PROFESSION_TO_LEVELED_TRADE = options().main.betterVillagerTrades ? Util.make(Maps.newHashMap(), map -> {
         map.put(VillagerProfession.FARMER, TradeOffers.copyToFastUtilMap(
                 ImmutableMap.of(
                         1, new TradeOffers.Factory[]{

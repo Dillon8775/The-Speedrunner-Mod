@@ -76,7 +76,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 ItemStack fireworks = ModUtil.flightDurationComponentItem(64);
 
                 this.getInventory().armor.set(2, item);
-                this.getInventory().main.set(options().advanced.iCarusFireworksInventorySlot - 1, fireworks);
+                this.getInventory().getMainStacks().set(options().advanced.iCarusFireworksInventorySlot - 1, fireworks);
             }
 
             if (options().main.infiniPearlMode) {
@@ -91,7 +91,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                     slot -= 2;
                 }
 
-                this.getInventory().main.set(slot, infiniPearl);
+                this.getInventory().getMainStacks().set(slot, infiniPearl);
             }
         }
     }
