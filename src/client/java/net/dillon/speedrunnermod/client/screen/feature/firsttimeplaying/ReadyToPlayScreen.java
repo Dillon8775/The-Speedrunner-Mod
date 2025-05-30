@@ -38,6 +38,8 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
+                options().client.firstTimePlaying = false;
+                ModOptions.saveConfig();
                 this.client.setScreen(new TitleScreen());
             }
         }).build());

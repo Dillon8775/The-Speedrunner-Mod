@@ -31,7 +31,7 @@ public class KeyFeaturesScreen extends AbstractFeatureScreen {
 
     @Override
     public @NotNull String linesKey() {
-        return "key_points";
+        return "key_features";
     }
 
     @Override

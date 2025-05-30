@@ -1454,7 +1454,7 @@ public class ModOptions {
         options().main.customDataGeneration = true;
         options().main.leaderboardsMode = false;
 
-        options().client.firstTimePlaying = false;
+        options().client.firstTimePlaying = true;
         options().client.fog = true;
         options().client.itemTooltips = true;
         options().client.customPanorama = true;

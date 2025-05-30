@@ -57,7 +57,7 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> FASTER_BLOCK_BREAKING = new SimpleOption<>("speedrunnermod.options.faster_block_breaking", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.fasterBlockBreaking, value -> options().main.fasterBlockBreaking = value);
 
-    public static final SimpleOption<Boolean> ICARUS_MODE = new SimpleOption<>("speedrunnermod.options.icarus_mode", SimpleOption.emptyTooltip(),
+    public static final SimpleOption<Boolean> ICARUS_MODE = new SimpleOption<>("speedrunnermod.options.icarus_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.icarus_mode.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.iCarusMode, value -> options().main.iCarusMode = value);
 
     public static final SimpleOption<Boolean> FOG = new SimpleOption<>("speedrunnermod.options.fog", SimpleOption.emptyTooltip(),
