@@ -35,9 +35,9 @@ public abstract class EntityMixin {
     /**
      * Decreases time set on fire for from lava.
      */
-    @ModifyArg(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
+    @ModifyArg(method = "igniteByLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
     private float setOnFireFromLavaTime(float x) {
-        return SpeedrunnerMod.getFireFromLavaTime();
+        return SpeedrunnerMod.getFireFromLavaDamageDuration();
     }
 
     /**

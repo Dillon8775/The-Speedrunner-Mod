@@ -170,7 +170,7 @@ public class SpeedrunnerMod implements ModInitializer {
         }
     }
 
-    public static int getFireFromLavaTime() {
+    public static int getFireFromLavaDamageDuration() {
         return options().main.playingMode.doom() ? 15 : 7;
     }
 

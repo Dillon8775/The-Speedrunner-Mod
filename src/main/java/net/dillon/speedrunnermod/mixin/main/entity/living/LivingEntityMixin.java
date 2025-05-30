@@ -103,7 +103,7 @@ public abstract class LivingEntityMixin extends Entity {
     // Gets what totem should be used
     @Author(Authors.YELEEFFF)
     @ModifyVariable(method = "tryUseDeathProtector", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/LivingEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"))
-    private ItemStack setTotemToPop(ItemStack stack, DamageSource source) {
+    private LivingEntity setTotemToPop(LivingEntity value) {
         if (this.isPlayer()) {
             PlayerInventory inventory = ((InventoryAccessor) this).getInventory();
             ItemStack totemUndying = Items.TOTEM_OF_UNDYING.getDefaultStack();
@@ -113,12 +113,12 @@ public abstract class LivingEntityMixin extends Entity {
                 return inventory.getSlotWithStack(speedrunnersTotem) != -1 ? inventory.getStack(inventory.getSlotWithStack(speedrunnersTotem)) : inventory.offHand.get(0);
             }
 
-            if (inventory.offhand.contains(totemUndying) || inventory.main.contains(totemUndying)) { // only works in mainhand/offhand
+            if (inventory.getStack(40).isOf(totemUndying.getItem()) || inventory.contains(totemUndying)) { // only works in mainhand/offhand
                 return inventory.getSlotWithStack(totemUndying) != -1 ? inventory.getStack(inventory.getSlotWithStack(totemUndying)) : inventory.offHand.get(0);
             }
         }
 
-        return stack;
+        return value;
     }
 
     /**

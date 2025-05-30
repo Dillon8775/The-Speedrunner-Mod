@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.component.ComponentsAccess;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;
@@ -57,9 +58,9 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, Toolt
                         if (player.getAbilities().creativeMode) {
                             hasGold = true;
                         }
-                        for (ItemStack armorItems : player.getArmorItems()) {
-                            Item item = armorItems.getItem();
-                            if (item instanceof ArmorItem armorItem && armorItem.getDefaultStack().isIn(ItemTags.PIGLIN_SAFE_ARMOR)) {
+                        for (EquipmentSlot armorItem : EquipmentSlot.VALUES) {
+                            ItemStack itemStack = player.getEquippedStack(armorItem);
+                            if (itemStack.isIn(ItemTags.PIGLIN_SAFE_ARMOR)) {
                                 isSafe = true;
                             }
                         }
