@@ -77,7 +77,6 @@
     "main.fix.MatchToolLootConditionMixin",
     "main.fix.PumpkinBlockMixin",
     "main.fix.RegistryEntryListDirectAccessor",
-    "main.fix.SmithingScreenHandlerMixin",
     "main.fix.SnowGolemEntityMixin",
     "main.fix.SpawnRestrictionMixin",
     "main.fix.TntBlockMixin",

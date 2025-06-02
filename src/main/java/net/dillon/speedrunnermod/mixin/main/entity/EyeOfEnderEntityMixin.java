@@ -42,38 +42,61 @@ public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItem
         double e = this.getY() + vec3d.y;
         double f = this.getZ() + vec3d.z;
         double g = vec3d.horizontalLength();
-        this.setPitch(ProjectileEntity.updateRotation(this.prevPitch, (float)(MathHelper.atan2(vec3d.y, g) * 57.2957763671875D)));
-        this.setYaw(ProjectileEntity.updateRotation(this.prevYaw, (float)(MathHelper.atan2(vec3d.x, vec3d.z) * 57.2957763671875D)));
+        this.setPitch(ProjectileEntity.updateRotation(this.lastPitch, (float)(MathHelper.atan2(vec3d.y, g) * 180.0F / (float)Math.PI)));
+        this.setYaw(ProjectileEntity.updateRotation(this.lastYaw, (float)(MathHelper.atan2(vec3d.x, vec3d.z) * 180.0F / (float)Math.PI)));
         if (!this.getWorld().isClient) {
             double h = this.targetX - d;
             double i = this.targetZ - f;
             float j = (float)Math.sqrt(h * h + i * i);
             float k = (float)MathHelper.atan2(i, h);
-            double l = MathHelper.lerp(0.0025D, g, j);
+            double l = MathHelper.lerp(0.0025, g, (double)j);
             double m = vec3d.y;
             if (j < 1.0F) {
-                l *= 0.8D;
-                m *= 0.8D;
+                l *= 0.8;
+                m *= 0.8;
             }
 
             int n = this.getY() < this.targetY ? 1 : -1;
-            vec3d = new Vec3d(Math.cos(k) * l, m + ((double)n - m) * 0.014999999664723873D, Math.sin(k) * l);
+            vec3d = new Vec3d(Math.cos(k) * l, m + (n - m) * 0.015F, Math.sin(k) * l);
             this.setVelocity(vec3d);
         }
 
         if (this.isTouchingWater()) {
-            for(int p = 0; p < 4; ++p) {
-                this.getWorld().addParticle(ParticleTypes.BUBBLE, d - vec3d.x * 0.25D, e - vec3d.y * 0.25D, f - vec3d.z * 0.25D, vec3d.x, vec3d.y, vec3d.z);
+            for (int p = 0; p < 4; p++) {
+                this.getWorld().addParticleClient(ParticleTypes.BUBBLE, d - vec3d.x * 0.25, e - vec3d.y * 0.25, f - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
             }
-        } else if (this.getStack().getItem() == Items.ENDER_EYE && !this.isTouchingWater() || this.getStack().getItem() == ModItems.ANNUL_EYE && !this.isTouchingWater()) {
-            this.getWorld().addParticle(ParticleTypes.PORTAL, d - vec3d.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, e - vec3d.y * 0.25D - 0.5D, f - vec3d.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D, vec3d.x, vec3d.y, vec3d.z);
+        } else if (this.getStack().getItem() == Items.ENDER_EYE || this.getStack().getItem() == ModItems.ANNUL_EYE ) {
+            this.getWorld().addParticleClient(
+                    ParticleTypes.PORTAL,
+                    d - vec3d.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D,
+                    e - vec3d.y * 0.25D - 0.5D,
+                    f - vec3d.z * 0.25D + this.random.nextDouble() * 0.6D - 0.3D,
+                    vec3d.x, vec3d.y, vec3d.z);
         } else if (this.getStack().getItem() == ModItems.INFERNO_EYE && !this.isTouchingWater()) {
-            this.getWorld().addParticle(ParticleTypes.SMOKE, this.getParticleX(0.5D), this.getRandomBodyY(), this.getParticleZ(0.5D), 0.0D, 0.0D, 0.0D);
+            this.getWorld().addParticleClient(
+                    ParticleTypes.SMOKE,
+                    this.getParticleX(0.5D),
+                    this.getRandomBodyY(),
+                    this.getParticleZ(0.5D),
+                    0.0D,
+                    0.0D,
+                    0.0D);
+        } else {
+            this.getWorld()
+                    .addParticleClient(
+                            ParticleTypes.PORTAL,
+                            d - vec3d.x * 0.25 + this.random.nextDouble() * 0.6 - 0.3,
+                            e - vec3d.y * 0.25 - 0.5,
+                            f - vec3d.z * 0.25 + this.random.nextDouble() * 0.6 - 0.3,
+                            vec3d.x,
+                            vec3d.y,
+                            vec3d.z
+                    );
         }
 
         if (!this.getWorld().isClient) {
             this.setPosition(d, e, f);
-            ++this.lifespan;
+            this.lifespan++;
             if (this.lifespan > options().advanced.enderEyeBreakingCooldown && !this.getWorld().isClient) {
                 this.discard();
                 if (options().main.playingMode.doom()) {
@@ -97,7 +120,7 @@ public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItem
                 }
             }
         } else {
-            this.setPos(d, e, f);
+            this.setPosition(d, e, f);
         }
     }
 }

@@ -38,8 +38,8 @@ public abstract class CreeperEntityMixin extends HostileEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((CreeperEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 32;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((CreeperEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
         }
         return super.getExperienceToDrop(world);
     }
@@ -55,7 +55,7 @@ public abstract class CreeperEntityMixin extends HostileEntity {
     /**
      * A thing for doom mode. >:)
      */
-    @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"))
+    @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"))
     private void explode(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         float o = this.isCharged() ? 2.0F : 1.0F;

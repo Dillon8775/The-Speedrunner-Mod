@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.mixin.main.entity.player;
 
 import com.mojang.authlib.GameProfile;
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -47,7 +47,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void sendCords(DamageSource source, CallbackInfo ci) {
         if (options().client.showDeathCords && this.getServerWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
-            this.sendMessage(SpeedrunnerMod.deathCords(this.getX(), this.getY(), this.getZ()), false);
+            this.sendMessage(ModUtil.deathCords(this.getX(), this.getY(), this.getZ()), false);
         }
     }
 
@@ -75,7 +75,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 item = ModUtil.unbreakableItem(ModItems.INFINI_PEARL);
                 ItemStack fireworks = ModUtil.flightDurationComponentItem(64);
 
-                this.getInventory().armor.set(2, item);
+                this.equipment.put(EquipmentSlot.CHEST, item);
                 this.getInventory().getMainStacks().set(options().advanced.iCarusFireworksInventorySlot - 1, fireworks);
             }
 

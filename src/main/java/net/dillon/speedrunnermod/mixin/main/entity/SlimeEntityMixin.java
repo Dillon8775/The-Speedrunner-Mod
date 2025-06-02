@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -25,8 +25,8 @@ public class SlimeEntityMixin extends MobEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SlimeEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SlimeEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -37,7 +37,7 @@ public class SlimeEntityMixin extends MobEntity {
      */
     @Overwrite
     public int getTicksUntilNextJump() {
-        return SpeedrunnerMod.getSlimeJumpTime();
+        return ModConstants.SLIME_JUMP_TIME;
     }
 
     /**
@@ -46,6 +46,6 @@ public class SlimeEntityMixin extends MobEntity {
      */
     @Overwrite
     public float getDamageAmount() {
-        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * SpeedrunnerMod.getSlimeDamageMultiplier();
+        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * ModConstants.SLIME_DAMAGE_MULTIPLIER;
     }
 }

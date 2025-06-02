@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -34,8 +34,8 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherSkeletonEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherSkeletonEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -53,7 +53,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
      */
     @ModifyArg(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/registry/entry/RegistryEntry;I)V"), index = 1)
     private int tryAttack(int x) {
-        return SpeedrunnerMod.getWitherSkeletonWitherEffectDuration();
+        return ModConstants.WITHER_SKELETON_WITHER_EFFECT_DURATION;
     }
 
     /**

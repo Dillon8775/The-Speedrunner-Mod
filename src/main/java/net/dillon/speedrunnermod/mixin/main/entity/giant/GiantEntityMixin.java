@@ -79,24 +79,9 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        int looting = attackingPlayer != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150 : 0;
+        int looting = this.getAttacker() != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 150 : 0;
         this.experiencePoints = 50 + looting;
-        int i = this.experiencePoints;
-
-        int j;
-        for(j = 0; j < this.armorItems.size(); ++j) {
-            if (!this.armorItems.get(j).isEmpty() && this.armorDropChances[j] <= 1.0F) {
-                i += 1 + this.random.nextInt(3);
-            }
-        }
-
-        for(j = 0; j < this.handItems.size(); ++j) {
-            if (!this.handItems.get(j).isEmpty() && this.handDropChances[j] <= 1.0F) {
-                i += 1 + this.random.nextInt(3);
-            }
-        }
-
-        return i;
+        return super.getExperienceToDrop(world);
     }
 
     /**
@@ -176,10 +161,10 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     public void onDeath(DamageSource source) {
         super.onDeath(source);
         this.onGiantDeath();
-        if (attackingPlayer != null) {
-            options().tutorialMode.completeStep(TutorialStep.KILL_GOLIATH, attackingPlayer, "speedrunnermod.tutorial_mode.kill_wither");
-            if (!this.isSilent() && attackingPlayer instanceof ServerPlayerEntity) {
-                ((ServerPlayerEntity)attackingPlayer).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, this.attackingPlayer.getX(), this.attackingPlayer.getY(), this.attackingPlayer.getZ(), 1.0F, 1.0F, this.getWorld().getRandom().nextLong()));
+        if (this.getAttacker() instanceof PlayerEntity player) {
+            options().tutorialMode.completeStep(TutorialStep.KILL_GOLIATH, player, "speedrunnermod.tutorial_mode.kill_wither");
+            if (!this.isSilent() && player instanceof ServerPlayerEntity serverPlayer) {
+                serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.getWorld().getRandom().nextLong()));
             }
         }
     }
@@ -207,7 +192,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
 
         if (this.getHealth() <= 150 && entity instanceof ProjectileEntity projectile) {
             if (projectile.getOwner() != null) {
-                this.playSound(SoundEvents.ITEM_SHIELD_BLOCK, 5.0F, 1.0F);
+                this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 1.0F);
                 projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloat(1.0F, 3.0F));
             }
             return false;
@@ -292,7 +277,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      * Makes the Giant immune to fall damage.
      */
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
+    public boolean handleFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 

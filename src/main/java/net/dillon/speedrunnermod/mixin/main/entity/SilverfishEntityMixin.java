@@ -27,8 +27,8 @@ public abstract class SilverfishEntityMixin extends HostileEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SilverfishEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 16;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SilverfishEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 16;
         }
         return super.getExperienceToDrop(world);
     }

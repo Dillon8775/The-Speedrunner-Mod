@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.world;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.minecraft.world.gen.structure.StrongholdStructure;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,8 +21,8 @@ public abstract class StrongholdFeatureMixin {
     @ModifyArgs(method = "addPieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/structure/StructurePiecesCollector;shiftInto(IILnet/minecraft/util/math/random/Random;I)I"))
     private static void changeMinAndMaxYValue(Args args) {
         if (options().main.customDataGeneration && options().advanced.modifiedStrongholdYGeneration) {
-            args.set(1, SpeedrunnerMod.getStrongholdMinY());
-            args.set(0, SpeedrunnerMod.getStrongholdMaxY());
+            args.set(1, ModConstants.STRONGHOLD_MIN_Y);
+            args.set(0, ModConstants.STRONGHOLD_MAX_Y);
         }
     }
 }

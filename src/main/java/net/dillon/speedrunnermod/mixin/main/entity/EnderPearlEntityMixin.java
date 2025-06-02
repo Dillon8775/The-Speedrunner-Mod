@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -42,7 +42,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
         boolean isInfiniPearl = super.getStack().isOf(ModItems.INFINI_PEARL);
 
         for(int i = 0; i < 32; ++i) {
-            this.getWorld().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+            this.getWorld().addParticleClient(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
         if (this.getWorld() instanceof ServerWorld serverWorld && !this.isRemoved()) {
@@ -68,7 +68,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
                                 ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsInTicks(3), 0));
                             }
                         }
-                        entity.damage(serverWorld, entity.getDamageSources().fall(), SpeedrunnerMod.getEnderPearlDamageMultiplier());
+                        entity.damage(serverWorld, entity.getDamageSources().fall(), ModConstants.ENDER_PEARL_DAMAGE_VALUE);
                     }
                 }
             } else if (entity != null) {

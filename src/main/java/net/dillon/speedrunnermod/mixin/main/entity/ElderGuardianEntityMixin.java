@@ -34,8 +34,8 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((ElderGuardianEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 72;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((ElderGuardianEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
         }
         return super.getExperienceToDrop(world);
     }

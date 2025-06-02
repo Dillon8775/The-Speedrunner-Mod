@@ -1,12 +1,11 @@
 package net.dillon.speedrunnermod.mixin.main.entity.player;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -18,7 +17,6 @@ import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
@@ -36,7 +34,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
@@ -47,7 +44,6 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow
     public abstract ItemCooldownManager getItemCooldownManager();
-    @Shadow
     public abstract ItemStack getEquippedStack(EquipmentSlot slot);
     @Shadow
     public abstract boolean damage(ServerWorld world, DamageSource source, float amount);
@@ -59,27 +55,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     /**
-     * Makes sure that the speedrunner shield {@code gets disabled} when hit with an {@code axe}, and also lowers this cooldown from the {@code dash enchantment}.
-     */
-    @Inject(method = "disableShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getItemCooldownManager()Lnet/minecraft/entity/player/ItemCooldownManager;"))
-    private void disableShield(CallbackInfo ci) {
-        Optional<RegistryEntry.Reference<Enchantment>> optional = this.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(ModEnchantments.COOLDOWN);
-        RegistryEntry<Enchantment> registryEntry = optional.get();
-        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(registryEntry, (PlayerEntity)(Object)this);
-        int cooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 10 : coolEnchantment == 3 ? 20 : coolEnchantment == 2 ? 40 : coolEnchantment == 1 ? 60 : 80;
-        this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), cooldown);
-    }
-
-    /**
-     * Allows speedrunner shields to {@code get disabled}, as a shield should, when hit by an {@code axe.}
-     */
-    @Redirect(method = "damageShield", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean damageShield(ItemStack stack, Item item) {
-        return stack.isIn(ConventionalItemTags.SHIELD_TOOLS);
-    }
-
-    /**
-     * Makes the Giant disable players' shields.
+     * Makes the Giant disable players' shields and shield cooldowns work correctly.
      */
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
     private void takeShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
@@ -93,6 +69,12 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.clearActiveItem();
                 this.getWorld().sendEntityStatus(this, (byte)30);
             }
+        } else {
+            Optional<RegistryEntry.Reference<Enchantment>> optional = this.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(ModEnchantments.COOLDOWN);
+            RegistryEntry<Enchantment> registryEntry = optional.get();
+            int coolEnchantment = EnchantmentHelper.getEquipmentLevel(registryEntry, (PlayerEntity)(Object)this);
+            int cooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 10 : coolEnchantment == 3 ? 20 : coolEnchantment == 2 ? 40 : coolEnchantment == 1 ? 60 : 80;
+            this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), cooldown);
         }
     }
 
@@ -167,7 +149,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Override
     public int getNextAirOnLand(int air) {
-        final int breathTime = SpeedrunnerMod.getPlayerBreathTime();
-        return Math.min(air + breathTime, this.getMaxAir());
+        return Math.min(air + ModConstants.PLAYER_BREATH_TIME, this.getMaxAir());
     }
 }

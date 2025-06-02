@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.MagmaCubeEntity;
@@ -22,7 +22,7 @@ public class MagmaCubeEntityMixin extends SlimeEntity {
      */
     @Overwrite
     public int getTicksUntilNextJump() {
-        return SpeedrunnerMod.getSlimeJumpTime();
+        return ModConstants.SLIME_JUMP_TIME;
     }
 
     /**
@@ -31,6 +31,6 @@ public class MagmaCubeEntityMixin extends SlimeEntity {
      */
     @Overwrite
     public float getDamageAmount() {
-        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * SpeedrunnerMod.getSlimeDamageMultiplier();
+        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * ModConstants.SLIME_DAMAGE_MULTIPLIER;
     }
 }

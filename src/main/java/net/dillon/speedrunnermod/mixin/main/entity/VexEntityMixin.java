@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -32,8 +32,8 @@ public class VexEntityMixin extends HostileEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((VexEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 36;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((VexEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -65,14 +65,14 @@ public class VexEntityMixin extends HostileEntity {
      */
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/VexEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"), index = 1)
     private float amount(float amount) {
-        return SpeedrunnerMod.getVexDecayDamageMultiplier();
+        return ModConstants.VEX_DECAY_DAMAGE_VALUE;
     }
 
     /**
      * Makes vexes take fall damage from doom mode.
      */
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource source) {
+    public boolean handleFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
         return !options().main.playingMode.doom();
     }
 }

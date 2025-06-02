@@ -5,8 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ModConstants;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 /**
  * Contains all of the {@code placed feature modifications.}
@@ -38,7 +39,7 @@ public class PlacedFeaturesLoader {
         for (JsonElement element : placement) {
             JsonObject placementObj = element.getAsJsonObject();
             if (placementObj.has("type") && placementObj.get("type").getAsString().equals("minecraft:count")) {
-                placementObj.addProperty("count", fileName.equals(oreDiamond) ? getOreDiamondChance() : getOreDiamondBuriedChance());
+                placementObj.addProperty("count", fileName.equals(oreDiamond) ? ModConstants.DIAMOND_ORE_SPAWN_CHANCE : ModConstants.BURIED_DIAMOND_ORE_SPAWN_CHANCE);
                 break;
             }
         }
@@ -59,7 +60,7 @@ public class PlacedFeaturesLoader {
                 placementObj.remove("chance");
                 placementObj.addProperty("count", chance);
 
-                placementObj.addProperty("count", getOreDiamondLargeChance());
+                placementObj.addProperty("count", ModConstants.LARGE_DIAMOND_ORE_SPAWN_CHANCE);
                 break;
             }
         }
@@ -74,7 +75,7 @@ public class PlacedFeaturesLoader {
         for (JsonElement element : placement) {
             JsonObject placementObj = element.getAsJsonObject();
             if (placementObj.has("type") && placementObj.get("type").getAsString().equals("minecraft:count")) {
-                placementObj.addProperty("count", fileName.equals(oreLapis) ? getOreLapisChance() : getOreLapisBuriedChance());
+                placementObj.addProperty("count", fileName.equals(oreLapis) ? ModConstants.LAPIS_LAZULI_ORE_SPAWN_CHANCE : ModConstants.BURIED_LAPIS_LAZULI_ORE_SPAWN_CHANCE);
                 break;
             }
         }
@@ -92,7 +93,7 @@ public class PlacedFeaturesLoader {
                 JsonObject countObject = placementObj.getAsJsonObject("count");
                 JsonArray distributionArray = countObject.getAsJsonArray("distribution");
                 JsonObject firstElement = distributionArray.get(0).getAsJsonObject();
-                firstElement.addProperty("data", getTreesPlainsCount());
+                firstElement.addProperty("data", ModConstants.TREES_PLAINS_COUNT);
                 break;
             }
         }

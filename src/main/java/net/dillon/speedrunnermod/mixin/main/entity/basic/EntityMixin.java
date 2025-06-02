@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.mixin.main.entity.basic;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.dillon.speedrunnermod.entity.ModBoats;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
@@ -37,7 +37,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "igniteByLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
     private float setOnFireFromLavaTime(float x) {
-        return SpeedrunnerMod.getFireFromLavaDamageDuration();
+        return ModConstants.FIRE_DAMAGE_FROM_LAVA_DURATION;
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private float setOnFireFromLavaAmount(float x) {
-        return SpeedrunnerMod.getLavaDamageAmount();
+        return ModConstants.LAVA_DAMAGE_VALUE;
     }
 
     /**

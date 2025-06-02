@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.minecraft.entity.projectile.DragonFireballEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +14,6 @@ public class DragonFireballEntityMixin {
      */
     @ModifyArg(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/registry/entry/RegistryEntry;II)V"), index = 2)
     private int onCollision(int x) {
-        return SpeedrunnerMod.getEnderDragonFireballInstantDamageAmplifier();
+        return ModConstants.ENDER_DRAGON_FIREBALL_INSTANT_DAMAGE_AMPLIFIER;
     }
 }

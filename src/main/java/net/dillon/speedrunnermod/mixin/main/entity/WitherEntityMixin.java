@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,8 +30,8 @@ public class WitherEntityMixin extends HostileEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.attackingPlayer) * 150;
+        if (this.getAttacker() != null) {
+            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 150;
         }
         return super.getExperienceToDrop(world);
     }
@@ -38,8 +39,8 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public void onDeath(DamageSource source) {
         super.onDeath(source);
-        if (attackingPlayer != null && options().main.playingMode.doom() && options().main.tutorialMode) {
-            options().tutorialMode.completeStep(TutorialStep.KILL_WITHER, attackingPlayer, "speedrunnermod.tutorial_mode.kill_dragon");
+        if (this.getAttacker() instanceof PlayerEntity player && options().main.playingMode.doom() && options().main.tutorialMode) {
+            options().tutorialMode.completeStep(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
         }
     }
 
@@ -48,6 +49,6 @@ public class WitherEntityMixin extends HostileEntity {
      */
     @ModifyArg(method = "createWitherAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 0), index = 1)
     private static double genericMaxHealth(double baseValue) {
-        return SpeedrunnerMod.getWitherMaxHealth();
+        return ModConstants.WITHER_MAX_HEALTH;
     }
 }

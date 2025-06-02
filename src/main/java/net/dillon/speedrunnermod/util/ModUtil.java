@@ -18,6 +18,10 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.HoverEvent;
+import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -54,6 +58,19 @@ public class ModUtil {
         }
 
         world.syncWorldEvent(null, 1003, player.getBlockPos(), 0);
+    }
+
+    /**
+     * Returns the player's death coordinates as a clickable text to teleport right to it.
+     */
+    public static Text deathCords(double x, double y, double z) {
+        return Text.translatable("speedrunnermod.player_death_cords",
+                        ModUtil.roundToNearestTenthsPlace(x),
+                        ModUtil.roundToNearestTenthsPlace(y),
+                        ModUtil.roundToNearestTenthsPlace(z))
+                .setStyle(Style.EMPTY
+                        .withHoverEvent(new HoverEvent.ShowText(Text.translatable("speedrunnermod.teleport_to_player_death_cords")))
+                        .withClickEvent(new ClickEvent.SuggestCommand("/teleport @s " + x + " " + y + " " + z)));
     }
 
     /**

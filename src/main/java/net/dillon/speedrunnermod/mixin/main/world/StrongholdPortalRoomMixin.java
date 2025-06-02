@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.world;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
 import net.minecraft.structure.StrongholdGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -14,6 +14,6 @@ public class StrongholdPortalRoomMixin {
      */
     @ModifyConstant(method = "generate", constant = @Constant(floatValue = 0.9F))
     private float changeEyeChance(float constant) {
-        return SpeedrunnerMod.getEnderEyeChance();
+        return ModConstants.PREFILLED_ENDER_EYE_CHANCE;
     }
 }
