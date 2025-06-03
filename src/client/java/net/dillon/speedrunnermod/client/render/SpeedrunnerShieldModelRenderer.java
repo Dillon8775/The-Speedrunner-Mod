@@ -12,13 +12,14 @@ import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.ShieldEntityModel;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
+import net.minecraft.client.render.model.ModelBaker;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
+import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ModelTransformationMode;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
@@ -43,17 +44,44 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Comp
      * <p>Creates the renderer for the {@code speedrunner shield.}</p>
      */
     @Override
-    public void render(@Nullable ComponentMap componentMap, ModelTransformationMode modelTransformationMode, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j, boolean bl) {
-        BannerPatternsComponent bannerPatternsComponent = componentMap != null ? componentMap.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT) : BannerPatternsComponent.DEFAULT;
-        DyeColor dyeColor = componentMap != null ? componentMap.get(DataComponentTypes.BASE_COLOR) : null;
+    public void render(
+            @Nullable ComponentMap componentMap,
+            ItemDisplayContext itemDisplayContext,
+            MatrixStack matrixStack,
+            VertexConsumerProvider vertexConsumerProvider,
+            int i,
+            int j,
+            boolean bl
+    ) {
+        BannerPatternsComponent bannerPatternsComponent = componentMap != null
+                ? (BannerPatternsComponent)componentMap.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT)
+                : BannerPatternsComponent.DEFAULT;
+        DyeColor dyeColor = componentMap != null ? (DyeColor)componentMap.get(DataComponentTypes.BASE_COLOR) : null;
         boolean bl2 = !bannerPatternsComponent.layers().isEmpty() || dyeColor != null;
         matrixStack.push();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
-        SpriteIdentifier spriteIdentifier = bl2 ? SPEEDRUNNER_SHIELD_BASE : SPEEDRUNNER_SHIELD_BASE_NO_PATTERN;
-        VertexConsumer vertexConsumer = spriteIdentifier.getSprite().getTextureSpecificVertexConsumer(ItemRenderer.getItemGlintConsumer(vertexConsumerProvider, this.shieldModel.getLayer(spriteIdentifier.getAtlasId()), modelTransformationMode == ModelTransformationMode.GUI, bl));
+        SpriteIdentifier spriteIdentifier = bl2 ? ModelBaker.SHIELD_BASE : ModelBaker.SHIELD_BASE_NO_PATTERN;
+        VertexConsumer vertexConsumer = spriteIdentifier.getSprite()
+                .getTextureSpecificVertexConsumer(
+                        ItemRenderer.getItemGlintConsumer(
+                                vertexConsumerProvider, this.shieldModel.getLayer(spriteIdentifier.getAtlasId()), itemDisplayContext == ItemDisplayContext.GUI, bl
+                        )
+                );
         this.shieldModel.getHandle().render(matrixStack, vertexConsumer, i, j);
         if (bl2) {
-            BannerBlockEntityRenderer.renderCanvas(matrixStack, vertexConsumerProvider, i, j, this.shieldModel.getPlate(), spriteIdentifier, false, (DyeColor)Objects.requireNonNullElse(dyeColor, DyeColor.WHITE), bannerPatternsComponent, bl, false);
+            BannerBlockEntityRenderer.renderCanvas(
+                    matrixStack,
+                    vertexConsumerProvider,
+                    i,
+                    j,
+                    this.shieldModel.getPlate(),
+                    spriteIdentifier,
+                    false,
+                    (DyeColor)Objects.requireNonNullElse(dyeColor, DyeColor.WHITE),
+                    bannerPatternsComponent,
+                    bl,
+                    false
+            );
         } else {
             this.shieldModel.getPlate().render(matrixStack, vertexConsumer, i, j);
         }

@@ -1,6 +1,8 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
 import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -54,7 +56,7 @@ public class DeathScreenMixin extends Screen {
     @Inject(method = "render", at = @At("TAIL"))
     private void displayDeathCords(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (options().client.showDeathCords) {
-            context.drawCenteredTextWithShadow(this.textRenderer, SpeedrunnerMod.deathCords(this.client.player.getX(), this.client.player.getY(), this.client.player.getZ()), this.width / 2, 115, 0xFFFFFF);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModUtil.deathCords(this.client.player.getX(), this.client.player.getY(), this.client.player.getZ()), this.width / 2, 115, 0xFFFFFF);
         }
     }
 }

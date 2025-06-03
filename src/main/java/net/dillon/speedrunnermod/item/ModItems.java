@@ -17,7 +17,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.Util;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
@@ -56,8 +55,8 @@ public class ModItems {
     public static final Item SPEEDRUNNER_SHOVEL = Items.register(of("speedrunner_shovel"), settings -> new ShovelItem(
             ModToolMaterials.SPEEDRUNNER_SHOVEL_AXE_HOE, 4, -3.0F, settings));
 
-    public static final Item SPEEDRUNNER_PICKAXE = Items.register(of("speedrunner_pickaxe"), settings -> new PickaxeItem(
-            ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE, 3, -2.8F, settings));
+    public static final Item SPEEDRUNNER_PICKAXE = Items.register(of("speedrunner_pickaxe"), Item::new,
+            new Item.Settings().pickaxe(ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE, 3, -2.8F));
 
     public static final Item SPEEDRUNNER_AXE = Items.register(of("speedrunner_axe"), settings -> new AxeItem(
             ModToolMaterials.SPEEDRUNNER_SHOVEL_AXE_HOE, 8, -3.05F, settings));
@@ -65,21 +64,33 @@ public class ModItems {
     public static final Item SPEEDRUNNER_HOE = Items.register(of("speedrunner_hoe"), settings -> new HoeItem(
             ModToolMaterials.SPEEDRUNNER_SHOVEL_AXE_HOE, 0, -0.5F, settings));
 
-    public static final Item SPEEDRUNNER_HELMET = Items.register(of("speedrunner_helmet"), settings -> new ArmorItem(
-            ModArmorMaterials.SPEEDRUNNER, EquipmentType.HELMET, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.HELMET.getMaxDamage(30))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item SPEEDRUNNER_HELMET = Items.register(of("speedrunner_helmet"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.SPEEDRUNNER, EquipmentType.HELMET)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(30))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item SPEEDRUNNER_CHESTPLATE = Items.register(of("speedrunner_chestplate"), settings -> new ArmorItem(
-            ModArmorMaterials.SPEEDRUNNER, EquipmentType.CHESTPLATE, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(30))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item SPEEDRUNNER_CHESTPLATE = Items.register(of("speedrunner_chestplate"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.SPEEDRUNNER, EquipmentType.CHESTPLATE)
+                    .maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(30))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item SPEEDRUNNER_LEGGINGS = Items.register(of("speedrunner_leggings"), settings -> new ArmorItem(
-            ModArmorMaterials.SPEEDRUNNER, EquipmentType.LEGGINGS, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.LEGGINGS.getMaxDamage(30))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item SPEEDRUNNER_LEGGINGS = Items.register(of("speedrunner_leggings"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.SPEEDRUNNER, EquipmentType.LEGGINGS)
+                    .maxDamage(EquipmentType.LEGGINGS.getMaxDamage(30))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item SPEEDRUNNER_BOOTS = Items.register(of("speedrunner_boots"), settings -> new ArmorItem(
-            ModArmorMaterials.SPEEDRUNNER, EquipmentType.BOOTS, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.BOOTS.getMaxDamage(30))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item SPEEDRUNNER_BOOTS = Items.register(of("speedrunner_boots"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.SPEEDRUNNER, EquipmentType.BOOTS)
+                    .maxDamage(EquipmentType.BOOTS.getMaxDamage(30))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
 
     public static final Item SPEEDRUNNER_BOW = Items.register(of("speedrunner_bow"), SpeedrunnerBowItem::new);
 
@@ -97,8 +108,8 @@ public class ModItems {
     public static final Item GOLDEN_SPEEDRUNNER_SHOVEL = Items.register(of("golden_speedrunner_shovel"), settings -> new ShovelItem(
             ModToolMaterials.GOLDEN_SPEEDRUNNER, 2.5F, -3.0F, settings));
 
-    public static final Item GOLDEN_SPEEDRUNNER_PICKAXE = Items.register(of("golden_speedrunner_pickaxe"), settings -> new PickaxeItem(
-            ModToolMaterials.GOLDEN_SPEEDRUNNER, 2, -2.8F, settings));
+    public static final Item GOLDEN_SPEEDRUNNER_PICKAXE = Items.register(of("golden_speedrunner_pickaxe"), Item::new,
+            new Item.Settings().pickaxe(ModToolMaterials.GOLDEN_SPEEDRUNNER, 2, -2.8F));
 
     public static final Item GOLDEN_SPEEDRUNNER_AXE = Items.register(of("golden_speedrunner_axe"), settings -> new AxeItem(
             ModToolMaterials.GOLDEN_SPEEDRUNNER, 7, -3.0F, settings));
@@ -106,21 +117,33 @@ public class ModItems {
     public static final Item GOLDEN_SPEEDRUNNER_HOE = Items.register(of("golden_speedrunner_hoe"), settings -> new HoeItem(
             ModToolMaterials.GOLDEN_SPEEDRUNNER, 0, -0.5F, settings));
 
-    public static final Item GOLDEN_SPEEDRUNNER_HELMET = Items.register(of("golden_speedrunner_helmet"), settings -> new ArmorItem(
-            ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.HELMET, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.HELMET.getMaxDamage(11))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item GOLDEN_SPEEDRUNNER_HELMET = Items.register(of("golden_speedrunner_helmet"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.HELMET)
+                    .maxDamage(EquipmentType.HELMET.getMaxDamage(11))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item GOLDEN_SPEEDRUNNER_CHESTPLATE = Items.register(of("golden_speedrunner_chestplate"), settings -> new ArmorItem(
-            ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.CHESTPLATE, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(11))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item GOLDEN_SPEEDRUNNER_CHESTPLATE = Items.register(of("golden_speedrunner_chestplate"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.CHESTPLATE)
+                    .maxDamage(EquipmentType.CHESTPLATE.getMaxDamage(11))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item GOLDEN_SPEEDRUNNER_LEGGINGS = Items.register(of("golden_speedrunner_leggings"), settings -> new ArmorItem(
-            ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.LEGGINGS, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.LEGGINGS.getMaxDamage(11))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item GOLDEN_SPEEDRUNNER_LEGGINGS = Items.register(of("golden_speedrunner_leggings"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.LEGGINGS)
+                    .maxDamage(EquipmentType.LEGGINGS.getMaxDamage(11))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item GOLDEN_SPEEDRUNNER_BOOTS = Items.register(of("golden_speedrunner_boots"), settings -> new ArmorItem(
-            ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.BOOTS, settings), new Item.Settings().maxCount(1).maxDamage(EquipmentType.BOOTS.getMaxDamage(11))
-            .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item GOLDEN_SPEEDRUNNER_BOOTS = Items.register(of("golden_speedrunner_boots"), Item::new,
+            new Item.Settings()
+                    .maxCount(1)
+                    .armor(ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.BOOTS)
+                    .maxDamage(EquipmentType.BOOTS.getMaxDamage(11))
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
 
     public static final Item GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE = Items.register(of("golden_speedrunner_upgrade_smithing_template"), settings -> new SmithingTemplateItem(
             GOLDEN_SPEEDRUNNER_UPGRADE_APPLIES_TO_TEXT,
@@ -131,15 +154,15 @@ public class ModItems {
             SmithingTemplateItem.getNetheriteUpgradeEmptyAdditionsSlotTextures(),
             settings));
 
-    public static final Item SPEEDRUNNER_BULK = Items.register(of("speedrunner_bulk"), settings -> new Item(
+    public static final Item SPEEDRUNNER_BULK = Items.register(of("speedrunner_bulk"), settings -> new ItemWithTooltip(
             settings) {
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
             if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line1"));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line2"));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line1"));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line2"));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
             }
         }
     }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModDataComponentTypes.SPEEDRUNNER_BULK));
@@ -156,13 +179,13 @@ public class ModItems {
     public static final Item COOKED_PIGLIN_PORK = Items.register(of("cooked_piglin_pork"), Item::new,
             new Item.Settings().food(ModFoodComponents.COOKED_PIGLIN_PORK));
 
-    public static final Item IGNEOUS_ROCK = Items.register(of("igneous_rock"), settings -> new Item(
+    public static final Item IGNEOUS_ROCK = Items.register(of("igneous_rock"), settings -> new ItemWithTooltip(
             settings) {
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
             if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.igneous_rock.tooltip").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.igneous_rock.tooltip").formatted(Formatting.GRAY));
             }
         }
     });
@@ -178,24 +201,24 @@ public class ModItems {
     public static final Item WARPED_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.WARPED, new Item.Settings().maxCount(1).fireproof(), false, false);
     public static final Item WARPED_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.WARPED, new Item.Settings().maxCount(1).fireproof(), true, false);
 
-    public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new Item(
+    public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new ItemWithTooltip(
             settings) {
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
             if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.wither_bone.tooltip").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.wither_bone.tooltip").formatted(Formatting.GRAY));
             }
         }
     });
 
-    public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new Item(
+    public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new ItemWithTooltip(
             settings) {
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
             if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.ender_matter.tooltip").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip").formatted(Formatting.GRAY));
             }
         }
     }, new Item.Settings().rarity(Rarity.RARE).maxCount(16));
@@ -262,16 +285,16 @@ public class ModItems {
     public static final Item SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE = Items.register(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE);
     public static final Item SPEEDRUNNER_DOOR = Items.register(ModBlocks.SPEEDRUNNER_DOOR);
     public static final Item DEAD_SPEEDRUNNER_BUSH = Items.register(ModBlocks.DEAD_SPEEDRUNNER_BUSH);
-    public static final Item SPEEDRUNNERS_WORKBENCH = Items.register(ModBlocks.SPEEDRUNNERS_WORKBENCH, (block, settings) -> new BlockItem(ModBlocks.SPEEDRUNNERS_WORKBENCH,
+    public static final Item SPEEDRUNNERS_WORKBENCH = Items.register(ModBlocks.SPEEDRUNNERS_WORKBENCH, (block, settings) -> new BlockItemWithTooltip(ModBlocks.SPEEDRUNNERS_WORKBENCH,
             settings) {
 
         @Override
-        public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
             if (options().client.itemTooltips) {
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));
-                tooltip.add(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line4").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));
+                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line4").formatted(Formatting.GRAY));
             }
         }
     });

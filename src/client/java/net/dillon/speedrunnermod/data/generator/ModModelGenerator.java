@@ -23,12 +23,12 @@ public class ModModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.registerLog(ModBlocks.SPEEDRUNNER_LOG).log(ModBlocks.SPEEDRUNNER_LOG).wood(ModBlocks.SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).log(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.DEAD_SPEEDRUNNER_LOG).log(ModBlocks.DEAD_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).log(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.registerLog(ModBlocks.DOOM_LOG).log(ModBlocks.DOOM_LOG);
-        blockStateModelGenerator.registerLog(ModBlocks.STRIPPED_DOOM_LOG).log(ModBlocks.STRIPPED_DOOM_LOG);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.SPEEDRUNNER_LOG).log(ModBlocks.SPEEDRUNNER_LOG).wood(ModBlocks.SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).log(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.DEAD_SPEEDRUNNER_LOG).log(ModBlocks.DEAD_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).log(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.DOOM_LOG).log(ModBlocks.DOOM_LOG);
+        blockStateModelGenerator.createLogTexturePool(ModBlocks.STRIPPED_DOOM_LOG).log(ModBlocks.STRIPPED_DOOM_LOG);
 
         blockStateModelGenerator.registerSingleton(ModBlocks.SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);
         blockStateModelGenerator.registerSingleton(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);
@@ -93,15 +93,15 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.RAW_SPEEDRUNNER, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_NUGGET, Models.GENERATED);
 
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.SPEEDRUNNER, "helmet", false);
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.SPEEDRUNNER, "chestplate", false);
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.SPEEDRUNNER, "leggings", false);
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.SPEEDRUNNER, "boots", false);
+        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("helmet"), false);
+        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("chestplate"), false);
+        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("leggings"), false);
+        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("boots"), false);
 
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, "helmet", false);
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, "chestplate", false);
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, "leggings", false);
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, "boots", false);
+        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("helmet"), false);
+        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("chestplate"), false);
+        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("leggings"), false);
+        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("boots"), false);
 
         itemModelGenerator.registerBow(ModItems.SPEEDRUNNER_BOW);
         itemModelGenerator.registerCrossbow(ModItems.SPEEDRUNNER_CROSSBOW);

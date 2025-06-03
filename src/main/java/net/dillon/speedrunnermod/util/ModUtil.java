@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.SpeedrunnerMod;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
-import net.minecraft.component.type.UnbreakableComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EyeOfEnderEntity;
@@ -23,6 +22,7 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -90,11 +90,10 @@ public class ModUtil {
     }
 
     /**
-     * Returns an item with the {@link UnbreakableComponent}.
      */
     public static ItemStack unbreakableItem(Item item) {
         ItemStack stack = new ItemStack(item);
-        stack.set(DataComponentTypes.UNBREAKABLE, new UnbreakableComponent(true));
+        stack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         return stack;
     }
 

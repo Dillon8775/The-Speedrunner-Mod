@@ -89,7 +89,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem, Toolt
                                                     piglin.teleport(x, y, z, false);
                                                     maxNumberOfPiglin++;
                                                 }
-                                                if (maxNumberOfPiglin >= SpeedrunnerMod.getMaximumAmountOfPiglinAllowedViaPiglinAwakener()) {
+                                                if (maxNumberOfPiglin >= options().advanced.piglinAwakenerPiglinCount) {
                                                     break;
                                                 }
                                             }

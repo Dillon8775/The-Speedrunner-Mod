@@ -45,7 +45,7 @@ public abstract class ClientPlayNetworkHandlerMixin extends ClientCommonNetworkH
                 case 21 -> this.client.getSoundManager().play(new GuardianAttackSoundInstance((GuardianEntity) entity));
                 case 35, 75, 76, 77, 78, 79, 80, 81, 82 -> {
                     this.client.particleManager.addEmitter(entity, ParticleTypes.TOTEM_OF_UNDYING, 30);
-                    if (packet.getStatus() != 82) this.world.playSound(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0f, 1.0f, false);
+                    if (packet.getStatus() != 82) this.world.playSoundClient(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
                     if (entity != this.client.player) break;
 
                     switch (packet.getStatus()) {
