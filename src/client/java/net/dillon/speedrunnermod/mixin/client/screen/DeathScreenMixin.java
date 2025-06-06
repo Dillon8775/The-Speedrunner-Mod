@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -10,14 +10,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
@@ -44,7 +42,6 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow
     public abstract ItemCooldownManager getItemCooldownManager();
-    public abstract ItemStack getEquippedStack(EquipmentSlot slot);
     @Shadow
     public abstract boolean damage(ServerWorld world, DamageSource source, float amount);
     @Shadow @Final

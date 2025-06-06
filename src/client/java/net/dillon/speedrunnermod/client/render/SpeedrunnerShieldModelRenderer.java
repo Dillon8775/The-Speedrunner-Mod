@@ -60,7 +60,7 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Comp
         boolean bl2 = !bannerPatternsComponent.layers().isEmpty() || dyeColor != null;
         matrixStack.push();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
-        SpriteIdentifier spriteIdentifier = bl2 ? ModelBaker.SHIELD_BASE : ModelBaker.SHIELD_BASE_NO_PATTERN;
+        SpriteIdentifier spriteIdentifier = bl2 ? SPEEDRUNNER_SHIELD_BASE : SPEEDRUNNER_SHIELD_BASE_NO_PATTERN;
         VertexConsumer vertexConsumer = spriteIdentifier.getSprite()
                 .getTextureSpecificVertexConsumer(
                         ItemRenderer.getItemGlintConsumer(
