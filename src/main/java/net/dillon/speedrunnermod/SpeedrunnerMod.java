@@ -69,7 +69,7 @@ public class SpeedrunnerMod implements ModInitializer {
         ModRecipes.registerCustomRecipes();
         ModFuels.registerFuels();
 
-        ModVillagers.initializeVillagerProfessions();
+        ModVillagers.initializeVillagerProfessionsAndRegisterPois();
         ModTradeOffers.registerTradeOffers();
 
         ModScreenHandlerTypes.initializeScreenHandlers();

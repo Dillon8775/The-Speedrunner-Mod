@@ -17,11 +17,9 @@ import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 public class RestartRequiredScreen extends AbstractModScreen {
     public static boolean currentTutorialMode;
     public static boolean currentLeaderboardsMode;
-    public static boolean currentBetterBiomes;
     public static ModOptions.PlayingMode currentPlayingMode;
     public static boolean currentBetterVillagerTrades;
     public static boolean currentCustomBiomesAndCustomBiomeFeatures;
-    public static boolean currentPanorama;
     public static boolean currentConfirmMessages;
     public static boolean currentModifiedStrongholdGeneration;
     public static boolean currentModifiedStrongholdYGeneration;
@@ -114,7 +112,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
         currentPlayingMode = options().main.playingMode;
         currentBetterVillagerTrades = options().main.betterVillagerTrades;
         currentCustomBiomesAndCustomBiomeFeatures = options().main.customBiomesAndCustomBiomeFeatures;
-        currentPanorama = options().client.customPanorama;
         currentConfirmMessages = options().client.confirmationMessages;
         currentModifiedStrongholdGeneration = options().advanced.modifiedStrongholdGeneration;
         currentModifiedStrongholdYGeneration = options().advanced.modifiedStrongholdYGeneration;
@@ -138,7 +135,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
                 currentPlayingMode != options().main.playingMode ||
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
                 currentCustomBiomesAndCustomBiomeFeatures != options().main.customBiomesAndCustomBiomeFeatures ||
-                currentPanorama != options().client.customPanorama ||
                 currentConfirmMessages != options().client.confirmationMessages ||
                 currentModifiedStrongholdGeneration != options().advanced.modifiedStrongholdGeneration ||
                 currentModifiedStrongholdYGeneration != options().advanced.modifiedStrongholdYGeneration ||
@@ -162,7 +158,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
         options().main.playingMode = currentPlayingMode;
         options().main.betterVillagerTrades = currentBetterVillagerTrades;
         options().main.customBiomesAndCustomBiomeFeatures = currentCustomBiomesAndCustomBiomeFeatures;
-        options().client.customPanorama = currentPanorama;
         options().client.confirmationMessages = currentConfirmMessages;
         options().advanced.modifiedStrongholdGeneration = currentModifiedStrongholdGeneration;
         options().advanced.modifiedStrongholdYGeneration = currentModifiedStrongholdYGeneration;

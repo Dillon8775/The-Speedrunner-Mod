@@ -8,6 +8,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.stat.ServerStatHandler;
@@ -72,7 +73,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
             ItemStack item;
             if (options().main.iCarusMode) {
-                item = ModUtil.unbreakableItem(ModItems.INFINI_PEARL);
+                item = ModUtil.unbreakableItem(Items.ELYTRA);
                 ItemStack fireworks = ModUtil.flightDurationComponentItem(64);
 
                 this.equipment.put(EquipmentSlot.CHEST, item);

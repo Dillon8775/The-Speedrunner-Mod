@@ -662,8 +662,6 @@
   "speedrunnermod.title.options.client": "Client Options",
   "speedrunnermod.options.fog": "Fog",
   "speedrunnermod.options.fog.tooltip": "Get rid of that annoying fog!",
-  "speedrunnermod.options.custom_panorama": "Custom Panorama",
-  "speedrunnermod.options.custom_panorama.tooltip": "Use the custom background image on the title screen.\n\n§a§lRequires restart.",
   "speedrunnermod.options.item_messages": "Item Messages",
   "speedrunnermod.options.item_messages.chat": "§aChat",
   "speedrunnermod.options.item_messages.actionbar": "§cActionbar",

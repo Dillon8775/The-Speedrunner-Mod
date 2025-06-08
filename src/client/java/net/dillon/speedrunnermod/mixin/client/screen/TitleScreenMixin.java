@@ -36,6 +36,8 @@ public class TitleScreenMixin extends Screen {
     private boolean doBackgroundFade;
     @Shadow
     private long backgroundFadeStart;
+    @Shadow
+    private float backgroundAlpha;
     @Unique
     private ButtonWidget featuresButton, createWorldButton, optionsButton, wikiButton;
 

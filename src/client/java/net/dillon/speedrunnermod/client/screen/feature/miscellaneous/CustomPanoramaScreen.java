@@ -21,16 +21,6 @@ public class CustomPanoramaScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    protected void init() {
-        super.init();
-
-        this.addButtonObject(ButtonWidget.builder(options().client.customPanorama ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            this.refreshRestartableFeature();
-            options().client.customPanorama = !options().client.customPanorama;
-        }).build());
-    }
-
-    @Override
     public @NotNull String linesKey() {
         return "custom_panorama";
     }

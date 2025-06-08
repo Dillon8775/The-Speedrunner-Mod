@@ -25,7 +25,6 @@
     "client.screen.LogoDrawerMixin",
     "client.screen.MinecraftClientMixin",
     "client.screen.OptionsScreenMixin",
-    "client.screen.ScreenMixin",
     "client.screen.TitleScreenMixin"
   ],
   "injectors": {

@@ -271,12 +271,6 @@ public class ModOptions {
         public boolean textureTooltips = false;
 
         /**
-         * Enable/disable the Speedrunner Mod's custom panorama.
-         */
-        @RequiresRestart
-        public boolean customPanorama = true;
-
-        /**
          * Determines whether certain player messages should be sent to the player's chat or actionbar (the area above the hotbar).
          */
         public ItemMessages itemMessages = ItemMessages.ACTIONBAR;
@@ -1457,7 +1451,6 @@ public class ModOptions {
         options().client.firstTimePlaying = true;
         options().client.fog = true;
         options().client.itemTooltips = true;
-        options().client.customPanorama = true;
         options().client.itemMessages = ModOptions.ItemMessages.ACTIONBAR;
         options().client.confirmationMessages = false;
         options().client.fastWorldCreation = true;
