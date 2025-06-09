@@ -14,6 +14,6 @@ public class ModMenuImpl implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return screen -> new MainScreen(null);
+        return MainScreen::new;
     }
 }
