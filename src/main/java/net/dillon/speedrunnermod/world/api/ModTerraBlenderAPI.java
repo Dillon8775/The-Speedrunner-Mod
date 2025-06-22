@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.world.api;
 import terrablender.api.Regions;
 import terrablender.api.TerraBlenderApi;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
 /**
  * Using the {@code TerraBlender API,} this allows the {@code Speedrunner's Wasteland} biome to generate throughout the Minecraft world.

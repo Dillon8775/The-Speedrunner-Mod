@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CreateWorldScreen.class)
@@ -27,10 +27,10 @@ public abstract class CreateWorldScreenMixin {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (options().client.fastWorldCreation) {
+        if (clientOptions().client.fastWorldCreation) {
 
             Difficulty difficulty = null;
-            switch (options().client.difficulty) {
+            switch (clientOptions().client.difficulty) {
                 case PEACEFUL:
                     difficulty = Difficulty.PEACEFUL;
                     break;
@@ -46,7 +46,7 @@ public abstract class CreateWorldScreenMixin {
             }
 
             WorldCreator.Mode gameMode = null;
-            switch (options().client.gameMode) {
+            switch (clientOptions().client.gameMode) {
                 case SURVIVAL:
                     gameMode = WorldCreator.Mode.SURVIVAL;
                     break;
@@ -65,7 +65,7 @@ public abstract class CreateWorldScreenMixin {
             assert difficulty != null;
             this.worldCreator.setGameMode(gameMode);
             this.worldCreator.setDifficulty(difficulty);
-            this.worldCreator.setCheatsEnabled(options().client.allowCheats);
+            this.worldCreator.setCheatsEnabled(clientOptions().client.allowCheats);
             createLevel();
         }
     }

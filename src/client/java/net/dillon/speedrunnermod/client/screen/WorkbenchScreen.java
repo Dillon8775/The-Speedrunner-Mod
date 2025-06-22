@@ -18,7 +18,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * The base screen for the {@code Speedrunner's Workbench.}

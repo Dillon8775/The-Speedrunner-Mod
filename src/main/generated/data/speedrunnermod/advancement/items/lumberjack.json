@@ -1,0 +1,166 @@
+{
+  "parent": "speedrunnermod:adventure/what_a_wasteland",
+  "criteria": {
+    "has_acacia_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:acacia_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_birch_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:birch_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_cherry_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:cherry_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_dark_oak_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:dark_oak_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_dead_speedrunner_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:dead_speedrunner_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_jungle_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:jungle_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_mangrove_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:mangrove_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_oak_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:oak_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_pale_oak_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:pale_oak_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_speedrunner_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_spruce_log": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:spruce_log"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.lumberjack.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:oak_log"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.lumberjack.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_oak_log"
+    ],
+    [
+      "has_birch_log"
+    ],
+    [
+      "has_acacia_log"
+    ],
+    [
+      "has_cherry_log"
+    ],
+    [
+      "has_jungle_log"
+    ],
+    [
+      "has_dark_oak_log"
+    ],
+    [
+      "has_mangrove_log"
+    ],
+    [
+      "has_pale_oak_log"
+    ],
+    [
+      "has_spruce_log"
+    ],
+    [
+      "has_speedrunner_log"
+    ],
+    [
+      "has_dead_speedrunner_log"
+    ]
+  ],
+  "rewards": {
+    "experience": 25
+  },
+  "sends_telemetry_event": true
+}

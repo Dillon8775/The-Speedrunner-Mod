@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right_open",
+  "textures": {
+    "bottom": "speedrunnermod:block/speedrunner_door_bottom",
+    "top": "speedrunnermod:block/speedrunner_door_top"
+  }
+}

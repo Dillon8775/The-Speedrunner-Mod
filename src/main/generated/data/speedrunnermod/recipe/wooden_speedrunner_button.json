@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "speedrunnermod:speedrunner_planks"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:wooden_speedrunner_button"
+  }
+}

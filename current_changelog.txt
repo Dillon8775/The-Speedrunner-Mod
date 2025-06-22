@@ -1,0 +1,9 @@
+- Updated to Minecraft 1.21.5!
+- Fixed server crash with Terraform Wood API (mod no longer depends on Terraform Wood API).
+- Split client and common sources. Client-sided options are now strictly client-side and do not interfere with the server side. Same with server-side options, they do not interfere with the client-side.
+- Transferring enchantments via the speedrunner's workbench will now damage the output based on each enchantment's transferred level.
+- Removed custom panorama option.
+- Removed confirmation messages option.
+- Removed item tooltips and texture tooltips option.
+- Deleted place on Dillon8775's webpage, everything is now on CurseForge and Modrinth.
+- Bug fixes and optimizations.

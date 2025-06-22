@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:inferno_eye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.infernal_gaze.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:inferno_eye"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.infernal_gaze.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

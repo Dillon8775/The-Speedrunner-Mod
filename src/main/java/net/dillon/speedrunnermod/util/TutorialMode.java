@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -10,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
 public interface TutorialMode {
     List<TutorialStep> EXCLUDED_EASY_MODE_STEPS = List.of(
@@ -129,7 +129,7 @@ public interface TutorialMode {
                 send(s, player);
             }
             player.playSoundToPlayer(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            ModOptions.saveConfig();
+            saveDedicatedServerChanges();
         }
     }
 

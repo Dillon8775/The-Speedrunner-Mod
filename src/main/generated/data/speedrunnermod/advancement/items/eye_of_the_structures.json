@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/speedrunning_time",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunners_eye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.eye_of_the_structures.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunners_eye"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.eye_of_the_structures.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

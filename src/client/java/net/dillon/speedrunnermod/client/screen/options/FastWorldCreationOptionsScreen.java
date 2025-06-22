@@ -3,19 +3,15 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.option.ModListOptions;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 
-import java.io.File;
-
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
 /**
  * The Speedrunner Mod's {@code "fast world creation"} options, which set the settings of each new world created.
@@ -41,17 +37,13 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeOptionListWidget();
-
+        super.init();
         this.optionList.addAll(fwcOptions());
-        this.deactivateOptionIf(0, ButtonSide.RIGHT, options().client.fastWorldCreation);
-        this.deactivateOptionIf(1, ButtonSide.LEFT, options().client.fastWorldCreation);
-        this.deactivateOptionIf(1, ButtonSide.RIGHT, options().client.fastWorldCreation);
+        this.deactivateOptionIf(0, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation);
+        this.deactivateOptionIf(1, ButtonSide.LEFT, clientOptions().client.fastWorldCreation);
+        this.deactivateOptionIf(1, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation);
 
         this.addSelectableChild(this.optionList);
-        this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
-
-        super.init();
     }
 
     @Override
@@ -59,7 +51,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 0,
                 ButtonSide.RIGHT,
-                options().client.fastWorldCreation,
+                clientOptions().client.fastWorldCreation,
                 Text.translatable("speedrunnermod.options.difficulty.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 context,
@@ -69,7 +61,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 1,
                 ButtonSide.LEFT,
-                options().client.fastWorldCreation,
+                clientOptions().client.fastWorldCreation,
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 context,
@@ -79,7 +71,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 1,
                 ButtonSide.RIGHT,
-                options().client.fastWorldCreation,
+                clientOptions().client.fastWorldCreation,
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 context,

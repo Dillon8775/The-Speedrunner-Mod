@@ -1,15 +1,20 @@
 package net.dillon.speedrunnermod.mixin.plugin;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
+import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 import java.util.Set;
-
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
 
 @ChatGPT(Credit.FULL_CREDIT)
 public class ConditionalMixinPlugin implements IMixinConfigPlugin {
@@ -53,6 +58,34 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
      * Returns mixins that should not apply based on certain conditions.
      */
     private boolean shouldNotApply(String mixinClassName) {
-        return !options().mixins.terraBlenderSurfaceRuleDataMixin && mixinClassName.equals("net.dillon.speedrunnermod.mixin.main.world.TBSurfaceRuleDataMixin");
+        return !readOptionAsBoolean() && mixinClassName.equals("net.dillon.speedrunnermod.mixin.main.world.TBSurfaceRuleDataMixin");
+    }
+
+    /**
+     * Reads a boolean from the options file.
+     * <p>Used with conditional mixin plugins to prevent crashing.</p>
+     */
+    @ChatGPT(Credit.FULL_CREDIT)
+    private static boolean readOptionAsBoolean() {
+        File configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModUtil.CONFIG_FILE_NAME);
+
+        if (!configFile.exists()) {
+            // Default to true if the config file doesn't exist
+            return true;
+        }
+
+        try (FileReader reader = new FileReader(configFile)) {
+            JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
+            if (json.has("mixins")) {
+                JsonObject mixins = json.getAsJsonObject("mixins");
+                if (mixins.has("terra_blender_surface_rule_data_mixin")) {
+                    return mixins.get("terra_blender_surface_rule_data_mixin").getAsBoolean();
+                }
+            }
+        } catch (Exception e) {
+            SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
+        }
+
+        return true;
     }
 }

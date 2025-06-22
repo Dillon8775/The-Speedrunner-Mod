@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 5,
+  "description": {
+    "translate": "enchantment.speedrunnermod.cooldown"
+  },
+  "max_cost": {
+    "base": 1,
+    "per_level_above_first": 3
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 1,
+    "per_level_above_first": 1
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#speedrunnermod:cooldown_enchantment_items",
+  "weight": 10
+}

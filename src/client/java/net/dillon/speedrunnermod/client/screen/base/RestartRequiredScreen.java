@@ -10,8 +10,9 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 @Environment(EnvType.CLIENT)
 public class RestartRequiredScreen extends AbstractModScreen {
@@ -49,7 +50,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
         }).dimensions(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
         this.addDrawableChild(ButtonWidget.builder(ModTexts.REVERT_CHANGES, (buttonWidget) -> {
             revertChanges();
-            ModOptions.saveConfig();
+            saveAllChanges();
             info("Changes reverted.");
             this.client.setScreen(this.parent);
             if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
@@ -63,7 +64,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
 
     @Override
     public void close() {
-        ModOptions.saveConfig();
+        saveAllChanges();
         this.client.setScreen(this.parent);
         if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
             this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
@@ -112,15 +113,14 @@ public class RestartRequiredScreen extends AbstractModScreen {
         currentPlayingMode = options().main.playingMode;
         currentBetterVillagerTrades = options().main.betterVillagerTrades;
         currentCustomBiomesAndCustomBiomeFeatures = options().main.customBiomesAndCustomBiomeFeatures;
-        currentConfirmMessages = options().client.confirmationMessages;
         currentModifiedStrongholdGeneration = options().advanced.modifiedStrongholdGeneration;
         currentModifiedStrongholdYGeneration = options().advanced.modifiedStrongholdYGeneration;
         currentModifiedNetherFortressGeneration = options().advanced.modifiedNetherFortressGeneration;
         currentTerraBlenderSurfaceRuleDataMixin = options().mixins.terraBlenderSurfaceRuleDataMixin;
-        currentBackgroundRendererMixin = options().mixins.backgroundRendererMixin;
-        currentSimpleOptionMixin = options().mixins.simpleOptionMixin;
-        currentLogoDrawerMixin = options().mixins.logoDrawerMixin;
-        currentRenderLayersMixin = options().mixins.renderLayersMixin;
+        currentBackgroundRendererMixin = clientOptions().mixins.backgroundRendererMixin;
+        currentSimpleOptionMixin = clientOptions().mixins.simpleOptionMixin;
+        currentLogoDrawerMixin = clientOptions().mixins.logoDrawerMixin;
+        currentRenderLayersMixin = clientOptions().mixins.renderLayersMixin;
         currentStrongholdDistance = options().main.strongholdDistance;
         currentStrongholdSpread = options().main.strongholdSpread;
         currentStrongholdCount = options().main.strongholdCount;
@@ -135,15 +135,14 @@ public class RestartRequiredScreen extends AbstractModScreen {
                 currentPlayingMode != options().main.playingMode ||
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
                 currentCustomBiomesAndCustomBiomeFeatures != options().main.customBiomesAndCustomBiomeFeatures ||
-                currentConfirmMessages != options().client.confirmationMessages ||
                 currentModifiedStrongholdGeneration != options().advanced.modifiedStrongholdGeneration ||
                 currentModifiedStrongholdYGeneration != options().advanced.modifiedStrongholdYGeneration ||
                 currentModifiedNetherFortressGeneration != options().advanced.modifiedNetherFortressGeneration ||
                 currentTerraBlenderSurfaceRuleDataMixin != options().mixins.terraBlenderSurfaceRuleDataMixin ||
-                currentBackgroundRendererMixin != options().mixins.backgroundRendererMixin ||
-                currentSimpleOptionMixin != options().mixins.simpleOptionMixin ||
-                currentLogoDrawerMixin != options().mixins.logoDrawerMixin ||
-                currentRenderLayersMixin != options().mixins.renderLayersMixin ||
+                currentBackgroundRendererMixin != clientOptions().mixins.backgroundRendererMixin ||
+                currentSimpleOptionMixin != clientOptions().mixins.simpleOptionMixin ||
+                currentLogoDrawerMixin != clientOptions().mixins.logoDrawerMixin ||
+                currentRenderLayersMixin != clientOptions().mixins.renderLayersMixin ||
                 currentStrongholdDistance != options().main.strongholdDistance ||
                 currentStrongholdSpread != options().main.strongholdSpread ||
                 currentStrongholdCount != options().main.strongholdCount ||
@@ -158,15 +157,14 @@ public class RestartRequiredScreen extends AbstractModScreen {
         options().main.playingMode = currentPlayingMode;
         options().main.betterVillagerTrades = currentBetterVillagerTrades;
         options().main.customBiomesAndCustomBiomeFeatures = currentCustomBiomesAndCustomBiomeFeatures;
-        options().client.confirmationMessages = currentConfirmMessages;
         options().advanced.modifiedStrongholdGeneration = currentModifiedStrongholdGeneration;
         options().advanced.modifiedStrongholdYGeneration = currentModifiedStrongholdYGeneration;
         options().advanced.modifiedNetherFortressGeneration = currentModifiedNetherFortressGeneration;
         options().mixins.terraBlenderSurfaceRuleDataMixin = currentTerraBlenderSurfaceRuleDataMixin;
-        options().mixins.backgroundRendererMixin = currentBackgroundRendererMixin;
-        options().mixins.simpleOptionMixin = currentSimpleOptionMixin;
-        options().mixins.logoDrawerMixin = currentLogoDrawerMixin;
-        options().mixins.renderLayersMixin = currentRenderLayersMixin;
+        clientOptions().mixins.backgroundRendererMixin = currentBackgroundRendererMixin;
+        clientOptions().mixins.simpleOptionMixin = currentSimpleOptionMixin;
+        clientOptions().mixins.logoDrawerMixin = currentLogoDrawerMixin;
+        clientOptions().mixins.renderLayersMixin = currentRenderLayersMixin;
         options().main.strongholdDistance = currentStrongholdDistance;
         options().main.strongholdSpread = currentStrongholdSpread;
         options().main.strongholdCount = currentStrongholdCount;

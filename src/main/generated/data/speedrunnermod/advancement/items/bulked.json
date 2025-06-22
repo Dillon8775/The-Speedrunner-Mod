@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_bulk"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.bulked.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunner_bulk"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.bulked.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

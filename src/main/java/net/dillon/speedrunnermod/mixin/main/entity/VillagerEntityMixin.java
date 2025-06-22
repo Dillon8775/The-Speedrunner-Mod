@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin implements TutorialMode {
@@ -21,7 +21,7 @@ public abstract class VillagerEntityMixin implements TutorialMode {
 
     @Inject(method = "beginTradeWith", at = @At("TAIL"))
     private void speedrunnersWorkbenchBlock(PlayerEntity customer, CallbackInfo ci) {
-        if (options().main.tutorialMode && this.getVillagerData().profession().equals(ModVillagers.RETIRED_SPEEDRUNNER)) {
+        if (options().main.tutorialMode && this.getVillagerData().profession().equals(ModVillagers.RETIRED_SPEEDRUNNER_KEY)) {
             options().tutorialMode.completeStep(TutorialStep.INTERACT_WITH_RETIRED_SPEEDRUNNER, customer,
                     "speedrunnermod.tutorial_mode.retired_speedrunner_description",
                     options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.use_annul_eye" :

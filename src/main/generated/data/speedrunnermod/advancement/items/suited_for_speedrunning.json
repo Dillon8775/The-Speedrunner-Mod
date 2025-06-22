@@ -1,0 +1,66 @@
+{
+  "parent": "speedrunnermod:items/quicker_pick",
+  "criteria": {
+    "has_speedrunner_boots": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_speedrunner_chestplate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_chestplate"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_speedrunner_helmet": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_helmet"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_speedrunner_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_leggings"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.suited_for_speedrunning.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunner_chestplate"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.suited_for_speedrunning.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_speedrunner_helmet",
+      "has_speedrunner_chestplate",
+      "has_speedrunner_leggings",
+      "has_speedrunner_boots"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.block;
 
-import com.terraformersmc.terraform.sign.api.block.TerraformHangingSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformWallHangingSignBlock;
-import com.terraformersmc.terraform.sign.api.block.TerraformWallSignBlock;
+import net.dillon.speedrunnermod.block.sign.CustomSignBlock;
+import net.dillon.speedrunnermod.block.sign.hanging.CustomHangingSignBlock;
+import net.dillon.speedrunnermod.block.sign.hanging.wall.CustomWallHangingSignBlock;
+import net.dillon.speedrunnermod.block.sign.wall.CustomWallSignBlock;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -14,7 +14,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * All Speedrunner Mod {@code blocks.}
@@ -118,25 +118,25 @@ public class ModBlocks {
             .pistonBehavior(PistonBehavior.DESTROY)
             .sounds(BlockSoundGroup.WOOD));
 
-    public static final Block SPEEDRUNNER_SIGN = Blocks.register(of("speedrunner_sign"), settings -> new TerraformSignBlock(ModBlocks.SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.create()
+    public static final Block SPEEDRUNNER_SIGN = Blocks.register(of("speedrunner_sign"), settings -> new CustomSignBlock(ModBlocks.SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.create()
             .strength(1.0F)
             .noCollision()
             .instrument(NoteBlockInstrument.BASS)
             .sounds(BlockSoundGroup.WOOD));
 
-    public static final Block SPEEDRUNNER_WALL_SIGN = Blocks.register(of("speedrunner_wall_sign"), settings -> new TerraformWallSignBlock(ModBlocks.SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.create()
+    public static final Block SPEEDRUNNER_WALL_SIGN = Blocks.register(of("speedrunner_wall_sign"), settings -> new CustomWallSignBlock(ModBlocks.SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.create()
             .strength(1.0F)
             .noCollision()
             .instrument(NoteBlockInstrument.BASS)
             .sounds(BlockSoundGroup.WOOD));
 
-    public static final Block SPEEDRUNNER_HANGING_SIGN = Blocks.register(of("speedrunner_hanging_sign"), settings -> new TerraformHangingSignBlock(ModBlocks.SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.create()
+    public static final Block SPEEDRUNNER_HANGING_SIGN = Blocks.register(of("speedrunner_hanging_sign"), settings -> new CustomHangingSignBlock(ModBlocks.SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.create()
             .strength(1.0F)
             .noCollision()
             .instrument(NoteBlockInstrument.BASS)
             .sounds(BlockSoundGroup.HANGING_SIGN));
 
-    public static final Block SPEEDRUNNER_HANGING_WALL_SIGN = Blocks.register(of("speedrunner_hanging_wall_sign"), settings -> new TerraformWallHangingSignBlock(ModBlocks.SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.create()
+    public static final Block SPEEDRUNNER_HANGING_WALL_SIGN = Blocks.register(of("speedrunner_hanging_wall_sign"), settings -> new CustomWallHangingSignBlock(ModBlocks.SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.create()
             .strength(1.0F)
             .noCollision()
             .instrument(NoteBlockInstrument.BASS)
@@ -158,10 +158,10 @@ public class ModBlocks {
     public static final Block DEAD_WOODEN_SPEEDRUNNER_BUTTON = Blocks.register(of("dead_wooden_speedrunner_button"), settings -> new ButtonBlock(BlockSetType.OAK, 30, settings), Block.Settings.copy(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON).burnable());
     public static final Block DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE = Blocks.register(of("dead_wooden_speedrunner_pressure_plate"), settings -> new PressurePlateBlock(BlockSetType.OAK, settings), Block.Settings.copy(ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE).burnable());
     public static final Block DEAD_WOODEN_SPEEDRUNNER_DOOR = Blocks.register(of("dead_wooden_speedrunner_door"), settings -> new DoorBlock(BlockSetType.OAK, settings), Block.Settings.copy(ModBlocks.WOODEN_SPEEDRUNNER_DOOR).burnable());
-    public static final Block DEAD_SPEEDRUNNER_SIGN = Blocks.register(of("dead_speedrunner_sign"), settings -> new TerraformSignBlock(ModBlocks.DEAD_SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_SIGN).burnable());
-    public static final Block DEAD_SPEEDRUNNER_WALL_SIGN = Blocks.register(of("dead_speedrunner_wall_sign"), settings -> new TerraformWallSignBlock(ModBlocks.DEAD_SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_WALL_SIGN).burnable());
-    public static final Block DEAD_SPEEDRUNNER_HANGING_SIGN = Blocks.register(of("dead_speedrunner_hanging_sign"), settings -> new TerraformHangingSignBlock(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.DEAD_SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_HANGING_SIGN).burnable());
-    public static final Block DEAD_SPEEDRUNNER_HANGING_WALL_SIGN = Blocks.register(of("dead_speedrunner_hanging_wall_sign"), settings -> new TerraformWallHangingSignBlock(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.DEAD_SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_HANGING_WALL_SIGN).burnable());
+    public static final Block DEAD_SPEEDRUNNER_SIGN = Blocks.register(of("dead_speedrunner_sign"), settings -> new CustomSignBlock(ModBlocks.DEAD_SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_SIGN).burnable());
+    public static final Block DEAD_SPEEDRUNNER_WALL_SIGN = Blocks.register(of("dead_speedrunner_wall_sign"), settings -> new CustomWallSignBlock(ModBlocks.DEAD_SPEEDRUNNER_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_WALL_SIGN).burnable());
+    public static final Block DEAD_SPEEDRUNNER_HANGING_SIGN = Blocks.register(of("dead_speedrunner_hanging_sign"), settings -> new CustomHangingSignBlock(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.DEAD_SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_HANGING_SIGN).burnable());
+    public static final Block DEAD_SPEEDRUNNER_HANGING_WALL_SIGN = Blocks.register(of("dead_speedrunner_hanging_wall_sign"), settings -> new CustomWallHangingSignBlock(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN_TEXTURE, ModBlocks.DEAD_SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE, settings), Block.Settings.copy(ModBlocks.SPEEDRUNNER_HANGING_WALL_SIGN).burnable());
 
     public static final Block SPEEDRUNNER_TRAPDOOR = Blocks.register(of("speedrunner_trapdoor"), settings -> new TrapdoorBlock(BlockSetType.IRON, settings), Block.Settings.create()
             .requiresTool()

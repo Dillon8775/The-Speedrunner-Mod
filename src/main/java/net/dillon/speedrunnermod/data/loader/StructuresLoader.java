@@ -6,7 +6,7 @@ import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.world.ModWorldGen;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * Contains all of the {@code structure modifications,} making them generate more commonly.

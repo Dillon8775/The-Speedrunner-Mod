@@ -1,0 +1,32 @@
+{
+  "parent": "speedrunnermod:adventure/goliath",
+  "criteria": {
+    "used_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:raid_eradicator"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.the_purge.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:raid_eradicator"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.the_purge.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

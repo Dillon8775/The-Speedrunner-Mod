@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.dillon.speedrunnermod.world.feature.ModConfiguredFeatures;
 import net.dillon.speedrunnermod.world.feature.ModPlacedFeatures;

@@ -13,8 +13,8 @@ import net.minecraft.text.Text;
 
 import java.util.stream.IntStream;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * The Speedrunner Mod {@code item group.}
@@ -28,6 +28,8 @@ public class ModItemGroups {
             FabricItemGroup.builder()
                     .displayName(Text.literal("Speedrunner Mod"))
                     .icon(() -> new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH)).entries((displayContext, entries) -> {
+                        boolean playingModeEasy = options().main.playingMode.easy();
+                        boolean playingModeBalanced = options().main.playingMode.balanced();
                         entries.add(ModItems.SPEEDRUNNER_INGOT);
                         entries.add(ModItems.SPEEDRUNNER_NUGGET);
                         entries.add(ModItems.SPEEDRUNNER_BLOCK);
@@ -61,24 +63,24 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
                         entries.add(ModItems.SPEEDRUNNER_SHIELD);
                         entries.add(ModItems.SPEEDRUNNERS_TOTEM);
-                        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                        if (!playingModeBalanced) {
                             entries.add(ModItems.SPEEDRUNNERS_WORKBENCH);
                         }
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
-                        if (options().main.playingMode.easy()) {
+                        if (playingModeEasy) {
                             entries.add(ModItems.ENDER_THRUSTER);
                             entries.add(ModItems.THRUSTED_BLOCK);
                         }
                         entries.add(ModItems.INFERNO_EYE);
-                        if (options().main.playingMode.easy()) {
+                        if (playingModeEasy) {
                             entries.add(ModItems.PIGLIN_AWAKENER);
                             entries.add(ModItems.BLAZE_SPOTTER);
                         }
-                        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                        if (!playingModeBalanced) {
                             entries.add(ModItems.RAID_ERADICATOR);
                         }
                         entries.add(ModItems.ANNUL_EYE);
-                        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                        if (!playingModeBalanced) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
                         entries.add(ModUtil.unbreakableItem(Items.ELYTRA));
@@ -86,7 +88,7 @@ public class ModItemGroups {
                         entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);
-                        if (options().main.playingMode.easy()) {
+                        if (playingModeEasy) {
                             entries.add(ModItems.DRAGONS_SWORD);
                         }
                         entries.add(ModItems.WITHER_SWORD);
@@ -100,8 +102,8 @@ public class ModItemGroups {
                         entries.add(ModItems.WARPED_BOAT);
                         entries.add(ModItems.WARPED_CHEST_BOAT);
                         displayContext.lookup().getOptional(RegistryKeys.ENCHANTMENT).ifPresent(registryWrapper -> {
-                            addAllLevelEnchantedBook(entries, registryWrapper, ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS, ModEnchantments.DASH);
-                            addAllLevelEnchantedBook(entries, registryWrapper, ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS, ModEnchantments.COOLDOWN);
+                            addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.DASH);
+                            addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.COOLDOWN);
                         });
                         entries.add(ModItems.IGNEOUS_ROCK);
                         entries.add(ModItems.IGNEOUS_ORE);
@@ -164,8 +166,8 @@ public class ModItemGroups {
     /**
      * Adds all the levels of the inputted enchanted book to the item group.
      */
-    private static void addAllLevelEnchantedBook(ItemGroup.Entries entries, RegistryWrapper<Enchantment> registryWrapper, ItemGroup.StackVisibility stackVisibility, RegistryKey<Enchantment> enchantment) {
-        registryWrapper.streamEntries().filter(enchantmentEntry -> enchantmentEntry.matchesKey(enchantment)).flatMap(enchantmentEntry -> IntStream.rangeClosed(enchantmentEntry.value().getMinLevel(), enchantmentEntry.value().getMaxLevel()).mapToObj(level -> EnchantmentHelper.getEnchantedBookWith(new EnchantmentLevelEntry(enchantmentEntry, level)))).forEach(stack -> entries.add(stack, stackVisibility));
+    private static void addAllLevelEnchantedBook(ItemGroup.Entries entries, RegistryWrapper<Enchantment> registryWrapper, RegistryKey<Enchantment> enchantment) {
+        registryWrapper.streamEntries().filter(enchantmentEntry -> enchantmentEntry.matchesKey(enchantment)).flatMap(enchantmentEntry -> IntStream.rangeClosed(enchantmentEntry.value().getMinLevel(), enchantmentEntry.value().getMaxLevel()).mapToObj(level -> EnchantmentHelper.getEnchantedBookWith(new EnchantmentLevelEntry(enchantmentEntry, level)))).forEach(stack -> entries.add(stack, ItemGroup.StackVisibility.PARENT_AND_SEARCH_TABS));
     }
 
     /**

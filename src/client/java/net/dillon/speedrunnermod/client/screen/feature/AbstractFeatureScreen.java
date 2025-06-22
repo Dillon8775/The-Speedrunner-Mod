@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
-import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
 import net.dillon.speedrunnermod.client.screen.base.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
@@ -8,7 +7,7 @@ import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.Speedrunn
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -26,7 +25,8 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.function.Function;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create {@code feature screens}, for the soul purpose of displaying some of Speedrunner Mod's features.
@@ -361,7 +361,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      * Toggles a feature when pressing the enable/disable button.
      */
     protected void refreshNonRestartableFeature() {
-        ModOptions.saveConfig();
+        saveAllChanges();
         this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
     }
 

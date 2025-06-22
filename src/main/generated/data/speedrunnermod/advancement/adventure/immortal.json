@@ -1,0 +1,35 @@
+{
+  "parent": "speedrunnermod:items/to_infini_and_beyond",
+  "criteria": {
+    "used_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:speedrunners_totem"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.immortal.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunners_totem"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.immortal.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_item"
+    ]
+  ],
+  "rewards": {
+    "experience": 500
+  },
+  "sends_telemetry_event": true
+}

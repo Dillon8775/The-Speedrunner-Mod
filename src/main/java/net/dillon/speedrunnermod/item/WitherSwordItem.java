@@ -1,25 +1,22 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.WitherSkeletonEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
-
 /**
  * A sword with very low durability, but can one-shot wither skeletons, and guarantees a wither skeleton skull.
  */
-public class WitherSwordItem extends Item implements TooltipAppender {
+public class WitherSwordItem extends Item  {
 
     public WitherSwordItem(Settings settings) {
         super(settings.sword(ModToolMaterials.WITHER_SWORD, 9, -2.4F));
@@ -41,10 +38,8 @@ public class WitherSwordItem extends Item implements TooltipAppender {
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.wither_sword.tooltip.line1").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.wither_sword.tooltip.line2").formatted(Formatting.GRAY));
-        }
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.wither_sword.tooltip.line1").formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.wither_sword.tooltip.line2").formatted(Formatting.GRAY));
     }
 }

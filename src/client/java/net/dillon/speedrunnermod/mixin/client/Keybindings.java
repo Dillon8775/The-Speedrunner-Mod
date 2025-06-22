@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.mixin.client;
 
-import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,7 +25,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
 /**
  * Implements all keybindings functions into the game.
@@ -56,8 +56,8 @@ public abstract class Keybindings {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void checkGamma(RunArgs args, CallbackInfo ci) {
-        options().client.fullBright = MinecraftClient.getInstance().options.getGamma().getValue() >= 10.0D;
-        ModOptions.saveConfig();
+        clientOptions().client.fullBright = MinecraftClient.getInstance().options.getGamma().getValue() >= 10.0D;
+        saveClientChanges();
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class Keybindings {
     private void handleInputEvents(CallbackInfo info) {
         while (ModKeybindings.resetKey.wasPressed()) {
             if (this.isInSingleplayer() && this.isIntegratedServerRunning() && !this.getServer().isRemote()) {
-                if (options().client.fastWorldCreation) {
+                if (clientOptions().client.fastWorldCreation) {
                     if (this.inGameHud != null) {
                         this.inGameHud.getChatHud().clear(false);
                     }
@@ -95,21 +95,21 @@ public abstract class Keybindings {
         }
 
         while (ModKeybindings.fogKey.wasPressed()) {
-            if (options().mixins.backgroundRendererMixin) {
-                options().client.fog = !options().client.fog;
-                ModOptions.saveConfig();
+            if (clientOptions().mixins.backgroundRendererMixin) {
+                clientOptions().client.fog = !clientOptions().client.fog;
+                saveClientChanges();
                 MinecraftClient.getInstance().worldRenderer.reload();
-                debugWarn(options().client.fog ? "speedrunnermod.toggle_fog.on" : "speedrunnermod.toggle_fog.off");
+                debugWarn(clientOptions().client.fog ? "speedrunnermod.toggle_fog.on" : "speedrunnermod.toggle_fog.off");
             } else {
                 debugWarn("speedrunnermod.fog.mixin_disabled");
             }
         }
 
         while (ModKeybindings.fullbrightKey.wasPressed()) {
-            options().client.fullBright = !options().client.fullBright;
-            ModOptions.saveConfig();
-            MinecraftClient.getInstance().options.getGamma().setValue(options().client.fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
-            debugWarn(options().client.fullBright ? "speedrunnermod.toggle_fullbright.on" : "speedrunnermod.toggle_fullbright.off");
+            clientOptions().client.fullBright = !clientOptions().client.fullBright;
+            saveClientChanges();
+            MinecraftClient.getInstance().options.getGamma().setValue(clientOptions().client.fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+            debugWarn(clientOptions().client.fullBright ? "speedrunnermod.toggle_fullbright.on" : "speedrunnermod.toggle_fullbright.off");
             MinecraftClient.getInstance().options.write();
         }
     }

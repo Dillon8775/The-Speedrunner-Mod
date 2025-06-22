@@ -1,0 +1,20 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:special",
+      "base": "speedrunnermod:item/speedrunner_shield",
+      "model": {
+        "type": "speedrunnermod:speedrunner_shield"
+      }
+    },
+    "on_true": {
+      "type": "minecraft:special",
+      "base": "speedrunnermod:item/speedrunner_shield_blocking",
+      "model": {
+        "type": "speedrunnermod:speedrunner_shield"
+      }
+    },
+    "property": "minecraft:using_item"
+  }
+}

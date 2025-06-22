@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "speedrunnermod:block/doom_log_top",
+    "side": "speedrunnermod:block/doom_log"
+  }
+}

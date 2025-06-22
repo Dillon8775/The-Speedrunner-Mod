@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/speedrunning_time",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:igneous_rock"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.hardest_rock.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:igneous_rock"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.hardest_rock.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

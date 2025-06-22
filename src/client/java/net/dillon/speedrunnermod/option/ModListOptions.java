@@ -13,7 +13,8 @@ import net.minecraft.util.Formatting;
 
 import java.util.Arrays;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
 /**
  * All {@code "list"} options, which are used on the actual options screens to allow changing of these options.
@@ -31,25 +32,25 @@ public class ModListOptions {
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
                     options().main.structureSpawnRates, value -> options().main.structureSpawnRates = value);
 
-    public static final SimpleOption<ModOptions.ItemMessages> ITEM_MESSAGES =
+    public static final SimpleOption<ClientModOptions.ItemMessages> ITEM_MESSAGES =
             new SimpleOption<>("speedrunnermod.options.item_messages", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.item_messages.tooltip")), SimpleOption.enumValueText(),
-                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.ItemMessages.values()), Codec.INT.xmap(ModOptions.ItemMessages::byId, ModOptions.ItemMessages::getId)),
-                    options().client.itemMessages, value -> options().client.itemMessages = value);
+                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.ItemMessages.values()), Codec.INT.xmap(ClientModOptions.ItemMessages::byId, ClientModOptions.ItemMessages::getId)),
+                    clientOptions().client.itemMessages, value -> clientOptions().client.itemMessages = value);
 
     public static final SimpleOption<ModOptions.MobSpawningRate> MOB_SPAWNING_RATE =
             new SimpleOption<>("speedrunnermod.options.mob_spawning_rate", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.mob_spawning_rate.tooltip")), SimpleOption.enumValueText(),
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.MobSpawningRate.values()), Codec.INT.xmap(ModOptions.MobSpawningRate::byId, ModOptions.MobSpawningRate::getId)),
                     options().main.mobSpawningRate, value -> options().main.mobSpawningRate = value);
 
-    public static final SimpleOption<ModOptions.GameMode> GAMEMODE =
+    public static final SimpleOption<ClientModOptions.GameMode> GAMEMODE =
             new SimpleOption<>("speedrunnermod.options.gamemode", SimpleOption.emptyTooltip(), SimpleOption.enumValueText(),
-                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.GameMode.values()), Codec.INT.xmap(ModOptions.GameMode::byId, ModOptions.GameMode::getId)),
-                    options().client.gameMode, value -> options().client.gameMode = value);
+                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.GameMode.values()), Codec.INT.xmap(ClientModOptions.GameMode::byId, ClientModOptions.GameMode::getId)),
+                    clientOptions().client.gameMode, value -> clientOptions().client.gameMode = value);
 
-    public static final SimpleOption<ModOptions.Difficulty> DIFFICULTY =
+    public static final SimpleOption<ClientModOptions.Difficulty> DIFFICULTY =
             new SimpleOption<>("speedrunnermod.options.difficulty", SimpleOption.emptyTooltip(), SimpleOption.enumValueText(),
-                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.Difficulty.values()), Codec.INT.xmap(ModOptions.Difficulty::byId, ModOptions.Difficulty::getId)),
-                    ModOptions.Difficulty.EASY, value -> options().client.difficulty = value);
+                    new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.Difficulty.values()), Codec.INT.xmap(ClientModOptions.Difficulty::byId, ClientModOptions.Difficulty::getId)),
+                    ClientModOptions.Difficulty.EASY, value -> clientOptions().client.difficulty = value);
 
     public static final SimpleOption<Boolean> TUTORIAL_MODE = new SimpleOption<>("speedrunnermod.options.tutorial_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.tutorial_mode.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.tutorialMode, value -> options().main.tutorialMode = value);
@@ -61,8 +62,8 @@ public class ModListOptions {
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.iCarusMode, value -> options().main.iCarusMode = value);
 
     public static final SimpleOption<Boolean> FOG = new SimpleOption<>("speedrunnermod.options.fog", SimpleOption.emptyTooltip(),
-            (optionText, value) -> !options().mixins.backgroundRendererMixin ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.fog, value -> {
-        options().client.fog = value;
+            (optionText, value) -> !clientOptions().mixins.backgroundRendererMixin ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.fog, value -> {
+        clientOptions().client.fog = value;
         MinecraftClient.getInstance().worldRenderer.reload();
     });
 
@@ -72,12 +73,6 @@ public class ModListOptions {
     @Deprecated
     public static final SimpleOption<Boolean> LEADERBOARDS_MODE = new SimpleOption<>("speedrunnermod.options.leaderboards_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.leaderboards_mode.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.leaderboardsMode, value -> options().main.leaderboardsMode = value);
-
-    public static final SimpleOption<Boolean> ITEM_TOOLTIPS = new SimpleOption<>("speedrunnermod.options.item_tooltips", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.item_tooltips.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.itemTooltips, value -> options().client.itemTooltips = value);
-
-    public static final SimpleOption<Boolean> TEXTURE_TOOLTIPS = new SimpleOption<>("speedrunnermod.options.texture_tooltips", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.texture_tooltips.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.textureTooltips, value -> options().client.textureTooltips = value);
 
     public static final SimpleOption<Boolean> KILL_GHAST_ON_FIREBALL = new SimpleOption<>("speedrunnermod.options.kill_ghast_on_fireball", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kill_ghast_on_fireball.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.killGhastOnFireball, value -> options().main.killGhastOnFireball = value);
@@ -124,11 +119,8 @@ public class ModListOptions {
     public static final SimpleOption<Boolean> RIGHT_CLICK_TO_REMOVE_SILK_TOUCH = new SimpleOption<>("speedrunnermod.options.right_click_to_remove_silk_touch", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.right_click_to_remove_silk_touch.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.rightClickToRemoveSilkTouch, value -> options().main.rightClickToRemoveSilkTouch = value);
 
-    public static final SimpleOption<Boolean> CONFIRM_MESSAGES = new SimpleOption<>("speedrunnermod.options.confirm_messages", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.confirm_messages.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.confirmationMessages, value -> options().client.confirmationMessages = value);
-
     public static final SimpleOption<Boolean> SHOW_DEATH_CORDS = new SimpleOption<>("speedrunnermod.options.show_death_cords", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_death_cords.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.showDeathCords, value -> options().client.showDeathCords = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.showDeathCords, value -> options().main.showDeathCords = value);
 
     public static final SimpleOption<Boolean> KINETIC_DAMAGE = new SimpleOption<>("speedrunnermod.options.kinetic_damage", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kinetic_damage.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.kineticDamage, value -> options().main.kineticDamage = value);
@@ -140,10 +132,10 @@ public class ModListOptions {
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.customDataGeneration, value -> options().main.customDataGeneration = value);
 
     public static final SimpleOption<Boolean> FAST_WORLD_CREATION = new SimpleOption<>("speedrunnermod.options.fast_world_creation", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fast_world_creation.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.fastWorldCreation, value -> options().client.fastWorldCreation = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.fastWorldCreation, value -> clientOptions().client.fastWorldCreation = value);
 
     public static final SimpleOption<Boolean> ALLOW_CHEATS = new SimpleOption<>("speedrunnermod.options.allow_cheats", SimpleOption.emptyTooltip(),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().client.allowCheats, value -> options().client.allowCheats = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.allowCheats, value -> clientOptions().client.allowCheats = value);
 
     public static final SimpleOption<Boolean> MODIFIED_STRONGHOLD_GENERATION = new SimpleOption<>("speedrunnermod.options.modified_stronghold_generation", SimpleOption.emptyTooltip(),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.modifiedStrongholdGeneration, value -> options().advanced.modifiedStrongholdGeneration = value);
@@ -155,7 +147,7 @@ public class ModListOptions {
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.modifiedNetherFortressGeneration, value -> options().advanced.modifiedNetherFortressGeneration = value);
 
     public static final SimpleOption<Boolean> SHOW_RESET_BUTTON = new SimpleOption<>("speedrunnermod.options.show_reset_button", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_reset_button.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.showResetButton, value -> options().advanced.showResetButton = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.showResetButton, value -> clientOptions().client.showResetButton = value);
 
     public static final SimpleOption<Boolean> HIGHER_BREATH_TIME = new SimpleOption<>("speedrunnermod.options.higher_breath_time", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.higher_breath_time.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().advanced.higherBreathTime, value -> options().advanced.higherBreathTime = value);
@@ -182,16 +174,16 @@ public class ModListOptions {
             (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.terraBlenderSurfaceRuleDataMixin, value -> options().mixins.terraBlenderSurfaceRuleDataMixin = value);
 
     public static final SimpleOption<Boolean> BACKGROUND_RENDERER_MIXIN = new SimpleOption<>("speedrunnermod.options.background_renderer_mixin", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.background_renderer_mixin.tooltip")),
-                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.backgroundRendererMixin, value -> options().mixins.backgroundRendererMixin = value);
+                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, clientOptions().mixins.backgroundRendererMixin, value -> clientOptions().mixins.backgroundRendererMixin = value);
 
     public static final SimpleOption<Boolean> SIMPLE_OPTION_MIXIN = new SimpleOption<>("speedrunnermod.options.simple_option_mixin", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.simple_option_mixin.tooltip")),
-            (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.simpleOptionMixin, value -> options().mixins.simpleOptionMixin = value);
+            (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, clientOptions().mixins.simpleOptionMixin, value -> clientOptions().mixins.simpleOptionMixin = value);
 
     public static final SimpleOption<Boolean> LOGO_DRAWER_MIXIN = new SimpleOption<>("speedrunnermod.options.logo_drawer_mixin", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.logo_drawer_mixin.tooltip")),
-            (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.logoDrawerMixin, value -> options().mixins.logoDrawerMixin = value);
+            (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, clientOptions().mixins.logoDrawerMixin, value -> clientOptions().mixins.logoDrawerMixin = value);
 
     public static final SimpleOption<Boolean> RENDER_LAYERS_MIXIN = new SimpleOption<>("speedrunnermod.options.render_layers_mixin", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.render_layers_mixin.tooltip")),
-            (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, options().mixins.renderLayersMixin, value -> options().mixins.renderLayersMixin = value);
+            (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED, SimpleOption.BOOLEAN, clientOptions().mixins.renderLayersMixin, value -> clientOptions().mixins.renderLayersMixin = value);
 
     public static final SimpleOption<Integer> BLOCK_BREAKING_MULTIPLIER =
             new SimpleOption<>("speedrunnermod.options.block_breaking_multiplier", SimpleOption.emptyTooltip(),

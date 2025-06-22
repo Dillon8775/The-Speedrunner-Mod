@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +12,6 @@ import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -26,12 +25,10 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
-
 /**
  * An {@code ender pearl} like item that does not get consumed nor do damage upon use.
  */
-public class InfiniPearlItem extends EnderPearlItem implements TooltipAppender {
+public class InfiniPearlItem extends EnderPearlItem  {
 
     public InfiniPearlItem(Settings settings) {
         super(settings.maxCount(1).maxDamage(571).component(DataComponentTypes.CUSTOM_NAME, Text.translatable("item.speedrunnermod.infini_pearl").formatted(Formatting.AQUA).formatted(Formatting.ITALIC)));
@@ -71,10 +68,8 @@ public class InfiniPearlItem extends EnderPearlItem implements TooltipAppender {
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line1"));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line2"));
-        }
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line1"));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.infini_pearl.tooltip.line2"));
     }
 }

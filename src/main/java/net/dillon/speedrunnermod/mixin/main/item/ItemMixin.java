@@ -6,8 +6,8 @@ import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.TutorialStep;
-import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -16,14 +16,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,13 +30,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(Item.class)
-public abstract class ItemMixin{
+public abstract class ItemMixin {
     @Shadow
     public abstract ItemStack getDefaultStack();
 
@@ -197,47 +194,33 @@ public abstract class ItemMixin{
         this.tutorialMode(stack, player, ci);
     }
 
-//    /**
-//     * Adds tooltips to items that can be used to craft the {@code piglin awakener.}
-//     */
-//    @Override
-//    private void appendTooltips(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-//        ItemStack stack = new ItemStack(this.getDefaultStack().getItem());
-//        if (options().client.itemTooltips) {
-//            if (stack.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener_craftable").formatted(Formatting.GOLD));
-//            }
-//            if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line4").formatted(Formatting.GRAY));
-//            }
-//            if (stack.isOf(Items.ENCHANTED_BOOK)) {
-//                ItemEnchantmentsComponent itemEnchantmentsComponent = EnchantmentHelper.getEnchantments(stack);
-//                for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : itemEnchantmentsComponent.getEnchantmentEntries()) {
-//                    if (entry.getKey().matchesKey(ModEnchantments.DASH)) {
-//                        textConsumer.accept(Text.translatable("enchantment.speedrunnermod.dash.tooltip").formatted(Formatting.GRAY));
-//                    }
-//                    if (entry.getKey().matchesKey(ModEnchantments.COOLDOWN)) {
-//                        textConsumer.accept(Text.translatable("enchantment.speedrunnermod.cooldown.tooltip").formatted(Formatting.GRAY));
-//                    }
-//                }
-//            }
-//            if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
-//                textConsumer.accept(Text.translatable("item.totem_of_undying.tooltip"));
-//            }
-//            if (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS)) {
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip").formatted(Formatting.GRAY));
-//            }
-//            if (stack.isIn(ModItemTags.FASTER_BOATS) || stack.isIn(ModItemTags.FASTER_CHEST_BOATS)) {
-//                textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip.fast").formatted(Formatting.GRAY));
-//            }
-//        }
-//        if (options().client.textureTooltips) {
-//            if (stack.isIn(ModItemTags.Block.TEXTURE_CREATOR_MANNYQUESO)) {
-//                textConsumer.accept(Text.translatable("speedrunnermod.texture_creator.mannyqueso"));
-//            }
-//        }
-//    }
+    /**
+     * Adds tooltips to certain items, for item descriptions, craftables, and enchanted books.
+     */
+    @Inject(method = "appendTooltip", at = @At("HEAD"))
+    private void appendTooltips(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type, CallbackInfo ci) {
+        if (stack.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener_craftable").formatted(Formatting.GOLD));
+        }
+        if (stack.isOf(Items.ENCHANTED_BOOK)) {
+            ItemEnchantmentsComponent itemEnchantmentsComponent = EnchantmentHelper.getEnchantments(stack);
+            for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : itemEnchantmentsComponent.getEnchantmentEntries()) {
+                if (entry.getKey().matchesKey(ModEnchantments.DASH)) {
+                    textConsumer.accept(Text.translatable("enchantment.speedrunnermod.dash.tooltip").formatted(Formatting.GRAY));
+                }
+                if (entry.getKey().matchesKey(ModEnchantments.COOLDOWN)) {
+                    textConsumer.accept(Text.translatable("enchantment.speedrunnermod.cooldown.tooltip").formatted(Formatting.GRAY));
+                }
+            }
+        }
+        if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
+            textConsumer.accept(Text.translatable("item.totem_of_undying.tooltip"));
+        }
+        if (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS)) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip").formatted(Formatting.GRAY));
+        }
+        if (stack.isIn(ModItemTags.FASTER_BOATS) || stack.isIn(ModItemTags.FASTER_CHEST_BOATS)) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip.fast").formatted(Formatting.GRAY));
+        }
+    }
 }

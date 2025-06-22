@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.component.type.FoodComponent;
 
 /**

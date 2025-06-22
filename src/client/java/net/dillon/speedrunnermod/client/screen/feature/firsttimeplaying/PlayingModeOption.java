@@ -14,8 +14,7 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
 @Environment(EnvType.CLIENT)
 public class PlayingModeOption extends AbstractFeatureScreen {
@@ -29,18 +28,18 @@ public class PlayingModeOption extends AbstractFeatureScreen {
         super.init();
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.easy"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.EASY;
-            ModOptions.saveConfig();
+            saveDedicatedServerChanges();
             this.client.setScreen(this.getNextScreen());
         }).build());
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.balanced"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.BALANCED;
-            ModOptions.saveConfig();
+            saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.doom"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.DOOM;
-            ModOptions.saveConfig();
+            saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());

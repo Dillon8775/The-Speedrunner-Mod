@@ -23,9 +23,13 @@
     "client.screen.DeathScreenMixin",
     "client.screen.GameMenuScreenMixin",
     "client.screen.LogoDrawerMixin",
-    "client.screen.MinecraftClientMixin",
+    "client.MinecraftClientMixin",
     "client.screen.OptionsScreenMixin",
-    "client.screen.TitleScreenMixin"
+    "client.screen.TitleScreenMixin",
+    "terraform.sign.impl.AbstractSignBlockEntityRendererMixin",
+    "terraform.sign.impl.HangingSignEditScreenMixin",
+    "terraform.sign.impl.SignBlockEntityRendererMixin",
+    "terraform.sign.impl.SignEditScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
-import net.dillon.speedrunnermod.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,11 +10,12 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 
 @Environment(EnvType.CLIENT)
 public class SafeBootScreen extends AbstractModScreen {
+    private ButtonWidget proceedAnywayButton;
 
     public SafeBootScreen(Screen parent) {
         super(parent, ModTexts.TITLE_SAFE_BOOT);
@@ -32,7 +33,7 @@ public class SafeBootScreen extends AbstractModScreen {
             info("Closing game! No changes were made.");
             this.client.scheduleStop();
         }).dimensions(this.width / 2 - 50, height, 100, 20).build());
-        this.addDrawableChild(ButtonWidget.builder(ModTexts.PROCEED_ANYWAY, (buttonWidget) -> {
+        this.proceedAnywayButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PROCEED_ANYWAY, (buttonWidget) -> {
             info("Proceeding. Due to corrupt options, you may experience issues. Re-launch the game to fix options.");
             this.client.setScreen(new TitleScreen(false));
         }).dimensions(this.width / 2 - 50 + 105, height, 100, 20).build());
@@ -47,6 +48,13 @@ public class SafeBootScreen extends AbstractModScreen {
     public void renderCustomText(DrawContext context) {
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.options.error.line1"), this.width / 2, 100, 16777215);
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.options.error.line2"), this.width / 2, 120, 16777215);
+    }
+
+    @Override
+    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+        if (this.proceedAnywayButton.isHovered()) {
+            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(Text.translatable("speedrunnermod.proceed_anyway.tooltip"), 200), mouseX, mouseY);
+        }
     }
 
     @Override

@@ -9,7 +9,7 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * For all speedrunner mod "eye" items and "state of the art items" which are used to locate exact distances of structures and print them.

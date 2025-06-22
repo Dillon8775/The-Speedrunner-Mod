@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,8 +14,9 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
 @Environment(EnvType.CLIENT)
 public class ReadyToPlayScreen extends AbstractFeatureScreen {
@@ -30,7 +30,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
         super.init();
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.enter_tutorial_mode"), button -> {
             options().main.tutorialMode = true;
-            ModOptions.saveConfig();
+            saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
@@ -38,8 +38,8 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
-                options().client.firstTimePlaying = false;
-                ModOptions.saveConfig();
+                clientOptions().client.firstTimePlaying = false;
+                saveClientChanges();
                 this.client.setScreen(new TitleScreen());
             }
         }).build());

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:totem_of_undying",
+    "speedrunnermod:ender_matter"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunners_totem"
+  }
+}

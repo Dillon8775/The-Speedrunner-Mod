@@ -108,7 +108,8 @@
     "main.world.StrongholdGeneratorMixin",
     "main.world.StrongholdPortalRoomMixin",
     "main.world.TBSurfaceRuleDataMixin",
-    "main.world.VibrationsCallbackMixin"
+    "main.world.VibrationsCallbackMixin",
+    "terraform.sign.impl.BlockEntityTypeMixin"
   ],
   "server": [
   ],

@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "has_crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:crafting_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "description": {
+      "translate": "advancements.speedrunnermod.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunners_workbench"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.speedrunnermod.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_crafting_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

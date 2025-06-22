@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,8 +13,8 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 @Deprecated
 @Environment(EnvType.CLIENT)
@@ -32,7 +31,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
         this.leftButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.FIX_AND_RESTART, (buttonWidget) -> {
             info("Fixing options! Re-launch to apply changes.");
             Leaderboards.fixOptions();
-            ModOptions.saveConfig();
+            saveAllChanges();
             this.client.scheduleStop();
         }).dimensions(this.getButtonsLeftSide(), height, 100, 20).build());
         this.middleButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.DISABLE_LEADERBOARDS_MODE_AND_RESTART, (buttonWidget) -> {

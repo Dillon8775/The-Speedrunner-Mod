@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "speedrunnermod:block/stripped_speedrunner_log_top",
+    "side": "speedrunnermod:block/stripped_speedrunner_log"
+  }
+}

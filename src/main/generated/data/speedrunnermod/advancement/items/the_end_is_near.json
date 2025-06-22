@@ -1,0 +1,31 @@
+{
+  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "criteria": {
+    "used_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:annul_eye"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.the_end_is_near.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:annul_eye"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.the_end_is_near.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "speedrunnermod:items/infernal_gaze",
+  "criteria": {
+    "used_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:piglin_awakener"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.piglin_rally.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:piglin_awakener"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.piglin_rally.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

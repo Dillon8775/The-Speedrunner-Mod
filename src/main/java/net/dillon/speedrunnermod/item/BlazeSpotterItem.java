@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -8,7 +9,7 @@ import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -16,7 +17,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -31,13 +31,12 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
  */
-public class BlazeSpotterItem extends Item implements StateOfTheArtItem, TooltipAppender {
-    private boolean confirm = !options().client.confirmationMessages;
+public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
 
     public BlazeSpotterItem(Settings settings) {
         super(settings.maxCount(16));
@@ -53,38 +52,30 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem, Tooltip
                     player.sendMessage(this.calculatingText(), false);
                     BlockPos blazeSpawnerPos = this.findNearestBlazeSpawner((ServerWorld)world, player.getBlockPos());
                     if (blazeSpawnerPos != null) {
-                        if (confirm) {
-                            player.teleport(blazeSpawnerPos.getX() + 0.5F, blazeSpawnerPos.getY() + 1.0F, blazeSpawnerPos.getZ() + 0.5F, true);
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 3.0F, 0.6F);
-                            player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(world.random.nextInt(4) + 7), 0, false, true, true));
-                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
+                        player.teleport(blazeSpawnerPos.getX() + 0.5F, blazeSpawnerPos.getY() + 1.0F, blazeSpawnerPos.getZ() + 0.5F, true);
+                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
+                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 3.0F, 0.6F);
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(world.random.nextInt(4) + 7), 0, false, true, true));
+                        player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
 
-                            options().tutorialMode.completeStep(TutorialStep.USE_BLAZE_SPOTTER, player,
-                                    "speedrunnermod.tutorial_mode.used_blaze_spotter",
-                                    "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
+                        options().tutorialMode.completeStep(TutorialStep.USE_BLAZE_SPOTTER, player,
+                                "speedrunnermod.tutorial_mode.used_blaze_spotter",
+                                "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
 
-                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                            if (!player.getAbilities().creativeMode) {
-                                itemStack.decrement(1);
-                            }
-                        } else {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.found_blaze_spawner").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
-                            player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.confirm"), false);
-                        }
-                        if (options().client.confirmationMessages) {
-                            confirm = !confirm;
+                        if (!player.getAbilities().creativeMode) {
+                            itemStack.decrement(1);
                         }
                         player.swingHand(hand, true);
                         return ActionResult.SUCCESS;
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 3.0F);
-                        player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                        player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.GOLD, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
                     }
                 } else {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
-                    player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.wrong_dimension").formatted(ModUtil.toFormatting(Formatting.GOLD, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+                    player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.GOLD, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
@@ -126,10 +117,8 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem, Tooltip
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.blaze_spotter.tooltip"));
-            this.addStateOfTheArtItemTooltip(textConsumer);
-        }
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.blaze_spotter.tooltip"));
+        this.addStateOfTheArtItemTooltip(textConsumer);
     }
 }

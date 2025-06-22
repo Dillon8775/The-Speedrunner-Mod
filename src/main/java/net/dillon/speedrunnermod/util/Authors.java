@@ -11,6 +11,7 @@ public enum Authors {
     KURAION,
     KWPUGH,
     TURTYWURTY,
+    TERRAFORMERSMC,
     CECH12,
     BLOCKLEGEND001,
     YELEEFFF,

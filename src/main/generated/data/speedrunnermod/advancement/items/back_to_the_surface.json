@@ -1,0 +1,31 @@
+{
+  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "criteria": {
+    "used_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:ender_thruster"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.back_to_the_surface.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:ender_thruster"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.back_to_the_surface.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

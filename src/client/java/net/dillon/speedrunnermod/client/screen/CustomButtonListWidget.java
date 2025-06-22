@@ -93,12 +93,12 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
 
         @Override
         public List<? extends Element> children() {
-            return widgets;
+            return this.widgets;
         }
 
         @Override
         public List<? extends Selectable> selectableChildren() {
-            return widgets;
+            return this.widgets;
         }
     }
 }

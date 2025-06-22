@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "torches",
+  "key": {
+    "#": "#speedrunnermod:sticks",
+    "X": "minecraft:redstone"
+  },
+  "pattern": [
+    "X",
+    "#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:redstone_torch"
+  }
+}

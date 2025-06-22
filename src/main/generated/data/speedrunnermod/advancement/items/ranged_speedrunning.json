@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/suited_for_speedrunning",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_bow"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.ranged_speedrunning.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunner_bow"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.ranged_speedrunning.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

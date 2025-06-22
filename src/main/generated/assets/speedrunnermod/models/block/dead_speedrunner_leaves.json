@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "speedrunnermod:block/dead_speedrunner_leaves"
+  }
+}

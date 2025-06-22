@@ -3,10 +3,10 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.minecraft.component.ComponentsAccess;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.Item;
-import net.minecraft.item.tooltip.TooltipAppender;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -16,14 +16,13 @@ import net.minecraft.util.Rarity;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * A totem that works anywhere in the players' inventory, stacks to 16, and has better effects upon use.
  */
 @Author(Authors.YELEEFFF)
-public class SpeedrunnersTotemItem extends Item implements TooltipAppender {
+public class SpeedrunnersTotemItem extends Item  {
     private static final byte BYTE_ID = 77;
 
     public SpeedrunnersTotemItem(Settings settings) {
@@ -39,12 +38,10 @@ public class SpeedrunnersTotemItem extends Item implements TooltipAppender {
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line4"));
-        }
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1").formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3").formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line4"));
     }
 }

@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:root",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.speedrunning_time.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunner_ingot"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.speedrunning_time.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

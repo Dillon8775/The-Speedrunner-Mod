@@ -7,8 +7,8 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.SpeedrunnerModClient.isSimpleKeybindsLoaded;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybindsLoaded;
 
 /**
  * All {@code Speedrunner Mod} keybindings.

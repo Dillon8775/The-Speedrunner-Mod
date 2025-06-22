@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "speedrunnermod:block/speedrunners_workbench_bottom",
+    "east": "speedrunnermod:block/speedrunners_workbench_side",
+    "north": "speedrunnermod:block/speedrunners_workbench_front",
+    "particle": "speedrunnermod:block/speedrunners_workbench_front",
+    "south": "speedrunnermod:block/speedrunners_workbench_front",
+    "up": "speedrunnermod:block/speedrunners_workbench_top",
+    "west": "speedrunnermod:block/speedrunners_workbench_side"
+  }
+}

@@ -1,14 +1,13 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
@@ -17,12 +16,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
-
 /**
  * A knockback stick item. It does exactly what it says.
  */
-public class KnockbackStickItem extends Item implements TooltipAppender {
+public class KnockbackStickItem extends Item  {
 
     public KnockbackStickItem(Settings settings) {
         super(settings.maxCount(1).maxDamage(10).rarity(Rarity.EPIC));
@@ -55,9 +52,7 @@ public class KnockbackStickItem extends Item implements TooltipAppender {
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.knockback_stick.tooltip"));
-        }
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.knockback_stick.tooltip"));
     }
 }

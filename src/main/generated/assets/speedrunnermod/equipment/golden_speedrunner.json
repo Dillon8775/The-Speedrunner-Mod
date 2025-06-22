@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "speedrunnermod:golden_speedrunner"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "speedrunnermod:golden_speedrunner"
+      }
+    ]
+  }
+}

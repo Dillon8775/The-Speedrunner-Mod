@@ -1,0 +1,52 @@
+{
+  "parent": "speedrunnermod:items/perch_already",
+  "criteria": {
+    "killed_dragon": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:ender_dragon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    },
+    "used_dragons_sword": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:dragons_sword"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.one_hit_one_kill.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:dragons_sword"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.one_hit_one_kill.title"
+    }
+  },
+  "requirements": [
+    [
+      "killed_dragon"
+    ],
+    [
+      "used_dragons_sword"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

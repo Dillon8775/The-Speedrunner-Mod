@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "crossbows",
+  "key": {
+    "#": "speedrunnermod:speedrunner_stick",
+    "$": "minecraft:tripwire_hook",
+    "S": "speedrunnermod:speedrunner_ingot",
+    "~": "minecraft:string"
+  },
+  "pattern": [
+    "#S#",
+    "~$~",
+    " # "
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunner_crossbow"
+  }
+}

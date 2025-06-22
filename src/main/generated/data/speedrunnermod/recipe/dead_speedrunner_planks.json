@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#speedrunnermod:dead_speedrunner_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "speedrunnermod:dead_speedrunner_planks"
+  }
+}

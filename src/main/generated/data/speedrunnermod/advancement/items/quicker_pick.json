@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/speedrunning_time",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_pickaxe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.quicker_pick.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunner_pickaxe"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.quicker_pick.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

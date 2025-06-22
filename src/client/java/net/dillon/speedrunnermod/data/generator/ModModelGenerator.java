@@ -83,7 +83,16 @@ public class ModModelGenerator extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.FLESH_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DOOM_STONE);
 
-        // Speedrunner's Workbench is done manually.
+        TextureMap textureMap = new TextureMap()
+                .put(TextureKey.PARTICLE, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
+                .put(TextureKey.DOWN, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_bottom"))
+                .put(TextureKey.UP, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_top"))
+                .put(TextureKey.NORTH, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
+                .put(TextureKey.SOUTH, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
+                .put(TextureKey.EAST, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_side"))
+                .put(TextureKey.WEST, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_side"));
+        blockStateModelGenerator.blockStateCollector
+                .accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.SPEEDRUNNERS_WORKBENCH, BlockStateModelGenerator.createWeightedVariant(Models.CUBE.upload(ModBlocks.SPEEDRUNNERS_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector))));
     }
 
     @Override

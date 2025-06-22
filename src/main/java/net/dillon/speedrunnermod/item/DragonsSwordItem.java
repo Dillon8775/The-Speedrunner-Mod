@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -11,7 +11,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -20,12 +19,12 @@ import net.minecraft.util.Rarity;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * A weapon that {@code one-shots} the {@code ender dragon.}
  */
-public class DragonsSwordItem extends Item implements StateOfTheArtItem, TooltipAppender {
+public class DragonsSwordItem extends Item implements StateOfTheArtItem {
 
     public DragonsSwordItem(Item.Settings settings) {
         super(settings.sword(ModToolMaterials.DRAGONS_SWORD, 9, -2.4F).rarity(Rarity.EPIC));
@@ -64,13 +63,11 @@ public class DragonsSwordItem extends Item implements StateOfTheArtItem, Tooltip
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(options().main.playingMode.doom() ? Formatting.STRIKETHROUGH : Formatting.WHITE));
-            if (options().main.playingMode.doom()) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
-            }
-            this.addStateOfTheArtItemTooltip(textConsumer);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(options().main.playingMode.doom() ? Formatting.STRIKETHROUGH : Formatting.WHITE));
+        if (options().main.playingMode.doom()) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
         }
+        this.addStateOfTheArtItemTooltip(textConsumer);
     }
 }

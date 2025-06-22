@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 20,
+  "experience": 200.0,
+  "group": "speedrunner_ingot",
+  "ingredient": "speedrunnermod:speedrunner_ore",
+  "result": {
+    "id": "speedrunnermod:speedrunner_ingot"
+  }
+}

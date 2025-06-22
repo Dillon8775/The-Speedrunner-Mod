@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:ender_pearl",
+    "minecraft:fire_charge",
+    "minecraft:enchanted_golden_apple",
+    "speedrunnermod:speedrunners_eye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:raid_eradicator"
+  }
+}

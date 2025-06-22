@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(ElderGuardianEntity.class)
 public class ElderGuardianEntityMixin extends GuardianEntity {

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": "minecraft:gold_ingot",
+    "C": "minecraft:gold_block",
+    "S": "speedrunnermod:golden_speedrunner_upgrade_smithing_template"
+  },
+  "pattern": [
+    "#S#",
+    "#C#",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "id": "speedrunnermod:golden_speedrunner_upgrade_smithing_template"
+  }
+}

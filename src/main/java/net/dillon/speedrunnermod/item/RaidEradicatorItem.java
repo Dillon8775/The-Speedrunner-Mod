@@ -1,9 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.WitchEntity;
@@ -12,7 +13,6 @@ import net.minecraft.entity.raid.RaiderEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
 import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
@@ -32,13 +32,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * An item that kills all nearby {@link RaiderEntity}s.
  */
-public class RaidEradicatorItem extends Item implements StateOfTheArtItem, TooltipAppender {
-    private boolean confirm = !options().client.confirmationMessages;
+public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
 
     public RaidEradicatorItem(Settings settings) {
         super(settings.rarity(Rarity.EPIC).maxCount(1));
@@ -49,7 +48,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem, Toolt
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+            if (!options().main.playingMode.balanced()) {
                 List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ[0], options().advanced.raidEradicatorDistanceXYZ[1], options().advanced.raidEradicatorDistanceXYZ[2]), entity -> true);
 
                 if (!raiders.isEmpty()) {
@@ -59,55 +58,46 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem, Toolt
                     }
 
                     if (hasTotemEquipped) {
-                        if (confirm) {
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_ROAR, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(5));
-                            if (!player.getAbilities().creativeMode) {
-                                stack.decrement(1);
-                            }
-                            ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-                            new Timer().schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    for (RaiderEntity raider : raiders) {
-                                        if (!raider.hasCustomName()) {
-                                            if (!(raider instanceof WitchEntity)) {
-                                                raider.kill(serverWorld);
-                                            } else {
-                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(30), 2, false, true, false));
-                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsInTicks(30), 1, false, true, false));
-                                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesInTicks(2), 0, false, true, false));
-                                                raider.teleport(player.getX() + world.random.nextInt(7) - 3, player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + world.random.nextInt(7) - 3, false);
-                                            }
+                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_ROAR, SoundCategory.HOSTILE, 3.0F, 1.0F);
+                        player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(5));
+                        if (!player.getAbilities().creativeMode) {
+                            stack.decrement(1);
+                        }
+                        ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+                        new Timer().schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                for (RaiderEntity raider : raiders) {
+                                    if (!raider.hasCustomName()) {
+                                        if (!(raider instanceof WitchEntity)) {
+                                            raider.kill(serverWorld);
+                                        } else {
+                                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(30), 2, false, true, false));
+                                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsInTicks(30), 1, false, true, false));
+                                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesInTicks(2), 0, false, true, false));
+                                            raider.teleport(player.getX() + world.random.nextInt(7) - 3, player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + world.random.nextInt(7) - 3, false);
                                         }
                                     }
-                                    player.damage(serverWorld, player.getDamageSources().generic(), player.getHealth());
-
-                                    ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, stack);
-
-                                    Text purgedText = Text.translatable("item.speedrunnermod.raid_eradicator.purged").formatted(Formatting.RED);
-                                    serverPlayer.networkHandler.sendPacket(new TitleS2CPacket(Text.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).formatted(Formatting.AQUA).formatted(Formatting.BOLD)));
-                                    serverPlayer.networkHandler.sendPacket(new SubtitleS2CPacket(purgedText));
-                                    player.sendMessage(purgedText, false);
-                                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_DEATH, SoundCategory.HOSTILE, 3.0F, 1.0F);
                                 }
-                            }, ModUtil.millisecondsAsSeconds(3));
-                        } else {
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_VINDICATOR_AMBIENT, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                            player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.found_raiders").formatted(ModUtil.toFormatting(Formatting.YELLOW, Formatting.WHITE)), options().client.itemMessages.isActionbar());
-                            player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.confirm"), false);
-                        }
-                        if (options().client.confirmationMessages) {
-                            confirm = !confirm;
-                        }
+                                player.damage(serverWorld, player.getDamageSources().generic(), player.getHealth());
+
+                                ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, stack);
+
+                                Text purgedText = Text.translatable("item.speedrunnermod.raid_eradicator.purged").formatted(Formatting.RED);
+                                serverPlayer.networkHandler.sendPacket(new TitleS2CPacket(Text.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).formatted(Formatting.AQUA).formatted(Formatting.BOLD)));
+                                serverPlayer.networkHandler.sendPacket(new SubtitleS2CPacket(purgedText));
+                                player.sendMessage(purgedText, false);
+                                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_RAVAGER_DEATH, SoundCategory.HOSTILE, 3.0F, 1.0F);
+                            }
+                        }, ModUtil.millisecondsAsSeconds(3));
                         player.swingHand(hand, true);
                         return ActionResult.SUCCESS;
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_WITCH_AMBIENT, SoundCategory.NEUTRAL, 3.0F, 1.0F);
-                        player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.no_totem").formatted(Formatting.YELLOW), options().client.itemMessages.isActionbar());
+                        player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.no_totem").formatted(Formatting.YELLOW), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"), options().client.itemMessages.isActionbar());
+                    player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GRAY), false);
@@ -124,10 +114,10 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem, Toolt
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
-            this.addStateOfTheArtItemTooltip(textConsumer);
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
+        if (options().main.playingMode.balanced()) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }
 }

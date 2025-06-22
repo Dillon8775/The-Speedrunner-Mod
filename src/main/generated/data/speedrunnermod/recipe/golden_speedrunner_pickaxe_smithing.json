@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#speedrunnermod:speedrunner_tool_materials",
+  "base": "minecraft:golden_pickaxe",
+  "result": {
+    "id": "speedrunnermod:golden_speedrunner_pickaxe"
+  },
+  "template": "speedrunnermod:golden_speedrunner_upgrade_smithing_template"
+}

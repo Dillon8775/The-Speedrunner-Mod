@@ -1,25 +1,24 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * Better than iron, worse than diamond, deals more damage to withers and giants.
  */
-public class SpeedrunnerSwordItem extends Item implements TooltipAppender {
+public class SpeedrunnerSwordItem extends Item  {
     private static int attackDamage;
 
     public SpeedrunnerSwordItem(int attackDamage, boolean golden, Settings settings) {
@@ -50,12 +49,10 @@ public class SpeedrunnerSwordItem extends Item implements TooltipAppender {
     }
 
     @Override
-    public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-        if (options().client.itemTooltips) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line1").formatted(Formatting.GRAY));
-            if (options().main.playingMode.doom()) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line2"));
-            }
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line1").formatted(Formatting.GRAY));
+        if (options().main.playingMode.doom()) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line2"));
         }
     }
 }

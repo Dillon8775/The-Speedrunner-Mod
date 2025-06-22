@@ -1,0 +1,37 @@
+{
+  "parent": "speedrunnermod:items/the_ends_matter",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:infini_pearl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.to_infini_and_beyond.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:infini_pearl"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.to_infini_and_beyond.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  },
+  "sends_telemetry_event": true
+}

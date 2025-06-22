@@ -6,6 +6,7 @@ import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.DeathProtectionComponent;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
 import net.minecraft.item.consume.ClearAllEffectsConsumeEffect;
 import net.minecraft.registry.Registries;
@@ -16,7 +17,7 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.minecraft.component.type.ConsumableComponents.food;
 
 /**
@@ -25,6 +26,9 @@ import static net.minecraft.component.type.ConsumableComponents.food;
 public class ModDataComponentTypes {
     public static final ComponentType<TagKey<Structure>> LOCATING_STRUCTURE = Registry.register(
             Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("locating_structure"), ComponentType.<TagKey<Structure>>builder().codec(TagKey.codec(RegistryKeys.STRUCTURE)).build());
+
+    public static final ComponentType<ItemStack> ITEM_TO_DROP_ON_WRONG_PLAYING_MODE = Registry.register(
+            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("item_to_drop_on_wrong_playing_mode"), ComponentType.<ItemStack>builder().codec(ItemStack.OPTIONAL_CODEC).packetCodec(ItemStack.OPTIONAL_PACKET_CODEC).build());
 
     public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
             List.of(
@@ -80,5 +84,5 @@ public class ModDataComponentTypes {
     /**
      * Initializes all speedrunner mod data components.
      */
-    public static void init() {}
+    public static void initializeDataComponents() {}
 }

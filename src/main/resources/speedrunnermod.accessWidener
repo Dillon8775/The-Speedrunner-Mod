@@ -26,6 +26,9 @@ accessible class net/minecraft/client/option/SimpleOption$Callbacks
 extendable class net/minecraft/client/option/SimpleOption$SliderCallbacks
 accessible class net/minecraft/client/gui/widget/OptionListWidget$WidgetEntry
 
+accessible method net/minecraft/entity/EntityType getBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/entity/EntityType$EntityFactory;
+accessible method net/minecraft/entity/EntityType getChestBoatFactory (Ljava/util/function/Supplier;)Lnet/minecraft/entity/EntityType$EntityFactory;
+accessible method net/minecraft/entity/EntityType register (Ljava/lang/String;Lnet/minecraft/entity/EntityType$Builder;)Lnet/minecraft/entity/EntityType;
 accessible method net/minecraft/world/gen/feature/OrePlacedFeatures modifiersWithCount (ILnet/minecraft/world/gen/placementmodifier/PlacementModifier;)Ljava/util/List;
 accessible method net/minecraft/world/gen/feature/OrePlacedFeatures modifiersWithRarity (ILnet/minecraft/world/gen/placementmodifier/PlacementModifier;)Ljava/util/List;
 accessible method net/minecraft/world/gen/feature/VegetationConfiguredFeatures createRandomPatchFeatureConfig (Lnet/minecraft/world/gen/stateprovider/BlockStateProvider;I)Lnet/minecraft/world/gen/feature/RandomPatchFeatureConfig;
@@ -47,6 +50,7 @@ accessible method net/minecraft/block/Blocks never (Lnet/minecraft/block/BlockSt
 accessible method net/minecraft/block/Blocks never (Lnet/minecraft/block/BlockState;Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z
 accessible method net/minecraft/loot/LootTables register (Ljava/lang/String;)Lnet/minecraft/registry/RegistryKey;
 accessible method net/minecraft/village/TradeOffers copyToFastUtilMap (Lcom/google/common/collect/ImmutableMap;)Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+accessible method net/minecraft/world/poi/PointOfInterestTypes register (Lnet/minecraft/registry/Registry;Lnet/minecraft/registry/RegistryKey;Ljava/util/Set;II)Lnet/minecraft/world/poi/PointOfInterestType;
 accessible method net/minecraft/village/VillagerProfession register (Lnet/minecraft/registry/Registry;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/sound/SoundEvent;)Lnet/minecraft/village/VillagerProfession;
 accessible method net/minecraft/screen/ScreenHandlerType register (Ljava/lang/String;Lnet/minecraft/screen/ScreenHandlerType$Factory;)Lnet/minecraft/screen/ScreenHandlerType;
 accessible method net/minecraft/client/render/BackgroundRenderer getFogModifier (Lnet/minecraft/entity/Entity;F)Lnet/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier;

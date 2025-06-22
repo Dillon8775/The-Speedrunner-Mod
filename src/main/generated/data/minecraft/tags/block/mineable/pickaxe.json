@@ -1,0 +1,12 @@
+{
+  "values": [
+    "#speedrunnermod:experience_ores",
+    "#speedrunnermod:igneous_ores",
+    "#speedrunnermod:speedrunner_ores",
+    "speedrunnermod:speedrunner_block",
+    "speedrunnermod:raw_speedrunner_block",
+    "speedrunnermod:speedrunner_door",
+    "speedrunnermod:speedrunner_weighted_pressure_plate",
+    "speedrunnermod:doom_stone"
+  ]
+}

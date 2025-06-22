@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "shears",
+  "key": {
+    "#": "speedrunnermod:speedrunner_ingot"
+  },
+  "pattern": [
+    " #",
+    "# "
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunner_shears"
+  }
+}

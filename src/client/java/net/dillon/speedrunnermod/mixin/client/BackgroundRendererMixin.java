@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
 @Environment(EnvType.CLIENT)
 @Mixin(BackgroundRenderer.class)
@@ -86,7 +86,7 @@ public class BackgroundRendererMixin {
                 }
             } else if (thickenFog) {
                 fogData.fogStart = viewDistance * 0.05F;
-                if (!options().client.fog) {
+                if (!clientOptions().client.fog) {
                     fogData.fogEnd = fog;
                 } else {
                     fogData.fogEnd = Math.min(viewDistance, 192.0F) * 0.5F;
@@ -98,7 +98,7 @@ public class BackgroundRendererMixin {
             } else if (fogType == BackgroundRenderer.FogType.FOG_TERRAIN) {
                 float f = MathHelper.clamp(viewDistance / 10.0F, 4.0F, 64.0F);
                 fogData.fogStart = viewDistance - f;
-                if (!options().client.fog) {
+                if (!clientOptions().client.fog) {
                     fogData.fogEnd = fog;
                 } else {
                     fogData.fogEnd = viewDistance;

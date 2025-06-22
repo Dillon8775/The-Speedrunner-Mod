@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "speedrunnermod:item/cooked_piglin_pork"
+  }
+}

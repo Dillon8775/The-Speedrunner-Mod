@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
@@ -32,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(ExperienceDroppingBlock.class)
 public class ExperienceDroppingBlockMixin extends Block {
@@ -54,7 +55,7 @@ public class ExperienceDroppingBlockMixin extends Block {
             if (player instanceof ServerPlayerEntity) {
                 ((ServerPlayerEntity)player).networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, pos.getX(), pos.getY(), pos.getZ(), 1.0F, 1.0F, world.getRandom().nextLong()));
             }
-            player.sendMessage(Text.translatable("speedrunnermod.removed_silk_touch").formatted(ModUtil.toFormatting(Formatting.RED, Formatting.WHITE)), options().client.itemMessages.isActionbar());
+            player.sendMessage(Text.translatable("speedrunnermod.removed_silk_touch").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.RED, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
             player.setStackInHand(hand, itemStack);
             player.swingHand(hand, true);
             return ActionResult.SUCCESS;

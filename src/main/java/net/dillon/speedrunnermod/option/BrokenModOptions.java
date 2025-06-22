@@ -14,8 +14,5 @@ public class BrokenModOptions {
     public static boolean speedrunnersWastelandBiomeWeight = false;
     public static boolean iCarusFireworksInventorySlot = false;
     public static boolean infiniPearlInventorySlot = false;
-    public static boolean itemMessages = false;
     public static boolean netherPortalCooldown = false;
-    public static boolean gameMode = false;
-    public static boolean difficulty = false;
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 20,
+  "experience": 100.0,
+  "ingredient": [
+    "speedrunnermod:speedrunner_pickaxe",
+    "speedrunnermod:speedrunner_shovel",
+    "speedrunnermod:speedrunner_axe",
+    "speedrunnermod:speedrunner_hoe",
+    "speedrunnermod:speedrunner_sword",
+    "speedrunnermod:speedrunner_helmet",
+    "speedrunnermod:speedrunner_chestplate",
+    "speedrunnermod:speedrunner_leggings",
+    "speedrunnermod:speedrunner_boots"
+  ],
+  "result": {
+    "id": "speedrunnermod:speedrunner_nugget"
+  }
+}

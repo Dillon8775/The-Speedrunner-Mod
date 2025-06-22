@@ -1,11 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
-import com.terraformersmc.terraform.boat.api.item.TerraformBoatItemHelper;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.entity.ModBoats;
+import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
-import net.minecraft.component.ComponentsAccess;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
@@ -19,7 +18,7 @@ import net.minecraft.util.Util;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * All Speedrunner Mod {@code items.}
@@ -29,19 +28,17 @@ public class ModItems {
     private static final Text GOLDEN_SPEEDRUNNER_INGREDIENTS_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.ingredients"))).formatted(Formatting.AQUA);
     private static final Text GOLDEN_SPEEDRUNNER_BASE_SLOT_DESCRIPTION_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.base_slot_description")));
     private static final Text GOLDEN_SPEEDRUNNER_ADDITIONS_SLOT_DESCRIPTION_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.additions_slot_description")));
-    public static final Identifier SPEEDRUNNER_ARMOR_PATH = Identifier.of(MOD_ID, "speedrunner");
-    public static final Identifier GOLDEN_SPEEDRUNNER_ARMOR_PATH = Identifier.of(MOD_ID, "golden_speedrunner");
+    public static final Identifier SPEEDRUNNER_ARMOR_PATH = Identifier.of("speedrunnermod:speedrunner");
+    public static final Identifier GOLDEN_SPEEDRUNNER_ARMOR_PATH = Identifier.of("speedrunnermod:golden_speedrunner");
 
-    public static final Item SPEEDRUNNER_INGOT = Items.register(of("speedrunner_ingot"), settings -> new ItemWithTooltip(
+    public static final Item SPEEDRUNNER_INGOT = Items.register(of("speedrunner_ingot"), settings -> new Item(
             settings) {
 
         @Override
-        public void appendTooltip(Item.TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-            if (options().client.itemTooltips) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line1").formatted(Formatting.GRAY));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line2").formatted(Formatting.GRAY));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line3").formatted(Formatting.GRAY));
-            }
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line1").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line2").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line3").formatted(Formatting.GRAY));
         }
     });
 
@@ -154,16 +151,14 @@ public class ModItems {
             SmithingTemplateItem.getNetheriteUpgradeEmptyAdditionsSlotTextures(),
             settings));
 
-    public static final Item SPEEDRUNNER_BULK = Items.register(of("speedrunner_bulk"), settings -> new ItemWithTooltip(
+    public static final Item SPEEDRUNNER_BULK = Items.register(of("speedrunner_bulk"), settings -> new Item(
             settings) {
 
         @Override
-        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-            if (options().client.itemTooltips) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line1"));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line2"));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
-            }
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line1"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line2"));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
         }
     }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModDataComponentTypes.SPEEDRUNNER_BULK));
 
@@ -179,47 +174,56 @@ public class ModItems {
     public static final Item COOKED_PIGLIN_PORK = Items.register(of("cooked_piglin_pork"), Item::new,
             new Item.Settings().food(ModFoodComponents.COOKED_PIGLIN_PORK));
 
-    public static final Item IGNEOUS_ROCK = Items.register(of("igneous_rock"), settings -> new ItemWithTooltip(
+    public static final Item IGNEOUS_ROCK = Items.register(of("igneous_rock"), settings -> new Item(
             settings) {
 
         @Override
-        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-            if (options().client.itemTooltips) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.igneous_rock.tooltip").formatted(Formatting.GRAY));
-            }
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.igneous_rock.tooltip").formatted(Formatting.GRAY));
         }
     });
 
     public static final Item SPEEDRUNNER_STICK = Items.register(of("speedrunner_stick"), Item::new);
 
-    public static final Item SPEEDRUNNER_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.SPEEDRUNNER, new Item.Settings().maxCount(1).fireproof(), false, false);
-    public static final Item SPEEDRUNNER_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.SPEEDRUNNER, new Item.Settings().maxCount(1).fireproof(), true, false);
-    public static final Item DEAD_SPEEDRUNNER_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.DEAD_SPEEDRUNNER, new Item.Settings().maxCount(1).fireproof(), false, false);
-    public static final Item DEAD_SPEEDRUNNER_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.DEAD_SPEEDRUNNER, new Item.Settings().maxCount(1).fireproof(), true, false);
-    public static final Item CRIMSON_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.CRIMSON, new Item.Settings().maxCount(1).fireproof(), false, false);
-    public static final Item CRIMSON_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.CRIMSON, new Item.Settings().maxCount(1).fireproof(), true, false);
-    public static final Item WARPED_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.WARPED, new Item.Settings().maxCount(1).fireproof(), false, false);
-    public static final Item WARPED_CHEST_BOAT = TerraformBoatItemHelper.registerBoatItem(ModBoats.WARPED, new Item.Settings().maxCount(1).fireproof(), true, false);
+    public static final Item SPEEDRUNNER_BOAT = Items.register(of("speedrunner_boat"), settings -> new BoatItem(
+            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
 
-    public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new ItemWithTooltip(
+    public static final Item SPEEDRUNNER_CHEST_BOAT = Items.register(of("speedrunner_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+
+    public static final Item DEAD_SPEEDRUNNER_BOAT = Items.register(of("dead_speedrunner_boat"), settings -> new BoatItem(
+            ModEntityTypes.DEAD_SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item DEAD_SPEEDRUNNER_CHEST_BOAT = Items.register(of("dead_speedrunner_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.DEAD_SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item CRIMSON_BOAT = Items.register(of("crimson_boat"), settings -> new BoatItem(
+            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+
+    public static final Item CRIMSON_CHEST_BOAT = Items.register(of("crimson_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+
+    public static final Item WARPED_BOAT = Items.register(of("warped_boat"), settings -> new BoatItem(
+            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+
+    public static final Item WARPED_CHEST_BOAT = Items.register(of("warped_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+
+    public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new Item(
             settings) {
 
         @Override
-        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-            if (options().client.itemTooltips) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.wither_bone.tooltip").formatted(Formatting.GRAY));
-            }
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.wither_bone.tooltip").formatted(Formatting.GRAY));
         }
     });
 
-    public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new ItemWithTooltip(
+    public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new Item(
             settings) {
 
         @Override
-        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-            if (options().client.itemTooltips) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip").formatted(Formatting.GRAY));
-            }
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip").formatted(Formatting.GRAY));
         }
     }, new Item.Settings().rarity(Rarity.RARE).maxCount(16));
 
@@ -285,17 +289,15 @@ public class ModItems {
     public static final Item SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE = Items.register(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE);
     public static final Item SPEEDRUNNER_DOOR = Items.register(ModBlocks.SPEEDRUNNER_DOOR);
     public static final Item DEAD_SPEEDRUNNER_BUSH = Items.register(ModBlocks.DEAD_SPEEDRUNNER_BUSH);
-    public static final Item SPEEDRUNNERS_WORKBENCH = Items.register(ModBlocks.SPEEDRUNNERS_WORKBENCH, (block, settings) -> new BlockItemWithTooltip(ModBlocks.SPEEDRUNNERS_WORKBENCH,
+    public static final Item SPEEDRUNNERS_WORKBENCH = Items.register(ModBlocks.SPEEDRUNNERS_WORKBENCH, (block, settings) -> new BlockItem(ModBlocks.SPEEDRUNNERS_WORKBENCH,
             settings) {
 
         @Override
-        public void appendTooltip(TooltipContext context, Consumer<Text> textConsumer, TooltipType type, ComponentsAccess components) {
-            if (options().client.itemTooltips) {
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));
-                textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line4").formatted(Formatting.GRAY));
-            }
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line4").formatted(Formatting.GRAY));
         }
     });
 

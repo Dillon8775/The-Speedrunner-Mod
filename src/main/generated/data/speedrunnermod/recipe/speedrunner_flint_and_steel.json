@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "group": "flint_and_steels",
+  "ingredients": [
+    "minecraft:flint",
+    "speedrunnermod:speedrunner_ingot"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunner_flint_and_steel"
+  }
+}

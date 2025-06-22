@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.data.generator;
 import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
 import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -871,15 +872,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .group("raw_iron_blocks")
                         .offerTo(this.exporter);
 
-                this.createShaped(RecipeCategory.MISC, ModItems.PIGLIN_AWAKENER)
-                        .input('#', Items.GOLD_INGOT)
-                        .input('X', ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
-                        .pattern("###")
-                        .pattern("#X#")
-                        .pattern("###")
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER))
-                        .offerTo(this.exporter);
-
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
                         .input('@', ModItems.SPEEDRUNNER_INGOT)
                         .input('#', ModItemTags.Block.SPEEDRUNNER_PLANKS)
@@ -930,6 +922,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(this.exporter);
 
                 ComplexRecipeJsonBuilder.create(SpeedrunnerShieldDecorationRecipe::new).offerTo(this.exporter, "speedrunner_shield_decoration");
+                ComplexRecipeJsonBuilder.create(PiglinAwakenerRecipe::new).offerTo(this.exporter, "piglin_awakener");
 
                 this.createShaped(RecipeCategory.MISC, ModItems.SPEEDRUNNER_STICK, 4)
                         .input('S', ModItemTags.Block.SPEEDRUNNER_PLANKS)

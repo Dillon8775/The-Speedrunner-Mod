@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 60,
+  "experience": 0.35,
+  "ingredient": "speedrunnermod:rotten_speedrunner_bulk",
+  "result": {
+    "id": "minecraft:rotten_flesh"
+  }
+}

@@ -1,13 +1,13 @@
 package net.dillon.speedrunnermod.mixin.main.entity.basic;
 
-import net.dillon.speedrunnermod.entity.ModBoats;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
+import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
+import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.util.ModConstants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -31,6 +31,8 @@ public abstract class EntityMixin {
     private int fireTicks;
     @Shadow
     public abstract World getWorld();
+
+    @Shadow protected Object2DoubleMap<TagKey<Fluid>> fluidHeight;
 
     /**
      * Decreases time set on fire for from lava.
@@ -51,17 +53,11 @@ public abstract class EntityMixin {
     /**
      * Allows players to ride in fireproof boats and chest without burning from the lava.
      */
-    @Author(Authors.ANXIETIE)
-    @Inject(method = "setOnFireFromLava", at = @At("HEAD"), cancellable = true)
+    @Inject(method = {"setOnFireFromLava", "setOnFireFor"}, at = @At("HEAD"), cancellable = true)
     private void setOnFireFromLava(CallbackInfo ci) {
         Entity vehicle = getVehicle();
-        if (options().main.lavaBoats && this.getWorld() instanceof ServerWorld serverWorld) {
-            if (vehicle instanceof AbstractBoatEntity abstractBoat && ModBoats.isFireproofBoat(abstractBoat.itemSupplier)) {
-                if (fireTicks > 0 && fireTicks % 20 == 0) {
-                    ((Entity)(Object)this).damage(serverWorld, this.getDamageSources().onFire(), 1.0F);
-                }
-                ci.cancel();
-            }
+        if (options().main.lavaBoats && vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat.itemSupplier)) {
+            ci.cancel();
         }
     }
 }

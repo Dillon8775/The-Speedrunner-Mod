@@ -3,19 +3,15 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.option.ModListOptions;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 
-import java.io.File;
-
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * The Speedrunner Mod's {@code main options.}
@@ -60,17 +56,18 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.ARROWS_DESTROY_BEDS,
                 ModListOptions.MOB_SPAWNING_RATE,
                 ModListOptions.FASTER_SPAWNERS,
-                ModListOptions.KILL_GHAST_ON_FIREBALL
+                ModListOptions.KILL_GHAST_ON_FIREBALL,
+                ModListOptions.SHOW_DEATH_CORDS,
+                ModListOptions.CUSTOM_DATA_GENERATION
         };
     }
 
     @Override
     protected void init() {
-        this.initializeOptionListWidget();
+        super.init();
         this.optionList.addSingleOptionEntry(ModListOptions.PLAYING_MODE);
         this.optionList.addSingleOptionEntry(ModListOptions.STRUCTURE_SPAWN_RATE);
         this.optionList.addAll(mainOptions());
-        this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_DATA_GENERATION);
         this.optionList.addSingleOptionEntry(ModListOptions.NETHER_PORTAL_DELAY);
         this.optionList.addSingleOptionEntry(ModListOptions.RIGHT_CLICK_TO_REMOVE_SILK_TOUCH);
         this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_BIOMES_AND_CUSTOM_BIOME_FEATURES);
@@ -83,9 +80,6 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.deactivateOptionIf(10, ButtonSide.LEFT, options().main.customDataGeneration);
 
         this.addSelectableChild(this.optionList);
-        this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
-
-        super.init();
     }
 
     @Override

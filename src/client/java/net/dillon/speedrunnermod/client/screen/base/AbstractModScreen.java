@@ -1,20 +1,21 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
-import net.dillon.speedrunnermod.SpeedrunnerMod;
-import net.dillon.speedrunnermod.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.client.util.ModLinks;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -32,8 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.
@@ -57,10 +58,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
     @Override
     protected void init() {
         if (isOptionsScreen()) {
+            this.optionList = this.addDrawableChild(new OptionListWidget(this.client, this.width, this));
             this.saveButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.SAVE, (button) -> {
                 this.close();
             }).dimensions(this.getButtonsLeftSide(), this.getDoneButtonsHeight(), 100, 20).build());
 
+            this.configFile = configHandler().getConfigFile();
             this.openOptionsFileButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MENU_OPEN_OPTIONS_FILE, (button) -> {
                 this.close();
                 Util.getOperatingSystem().open(this.configFile);
@@ -100,7 +103,10 @@ public abstract class AbstractModScreen extends BaseModScreen {
     @Override
     public void close() {
         if (this.isOptionsScreen()) {
-            ModOptions.saveConfig();
+            saveAllChanges();
+            if (this.client.world != null) {
+                ClientModPackets.sendNewC2SOptions();
+            }
 
             LeaderboardsIneligibleScreen.needsRestart = false;
             LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = false;
@@ -152,10 +158,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
         }
 
         if (this.isOptionsScreen()) {
-            this.optionList.render(context, mouseX, mouseY, delta);
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-        } else if (buttonList != null) {
-            this.buttonList.render(context, mouseX, mouseY, delta);
+            this.optionList.render(context, mouseX, mouseY, delta);
+        } else {
+            if (this.buttonList != null) {
+                this.buttonList.render(context, mouseX, mouseY, delta);
+            }
         }
 
         if (this.refreshButton != null) {
@@ -182,6 +190,15 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
+     * Fixes resizing issues.
+     */
+    @Override
+    public void resize(MinecraftClient client, int width, int height) {
+        super.resize(client, width, height);
+        this.clearAndInit();
+    }
+
+    /**
      * Renders tooltips on certain buttons.
      */
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
@@ -199,12 +216,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
             }
         }
-    }
-
-    /**
-     * Renders all {@link SimpleOption} tooltips.
-     */
-    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
     }
 
     /**
@@ -274,13 +285,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
             this.client.scheduleStop();
             n.printStackTrace();
         }
-    }
-
-    /**
-     * Initializes a {@code option list widget.}
-     */
-    protected void initializeOptionListWidget() {
-        this.optionList = this.addDrawableChild(new OptionListWidget(this.client, this.width, this));
     }
 
     /**
@@ -360,6 +364,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Render custom objects on a mod screen.
      */
     protected void renderCustomObjects(DrawContext context) {
+    }
+
+    /**
+     * Renders all {@link SimpleOption} tooltips.
+     */
+    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
     }
 
     /**

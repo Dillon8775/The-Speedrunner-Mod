@@ -3,15 +3,13 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.util.TranslationStringKeys;
 import net.dillon.speedrunnermod.option.ModListOptions;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.SimpleOption;
 
-import java.io.File;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 
 /**
  * Configure structure spawn rates individually by each structure.
@@ -43,15 +41,12 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeOptionListWidget();
-
+        super.init();
         this.optionList.addAll(structures());
         this.optionList.addSingleOptionEntry(ModListOptions.structureSpawnRate(TranslationStringKeys.NETHER_COMPLEXES));
 
         this.addSelectableChild(this.optionList);
-        this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModOptions.CONFIG);
-
-        super.init();
+        this.configFile = configHandler().getConfigFile();
     }
 
     @Override

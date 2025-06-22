@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity.boat;
 
-import net.dillon.speedrunnermod.entity.ModBoats;
+import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModFluidTags;
 import net.dillon.speedrunnermod.util.Author;
@@ -28,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Supplier;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * A mixin to register, control, and fix modded boats.
@@ -56,7 +56,7 @@ public abstract class AbstractBoatEntityMixin extends Entity {
             abstractBoat.setVelocity(abstractBoat.getVelocity().multiply(ModConstants.LAVA_BOAT_VELOCITY_MULTIPLIER));
         }
 
-        if (ModBoats.isFastBoat(this.itemSupplier)) {
+        if (ModEntityTypes.isFastBoat(this.itemSupplier)) {
             abstractBoat.setVelocity(abstractBoat.getVelocity().multiply(ModConstants.FAST_BOAT_VELOCITY_MULTIPLIER));
         }
     }
@@ -77,7 +77,7 @@ public abstract class AbstractBoatEntityMixin extends Entity {
     @Override
     public boolean isFireImmune() {
         if (options().main.lavaBoats) {
-            return ModBoats.isFireproofBoat(this.itemSupplier) || super.isFireImmune();
+            return ModEntityTypes.isFireproofBoat(this.itemSupplier) || super.isFireImmune();
         } else {
             return super.isFireImmune();
         }

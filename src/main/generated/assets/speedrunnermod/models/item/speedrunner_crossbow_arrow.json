@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/crossbow",
+  "textures": {
+    "layer0": "speedrunnermod:item/speedrunner_crossbow_arrow"
+  }
+}

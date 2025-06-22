@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * <p>Makes default Minecraft villager trades, better!</p>

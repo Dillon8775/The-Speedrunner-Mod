@@ -17,7 +17,7 @@ import net.minecraft.world.World;
  * <p>Copied over from the original {@link net.minecraft.recipe.ShieldDecorationRecipe}.</p>
  */
 public class SpeedrunnerShieldDecorationRecipe extends SpecialCraftingRecipe {
-    public static SpecialRecipeSerializer<SpeedrunnerShieldDecorationRecipe> SPEEDRUNNER_SHIELD_DECORATION_RECIPE = new SpecialRecipeSerializer<>(SpeedrunnerShieldDecorationRecipe::new);
+    protected static SpecialRecipeSerializer<SpeedrunnerShieldDecorationRecipe> SPEEDRUNNER_SHIELD_DECORATION_RECIPE = new SpecialRecipeSerializer<>(SpeedrunnerShieldDecorationRecipe::new);
 
     public SpeedrunnerShieldDecorationRecipe(CraftingRecipeCategory category) {
         super(category);
@@ -73,10 +73,6 @@ public class SpeedrunnerShieldDecorationRecipe extends SpecialCraftingRecipe {
         itemStack2.set(DataComponentTypes.BANNER_PATTERNS, itemStack.get(DataComponentTypes.BANNER_PATTERNS));
         itemStack2.set(DataComponentTypes.BASE_COLOR, ((BannerItem)itemStack.getItem()).getColor());
         return itemStack2;
-    }
-
-    public boolean fits(int width, int height) {
-        return width * height >= 2;
     }
 
     @Override

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "shields",
+  "key": {
+    "W": "#minecraft:planks",
+    "o": "speedrunnermod:speedrunner_ingot"
+  },
+  "pattern": [
+    "WoW",
+    "WWW",
+    " W "
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunner_shield"
+  }
+}

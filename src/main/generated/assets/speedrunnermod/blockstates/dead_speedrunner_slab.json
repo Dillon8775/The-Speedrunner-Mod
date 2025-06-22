@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "speedrunnermod:block/dead_speedrunner_slab"
+    },
+    "type=double": {
+      "model": "speedrunnermod:block/dead_speedrunner_planks"
+    },
+    "type=top": {
+      "model": "speedrunnermod:block/dead_speedrunner_slab_top"
+    }
+  }
+}

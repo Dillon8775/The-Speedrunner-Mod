@@ -1,0 +1,39 @@
+{
+  "parent": "speedrunnermod:items/speedrunning_time",
+  "criteria": {
+    "speedrunnermod:speedrunners_wasteland": {
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "location": {
+                "biomes": "speedrunnermod:speedrunners_wasteland"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:location"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.what_a_wasteland.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunner_sapling"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.what_a_wasteland.title"
+    }
+  },
+  "requirements": [
+    [
+      "speedrunnermod:speedrunners_wasteland"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

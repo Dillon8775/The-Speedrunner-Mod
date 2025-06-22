@@ -246,27 +246,20 @@
   "item.speedrunnermod.infini_pearl.tooltip.line1": "An ender pearl that does not get",
   "item.speedrunnermod.infini_pearl.tooltip.line2": "consumed nor do damage upon use.",
 
-  "item.speedrunnermod.blaze_spotter.found_blaze_spawner": "The blazes await...",
-  "item.speedrunnermod.blaze_spotter.confirm": "Do you wish to teleport to the nearest blaze spawner? Right-click to confirm.",
   "item.speedrunnermod.blaze_spotter.couldnt_find_spawner": "Couldn't find a blaze spawner within a reasonable distance!",
   "item.speedrunnermod.blaze_spotter.wrong_dimension": "You must be in the nether to use this item!",
 
-  "item.speedrunnermod.piglin_awakener.got_piglins": "The piglins are waiting to be unleashed...",
-  "item.speedrunnermod.piglin_awakener.confirm": "Do you wish to teleport summon nearby piglin? Right-click to confirm.",
   "item.speedrunnermod.piglin_awakener.couldnt_find_piglins": "Couldn't find any nearby piglin!",
   "item.speedrunnermod.piglin_awakener.wrong_dimension": "You must be in the nether to use this item!",
   "item.speedrunnermod.piglin_awakener.unsafe": "The piglins require you to put on some gold armor.",
   "item.speedrunnermod.piglin_awakener.no_gold_ingot": "The piglins require that you have gold in your inventory.",
   "item.speedrunnermod.piglin_awakener_craftable": "Can be used to craft the piglin awakener item.",
 
-  "item.speedrunnermod.raid_eradicator.found_raiders": "The raiders are coming... brace for impact.",
-  "item.speedrunnermod.raid_eradicator.confirm": "Do you wish to purge all nearby raider entities? Right-click to confirm.",
   "item.speedrunnermod.raid_eradicator.no_totem": "Where's your totem...?",
   "item.speedrunnermod.raid_eradicator.couldnt_find_raiders": "Couldn't find any nearby raiders!",
   "item.speedrunnermod.raid_eradicator.success": "%s...",
   "item.speedrunnermod.raid_eradicator.purged": "THE RAIDERS HAVE BEEN PURGED.",
 
-  "item.speedrunnermod.ender_thruster.confirm": "Do you wish to teleport to the surface? Right-click to confirm.",
   "item.speedrunnermod.ender_thruster.wrong_dimension": "You can't use this item in the nether.",
   "item.speedrunnermod.ender_thruster.couldnt_teleport": "Couldn't teleport, you are already on the highest Y-level available.",
 
@@ -278,10 +271,8 @@
 
   "item.speedrunnermod.eye.blocks_away": "The nearest %s is %s blocks away.",
 
-  "item.speedrunnermod.eye_of_annul.found_portal_room": "The portal room has been found!",
   "item.speedrunnermod.eye_of_annul.couldnt_find_portal_room": "Couldn't find a portal room!",
   "item.speedrunnermod.eye_of_annul.doom_mode": "Haha... that doesn't work on doom mode! >:)",
-  "item.speedrunnermod.eye_of_annul.confirm": "Do you wish to teleport to the portal room? Right-click to confirm.",
   "item.speedrunnermod.eye_of_annul.teleporting": "The gatekeeper wishes you luck.",
   "item.speedrunnermod.eye_of_annul.wrong_dimension": "You must be in the overworld to use this item!",
   "item.speedrunnermod.eye_of_annul.no_ender_eye": "The gatekeeper requests an ender eye.",
@@ -478,7 +469,6 @@
   "speedrunnermod.restart_now": "Restart Now",
   "speedrunnermod.restart_now.tooltip": "Restart the game to fully apply the §lleaderboards mode,§r so you can begin submitting your speedruns.",
   "speedrunnermod.fix_and_restart": "Fix and Restart",
-  "speedrunnermod.fix_and_restart.tooltip": "Fix the options and close the game. You will need to manually re-open the game to apply changes.",
   "speedrunnermod.revert_changes": "Revert Changes",
   "speedrunnermod.revert_changes.tooltip": "Revert your changes to keep leaderboard eligibility.",
   "speedrunnermod.title.speedrun_igt_missing": "SpeedrunIGT Mod Missing",
@@ -492,7 +482,7 @@
   "speedrunnermod.disable_leaderboards_mode_and_restart": "Disable & Restart",
   "speedrunnermod.disable_leaderboards_mode_and_restart.tooltip": "Disable §lleaderboards mode,§r and close the game. This will mean you will §lnot§r be eligible for any leaderboard submissions until you re-enable.",
   "speedrunnermod.proceed_anyway": "Proceed Anyway",
-  "speedrunnermod.proceed_anyway.tooltip": "Ignore errors and proceed anyway. This could cause issues, so be aware!",
+  "speedrunnermod.proceed_anyway.tooltip": "Ignore errors and proceed anyway. This WILL cause the game to crash at some point, due to whatever option is broken. It is §ohighly recommended§r§f to fix the options instead.",
   "speedrunnermod.ignore": "Ignore",
   "speedrunnermod.ignore.tooltip": "Ignore ineligible options and proceed anyway. You will not be able to submit any leaderboard runs until you re-enable.",
   "speedrunnermod.ignore_restart.tooltip": "Ignore restarting your game and proceed anyway. You will not be able to submit any leaderboard runs until your game is restarted.",
@@ -545,10 +535,6 @@
   "speedrunnermod.options.structure_spawn_rates.tooltip": "Change how often structures spawn.\n\n§c§lWarning:§r Higher spawn rates may cause lag and drastically increase world load time.\n\n§e§lRequires world reload.",
   "speedrunnermod.options.tutorial_mode": "Tutorial Mode",
   "speedrunnermod.options.tutorial_mode.tooltip": "§b§o(BETA) §rA helper mode for new players to guide them through the mod.",
-  "speedrunnermod.options.item_tooltips": "Item Tooltips",
-  "speedrunnermod.options.item_tooltips.tooltip": "Adds helpful tooltips to certain items.",
-  "speedrunnermod.options.texture_tooltips": "Texture Tooltips",
-  "speedrunnermod.options.texture_tooltips.tooltip": "Adds tooltips to items who's texture was not created by the creator of this mod.",
   "speedrunnermod.options.icarus_mode": "iCarus Mode",
   "speedrunnermod.options.icarus_mode.tooltip": "Grants the player with an §lElytra§r and §lfirework rockets§r upon world creation.",
   "speedrunnermod.options.icarus_mode_must_be_enabled.tooltip": "§l\"iCarus Mode\"§r must be §aenabled§r to modify this option.",
@@ -668,8 +654,6 @@
   "speedrunnermod.options.item_messages.tooltip": "Choose whether certain messages are sent to the §lchat§r or the §lactionbar§r (located above your hotbar).",
   "speedrunnermod.options.show_death_cords": "Show Death Cords",
   "speedrunnermod.options.show_death_cords.tooltip": "Sends the players coordinates to chat upon death, and displays them on the death screen.",
-  "speedrunnermod.options.confirm_messages": "Confirmation Messages",
-  "speedrunnermod.options.confirm_messages.tooltip": "Allow confirmation messages to appear when using certain items (ex. eye of annul, ender thruster, piglin awakener, etc.).",
 
   "speedrunnermod.menu.options.mixins": "Mixins...",
   "speedrunnermod.menu.options.mixins.tooltip": "Configure Speedrunner Mod features that modify the vanilla game.",
@@ -1023,9 +1007,6 @@
   "speedrunnermod.fog.mixin_disabled": "Fog mixin has been disabled. Re-enable it in the advanced Speedrunner Mod options to use this feature.",
 
   "speedrunnermod.entity_boat_paddle_lava": "Rowing",
-
-  "speedrunnermod.texture_creator.mannyqueso": "§7Texture created by §eMannyQUESO.",
-  "speedrunnermod.texture_creator.krevikus": "§7Texture created by §akrevikus.",
 
   "deathScreen.title": "Dead run!",
   "deathScreen.titleScreen": "Quit",

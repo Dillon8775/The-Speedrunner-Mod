@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "speedrunnermod:block/speedrunner_planks",
+    "side": "speedrunnermod:block/speedrunner_planks",
+    "top": "speedrunnermod:block/speedrunner_planks"
+  }
+}

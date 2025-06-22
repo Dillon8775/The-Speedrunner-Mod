@@ -1,0 +1,31 @@
+{
+  "parent": "speedrunnermod:items/piglin_rally",
+  "criteria": {
+    "used_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:blaze_spotter"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.the_blazez_awaitz.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:blaze_spotter"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.the_blazez_awaitz.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    "speedrunnermod:speedrunner_sign",
+    "speedrunnermod:speedrunner_wall_sign",
+    "speedrunnermod:speedrunner_hanging_sign",
+    "speedrunnermod:speedrunner_hanging_wall_sign",
+    "speedrunnermod:dead_speedrunner_sign",
+    "speedrunnermod:dead_speedrunner_wall_sign",
+    "speedrunnermod:dead_speedrunner_hanging_sign",
+    "speedrunnermod:dead_speedrunner_hanging_wall_sign"
+  ]
+}

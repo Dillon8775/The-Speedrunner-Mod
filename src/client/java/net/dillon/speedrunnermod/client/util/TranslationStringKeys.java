@@ -6,13 +6,6 @@ import net.dillon.speedrunnermod.option.ModListOptions;
  * Certain translation keys used in {@link ModListOptions}.
  */
 public class TranslationStringKeys {
-    public static final String ANNUL_EYE = "annul_eye";
-    public static final String BLAZE_SPOTTER = "blaze_spotter";
-    public static final String DRAGONS_PEARL = "dragons_pearl";
-    public static final String DRAGONS_SWORD = "dragons_sword";
-    public static final String ENDER_THRUSTER = "ender_thruster";
-    public static final String PIGLIN_AWAKENER = "piglin_awakener";
-    public static final String RAID_ERADICATOR = "raid_eradicator";
     public static final String ANCIENT_CITY = "ancient_city";
     public static final String VILLAGE = "village";
     public static final String DESERT_PYRAMID = "desert_pyramid";

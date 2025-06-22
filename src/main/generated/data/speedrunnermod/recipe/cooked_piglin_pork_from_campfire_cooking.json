@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 60,
+  "experience": 0.35,
+  "ingredient": "speedrunnermod:piglin_pork",
+  "result": {
+    "id": "speedrunnermod:cooked_piglin_pork"
+  }
+}

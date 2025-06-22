@@ -1,7 +1,8 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -9,7 +10,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.info;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 @Environment(EnvType.CLIENT)
 public class ResetOptionsConfirmScreen extends AbstractModScreen {
@@ -25,11 +27,12 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
         int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET_CONFIRM, (buttonWidget) -> {
             if (tutorial) {
-                ModOptions.resetAllTutorialModeOptions();
+                ModUtil.resetAllTutorialModeOptions();
             } else {
-                ModOptions.resetAllOptions();
+                ModUtil.resetAllOptions();
+                ClientModOptions.resetAllClientOptions();
             }
-            ModOptions.saveConfig();
+            saveAllChanges();
             info("Successfully reset all options. Restart the game to take full effect.");
             this.client.setScreen(new ResetOptionsScreen(this.parent));
         }).dimensions(this.getButtonsLeftSide(), height, 150, 20).build());

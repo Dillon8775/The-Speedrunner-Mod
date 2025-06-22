@@ -9,7 +9,7 @@ import net.dillon.speedrunnermod.util.Credit;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * Contains helper methods used to create certain objects and arrays in JSON files.

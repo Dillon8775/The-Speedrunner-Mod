@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.util;
 
 import net.minecraft.world.World;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * Constant variables used across the Speedrunner Mod.

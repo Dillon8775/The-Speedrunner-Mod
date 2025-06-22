@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": "#speedrunnermod:speedrunner_planks",
+    "@": "speedrunnermod:speedrunner_ingot"
+  },
+  "pattern": [
+    "@@",
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunners_workbench"
+  }
+}

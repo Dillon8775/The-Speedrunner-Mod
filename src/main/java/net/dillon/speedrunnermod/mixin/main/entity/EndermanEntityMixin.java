@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(EndermanEntity.class)
 public class EndermanEntityMixin extends HostileEntity {
