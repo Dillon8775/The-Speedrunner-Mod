@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TutorialStep;
@@ -40,7 +41,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
 
     public PiglinAwakenerItem(Settings settings) {
-        super(settings.maxCount(16));
+        super(settings.component(ModDataComponentTypes.ITEM_TO_DROP_ON_WRONG_PLAYING_MODE, ItemStack.EMPTY).maxCount(16));
     }
 
     @Override
@@ -118,11 +119,11 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
                 player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                stack.decrement(1);
                 for (int i = 0; i < 8; i++) {
                     player.dropItem((ServerWorld)world, Items.GOLD_INGOT);
                 }
-                player.dropItem((ServerWorld)world, stack.get(ModDataComponentTypes.ITEM_TO_DROP_ON_WRONG_PLAYING_MODE).getItem());
+                player.dropItem((ServerWorld)world, stack.getOrDefault(ModDataComponentTypes.ITEM_TO_DROP_ON_WRONG_PLAYING_MODE, ItemStack.EMPTY).getItem());
+                stack.decrement(1);
             }
         }
 

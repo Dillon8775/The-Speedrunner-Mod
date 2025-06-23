@@ -19,10 +19,10 @@ public class ModRecipes {
     }
 
     /**
-     * Initializes all Speedrunner Mod {@code custom recipes.}
+     * Registers all Speedrunner Mod {@code custom recipes.}
      */
     public static void registerCustomRecipes() {
         register("crafting_special_speedrunner_shield_decoration", SpeedrunnerShieldDecorationRecipe.SPEEDRUNNER_SHIELD_DECORATION_RECIPE);
-        register("crafting_piglin_awakener", PiglinAwakenerRecipe.PIGLIN_AWAKENER_RECIPE);
+        register("piglin_awakener", PiglinAwakenerRecipe.PIGLIN_AWAKENER_RECIPE);
     }
 }

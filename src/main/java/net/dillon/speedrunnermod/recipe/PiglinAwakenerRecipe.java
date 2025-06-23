@@ -2,19 +2,27 @@ package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tag.ModItemTags;
+import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.IngredientPlacement;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
+import net.minecraft.recipe.display.RecipeDisplay;
+import net.minecraft.recipe.display.SlotDisplay;
+import net.minecraft.recipe.display.SmithingRecipeDisplay;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * The recipe for the piglin awakener recipe, which makes it drop the correct item if crafted on the wrong mode.
@@ -64,13 +72,45 @@ public class PiglinAwakenerRecipe extends SpecialCraftingRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = new ItemStack(ModItems.PIGLIN_AWAKENER);
 
-        ItemStack center = input.getStackInSlot(CENTER_SLOT); // 5 is center slot
+        ItemStack center = input.getStackInSlot(CENTER_SLOT); // 4 is center slot
 
-        if (!center.isEmpty()) {
+        if (center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             result.set(ModDataComponentTypes.ITEM_TO_DROP_ON_WRONG_PLAYING_MODE, center.copyWithCount(1));
         }
 
         return result;
+    }
+
+    @Override
+    public boolean isIgnoredInRecipeBook() {
+        return false;
+    }
+
+    @Override
+    public IngredientPlacement getIngredientPlacement() {
+        return IngredientPlacement.forMultipleSlots(List.of(
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItems(
+                        Items.ENDER_PEARL,
+                        Items.BLAZE_POWDER,
+                        Items.GOLDEN_APPLE,
+                        Items.ENCHANTED_GOLDEN_APPLE,
+                        Items.GOLDEN_CARROT
+                )),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT)),
+                Optional.of(Ingredient.ofItem(Items.GOLD_INGOT))
+        ));
+    }
+
+    @Override
+    public List<RecipeDisplay> getDisplays() {
+        return List.of(
+        );
     }
 
     @Override
