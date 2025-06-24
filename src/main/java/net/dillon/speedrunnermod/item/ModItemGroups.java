@@ -93,6 +93,7 @@ public class ModItemGroups {
                         }
                         entries.add(ModItems.WITHER_SWORD);
                         entries.add(ModItems.WITHER_BONE);
+                        entries.add(ModItems.SPEEDRUNNER_PADDLE);
                         entries.add(ModItems.SPEEDRUNNER_BOAT);
                         entries.add(ModItems.SPEEDRUNNER_CHEST_BOAT);
                         entries.add(ModItems.DEAD_SPEEDRUNNER_BOAT);

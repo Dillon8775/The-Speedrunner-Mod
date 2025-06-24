@@ -227,6 +227,9 @@ public class ModItems {
         }
     }, new Item.Settings().rarity(Rarity.RARE).maxCount(16));
 
+    public static final Item SPEEDRUNNER_PADDLE = Items.register(of("speedrunner_paddle"), Item::new,
+            new Item.Settings().maxCount(16));
+
     public static final Item WITHER_SWORD = Items.register(of("wither_sword"), WitherSwordItem::new);
     public static final Item ANNUL_EYE = Items.register(of("annul_eye"), AnnulEyeItem::new);
     public static final Item SPEEDRUNNERS_EYE = Items.register(of("speedrunners_eye"), SpeedrunnersEyeItem::new);

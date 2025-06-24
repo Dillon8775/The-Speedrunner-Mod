@@ -147,6 +147,7 @@ public class ModModelGenerator extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_SHOVEL, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.SPEEDRUNNER_PADDLE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_AXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_HOE, Models.HANDHELD);

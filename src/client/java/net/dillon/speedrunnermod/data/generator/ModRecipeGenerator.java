@@ -122,7 +122,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK, false);
 
                 helper.createBoatSet(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
-                helper.createBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS);
                 helper.createBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS);
                 helper.createBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS);
 
@@ -850,6 +849,39 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(ModItems.SPEEDRUNNER_INGOT)
                         .criterion("has_speedrunner_ingot", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL))
                         .group("flint_and_steels")
+                        .offerTo(this.exporter);
+
+                this.createShaped(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_PADDLE)
+                        .input('I', ModItems.SPEEDRUNNER_INGOT)
+                        .input('B', ModItems.SPEEDRUNNER_BLOCK)
+                        .input('S', ModItems.SPEEDRUNNER_STICK)
+                        .pattern("I")
+                        .pattern("B")
+                        .pattern("S")
+                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .offerTo(this.exporter);
+
+                this.createShaped(RecipeCategory.TRANSPORTATION, ModItems.SPEEDRUNNER_BOAT)
+                        .input('#', ModItems.SPEEDRUNNER_PLANKS)
+                        .input('L', Items.LAVA_BUCKET)
+                        .input('P', ModItems.SPEEDRUNNER_PADDLE)
+                        .pattern("P P")
+                        .pattern("#L#")
+                        .pattern("###")
+                        .group("boat")
+                        .criterion("has_speedrunner_paddle", this.conditionsFromItem(ModItems.SPEEDRUNNER_PADDLE))
+                        .offerTo(this.exporter);
+
+                this.createShaped(RecipeCategory.TRANSPORTATION, ModItems.SPEEDRUNNER_CHEST_BOAT)
+                        .input('#', ModItems.SPEEDRUNNER_PLANKS)
+                        .input('L', Items.LAVA_BUCKET)
+                        .input('P', ModItems.SPEEDRUNNER_PADDLE)
+                        .input('C', Items.CHEST)
+                        .pattern("PCP")
+                        .pattern("#L#")
+                        .pattern("###")
+                        .group("boat")
+                        .criterion("has_speedrunner_paddle", this.conditionsFromItem(ModItems.SPEEDRUNNER_PADDLE))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.MISC, ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE, 2)

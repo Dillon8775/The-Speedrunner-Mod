@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_boat": {
+    "has_speedrunner_paddle": {
       "conditions": {
         "items": [
           {
-            "items": "#minecraft:boats"
+            "items": "speedrunnermod:speedrunner_paddle"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_boat"
+      "has_speedrunner_paddle"
     ]
   ],
   "rewards": {

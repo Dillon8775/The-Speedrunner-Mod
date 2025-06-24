@@ -15,7 +15,6 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -165,13 +164,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Prevents rendering darkening twice on {@code AbstractModScreen}s.
-     */
-    @Override
-    protected void renderDarkening(DrawContext context) {
-    }
-
-    /**
      * Allows the user to reload the screen by pressing "R" on their keyboard.
      */
     @Override
@@ -184,29 +176,10 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Fixes resizing issues.
-     */
-    @Override
-    public void resize(MinecraftClient client, int width, int height) {
-        this.clearButtons(this);
-        super.resize(client, width, height);
-        this.clearAndInit();
-    }
-
-    /**
      * Initializes the custom button list widget. Used similarly to an {@link OptionListWidget}, but for normal buttons. Also see {@link AbstractScrollableScreen} for the top Y.
      */
     protected void initializeCustomButtonListWidget() {
         this.buttonList = this.addDrawableChild(new CustomButtonListWidget(this.client, this.width, this));
-    }
-
-    /**
-     * Clears the buttons based on the correct screen.
-     */
-    private void clearButtons(Screen screen) {
-        if (screen instanceof AbstractModScreen abstractModScreen && !abstractModScreen.buttons.isEmpty()) {
-            abstractModScreen.buttons.clear();
-        }
     }
 
     /**

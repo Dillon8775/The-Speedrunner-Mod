@@ -40,6 +40,16 @@ public class BaseModScreen extends GameOptionsScreen {
     }
 
     /**
+     * Fixes resizing issues.
+     */
+    @Override
+    public void resize(MinecraftClient client, int width, int height) {
+        this.clearButtons(this);
+        super.resize(client, width, height);
+        this.clearAndInit();
+    }
+
+    /**
      * An easier way to open a link.
      */
     protected void openLink(String link, boolean trusted) {
@@ -48,7 +58,17 @@ public class BaseModScreen extends GameOptionsScreen {
                 Util.getOperatingSystem().open(link);
             }
             this.client.setScreen(this);
+            this.resize(this.client, this.width, this.height);
         }, link, trusted));
+    }
+
+    /**
+     * Clears the buttons based on the correct screen.
+     */
+    protected void clearButtons(Screen screen) {
+        if (screen instanceof AbstractModScreen abstractModScreen && !abstractModScreen.buttons.isEmpty()) {
+            abstractModScreen.buttons.clear();
+        }
     }
 
     /**

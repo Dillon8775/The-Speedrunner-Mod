@@ -12,6 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.screen.ForgingScreenHandler;
@@ -111,8 +112,8 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
         this.enchantmentsToTransfer.clear(); // Reset enchantments to transfer
         this.enchantmentsToRemove.clear(); // Reset enchantments to remove
 
-        // If slot 1 or 2 is empty make sure nothing is returned
-        if (firstSlot.isEmpty() || secondSlot.isEmpty()) {
+        // If slot 1 or 2 is empty, OR is of enchanted book, make sure nothing is returned
+        if (firstSlot.isEmpty() || secondSlot.isEmpty() || firstSlot.isOf(Items.ENCHANTED_BOOK) || secondSlot.isOf(Items.ENCHANTED_BOOK)) {
             return;
         }
 

@@ -3,10 +3,13 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": "speedrunnermod:speedrunner_planks"
+    "#": "speedrunnermod:speedrunner_planks",
+    "L": "minecraft:lava_bucket",
+    "P": "speedrunnermod:speedrunner_paddle"
   },
   "pattern": [
-    "# #",
+    "P P",
+    "#L#",
     "###"
   ],
   "result": {

@@ -3,6 +3,9 @@
 - Fixed server crash with Terraform Wood API (this mod no longer depends on Terraform Wood API).
 - Split client and common sources. Client-sided options are now strictly client-side and do not interfere with the server side. Same with server-side options, they do not interfere with the client-side.
 - Transferring enchantments via the speedrunner's workbench will now damage the output based on each enchantment's transferred level.
+- You can no longer use enchanted books with the speedrunner's workbench.
+- New item! - Speedrunner paddle: used to paddle the speedrunner boat. Crafted with a speedrunner block, speedrunner ingot, and a speedrunner stick.
+- Normal speedrunner boats are now crafted with 5 speedrunner planks, a lava bucket and 2 speedrunner paddles.
 - Removed the button to refresh a screen (you can still press R to do it, this feature was removed because the bug was fixed).
 - Removed custom panorama option.
 - Removed confirmation messages option.

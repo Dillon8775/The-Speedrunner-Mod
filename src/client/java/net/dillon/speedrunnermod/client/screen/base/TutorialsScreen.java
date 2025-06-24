@@ -124,26 +124,27 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         protected void init() {
-            int height = this.getButtonsHeight();
-
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.treasure"), (button) -> {
+            this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.treasure"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=np6fc_z9LUY", false);
-            }).dimensions(this.getButtonsLeftSide(), height, 150, 20).build());
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.bridge"), (button) -> {
+            }).build());
+
+            this.buttons.add(1, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.bridge"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=Dts81nEnzuQ", false);
-            }).dimensions(this.getButtonsRightSide(), height, 150, 20).build());
+            }).build());
 
-            height += 24;
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.stables"), (button) -> {
+            this.buttons.add(2, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.stables"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=WIN-ZtUJfIc", false);
-            }).dimensions(this.getButtonsLeftSide(), height, 150, 20).build());
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.housing"), (button) -> {
-                this.openLink("https://www.youtube.com/watch?v=S0G5asEjrgk", false);
-            }).dimensions(this.getButtonsRightSide(), height, 150, 20).build());
+            }).build());
 
-            this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
+            this.buttons.add(3, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.housing"), (button) -> {
+                this.openLink("https://www.youtube.com/watch?v=S0G5asEjrgk", false);
+            }).build());
+
+            this.buttons.add(4, ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
                 this.close();
-            }).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
+            }).build());
+
+            super.init();
         }
 
         @Override
@@ -187,16 +188,17 @@ public class TutorialsScreen extends AbstractModScreen {
         protected void init() {
             int height = this.getButtonsHeight();
 
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.bastion"), (button) -> {
+            this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.bastion"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=jvTfMLPnMSw", false);
-            }).dimensions(this.getButtonsLeftSide(), height, 150, 20).build());
-            this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.fortress"), (button) -> {
-                this.openLink("https://www.youtube.com/watch?v=Kl_-L9XbJko", false);
-            }).dimensions(this.getButtonsRightSide(), height, 150, 20).build());
+            }).build());
 
-            this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
+            this.buttons.add(1, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.fortress"), (button) -> {
+                this.openLink("https://www.youtube.com/watch?v=Kl_-L9XbJko", false);
+            }).build());
+
+            this.buttons.add(2, ButtonWidget.builder(ScreenTexts.DONE, (button) -> {
                 this.close();
-            }).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
+            }).build());
         }
 
         @Override
