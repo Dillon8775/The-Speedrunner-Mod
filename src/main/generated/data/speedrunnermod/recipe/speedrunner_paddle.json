@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": "speedrunnermod:speedrunner_block",
+    "I": "speedrunnermod:speedrunner_ingot",
+    "S": "speedrunnermod:speedrunner_stick"
+  },
+  "pattern": [
+    "I",
+    "B",
+    "S"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:speedrunner_paddle"
+  }
+}
