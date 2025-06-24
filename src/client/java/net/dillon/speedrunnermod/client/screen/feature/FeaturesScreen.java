@@ -18,8 +18,6 @@ public class FeaturesScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_ALL_FEATURES, (buttonWidget) -> {
             this.client.setScreen(new AllFeaturesScreen(this.parent));
         }).build());

@@ -17,8 +17,6 @@ public class ResourcesScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_MODS, (button) -> {
             this.client.setScreen(new ModsScreen(this.parent));
         }).build());

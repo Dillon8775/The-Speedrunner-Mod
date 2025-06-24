@@ -59,6 +59,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected void init() {
         if (isOptionsScreen()) {
             this.optionList = this.addDrawableChild(new OptionListWidget(this.client, this.width, this));
+
             this.saveButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.SAVE, (button) -> {
                 this.close();
             }).dimensions(this.getButtonsLeftSide(), this.getDoneButtonsHeight(), 100, 20).build());
@@ -80,28 +81,20 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.close();
                 Util.getOperatingSystem().open(this.configDirectory);
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
-            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
-                this.refreshScreen(this.pageId());
-            }).dimensions(this.getRefreshButtonWidth(), this.getDoneButtonsHeight(), 20, 20).build());
         } else {
-            if (this.buttonList != null) {
+            if (!this.buttons.isEmpty()) {
+                this.initializeCustomButtonListWidget();
+                // this.clearButtons();
                 this.buttonList.addAll(this.buttons);
                 this.addSelectableChild(this.buttonList);
             }
             this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
-            this.refreshButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
-                // Check what to refresh correctly
-                if (this instanceof AbstractFeatureScreen featureScreen) {
-                    featureScreen.refreshFeatureScreen(featureScreen.getPageNumber(), featureScreen.getScreenCategory());
-                } else {
-                    this.refreshScreen(this.pageId());
-                 }
-            }).dimensions(this.getRefreshButtonWidth(), this.getDoneButtonsHeight(), 20, 20).build());
         }
     }
 
     @Override
     public void close() {
+        this.clearButtons(this.parent);
         if (this.isOptionsScreen()) {
             saveAllChanges();
             if (this.client.world != null) {
@@ -128,15 +121,18 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 } else if (!this.alreadySettingToIneligibleScreen && Leaderboards.wasLeaderboardsModeChanged() || RestartRequiredScreen.needsRestart()) {
                     this.client.setScreen(new RestartRequiredScreen(this.parent));
                 } else {
-                    this.client.setScreen(this.parent);
+                    this.setParentAndResize();
                 }
             } else if (RestartRequiredScreen.needsRestart()) {
                 this.client.setScreen(new RestartRequiredScreen(this.parent));
             } else {
-                this.client.setScreen(this.parent);
+                this.setParentAndResize();
             }
         } else {
-            super.close();
+            if (this.body != null) {
+                this.body.applyAllPendingValues();
+            }
+            this.setParentAndResize();
         }
     }
 
@@ -159,22 +155,20 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
         if (this.isOptionsScreen()) {
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-            this.optionList.render(context, mouseX, mouseY, delta);
-        } else {
-            if (this.buttonList != null) {
-                this.buttonList.render(context, mouseX, mouseY, delta);
-            }
         }
 
-        if (this.refreshButton != null) {
-            context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/button/refresh.png"), this.refreshButton.getX() + 2, this.refreshButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-            if (this.refreshButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.REFRESH_SCREEN_TOOLTIP, context, mouseX, mouseY);
-            }
-        }
         this.renderCustomObjects(context);
-        this.renderTooltips(context, mouseX, mouseY);
         this.renderOptionTooltips(context, mouseX, mouseY);
+        if (!this.buttons.isEmpty()) {
+            this.renderTooltips(context, mouseX, mouseY);
+        }
+    }
+
+    /**
+     * Prevents rendering darkening twice on {@code AbstractModScreen}s.
+     */
+    @Override
+    protected void renderDarkening(DrawContext context) {
     }
 
     /**
@@ -194,8 +188,33 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     @Override
     public void resize(MinecraftClient client, int width, int height) {
+        this.clearButtons(this);
         super.resize(client, width, height);
         this.clearAndInit();
+    }
+
+    /**
+     * Initializes the custom button list widget. Used similarly to an {@link OptionListWidget}, but for normal buttons. Also see {@link AbstractScrollableScreen} for the top Y.
+     */
+    protected void initializeCustomButtonListWidget() {
+        this.buttonList = this.addDrawableChild(new CustomButtonListWidget(this.client, this.width, this));
+    }
+
+    /**
+     * Clears the buttons based on the correct screen.
+     */
+    private void clearButtons(Screen screen) {
+        if (screen instanceof AbstractModScreen abstractModScreen && !abstractModScreen.buttons.isEmpty()) {
+            abstractModScreen.buttons.clear();
+        }
+    }
+
+    /**
+     * Sets the screen to the {@code parent} screen and resizes it correctly.
+     */
+    protected void setParentAndResize() {
+        this.parent.resize(this.client, this.width, this.height);
+        this.client.setScreen(this.parent);
     }
 
     /**
@@ -288,21 +307,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Initializes a {@code custom button list widget.}
-     */
-    protected void initializeCustomButtonListWidget() {
-        this.buttonList = this.addDrawableChild(new CustomButtonListWidget(this.client, this.width, this));
-        this.clearButtons();
-    }
-
-    /**
-     * Prevents the buttons from being duplicated onto the screen.
-     */
-    protected void clearButtons() {
-        this.buttons.clear();
-    }
-
-    /**
      * Returns the {@code "left side"} of a screen.
      */
     protected int getButtonsLeftSide() {
@@ -337,13 +341,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected int getDoneButtonsHeight() {
         return this.height - 29;
-    }
-
-    /**
-     * Returns the default width of the refresh button.
-     */
-    protected int getRefreshButtonWidth() {
-        return this.isOptionsScreen() ? this.getButtonsLeftSide() - 24 : this.getButtonsLeftSide() + 30;
     }
 
     /**

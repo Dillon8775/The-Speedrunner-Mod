@@ -239,8 +239,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Initializes top and bottom positions.
      */
     private void initializeTopAndBottom() {
-        top = this.buttonList.getY() + 20;
-        bottom = this.doneButton.getY() - 16;
+        this.top = this.buttonList.getY() + 20;
+        this.bottom = this.doneButton.getY() - 16;
     }
 
     /**
@@ -265,7 +265,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget(); // Initialize button list widget, mainly used just for rendering the top and bottom lines
+        this.initializeCustomButtonListWidget(); // Gets the top Y (the top line) for the screen
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
         loadAndPrintText(ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
@@ -287,7 +287,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             this.scrollOffset = targetScrollOffset;
         }
         super.render(context, mouseX, mouseY, delta);
-        this.buttonList.render(context, mouseX, mouseY, delta);
         context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, 0xFFFFFF);
 
         initializeTopAndBottom();

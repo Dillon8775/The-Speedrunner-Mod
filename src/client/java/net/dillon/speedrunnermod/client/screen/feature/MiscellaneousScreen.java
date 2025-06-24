@@ -15,7 +15,6 @@ public class MiscellaneousScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
         this.addButtonsIteratively(ScreenCategory.MISCELLANEOUS);
 
         super.init();

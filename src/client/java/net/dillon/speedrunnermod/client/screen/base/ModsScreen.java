@@ -17,8 +17,6 @@ public class ModsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(ModTexts.SODIUM, (buttonWidget) -> {
             this.openLink(ModLinks.SODIUM, false);
         }).build());

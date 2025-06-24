@@ -10,7 +10,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
@@ -21,7 +22,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public static ModOptions.PlayingMode currentPlayingMode;
     public static boolean currentBetterVillagerTrades;
     public static boolean currentCustomBiomesAndCustomBiomeFeatures;
-    public static boolean currentConfirmMessages;
     public static boolean currentModifiedStrongholdGeneration;
     public static boolean currentModifiedStrongholdYGeneration;
     public static boolean currentModifiedNetherFortressGeneration;

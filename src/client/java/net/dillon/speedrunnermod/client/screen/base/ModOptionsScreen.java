@@ -23,8 +23,6 @@ public class ModOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
             this.client.setScreen(new MainOptionsScreen(this));
         }).build());

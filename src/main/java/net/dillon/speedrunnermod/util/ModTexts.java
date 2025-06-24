@@ -129,7 +129,6 @@ public class ModTexts {
     public static final Text RESET = Text.translatable("speedrunnermod.reset");
     public static final Text RESET_CONFIRM = Text.translatable("speedrunnermod.reset_confirm");
     public static final Text NOT_NOW = Text.translatable("speedrunnermod.not_now");
-    public static final Text REFRESH_SCREEN_TOOLTIP = Text.translatable("speedrunnermod.refresh_screen");
 
     public static final Text RESTART_NOW = Text.translatable("speedrunnermod.restart_now");
     public static final Text RESTART_LATER = Text.translatable("speedrunnermod.restart_later");

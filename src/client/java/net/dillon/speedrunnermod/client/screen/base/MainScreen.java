@@ -27,8 +27,6 @@ public class MainScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(Text.translatable("menu.options").formatted(getOptionsTextColor()), (button) -> {
             RestartRequiredScreen.getCurrentOptions();
             Leaderboards.getCurrentLeaderboardsMode();

@@ -15,7 +15,6 @@ public class BlocksAndItemsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
         this.addButtonsIteratively(ScreenCategory.BLOCKS_AND_ITEMS);
         super.init();
     }

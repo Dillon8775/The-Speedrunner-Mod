@@ -68,7 +68,7 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
 
     @Override
     public int getRowWidth() {
-        return 400;
+        return 310;
     }
 
     @Environment(value= EnvType.CLIENT)

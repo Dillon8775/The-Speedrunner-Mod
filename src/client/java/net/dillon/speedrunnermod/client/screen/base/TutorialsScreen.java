@@ -18,8 +18,6 @@ public class TutorialsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes"), (button) -> {
             this.client.setScreen(new BastionRoutesScreen(this.parent));
         }).build());

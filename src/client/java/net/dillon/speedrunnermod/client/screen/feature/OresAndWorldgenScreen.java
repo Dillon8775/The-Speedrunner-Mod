@@ -15,7 +15,6 @@ public class OresAndWorldgenScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
         this.addButtonsIteratively(ScreenCategory.ORES_AND_WORLDGEN);
         super.init();
     }

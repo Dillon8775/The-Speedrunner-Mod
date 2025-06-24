@@ -16,8 +16,6 @@ public class ExternalScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
-
         this.buttons.add(0, ButtonWidget.builder(ModTexts.CURSEFORGE, (buttonWidget) -> {
             this.openLink(ModLinks.CURSEFORGE, false);
         }).build());

@@ -238,14 +238,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
-     * For non-starter screens, shift the refresh button over some.
-     */
-    @Override
-    protected int getRefreshButtonWidth() {
-        return this.getScreenType() != ScreenType.STARTER && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING ? this.getButtonsLeftSide() + 5 : super.getRefreshButtonWidth();
-    }
-
-    /**
      * No page ID's for feature screens, we use page numbers instead.
      */
     @Override

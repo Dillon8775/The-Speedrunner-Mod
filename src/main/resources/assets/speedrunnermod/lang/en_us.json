@@ -4,7 +4,6 @@
 
   "speedrunnermod.first_time_playing.welcome": "Welcome to the §bSpeedrunner Mod!§f\nBefore you begin playing, lets explore what this mod is and it's main features.\n\nUse arrow keys < > to navigate pages.",
   "speedrunnermod.lets_go": "Lets go!",
-  "speedrunnermod.refresh_screen": "Refresh the screen to align buttons correctly (or press \"R\").",
   "speedrunnermod.key_points": "§e§lKey Features:\n§f● Structures generate more commonly.\n● New biome, called the §bSpeedrunner's Wasteland,§f which contains great resources for speedrunning.\n● §aLoot tables§f are buffed!\n● Various new items to help with §aevery aspect§f of §bspeedrunning.",
   "speedrunnermod.playing_mode_option": "There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lBalanced,§r§f and §c§lDoom.\n§b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.\n§e§lBalanced§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.\n§c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.\n\n§a§lWhich mode do you want to play on?",
   "speedrunnermod.playing_mode.easy.tooltip": "Enables all features, results in the quickest speedrunning times.",

@@ -72,7 +72,7 @@ public class SpeedrunnerMod implements ModInitializer {
         ModSoundEvents.initializeSoundEvents();
 
         ModEnchantments.initializeEnchantments();
-        ModRecipes.registerCustomRecipes();
+        ModRecipes.initializeCustomRecipes();
         ModFuels.registerFuels();
 
         ModScreenHandlerTypes.initializeScreenHandlers();

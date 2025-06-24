@@ -17,7 +17,6 @@ import net.minecraft.world.World;
  * <p>Copied over from the original {@link net.minecraft.recipe.ShieldDecorationRecipe}.</p>
  */
 public class SpeedrunnerShieldDecorationRecipe extends SpecialCraftingRecipe {
-    protected static SpecialRecipeSerializer<SpeedrunnerShieldDecorationRecipe> SPEEDRUNNER_SHIELD_DECORATION_RECIPE = new SpecialRecipeSerializer<>(SpeedrunnerShieldDecorationRecipe::new);
 
     public SpeedrunnerShieldDecorationRecipe(CraftingRecipeCategory category) {
         super(category);
@@ -77,6 +76,6 @@ public class SpeedrunnerShieldDecorationRecipe extends SpecialCraftingRecipe {
 
     @Override
     public RecipeSerializer<? extends SpecialCraftingRecipe> getSerializer() {
-        return SPEEDRUNNER_SHIELD_DECORATION_RECIPE;
+        return ModRecipes.SPEEDRUNNER_SHIELD_DECORATION_RECIPE;
     }
 }

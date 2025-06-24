@@ -12,7 +12,6 @@ import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -23,7 +22,6 @@ import java.util.function.Function;
  */
 @Environment(EnvType.CLIENT)
 public class BaseModScreen extends GameOptionsScreen {
-    public ButtonWidget refreshButton;
 
     public BaseModScreen(Screen parent, Text title) {
         super(parent, MinecraftClient.getInstance().options, title);

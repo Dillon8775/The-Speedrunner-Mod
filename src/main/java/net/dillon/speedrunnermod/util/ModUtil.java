@@ -1,13 +1,10 @@
 package net.dillon.speedrunnermod.util;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
@@ -35,8 +32,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 
-import java.io.File;
-import java.io.FileReader;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
