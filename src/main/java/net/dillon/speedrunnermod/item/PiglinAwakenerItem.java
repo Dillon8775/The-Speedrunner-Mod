@@ -39,7 +39,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
 
     public PiglinAwakenerItem(Settings settings) {
-        super(settings.component(ModDataComponentTypes.ITEM_TO_DROP_ON_WRONG_PLAYING_MODE, ItemStack.EMPTY).maxCount(16));
+        super(settings.component(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY).maxCount(16));
     }
 
     @Override
@@ -120,7 +120,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                 for (int i = 0; i < 8; i++) {
                     player.dropItem((ServerWorld)world, Items.GOLD_INGOT);
                 }
-                player.dropItem((ServerWorld)world, stack.getOrDefault(ModDataComponentTypes.ITEM_TO_DROP_ON_WRONG_PLAYING_MODE, ItemStack.EMPTY).getItem());
+                player.dropItem((ServerWorld)world, stack.getOrDefault(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY).getItem());
                 stack.decrement(1);
             }
         }

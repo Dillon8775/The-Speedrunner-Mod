@@ -27,8 +27,8 @@ public class ModDataComponentTypes {
     public static final ComponentType<TagKey<Structure>> LOCATING_STRUCTURE = Registry.register(
             Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("locating_structure"), ComponentType.<TagKey<Structure>>builder().codec(TagKey.codec(RegistryKeys.STRUCTURE)).build());
 
-    public static final ComponentType<ItemStack> ITEM_TO_DROP_ON_WRONG_PLAYING_MODE = Registry.register(
-            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("item_to_drop_on_wrong_playing_mode"), ComponentType.<ItemStack>builder().codec(ItemStack.OPTIONAL_CODEC).packetCodec(ItemStack.OPTIONAL_PACKET_CODEC).build());
+    public static final ComponentType<ItemStack> STORED_ITEMSTACK = Registry.register(
+            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("stored_itemstack"), ComponentType.<ItemStack>builder().codec(ItemStack.OPTIONAL_CODEC).packetCodec(ItemStack.OPTIONAL_PACKET_CODEC).build());
 
     public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
             List.of(
