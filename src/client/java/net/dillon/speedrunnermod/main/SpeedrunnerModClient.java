@@ -75,7 +75,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
                 SpeedrunnerModClient.ALL_MOD_SCREENS.add(creator);
             } catch (NoSuchMethodException e) {
-                SpeedrunnerMod.warn("Skipping " + modScreen.getName() + ": doesn't have (Screen) constructor.");
+                SpeedrunnerMod.debug("Skipping " + modScreen.getName() + ": doesn't have (Screen) constructor.");
             }
         }
 
@@ -94,13 +94,13 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
                 SpeedrunnerModClient.ALL_FEATURE_SCREENS.add(creator);
             } catch (NoSuchMethodException e) {
-                SpeedrunnerMod.warn("Skipping " + featureScreen.getName() + ": doesn't have (Screen) constructor.");
+                SpeedrunnerMod.debug("Skipping " + featureScreen.getName() + ": doesn't have (Screen) constructor.");
             }
         }
 
         Leaderboards.initializeLeaderboards();
 
-        info("Client-side Speedrunner Mod features have successfully loaded!");
+        info("The client-side for The Speedrunner Mod has successfully loaded.");
     }
 
     /**

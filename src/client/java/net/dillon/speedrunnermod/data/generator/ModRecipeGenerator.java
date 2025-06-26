@@ -905,11 +905,14 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
-                        .input('@', ModItems.SPEEDRUNNER_INGOT)
-                        .input('#', ModItemTags.Block.SPEEDRUNNER_PLANKS)
-                        .pattern("@@")
-                        .pattern("##")
-                        .pattern("##")
+                        .input('I', ModItems.SPEEDRUNNER_INGOT)
+                        .input('A', ModItems.SPEEDRUNNER_PADDLE)
+                        .input('B', ModItems.SPEEDRUNNER_BLOCK)
+                        .input('T', ModItemTags.SPEEDRUNNER_TOOLS)
+                        .input('P', ModItemTags.Block.SPEEDRUNNER_PLANKS)
+                        .pattern("III")
+                        .pattern("ABT")
+                        .pattern("PPP")
                         .criterion("has_planks", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH))
                         .offerTo(this.exporter);
 

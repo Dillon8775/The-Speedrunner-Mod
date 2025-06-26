@@ -8,10 +8,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
@@ -20,58 +23,71 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
  */
 @Environment(EnvType.CLIENT)
 public class MainScreen extends AbstractModScreen {
+    private ButtonWidget optionsButton, featuresButton, resourcesButton, externalButton, creditsButton, leaderboardsButton, doomModeButton;
 
     public MainScreen(Screen parent) {
         super(parent, ModTexts.TITLE);
     }
 
     @Override
+    protected List<ClickableWidget> buttons() {
+        return List.of(
+                this.optionsButton,
+                this.featuresButton,
+                this.resourcesButton,
+                this.externalButton,
+                this.creditsButton,
+                this.leaderboardsButton,
+                this.doomModeButton
+        );
+    }
+
+    @Override
     protected void init() {
-        this.buttons.add(0, ButtonWidget.builder(Text.translatable("menu.options").formatted(getOptionsTextColor()), (button) -> {
+        this.optionsButton = ButtonWidget.builder(Text.translatable("menu.options").formatted(getOptionsTextColor()), (button) -> {
             RestartRequiredScreen.getCurrentOptions();
             Leaderboards.getCurrentLeaderboardsMode();
             if (options().main.leaderboardsMode) {
                 Leaderboards.getCurrentOptions();
             }
             this.client.setScreen(new ModOptionsScreen(this));
-        }).build());
-
-        this.buttons.add(1, ButtonWidget.builder(ModTexts.MENU_FEATURES, (button) -> {
+        }).build();
+        this.featuresButton = ButtonWidget.builder(ModTexts.MENU_FEATURES, (button) -> {
             this.client.setScreen(new FeaturesScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(2, ButtonWidget.builder(ModTexts.MENU_RESOURCES, (button) -> {
+        this.resourcesButton = ButtonWidget.builder(ModTexts.MENU_RESOURCES, (button) -> {
             this.client.setScreen(new ResourcesScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_EXTERNAL, (button) -> {
+        this.externalButton = ButtonWidget.builder(ModTexts.MENU_EXTERNAL, (button) -> {
             this.client.setScreen(new ExternalScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
+        this.creditsButton = ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
             this.client.setScreen(new ModCreditsScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
+        this.leaderboardsButton = ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
             this.client.setScreen(new LeaderboardsScreen(this));
-        }).build());
-        this.buttons.get(5).active = false;
+        }).build();
+        this.leaderboardsButton.active = false;
 
-        this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
+        this.doomModeButton = ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
             if (SecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
                 this.client.setScreen(new SecretDoomModeScreen.ScreenFive(this));
             } else {
                 this.client.setScreen(new SecretDoomModeScreen(this));
             }
-        }).build());
-        this.buttons.get(6).visible = options().main.playingMode.doom();
+        }).build();
+        this.doomModeButton.visible = options().main.playingMode.doom();
 
         super.init();
     }
 
     @Override
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.buttons.get(0).isHovered()) {
+        if (this.optionsButton.isHovered()) {
             if (options().main.leaderboardsMode) {
                 if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                     this.renderBasicTooltip(ModTexts.MENU_OPTIONS_ACTION_NEEDED, context, mouseX, mouseY);
@@ -82,13 +98,13 @@ public class MainScreen extends AbstractModScreen {
                 this.renderBasicTooltip(ModTexts.MENU_OPTIONS_TOOLTIP, context, mouseX, mouseY);
             }
         }
-        if (this.buttons.get(1).isHovered()) {
+        if (this.featuresButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_FEATURES_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(2).isHovered()) {
+        if (this.resourcesButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_RESOURCES_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(5).isHovered()) {
+        if (this.leaderboardsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_LEADERBOARDS_DISABLED, context, mouseX, mouseY);
         }
         super.renderTooltips(context, mouseX, mouseY);

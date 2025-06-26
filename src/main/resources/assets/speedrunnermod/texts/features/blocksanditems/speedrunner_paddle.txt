@@ -1,0 +1,4 @@
+### A special type of paddle, which can be used to craft different §bspeedrunner items §r§fand §bblocks.
+
+!image:textures/gui/features/items/speedrunner_paddle.png scale=.15
+!image:textures/gui/features/recipes/speedrunner_paddle_crafting_recipe.png scale=.5

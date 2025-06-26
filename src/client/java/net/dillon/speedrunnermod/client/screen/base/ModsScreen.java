@@ -7,46 +7,54 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
+
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ModsScreen extends AbstractModScreen {
+    private ButtonWidget sodiumButton, lithiumButton, speedrunIGTButton, kryptonButton, simpleKeybindsButton, optiFineButton;
 
     public ModsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_MODS);
     }
 
     @Override
+    protected List<ClickableWidget> buttons() {
+        return List.of(
+                this.sodiumButton,
+                this.lithiumButton,
+                this.speedrunIGTButton,
+                this.kryptonButton,
+                this.simpleKeybindsButton,
+                this.optiFineButton
+        );
+    }
+
+    @Override
     protected void init() {
-        this.buttons.add(0, ButtonWidget.builder(ModTexts.SODIUM, (buttonWidget) -> {
+        this.sodiumButton = ButtonWidget.builder(ModTexts.SODIUM, (buttonWidget) -> {
             this.openLink(ModLinks.SODIUM, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(1, ButtonWidget.builder(ModTexts.LITHIUM, (buttonWidget) -> {
+        this.lithiumButton = ButtonWidget.builder(ModTexts.LITHIUM, (buttonWidget) -> {
             this.openLink(ModLinks.LITHIUM, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(2, ButtonWidget.builder(ModTexts.PHOSPHOR, (buttonWidget) -> {
-            this.openLink(ModLinks.PHOSPHOR, false);
-        }).build());
-
-        this.buttons.add(3, ButtonWidget.builder(ModTexts.SPEEDRUN_IGT, (buttonWidget) -> {
+        this.speedrunIGTButton = ButtonWidget.builder(ModTexts.SPEEDRUN_IGT, (buttonWidget) -> {
             this.openLink(ModLinks.SPEEDRUNIGT, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.LAZYDFU, (buttonWidget) -> {
-            this.openLink(ModLinks.LAZYDFU, false);
-        }).build());
-
-        this.buttons.add(5, ButtonWidget.builder(ModTexts.KRYPTON, (buttonWidget) -> {
+        this.kryptonButton = ButtonWidget.builder(ModTexts.KRYPTON, (buttonWidget) -> {
             this.openLink(ModLinks.KRYPTON, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(6, ButtonWidget.builder(ModTexts.SIMPLE_KEYBINDS, (buttonWidget) -> {
+        this.simpleKeybindsButton = ButtonWidget.builder(ModTexts.SIMPLE_KEYBINDS, (buttonWidget) -> {
             this.openLink(ModLinks.SIMPLE_KEYBINDS, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(7, ButtonWidget.builder(ModTexts.OPTIFINE, (buttonWidget) -> {}).build());
-        this.buttons.get(7).active = false;
+        this.optiFineButton = ButtonWidget.builder(ModTexts.OPTIFINE, (buttonWidget) -> {}).build();
+        this.optiFineButton.active = false;
 
         super.init();
     }
@@ -58,28 +66,22 @@ public class ModsScreen extends AbstractModScreen {
 
     @Override
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.buttons.get(0).isHovered()) {
+        if (this.sodiumButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.SODIUM_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(1).isHovered()) {
+        if (this.lithiumButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.LITHIUM_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(2).isHovered()) {
-            this.renderBasicTooltip(ModTexts.PHOSPHOR_TOOLTIP, context, mouseX, mouseY);
-        }
-        if (this.buttons.get(3).isHovered()) {
+        if (this.speedrunIGTButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.SPEEDRUN_IGT_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(4).isHovered()) {
-            this.renderBasicTooltip(ModTexts.LAZYDFU_TOOLTIP, context, mouseX, mouseY);
-        }
-        if (this.buttons.get(5).isHovered()) {
+        if (this.kryptonButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.KRYPTON_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(6).isHovered()) {
+        if (this.simpleKeybindsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.SIMPLE_KEYBINDS_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(7).isHovered()) {
+        if (this.optiFineButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.OPTIFINE_TOOLTIP, context, mouseX, mouseY);
         }
         super.renderTooltips(context, mouseX, mouseY);

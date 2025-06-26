@@ -10,26 +10,24 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
-public class EyeOfAnnulScreen extends AbstractFeatureScreen {
+public class SpeedrunnerPaddleScreen extends AbstractFeatureScreen {
 
-    public EyeOfAnnulScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.eye_of_annul"));
-    }
-
-    @Override
-    @NotNull
-    public String linesKey() {
-        return "eye_of_annul";
+    public SpeedrunnerPaddleScreen(Screen parent) {
+        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_paddle"));
     }
 
     @Override
     public int getPageNumber() {
-        return 10;
+        return 6;
     }
 
     @Override
-    @NotNull
-    public ScreenCategory getScreenCategory() {
+    public @NotNull String linesKey() {
+        return "speedrunner_paddle";
+    }
+
+    @Override
+    public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;
     }
 

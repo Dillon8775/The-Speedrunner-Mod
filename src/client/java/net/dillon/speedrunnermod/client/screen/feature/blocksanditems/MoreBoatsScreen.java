@@ -38,7 +38,7 @@ public class MoreBoatsScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 6;
+        return 7;
     }
 
     @Override

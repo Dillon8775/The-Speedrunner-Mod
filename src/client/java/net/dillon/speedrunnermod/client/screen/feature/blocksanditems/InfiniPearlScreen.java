@@ -23,7 +23,7 @@ public class InfiniPearlScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 13;
+        return 14;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class DragonsPearlScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 15;
+        return 16;
     }
 
     @Override

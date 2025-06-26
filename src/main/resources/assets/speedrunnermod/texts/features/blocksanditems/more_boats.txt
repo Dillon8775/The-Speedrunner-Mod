@@ -6,3 +6,8 @@
 
 !image:textures/gui/features/other/more_boats.png scale=.15
 !image:textures/gui/features/screenshots/lava_boats.png scale=.14
+
+### The §bSpeedrunner Boat§r is crafted with §b5 speedrunner planks, §r§fa §6lava bucket,§r§f and §b2 speedrunner paddles.
+
+!image:textures/gui/features/recipes/speedrunner_boat.png scale=.3
+!image:textures/gui/features/recipes/speedrunner_chest_boat.png scale=.3

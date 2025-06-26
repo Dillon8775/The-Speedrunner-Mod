@@ -1,13 +1,23 @@
+KEY CHANGES:
 - Updated to Minecraft 1.21.5!
 - Tons of bug fixes and optimizations.
+
+CRASH FIXES:
 - Fixed server crash with Terraform Wood API (this mod no longer depends on Terraform Wood API).
 - Split client and common sources. Client-sided options are now strictly client-side and do not interfere with the server side. Same with server-side options, they do not interfere with the client-side.
-- Transferring enchantments via the speedrunner's workbench will now damage the output based on each enchantment's transferred level.
-- You can no longer use enchanted books with the speedrunner's workbench.
+
+SPEEDRUNNER BOAT CHANGES:
 - New item! - Speedrunner paddle: used to paddle the speedrunner boat. Crafted with a speedrunner block, speedrunner ingot, and a speedrunner stick.
 - Normal speedrunner boats are now crafted with 5 speedrunner planks, a lava bucket and 2 speedrunner paddles.
-- Removed the button to refresh a screen (you can still press R to do it, this feature was removed because the bug was fixed).
+
+SPEEDRUNNER's WORKBENCH:
+- The Speedrunner's Workbench is now crafted with 3 speedrunner planks, a speedrunner block, a speedrunner paddle, ANY speedrunner tool, and 3 speedrunner ingots.
+- Transferring enchantments via the speedrunner's workbench will now damage the output based on each enchantment's transferred level.
+- You can no longer use enchanted books with the speedrunner's workbench.
+
+REMOVALS:
+- Removed the button and keybind (R) to "refresh" a screen (refreshing screen is never needed now because the bug where buttons don't display correctly is fixed).
 - Removed custom panorama option.
 - Removed confirmation messages option.
 - Removed item tooltips and texture tooltips option.
-- Deleted place on Dillon8775's webpage, everything is now on CurseForge and Modrinth.
+- Deleted place on Dillon8775's webpage, everything you would need for this mod is now on CurseForge and Modrinth.

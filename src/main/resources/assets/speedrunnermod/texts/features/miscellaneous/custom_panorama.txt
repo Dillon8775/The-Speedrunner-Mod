@@ -1,5 +1,3 @@
 ### The §bmod§f comes with a new built-in panorama!
 
-§oYou can disable this in the §bspeedrunner mod options menu.
-
 !image:textures/gui/features/gui/custom_panorama.png scale=.14

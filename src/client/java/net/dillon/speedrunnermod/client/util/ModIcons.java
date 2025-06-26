@@ -9,5 +9,4 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModIcons {
     public static final Identifier SPEEDRUNNER_MOD_ICON = ofSpeedrunnerMod("textures/gui/icon.png");
-    public static final Identifier WIKI_ICON = ofSpeedrunnerMod("textures/gui/button/wiki.png");
 }

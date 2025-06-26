@@ -7,40 +7,56 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class FeaturesScreen extends AbstractModScreen {
+    private ButtonWidget allFeaturesButton, blocksAndItemsButton, toolsAndArmorButton, oresAndWorldgenButton, doomModeButton, miscellaneousButton;
 
     public FeaturesScreen(Screen parent) {
         super(parent, ModTexts.TITLE_FEATURES);
     }
 
     @Override
+    protected List<ClickableWidget> buttons() {
+        return List.of(
+                this.allFeaturesButton,
+                this.blocksAndItemsButton,
+                this.toolsAndArmorButton,
+                this.oresAndWorldgenButton,
+                this.doomModeButton,
+                this.miscellaneousButton
+        );
+    }
+
+    @Override
     protected void init() {
-        this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_ALL_FEATURES, (buttonWidget) -> {
+        this.allFeaturesButton = ButtonWidget.builder(ModTexts.MENU_ALL_FEATURES, (buttonWidget) -> {
             this.client.setScreen(new AllFeaturesScreen(this.parent));
-        }).build());
+        }).build();
 
-        this.buttons.add(1, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), (buttonWidget) -> {
+        this.blocksAndItemsButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), (buttonWidget) -> {
             this.client.setScreen(new BlocksAndItemsScreen(this.parent));
-        }).build());
+        }).build();
 
-        this.buttons.add(2, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), (buttonWidget) -> {
+        this.toolsAndArmorButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), (buttonWidget) -> {
             this.client.setScreen(new ToolsAndArmorScreen(this.parent));
-        }).build());
+        }).build();
 
-        this.buttons.add(3, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), (buttonWidget) -> {
+        this.oresAndWorldgenButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), (buttonWidget) -> {
             this.client.setScreen(new OresAndWorldgenScreen(this.parent));
-        }).build());
+        }).build();
 
-        this.buttons.add(4, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.doom_mode"), (buttonWidget) -> {
+        this.doomModeButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.doom_mode"), (buttonWidget) -> {
             this.client.setScreen(new DoomModeScreen(this.parent));
-        }).build());
+        }).build();
 
-        this.buttons.add(5, ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.miscellaneous"), (buttonWidget) -> {
+        this.miscellaneousButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.miscellaneous"), (buttonWidget) -> {
             this.client.setScreen(new MiscellaneousScreen(this.parent));
-        }).build());
+        }).build();
 
         super.init();
     }

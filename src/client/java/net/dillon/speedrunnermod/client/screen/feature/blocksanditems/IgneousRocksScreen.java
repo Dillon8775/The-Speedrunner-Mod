@@ -24,7 +24,7 @@ public class IgneousRocksScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 7;
+        return 8;
     }
 
     @Override

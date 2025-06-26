@@ -44,7 +44,6 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     @Override
     public void resize(MinecraftClient client, int width, int height) {
-        this.clearButtons(this);
         super.resize(client, width, height);
         this.clearAndInit();
     }
@@ -60,15 +59,6 @@ public class BaseModScreen extends GameOptionsScreen {
             this.client.setScreen(this);
             this.resize(this.client, this.width, this.height);
         }, link, trusted));
-    }
-
-    /**
-     * Clears the buttons based on the correct screen.
-     */
-    protected void clearButtons(Screen screen) {
-        if (screen instanceof AbstractModScreen abstractModScreen && !abstractModScreen.buttons.isEmpty()) {
-            abstractModScreen.buttons.clear();
-        }
     }
 
     /**

@@ -24,7 +24,7 @@ public class EnderThrusterScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 11;
+        return 12;
     }
 
     @Override

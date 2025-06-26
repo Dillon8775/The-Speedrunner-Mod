@@ -20,6 +20,7 @@ import net.minecraft.screen.Property;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.ForgingSlotsManager;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -182,7 +183,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
         // Total transferred enchantments equals the number of enchantments to transfer (map cannot contain duplicates, so the size is correct)
         int totalTransferredEnchantments = enchantmentsToTransfer.size();
         int cost = 0; // Cost variable (initially set to 0).
-        double outputDurability = output.getMaxDamage(); // New outputDurability amount
+        double outputDurability = output.getMaxDamage() - output.getDamage(); // New outputDurability amount
         if (totalTransferredEnchantments > 0) { // as long as at least one enchantment is transferred...
             cost += totalTransferredEnchantments; // set cost to total transferred enchantments
             // For each enchantment, get the enchantment level, and add it to cost
@@ -192,7 +193,8 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
                 outputDurability /= 1.0 + (entry.getValue() * 0.1); // outputDurability = (1.0 + (eachEnchantmentLevel * 0.1)) (ex. efficiency 5 would do -> outputDurability / 1.5, fortune 3 would do -> outputDurability / 1.3)
             }
             // Set damage to output durability
-            output.setDamage(output.getMaxDamage() - (int) outputDurability);
+            int newOutputDamage = output.getMaxDamage() - (int)outputDurability;
+            output.setDamage(MathHelper.clamp(newOutputDamage, 0, output.getMaxDamage()));
             this.output.setStack(0, output); // Set the output
             this.levelCost.set(cost); // Set the cost
         }

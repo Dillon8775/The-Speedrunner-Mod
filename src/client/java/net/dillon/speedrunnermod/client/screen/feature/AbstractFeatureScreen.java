@@ -82,7 +82,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         super.init();
 
         if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-            this.buttons.clear();
+            this.buttons().clear();
         }
 
         // A starter feature screen (or the first page of a certain category of features)
@@ -116,7 +116,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         // Consists of all the other categories to re-explore, as well as a "Previous" and "Done" button.
         if (this.getScreenType() == ScreenType.END) {
             this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.learn_more"), button -> {
-                this.openLink(ModLinks.WIKI, true);
+                this.openLink(ModLinks.MODRINTH, true);
             }).build());
 
             this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), button -> {
@@ -394,13 +394,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     protected String inDoomModeFolder(String fileName) {
         return "texts/features/doommode/" + fileName + ".txt";
-    }
-
-    /**
-     * Helper for referencing file paths in features/firsttimeplaying directory.
-     */
-    protected String inFirstTimePlayingFolder(String fileName) {
-        return "texts/features/firsttimeplaying/" + fileName + ".txt";
     }
 
     /**

@@ -50,7 +50,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
 
     @Override
     protected void renderTooltips(DrawContext context, int x, int y) {
-        if (this.buttons.get(1).isHovered()) {
+        if (this.buttons().get(1).isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.begin_playing.tooltip"), context, x, y);
         }
         super.renderTooltips(context, x, y);

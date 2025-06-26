@@ -84,7 +84,7 @@ public class SpeedrunnerMod implements ModInitializer {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 
-        info("The Speedrunner Mod (" + MOD_VERSION + ")" + " has successfully been loaded!");
+        info("The Speedrunner Mod " + MOD_VERSION + " loaded successfully.");
     }
 
     /**
@@ -107,6 +107,14 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     public static void error(String error) {
         LOGGER.error(error);
+    }
+
+    /**
+     * Sends a {@code debug} message in console.
+     * <p>These debug messages only show in the {@code debug.log} file.</p>
+     */
+    public static void debug(String debug) {
+        LOGGER.debug(debug);
     }
 
     /**

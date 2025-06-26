@@ -66,7 +66,6 @@ public class ModTexts {
     public static final Text TITLE_FEATURES = Text.translatable("speedrunnermod.title.features");
     public static final Text MENU_ALL_FEATURES = Text.translatable("speedrunnermod.menu.features.all_features").formatted(Formatting.BOLD);
     public static final Text TITLE_ALL_FEATURES = Text.translatable("speedrunnermod.title.features.all_features").formatted(Formatting.AQUA);
-    public static final Text MENU_WIKI = Text.translatable("speedrunnermod.menu.resources.wiki").formatted(Formatting.LIGHT_PURPLE);
     public static final Text MENU_RESOURCES = Text.translatable("speedrunnermod.menu.resources");
     public static final Text MENU_RESOURCES_TOOLTIP = Text.translatable("speedrunnermod.menu.resources.tooltip");
     public static final Text TITLE_RESOURCES = Text.translatable("speedrunnermod.title.resources");
@@ -97,7 +96,6 @@ public class ModTexts {
     public static final Text CURSEFORGE = Text.translatable("speedrunnermod.menu.external.curseforge").formatted(Formatting.GOLD);
     public static final Text MODRINTH = Text.translatable("speedrunnermod.menu.external.modrinth").formatted(Formatting.GREEN);
     public static final Text GITHUB = Text.translatable("speedrunnermod.menu.external.github").formatted(Formatting.GRAY);
-    public static final Text WEBPAGE = Text.translatable("speedrunnermod.menu.external.wiki").formatted(Formatting.LIGHT_PURPLE);
     public static final Text MOD_SHOWCASE_VIDEO = Text.translatable("speedrunnermod.menu.external.mod_showcase_video").formatted(Formatting.AQUA);
     public static final Text MENU_LEADERBOARDS = Text.translatable("speedrunnermod.menu.external.leaderboards").formatted(Formatting.GREEN);
     public static final Text MENU_LEADERBOARDS_DISABLED = Text.translatable("speedrunnermod.menu.leaderboards.disabled");
@@ -113,12 +111,8 @@ public class ModTexts {
     public static final Text SODIUM_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.sodium.tooltip");
     public static final Text LITHIUM = Text.translatable("speedrunnermod.title.resources.mods.lithium").formatted(Formatting.AQUA);
     public static final Text LITHIUM_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.lithium.tooltip");
-    public static final Text PHOSPHOR = Text.translatable("speedrunnermod.title.resources.mods.phosphor").formatted(Formatting.YELLOW);
-    public static final Text PHOSPHOR_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.phosphor.tooltip");
     public static final Text SPEEDRUN_IGT = Text.translatable("speedrunnermod.title.resources.mods.speedrunigt").formatted(Formatting.GREEN);
     public static final Text SPEEDRUN_IGT_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.speedrunigt.tooltip");
-    public static final Text LAZYDFU = Text.translatable("speedrunnermod.title.resources.mods.lazydfu").formatted(Formatting.BLUE);
-    public static final Text LAZYDFU_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.lazydfu.tooltip");
     public static final Text KRYPTON = Text.translatable("speedrunnermod.title.resources.mods.krypton").formatted(Formatting.GRAY);
     public static final Text SIMPLE_KEYBINDS = Text.translatable("speedrunnermod.title.resources.mods.simple_keybinds").formatted(Formatting.GREEN);
     public static final Text SIMPLE_KEYBINDS_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.simple_keybinds.tooltip");
@@ -152,5 +146,4 @@ public class ModTexts {
     public static final Text CREATE_WORLD_BUTTON_TOOLTIP = Text.translatable("speedrunnermod.create_world_button.desc");
     public static final Text CREATE_WORLD_BUTTON_DISABLED_TOOLTIP = Text.translatable("speedrunnermod.create_world_button.disabled");
     public static final Text OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.title.options.tooltip");
-    public static final Text WIKI_TOOLTIP = Text.translatable("speedrunnermod.menu.title_screen.external.wiki.tooltip");
 }

@@ -216,7 +216,7 @@ public abstract class ItemMixin {
         if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
             textConsumer.accept(Text.translatable("item.totem_of_undying.tooltip"));
         }
-        if (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS)) {
+        if (options().main.lavaBoats && (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS))) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip").formatted(Formatting.GRAY));
         }
         if (stack.isIn(ModItemTags.FASTER_BOATS) || stack.isIn(ModItemTags.FASTER_CHEST_BOATS)) {

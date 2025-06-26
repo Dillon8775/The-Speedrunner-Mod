@@ -24,7 +24,7 @@ public class RaidEradicatorScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 18;
+        return 19;
     }
 
     @Override

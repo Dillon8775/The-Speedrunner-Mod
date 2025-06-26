@@ -6,31 +6,40 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
+
+import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ExternalScreen extends AbstractModScreen {
+    private ButtonWidget curseForgeButton, modrinthButton, githubButton;
 
     public ExternalScreen(Screen parent) {
         super(parent, ModTexts.TITLE_EXTERNAL);
     }
 
     @Override
+    protected List<ClickableWidget> buttons() {
+        return List.of(
+                this.curseForgeButton,
+                this.modrinthButton,
+                this.githubButton
+        );
+    }
+
+    @Override
     protected void init() {
-        this.buttons.add(0, ButtonWidget.builder(ModTexts.CURSEFORGE, (buttonWidget) -> {
+        this.curseForgeButton = ButtonWidget.builder(ModTexts.CURSEFORGE, (buttonWidget) -> {
             this.openLink(ModLinks.CURSEFORGE, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(1, ButtonWidget.builder(ModTexts.MODRINTH, (buttonWidget) -> {
+        this.modrinthButton = ButtonWidget.builder(ModTexts.MODRINTH, (buttonWidget) -> {
             this.openLink(ModLinks.MODRINTH, false);
-        }).build());
+        }).build();
 
-        this.buttons.add(2, ButtonWidget.builder(ModTexts.GITHUB, (buttonWidget) -> {
+        this.githubButton = ButtonWidget.builder(ModTexts.GITHUB, (buttonWidget) -> {
             this.openLink(ModLinks.GITHUB, false);
-        }).build());
-
-        this.buttons.add(3, ButtonWidget.builder(ModTexts.WEBPAGE, (buttonWidget) -> {
-            this.openLink(ModLinks.WIKI, true);
-        }).build());
+        }).build();
 
         super.init();
     }

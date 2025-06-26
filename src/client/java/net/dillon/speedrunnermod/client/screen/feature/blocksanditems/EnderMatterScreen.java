@@ -23,7 +23,7 @@ public class EnderMatterScreen extends AbstractFeatureScreen {
 
     @Override
     public int getPageNumber() {
-        return 12;
+        return 13;
     }
 
     @Override

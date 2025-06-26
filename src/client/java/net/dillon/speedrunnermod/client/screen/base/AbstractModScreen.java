@@ -25,7 +25,6 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
-import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton;
     public OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
-    public final List<ClickableWidget> buttons = new ArrayList<>(); // The actual buttons for the scrollable buttons for a speedrunner mod screen
+    protected final List<ClickableWidget> featureButtons = new ArrayList<>();
 
     public AbstractModScreen(Screen parent, Text title) {
         super(parent, title);
@@ -81,10 +80,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 Util.getOperatingSystem().open(this.configDirectory);
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
         } else {
-            if (!this.buttons.isEmpty()) {
+            if (!this.buttons().isEmpty()) {
                 this.initializeCustomButtonListWidget();
-                // this.clearButtons();
-                this.buttonList.addAll(this.buttons);
+                this.buttonList.addAll(this.buttons());
                 this.addSelectableChild(this.buttonList);
             }
             this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
@@ -93,7 +91,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
     @Override
     public void close() {
-        this.clearButtons(this.parent);
         if (this.isOptionsScreen()) {
             saveAllChanges();
             if (this.client.world != null) {
@@ -158,21 +155,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
         this.renderCustomObjects(context);
         this.renderOptionTooltips(context, mouseX, mouseY);
-        if (!this.buttons.isEmpty()) {
+        if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
             this.renderTooltips(context, mouseX, mouseY);
         }
-    }
-
-    /**
-     * Allows the user to reload the screen by pressing "R" on their keyboard.
-     */
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_R) {
-            this.refreshScreen(this.pageId());
-            return true;
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     /**
@@ -229,6 +214,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     @ChatGPT(Credit.FULL_CREDIT)
     protected void addButtonsIteratively(ScreenCategory screenCategory) {
+        this.featureButtons.clear();
         int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
                 .map(constructor -> constructor.apply(this.parent))
                 .filter(screen -> screen.getScreenCategory() == screenCategory)
@@ -240,12 +226,21 @@ public abstract class AbstractModScreen extends BaseModScreen {
             for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
                 AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
                 if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
-                    this.buttons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
+                    this.featureButtons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
                         this.client.setScreen(screen);
                     }).build());
                 }
             }
         }
+    }
+
+    /**
+     * The list of buttons to add.
+     * @return {@code featureButtons list} (if it's not empty, for feature screen categories), otherwise returns an empty list.
+     * <p>Override this method to create a screen with a {@link CustomButtonListWidget}, and add the buttons to this list to display them.</p>
+     */
+    protected List<ClickableWidget> buttons() {
+        return !this.featureButtons.isEmpty() ? this.featureButtons : List.of();
     }
 
     /**
@@ -321,6 +316,14 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected Text getDoneText() {
         return ScreenTexts.DONE;
+    }
+
+    /**
+     * @return {@code true} if the screen should render tooltips.
+     * <p>This is ignored if {@code buttons.size() > 0.}</p>
+     */
+    protected boolean shouldRenderTooltips() {
+        return this.isOptionsScreen();
     }
 
     /**

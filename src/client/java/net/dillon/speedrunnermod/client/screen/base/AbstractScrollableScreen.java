@@ -545,7 +545,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     protected ButtonWidget addButtonObject(ButtonWidget button) {
         this.objectsToDisplay.add(new LineObject(null, 1.0F, null, 0, 0, button));
-        this.buttons.add(button);
+        // this.buttons().add(button);
         return button;
     }
 

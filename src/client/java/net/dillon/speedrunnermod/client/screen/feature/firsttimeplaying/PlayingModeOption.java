@@ -50,11 +50,11 @@ public class PlayingModeOption extends AbstractFeatureScreen {
 
     @Override
     protected void renderTooltips(DrawContext context, int x, int y) {
-        if (this.buttons.get(0).isHovered()) {
+        if (this.buttons().get(0).isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.easy.tooltip"), context, x, y);
-        } else if (this.buttons.get(1).isHovered()) {
+        } else if (this.buttons().get(1).isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.balanced.tooltip"), context, x, y);
-        } else if (this.buttons.get(2).isHovered()) {
+        } else if (this.buttons().get(2).isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.doom.tooltip"), context, x, y);
         }
         super.renderTooltips(context, x, y);

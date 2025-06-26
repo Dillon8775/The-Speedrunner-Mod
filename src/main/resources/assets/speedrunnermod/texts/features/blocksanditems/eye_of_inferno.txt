@@ -1,4 +1,4 @@
-### Locates nearby §cnether fortresses §fand §b7bastions.
+### Locates nearby §cnether fortresses §fand §7bastions.
 
 #### §aShift + right click§f to swap between the two structures.
 

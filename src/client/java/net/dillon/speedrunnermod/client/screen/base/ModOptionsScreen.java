@@ -7,7 +7,10 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
@@ -16,80 +19,100 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
  */
 @Environment(EnvType.CLIENT)
 public class ModOptionsScreen extends AbstractModScreen {
+    private ButtonWidget mainOptionsButton, fwcOptionsButton, clientOptionsButton, ssrOptionsButton, advancedOptionsButton, mixinOptionsButton, resetOptionsButton, resetTutorialModeButton;
 
     public ModOptionsScreen(Screen parent) {
         super(parent, Text.translatable("speedrunnermod.title.options"));
     }
 
     @Override
+    protected List<ClickableWidget> buttons() {
+        return List.of(
+                this.mainOptionsButton,
+                this.fwcOptionsButton,
+                this.clientOptionsButton,
+                this.ssrOptionsButton,
+                this.advancedOptionsButton,
+                this.mixinOptionsButton,
+                this.resetOptionsButton
+        );
+    }
+
+    @Override
     protected void init() {
-        this.buttons.add(0, ButtonWidget.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
+        this.mainOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
             this.client.setScreen(new MainOptionsScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(1, ButtonWidget.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
+        this.fwcOptionsButton = ButtonWidget.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
             this.client.setScreen(new FastWorldCreationOptionsScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(2, ButtonWidget.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
+        this.clientOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
             this.client.setScreen(new ClientOptionsScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(3, ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
+        this.ssrOptionsButton = ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
             this.client.setScreen(new StructureSpawnRateOptionsScreen(this));
-        }).build());
-        this.buttons.get(3).active = options().main.structureSpawnRates.custom();
+        }).build();
 
-        this.buttons.add(4, ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
+        this.advancedOptionsButton = ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
             this.client.setScreen(new AdvancedOptionsScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(5, ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
+        this.mixinOptionsButton = ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
             this.client.setScreen(new MixinOptionsScreen(this));
-        }).build());
+        }).build();
 
-        this.buttons.add(6, ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
+        this.resetOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
             this.client.setScreen(new ResetOptionsConfirmScreen(this, false));
-        }).build());
+        }).build();
 
         if (options().main.tutorialMode) {
-            this.buttons.add(7, ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
+            this.resetTutorialModeButton = ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
                 this.client.setScreen(new ResetOptionsConfirmScreen(this, true));
-            }).build());
+            }).build();
+            this.buttons().add(this.resetTutorialModeButton);
         }
 
         super.init();
     }
 
     @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+        this.ssrOptionsButton.active = options().main.structureSpawnRates.custom();
+        super.render(context, mouseX, mouseY, deltaTicks);
+    }
+
+    @Override
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.buttons.get(0).isHovered()) {
+        if (this.mainOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_MAIN_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(1).isHovered()) {
+        if (this.fwcOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_FAST_WORLD_CREATION_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(2).isHovered()) {
+        if (this.clientOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_CLIENT_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(3).isHovered()) {
+        if (this.ssrOptionsButton.isHovered()) {
             if (options().main.structureSpawnRates.custom()) {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_TOOLTIP, context, mouseX, mouseY);
             } else {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_NEEDS_CUSTOM_TOOLTIP, context, mouseX, mouseY);
             }
         }
-        if (this.buttons.get(4).isHovered()) {
+        if (this.advancedOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_ADVANCED_OPTIONS_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(5).isHovered()) {
+        if (this.mixinOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_MIXIN_OPTIONS_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.buttons.get(6).isHovered()) {
+        if (this.resetOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
         }
         if (options().main.tutorialMode) {
-            if (this.buttons.get(7).isHovered()) {
+            if (this.resetTutorialModeButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
             }
         }

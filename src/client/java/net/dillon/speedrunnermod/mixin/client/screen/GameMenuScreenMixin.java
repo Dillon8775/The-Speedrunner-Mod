@@ -2,12 +2,10 @@ package net.dillon.speedrunnermod.mixin.client.screen;
 
 import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.dillon.speedrunnermod.client.util.ModIcons;
-import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -16,7 +14,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -33,7 +30,7 @@ public class GameMenuScreenMixin extends Screen {
     @Shadow @Final
     private boolean showMenu;
     @Unique
-    private ButtonWidget optionsButton, createWorldButton, wikiButton;
+    private ButtonWidget optionsButton, createWorldButton;
 
     public GameMenuScreenMixin(Text title, ButtonWidget createWorldButton) {
         super(title);
@@ -60,15 +57,6 @@ public class GameMenuScreenMixin extends Screen {
             this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                 this.client.setScreen(new MainScreen(this));
             }).dimensions(this.width / 2 - 4 - 120 - 2, this.height / 4 + 96 - 16, 20, 20).build());
-
-            this.wikiButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
-                    if (openInBrowser) {
-                        Util.getOperatingSystem().open(ModLinks.WIKI);
-                    }
-                    this.client.setScreen(this);
-                }, ModLinks.WIKI, true));
-            }).dimensions(this.width / 2 + 106, this.height / 4 + 96 - 16, 20, 20).build());
         }
     }
 
@@ -85,8 +73,6 @@ public class GameMenuScreenMixin extends Screen {
             }
 
             context.drawTexture(RenderLayer::getGuiTextured, ModIcons.SPEEDRUNNER_MOD_ICON, optionsButton.getX() + 1, optionsButton.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18);
-
-            context.drawTexture(RenderLayer::getGuiTextured, ModIcons.WIKI_ICON, wikiButton.getX() + 2, wikiButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
 
             this.renderTooltips(context, mouseX, mouseY);
         }
@@ -107,10 +93,6 @@ public class GameMenuScreenMixin extends Screen {
 
         if (this.optionsButton.isHovered()) {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
-        }
-
-        if (this.wikiButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.WIKI_TOOLTIP, 200), mouseX, mouseY);
         }
     }
 }

@@ -1,3 +1,3 @@
-## Certain items are now §6fireproof §f(including §eblaze rods, blaze powder, §fand §6 fire charges).
+## Certain items are now §6fireproof §f(including §eblaze rods, blaze powder, §fand §6fire charges).
 
 !image:textures/gui/features/screenshots/fireproof_items.png scale=.14
