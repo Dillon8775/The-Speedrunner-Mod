@@ -1,9 +1,11 @@
 package net.dillon.speedrunnermod.util;
 
+import net.dillon.speedrunnermod.packet.UpdateClientPreferencesS2CPacket;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
+import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 public interface TutorialMode {
     List<TutorialStep> EXCLUDED_EASY_MODE_STEPS = List.of(
@@ -125,18 +128,14 @@ public interface TutorialMode {
     default void completeStep(TutorialStep step, PlayerEntity player, String... messageKey) {
         if (canComplete(step) && !getStep(step)) {
             setStep(step, true);
+            List<String> translations = new ArrayList<>();
             for (String s : messageKey) {
-                send(s, player);
+                sendWithPrefix(s, player);
+                translations.add(s);
             }
+            ServerPlayNetworking.send((ServerPlayerEntity)player, new UpdateClientPreferencesS2CPacket(translations));
             player.playSoundToPlayer(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             saveDedicatedServerChanges();
         }
-    }
-
-    /**
-     * Pulled from Keybindings class.
-     */
-    default void send(String string, PlayerEntity player) {
-        player.sendMessage((ModTexts.BLANK).copy().append((Text.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Text.translatable(string)), false);
     }
 }

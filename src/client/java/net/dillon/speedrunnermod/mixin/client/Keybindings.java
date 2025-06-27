@@ -106,11 +106,15 @@ public abstract class Keybindings {
         }
 
         while (ModKeybindings.fullbrightKey.wasPressed()) {
-            clientOptions().client.fullBright = !clientOptions().client.fullBright;
-            saveClientChanges();
-            MinecraftClient.getInstance().options.getGamma().setValue(clientOptions().client.fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
-            debugWarn(clientOptions().client.fullBright ? "speedrunnermod.toggle_fullbright.on" : "speedrunnermod.toggle_fullbright.off");
-            MinecraftClient.getInstance().options.write();
+            if (clientOptions().mixins.simpleOptionMixin) {
+                clientOptions().client.fullBright = !clientOptions().client.fullBright;
+                saveClientChanges();
+                MinecraftClient.getInstance().options.getGamma().setValue(clientOptions().client.fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                debugWarn(clientOptions().client.fullBright ? "speedrunnermod.toggle_fullbright.on" : "speedrunnermod.toggle_fullbright.off");
+                MinecraftClient.getInstance().options.write();
+            } else {
+                debugWarn("\"Simple Option Mixin\" is disabled, cannot change brightness.");
+            }
         }
     }
 

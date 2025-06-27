@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
 public abstract class EnderDragonEntityMixin extends MobEntity {
@@ -121,7 +122,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         if ((options().main.tutorialMode && options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
             this.setHealth(1.0F);
             if (livingEntity instanceof PlayerEntity player && bl) {
-                options().tutorialMode.send("speedrunnermod.tutorial_mode.use_dragons_pearl", player);
+                sendWithPrefix("speedrunnermod.tutorial_mode.use_dragons_pearl", player);
             }
         } else {
             PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);

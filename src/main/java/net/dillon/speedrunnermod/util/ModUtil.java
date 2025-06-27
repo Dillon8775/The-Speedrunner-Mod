@@ -81,6 +81,13 @@ public class ModUtil {
     }
 
     /**
+     * Sends a message to the player with the mod prefix.
+     */
+    public static void sendWithPrefix(String string, PlayerEntity player) {
+        player.sendMessage((ModTexts.BLANK).copy().append((Text.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Text.translatable(string)), false);
+    }
+
+    /**
      * Returns an enchantment using the {@code Entity} class.
      */
     public static RegistryEntry<Enchantment> entityEnchantment(Entity entity, RegistryKey<Enchantment> enchantment) {

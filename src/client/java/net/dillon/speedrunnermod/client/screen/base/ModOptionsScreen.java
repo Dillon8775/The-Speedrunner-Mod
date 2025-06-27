@@ -27,15 +27,26 @@ public class ModOptionsScreen extends AbstractModScreen {
 
     @Override
     protected List<ClickableWidget> buttons() {
-        return List.of(
-                this.mainOptionsButton,
-                this.fwcOptionsButton,
-                this.clientOptionsButton,
-                this.ssrOptionsButton,
-                this.advancedOptionsButton,
-                this.mixinOptionsButton,
-                this.resetOptionsButton
-        );
+        return options().main.tutorialMode ?
+                List.of(
+                        this.mainOptionsButton,
+                        this.fwcOptionsButton,
+                        this.clientOptionsButton,
+                        this.ssrOptionsButton,
+                        this.advancedOptionsButton,
+                        this.mixinOptionsButton,
+                        this.resetOptionsButton,
+                        this.resetTutorialModeButton
+        ) :
+                List.of(
+                        this.mainOptionsButton,
+                        this.fwcOptionsButton,
+                        this.clientOptionsButton,
+                        this.ssrOptionsButton,
+                        this.advancedOptionsButton,
+                        this.mixinOptionsButton,
+                        this.resetOptionsButton
+                );
     }
 
     @Override
@@ -72,7 +83,6 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.resetTutorialModeButton = ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
                 this.client.setScreen(new ResetOptionsConfirmScreen(this, true));
             }).build();
-            this.buttons().add(this.resetTutorialModeButton);
         }
 
         super.init();

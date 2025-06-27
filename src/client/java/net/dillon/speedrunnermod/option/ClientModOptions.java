@@ -6,9 +6,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.OPTIONS_ERROR_MESSAGE;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.error;
@@ -22,6 +20,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 public class ClientModOptions {
     public final Client client = new Client();
     public final Mixins mixins = new Mixins();
+    public final StoredValues storedValues = new StoredValues();
 
     public static final ClientModOptions.Handler CLIENT_OPTIONS = new Handler();
 
@@ -153,6 +152,17 @@ public class ClientModOptions {
          */
         @RequiresRestart
         public boolean renderLayersMixin = true;
+    }
+
+    /**
+     * Unconfigurable options; just used for storage and reference.
+     */
+    public static class StoredValues {
+
+        /**
+         * Returns the last completed tutorial step message translation key(s). These messages are sent when the player rejoins the world.
+         */
+        public List<String> lastCompletedTutorialStepTranslations = new ArrayList<>();
     }
 
     /**
