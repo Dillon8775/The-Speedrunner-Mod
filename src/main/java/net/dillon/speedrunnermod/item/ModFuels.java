@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 
 /**
@@ -48,5 +49,7 @@ public class ModFuels {
             builder.add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON, 300);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_BUSH, 200);
         });
+
+        SpeedrunnerMod.debug("Registered fuels.");
     }
 }

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.keybind;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -26,9 +27,9 @@ public class ModKeybindings {
      * Initializes all {@code Speedrunner Mod} keybindings.
      */
     public static void initializeKeybinds() {
-        info("Initialized keybinds.");
+        SpeedrunnerMod.debug("Initialized keybinds.");
         if (isSimpleKeybindsLoaded()) {
-            info("Simple Keybinds mod is loaded, compatibility has been added.");
+            SpeedrunnerMod.debug("Simple Keybinds mod is loaded, compatibility has been added.");
         }
     }
 }

@@ -34,7 +34,7 @@ public class SafeBootScreen extends AbstractModScreen {
             this.client.scheduleStop();
         }).dimensions(this.width / 2 - 50, height, 100, 20).build());
         this.proceedAnywayButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PROCEED_ANYWAY, (buttonWidget) -> {
-            info("Proceeding. Due to corrupt options, you may experience issues. Re-launch the game to fix options.");
+            warn("Proceeding. Due to corrupt options, you may experience issues. Re-launch the game to fix options.");
             this.client.setScreen(new TitleScreen(false));
         }).dimensions(this.width / 2 - 50 + 105, height, 100, 20).build());
     }

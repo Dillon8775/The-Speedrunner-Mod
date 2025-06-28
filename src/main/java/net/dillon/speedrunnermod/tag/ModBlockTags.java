@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.tag;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -84,5 +85,7 @@ public class ModBlockTags {
     /**
      * Initializes all Speedrunner Mod {@code block tags.}
      */
-    public static void initializeBlockTags() {}
+    public static void initializeBlockTags() {
+        SpeedrunnerMod.debug("Initialized block tags.");
+    }
 }

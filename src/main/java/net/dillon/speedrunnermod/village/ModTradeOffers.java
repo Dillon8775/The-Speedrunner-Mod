@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.village;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -24,6 +25,8 @@ import net.minecraft.village.TradeOffers;
 import net.minecraft.village.TradedItem;
 
 import java.util.Optional;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
 
 /**
  * All {@code Retired Speedrunner's} trades and offers.
@@ -70,6 +73,8 @@ public class ModTradeOffers {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
             factories.add(new SellMaxedEnchantedNetheriteChestplateFactory(12, 3, 25, 1.35F));
         });
+
+        SpeedrunnerMod.debug("Registered trade offers.");
     }
 
     public static class SellItemFactorySpeedrunnerIngot implements TradeOffers.Factory {

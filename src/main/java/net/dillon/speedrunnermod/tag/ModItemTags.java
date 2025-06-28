@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.tag;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -89,5 +90,7 @@ public class ModItemTags {
     /**
      * Initializes all Speedrunner Mod {@code item tags.}
      */
-    public static void initializeItemTags() {}
+    public static void initializeItemTags() {
+        SpeedrunnerMod.debug("Initialized item tags.");
+    }
 }

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.advancement.criterion;
 
 import net.dillon.speedrunnermod.advancement.TriggeredByItemCriterion;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.advancement.criterion.Criterion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -18,5 +19,7 @@ public class ModCriterions {
     /**
      * Initializes speedrunner mod criterions.
      */
-    public static void initializeCriterions() {}
+    public static void initializeCriterions() {
+        SpeedrunnerMod.debug("Initialized criterions.");
+    }
 }

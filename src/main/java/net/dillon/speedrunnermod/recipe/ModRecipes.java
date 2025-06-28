@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.recipe;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.registry.Registries;
@@ -19,5 +20,7 @@ public class ModRecipes {
     /**
      * Initializes all Speedrunner Mod {@code custom recipes.}
      */
-    public static void initializeCustomRecipes() {}
+    public static void initializeCustomRecipes() {
+        SpeedrunnerMod.debug("Initialized custom recipes.");
+    }
 }

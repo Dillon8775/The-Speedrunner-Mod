@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.EquipmentType;
@@ -333,5 +334,6 @@ public class ModItems {
      * Initializes all Speedrunner Mod {@code items.}
      */
     public static void initializeItems() {
+        SpeedrunnerMod.debug("Initialized items.");
     }
 }

@@ -18,6 +18,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
 @Environment(EnvType.CLIENT)
 public class PlayingModeOption extends AbstractFeatureScreen {
+    private ButtonWidget easyButton, balancedButton, doomButton;
 
     public PlayingModeOption(Screen parent) {
         super(parent, ModTexts.BLANK);
@@ -26,18 +27,19 @@ public class PlayingModeOption extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.easy"), button -> {
+        this.easyButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.easy"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.EASY;
             saveDedicatedServerChanges();
+            restartRequired = false;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.balanced"), button -> {
+        this.balancedButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.balanced"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.BALANCED;
             saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.doom"), button -> {
+        this.doomButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.doom"), button -> {
             options().main.playingMode = ModOptions.PlayingMode.DOOM;
             saveDedicatedServerChanges();
             restartRequired = true;
@@ -50,11 +52,11 @@ public class PlayingModeOption extends AbstractFeatureScreen {
 
     @Override
     protected void renderTooltips(DrawContext context, int x, int y) {
-        if (this.buttons().get(0).isHovered()) {
+        if (this.easyButton.isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.easy.tooltip"), context, x, y);
-        } else if (this.buttons().get(1).isHovered()) {
+        } else if (this.balancedButton.isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.balanced.tooltip"), context, x, y);
-        } else if (this.buttons().get(2).isHovered()) {
+        } else if (this.doomButton.isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.playing_mode.doom.tooltip"), context, x, y);
         }
         super.renderTooltips(context, x, y);

@@ -13,6 +13,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.gui.screen.Screen;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
@@ -47,6 +48,11 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         ModKeybindings.initializeKeybinds();
 
         clientConfigHandler().load();
+
+        options().advanced.modIds = new ArrayList<>();
+        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
+            options().advanced.modIds.add(mod.getMetadata().getId()); // add all mod ids to list
+        }
 
         if (options().main.leaderboardsMode && !isSpeedrunIGTLoaded()) {
             speedrunIGTMissing = true;

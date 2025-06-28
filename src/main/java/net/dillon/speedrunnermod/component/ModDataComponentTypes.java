@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.component;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.type.ConsumableComponent;
@@ -84,5 +85,7 @@ public class ModDataComponentTypes {
     /**
      * Initializes all speedrunner mod data components.
      */
-    public static void initializeDataComponents() {}
+    public static void initializeDataComponents() {
+        SpeedrunnerMod.debug("Initialized data components.");
+    }
 }

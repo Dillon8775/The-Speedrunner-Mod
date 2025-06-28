@@ -11,9 +11,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Objects;
+import java.util.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
@@ -21,7 +19,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
  * All Speedrunner Mod {@code options.}
  * <p>When adding new options...</p>
  * <p>- Must add a check for restart required in restart required screen, only if necessary,</p>
- * <p>- Determine if it is leaderboard-eligible, and then implement into {@link Leaderboards}.</p>
+ * <p>- Determine if it is leaderboard-eligible, and then implement into {@code Leaderboards}.</p>
  * <p>- An {@code "isBroken"} check safe boot screen and in {@link BaseOptions#safeCheck()}</p>
  * <p>- A ModListOption,</p>
  * <p>- A reset option in {@code resetAllOptions()} method.</p>
@@ -30,8 +28,8 @@ public class ModOptions {
     public final Main main = new Main();
     public final Advanced advanced = new Advanced();
     public final StructureSpawnRates structureSpawnRates = new StructureSpawnRates();
-    public final TutorialMode tutorialMode = new TutorialMode();
     public final Mixins mixins = new Mixins();
+    public final TutorialMode tutorialMode = new TutorialMode();
 
     public static final Handler OPTIONS = new Handler();
 
@@ -378,7 +376,7 @@ public class ModOptions {
          * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.
          * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
          */
-        public String[] modIds = new String[]{"minecraft", "speedrunnermod"};
+        public List<String> modIds = new ArrayList<>();
 
         /**
          * Allows strongholds to generate differently, or smaller.
@@ -508,12 +506,47 @@ public class ModOptions {
     }
 
     /**
+     * All {@code Mixin} control options.
+     */
+    public static class Mixins {
+
+        /**
+         * Applies the terrablender surface rule data mixin into the game.
+         * <p>Disable this if you do not want doom stone to generate throughout the end when doom mode is enabled, or if another mod is trying to generate other blocks.</p>
+         */
+        @RequiresRestart
+        public boolean terraBlenderSurfaceRuleDataMixin = true;
+    }
+
+    /**
+     * {@code Structure Spawn Rates} config.
+     * <p>These values are only applied if the {@code Structure Spawn Rates} option is set to {@code CUSTOM.}
+     * <p>The {@code first integer} in the option list is the {@code spacing value.}
+     * <p>The {@code second integer} in the option list is the {@code separation value.}
+     * <p>The {@code separation value} should NEVER be greater than or equal to the spacing value. The game will crash if this happens.
+     */
+    public static class StructureSpawnRates {
+        public int[] ancientCities = ModUtil.createStructureSpawnRateOption(16, 8);
+        public int[] villages = ModUtil.createStructureSpawnRateOption(16, 8);
+        public int[] desertPyramids = ModUtil.createStructureSpawnRateOption(10, 5);
+        public int[] junglePyramids = ModUtil.createStructureSpawnRateOption(10, 5);
+        public int[] pillagerOutposts = ModUtil.createStructureSpawnRateOption(10, 5);
+        public int[] endCities = ModUtil.createStructureSpawnRateOption(7, 3);
+        public int[] woodlandMansions = ModUtil.createStructureSpawnRateOption(25, 12);
+        public int[] ruinedPortals = ModUtil.createStructureSpawnRateOption(9, 4);
+        public int[] shipwrecks = ModUtil.createStructureSpawnRateOption(10, 5);
+        public int[] trialChambers = ModUtil.createStructureSpawnRateOption(12, 6);
+        public int[] netherComplexes = ModUtil.createStructureSpawnRateOption(8, 4);
+    }
+
+    /**
      * All booleans for doing certain things in the tutorial mode.
      */
     @ChatGPT(Credit.MOST_CREDIT)
     public static class TutorialMode implements net.dillon.speedrunnermod.util.TutorialMode {
         public boolean enterWorld = false;
         public boolean obtainedSpeedrunnerPickaxe = false;
+        public boolean obtainedSpeedrunnerPaddle = false;
         public boolean obtainedSpeedrunnerBoat = false;
         public boolean obtainedSpeedrunnerArmorSet = false;
         public boolean obtainedSpeedrunnerShield = false;
@@ -557,6 +590,7 @@ public class ModOptions {
             return switch (step) {
                 case ENTER_WORLD -> enterWorld;
                 case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
+                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle;
                 case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
                 case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet;
                 case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield;
@@ -602,6 +636,7 @@ public class ModOptions {
             switch (step) {
                 case ENTER_WORLD -> enterWorld = value;
                 case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
+                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle = value;
                 case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
                 case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet = value;
                 case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield = value;
@@ -641,40 +676,6 @@ public class ModOptions {
                 case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl = value;
             }
         }
-    }
-
-    /**
-     * All {@code Mixin} control options.
-     */
-    public static class Mixins {
-
-        /**
-         * Applies the terrablender surface rule data mixin into the game.
-         * <p>Disable this if you do not want doom stone to generate throughout the end when doom mode is enabled, or if another mod is trying to generate other blocks.</p>
-         */
-        @RequiresRestart
-        public boolean terraBlenderSurfaceRuleDataMixin = true;
-    }
-
-    /**
-     * {@code Structure Spawn Rates} config.
-     * <p>These values are only applied if the {@code Structure Spawn Rates} option is set to {@code CUSTOM.}
-     * <p>The {@code first integer} in the option list is the {@code spacing value.}
-     * <p>The {@code second integer} in the option list is the {@code separation value.}
-     * <p>The {@code separation value} should NEVER be greater than or equal to the spacing value. The game will crash if this happens.
-     */
-    public static class StructureSpawnRates {
-        public int[] ancientCities = ModUtil.createStructureSpawnRateOption(16, 8);
-        public int[] villages = ModUtil.createStructureSpawnRateOption(16, 8);
-        public int[] desertPyramids = ModUtil.createStructureSpawnRateOption(10, 5);
-        public int[] junglePyramids = ModUtil.createStructureSpawnRateOption(10, 5);
-        public int[] pillagerOutposts = ModUtil.createStructureSpawnRateOption(10, 5);
-        public int[] endCities = ModUtil.createStructureSpawnRateOption(7, 3);
-        public int[] woodlandMansions = ModUtil.createStructureSpawnRateOption(25, 12);
-        public int[] ruinedPortals = ModUtil.createStructureSpawnRateOption(9, 4);
-        public int[] shipwrecks = ModUtil.createStructureSpawnRateOption(10, 5);
-        public int[] trialChambers = ModUtil.createStructureSpawnRateOption(12, 6);
-        public int[] netherComplexes = ModUtil.createStructureSpawnRateOption(8, 4);
     }
 
     /**

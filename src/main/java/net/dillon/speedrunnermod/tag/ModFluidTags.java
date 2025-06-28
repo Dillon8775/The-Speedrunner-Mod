@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.tag;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
@@ -22,5 +23,7 @@ public class ModFluidTags {
     /**
      * Initializes all Speedrunner Mod {@code fluid tags.}
      */
-    public static void initializeFluidTags() {}
+    public static void initializeFluidTags() {
+        SpeedrunnerMod.debug("Initialized fluid tags.");
+    }
 }

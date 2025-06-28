@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.util;
 public enum TutorialStep {
     ENTER_WORLD,
     CRAFT_SPEEDRUNNER_PICKAXE,
+    CRAFT_SPEEDRUNNER_PADDLE,
     CRAFT_SPEEDRUNNER_BOAT,
     CRAFT_SPEEDRUNNER_ARMOR,
     CRAFT_SPEEDRUNNER_SHIELD,

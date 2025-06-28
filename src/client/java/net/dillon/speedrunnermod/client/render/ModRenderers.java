@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.client.render;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -42,7 +43,7 @@ public class ModRenderers {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.SPEEDRUNNER_TRAPDOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DEAD_SPEEDRUNNER_BUSH, RenderLayer.getCutout());
 
-        info("Initialized custom block models.");
+        SpeedrunnerMod.debug("Initialized custom block models.");
     }
 
     /**
@@ -61,7 +62,7 @@ public class ModRenderers {
         registerBoatRenderer(ModEntityTypes.WARPED_BOAT, boatModelLayer("warped"), false);
         registerBoatRenderer(ModEntityTypes.WARPED_CHEST_BOAT, chestBoatModelLayer("warped"), true);
 
-        info("Initialized custom renderers.");
+        SpeedrunnerMod.debug("Initialized custom renderers.");
     }
 
     /**

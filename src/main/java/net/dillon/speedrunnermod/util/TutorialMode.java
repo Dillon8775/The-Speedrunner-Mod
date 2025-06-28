@@ -52,6 +52,7 @@ public interface TutorialMode {
     List<TutorialStep> DOOM_MODE_STEPS = List.of(
             TutorialStep.ENTER_WORLD,
             TutorialStep.CRAFT_SPEEDRUNNER_PICKAXE,
+            TutorialStep.CRAFT_SPEEDRUNNER_PADDLE,
             TutorialStep.CRAFT_SPEEDRUNNER_BOAT,
             TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
             TutorialStep.CRAFT_SPEEDRUNNER_SHIELD,
@@ -126,14 +127,20 @@ public interface TutorialMode {
      */
     @ChatGPT(Credit.MOST_CREDIT)
     default void completeStep(TutorialStep step, PlayerEntity player, String... messageKey) {
-        if (canComplete(step) && !getStep(step)) {
+        if (canComplete(step) && !this.getStep(step)) {
             setStep(step, true);
             List<String> translations = new ArrayList<>();
             for (String s : messageKey) {
                 sendWithPrefix(s, player);
                 translations.add(s);
             }
-            ServerPlayNetworking.send((ServerPlayerEntity)player, new UpdateClientPreferencesS2CPacket(translations));
+            if ((!options().main.playingMode.doom() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
+                    options().main.playingMode.doom() && this.getStep(TutorialStep.KILL_DRAGON)) {
+                translations = List.of(); // blank list if tutorial mode is completed
+            }
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                ServerPlayNetworking.send(serverPlayer, new UpdateClientPreferencesS2CPacket(translations));
+            }
             player.playSoundToPlayer(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             saveDedicatedServerChanges();
         }

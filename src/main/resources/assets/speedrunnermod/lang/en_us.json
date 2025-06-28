@@ -21,7 +21,10 @@
   "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe": "§aYour first task is to obtain a §bspeedrunner pickaxe! §aTo do this, you will need to either find some §bspeedrunner ingots §a(found in almost every loot table chest), or look for a §blight-blue colored ore§a underground.",
   "speedrunnermod.tutorial_mode.speedrunner_pickaxe_description": "§aGreat job! The §bspeedrunner pickaxe (and all other speedrunner tools and armor)§a are faster than diamond, but has less durability.",
 
-  "speedrunnermod.tutorial_mode.craft_speedrunner_boat": "§aYour next task to obtain a §bspeedrunner boat.§a You will need a §bspeedrunner paddle §ain order to craft it. To craft a §bspeedrunner paddle, §acollect §a§l1 §r§f§bspeedrunner ingot, §a§l1§r§f§b speedrunner block, §r§aand §a§l1§r§b speedrunner stick. §aAdditionally, you will need a §b5 speedrunner planks, any speedrunner tool, §aand §b3 speedrunner ingots.",
+  "speedrunnermod.tutorial_mode.speedrunner_paddle_description": "§aNow, your next task is to obtain a §bspeedrunner paddle. §aThis item can be used to craft various different items in the mod, including the §bspeedrunner boat §aand the §bspeedrunner's workbench.",
+  "speedrunnermod.tutorial_mode.craft_speedrunner_paddle": "§aTo craft a §bspeedrunner paddle, §ayou will need to get §b§l1 §r§bspeedrunner block, §b§l1 §r§bspeedrunner ingot, §r§aand §b§l1 §r§bspeedrunner stick.",
+
+  "speedrunnermod.tutorial_mode.craft_speedrunner_boat": "§aYour next task to obtain a §bspeedrunner boat.§a You will need a §bspeedrunner paddle, 5 speedrunner planks, any speedrunner tool, §aand §b3 speedrunner ingots.",
   "speedrunnermod.tutorial_mode.speedrunner_boat_description": "§aAwesome! Now, what's so special about the speedrunner boat? Well, it's faster than normal boats, and can also be ridden in §6lava!",
 
   "speedrunnermod.tutorial_mode.craft_speedrunner_armor": "§aNow that you can ride in §6lava,§a your next task is to craft a §bfull set of speedrunner armor. §aTo do this, you will need to get §b27 speedrunner ingots, §afor each armor piece.",

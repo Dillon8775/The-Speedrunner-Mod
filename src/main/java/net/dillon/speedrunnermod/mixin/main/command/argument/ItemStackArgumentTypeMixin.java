@@ -69,34 +69,13 @@ public class ItemStackArgumentTypeMixin {
                 cir.setReturnValue(new ItemStackArgument(entry, ComponentChanges.EMPTY));
             }
 
-            for (int i = 0; i < options().advanced.modIds.length; i++) {
-                Identifier modId = Identifier.of(options().advanced.modIds[i], id.getPath());
+            for (int i = 0; i < options().advanced.modIds.size(); i++) {
+                Identifier modId = Identifier.of(options().advanced.modIds.get(i), id.getPath());
                 if (Registries.ITEM.containsId(modId)) {
                     entry = Registries.ITEM.getEntry(modId).orElseThrow();
                     cir.setReturnValue(new ItemStackArgument(entry, entry.value().getDefaultStack().getComponentChanges()));
                 }
             }
-
-//            Identifier vanillaId = Identifier.ofVanilla(id.getPath());
-//            if (Registries.ITEM.containsId(vanillaId)) {
-//                 entry = Registries.ITEM.getEntry(vanillaId).orElseThrow();
-//                 cir.setReturnValue(new ItemStackArgument(entry, ComponentChanges.EMPTY));
-//            }
-//
-//            Identifier speedrunnerModId = ofSpeedrunnerMod(id.getPath());
-//            if (Registries.ITEM.containsId(speedrunnerModId)) {
-//                entry = Registries.ITEM.getEntry(speedrunnerModId).orElseThrow();
-//                cir.setReturnValue(new ItemStackArgument(entry, ComponentChanges.EMPTY));
-//            }
-
-//            // Check if the item exists
-//            if (!Registries.ITEM.containsId(id)) {
-//                Identifier moddedId = ofSpeedrunnerMod(id.getPath()); // Assume mod namespace
-//                if (Registries.ITEM.containsId(moddedId)) {
-//                    cir.setReturnValue(new ItemStackArgument(Registries.ITEM.get(moddedId).getRegistryEntry(), Registries.ITEM.get(moddedId).getDefaultStack().getComponentChanges()));
-//                    return;
-//                }
-//            }
 
         } catch (CommandSyntaxException e) {
             reader.setCursor(cursor); // Reset cursor if failed

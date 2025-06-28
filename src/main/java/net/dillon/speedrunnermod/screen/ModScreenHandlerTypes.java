@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.screen.ScreenHandlerType;
 
 /**
@@ -11,5 +12,7 @@ public class ModScreenHandlerTypes {
     /**
      * Initializes all screen speedrunner mod handlers.
      */
-    public static void initializeScreenHandlers() {}
+    public static void initializeScreenHandlers() {
+        SpeedrunnerMod.debug("Initialized screen handlers.");
+    }
 }

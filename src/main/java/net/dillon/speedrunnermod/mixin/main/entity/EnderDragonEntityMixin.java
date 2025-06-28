@@ -1,7 +1,9 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import net.dillon.speedrunnermod.packet.UpdateClientPreferencesS2CPacket;
 import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.TutorialStep;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -16,6 +18,7 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
@@ -24,6 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -122,7 +126,11 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         if ((options().main.tutorialMode && options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
             this.setHealth(1.0F);
             if (livingEntity instanceof PlayerEntity player && bl) {
-                sendWithPrefix("speedrunnermod.tutorial_mode.use_dragons_pearl", player);
+                List<String> translations = new ArrayList<>();
+                String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";
+                translations.add(s);
+                sendWithPrefix(s, player);
+                ServerPlayNetworking.send((ServerPlayerEntity)player, new UpdateClientPreferencesS2CPacket(translations));
             }
         } else {
             PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);

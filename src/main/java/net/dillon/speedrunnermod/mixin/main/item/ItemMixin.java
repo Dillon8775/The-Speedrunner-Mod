@@ -48,6 +48,12 @@ public abstract class ItemMixin {
             if (stack.isOf(ModItems.SPEEDRUNNER_PICKAXE)) {
                 options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_PICKAXE, player,
                         "speedrunnermod.tutorial_mode.speedrunner_pickaxe_description",
+                        "speedrunnermod.tutorial_mode.speedrunner_paddle_description",
+                        "speedrunnermod.tutorial_mode.craft_speedrunner_paddle");
+            }
+
+            if (stack.isOf(ModItems.SPEEDRUNNER_PADDLE)) {
+                options().tutorialMode.completeStep(TutorialStep.CRAFT_SPEEDRUNNER_PADDLE, player,
                         "speedrunnermod.tutorial_mode.craft_speedrunner_boat");
             }
 

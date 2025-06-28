@@ -27,7 +27,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -61,16 +60,6 @@ public class ExperienceDroppingBlockMixin extends Block {
             return ActionResult.SUCCESS;
         } else {
             return super.onUseWithItem(stack, state, world, pos, player, hand, hit);
-        }
-    }
-
-    @Override
-    public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
-        PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 100, true);
-        if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
-            options().tutorialMode.completeStep(TutorialStep.MINE_EXPERIENCE_ORE, player,
-                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.transfer_enchantments" :
-                            "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
         }
     }
 
@@ -262,6 +251,11 @@ public class ExperienceDroppingBlockMixin extends Block {
                     this.dropExperience(world, pos, i);
                 }
             }
+        }
+        if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
+            options().tutorialMode.completeStep(TutorialStep.MINE_EXPERIENCE_ORE, player,
+                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.transfer_enchantments" :
+                            "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
         }
     }
 }

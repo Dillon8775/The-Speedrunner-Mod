@@ -20,6 +20,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChan
 
 @Environment(EnvType.CLIENT)
 public class ReadyToPlayScreen extends AbstractFeatureScreen {
+    private ButtonWidget beginPlayingButton;
 
     public ReadyToPlayScreen(Screen parent) {
         super(parent, ModTexts.BLANK);
@@ -34,7 +35,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.begin_playing"), button -> {
+        this.beginPlayingButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.begin_playing"), button -> {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
@@ -50,7 +51,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
 
     @Override
     protected void renderTooltips(DrawContext context, int x, int y) {
-        if (this.buttons().get(1).isHovered()) {
+        if (this.beginPlayingButton.isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.begin_playing.tooltip"), context, x, y);
         }
         super.renderTooltips(context, x, y);

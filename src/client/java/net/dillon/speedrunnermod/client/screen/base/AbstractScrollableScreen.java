@@ -17,6 +17,7 @@ import net.minecraft.text.OrderedText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -545,7 +546,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     protected ButtonWidget addButtonObject(ButtonWidget button) {
         this.objectsToDisplay.add(new LineObject(null, 1.0F, null, 0, 0, button));
-        // this.buttons().add(button);
         return button;
     }
 
@@ -579,6 +579,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
         public boolean isButton() {
             return button != null;
+        }
+
+        @NotNull
+        public ButtonWidget getButton() {
+            return this.button;
         }
 
         public boolean isText() {

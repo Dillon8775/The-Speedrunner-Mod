@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.world.api;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import terrablender.api.Regions;
 import terrablender.api.TerraBlenderApi;
 
@@ -18,8 +19,8 @@ public class ModTerraBlenderAPI implements TerraBlenderApi {
     public void onTerraBlenderInitialized() {
         if (options().main.customBiomesAndCustomBiomeFeatures) {
             Regions.register(new ModOverworldRegion(ofSpeedrunnerMod("overworld"), 9));
-            info("Registered the region for the Speedrunner's Wasteland biome.");
-            info("You will now see the biome generate throughout each Minecraft world.");
+            SpeedrunnerMod.debug("Registered the region for the Speedrunner's Wasteland biome.");
+            SpeedrunnerMod.debug("You will now see the biome generate throughout each Minecraft world.");
         } else {
             warn("\"Custom Biomes and Custom Biome Features\" option is disabled.");
             warn("You will not see the Speedrunner's Wasteland biome generate. Re-enable to make it generate.");

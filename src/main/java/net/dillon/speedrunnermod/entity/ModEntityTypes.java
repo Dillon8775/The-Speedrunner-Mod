@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.entity;
 
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -15,6 +16,7 @@ import net.minecraft.registry.RegistryKeys;
 
 import java.util.function.Supplier;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
@@ -116,5 +118,6 @@ public class ModEntityTypes {
      * Initializes all {@code Speedrunner Mod boats.}
      */
     public static void initializeEntityTypes() {
+        SpeedrunnerMod.debug("Initialized entity types.");
     }
 }

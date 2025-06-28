@@ -110,8 +110,8 @@ public class SpeedrunnerMod implements ModInitializer {
     }
 
     /**
-     * Sends a {@code debug} message in console.
-     * <p>These debug messages only show in the {@code debug.log} file.</p>
+     * Sends a {@code debug} message to the {@code debug.log} file.
+     * <p>These debug messages <i>only</i> show in the {@code debug.log} file.</p>
      */
     public static void debug(String debug) {
         LOGGER.debug(debug);

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -290,5 +291,7 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_LOG);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.STRIPPED_DOOM_LOG);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_LEAVES);
+
+        SpeedrunnerMod.debug("Registered modified item groups.");
     }
 }

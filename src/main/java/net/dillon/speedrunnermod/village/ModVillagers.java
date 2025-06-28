@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.village;
 
 import com.google.common.collect.ImmutableSet;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -9,6 +10,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.village.VillagerProfession;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.village.ModPointOfInterestTypes.RETIRED_SPEEDRUNNER_POI_KEY;
 
@@ -23,7 +25,7 @@ public class ModVillagers {
      * Registers all speedrunner mod {@code villager professions.}
      */
     public static void registerVillagerProfessions() {
-        VillagerProfession profession = Registry.register(
+        Registry.register(
                 Registries.VILLAGER_PROFESSION,
                 RETIRED_SPEEDRUNNER_KEY.getValue(),
                 new VillagerProfession(
@@ -35,5 +37,6 @@ public class ModVillagers {
                         SoundEvents.ENTITY_VILLAGER_WORK_ARMORER
                 )
         );
+        SpeedrunnerMod.debug("Registered villager professions.");
     }
 }

@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.block.sign.CustomSignBlock;
 import net.dillon.speedrunnermod.block.sign.hanging.CustomHangingSignBlock;
 import net.dillon.speedrunnermod.block.sign.hanging.wall.CustomWallHangingSignBlock;
 import net.dillon.speedrunnermod.block.sign.wall.CustomWallSignBlock;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
@@ -325,5 +326,7 @@ public class ModBlocks {
      */
     public static void initializeBlocks() {
         registerStrippables();
+
+        SpeedrunnerMod.debug("Initialized blocks.");
     }
 }

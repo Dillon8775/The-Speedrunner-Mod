@@ -37,8 +37,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     public abstract void sendMessage(Text message, boolean actionBar);
     @Shadow
     public abstract ServerWorld getServerWorld();
-    @Shadow
-    public abstract void sendMessageToClient(Text message, boolean overlay);
 
     public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);

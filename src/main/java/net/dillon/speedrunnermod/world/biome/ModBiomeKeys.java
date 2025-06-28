@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.world.biome;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.biome.Biome;
@@ -18,6 +19,6 @@ public class ModBiomeKeys {
      * Initializes this class, registering the {@code Speedrunner's Wasteland} biome.
      */
     public static void initializeBiomeKeys() {
-        info("Initialized the Speedrunner's Wasteland biome.");
+        SpeedrunnerMod.debug("Initialized the Speedrunner's Wasteland biome.");
     }
 }

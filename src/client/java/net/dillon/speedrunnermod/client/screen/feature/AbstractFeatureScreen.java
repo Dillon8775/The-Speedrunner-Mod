@@ -81,9 +81,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected void init() {
         super.init();
 
-        if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-            this.buttons().clear();
-        }
+//        if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
+//            this.buttons().clear();
+//        }
 
         // A starter feature screen (or the first page of a certain category of features)
         // consists of only a "Next" and "Done" button

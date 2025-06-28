@@ -1,11 +1,13 @@
 package net.dillon.speedrunnermod.village;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.poi.PointOfInterestType;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
@@ -21,5 +23,7 @@ public class ModPointOfInterestTypes {
     /**
      * Initializes {@code point of interest types} for the speedrunner mod.
      */
-    public static void initializePois() {}
+    public static void initializePois() {
+        SpeedrunnerMod.debug("Initialized point of interest types.");
+    }
 }

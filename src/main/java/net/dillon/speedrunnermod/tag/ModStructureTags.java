@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.tag;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.gen.structure.Structure;
@@ -26,5 +27,7 @@ public class ModStructureTags {
     /**
      * Initializes all Speedrunner Mod {@code structure tags.}
      */
-    public static void initializeStructureTags() {}
+    public static void initializeStructureTags() {
+        SpeedrunnerMod.debug("Initialized structure tags.");
+    }
 }

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.block;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.block.Block;
 import net.minecraft.data.family.BlockFamilies;
 import net.minecraft.data.family.BlockFamily;
@@ -24,5 +25,7 @@ public class ModBlockFamilies {
     /**
      * Initializes all Speedrunner Mod {@code block families.}
      */
-    public static void initializeBlockFamilies() {}
+    public static void initializeBlockFamilies() {
+        SpeedrunnerMod.debug("Initialized block families.");
+    }
 }

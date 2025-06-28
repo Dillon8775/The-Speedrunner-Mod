@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.world;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.dillon.speedrunnermod.world.feature.ModPlacedFeatures;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -13,8 +14,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
 /**
  * All Speedrunner Mod {@code custom world gen features.}
@@ -40,6 +40,8 @@ public class ModWorldGen {
                 warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
             }
         }
+
+        SpeedrunnerMod.debug("Initialized world gen features.");
     }
 
     /**

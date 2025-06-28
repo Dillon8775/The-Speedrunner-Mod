@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.enchantment;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -25,5 +26,7 @@ public class ModEnchantments {
     /**
      * Initializes all Speedrunner Mod {@code enchantments.}
      */
-    public static void initializeEnchantments() {}
+    public static void initializeEnchantments() {
+        SpeedrunnerMod.debug("Initialized enchantments.");
+    }
 }
