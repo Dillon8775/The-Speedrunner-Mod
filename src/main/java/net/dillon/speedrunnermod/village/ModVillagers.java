@@ -10,7 +10,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.village.VillagerProfession;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.village.ModPointOfInterestTypes.RETIRED_SPEEDRUNNER_POI_KEY;
 

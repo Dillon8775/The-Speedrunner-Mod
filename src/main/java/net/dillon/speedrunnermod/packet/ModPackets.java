@@ -6,8 +6,6 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
-
 public class ModPackets {
 
     /**

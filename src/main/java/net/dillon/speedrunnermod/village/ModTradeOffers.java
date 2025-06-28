@@ -26,8 +26,6 @@ import net.minecraft.village.TradedItem;
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
-
 /**
  * All {@code Retired Speedrunner's} trades and offers.
  */

@@ -21,3 +21,6 @@ REMOVALS:
 - Removed confirmation messages option.
 - Removed item tooltips and texture tooltips option.
 - Deleted place on Dillon8775's webpage, everything you would need for this mod is now on CurseForge and Modrinth.
+
+MISCELLANEOUS:
+- Changing the "allow cheats" option in the fast world creation screen will enable/disable cheats in your current world.

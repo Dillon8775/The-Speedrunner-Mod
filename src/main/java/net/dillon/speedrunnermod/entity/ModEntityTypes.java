@@ -16,7 +16,6 @@ import net.minecraft.registry.RegistryKeys;
 
 import java.util.function.Supplier;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.debug;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**

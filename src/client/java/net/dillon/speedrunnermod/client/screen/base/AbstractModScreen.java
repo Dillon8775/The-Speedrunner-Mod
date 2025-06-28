@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.client.screen.base;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
+import net.dillon.speedrunnermod.client.screen.options.FastWorldCreationOptionsScreen;
 import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
@@ -15,6 +16,7 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -23,6 +25,8 @@ import net.minecraft.client.gui.widget.OptionListWidget;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.screen.ScreenTexts;
+import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -32,6 +36,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
@@ -95,6 +100,18 @@ public abstract class AbstractModScreen extends BaseModScreen {
             saveAllChanges();
             if (this.client.world != null) {
                 ClientModPackets.sendNewC2SOptions();
+                if (this instanceof FastWorldCreationOptionsScreen) {
+                    IntegratedServer integratedServer = MinecraftClient.getInstance().getServer();
+                    if (integratedServer != null) {
+                        integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats);
+                        int i = this.client.player.getPermissionLevel();
+                        this.client.player.setClientPermissionLevel(i);
+
+                        for (ServerPlayerEntity serverPlayerEntity : integratedServer.getPlayerManager().getPlayerList()) {
+                            integratedServer.getCommandManager().sendCommandTree(serverPlayerEntity);
+                        }
+                    }
+                }
             }
 
             LeaderboardsIneligibleScreen.needsRestart = false;
