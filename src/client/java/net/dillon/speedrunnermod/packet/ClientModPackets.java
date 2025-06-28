@@ -3,9 +3,11 @@ package net.dillon.speedrunnermod.packet;
 import net.dillon.speedrunnermod.client.ClientSyncedServerOptions;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ClientModOptions;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.List;
@@ -21,6 +23,10 @@ public class ClientModPackets {
      */
     public static void registerClientPackets() {
         PayloadTypeRegistry.playS2C().register(UpdateClientPreferencesS2CPacket.PAYLOAD_ID, UpdateClientPreferencesS2CPacket.CODEC);
+        // only register on server
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
+            PayloadTypeRegistry.playC2S().register(UpdateClientPreferencesC2SPacket.PAYLOAD_ID, UpdateClientPreferencesC2SPacket.CODEC);
+        }
 
         ClientPlayNetworking.registerGlobalReceiver(UpdateClientPreferencesS2CPacket.PAYLOAD_ID, (payload, context) -> {
             ClientSyncedServerOptions.setLastSentTutorialModeMessageTranslations(context.player().getUuid(), payload.lastCompletedTutorialStepTranslations());

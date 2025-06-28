@@ -11,7 +11,7 @@ import java.util.List;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 public record UpdateClientPreferencesS2CPacket(List<String> lastCompletedTutorialStepTranslations) implements CustomPayload {
-    public static final Identifier ID = ofSpeedrunnerMod("update_client_prefs");
+    public static final Identifier ID = ofSpeedrunnerMod("update_client_prefs_s2c");
     public static final CustomPayload.Id<UpdateClientPreferencesS2CPacket> PAYLOAD_ID = new CustomPayload.Id<>(ID);
 
     public static final PacketCodec<RegistryByteBuf, UpdateClientPreferencesS2CPacket> CODEC =

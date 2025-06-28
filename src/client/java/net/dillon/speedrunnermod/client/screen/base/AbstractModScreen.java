@@ -98,9 +98,11 @@ public abstract class AbstractModScreen extends BaseModScreen {
     public void close() {
         if (this.isOptionsScreen()) {
             saveAllChanges();
-            if (this.client.world != null) {
+            boolean bl = this.client.getServer() != null;
+            boolean bl2 = this.client.world != null;
+            if (bl || bl2) {
                 ClientModPackets.sendNewC2SOptions();
-                if (this instanceof FastWorldCreationOptionsScreen) {
+                if (bl2 && this instanceof FastWorldCreationOptionsScreen) {
                     IntegratedServer integratedServer = MinecraftClient.getInstance().getServer();
                     if (integratedServer != null) {
                         integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats);

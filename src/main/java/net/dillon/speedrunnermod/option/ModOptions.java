@@ -373,12 +373,6 @@ public class ModOptions {
     public static class Advanced {
 
         /**
-         * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.
-         * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
-         */
-        public List<String> modIds = new ArrayList<>();
-
-        /**
          * Allows strongholds to generate differently, or smaller.
          */
         @RequiresRestart
@@ -503,6 +497,12 @@ public class ModOptions {
          * When on doom mode, the dragon cannot die if there is a nearby wither. This option specifies the range that the wither has to be in from the dragon in order for it to be immune.
          */
         public double[] dragonImmunityDetectionDistanceForWither = ModUtil.createListOption(300.0D, 300.0D, 300.0D);
+
+        /**
+         * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.
+         * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
+         */
+        public List<String> modIds = new ArrayList<>();
     }
 
     /**
