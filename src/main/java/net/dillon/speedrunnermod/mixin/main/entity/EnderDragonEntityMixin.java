@@ -1,8 +1,10 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.packet.UpdateClientPreferencesS2CPacket;
+import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModConstants;
-import net.dillon.speedrunnermod.util.TutorialStep;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -109,7 +111,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         PlayerEntity player = dragon.getWorld().getClosestPlayer(dragon, 300.0D);
         if (!this.isGiantOrWitherAlive()) {
-            options().tutorialMode.completeStep(TutorialStep.KILL_WITHER, player,
+            ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player,
                     "speedrunnermod.tutorial_mode.wither_died",
                     "speedrunnermod.tutorial_mode.kill_dragon");
         }
@@ -120,24 +122,26 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Override
     public void onDeath(DamageSource source) {
-        boolean bl = options().main.tutorialMode && !options().tutorialMode.getStep(TutorialStep.USE_DRAGONS_PEARL) && !options().main.playingMode.balanced();
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
-        if ((options().main.tutorialMode && options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
-            this.setHealth(1.0F);
-            if (livingEntity instanceof PlayerEntity player && bl) {
-                List<String> translations = new ArrayList<>();
-                String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";
-                translations.add(s);
-                sendWithPrefix(s, player);
-                ServerPlayNetworking.send((ServerPlayerEntity)player, new UpdateClientPreferencesS2CPacket(translations));
+        if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
+            boolean bl = !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !options().main.playingMode.balanced();
+            if ((options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
+                this.setHealth(1.0F);
+                if (bl && !this.isGiantOrWitherAlive()) {
+                    List<String> translations = new ArrayList<>();
+                    String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";
+                    translations.add(s);
+                    sendWithPrefix(s, serverPlayer);
+                    ServerPlayNetworking.send(serverPlayer, new UpdateClientPreferencesS2CPacket(translations));
+                }
+            } else {
+                PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
+                ModUtil.completeStepS2C(TutorialStep.KILL_DRAGON, player,
+                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
+                                "speedrunnermod.tutorial_mode.killed_dragon");
+                super.onDeath(source);
             }
-        } else {
-            PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
-            options().tutorialMode.completeStep(TutorialStep.KILL_DRAGON, player,
-                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
-                            "speedrunnermod.tutorial_mode.killed_dragon");
-            super.onDeath(source);
         }
     }
 

@@ -257,6 +257,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * The list of buttons to add.
      * @return {@code featureButtons list} (if it's not empty, for feature screen categories), otherwise returns an empty list.
      * <p>Override this method to create a screen with a {@link CustomButtonListWidget}, and add the buttons to this list to display them.</p>
+     * <p>Avoid using booleans to return different lists, doing so could result in crashes.</p>
      */
     protected List<ClickableWidget> buttons() {
         return !this.featureButtons.isEmpty() ? this.featureButtons : List.of();

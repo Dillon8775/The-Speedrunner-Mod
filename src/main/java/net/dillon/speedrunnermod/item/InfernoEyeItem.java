@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -54,7 +54,7 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
                     player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
 
-                    options().tutorialMode.completeStep(TutorialStep.USE_INFERNO_EYE, player,
+                    ModUtil.completeStepS2C(TutorialStep.USE_INFERNO_EYE, player,
                             "speedrunnermod.tutorial_mode.used_inferno_eye",
                             options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
                                     "speedrunnermod.tutorial_mode.craft_speedrunners_eye");

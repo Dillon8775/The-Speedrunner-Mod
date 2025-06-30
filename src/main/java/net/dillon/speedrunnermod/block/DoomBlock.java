@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.*;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.*;
@@ -140,7 +140,7 @@ public class DoomBlock {
         }
 
         if (generatedItem) {
-            options().tutorialMode.completeStep(TutorialStep.BREAK_DOOM_BLOCK, player,
+            ModUtil.completeStepS2C(TutorialStep.BREAK_DOOM_BLOCK, player,
                     "speedrunnermod.tutorial_mode.kill_goliath",
                     "speedrunnermod.tutorial_mode.goliath_description");
         }

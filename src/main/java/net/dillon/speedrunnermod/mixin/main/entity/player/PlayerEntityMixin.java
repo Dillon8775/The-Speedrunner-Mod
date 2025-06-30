@@ -3,9 +3,10 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -109,7 +110,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 if (this.getWorld().getBlockState(pos).isOf(Blocks.WATER)) {
                     this.getWorld().setBlockState(pos, Blocks.FROSTED_ICE.getDefaultState());
                 } else if (this.getWorld().getBlockState(pos).isOf(Blocks.LAVA)) {
-                    this.getWorld().setBlockState(pos, Blocks.LAVA.getDefaultState());
+                    this.getWorld().setBlockState(pos, Blocks.BASALT.getDefaultState());
                 }
                 boolean isAir = this.getWorld().getBlockState(pos.up()).isAir() && this.getWorld().getBlockState(pos.up(1)).isAir();
                 if (!isAir) {
@@ -123,16 +124,14 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
                 PlayerEntity player = (PlayerEntity) (Object)this;
-                if (!options().tutorialMode.getStep(TutorialStep.FREE_FALL_INTO_VOID)) {
+                if (player instanceof ServerPlayerEntity serverPlayer && !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.FREE_FALL_INTO_VOID)) {
                     if (!player.getInventory().contains(Items.TOTEM_OF_UNDYING.getDefaultStack())) {
                         player.getInventory().offerOrDrop(Items.TOTEM_OF_UNDYING.getDefaultStack());
                     }
                     if (!player.getInventory().contains(ModItems.ENDER_MATTER.getDefaultStack())) {
                         player.getInventory().offerOrDrop(ModItems.ENDER_MATTER.getDefaultStack());
                     }
-                }
-                if (player instanceof ServerPlayerEntity serverPlayer) {
-                    options().tutorialMode.completeStep(TutorialStep.FREE_FALL_INTO_VOID, serverPlayer,
+                    ModUtil.completeStepS2C(TutorialStep.FREE_FALL_INTO_VOID, serverPlayer,
                             "speedrunnermod.tutorial_mode.craft_speedrunners_totem");
                 }
             }

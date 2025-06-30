@@ -2,9 +2,10 @@ package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
-import net.dillon.speedrunnermod.util.TutorialStep;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -24,8 +25,6 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * Screen and enchantment transferring handling for the {@code Speedrunner's Workbench.}
@@ -206,7 +205,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
     private void success(PlayerEntity player) {
         player.playSound(SoundEvents.BLOCK_SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.addExperienceLevels(this.levelCost.get());
-        options().tutorialMode.completeStep(TutorialStep.TRANSFER_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.find_retired_speedrunner");
+        ModUtil.completeStepS2C(TutorialStep.TRANSFER_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.find_retired_speedrunner");
     }
 
     /**

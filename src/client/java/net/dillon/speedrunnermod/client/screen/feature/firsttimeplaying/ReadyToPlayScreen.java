@@ -14,7 +14,8 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
@@ -30,7 +31,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.enter_tutorial_mode"), button -> {
-            options().main.tutorialMode = true;
+            clientOptions().client.tutorialMode = true;
             saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());

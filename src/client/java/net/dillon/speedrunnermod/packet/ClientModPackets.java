@@ -12,21 +12,16 @@ import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 public class ClientModPackets {
 
     /**
-     * Registers all client-sided packets.
+     * Registers {@code server-to-client preferences} payload.
      */
-    public static void registerClientPackets() {
+    private static void registerS2CPreferences() {
         PayloadTypeRegistry.playS2C().register(UpdateClientPreferencesS2CPacket.PAYLOAD_ID, UpdateClientPreferencesS2CPacket.CODEC);
-        // only register on server
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
-            PayloadTypeRegistry.playC2S().register(UpdateClientPreferencesC2SPacket.PAYLOAD_ID, UpdateClientPreferencesC2SPacket.CODEC);
-        }
 
         ClientPlayNetworking.registerGlobalReceiver(UpdateClientPreferencesS2CPacket.PAYLOAD_ID, (payload, context) -> {
             ClientSyncedServerOptions.setLastSentTutorialModeMessageTranslations(context.player().getUuid(), payload.lastCompletedTutorialStepTranslations());
@@ -38,7 +33,7 @@ public class ClientModPackets {
             if (player != null) {
                 List<String> translations = ClientSyncedServerOptions.getLastSentTutorialModeMessageTranslations(player.getUuid());
                 ClientSyncedServerOptions.setLastSentTutorialModeMessageTranslations(player.getUuid(), translations);
-                if (ClientSyncedServerOptions.tutorialModeMessageTranslationsContainsPlayerUuid(player.getUuid()) && options().main.tutorialMode) {
+                if (ClientSyncedServerOptions.tutorialModeMessageTranslationsContainsPlayerUuid(player.getUuid()) && clientOptions().client.tutorialMode) {
                     for (String s : translations) {
                         sendWithPrefix(s, player);
                     }
@@ -51,6 +46,39 @@ public class ClientModPackets {
                 ClientSyncedServerOptions.writeAndClearTutorialModeMessageTranslations(client.player.getUuid());
             }
         });
+    }
+
+    /**
+     * Registers {@code server-to-client tutorial step} payload.
+     */
+    private static void registerS2CTutorialStep() {
+        PayloadTypeRegistry.playS2C().register(CompleteTutorialStepS2CPacket.PAYLOAD_ID, CompleteTutorialStepS2CPacket.CODEC);
+
+        ClientPlayNetworking.registerGlobalReceiver(CompleteTutorialStepS2CPacket.PAYLOAD_ID, (payload, context) -> {
+            if (clientOptions().client.tutorialMode) {
+                clientOptions().tutorialMode.completeStep(payload.step(), context.player(), payload.messageKeys().toArray(new String[0]));
+            }
+        });
+    }
+
+    /**
+     * Registers {@code client-to-server preferences} payload.
+     */
+    private static void registerC2SOnServer() {
+        // only register on server
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
+            PayloadTypeRegistry.playC2S().register(UpdateClientPreferencesC2SPacket.PAYLOAD_ID, UpdateClientPreferencesC2SPacket.CODEC);
+            PayloadTypeRegistry.playC2S().register(StepCompleteC2SPacket.PACKET_ID, StepCompleteC2SPacket.CODEC);
+        }
+    }
+
+    /**
+     * Registers all client-sided packets.
+     */
+    public static void registerClientPackets() {
+        registerS2CPreferences();
+        registerC2SOnServer();
+        registerS2CTutorialStep();
 
         SpeedrunnerMod.debug("Registered server-to-client packets.");
     }

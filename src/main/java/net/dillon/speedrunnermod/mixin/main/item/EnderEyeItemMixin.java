@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.mixin.main.item;
 import net.dillon.speedrunnermod.item.StateOfTheArtItem;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
 import net.minecraft.registry.tag.StructureTags;
@@ -19,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-
 @Mixin(EnderEyeItem.class)
 public class EnderEyeItemMixin implements StateOfTheArtItem {
 
@@ -33,6 +31,6 @@ public class EnderEyeItemMixin implements StateOfTheArtItem {
         BlockPos playerpos = player.getBlockPos();
         int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
         player.sendMessage(this.locationText(structureDistance, this.structureTexts(ModStructureTags.STRONGHOLDS)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
-        options().tutorialMode.completeStep(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
+        ModUtil.completeStepS2C(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
     }
 }

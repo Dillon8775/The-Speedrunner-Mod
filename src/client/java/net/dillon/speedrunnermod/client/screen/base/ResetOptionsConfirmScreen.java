@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
@@ -27,9 +26,9 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
         int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET_CONFIRM, (buttonWidget) -> {
             if (tutorial) {
-                ModUtil.resetAllTutorialModeOptions();
+                ClientModOptions.resetAllTutorialModeOptions();
             } else {
-                ModUtil.resetAllOptions();
+                ClientModOptions.resetAllOptions();
                 ClientModOptions.resetAllClientOptions();
             }
             saveAllChanges();

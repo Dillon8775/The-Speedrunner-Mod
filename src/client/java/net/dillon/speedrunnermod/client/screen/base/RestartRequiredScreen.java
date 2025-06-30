@@ -108,7 +108,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     public static void getCurrentOptions() {
-        currentTutorialMode = options().main.tutorialMode;
+        currentTutorialMode = clientOptions().client.tutorialMode;
         currentLeaderboardsMode = options().main.leaderboardsMode;
         currentPlayingMode = options().main.playingMode;
         currentBetterVillagerTrades = options().main.betterVillagerTrades;
@@ -130,7 +130,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     public static boolean needsRestart() {
-        return currentTutorialMode != options().main.tutorialMode ||
+        return currentTutorialMode != clientOptions().client.tutorialMode ||
                 currentLeaderboardsMode != options().main.leaderboardsMode ||
                 currentPlayingMode != options().main.playingMode ||
                 currentBetterVillagerTrades != options().main.betterVillagerTrades ||
@@ -152,7 +152,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     private static void revertChanges() {
-        options().main.tutorialMode = currentTutorialMode;
+        clientOptions().client.tutorialMode = currentTutorialMode;
         options().main.leaderboardsMode = currentLeaderboardsMode;
         options().main.playingMode = currentPlayingMode;
         options().main.betterVillagerTrades = currentBetterVillagerTrades;

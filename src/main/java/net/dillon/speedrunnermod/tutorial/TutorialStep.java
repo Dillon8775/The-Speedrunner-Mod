@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.util;
+package net.dillon.speedrunnermod.tutorial;
 
 public enum TutorialStep {
     ENTER_WORLD,
@@ -30,6 +30,7 @@ public enum TutorialStep {
     KILL_WITHER,
     USE_DRAGONS_PEARL,
     KILL_DRAGON,
+    EXIT_END,
     MINE_EXPERIENCE_ORE,
     CRAFT_SPEEDRUNNERS_WORKBENCH,
     TRANSFER_ENCHANTMENTS,

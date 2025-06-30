@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.world;
 
-import net.dillon.speedrunnermod.util.TutorialStep;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -22,11 +23,11 @@ public class ServerWorldMixin {
     private void tutorialModeDimensionChange(Entity entity, CallbackInfo ci) {
         if (entity instanceof ServerPlayerEntity player && player.getWorld().getRegistryKey() == World.END) {
             if (options().main.playingMode.doom()) {
-                options().tutorialMode.completeStep(TutorialStep.ENTER_END, player,
+                ModUtil.completeStepS2C(TutorialStep.ENTER_END, player,
                         "speedrunnermod.tutorial_mode.entered_end.doom",
                         "speedrunnermod.tutorial_mode.obtain_totem");
             } else {
-                options().tutorialMode.completeStep(TutorialStep.ENTER_END, player,
+                ModUtil.completeStepS2C(TutorialStep.ENTER_END, player,
                         options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.entered_end.easy" :
                         "speedrunnermod.tutorial_mode.entered_end.normal");
             }

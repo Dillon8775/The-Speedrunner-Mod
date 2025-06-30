@@ -26,6 +26,8 @@ public class ClientSyncedServerOptions {
      */
     public static void setLastSentTutorialModeMessageTranslations(UUID playerUuid, List<String> translations) {
         TRANSLATIONS.put(playerUuid, translations);
+        clientOptions().storedValues.lastCompletedTutorialStepTranslations = getLastSentTutorialModeMessageTranslations(playerUuid);
+        saveClientChanges();
     }
 
     /**

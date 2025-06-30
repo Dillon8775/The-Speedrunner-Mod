@@ -70,9 +70,9 @@
   "speedrunnermod.tutorial_mode.craft_speedrunners_totem": "§d§lBAM!!! §r§dJumping into the void with a §etotem §dsaves you! Now, go get another totem and let's craft a §bspeedrunner's totem. §dYou will need a §bspeedrunner's eye, §da §enormal totem, §dand an §9infini pearl §dto craft it. If you do not already have those items, you should have just been provided them.",
   "speedrunnermod.tutorial_mode.speedrunners_totem_description": "§bThe §b§lSpeedrunner's Totem §r§bstacks to §b§l3, §r§bworks §aanywhere in the players inventory §e(including free-falling into the void), §band gives better effects upon use.",
 
-  "speedrunnermod.tutorial_mode.break_doom_block": "§cWhat's all this red end stone? Break it with a §bspeedrunner tool §cand find out! (Whatever you do, do NOT break it unless you use a §bspeedrunner tool...).",
+  "speedrunnermod.tutorial_mode.break_doom_block": "§cWhat's all this red end stone? Break it with a §bspeedrunner tool §cuntil it drops something useful! (Whatever you do, do NOT break it unless you use a §bspeedrunner tool...).",
 
-  "speedrunnermod.tutorial_mode.kill_goliath": "§dNow let's get to boss killing. You should know, you §d§lcannot §r§dkill the dragon until §a§lGoliath §r§dand the §7wither §dare §cdead. §dSo, go kill Goliath first!",
+  "speedrunnermod.tutorial_mode.kill_goliath": "§dNow let's get to boss killing. You should know, you §d§lcannot §r§dkill the dragon until §a§lGoliath §r§dand the §7wither §dare §cdead. §dSo, §ago kill §a§lGoliath §r§f§afirst!",
   "speedrunnermod.tutorial_mode.goliath_description": "§aGoliath has special abilities, such as §csummoning TNT upon taking damage, §aappling §6extreme knockback §ato it's enemies, and immune to §cseveral types of damage. §aYou can use a bow against Goliath, but have you know, once he reaches §chalf health, §a§lit's immune to arrows!",
 
   "speedrunnermod.tutorial_mode.kill_wither": "§a§lNICE JOB! §aNow, §7§lKILL THE WITHER!!!",
@@ -88,7 +88,7 @@
 
   "speedrunnermod.tutorial_mode.exit_end.doom": "§c§lGG §r§con Doom Mode.",
 
-  "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, let's go underground and find some §aexperience ore.",
+  "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, go underground and find some §aexperience ore. Mine it!",
 
   "speedrunnermod.tutorial_mode.craft_speedrunners_workbench": "§a§lBOOM!§r§a Now that we have some levels, craft a §bSpeedrunner's Workbench, §ausing §b2 speedrunner ingots §aand §b4 speedrunner planks, §ajust like you would craft a §7smithing table.",
   "speedrunnermod.tutorial_mode.speedrunners_workbench_description": "§bThe Speedrunner's Workbench acts just like a smithing table, however, it also allows you to transfer enchantments from one item to another. Let's try it out!",
@@ -739,7 +739,7 @@
   "speedrunnermod.menu.options.reset": "Reset...",
   "speedrunnermod.menu.options.reset.tooltip": "Reset the Speedrunner Mod options back to default.",
   "speedrunnermod.menu.options.tutorial_mode.reset": "Reset Tutorial Mode...",
-  "speedrunnermod.menu.options.tutorial_mode.reset.tooltip": "Reset all tutorial mode progression settings back to default.",
+  "speedrunnermod.menu.options.tutorial_mode.reset.tooltip": "Reset tutorial mode progression back to default.",
   "speedrunnermod.title.options.reset": "Reset Options",
   "speedrunnermod.title.options.tutorial_mode.reset": "Reset Tutorial Mode",
   "speedrunnermod.reset": "Reset",

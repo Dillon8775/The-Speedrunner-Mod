@@ -53,7 +53,7 @@ public class ModListOptions {
                     ClientModOptions.Difficulty.EASY, value -> clientOptions().client.difficulty = value);
 
     public static final SimpleOption<Boolean> TUTORIAL_MODE = new SimpleOption<>("speedrunnermod.options.tutorial_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.tutorial_mode.tooltip")),
-            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.tutorialMode, value -> options().main.tutorialMode = value);
+            (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.tutorialMode, value -> clientOptions().client.tutorialMode = value);
 
     public static final SimpleOption<Boolean> FASTER_BLOCK_BREAKING = new SimpleOption<>("speedrunnermod.options.faster_block_breaking", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
             (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, options().main.fasterBlockBreaking, value -> options().main.fasterBlockBreaking = value);

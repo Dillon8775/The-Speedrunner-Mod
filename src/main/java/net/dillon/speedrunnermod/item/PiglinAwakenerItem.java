@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -91,7 +91,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                                 break;
                                             }
                                         }
-                                        options().tutorialMode.completeStep(TutorialStep.USE_PIGLIN_AWAKENER, player,
+                                        ModUtil.completeStepS2C(TutorialStep.USE_PIGLIN_AWAKENER, player,
                                                 "speedrunnermod.tutorial_mode.used_piglin_awakener",
                                                 "speedrunnermod.tutorial_mode.craft_blaze_spotter");
                                         ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);

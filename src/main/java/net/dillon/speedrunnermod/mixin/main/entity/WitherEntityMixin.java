@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
@@ -39,8 +39,8 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public void onDeath(DamageSource source) {
         super.onDeath(source);
-        if (this.getAttacker() instanceof PlayerEntity player && options().main.playingMode.doom() && options().main.tutorialMode) {
-            options().tutorialMode.completeStep(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
+        if (this.getAttacker() instanceof PlayerEntity player && options().main.playingMode.doom()) {
+            ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
         }
     }
 

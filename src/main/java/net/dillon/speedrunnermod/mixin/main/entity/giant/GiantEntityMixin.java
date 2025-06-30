@@ -3,10 +3,10 @@ package net.dillon.speedrunnermod.mixin.main.entity.giant;
 import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -46,8 +46,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * The {@code Giant Boss (doom mode)} exclusive.
@@ -162,7 +160,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         super.onDeath(source);
         this.onGiantDeath();
         if (this.getAttacker() instanceof PlayerEntity player) {
-            options().tutorialMode.completeStep(TutorialStep.KILL_GOLIATH, player, "speedrunnermod.tutorial_mode.kill_wither");
+            ModUtil.completeStepS2C(TutorialStep.KILL_GOLIATH, player, "speedrunnermod.tutorial_mode.kill_wither");
             if (!this.isSilent() && player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.getWorld().getRandom().nextLong()));
             }

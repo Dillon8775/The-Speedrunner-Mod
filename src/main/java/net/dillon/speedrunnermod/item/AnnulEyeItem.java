@@ -2,10 +2,10 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -68,7 +68,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
 
                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                            options().tutorialMode.completeStep(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
+                            ModUtil.completeStepS2C(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
 
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);

@@ -3,10 +3,10 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -62,7 +62,7 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                     } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
                         itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.DESERT_PYRAMIDS);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_PLACE, SoundCategory.BLOCKS, 3.0F, 1.0F);
-                        options().tutorialMode.completeStep(TutorialStep.CHANGE_SPEEDRUNNERS_EYE_LOCATOR, player, "speedrunnermod.tutorial_mode.use_speedrunners_eye");
+                        ModUtil.completeStepS2C(TutorialStep.CHANGE_SPEEDRUNNERS_EYE_LOCATOR, player, "speedrunnermod.tutorial_mode.use_speedrunners_eye");
                     } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.DESERT_PYRAMIDS)) {
                         itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.ANCIENT_CITIES);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_WARDEN_HEARTBEAT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
@@ -86,10 +86,10 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                     player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
 
                     if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
-                        options().tutorialMode.completeStep(TutorialStep.USE_SPEEDRUNNERS_EYE, player,
+                        ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player,
                                 "speedrunnermod.tutorial_mode.craft_dragons_pearl", "speedrunnermod.tutorial_mode.dragons_pearl_recipe");
                     } else {
-                        options().tutorialMode.completeStep(TutorialStep.USE_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.craft_ender_eye");
+                        ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.craft_ender_eye");
                     }
 
                     if (!player.getAbilities().creativeMode) {

@@ -1,9 +1,12 @@
-package net.dillon.speedrunnermod.util;
+package net.dillon.speedrunnermod.tutorial;
 
-import net.dillon.speedrunnermod.packet.UpdateClientPreferencesS2CPacket;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.dillon.speedrunnermod.packet.StepCompleteC2SPacket;
+import net.dillon.speedrunnermod.util.ChatGPT;
+import net.dillon.speedrunnermod.util.Credit;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 
@@ -12,9 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
+@Environment(EnvType.CLIENT)
 public interface TutorialMode {
     List<TutorialStep> EXCLUDED_EASY_MODE_STEPS = List.of(
             TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
@@ -26,7 +31,8 @@ public interface TutorialMode {
             TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM,
             TutorialStep.BREAK_DOOM_BLOCK,
             TutorialStep.KILL_GOLIATH,
-            TutorialStep.KILL_WITHER
+            TutorialStep.KILL_WITHER,
+            TutorialStep.EXIT_END
     );
     List<TutorialStep> EXCLUDED_BALANCED_MODE_STEPS = List.of(
             TutorialStep.CRAFT_SPEEDRUNNER_ARMOR,
@@ -45,6 +51,7 @@ public interface TutorialMode {
             TutorialStep.KILL_GOLIATH,
             TutorialStep.KILL_WITHER,
             TutorialStep.USE_DRAGONS_PEARL,
+            TutorialStep.EXIT_END,
             TutorialStep.OBTAIN_ENDER_THRUSTER,
             TutorialStep.USE_ENTER_THRUSTER,
             TutorialStep.OBTAIN_DRAGONS_SWORD
@@ -61,8 +68,8 @@ public interface TutorialMode {
             TutorialStep.USE_SPEEDRUNNERS_EYE,
             TutorialStep.CRAFT_DRAGONS_PEARL,
             TutorialStep.CRAFT_ANNUL_EYE,
-            TutorialStep.CRAFT_SPEEDRUNNERS_WORKBENCH,
             TutorialStep.MINE_EXPERIENCE_ORE,
+            TutorialStep.CRAFT_SPEEDRUNNERS_WORKBENCH,
             TutorialStep.TRANSFER_ENCHANTMENTS,
             TutorialStep.INTERACT_WITH_RETIRED_SPEEDRUNNER,
             TutorialStep.USE_ANNUL_EYE,
@@ -74,7 +81,8 @@ public interface TutorialMode {
             TutorialStep.KILL_GOLIATH,
             TutorialStep.KILL_WITHER,
             TutorialStep.USE_DRAGONS_PEARL,
-            TutorialStep.KILL_DRAGON
+            TutorialStep.KILL_DRAGON,
+            TutorialStep.EXIT_END
     );
 
     /**
@@ -94,7 +102,7 @@ public interface TutorialMode {
      */
     @ChatGPT(Credit.PARTIAL_CREDIT)
     default boolean canComplete(TutorialStep step) {
-        if (!options().main.tutorialMode) {
+        if (!clientOptions().client.tutorialMode) {
             return false;
         }
         TutorialStep[] steps;
@@ -135,14 +143,12 @@ public interface TutorialMode {
                 translations.add(s);
             }
             if ((!options().main.playingMode.doom() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
-                    options().main.playingMode.doom() && this.getStep(TutorialStep.KILL_DRAGON)) {
+                    options().main.playingMode.doom() && this.getStep(TutorialStep.EXIT_END)) {
                 translations = List.of(); // blank list if tutorial mode is completed
             }
-            if (player instanceof ServerPlayerEntity serverPlayer) {
-                ServerPlayNetworking.send(serverPlayer, new UpdateClientPreferencesS2CPacket(translations));
-            }
+            ClientPlayNetworking.send(new StepCompleteC2SPacket(step, translations));
             player.playSoundToPlayer(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-            saveDedicatedServerChanges();
+            saveClientChanges();
         }
     }
 }

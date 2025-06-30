@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.mixin.main.block;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModBlockTags;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -252,10 +252,9 @@ public class ExperienceDroppingBlockMixin extends Block {
                 }
             }
         }
-        if (options().main.tutorialMode && state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
-            options().tutorialMode.completeStep(TutorialStep.MINE_EXPERIENCE_ORE, player,
-                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.transfer_enchantments" :
-                            "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
+        if (state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
+            ModUtil.completeStepS2C(TutorialStep.MINE_EXPERIENCE_ORE, player,
+                    "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
         }
     }
 }

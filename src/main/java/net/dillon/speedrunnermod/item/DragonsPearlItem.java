@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
@@ -58,7 +58,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                                 public void run() {
                                     enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
-                                    options().tutorialMode.completeStep(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
+                                    ModUtil.completeStepS2C(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
                                 }
                             }, ModUtil.millisecondsAsSeconds(2));
                             return ActionResult.SUCCESS;

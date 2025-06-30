@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 
 import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -58,7 +58,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Inject(method = "onSpawn", at = @At("TAIL"))
     private void sendTutorialMessage(CallbackInfo ci) {
         if (this.statHandler.getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
-            options().tutorialMode.completeStep(TutorialStep.ENTER_WORLD, this,
+            ModUtil.completeStepS2C(TutorialStep.ENTER_WORLD, this,
                     "speedrunnermod.tutorial_mode.greeting",
                     "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe");
         }

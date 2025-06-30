@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -74,7 +74,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
 
                         ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
-                        options().tutorialMode.completeStep(TutorialStep.USE_ENTER_THRUSTER, player,
+                        ModUtil.completeStepS2C(TutorialStep.USE_ENTER_THRUSTER, player,
                                 "speedrunnermod.tutorial_mode.ender_thruster_description",
                                 "speedrunnermod.tutorial_mode.craft_wither_bone");
                         player.swingHand(hand, true);

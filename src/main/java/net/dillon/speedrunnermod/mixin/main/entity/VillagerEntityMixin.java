@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.TutorialMode;
-import net.dillon.speedrunnermod.util.TutorialStep;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.village.ModVillagers;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,18 +15,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(VillagerEntity.class)
-public abstract class VillagerEntityMixin implements TutorialMode {
+public abstract class VillagerEntityMixin {
     @Shadow
     public abstract VillagerData getVillagerData();
 
     @Inject(method = "beginTradeWith", at = @At("TAIL"))
     private void speedrunnersWorkbenchBlock(PlayerEntity customer, CallbackInfo ci) {
-        if (options().main.tutorialMode && this.getVillagerData().profession().matchesKey(ModVillagers.RETIRED_SPEEDRUNNER_KEY)) {
-            options().tutorialMode.completeStep(TutorialStep.INTERACT_WITH_RETIRED_SPEEDRUNNER, customer,
+        if (this.getVillagerData().profession().matchesKey(ModVillagers.RETIRED_SPEEDRUNNER_KEY)) {
+            ModUtil.completeStepS2C(TutorialStep.INTERACT_WITH_RETIRED_SPEEDRUNNER, customer,
                     "speedrunnermod.tutorial_mode.retired_speedrunner_description",
                     options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.use_annul_eye" :
-                    options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_ender_thruster" :
-                    "speedrunnermod.tutorial_mode.craft_wither_bone");
+                            options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_ender_thruster" :
+                                    "speedrunnermod.tutorial_mode.craft_wither_bone");
         }
     }
 }

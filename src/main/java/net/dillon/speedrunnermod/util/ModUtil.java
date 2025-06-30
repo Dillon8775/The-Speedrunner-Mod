@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.packet.CompleteTutorialStepS2CPacket;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
@@ -32,12 +32,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import java.util.*;
 
 /**
  * Helper methods for various different things (ex. items and math calculations)
@@ -85,6 +80,16 @@ public class ModUtil {
      */
     public static void sendWithPrefix(String string, PlayerEntity player) {
         player.sendMessage((ModTexts.BLANK).copy().append((Text.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Text.translatable(string)), false);
+    }
+
+    /**
+     * Sends the new {@link TutorialStep} boolean over to the client-side.
+     */
+    public static void completeStepS2C(TutorialStep step, PlayerEntity player, String... messageKeys) {
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            List<String> messageKeysList = new ArrayList<>(Arrays.asList(messageKeys));
+            ServerPlayNetworking.send(serverPlayer, new CompleteTutorialStepS2CPacket(step, messageKeysList));
+        }
     }
 
     /**
@@ -206,131 +211,5 @@ public class ModUtil {
      */
     public static int[] createStructureSpawnRateOption(int spacing, int separation) {
         return new int[]{spacing, separation};
-    }
-
-    /**
-     * Resets all of the {@code speedrunner mod options} back to factory default.
-     */
-    @Environment(EnvType.CLIENT)
-    public static void resetAllOptions() {
-        options().main.tutorialMode = false;
-        options().main.playingMode = ModOptions.PlayingMode.EASY;
-        options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
-        options().main.fasterBlockBreaking = true;
-        options().main.blockBreakingMultiplier = 1;
-        options().main.iCarusMode = false;
-        options().main.infiniPearlMode = false;
-        options().main.dragonPerchTime = 8;
-        options().main.killGhastOnFireball = false;
-        options().main.betterVillagerTrades = true;
-        options().main.fireproofItems = true;
-        options().main.customBiomesAndCustomBiomeFeatures = true;
-        options().main.commonOres = true;
-        options().main.lavaBoats = true;
-        options().main.netherWater = true;
-        options().main.betterFoods = true;
-        options().main.fallDamage = true;
-        options().main.kineticDamage = true;
-        options().main.strongholdDistance = 4;
-        options().main.strongholdSpread = 3;
-        options().main.strongholdCount = 128;
-        options().main.strongholdPortalRoomCount = 3;
-        options().main.strongholdLibraryCount = 2;
-        options().main.mobSpawningRate = ModOptions.MobSpawningRate.HIGH;
-        options().main.fasterSpawners = true;
-        options().main.netherPortalDelay = 2;
-        options().main.throwableFireballs = true;
-        options().main.arrowsDestroyBeds = true;
-        options().main.globalNetherPortals = true;
-        options().main.betterAnvil = true;
-        options().main.anvilCostLimit = 10;
-        options().main.higherEnchantmentLevels = true;
-        options().main.rightClickToRemoveSilkTouch = true;
-        options().main.customDataGeneration = true;
-        options().main.leaderboardsMode = false;
-
-        options().advanced.modifiedStrongholdGeneration = true;
-        options().advanced.modifiedStrongholdYGeneration = true;
-        options().advanced.modifiedNetherFortressGeneration = true;
-        options().advanced.higherBreathTime = true;
-        options().advanced.generateSpeedrunnerWood = true;
-        options().advanced.speedrunnersWastelandBiomeWeight = 9;
-        options().advanced.longerDragonPerchStayTime = true;
-        options().advanced.decreasedZombifiedPiglinScareDistance = true;
-        options().advanced.enderEyeBreakingCooldown = 60;
-        options().advanced.piglinAwakenerPiglinCount = 10;
-        options().advanced.iCarusFireworksInventorySlot = 1;
-        options().advanced.infiniPearlInventorySlot = 1;
-        options().advanced.fireballExplosionPower = 1;
-        options().advanced.dragonKillsNearbyHostileEntities = true;
-        options().advanced.dragonImmunityFromGoliathAndWither = true;
-        options().advanced.annulEyePortalRoomDistanceXYZ = createListOption(-128, -128, -128, 128, 128, 128);
-        options().advanced.piglinAwakenerPiglinDistanceXYZ = createListOption(100.0D, 100.0D, 100.0D);
-        options().advanced.blazeSpotterDistanceXYZ = createListOption(-156, -72, -156, 156, 72, 156);
-        options().advanced.raidEradicatorDistanceXYZ = createListOption(300.0D, 300.0D, 300.0D);
-        options().advanced.dragonsPearlDragonDistanceXYZ = createListOption(150.0D, 150.0D, 150.0D);
-        options().advanced.dragonKillsHostileEntitiesDistance = createListOption(200.0D, 200.0D, 200.0D);
-        options().advanced.dragonImmunityDetectionDistanceForGoliath = createListOption(200.0D, 200.0D, 200.0D);
-        options().advanced.dragonImmunityDetectionDistanceForWither = createListOption(300.0D, 300.0D, 300.0D);
-
-        options().structureSpawnRates.ancientCities = createStructureSpawnRateOption(16, 8);
-        options().structureSpawnRates.villages = createStructureSpawnRateOption(16, 8);
-        options().structureSpawnRates.desertPyramids = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.junglePyramids = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.pillagerOutposts = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.endCities = createStructureSpawnRateOption(7, 3);
-        options().structureSpawnRates.woodlandMansions = createStructureSpawnRateOption(25, 12);
-        options().structureSpawnRates.ruinedPortals = createStructureSpawnRateOption(9, 4);
-        options().structureSpawnRates.shipwrecks = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.trialChambers = createStructureSpawnRateOption(12, 6);
-        options().structureSpawnRates.netherComplexes = createStructureSpawnRateOption(8, 4);
-
-        options().mixins.terraBlenderSurfaceRuleDataMixin = true;
-
-        resetAllTutorialModeOptions();
-    }
-
-    /**
-     * Resets all tutorial mode options.
-     */
-    public static void resetAllTutorialModeOptions() {
-        options().tutorialMode.enterWorld = false;
-        options().tutorialMode.obtainedSpeedrunnerPickaxe = false;
-        options().tutorialMode.obtainedSpeedrunnerBoat = false;
-        options().tutorialMode.obtainedSpeedrunnerArmorSet = false;
-        options().tutorialMode.obtainedSpeedrunnerShield = false;
-        options().tutorialMode.obtainedInfernoEye = false;
-        options().tutorialMode.usedInfernoEye = false;
-        options().tutorialMode.obtainedPiglinAwakener = false;
-        options().tutorialMode.usedPiglinAwakener = false;
-        options().tutorialMode.obtainedBlazeSpotter = false;
-        options().tutorialMode.usedBlazeSpotter = false;
-        options().tutorialMode.obtainedSpeedrunnersEye = false;
-        options().tutorialMode.changedSpeedrunnersEyeLocator = false;
-        options().tutorialMode.usedSpeedrunnersEye = false;
-        options().tutorialMode.obtainedEnderEye = false;
-        options().tutorialMode.usedEnderEye = false;
-        options().tutorialMode.obtainedDragonsPearl = false;
-        options().tutorialMode.obtainedAnnulEye = false;
-        options().tutorialMode.usedAnnulEye = false;
-        options().tutorialMode.enteredEnd = false;
-        options().tutorialMode.obtainedTotem = false;
-        options().tutorialMode.freeFalledIntoVoid = false;
-        options().tutorialMode.obtainedSpeedrunnersTotem = false;
-        options().tutorialMode.killedGoliath = false;
-        options().tutorialMode.killedWither = false;
-        options().tutorialMode.usedDragonsPearl = false;
-        options().tutorialMode.killedDragon = false;
-        options().tutorialMode.brokenExperienceOre = false;
-        options().tutorialMode.obtainedSpeedrunnersWorkbench = false;
-        options().tutorialMode.transferedEnchantments = false;
-        options().tutorialMode.interactedWithRetiredSpeedrunner = false;
-        options().tutorialMode.obtainedEnderThruster = false;
-        options().tutorialMode.usedEnderThruster = false;
-        options().tutorialMode.obtainedWitherBone = false;
-        options().tutorialMode.obtainedWitherSword = false;
-        options().tutorialMode.obtainedEnderMatter = false;
-        options().tutorialMode.obtainedDragonsSword = false;
-        options().tutorialMode.obtainedInfiniPearl = false;
     }
 }

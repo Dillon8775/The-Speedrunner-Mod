@@ -2,10 +2,10 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TutorialStep;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
@@ -58,7 +58,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                         player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(world.random.nextInt(4) + 7), 0, false, true, true));
                         player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
 
-                        options().tutorialMode.completeStep(TutorialStep.USE_BLAZE_SPOTTER, player,
+                        ModUtil.completeStepS2C(TutorialStep.USE_BLAZE_SPOTTER, player,
                                 "speedrunnermod.tutorial_mode.used_blaze_spotter",
                                 "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
 

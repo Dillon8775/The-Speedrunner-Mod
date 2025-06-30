@@ -6,6 +6,9 @@ CRASH FIXES:
 - Fixed server crash with Terraform Wood API (this mod no longer depends on Terraform Wood API).
 - Split client and common sources. Client-sided options are now strictly client-side and do not interfere with the server side. Same with server-side options, they do not interfere with the client-side.
 
+TUTORIAL MODE:
+- Optimized and fixed bugs in tutorial mode (now client-side feature).
+
 SPEEDRUNNER BOAT CHANGES:
 - New item! - Speedrunner paddle: used to paddle the speedrunner boat. Crafted with a speedrunner block, speedrunner ingot, and a speedrunner stick.
 - Normal speedrunner boats are now crafted with 5 speedrunner planks, a lava bucket and 2 speedrunner paddles.
@@ -24,3 +27,4 @@ REMOVALS:
 
 MISCELLANEOUS:
 - Changing the "allow cheats" option in the fast world creation screen will enable/disable cheats in your current world.
+- Experiences ores now generate on doom mode once again.
