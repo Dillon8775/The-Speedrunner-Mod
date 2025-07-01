@@ -1,5 +1,12 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
+import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsScreen;
+import net.dillon.speedrunnermod.client.screen.base.misc.ExternalScreen;
+import net.dillon.speedrunnermod.client.screen.base.misc.ModCreditsScreen;
+import net.dillon.speedrunnermod.client.screen.base.misc.ResourcesScreen;
+import net.dillon.speedrunnermod.client.screen.base.misc.SecretDoomModeScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.ModOptionsScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -9,10 +16,8 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 import java.util.List;
 
@@ -111,13 +116,6 @@ public class MainScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderCustomObjects(DrawContext context) {
-        int middle = this.width / 2 - 69;
-        int height = 10;
-        context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
-    }
-
-    @Override
     public String pageId() {
         return "spei0ri09we";
     }
@@ -135,6 +133,11 @@ public class MainScreen extends AbstractModScreen {
         } else {
             return Formatting.AQUA;
         }
+    }
+
+    @Override
+    protected boolean shouldRenderSpeedrunnerModTitle() {
+        return true;
     }
 
     @Override

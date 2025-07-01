@@ -23,20 +23,19 @@ public class SafeBootScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.FIX_AND_RESTART, (buttonWidget) -> {
             SpeedrunnerModClient.fixOptions();
             info("Fixing options! Re-launch to apply changes.");
             this.client.scheduleStop();
-        }).dimensions(this.width / 2 - 50 - 105, height, 100, 20).build());
+        }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 100, 20).build());
         this.addDrawableChild(ButtonWidget.builder(ModTexts.CLOSE_GAME, (buttonWidget) -> {
             info("Closing game! No changes were made.");
             this.client.scheduleStop();
-        }).dimensions(this.width / 2 - 50, height, 100, 20).build());
+        }).dimensions(this.getButtonsMiddle(), this.getCustomButtonsHeight(), 100, 20).build());
         this.proceedAnywayButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PROCEED_ANYWAY, (buttonWidget) -> {
             warn("Proceeding. Due to corrupt options, you may experience issues. Re-launch the game to fix options.");
             this.client.setScreen(new TitleScreen(false));
-        }).dimensions(this.width / 2 - 50 + 105, height, 100, 20).build());
+        }).dimensions(this.getButtonsRightSide(), this.getCustomButtonsHeight(), 100, 20).build());
     }
 
     @Override
@@ -55,6 +54,11 @@ public class SafeBootScreen extends AbstractModScreen {
         if (this.proceedAnywayButton.isHovered()) {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(Text.translatable("speedrunnermod.proceed_anyway.tooltip"), 200), mouseX, mouseY);
         }
+    }
+
+    @Override
+    public boolean shouldRenderTooltips() {
+        return true;
     }
 
     @Override

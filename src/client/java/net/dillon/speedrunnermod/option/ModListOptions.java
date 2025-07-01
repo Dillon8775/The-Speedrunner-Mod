@@ -275,12 +275,12 @@ public class ModListOptions {
     public static final SimpleOption<Integer> ICARUS_FIREWORKS_INVENTORY_SLOT =
             new SimpleOption<>("speedrunnermod.options.icarus_fireworks_inventory_slot", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
-                    new SimpleOption.ValidatingIntSliderCallbacks(1, 36), options().advanced.iCarusFireworksInventorySlot, value -> options().advanced.iCarusFireworksInventorySlot = value);
+                    new SimpleOption.ValidatingIntSliderCallbacks(1, 36), clientOptions().client.iCarusFireworksInventorySlot, value -> clientOptions().client.iCarusFireworksInventorySlot = value);
 
     public static final SimpleOption<Integer> INFINI_PEARL_INVENTORY_SLOT =
             new SimpleOption<>("speedrunnermod.options.infini_pearl_inventory_slot", SimpleOption.emptyTooltip(),
                     ModListOptions::getGenericValueText,
-                    new SimpleOption.ValidatingIntSliderCallbacks(1, 36), options().advanced.infiniPearlInventorySlot, value -> options().advanced.infiniPearlInventorySlot = value);
+                    new SimpleOption.ValidatingIntSliderCallbacks(1, 36), clientOptions().client.infiniPearlInventorySlot, value -> clientOptions().client.infiniPearlInventorySlot = value);
 
     public static final SimpleOption<Integer> FIREBALL_EXPLOSION_POWER =
             new SimpleOption<>("speedrunnermod.options.fireball_explosion_power", SimpleOption.emptyTooltip(),

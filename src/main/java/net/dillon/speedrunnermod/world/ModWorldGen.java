@@ -58,10 +58,8 @@ public class ModWorldGen {
         BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
                 GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_SMALL);
 
-        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
-            BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
-                    GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE);
-        }
+        BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
+                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE);
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
                 GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_DELTAS);
@@ -69,10 +67,8 @@ public class ModWorldGen {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
                 GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_IGNEOUS_DELTAS);
 
-        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
-                    GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_DELTAS);
-        }
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
+                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_DELTAS);
 
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
                 GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_NETHER);
@@ -80,10 +76,8 @@ public class ModWorldGen {
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
                 GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_IGNEOUS_NETHER);
 
-        if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
-            BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
-                    GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_NETHER);
-        }
+        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
+                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_NETHER);
     }
 
     /**

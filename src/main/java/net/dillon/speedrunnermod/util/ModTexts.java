@@ -20,7 +20,6 @@ public class ModTexts {
     public static final Text DIRECTORY_TOOLTIP = Text.translatable("speedrunnermod.directory_button.tooltip");
     public static final Text ON = Text.literal("ON").formatted(Formatting.GREEN);
     public static final Text OFF = Text.literal("OFF").formatted(Formatting.RED);
-    public static final Text DASH = Text.literal("---").formatted(Formatting.DARK_RED);
     public static final Text YES = Text.literal("YES").formatted(Formatting.GREEN);
     public static final Text NO = Text.literal("NO").formatted(Formatting.RED);
     public static final Text REFRESHING = Text.literal("Refreshing...");
@@ -146,4 +145,13 @@ public class ModTexts {
     public static final Text CREATE_WORLD_BUTTON_TOOLTIP = Text.translatable("speedrunnermod.create_world_button.desc");
     public static final Text CREATE_WORLD_BUTTON_DISABLED_TOOLTIP = Text.translatable("speedrunnermod.create_world_button.disabled");
     public static final Text OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.title.options.tooltip");
+
+    public static final Text TITLE_PLAYING_MODE_DOESNT_MATCH_SERVER_SETTING = Text.translatable("speedrunnermod.title.playing_mode_doesnt_match_server_setting");
+    public static final Text MATCH_PLAYING_MODE_TO_SERVER = Text.translatable("speedrunnermod.match_playing_mode_to_server");
+
+    public static final Text MATCH_SETTINGS_WITH_SERVER = Text.translatable("speedrunnermod.match_settings_with_server");
+    public static final Text TITLE_MATCH_SETTINGS_WITH_SERVER = Text.translatable("speedrunnermod.title.match_settings_with_server");
+    public static final Text MATCH_AND_RESTART = Text.translatable("speedrunnermod.match_and_restart");
+    public static final Text MATCHED_SETTINGS_WITH_SERVER = Text.translatable("speedrunnermod.matched_settings_with_server");
+    public static final Text ABORT = Text.translatable("speedrunnermod.abort");
 }

@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.option;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -378,7 +377,7 @@ public class Leaderboards {
         info("Disabling leaderboards mode and closing game. Re-launch to apply changes.");
         options().main.leaderboardsMode = false;
         saveDedicatedServerChanges();
-        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER) {
+        if (!isEnvironmentTypeServer()) {
             saveClientChanges();
         }
     }

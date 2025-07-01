@@ -84,7 +84,7 @@ public class ModItemGroups {
                         if (!playingModeBalanced) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
-                        entries.add(ModUtil.unbreakableItem(Items.ELYTRA));
+                        entries.add(ModUtil.createUnbreakableItem(Items.ELYTRA));
                         entries.add(ModUtil.flightDurationComponentItem(1));
                         entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);

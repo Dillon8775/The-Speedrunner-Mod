@@ -1,5 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base;
+package net.dillon.speedrunnermod.client.screen.base.misc;
 
+import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,11 +12,11 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-class SecretDoomModeScreen extends GameOptionsScreen {
+public class SecretDoomModeScreen extends GameOptionsScreen {
     private final Screen parent;
-    protected static int doomModeButtonAlreadyClicked = 0;
+    public static int doomModeButtonAlreadyClicked = 0;
 
-    protected SecretDoomModeScreen(Screen parent) {
+    public SecretDoomModeScreen(Screen parent) {
         super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
         this.parent = parent;
     }
@@ -52,7 +53,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.doom_mode_screen.line1"), this.width / 2, 110, 16777215);
     }
 
-    protected static class ScreenTwo extends GameOptionsScreen {
+    public static class ScreenTwo extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenTwo(Screen parent) {
@@ -93,7 +94,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenThree extends GameOptionsScreen {
+    public static class ScreenThree extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenThree(Screen parent) {
@@ -134,7 +135,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenFour extends GameOptionsScreen {
+    public static class ScreenFour extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenFour(Screen parent) {
@@ -174,10 +175,10 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenFive extends GameOptionsScreen {
+    public static class ScreenFive extends GameOptionsScreen {
         private final Screen parent;
 
-        protected ScreenFive(Screen parent) {
+        public ScreenFive(Screen parent) {
             super(parent, MinecraftClient.getInstance().options, ModTexts.TITLE_DOOM_MODE);
             this.parent = parent;
         }
@@ -215,7 +216,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenSix extends GameOptionsScreen {
+    public static class ScreenSix extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenSix(Screen parent) {
@@ -256,7 +257,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenSeven extends GameOptionsScreen {
+    public static class ScreenSeven extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenSeven(Screen parent) {
@@ -292,7 +293,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenEight extends GameOptionsScreen {
+    public static class ScreenEight extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenEight(Screen parent) {
@@ -331,7 +332,7 @@ class SecretDoomModeScreen extends GameOptionsScreen {
         }
     }
 
-    protected static class ScreenNine extends GameOptionsScreen {
+    public static class ScreenNine extends GameOptionsScreen {
         private final Screen parent;
 
         protected ScreenNine(Screen parent) {

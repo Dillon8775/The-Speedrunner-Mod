@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.feature.doommode;
 
-import net.dillon.speedrunnermod.client.screen.base.RestartRequiredScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;

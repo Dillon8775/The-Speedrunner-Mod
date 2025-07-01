@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
-import net.dillon.speedrunnermod.client.screen.base.RestartRequiredScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;

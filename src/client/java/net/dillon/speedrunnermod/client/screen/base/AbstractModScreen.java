@@ -1,6 +1,10 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
+import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsIneligibleScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.ResetOptionsConfirmScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
+import net.dillon.speedrunnermod.client.screen.base.synced.MatchSettingsWithServerScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.options.FastWorldCreationOptionsScreen;
@@ -28,6 +32,7 @@ import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.io.File;
@@ -48,7 +53,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected File configFile; // This returns null unless the screen is an options screen
     protected final File configDirectory = new File(FabricLoader.getInstance().getConfigDir().toUri()); // The directory for the speedrunner mod's configuration file
     protected final Screen parent;
-    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton;
+    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton, matchSettingsWithServer;
     public OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> featureButtons = new ArrayList<>();
@@ -84,6 +89,10 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.close();
                 Util.getOperatingSystem().open(this.configDirectory);
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
+            this.matchSettingsWithServer = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_SETTINGS_WITH_SERVER, (button) -> {
+                this.client.setScreen(new MatchSettingsWithServerScreen(this.parent));
+            }).dimensions(this.getButtonsLeftSide() - 104, this.getDoneButtonsHeight(), 100, 20).build());
+            this.matchSettingsWithServer.active = !this.client.isInSingleplayer() && !(this.client.getCurrentServerEntry() == null);
         } else {
             if (!this.buttons().isEmpty()) {
                 this.initializeCustomButtonListWidget();
@@ -172,6 +181,11 @@ public abstract class AbstractModScreen extends BaseModScreen {
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
         }
 
+        if (this.shouldRenderSpeedrunnerModTitle()) {
+            int middle = this.width / 2 - 69;
+            int height = 10;
+            context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
+        }
         this.renderCustomObjects(context);
         this.renderOptionTooltips(context, mouseX, mouseY);
         if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
@@ -210,6 +224,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }
             if (this.openOptionsDirectoryButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
+            }
+            if (this.matchSettingsWithServer.isHovered()) {
+                if (this.matchSettingsWithServer.active) {
+                    this.renderBasicTooltip(Text.translatable("speedrunnermod.match_settings_with_server.tooltip"), context, mouseX, mouseY);
+                } else {
+                    this.renderBasicTooltip(Text.translatable("speedrunnermod.match_settings_with_server.must_be_on_server.tooltip"), context, mouseX, mouseY);
+                }
             }
         }
     }
@@ -316,7 +337,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Returns the height of buttons on a screen.
+     * @return the height of buttons on a screen.
      * <p>To add another row of buttons, add {@code 24} to this variable.</p>
      * <p>For example, <pre>height += 24;</pre>
      */
@@ -325,14 +346,21 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Returns the {@code "done"} buttons height, typically at the bottom of a screen.
+     * @return the height for buttons on a custom screen.
+     */
+    protected int getCustomButtonsHeight() {
+        return this.height / 6 + 126;
+    }
+
+    /**
+     * @return the {@code "done"} buttons height, typically at the bottom of a screen.
      */
     protected int getDoneButtonsHeight() {
         return this.height - 29;
     }
 
     /**
-     * Gets the text that should be displayed on the typical "Done" button.
+     * @return the text that should be displayed on the typical "Done" button.
      */
     protected Text getDoneText() {
         return ScreenTexts.DONE;
@@ -344,6 +372,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected boolean shouldRenderTooltips() {
         return this.isOptionsScreen();
+    }
+
+    /**
+     * @return {@code true} if the screen should render the speedrunner mod title.
+     */
+    protected boolean shouldRenderSpeedrunnerModTitle() {
+        return false;
     }
 
     /**

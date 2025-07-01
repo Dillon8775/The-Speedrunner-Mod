@@ -1,5 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base;
+package net.dillon.speedrunnermod.client.screen.base.leaderboard;
 
+import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;

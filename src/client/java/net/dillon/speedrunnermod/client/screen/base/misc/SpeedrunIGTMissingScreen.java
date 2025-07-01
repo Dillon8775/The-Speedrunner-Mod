@@ -1,5 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base;
+package net.dillon.speedrunnermod.client.screen.base.misc;
 
+import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;

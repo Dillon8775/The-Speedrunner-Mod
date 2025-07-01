@@ -1,5 +1,8 @@
-package net.dillon.speedrunnermod.client.screen.base;
+package net.dillon.speedrunnermod.client.screen.base.leaderboard;
 
+import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.client.screen.base.MainScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -20,7 +23,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
 @Environment(EnvType.CLIENT)
 public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     public static boolean needsRestart = false;
-    protected static boolean needsRestartFromEnablingLeaderboardsMode = false;
+    public static boolean needsRestartFromEnablingLeaderboardsMode = false;
     protected ButtonWidget leftButton, middleButton, rightButton, viewIneligibleOptionsButton, visitSubmissionPageButton;
 
     public LeaderboardsIneligibleScreen(Screen parent) {

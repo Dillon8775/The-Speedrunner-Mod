@@ -176,6 +176,18 @@ public class SpeedrunnerModClient implements ClientModInitializer {
             options().main.blockBreakingMultiplier = 1;
         }
 
+        if (BrokenModOptions.strongholdDistance) {
+            options().main.strongholdDistance = 4;
+        }
+
+        if (BrokenModOptions.strongholdSpread) {
+            options().main.strongholdSpread = 3;
+        }
+
+        if (BrokenModOptions.strongholdCount) {
+            options().main.strongholdCount = 128;
+        }
+
         if (BrokenModOptions.strongholdPortalRoomCount) {
             options().main.strongholdPortalRoomCount = 3;
         }
@@ -201,11 +213,11 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         }
 
         if (BrokenModOptions.iCarusFireworksInventorySlot) {
-            options().advanced.iCarusFireworksInventorySlot = 1;
+            clientOptions().client.iCarusFireworksInventorySlot = 1;
         }
 
         if (BrokenModOptions.infiniPearlInventorySlot) {
-            options().advanced.infiniPearlInventorySlot = 1;
+            clientOptions().client.infiniPearlInventorySlot = 1;
         }
 
         if (ClientBrokenModOptions.itemMessages) {

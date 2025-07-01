@@ -13,6 +13,7 @@ import java.util.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.option.ModOptions.inBounds;
 import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 import static net.dillon.speedrunnermod.util.ModUtil.createListOption;
 import static net.dillon.speedrunnermod.util.ModUtil.createStructureSpawnRateOption;
@@ -66,6 +67,18 @@ public class ClientModOptions {
                 error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.difficulty");
                 isSafe(false);
                 ClientBrokenModOptions.difficulty = true;
+            }
+
+            if (!clientOptions().isIcarusFireworksInventorySlotValid()) {
+                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.icarusFireworksInventorySlot");
+                isSafe(false);
+                BrokenModOptions.iCarusFireworksInventorySlot = true;
+            }
+
+            if (!clientOptions().isInfiniPearlInventorySlotValid()) {
+                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.infiniPearlInventorySlot");
+                isSafe(false);
+                BrokenModOptions.infiniPearlInventorySlot = true;
             }
         }
     }
@@ -122,6 +135,17 @@ public class ClientModOptions {
          * Display the reset button on the title screen, game menu screen and pause screen.
          */
         public boolean showResetButton = true;
+
+        /**
+         * Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.
+         */
+        public int iCarusFireworksInventorySlot = 1;
+
+        /**
+         * Sets the inventory slot that the InfiniPearl item should be given to when InfiniPearl mode is enabled.
+         * <p>This value is incremented by one if iCarus Mode is already enabled.</p>
+         */
+        public int infiniPearlInventorySlot = 1;
 
         /**
          * The minimum brightness amount for the Speedrunner Mod.
@@ -447,6 +471,20 @@ public class ClientModOptions {
     }
 
     /**
+     * @return {@code true} if the {@code Icarus Fireworks Inventory Slot} advanced option is valid.
+     */
+    public boolean isIcarusFireworksInventorySlotValid() {
+        return inBounds(client.iCarusFireworksInventorySlot, 1, 36);
+    }
+
+    /**
+     * @return {@code true} if the {@code InfiniPearl Inventory Slot} advanced option is valid.
+     */
+    public boolean isInfiniPearlInventorySlotValid() {
+        return inBounds(client.infiniPearlInventorySlot, 1, 36);
+    }
+
+    /**
      * Resets all of the {@code speedrunner mod options} back to factory default.
      */
     @Environment(EnvType.CLIENT)
@@ -496,8 +534,6 @@ public class ClientModOptions {
         options().advanced.decreasedZombifiedPiglinScareDistance = true;
         options().advanced.enderEyeBreakingCooldown = 60;
         options().advanced.piglinAwakenerPiglinCount = 10;
-        options().advanced.iCarusFireworksInventorySlot = 1;
-        options().advanced.infiniPearlInventorySlot = 1;
         options().advanced.fireballExplosionPower = 1;
         options().advanced.dragonKillsNearbyHostileEntities = true;
         options().advanced.dragonImmunityFromGoliathAndWither = true;
@@ -542,6 +578,8 @@ public class ClientModOptions {
         clientOptions().client.showResetButton = true;
         clientOptions().client.minimumBrightness = 0.0D;
         clientOptions().client.maximumBrightness = 12.0D;
+        clientOptions().client.iCarusFireworksInventorySlot = 1;
+        clientOptions().client.infiniPearlInventorySlot = 1;
 
         clientOptions().mixins.backgroundRendererMixin = true;
         clientOptions().mixins.simpleOptionMixin = true;

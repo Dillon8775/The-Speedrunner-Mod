@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.packet.CompleteTutorialStepS2CPacket;
+import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -96,21 +96,38 @@ public class ModUtil {
      * Returns an enchantment using the {@code Entity} class.
      */
     public static RegistryEntry<Enchantment> entityEnchantment(Entity entity, RegistryKey<Enchantment> enchantment) {
-        Optional<RegistryEntry.Reference<Enchantment>> optional = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
-        return optional.get();
+        try {
+            Optional<RegistryEntry.Reference<Enchantment>> optional = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
+            return optional.orElseThrow();
+        } catch (Exception o) {
+            return noSuchElementExceptionCrash(o);
+        }
     }
 
     /**
      * Returns an enchantment using the {@code World} class.
      */
     public static RegistryEntry<Enchantment> worldEnchantment(World world, RegistryKey<Enchantment> enchantment) {
-        Optional<RegistryEntry.Reference<Enchantment>> optional = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
-        return optional.get();
+        try {
+            Optional<RegistryEntry.Reference<Enchantment>> optional = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
+            return optional.orElseThrow();
+        } catch (Exception o) {
+            return noSuchElementExceptionCrash(o);
+        }
+    }
+
+    /**
+     * @return {@code null,} crashes the game accordingly when you join a server that doesn't have the speedrunner mod installed.
+     */
+    private static RegistryEntry<Enchantment> noSuchElementExceptionCrash(Exception o) {
+        SpeedrunnerMod.error("Speedrunner Mod Crashed! Likely caused due to the server you joined doesn't have the speedrunner mod installed.");
+        o.printStackTrace();
+        return null;
     }
 
     /**
      */
-    public static ItemStack unbreakableItem(Item item) {
+    public static ItemStack createUnbreakableItem(Item item) {
         ItemStack stack = new ItemStack(item);
         stack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         return stack;

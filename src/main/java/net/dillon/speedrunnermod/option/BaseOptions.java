@@ -56,10 +56,14 @@ public abstract class BaseOptions<T> {
     }
 
     /**
-     * Throws a new {@code NullPointerException.}
+     * Throws a new {@link NullPointerException}.
      */
     public void throwNullPointerException(String option, Object[] values) {
-        throw new NullPointerException("option \""+option+"\" is NULL. Most likely, it is set to an invalid value in the \"speedrunnermod-options.config.json\" file. You can either delete the config file to automatically re-generate it correctly upon next launch, or set it to a valid value. Valid values for \""+option+"\" are: "+ Arrays.toString(values));
+        throw new NullPointerException("Option \""+option+"\" is NULL. Most likely, it is set to an invalid value in the \"speedrunnermod-options.config.json\" file. You can either delete the config file to automatically re-generate it correctly upon next launch, or set it to a valid value. Valid values for \""+option+"\" are: "+ Arrays.toString(values));
+    }
+
+    public void throwNumberLessThanOneException(String option) {
+        throw new IllegalStateException("Option \""+option+"\" cannot be set to a value less than 1.");
     }
 
     /**
@@ -90,6 +94,14 @@ public abstract class BaseOptions<T> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Matches client-side options with server-side options.
+     */
+    public void matchWithServer(T serverOptions) {
+        this.instance = serverOptions;
+        save();
     }
 
     /**

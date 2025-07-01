@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.packet;
+package net.dillon.speedrunnermod.packet.client;
 
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ChatGPT;
@@ -18,14 +18,14 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 @ChatGPT(Credit.MOST_CREDIT)
 public record CompleteTutorialStepS2CPacket(TutorialStep step, List<String> messageKeys) implements CustomPayload {
-    public static final Identifier ID = ofSpeedrunnerMod("complete_tutorial_step");
-    public static final CustomPayload.Id<CompleteTutorialStepS2CPacket> PAYLOAD_ID = new CustomPayload.Id<>(ID);
+    public static final Identifier ID = ofSpeedrunnerMod("complete_tutorial_step_s2c");
 
+    public static final CustomPayload.Id<CompleteTutorialStepS2CPacket> PACKET = new CustomPayload.Id<>(ID);
     public static final PacketCodec<RegistryByteBuf, CompleteTutorialStepS2CPacket> CODEC =
             PacketCodec.of(
-                    (buf, payload) -> {
-                        payload.writeEnumConstant(buf.step());
-                        payload.writeCollection(buf.messageKeys(), PacketByteBuf::writeString);
+                    (buf, packet) -> {
+                        packet.writeEnumConstant(buf.step());
+                        packet.writeCollection(buf.messageKeys(), PacketByteBuf::writeString);
                     },
                     buf -> new CompleteTutorialStepS2CPacket(
                             buf.readEnumConstant(TutorialStep.class),
@@ -35,6 +35,6 @@ public record CompleteTutorialStepS2CPacket(TutorialStep step, List<String> mess
 
     @Override
     public CustomPayload.Id<? extends CustomPayload> getId() {
-        return PAYLOAD_ID;
+        return PACKET;
     }
 }

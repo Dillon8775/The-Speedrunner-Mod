@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
-import net.dillon.speedrunnermod.packet.UpdateClientPreferencesS2CPacket;
+import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -36,7 +36,7 @@ public class EndPortalBlockMixin {
                 String s = "speedrunnermod.tutorial_mode.find_experience_ore";
                 translations.add(s);
                 sendWithPrefix(s, player);
-                ServerPlayNetworking.send(player, new UpdateClientPreferencesS2CPacket(translations));
+                ServerPlayNetworking.send(player, new UpdateLastCompletedTutorialStepTranslationsS2CPacket(translations));
             }
         }
     }

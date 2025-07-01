@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.option;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.main.command.argument.ItemStackArgumentTypeMixin;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
 
@@ -50,10 +48,9 @@ public class ModOptions {
 
         @Override
         protected void safeCheck() {
-            boolean isServer = FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER);
             if (options().main.playingMode == null) {
-                if (isServer) {
-                    this.throwNullPointerException("playingMode", PlayingMode.values());
+                if (isEnvironmentTypeServer()) {
+                    this.throwNullPointerException("Playing Mode", PlayingMode.values());
                 } else {
                     error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.playingMode");
                     isSafe(false);
@@ -62,8 +59,8 @@ public class ModOptions {
             }
 
             if (options().main.structureSpawnRates == null) {
-                if (isServer) {
-                    this.throwNullPointerException("structureSpawnRates", StructureSpawnRate.values());
+                if (isEnvironmentTypeServer()) {
+                    this.throwNullPointerException("Structure Spawn Rates", StructureSpawnRate.values());
                 } else {
                     error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.structureSpawnRates");
                     isSafe(false);
@@ -72,8 +69,8 @@ public class ModOptions {
             }
 
             if (options().main.mobSpawningRate == null) {
-                if (isServer) {
-                    this.throwNullPointerException("mobSpawningRate", MobSpawningRate.values());
+                if (isEnvironmentTypeServer()) {
+                    this.throwNullPointerException("Mob Spawning Rate", MobSpawningRate.values());
                 } else {
                     error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.mobSpawningRate");
                     isSafe(false);
@@ -82,72 +79,113 @@ public class ModOptions {
             }
 
             if (options().main.leaderboardsMode) {
-                error("Leaderboards mode is ON, please disable, as the leaderboards have been deleted.");
-                isSafe(false);
-                BrokenModOptions.leaderboards = true;
+                String message = "Leaderboards mode is ON, please disable, as the leaderboards have been deleted.";
+                if (isEnvironmentTypeServer()) {
+                    throw new IllegalStateException(message);
+                } else {
+                    error(message);
+                    isSafe(false);
+                    BrokenModOptions.leaderboards = true;
+                }
             }
 
-            if (options().main.netherPortalDelay < 0) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
-                isSafe(false);
-                BrokenModOptions.netherPortalCooldown = true;
+            if (options().main.netherPortalDelay < 1) {
+                if (isEnvironmentTypeServer()) {
+                    this.throwNumberLessThanOneException("Nether Portal Cooldown");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
+                    isSafe(false);
+                    BrokenModOptions.netherPortalCooldown = true;
+                }
             } else if (!options().isNetherPortalCooldownValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
             }
 
+            if (options().main.strongholdDistance < 1) {
+                if (isEnvironmentTypeServer()) {
+                    this.throwNumberLessThanOneException("Stronghold Distance");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
+                    isSafe(false);
+                    BrokenModOptions.strongholdDistance = true;
+                }
+            } else if (!options().isStrongholdDistanceValid()) {
+                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
+            }
+
+            if (options().main.strongholdSpread < 1) {
+                if (isEnvironmentTypeServer()) {
+                    this.throwNumberLessThanOneException("Stronghold Spread");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
+                    isSafe(false);
+                    BrokenModOptions.strongholdSpread = true;
+                }
+            } else if (!options().isStrongholdSpreadValid()) {
+                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
+            }
+
+            if (options().main.strongholdCount < 1) {
+                if (isEnvironmentTypeServer()) {
+                    this.throwNumberLessThanOneException("Stronghold Count");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
+                    isSafe(false);
+                    BrokenModOptions.strongholdCount = true;
+                }
+            } else if (!options().isStrongholdCountValid()) {
+                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
+            }
+
             if (options().main.strongholdPortalRoomCount < 1) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
-                isSafe(false);
-                BrokenModOptions.strongholdPortalRoomCount = true;
+                if (isEnvironmentTypeServer()) {
+                    this.throwNumberLessThanOneException("Stronghold Portal Room Count");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
+                    isSafe(false);
+                    BrokenModOptions.strongholdPortalRoomCount = true;
+                }
             } else if (!options().isStrongholdPortalRoomCountValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
             }
 
-            if (options().main.blockBreakingMultiplier < 0) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
-                isSafe(false);
-                BrokenModOptions.blockBreakingMultiplier = true;
-                warn("Cannot divide by zero! o_0");
+            if (options().main.strongholdLibraryCount < 1) {
+                if (isEnvironmentTypeServer()) {
+                    this.throwNumberLessThanOneException("Stronghold Library Count");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
+                    isSafe(false);
+                    BrokenModOptions.strongholdLibraryCount = true;
+                }
+            } else if (!options().isStrongholdLibraryCountValid()) {
+                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
+            }
+
+            if (options().main.blockBreakingMultiplier < 1) {
+                if (isEnvironmentTypeServer()) {
+                    throw new ArithmeticException("blockBreakingMultiplier cannot be set to a value less than 1.");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
+                    isSafe(false);
+                    BrokenModOptions.blockBreakingMultiplier = true;
+                    warn("Cannot divide by zero! o_0");
+                }
             } else if (!options().isBlockBreakingMultiplierValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
             }
 
             if (options().advanced.speedrunnersWastelandBiomeWeight < 1) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.speedrunnersWastelandBiomeWeight");
-                isSafe(false);
-                BrokenModOptions.speedrunnersWastelandBiomeWeight = true;
-                warn("Speedrunner's Wasteland Biome Weight is below 1. Instead, turn \"Custom Biomes and Custom Biome Features\" OFF.");
+                if (isEnvironmentTypeServer()) {
+                    throw new IllegalStateException("Option \"Speedrunner's Wasteland Biome Weight\" cannot be set below 1. If you do not want the speedrunner's wasteland biome to generate, turn \"Custom Biomes and Custom Biome Features\" OFF. Otherwise, please set speedrunnersWastelandBiomeWeight to a value greater than or equal to 1.");
+                } else {
+                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.speedrunnersWastelandBiomeWeight");
+                    isSafe(false);
+                    BrokenModOptions.speedrunnersWastelandBiomeWeight = true;
+                    warn("Speedrunner's Wasteland Biome Weight is below 1. Instead, turn \"Custom Biomes and Custom Biome Features\" OFF.");
+                }
             } else if (!options().isSpeedrunnersWastelandBiomeWeightValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.speedrunnersWastelandBiomeWeight");
                 warn("The weight for the Speedrunner's Wasteland biome is either too high or too low. Proceed with caution.");
-            }
-
-            if (!options().isIcarusFireworksInventorySlotValid()) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.icarusFireworksInventorySlot");
-                isSafe(false);
-                BrokenModOptions.iCarusFireworksInventorySlot = true;
-            }
-
-            if (!options().isInfiniPearlInventorySlotValid()) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.infiniPearlInventorySlot");
-                isSafe(false);
-                BrokenModOptions.infiniPearlInventorySlot = true;
-            }
-
-            if (!options().isStrongholdLibraryCountValid()) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
-            }
-
-            if (!options().isStrongholdDistanceValid()) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
-            }
-
-            if (!options().isStrongholdSpreadValid()) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
-            }
-
-            if (!options().isStrongholdCountValid()) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
             }
 
             if (!options().isDragonPerchTimeValid()) {
@@ -417,17 +455,6 @@ public class ModOptions {
         public int piglinAwakenerPiglinCount = 10;
 
         /**
-         * Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.
-         */
-        public int iCarusFireworksInventorySlot = 1;
-
-        /**
-         * Sets the inventory slot that the InfiniPearl item should be given to when InfiniPearl mode is enabled.
-         * <p>This value is incremented by one if iCarus Mode is already enabled.</p>
-         */
-        public int infiniPearlInventorySlot = 1;
-
-        /**
          * Determines the explosion power for fireballs when thrown with a fire charge.
          */
         public int fireballExplosionPower = 2;
@@ -533,14 +560,14 @@ public class ModOptions {
      * Returns true if the {@code Dragon Perch Time} option is valid.
      */
     public boolean isDragonPerchTimeValid() {
-        return this.inBounds(main.dragonPerchTime, 8, 90);
+        return inBounds(main.dragonPerchTime, 8, 90);
     }
 
     /**
      * Returns true if the {@code Dragon Perch Time} option is {@code on.}
      */
     public boolean isDragonPerchTimeOn() {
-        return this.inBounds(main.dragonPerchTime, 10);
+        return inBounds(main.dragonPerchTime, 10);
     }
 
     /**
@@ -561,97 +588,83 @@ public class ModOptions {
      * Returns true if the {@code Block Breaking Multiplier} option is valid.
      */
     public boolean isBlockBreakingMultiplierValid() {
-        return this.inBounds(main.blockBreakingMultiplier, 1, 3);
+        return inBounds(main.blockBreakingMultiplier, 1, 3);
     }
 
     /**
      * Returns true if the {@code Stronghold Distance} option is valid.
      */
     public boolean isStrongholdDistanceValid() {
-        return this.inBounds(main.strongholdDistance, 3, 64);
+        return inBounds(main.strongholdDistance, 3, 64);
     }
 
     /**
      * Returns true if the {@code Stronghold Spread} option is valid.
      */
     public boolean isStrongholdSpreadValid() {
-        return this.inBounds(main.strongholdSpread, 2, 32);
+        return inBounds(main.strongholdSpread, 2, 32);
     }
 
     /**
      * Returns true if the {@code Stronghold Count} option is valid.
      */
     public boolean isStrongholdCountValid() {
-        return this.inBounds(main.strongholdCount, 4, 156);
+        return inBounds(main.strongholdCount, 4, 156);
     }
 
     /**
      * Returns true if the {@code Stronghold Portal Room Count} option is valid.
      */
     public boolean isStrongholdPortalRoomCountValid() {
-        return this.inBounds(main.strongholdPortalRoomCount, 0, 3);
+        return inBounds(main.strongholdPortalRoomCount, 0, 3);
     }
 
     /**
      * Returns true if the {@code Stronghold Library Count} option is valid.
      */
     public boolean isStrongholdLibraryCountValid() {
-        return this.inBounds(main.strongholdLibraryCount, 1, 10);
+        return inBounds(main.strongholdLibraryCount, 1, 10);
     }
 
     /**
      * Returns true if the {@code Anvil Cost Limit} option is valid.
      */
     public boolean isAnvilCostLimitValid() {
-        return this.inBounds(main.anvilCostLimit, 1, 50);
+        return inBounds(main.anvilCostLimit, 1, 50);
     }
 
     /**
      * Returns true if the {@code Nether Portal Cooldown} option is valid.
      */
     public boolean isNetherPortalCooldownValid() {
-        return this.inBounds(main.netherPortalDelay, 0, 20);
+        return inBounds(main.netherPortalDelay, 0, 20);
     }
 
     /**
      * Returns true if the {@code Speedrunner's Wasteland Biome Weight} option is valid.
      */
     public boolean isSpeedrunnersWastelandBiomeWeightValid() {
-        return this.inBounds(advanced.speedrunnersWastelandBiomeWeight, 1, 32);
+        return inBounds(advanced.speedrunnersWastelandBiomeWeight, 1, 32);
     }
 
     /**
      * Returns true if the {@code Eye of Ender Breaking Cooldown} advanced option is valid.
      */
     public boolean isEyeOfEnderBreakingCooldownValid() {
-        return this.inBounds(advanced.enderEyeBreakingCooldown, 20, 200);
-    }
-
-    /**
-     * Returns true if the {@code Icarus Fireworks Inventory Slot} advanced option is valid.
-     */
-    public boolean isIcarusFireworksInventorySlotValid() {
-        return this.inBounds(advanced.iCarusFireworksInventorySlot, 1, 36);
-    }
-
-    /**
-     * Returns true if the {@code InfiniPearl Inventory Slot} advanced option is valid.
-     */
-    public boolean isInfiniPearlInventorySlotValid() {
-        return this.inBounds(advanced.infiniPearlInventorySlot, 1, 36);
+        return inBounds(advanced.enderEyeBreakingCooldown, 20, 200);
     }
 
     /**
      * Determines if a certain option is {@code greater than} or {@code equal to} inputted parameters.
      */
-    public boolean inBounds(int option, int min) {
+    public static boolean inBounds(int option, int min) {
         return option >= min;
     }
 
     /**
      * Determines if a certain option is {@code less than} and {@code greater than} equal to said parameters.
      */
-    public boolean inBounds(int option, int min, int max) {
+    public static boolean inBounds(int option, int min, int max) {
         return option >= min && option <= max;
     }
 

@@ -1,5 +1,6 @@
-package net.dillon.speedrunnermod.client.screen.base;
+package net.dillon.speedrunnermod.client.screen.base.option;
 
+import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;

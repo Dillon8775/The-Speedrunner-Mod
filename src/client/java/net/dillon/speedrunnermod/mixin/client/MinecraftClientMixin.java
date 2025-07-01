@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.mixin.client;
 
 import com.google.common.collect.Lists;
-import net.dillon.speedrunnermod.client.screen.base.LeaderboardsSafeScreen;
 import net.dillon.speedrunnermod.client.screen.base.SafeBootScreen;
-import net.dillon.speedrunnermod.client.screen.base.SpeedrunIGTMissingScreen;
+import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsSafeScreen;
+import net.dillon.speedrunnermod.client.screen.base.misc.SpeedrunIGTMissingScreen;
 import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;

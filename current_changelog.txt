@@ -7,7 +7,10 @@ CRASH FIXES:
 - Split client and common sources. Client-sided options are now strictly client-side and do not interfere with the server side. Same with server-side options, they do not interfere with the client-side.
 
 TUTORIAL MODE:
-- Optimized and fixed bugs in tutorial mode (now client-side feature).
+- Tutorial mode is now client-side only, meaning multiple players can work at their own pace and progress on their own.
+- Tutorial mode now works correctly on servers.
+- Tutorial mode is no longer a beta feature, it's official.
+- Optimized and fixed bugs in tutorial mode.
 
 SPEEDRUNNER BOAT CHANGES:
 - New item! - Speedrunner paddle: used to paddle the speedrunner boat. Crafted with a speedrunner block, speedrunner ingot, and a speedrunner stick.
@@ -26,5 +29,6 @@ REMOVALS:
 - Deleted place on Dillon8775's webpage, everything you would need for this mod is now on CurseForge and Modrinth.
 
 MISCELLANEOUS:
+- Added option to sync client-side options with server-side options, to allow for optimal gameplay.
 - Changing the "allow cheats" option in the fast world creation screen will enable/disable cheats in your current world.
-- Experiences ores now generate on doom mode once again.
+- Experiences ores now generate on every playing mode.

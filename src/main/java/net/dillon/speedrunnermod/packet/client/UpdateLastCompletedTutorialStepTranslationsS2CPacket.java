@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.packet;
+package net.dillon.speedrunnermod.packet.client;
 
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -10,11 +10,11 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
-public record UpdateClientPreferencesS2CPacket(List<String> lastCompletedTutorialStepTranslations) implements CustomPayload {
-    public static final Identifier ID = ofSpeedrunnerMod("update_client_prefs_s2c");
-    public static final CustomPayload.Id<UpdateClientPreferencesS2CPacket> PAYLOAD_ID = new CustomPayload.Id<>(ID);
+public record UpdateLastCompletedTutorialStepTranslationsS2CPacket(List<String> lastCompletedTutorialStepTranslations) implements CustomPayload {
+    public static final Identifier ID = ofSpeedrunnerMod("update_last_completed_tutorial_step_translations_s2c");
 
-    public static final PacketCodec<RegistryByteBuf, UpdateClientPreferencesS2CPacket> CODEC =
+    public static final CustomPayload.Id<UpdateLastCompletedTutorialStepTranslationsS2CPacket> PACKET = new CustomPayload.Id<>(ID);
+    public static final PacketCodec<RegistryByteBuf, UpdateLastCompletedTutorialStepTranslationsS2CPacket> CODEC =
             PacketCodec.of(
                     (buf, packet) -> {
                         packet.writeVarInt(buf.lastCompletedTutorialStepTranslations().size());
@@ -28,12 +28,12 @@ public record UpdateClientPreferencesS2CPacket(List<String> lastCompletedTutoria
                         for (int i = 0; i < size; i++) {
                             list.add(buf.readString());
                         }
-                        return new UpdateClientPreferencesS2CPacket(list);
+                        return new UpdateLastCompletedTutorialStepTranslationsS2CPacket(list);
                     }
             );
 
     @Override
     public CustomPayload.Id<? extends CustomPayload> getId() {
-        return PAYLOAD_ID;
+        return PACKET;
     }
 }

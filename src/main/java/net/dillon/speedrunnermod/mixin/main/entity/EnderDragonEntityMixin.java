@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.packet.UpdateClientPreferencesS2CPacket;
+import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModConstants;
@@ -133,7 +133,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                     String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";
                     translations.add(s);
                     sendWithPrefix(s, serverPlayer);
-                    ServerPlayNetworking.send(serverPlayer, new UpdateClientPreferencesS2CPacket(translations));
+                    ServerPlayNetworking.send(serverPlayer, new UpdateLastCompletedTutorialStepTranslationsS2CPacket(translations));
                 }
             } else {
                 PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);

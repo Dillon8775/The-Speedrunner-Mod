@@ -20,7 +20,9 @@ import net.dillon.speedrunnermod.village.ModPointOfInterestTypes;
 import net.dillon.speedrunnermod.village.ModTradeOffers;
 import net.dillon.speedrunnermod.village.ModVillagers;
 import net.dillon.speedrunnermod.world.ModWorldGen;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -143,5 +145,12 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     public static Identifier ofSpeedrunnerMod(String path) {
         return Identifier.of("speedrunnermod", path);
+    }
+
+    /**
+     * @return {@code true} if the mod is running on {@code EnvType.SERVER}
+     */
+    public static boolean isEnvironmentTypeServer() {
+        return FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER);
     }
 }

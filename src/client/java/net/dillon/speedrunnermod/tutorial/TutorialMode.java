@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.tutorial;
 
-import net.dillon.speedrunnermod.packet.StepCompleteC2SPacket;
+import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
 import net.dillon.speedrunnermod.util.ChatGPT;
 import net.dillon.speedrunnermod.util.Credit;
 import net.fabricmc.api.EnvType;
@@ -146,7 +146,7 @@ public interface TutorialMode {
                     options().main.playingMode.doom() && this.getStep(TutorialStep.EXIT_END)) {
                 translations = List.of(); // blank list if tutorial mode is completed
             }
-            ClientPlayNetworking.send(new StepCompleteC2SPacket(step, translations));
+            ClientPlayNetworking.send(new TutorialStepCompleteC2SPacket(step, translations));
             player.playSoundToPlayer(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
             saveClientChanges();
         }
