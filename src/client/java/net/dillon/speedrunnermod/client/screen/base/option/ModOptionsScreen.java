@@ -13,8 +13,8 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.option.ModOptions.isStructureSpawnRatesCustom;
 
 /**
  * The {@code options} screen for the Speedrunner Mod, consisting of all the option categories.
@@ -51,7 +51,7 @@ public class ModOptionsScreen extends AbstractModScreen {
         if (this.resetOptionsButton != null) {
             widgets.add(this.resetOptionsButton);
         }
-        if (this.resetTutorialModeButton != null && clientOptions().client.tutorialMode) {
+        if (this.resetTutorialModeButton != null && clientOptions().client.tutorialMode.getCurrentValue()) {
             widgets.add(this.resetTutorialModeButton);
         }
         return widgets;
@@ -87,7 +87,7 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.client.setScreen(new ResetOptionsConfirmScreen(this, false));
         }).build();
 
-        if (clientOptions().client.tutorialMode) {
+        if (clientOptions().client.tutorialMode.getCurrentValue()) {
             this.resetTutorialModeButton = ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
                 this.client.setScreen(new ResetOptionsConfirmScreen(this, true));
             }).build();
@@ -98,7 +98,7 @@ public class ModOptionsScreen extends AbstractModScreen {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        this.ssrOptionsButton.active = options().main.structureSpawnRates.custom();
+        this.ssrOptionsButton.active = isStructureSpawnRatesCustom();
         super.render(context, mouseX, mouseY, deltaTicks);
     }
 
@@ -114,7 +114,7 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_CLIENT_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.ssrOptionsButton.isHovered()) {
-            if (options().main.structureSpawnRates.custom()) {
+            if (isStructureSpawnRatesCustom()) {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_TOOLTIP, context, mouseX, mouseY);
             } else {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_NEEDS_CUSTOM_TOOLTIP, context, mouseX, mouseY);
@@ -130,7 +130,7 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
         }
 
-        if (clientOptions().client.tutorialMode) {
+        if (clientOptions().client.tutorialMode.getCurrentValue()) {
             if (this.resetTutorialModeButton != null && this.resetTutorialModeButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
             }

@@ -38,7 +38,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(clientOptions(this.gameOptions));
-        this.deactivateOptionIf(0, ButtonSide.LARGE, SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin);
+        this.deactivateOptionIf(0, ButtonSide.LARGE, SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue());
         this.addSelectableChild(this.optionList);
     }
 
@@ -47,7 +47,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 0,
                 ButtonSide.LEFT,
-                SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin,
+                SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.fog.tooltip"),
                 Text.translatable("speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip"),
                 context,

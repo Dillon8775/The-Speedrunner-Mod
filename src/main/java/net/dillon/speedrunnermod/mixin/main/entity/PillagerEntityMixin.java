@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(PillagerEntity.class)
 public abstract class PillagerEntityMixin extends IllagerEntity {
@@ -41,9 +41,9 @@ public abstract class PillagerEntityMixin extends IllagerEntity {
     @Overwrite
     public static DefaultAttributeContainer.Builder createPillagerAttributes() {
         final double genericMovementSpeed = 0.3499999940395355D;
-        final double genericMaxHealth = options().main.playingMode.doom() ? 32.0D : 12.0D;
-        final double genericAttackDamage = options().main.playingMode.doom() ? 8.0D : 4.0;
-        final double genericFollowRange = options().main.playingMode.doom() ? 32.0D : 16.0D;
+        final double genericMaxHealth = isPlayingModeDoom() ? 32.0D : 12.0D;
+        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0;
+        final double genericFollowRange = isPlayingModeDoom() ? 32.0D : 16.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)

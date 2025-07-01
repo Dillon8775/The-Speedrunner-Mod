@@ -24,8 +24,8 @@ public class FireproofItemsScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.fireproofItems ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.fireproofItems = !options().main.fireproofItems;
+        this.addButtonObject(ButtonWidget.builder(options().main.fireproofItems.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.fireproofItems.set(!options().main.fireproofItems.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

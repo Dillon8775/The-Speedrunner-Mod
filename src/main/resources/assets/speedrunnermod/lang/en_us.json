@@ -8,7 +8,7 @@
   "speedrunnermod.playing_mode_option": "There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lBalanced,§r§f and §c§lDoom.\n§b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.\n§e§lBalanced§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.\n§c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.\n\n§a§lWhich mode do you want to play on?",
   "speedrunnermod.playing_mode.easy.tooltip": "Enables all features, results in the quickest speedrunning times.",
   "speedrunnermod.playing_mode.balanced.tooltip": "Limits some features, making the game more balanced, resulting in quick speedrunning times.",
-  "speedrunnermod.playing_mode.doom.tooltip": "Good luck with this one...",
+  "speedrunnermod.playing_mode.doom.tooltip": "Flips the mod's description upside-down, and makes the game extremely difficult in various different ways, resulting in 30-40 minute runs. It's a good challenge, but only if you're up for it!",
   "speedrunnermod.ready_to_play": "Alright! Now that you have selected the mode that you want to play on, you are ready to play!\n\n§aDo you want to enter tutorial mode?",
   "speedrunnermod.enter_tutorial_mode": "§aEnter Tutorial Mode",
   "speedrunnermod.begin_playing": "§bBegin Playing",
@@ -775,7 +775,8 @@
   "speedrunnermod.restarting_game_timer": "Closing game in",
 
   "speedrunnermod.menu.open_options_file": "Open File...",
-  "speedrunnermod.menu.open_options_file.tooltip": "Open the .json configuration file...",
+  "speedrunnermod.menu.open_options_file.tooltip": "Open the main configuration file...",
+  "speedrunnermod.menu.open_client_options_file.tooltip": "Open client-side configuration file...",
 
   "speedrunnermod.menu.features": "Features...",
   "speedrunnermod.menu.features.tooltip": "View a list of multiple pages, containing a bunch of features that this mod includes!",

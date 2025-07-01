@@ -56,7 +56,7 @@ public abstract class EntityMixin {
     @Inject(method = {"setOnFireFromLava", "setOnFireFor"}, at = @At("HEAD"), cancellable = true)
     private void setOnFireFromLava(CallbackInfo ci) {
         Entity vehicle = getVehicle();
-        if (options().main.lavaBoats && vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat.itemSupplier)) {
+        if (options().main.lavaBoats.getCurrentValue() && vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat.itemSupplier)) {
             ci.cancel();
         }
     }

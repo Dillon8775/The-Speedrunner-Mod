@@ -21,8 +21,8 @@ public class BetterFoodsScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.betterFoods ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.betterFoods = !options().main.betterFoods;
+        this.addButtonObject(ButtonWidget.builder(options().main.betterFoods.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.betterFoods.set(!options().main.betterFoods.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

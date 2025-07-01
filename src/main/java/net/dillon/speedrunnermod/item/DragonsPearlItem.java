@@ -27,6 +27,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
@@ -41,9 +42,9 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (!world.isClient) {
-            if (!options().main.playingMode.balanced()) {
+            if (!isPlayingModeBalanced()) {
                 if (world.getRegistryKey() == World.END) {
-                    List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlDragonDistanceXYZ[0], options().advanced.dragonsPearlDragonDistanceXYZ[1], options().advanced.dragonsPearlDragonDistanceXYZ[2]), entity -> true);
+                    List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().getFirst(), options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().get(1), options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().get(2)), entity -> true);
 
                     if (!dragons.isEmpty()) {
                         EnderDragonEntity enderDragon = dragons.get(0);
@@ -124,7 +125,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
-        if (options().main.playingMode.balanced()) {
+        if (isPlayingModeBalanced()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }

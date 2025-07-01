@@ -19,7 +19,8 @@ import net.minecraft.util.Rarity;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * A weapon that {@code one-shots} the {@code ender dragon.}
@@ -36,11 +37,11 @@ public class DragonsSwordItem extends Item implements StateOfTheArtItem {
     @Override
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
-            if (!options().main.playingMode.doom() && !options().main.playingMode.balanced()) {
+            if (!isPlayingModeDoom() && !isPlayingModeBalanced()) {
                 dragon.setHealth(0.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
             } else {
-                if (options().main.playingMode.doom()) {
+                if (isPlayingModeDoom()) {
                     attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloat(2.0F, 3.0F));
                     attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(5), 0, false, true, true));
                     attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsInTicks(2), 0, false, true, true));
@@ -64,8 +65,8 @@ public class DragonsSwordItem extends Item implements StateOfTheArtItem {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(options().main.playingMode.doom() ? Formatting.STRIKETHROUGH : Formatting.WHITE));
-        if (options().main.playingMode.doom()) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(isPlayingModeDoom() ? Formatting.STRIKETHROUGH : Formatting.WHITE));
+        if (isPlayingModeDoom()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
         }
         this.addStateOfTheArtItemTooltip(textConsumer);

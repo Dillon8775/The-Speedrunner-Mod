@@ -30,7 +30,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
         this.submitSpeedrunButton = this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.leaderboards.submit").formatted(getSubmitSpeedrunColor()), (button) -> {
             this.openLink(ModLinks.LEADERBOARDS_SUBMISSION, true);
         }).dimensions(this.getButtonsLeftSide(), height, 150, 20).build());
-        this.submitSpeedrunButton.active = options().main.leaderboardsMode && Leaderboards.isEligibleForLeaderboardRuns();
+        this.submitSpeedrunButton.active = options().main.leaderboardsMode.getCurrentValue() && Leaderboards.isEligibleForLeaderboardRuns();
         this.addDrawableChild(ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS_VIEW, (button) -> {
             this.openLink(ModLinks.LEADERBOARDS, true);
         }).dimensions(this.getButtonsRightSide(), height, 150, 20).build());
@@ -46,7 +46,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
     @Override
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
         if (this.submitSpeedrunButton.isHovered()) {
-            if (!options().main.leaderboardsMode) {
+            if (!options().main.leaderboardsMode.getCurrentValue()) {
                 this.renderBasicTooltip(Text.translatable("speedrunnermod.leaderboards_mode_disabled.tooltip"), context, mouseX, mouseY);
             } else if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 this.renderBasicTooltip(Text.translatable("speedrunnermod.cannot_submit_speedrun.tooltip"), context, mouseX, mouseY);
@@ -66,7 +66,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
      * Gets submit a speedrun button text color.
      */
     private static Formatting getSubmitSpeedrunColor() {
-        if (options().main.leaderboardsMode) {
+        if (options().main.leaderboardsMode.getCurrentValue()) {
             if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 return Formatting.RED;
             } else {

@@ -39,9 +39,9 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(fwcOptions());
-        this.deactivateOptionIf(0, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation);
-        this.deactivateOptionIf(1, ButtonSide.LEFT, clientOptions().client.fastWorldCreation);
-        this.deactivateOptionIf(1, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation);
+        this.deactivateOptionIf(0, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.deactivateOptionIf(1, ButtonSide.LEFT, clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.deactivateOptionIf(1, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }
@@ -51,7 +51,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 0,
                 ButtonSide.RIGHT,
-                clientOptions().client.fastWorldCreation,
+                clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.difficulty.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 context,
@@ -61,7 +61,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 1,
                 ButtonSide.LEFT,
-                clientOptions().client.fastWorldCreation,
+                clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 context,
@@ -71,7 +71,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 1,
                 ButtonSide.RIGHT,
-                clientOptions().client.fastWorldCreation,
+                clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 context,

@@ -14,7 +14,7 @@ import java.util.Arrays;
  * The base class for registering options on different environment sides.
  */
 public abstract class BaseOptions<T> {
-    private final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
+    private final Gson GSON = createGson();
     private final String fileName;
     private File file;
     protected T instance;
@@ -49,10 +49,29 @@ public abstract class BaseOptions<T> {
     protected abstract void safeCheck();
 
     /**
+     * Creates the {@code GSON reader,} which reads options correctly.
+     */
+    private Gson createGson() {
+        GsonBuilder builder = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .setPrettyPrinting();
+        return builder.create();
+    }
+
+    /**
      * Gets the instance of options.
      */
     public T getInstance() {
         return this.instance;
+    }
+
+    /**
+     * Resets options to default.
+     */
+    public void resetToDefault() {
+        T defaults = this.createDefault();
+        String json = GSON.toJson(defaults);
+        this.instance = GSON.fromJson(json, this.getConfigClass());
     }
 
     /**

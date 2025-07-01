@@ -24,7 +24,7 @@ public class ItemEntityMixin {
         ItemEntity item = (ItemEntity)(Object)this;
         ItemStack stack = item.getStack();
 
-        if (options().main.fireproofItems) {
+        if (options().main.fireproofItems.getCurrentValue()) {
             if (stack.isIn(ModItemTags.FIREPROOF_ITEMS)) {
                 cir.setReturnValue(true);
             }

@@ -23,7 +23,7 @@ public class RuinedPortalStructureMixin {
      */
     @Inject(method = "getFloorHeight", at = @At(value = "RETURN"), cancellable = true)
     private static void getNewFloorHeight(Random random, ChunkGenerator chunkGenerator, RuinedPortalStructurePiece.VerticalPlacement verticalPlacement, boolean airPocket, int height, int blockCountY, BlockBox box, HeightLimitView world, NoiseConfig noiseConfig, CallbackInfoReturnable<Integer> cir) {
-        if (options().main.customDataGeneration) {
+        if (options().main.customDataGeneration.getCurrentValue()) {
             if (verticalPlacement == RuinedPortalStructurePiece.VerticalPlacement.PARTLY_BURIED || verticalPlacement == RuinedPortalStructurePiece.VerticalPlacement.UNDERGROUND) {
                 cir.setReturnValue(height);
             } else if (verticalPlacement == RuinedPortalStructurePiece.VerticalPlacement.IN_MOUNTAIN) {

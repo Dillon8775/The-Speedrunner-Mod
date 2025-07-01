@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.mixin.plugin;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
@@ -16,7 +15,10 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Set;
 
-@ChatGPT(Credit.FULL_CREDIT)
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.isEnvironmentTypeServer;
+import static net.dillon.speedrunnermod.option.ModOptions.isSafeToPlay;
+
+@AI
 public class ConditionalMixinPlugin implements IMixinConfigPlugin {
 
     /**
@@ -65,7 +67,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
      * Reads a boolean from the options file.
      * <p>Used with conditional mixin plugins to prevent crashing.</p>
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private static boolean readOptionAsBoolean() {
         File configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModUtil.CONFIG_FILE_NAME);
 
@@ -79,11 +81,19 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
             if (json.has("mixins")) {
                 JsonObject mixins = json.getAsJsonObject("mixins");
                 if (mixins.has("terra_blender_surface_rule_data_mixin")) {
-                    return mixins.get("terra_blender_surface_rule_data_mixin").getAsBoolean();
+                    JsonObject optionValue = mixins.getAsJsonObject("terra_blender_surface_rule_data_mixin");
+                    if (optionValue.has("value")) {
+                        return optionValue.get("value").getAsBoolean();
+                    }
                 }
             }
         } catch (Exception e) {
-            SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
+            if (isEnvironmentTypeServer()) {
+                throw new IllegalStateException("Failed to read config for mixin plugin: " + e.getMessage() + ". This is likely caused to updating to the newest version of the speedrunner mod, please relaunch the server and everything should work.");
+            } else {
+                SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
+                isSafeToPlay(false);
+            }
         }
 
         return true;

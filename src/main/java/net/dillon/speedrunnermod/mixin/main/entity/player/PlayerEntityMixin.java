@@ -38,6 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -57,7 +58,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
     private void takeShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             if (attacker instanceof GiantEntity) {
                 int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
                 int shieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 10 : coolEnchantment == 4 ? 25 : coolEnchantment == 3 ? 50 : coolEnchantment == 2 ? 100 : coolEnchantment == 1 ? 150 : 200;
@@ -91,7 +92,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Override
     protected int getNextAirUnderwater(int air) {
-        if (options().advanced.higherBreathTime && this.random.nextInt(4) > 0) {
+        if (options().advanced.higherBreathTime.getCurrentValue() && this.random.nextInt(4) > 0) {
             return air;
         }
 

@@ -24,8 +24,8 @@ public class InfiniPearlModeScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.infiniPearlMode ? ModTexts.DISABLE_INFINI_PEARL_MODE : ModTexts.ENABLE_INFINI_PEARL_MODE, button -> {
-            options().main.infiniPearlMode = !options().main.infiniPearlMode;
+        this.addButtonObject(ButtonWidget.builder(options().main.infiniPearlMode.getCurrentValue() ? ModTexts.DISABLE_INFINI_PEARL_MODE : ModTexts.ENABLE_INFINI_PEARL_MODE, button -> {
+            options().main.infiniPearlMode.set(!options().main.infiniPearlMode.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

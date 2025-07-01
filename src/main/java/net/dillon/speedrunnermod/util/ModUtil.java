@@ -212,21 +212,21 @@ public class ModUtil {
     /**
      * Creates an {@code integer list option,} with {@code positive} coordinate values.
      */
-    public static double[] createListOption(double posX, double posY, double posZ) {
-        return new double[]{posX, posY, posZ};
+    public static List<Double> createListOption(double posX, double posY, double posZ) {
+        return List.of(posX, posY, posZ);
     }
 
     /**
      * Creates an {@code integer list option,} with {@code negative} and {@code positive} coordinate values.
      */
-    public static int[] createListOption(int negX, int negY, int negZ, int posX, int posY, int posZ) {
-        return new int[]{negX, negY, negZ, posX, posY, posZ};
+    public static List<Integer> createListOption(int negX, int negY, int negZ, int posX, int posY, int posZ) {
+        return List.of(negX, negY, negZ, posX, posY, posZ);
     }
 
     /**
      * Creates a new {@code structure spawn rate option.}
      */
-    public static int[] createStructureSpawnRateOption(int spacing, int separation) {
-        return new int[]{spacing, separation};
+    public static List<Integer> createStructureSpawnRateOption(int spacing, int separation) {
+        return List.of(spacing, separation);
     }
 }

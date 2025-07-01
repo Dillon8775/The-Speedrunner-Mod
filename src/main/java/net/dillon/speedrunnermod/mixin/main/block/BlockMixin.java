@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(Block.class)
 public class BlockMixin {
@@ -21,10 +22,10 @@ public class BlockMixin {
     @Overwrite
     public void onLandedUpon(World world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         float fallDamage;
-        if (!options().main.fallDamage) {
+        if (!options().main.fallDamage.getCurrentValue()) {
             fallDamage = 0.0F;
         } else {
-            fallDamage = options().main.playingMode.doom() ? 1.0F : 0.7F;
+            fallDamage = isPlayingModeDoom() ? 1.0F : 0.7F;
             if (entity.isSneaking()) {
                 fallDamage = fallDamage / 1.25F;
             }

@@ -28,19 +28,19 @@ public class PlayingModeOption extends AbstractFeatureScreen {
     protected void init() {
         super.init();
         this.easyButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.easy"), button -> {
-            options().main.playingMode = ModOptions.PlayingMode.EASY;
+            options().main.playingMode.set(ModOptions.PlayingMode.EASY);
             saveDedicatedServerChanges();
             restartRequired = false;
             this.client.setScreen(this.getNextScreen());
         }).build());
         this.balancedButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.balanced"), button -> {
-            options().main.playingMode = ModOptions.PlayingMode.BALANCED;
+            options().main.playingMode.set(ModOptions.PlayingMode.BALANCED);
             saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
         this.doomButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.options.playing_mode.doom"), button -> {
-            options().main.playingMode = ModOptions.PlayingMode.DOOM;
+            options().main.playingMode.set(ModOptions.PlayingMode.DOOM);
             saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());

@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.packet.client;
 
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -16,7 +15,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * Packet for sending tutorial steps over to the client-side.
  */
-@ChatGPT(Credit.MOST_CREDIT)
+@AI
 public record CompleteTutorialStepS2CPacket(TutorialStep step, List<String> messageKeys) implements CustomPayload {
     public static final Identifier ID = ofSpeedrunnerMod("complete_tutorial_step_s2c");
 

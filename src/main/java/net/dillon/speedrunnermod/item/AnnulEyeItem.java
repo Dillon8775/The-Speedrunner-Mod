@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -30,6 +29,7 @@ import net.minecraft.world.World;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
 
 /**
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
@@ -47,7 +47,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
         player.setCurrentHand(hand);
         if (!world.isClient) {
             if (world.getRegistryKey() == World.OVERWORLD) {
-                if (!options().main.playingMode.balanced()) {
+                if (!isPlayingModeBalanced()) {
                     boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));
                     boolean hasEnderPearl = player.getInventory().contains(new ItemStack(Items.ENDER_PEARL));
                     boolean hasRequiredItems = hasEnderEye && hasEnderPearl;
@@ -114,7 +114,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
     /**
      * Finds the nearest stronghold, to then find the closest end portal frame block inside of it.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private BlockPos findPortalRoom(World world, BlockPos startPos) {
         BlockPos strongholdPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, startPos, 100, false);
 
@@ -132,9 +132,9 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
     /**
      * Finds the nearest end portal frame block inside the stronghold.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private BlockPos findEndPortalFrame(World world, BlockPos strongholdPos) {
-        for (BlockPos pos : BlockPos.iterate(strongholdPos.add(options().advanced.annulEyePortalRoomDistanceXYZ[0], options().advanced.annulEyePortalRoomDistanceXYZ[1], options().advanced.annulEyePortalRoomDistanceXYZ[2]), strongholdPos.add(options().advanced.annulEyePortalRoomDistanceXYZ[3], options().advanced.annulEyePortalRoomDistanceXYZ[4], options().advanced.annulEyePortalRoomDistanceXYZ[5]))) {
+        for (BlockPos pos : BlockPos.iterate(strongholdPos.add(options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().getFirst(), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(1), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(2)), strongholdPos.add(options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(3), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(4), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(5)))) {
             if (world.getBlockState(pos).getBlock().equals(Blocks.END_PORTAL_FRAME)) {
                 return pos.toImmutable();
             }
@@ -159,10 +159,10 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1")
-                .formatted(options().main.playingMode.balanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
+                .formatted(isPlayingModeBalanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2")
-                .formatted(options().main.playingMode.balanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
-        if (options().main.playingMode.balanced()) {
+                .formatted(isPlayingModeBalanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
+        if (isPlayingModeBalanced()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled")
                     .formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }

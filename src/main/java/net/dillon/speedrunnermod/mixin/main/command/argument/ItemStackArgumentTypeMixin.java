@@ -5,8 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
@@ -30,7 +29,7 @@ public class ItemStackArgumentTypeMixin {
     /**
      * Fixes suggestions bug when typing in speedrunner mod items.
      */
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     @Inject(method = "listSuggestions", at = @At("HEAD"), cancellable = true)
     private void modifyItemSuggestions(CommandContext<CommandSource> context, SuggestionsBuilder builder, CallbackInfoReturnable<CompletableFuture<Suggestions>> cir) {
         String input = builder.getRemaining(); // Get user-typed input
@@ -55,7 +54,7 @@ public class ItemStackArgumentTypeMixin {
     /**
      * Fixes bug where typing in a speedrunner mod item does without the {@code "speedrunnermod:"} namespace, doesn't work.
      */
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     @Inject(method = "parse", at = @At("HEAD"), cancellable = true)
     private void modifyItemParsing(StringReader reader, CallbackInfoReturnable<ItemStackArgument> cir) {
         int cursor = reader.getCursor();
@@ -69,8 +68,8 @@ public class ItemStackArgumentTypeMixin {
                 cir.setReturnValue(new ItemStackArgument(entry, ComponentChanges.EMPTY));
             }
 
-            for (int i = 0; i < options().advanced.modIds.size(); i++) {
-                Identifier modId = Identifier.of(options().advanced.modIds.get(i), id.getPath());
+            for (int i = 0; i < options().advanced.modIds.getCurrentValue().size(); i++) {
+                Identifier modId = Identifier.of(options().advanced.modIds.getCurrentValue().get(i), id.getPath());
                 if (Registries.ITEM.containsId(modId)) {
                     entry = Registries.ITEM.getEntry(modId).orElseThrow();
                     cir.setReturnValue(new ItemStackArgument(entry, entry.value().getDefaultStack().getComponentChanges()));

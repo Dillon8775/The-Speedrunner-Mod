@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(ZombieEntity.class)
 public class ZombieEntityMixin extends HostileEntity {
@@ -42,10 +42,10 @@ public class ZombieEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createZombieAttributes() {
-        final double genericFollowRange = options().main.playingMode.doom() ? 50.0D : 25.0D;
-        final double genericMovementSpeed = options().main.playingMode.doom() ? 0.33000000417232513D : 0.23000000417232513D;
-        final double genericAttackDamage = options().main.playingMode.doom() ? 7.0D : 2.0D;
-        final double genericArmor = options().main.playingMode.doom() ? 2.0D : 1.0D;
+        final double genericFollowRange = isPlayingModeDoom() ? 50.0D : 25.0D;
+        final double genericMovementSpeed = isPlayingModeDoom() ? 0.33000000417232513D : 0.23000000417232513D;
+        final double genericAttackDamage = isPlayingModeDoom() ? 7.0D : 2.0D;
+        final double genericArmor = isPlayingModeDoom() ? 2.0D : 1.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
@@ -62,7 +62,7 @@ public class ZombieEntityMixin extends HostileEntity {
         if (!super.tryAttack(world, target)) {
             return false;
         } else {
-            if (options().main.playingMode.doom() && target instanceof PlayerEntity) {
+            if (isPlayingModeDoom() && target instanceof PlayerEntity) {
                 ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
             }
 

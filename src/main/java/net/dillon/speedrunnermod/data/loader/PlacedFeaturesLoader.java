@@ -3,16 +3,15 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModConstants;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.*;
 
 /**
  * Contains all of the {@code placed feature modifications.}
  */
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 public class PlacedFeaturesLoader {
 
     /**
@@ -24,7 +23,7 @@ public class PlacedFeaturesLoader {
         for (JsonElement element : placement) {
             JsonObject placementObj = element.getAsJsonObject();
             if (placementObj.has("type") && placementObj.get("type").getAsString().equals("minecraft:count")) {
-                placementObj.addProperty("count", options().main.structureSpawnRates.everywhere() || options().main.structureSpawnRates.veryCommonOrCommon() || options().main.structureSpawnRates.normal() ? 16 : 8);
+                placementObj.addProperty("count", isStructureSpawnRatesEverywhere() || isStructureSpawnRatesVeryCommonOrCommon() || isStructureSpawnRatesNormal() ? 16 : 8);
                 break;
             }
         }

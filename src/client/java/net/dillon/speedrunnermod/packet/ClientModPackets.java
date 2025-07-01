@@ -24,6 +24,7 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.option.ClientModOptions.isActionbar;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 public class ClientModPackets {
@@ -35,7 +36,7 @@ public class ClientModPackets {
         PayloadTypeRegistry.playS2C().register(CheckPlayingModeS2CPacket.PACKET, CheckPlayingModeS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(CheckPlayingModeS2CPacket.PACKET, (packet, context) -> {
-            if (options().main.playingMode != packet.serverSidePlayingMode()) {
+            if (options().main.playingMode.getCurrentValue() != packet.serverSidePlayingMode()) {
                 context.client().getNetworkHandler().getConnection().disconnect(Text.translatable("speedrunnermod.playing_mode.doesnt_match_server"));
                 context.client().disconnect(new PlayingModeDoesntMatchScreen(null, packet.serverSidePlayingMode()));
             }
@@ -101,7 +102,7 @@ public class ClientModPackets {
             if (player != null) {
                 List<String> translations = ClientSyncedServerOptions.getLastSentTutorialModeMessageTranslations(player.getUuid());
                 ClientSyncedServerOptions.setLastSentTutorialModeMessageTranslations(player.getUuid(), translations);
-                if (ClientSyncedServerOptions.tutorialModeMessageTranslationsContainsPlayerUuid(player.getUuid()) && clientOptions().client.tutorialMode) {
+                if (ClientSyncedServerOptions.tutorialModeMessageTranslationsContainsPlayerUuid(player.getUuid()) && clientOptions().client.tutorialMode.getCurrentValue()) {
                     for (String s : translations) {
                         sendWithPrefix(s, player);
                     }
@@ -138,7 +139,7 @@ public class ClientModPackets {
     public static void sendNewC2SOptions() {
         ClientModOptions.Client options = clientOptions().client;
         ClientPlayNetworking.send(new ClientPreferencesC2SPacket(
-                options.itemMessages.isActionbar(), options.iCarusFireworksInventorySlot, options.infiniPearlInventorySlot
+                isActionbar(), options.iCarusFireworksInventorySlot.getCurrentValue(), options.infiniPearlInventorySlot.getCurrentValue()
         ));
     }
 }

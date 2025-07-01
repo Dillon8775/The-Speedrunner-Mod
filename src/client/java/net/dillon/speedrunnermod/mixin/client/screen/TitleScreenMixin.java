@@ -52,11 +52,11 @@ public class TitleScreenMixin extends Screen {
             this.client.setScreen(new FeaturesScreen(this));
         }).dimensions(this.width / 2 - 124, this.height / 4 + 48, 20, 20).build());
 
-        if (clientOptions().client.showResetButton) {
+        if (clientOptions().client.showResetButton.getCurrentValue()) {
             this.createWorldButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                 CreateWorldScreen.show(this.client, this);
             }).dimensions(this.width / 2 - 124, this.height / 4 + 72, 20, 20).build());
-            this.createWorldButton.active = clientOptions().client.fastWorldCreation;
+            this.createWorldButton.active = clientOptions().client.fastWorldCreation.getCurrentValue();
         }
 
         this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
@@ -71,7 +71,7 @@ public class TitleScreenMixin extends Screen {
     private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/item/golden_speedrunner_upgrade_smithing_template.png"), featuresButton.getX() + 2, this.featuresButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
 
-        if (clientOptions().client.showResetButton) {
+        if (clientOptions().client.showResetButton.getCurrentValue()) {
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
         }
 
@@ -94,8 +94,8 @@ public class TitleScreenMixin extends Screen {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
         }
 
-        if (clientOptions().client.showResetButton && this.createWorldButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(clientOptions().client.fastWorldCreation ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
+        if (clientOptions().client.showResetButton.getCurrentValue() && this.createWorldButton.isHovered()) {
+            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(clientOptions().client.fastWorldCreation.getCurrentValue() ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.optionsButton.isHovered()) {

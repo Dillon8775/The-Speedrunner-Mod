@@ -27,6 +27,8 @@ import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+
 /**
  * The home initializer for the Speedrunner Mod.
  */
@@ -82,7 +84,7 @@ public class SpeedrunnerMod implements ModInitializer {
         safeBoot = false;
         configHandler().load();
 
-        if (options().main.playingMode != null && options().main.playingMode.doom()) {
+        if (options().main.playingMode != null && isPlayingModeDoom()) {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 

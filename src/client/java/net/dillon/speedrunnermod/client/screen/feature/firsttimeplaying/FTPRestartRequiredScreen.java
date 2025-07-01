@@ -15,6 +15,7 @@ import org.lwjgl.glfw.GLFW;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 @Environment(EnvType.CLIENT)
 public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
@@ -28,9 +29,12 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
         super.init();
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
+            if (isPlayingModeEasy()) {
+                restartRequired = false;
+            }
         }).build());
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.restart_now"), button -> {
-            clientOptions().client.firstTimePlaying = false;
+            clientOptions().client.firstTimePlaying.set(false);
             saveClientChanges();
             this.client.scheduleStop();
         }).build());

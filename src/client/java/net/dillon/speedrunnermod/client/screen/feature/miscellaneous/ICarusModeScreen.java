@@ -24,8 +24,8 @@ public class ICarusModeScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.iCarusMode ? ModTexts.DISABLE_ICARUS_MODE : ModTexts.ENABLE_ICARUS_MODE, button -> {
-            options().main.iCarusMode = !options().main.iCarusMode;
+        this.addButtonObject(ButtonWidget.builder(options().main.iCarusMode.getCurrentValue() ? ModTexts.DISABLE_ICARUS_MODE : ModTexts.ENABLE_ICARUS_MODE, button -> {
+            options().main.iCarusMode.set(!options().main.iCarusMode.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
@@ -87,12 +89,12 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @Inject(method = "updatePostDeath", at = @At("TAIL"))
     public void killAllHostiles(CallbackInfo ci) {
-        if (options().advanced.dragonKillsNearbyHostileEntities && this.getWorld() instanceof ServerWorld serverWorld) {
+        if (options().advanced.dragonKillsNearbyHostileEntities.getCurrentValue() && this.getWorld() instanceof ServerWorld serverWorld) {
             EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
             World world = this.getEntityWorld();
 
             List<HostileEntity> hostiles = world.getEntitiesByClass(HostileEntity.class,
-                    dragon.getBoundingBox().expand(options().advanced.dragonKillsHostileEntitiesDistance[0], options().advanced.dragonKillsHostileEntitiesDistance[1], options().advanced.dragonKillsHostileEntitiesDistance[2]), entity -> true);
+                    dragon.getBoundingBox().expand(options().advanced.dragonKillsHostileEntitiesDistance.getCurrentValue().getFirst(), options().advanced.dragonKillsHostileEntitiesDistance.getCurrentValue().get(1), options().advanced.dragonKillsHostileEntitiesDistance.getCurrentValue().get(2)), entity -> true);
 
             for (HostileEntity hostile : hostiles) {
                 if (!(hostile instanceof EndermanEntity) && !hostile.hasCustomName()) {
@@ -125,8 +127,8 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
         if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
-            boolean bl = !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !options().main.playingMode.balanced();
-            if ((options().main.playingMode.doom() && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) || bl) {
+            boolean bl = !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isPlayingModeBalanced();
+            if ((isPlayingModeDoom() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) || bl) {
                 this.setHealth(1.0F);
                 if (bl && !this.isGiantOrWitherAlive()) {
                     List<String> translations = new ArrayList<>();
@@ -138,7 +140,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             } else {
                 PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
                 ModUtil.completeStepS2C(TutorialStep.KILL_DRAGON, player,
-                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
+                        isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
                                 "speedrunnermod.tutorial_mode.killed_dragon");
                 super.onDeath(source);
             }
@@ -163,7 +165,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                 return false;
             }
 
-            if (options().main.playingMode.doom() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither && this.isGiantOrWitherAlive()) {
+            if (isPlayingModeDoom() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) {
                 return false;
             } else {
                 if (source.getAttacker() instanceof PlayerEntity || source.isIn(DamageTypeTags.ALWAYS_HURTS_ENDER_DRAGONS)) {
@@ -196,9 +198,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     private boolean isGiantOrWitherAlive() {
         EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
         List<GiantEntity> giants = this.getWorld().getEntitiesByClass(GiantEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForGoliath[0], options().advanced.dragonImmunityDetectionDistanceForGoliath[1], options().advanced.dragonImmunityDetectionDistanceForGoliath[2]), entity -> true);
+                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForGoliath.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionDistanceForGoliath.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionDistanceForGoliath.getCurrentValue().get(2)), entity -> true);
         List<WitherEntity> withers = this.getWorld().getEntitiesByClass(WitherEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForWither[0], options().advanced.dragonImmunityDetectionDistanceForWither[1], options().advanced.dragonImmunityDetectionDistanceForWither[2]), entity -> true);
+                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForWither.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionDistanceForWither.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionDistanceForWither.getCurrentValue().get(2)), entity -> true);
 
         for (GiantEntity giant : giants) {
             if (giant.isAlive()) {

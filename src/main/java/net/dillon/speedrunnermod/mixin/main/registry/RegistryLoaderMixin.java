@@ -5,10 +5,9 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Decoder;
 import net.dillon.speedrunnermod.data.loader.*;
 import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
 import net.minecraft.registry.MutableRegistry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryLoader;
@@ -36,13 +35,13 @@ public class RegistryLoaderMixin {
      * <p>See package {@link net.dillon.speedrunnermod.data.loader} fore more on this.</p>
      */
     @Author(Authors.MAXENCEDC)
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"), method = "parseAndAdd")
     private static <E> void load(MutableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, RegistryKey<E> resourceKey, Resource resource, RegistryEntryInfo registrationInfo, CallbackInfo ci, @Local JsonElement jsonElement) {
         String path = registry.getKey().getValue().getPath();
         String fileName = path + "/" + resourceKey.getValue().getPath() + ".json";
 
-        if (options().main.customDataGeneration) {
+        if (options().main.customDataGeneration.getCurrentValue()) {
             for (int i = 0; i < EntitySpawnsLoader.biomesWithDefaultMonsters().size(); i++) {
                 if (fileName.equals(EntitySpawnsLoader.biomesWithDefaultMonsters().get(i))) {
                     EntitySpawnsLoader.modifyBiomesWithDefaultMonsters(jsonElement);
@@ -87,7 +86,7 @@ public class RegistryLoaderMixin {
                 PlacedFeaturesLoader.modifyMonsterRoom(jsonElement);
             }
 
-            if (options().main.commonOres) {
+            if (options().main.commonOres.getCurrentValue()) {
                 String oreDiamond = JsonIdentifiers.ORE_DIAMOND;
                 if (fileName.equals(oreDiamond) || fileName.equals(JsonIdentifiers.ORE_DIAMOND_BURIED)) {
                     PlacedFeaturesLoader.modifyOreDiamond(fileName, oreDiamond, jsonElement);
@@ -103,13 +102,13 @@ public class RegistryLoaderMixin {
                 }
             }
 
-            if (options().main.customBiomesAndCustomBiomeFeatures) {
+            if (options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue()) {
                 if (fileName.equals(JsonIdentifiers.TREES_PLAINS)) {
                     PlacedFeaturesLoader.modifyTreePlains(jsonElement);
                 }
             }
 
-            if (!options().main.structureSpawnRates.equals(ModOptions.StructureSpawnRate.DISABLED)) {
+            if (!options().main.structureSpawnRates.getCurrentValue().equals(ModOptions.StructureSpawnRate.DISABLED)) {
                 if (fileName.equals(JsonIdentifiers.ANCIENT_CITIES)) {
                     StructuresLoader.modifyAncientCities(jsonElement);
                 }

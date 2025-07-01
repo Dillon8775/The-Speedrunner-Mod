@@ -12,7 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 @Mixin(VillagerEntity.class)
 public abstract class VillagerEntityMixin {
@@ -24,8 +25,8 @@ public abstract class VillagerEntityMixin {
         if (this.getVillagerData().profession().matchesKey(ModVillagers.RETIRED_SPEEDRUNNER_KEY)) {
             ModUtil.completeStepS2C(TutorialStep.INTERACT_WITH_RETIRED_SPEEDRUNNER, customer,
                     "speedrunnermod.tutorial_mode.retired_speedrunner_description",
-                    options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.use_annul_eye" :
-                            options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_ender_thruster" :
+                    isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.use_annul_eye" :
+                            isPlayingModeEasy() ? "speedrunnermod.tutorial_mode.craft_ender_thruster" :
                                     "speedrunnermod.tutorial_mode.craft_wither_bone");
         }
     }

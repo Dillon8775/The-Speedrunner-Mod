@@ -89,7 +89,7 @@ public class ModPackets {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.getPlayer();
             if (player != null) {
-                ServerPlayNetworking.send(player, new CheckPlayingModeS2CPacket(options().main.playingMode));
+                ServerPlayNetworking.send(player, new CheckPlayingModeS2CPacket(options().main.playingMode.getCurrentValue()));
 
                 // Handle icarus and infini pearl mode
                 if (handler.getPlayer().getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
@@ -102,7 +102,7 @@ public class ModPackets {
                             int infiniPearlInventorySlot = ServerSyncedClientOptions.getInfiniPearlSlot(playerUuid);
 
                             ItemStack item;
-                            if (options().main.iCarusMode) {
+                            if (options().main.iCarusMode.getCurrentValue()) {
                                 item = ModUtil.createUnbreakableItem(Items.ELYTRA);
                                 ItemStack fireworks = ModUtil.flightDurationComponentItem(64);
 
@@ -110,15 +110,15 @@ public class ModPackets {
                                 player.getInventory().getMainStacks().set(iCarusFireworksInventorySlot - 1, fireworks);
                             }
 
-                            if (options().main.infiniPearlMode) {
+                            if (options().main.infiniPearlMode.getCurrentValue()) {
                                 ItemStack infiniPearl = ModUtil.createUnbreakableItem(ModItems.INFINI_PEARL);
                                 int slot = infiniPearlInventorySlot - 1;
 
-                                if (options().main.iCarusMode && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
+                                if (options().main.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
                                     slot += 1;
                                 }
 
-                                if (options().main.iCarusMode && iCarusFireworksInventorySlot == infiniPearlInventorySlot && infiniPearlInventorySlot >= 36) {
+                                if (options().main.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot && infiniPearlInventorySlot >= 36) {
                                     slot -= 2;
                                 }
 

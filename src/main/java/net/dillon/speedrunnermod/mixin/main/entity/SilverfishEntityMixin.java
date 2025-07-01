@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(SilverfishEntity.class)
 public abstract class SilverfishEntityMixin extends HostileEntity {
@@ -39,9 +39,9 @@ public abstract class SilverfishEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createSilverfishAttributes() {
-        final double genericMaxHealth = options().main.playingMode.doom() ? 8.0D : 4.0D;
-        final double genericMovementSpeed = options().main.playingMode.doom() ? 0.25D : 0.15D;
-        final double genericAttackDamage = options().main.playingMode.doom() ? 2.0D : 0.01D;
+        final double genericMaxHealth = isPlayingModeDoom() ? 8.0D : 4.0D;
+        final double genericMovementSpeed = isPlayingModeDoom() ? 0.25D : 0.15D;
+        final double genericAttackDamage = isPlayingModeDoom() ? 2.0D : 0.01D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

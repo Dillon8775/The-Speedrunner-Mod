@@ -4,8 +4,7 @@ import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -453,7 +452,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      * Spawns TNT (13 exactly) entities around the giant upon dying.
      */
     @Unique
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     private void onGiantDeath() {
         int[][] tntData = {
                 { 5,  25,  5, 100},

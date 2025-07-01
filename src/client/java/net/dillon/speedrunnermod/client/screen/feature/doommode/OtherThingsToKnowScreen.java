@@ -14,6 +14,7 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Environment(EnvType.CLIENT)
 public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
@@ -29,12 +30,12 @@ public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
         this.addButtonObject(ButtonWidget.builder(ModTexts.OK, button -> this.close()).build());
         ButtonWidget enableDoomMode = this.addButtonObject(ButtonWidget.builder(ModTexts.ENABLE_DOOM_MODE, button -> {
             RestartRequiredScreen.getCurrentOptions();
-            if (!options().main.playingMode.doom()) {
+            if (!isPlayingModeDoom()) {
                 this.client.setScreen(new RestartRequiredScreen(this));
             }
-            options().main.playingMode = ModOptions.PlayingMode.DOOM;
+            options().main.playingMode.set(ModOptions.PlayingMode.DOOM);
         }).build());
-        enableDoomMode.active = !options().main.playingMode.doom();
+        enableDoomMode.active = !isPlayingModeDoom();
     }
 
     @Override

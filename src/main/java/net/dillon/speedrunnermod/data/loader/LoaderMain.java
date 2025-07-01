@@ -4,23 +4,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 
 import java.util.Map;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * Contains helper methods used to create certain objects and arrays in JSON files.
  */
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 public class LoaderMain {
 
     /**
      * Modifies the creature spawn parameters in a given biome.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     protected static void modifyCreatureSpawns(JsonElement jsonElement, Map<String, Integer[]> creatureValues, boolean waterCreature) {
         JsonArray spawnersArray = jsonElement.getAsJsonObject().getAsJsonObject("spawners").getAsJsonArray(waterCreature ? "water_creature" : "creature");
 
@@ -31,13 +31,13 @@ public class LoaderMain {
             if (creatureValues.containsKey(mobType)) {
                 Integer[] values = creatureValues.get(mobType);
                 spawner.addProperty("weight", values[0]);
-                if (options().main.mobSpawningRate.equals(ModOptions.MobSpawningRate.LOW)) {
+                if (options().main.mobSpawningRate.getCurrentValue().equals(ModOptions.MobSpawningRate.LOW)) {
                     spawner.addProperty("minCount", values[1]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().main.mobSpawningRate.equals(ModOptions.MobSpawningRate.NORMAL)) {
+                } else if (options().main.mobSpawningRate.getCurrentValue().equals(ModOptions.MobSpawningRate.NORMAL)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().main.mobSpawningRate.equals(ModOptions.MobSpawningRate.HIGH)) {
+                } else if (options().main.mobSpawningRate.getCurrentValue().equals(ModOptions.MobSpawningRate.HIGH)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[3]);
                 }
@@ -48,7 +48,7 @@ public class LoaderMain {
     /**
      * Modifies the monster spawn parameters in a given biome.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     protected static void modifyMonsterSpawns(JsonElement jsonElement, Map<String, Integer[]> monsterValues, boolean customWeight) {
         JsonArray spawnersArray = jsonElement.getAsJsonObject().getAsJsonObject("spawners").getAsJsonArray("monster");
 
@@ -69,7 +69,7 @@ public class LoaderMain {
             }
         }
 
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             JsonObject vindicator = new JsonObject();
             vindicator.addProperty("type", "minecraft:vindicator");
             vindicator.addProperty("maxCount", 4);

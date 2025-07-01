@@ -24,8 +24,8 @@ public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.fasterBlockBreaking ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.fasterBlockBreaking = !options().main.fasterBlockBreaking;
+        this.addButtonObject(ButtonWidget.builder(options().main.fasterBlockBreaking.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.fasterBlockBreaking.set(!options().main.fasterBlockBreaking.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

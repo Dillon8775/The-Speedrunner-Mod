@@ -35,7 +35,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
      */
     @ModifyConstant(method = "updateResult", constant = @Constant(intValue = 40))
     private int mixinLimitInt(int i) {
-        if (options().main.betterAnvil) {
+        if (options().main.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;
         } else {
             return 40;
@@ -47,7 +47,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
      */
     @ModifyConstant(method = "updateResult", constant = @Constant(intValue = 39))
     private int mixinMaxInt(int i) {
-        if (options().main.betterAnvil) {
+        if (options().main.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE - 1;
         } else {
             return 39;
@@ -59,8 +59,8 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
      */
     @Inject(method = "updateResult", at = @At("TAIL"))
     private void setLevelCostIfTooHigh(CallbackInfo ci) {
-        if (options().main.anvilCostLimit != 50) {
-            this.levelCost.set(options().main.anvilCostLimit);
+        if (options().main.anvilCostLimit.getCurrentValue() != 50) {
+            this.levelCost.set(options().main.anvilCostLimit.getCurrentValue());
         }
     }
 
@@ -103,6 +103,6 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
 
         // Return the incremented integer value, unless the default maximum level is 1, then there is no point to increment
         boolean isntOne = enchantment.getMaxLevel() != 1;
-        return options().main.higherEnchantmentLevels && isntOne ? newEnchantmentLevel : enchantment.getMaxLevel();
+        return options().main.higherEnchantmentLevels.getCurrentValue() && isntOne ? newEnchantmentLevel : enchantment.getMaxLevel();
     }
 }

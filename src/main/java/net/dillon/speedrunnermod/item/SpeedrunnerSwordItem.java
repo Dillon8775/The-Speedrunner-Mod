@@ -13,7 +13,7 @@ import net.minecraft.util.Formatting;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * Better than iron, worse than diamond, deals more damage to withers and giants.
@@ -51,7 +51,7 @@ public class SpeedrunnerSwordItem extends Item  {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line1").formatted(Formatting.GRAY));
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_sword.tooltip.line2"));
         }
     }

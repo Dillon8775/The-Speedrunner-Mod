@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(ShulkerEntity.class)
 public abstract class ShulkerEntityMixin extends GolemEntity {
@@ -47,7 +47,7 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
      */
     @ModifyArg(method = "createShulkerAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
     private static double genericMaxHealth(double baseValue) {
-        return options().main.playingMode.doom() ? 32.0D : 20.0D;
+        return isPlayingModeDoom() ? 32.0D : 20.0D;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
         Entity entity2;
         if (this.isClosed()) {
             entity2 = source.getSource();
-            if (options().main.playingMode.doom()) {
+            if (isPlayingModeDoom()) {
                 if (entity2 instanceof PersistentProjectileEntity) {
                     return false;
                 }

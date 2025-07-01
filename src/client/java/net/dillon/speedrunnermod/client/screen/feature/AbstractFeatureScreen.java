@@ -8,8 +8,7 @@ import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.Speedrunner
 import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -80,10 +79,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     @Override
     protected void init() {
         super.init();
-
-//        if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-//            this.buttons().clear();
-//        }
 
         // A starter feature screen (or the first page of a certain category of features)
         // consists of only a "Next" and "Done" button
@@ -170,7 +165,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         } else if (this.getScreenCategory() == ScreenCategory.DOOM_MODE) {
             this.client.setScreen(new DoomModeScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-            warn("Cannot close!");
+            warn("Cannot close this screen!");
         } else {
             this.client.setScreen(new FeaturesScreen(this.parent));
         }
@@ -306,7 +301,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     /**
      * Determine the screen to go to, based on the page number.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private Screen determineScreen(int pageNumber, ScreenCategory category) {
         for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
             AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);

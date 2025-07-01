@@ -24,8 +24,8 @@ public class CommonOresScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.commonOres ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.commonOres = !options().main.commonOres;
+        this.addButtonObject(ButtonWidget.builder(options().main.commonOres.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.commonOres.set(!options().main.commonOres.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

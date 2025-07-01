@@ -14,8 +14,7 @@ import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,8 +40,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.*;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.
@@ -72,9 +70,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.close();
             }).dimensions(this.getButtonsLeftSide(), this.getDoneButtonsHeight(), 100, 20).build());
 
-            this.configFile = configHandler().getConfigFile();
             this.openOptionsFileButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MENU_OPEN_OPTIONS_FILE, (button) -> {
                 this.close();
+                this.configFile = !hasShiftDown() ? configHandler().getConfigFile() : clientConfigHandler().getConfigFile();
                 Util.getOperatingSystem().open(this.configFile);
             }).dimensions(this.getButtonsMiddle(), this.getDoneButtonsHeight(), 100, 20).build());
 
@@ -100,6 +98,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.addSelectableChild(this.buttonList);
             }
             this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
+            this.doneButton.active = (this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING) || !(this instanceof AbstractFeatureScreen);
         }
     }
 
@@ -114,7 +113,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 if (bl2 && this instanceof FastWorldCreationOptionsScreen) {
                     IntegratedServer integratedServer = MinecraftClient.getInstance().getServer();
                     if (integratedServer != null) {
-                        integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats);
+                        integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats.getCurrentValue());
                         int i = this.client.player.getPermissionLevel();
                         this.client.player.setClientPermissionLevel(i);
 
@@ -129,7 +128,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = false;
             this.alreadySettingToIneligibleScreen = false;
 
-            if (options().main.leaderboardsMode) {
+            if (options().main.leaderboardsMode.getCurrentValue()) {
                 if (Leaderboards.wasLeaderboardsModeChanged()) {
                     LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = true;
                 }
@@ -217,7 +216,11 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.renderBasicTooltip(ModTexts.SAVE_TOOLTIP, context, mouseX, mouseY);
             }
             if (this.openOptionsFileButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.OPEN_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
+                if (!hasShiftDown()) {
+                    this.renderBasicTooltip(ModTexts.OPEN_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
+                } else {
+                    this.renderBasicTooltip(ModTexts.OPEN_CLIENT_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
+                }
             }
             if (this.helpButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.HELP_TOOLTIP, context, mouseX, mouseY);
@@ -252,7 +255,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     protected void addButtonsIteratively(ScreenCategory screenCategory) {
         this.featureButtons.clear();
         int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()

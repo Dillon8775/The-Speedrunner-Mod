@@ -20,7 +20,7 @@ public class DimensionTypeMixin {
      */
     @Inject(method = "ultrawarm", at = @At("RETURN"), cancellable = true)
     private void allowWaterInNether(CallbackInfoReturnable<Boolean> cir) {
-        if (options().main.netherWater && this.ultrawarm) {
+        if (options().main.netherWater.getCurrentValue() && this.ultrawarm) {
             cir.setReturnValue(false);
         }
     }

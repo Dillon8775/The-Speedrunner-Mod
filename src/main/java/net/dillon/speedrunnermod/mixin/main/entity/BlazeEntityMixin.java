@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(BlazeEntity.class)
 public class BlazeEntityMixin extends HostileEntity {
@@ -39,9 +39,9 @@ public class BlazeEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createBlazeAttributes() {
-        final double genericAttackDamage = options().main.playingMode.doom() ? 8.0D : 4.0D;
+        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0D;
         final double genericMovementSpeed = 0.23000000417232513D;
-        final double genericFollowRange = options().main.playingMode.doom() ? 48.0D : 16.0D;
+        final double genericFollowRange = isPlayingModeDoom() ? 48.0D : 16.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

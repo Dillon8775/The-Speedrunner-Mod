@@ -3,15 +3,14 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * Contains all of the {@code nether biomes modifications.}
  */
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 public class NetherBiomesLoader {
 
     /**
@@ -29,13 +28,13 @@ public class NetherBiomesLoader {
         ghast.addProperty("type", "minecraft:ghast");
         ghast.addProperty("maxCount", 1);
         ghast.addProperty("minCount", 1);
-        ghast.addProperty("weight", options().main.playingMode.doom() ? 40 : 25);
+        ghast.addProperty("weight", isPlayingModeDoom() ? 40 : 25);
 
         JsonObject magmaCube = new JsonObject();
         magmaCube.addProperty("type", "minecraft:magma_cube");
         magmaCube.addProperty("maxCount", 4);
         magmaCube.addProperty("minCount", 1);
-        magmaCube.addProperty("weight", options().main.playingMode.doom() ? 50 : 25);
+        magmaCube.addProperty("weight", isPlayingModeDoom() ? 50 : 25);
 
         JsonObject piglinBrute = new JsonObject();
         piglinBrute.addProperty("type", "minecraft:piglin_brute");
@@ -51,7 +50,7 @@ public class NetherBiomesLoader {
 
         basaltDeltasMonsters.add(ghast);
         basaltDeltasMonsters.add(magmaCube);
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             basaltDeltasMonsters.add(piglinBrute);
             basaltDeltasMonsters.add(witherSkeleton);
         }
@@ -78,15 +77,15 @@ public class NetherBiomesLoader {
 
         JsonObject hoglin = new JsonObject();
         hoglin.addProperty("type", "minecraft:hoglin");
-        hoglin.addProperty("maxCount", options().main.playingMode.doom() ? 6 : 4);
-        hoglin.addProperty("minCount", options().main.playingMode.doom() ? 4 : 1);
-        hoglin.addProperty("weight", options().main.playingMode.doom() ? 50 : 6);
+        hoglin.addProperty("maxCount", isPlayingModeDoom() ? 6 : 4);
+        hoglin.addProperty("minCount", isPlayingModeDoom() ? 4 : 1);
+        hoglin.addProperty("weight", isPlayingModeDoom() ? 50 : 6);
 
         JsonObject piglin = new JsonObject();
         piglin.addProperty("type", "minecraft:piglin");
-        piglin.addProperty("maxCount", options().main.playingMode.doom() ? 6 : 4);
+        piglin.addProperty("maxCount", isPlayingModeDoom() ? 6 : 4);
         piglin.addProperty("minCount", 2);
-        piglin.addProperty("weight", options().main.playingMode.doom() ? 25 : 9);
+        piglin.addProperty("weight", isPlayingModeDoom() ? 25 : 9);
 
         JsonObject piglinBrute = new JsonObject();
         piglinBrute.addProperty("type", "minecraft:piglin_brute");
@@ -103,7 +102,7 @@ public class NetherBiomesLoader {
         crimsonForestMonsters.add(zombifiedPiglin);
         crimsonForestMonsters.add(hoglin);
         crimsonForestMonsters.add(piglin);
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             crimsonForestMonsters.add(piglinBrute);
             crimsonForestMonsters.add(magmaCube);
         }
@@ -124,33 +123,33 @@ public class NetherBiomesLoader {
 
         JsonObject ghast = new JsonObject();
         ghast.addProperty("type", "minecraft:ghast");
-        ghast.addProperty("maxCount", options().main.playingMode.doom() ? 1 : 4);
+        ghast.addProperty("maxCount", isPlayingModeDoom() ? 1 : 4);
         ghast.addProperty("minCount", 1);
         ghast.addProperty("weight", 20);
 
         JsonObject zombifiedPiglin = new JsonObject();
         zombifiedPiglin.addProperty("type", "minecraft:zombified_piglin");
         zombifiedPiglin.addProperty("maxCount", 4);
-        zombifiedPiglin.addProperty("minCount", options().main.playingMode.doom() ? 4 : 1);
-        zombifiedPiglin.addProperty("weight", options().main.playingMode.doom() ? 50 : 25);
+        zombifiedPiglin.addProperty("minCount", isPlayingModeDoom() ? 4 : 1);
+        zombifiedPiglin.addProperty("weight", isPlayingModeDoom() ? 50 : 25);
 
         JsonObject magmaCube = new JsonObject();
         magmaCube.addProperty("type", "minecraft:magma_cube");
         magmaCube.addProperty("maxCount", 4);
         magmaCube.addProperty("minCount", 1);
-        magmaCube.addProperty("weight", options().main.playingMode.doom() ? 50 : 2);
+        magmaCube.addProperty("weight", isPlayingModeDoom() ? 50 : 2);
 
         JsonObject enderman = new JsonObject();
         enderman.addProperty("type", "minecraft:enderman");
         enderman.addProperty("maxCount", 4);
         enderman.addProperty("minCount", 4);
-        enderman.addProperty("weight", options().main.playingMode.doom() ? 20 : 1);
+        enderman.addProperty("weight", isPlayingModeDoom() ? 20 : 1);
 
         JsonObject piglin = new JsonObject();
         piglin.addProperty("type", "minecraft:piglin");
-        piglin.addProperty("maxCount", options().main.playingMode.doom() ? 2 : 4);
-        piglin.addProperty("minCount", options().main.playingMode.doom() ? 1 : 2);
-        piglin.addProperty("weight", options().main.playingMode.doom() ? 25 : 50);
+        piglin.addProperty("maxCount", isPlayingModeDoom() ? 2 : 4);
+        piglin.addProperty("minCount", isPlayingModeDoom() ? 1 : 2);
+        piglin.addProperty("weight", isPlayingModeDoom() ? 25 : 50);
 
         JsonObject piglinBrute = new JsonObject();
         piglinBrute.addProperty("type", "minecraft:piglin_brute");
@@ -169,7 +168,7 @@ public class NetherBiomesLoader {
         netherWastesMonsters.add(magmaCube);
         netherWastesMonsters.add(enderman);
         netherWastesMonsters.add(piglin);
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             netherWastesMonsters.add(piglinBrute);
             netherWastesMonsters.add(hoglin);
         }
@@ -190,21 +189,21 @@ public class NetherBiomesLoader {
 
         JsonObject skeleton = new JsonObject();
         skeleton.addProperty("type", "minecraft:skeleton");
-        skeleton.addProperty("maxCount", options().main.playingMode.doom() ? 5 : 4);
-        skeleton.addProperty("minCount", options().main.playingMode.doom() ? 5 : 1);
-        skeleton.addProperty("weight", options().main.playingMode.doom() ? 50 : 10);
+        skeleton.addProperty("maxCount", isPlayingModeDoom() ? 5 : 4);
+        skeleton.addProperty("minCount", isPlayingModeDoom() ? 5 : 1);
+        skeleton.addProperty("weight", isPlayingModeDoom() ? 50 : 10);
 
         JsonObject ghast = new JsonObject();
         ghast.addProperty("type", "minecraft:ghast");
         ghast.addProperty("maxCount", 4);
-        ghast.addProperty("minCount", options().main.playingMode.doom() ? 4 : 1);
+        ghast.addProperty("minCount", isPlayingModeDoom() ? 4 : 1);
         ghast.addProperty("weight", 50);
 
         JsonObject enderman = new JsonObject();
         enderman.addProperty("type", "minecraft:enderman");
         enderman.addProperty("maxCount", 4);
         enderman.addProperty("minCount", 4);
-        enderman.addProperty("weight", options().main.playingMode.doom() ? 10 : 5);
+        enderman.addProperty("weight", isPlayingModeDoom() ? 10 : 5);
 
         JsonObject piglinBrute = new JsonObject();
         piglinBrute.addProperty("type", "minecraft:piglin_brute");
@@ -215,7 +214,7 @@ public class NetherBiomesLoader {
         soulSandValleyMonsters.add(skeleton);
         soulSandValleyMonsters.add(ghast);
         soulSandValleyMonsters.add(enderman);
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             soulSandValleyMonsters.add(piglinBrute);
         }
 
@@ -242,8 +241,8 @@ public class NetherBiomesLoader {
         JsonObject piglin = new JsonObject();
         piglin.addProperty("type", "minecraft:piglin");
         piglin.addProperty("maxCount", 4);
-        piglin.addProperty("minCount", options().main.playingMode.doom() ? 4 : 1);
-        piglin.addProperty("weight", options().main.playingMode.doom() ? 25 : 5);
+        piglin.addProperty("minCount", isPlayingModeDoom() ? 4 : 1);
+        piglin.addProperty("weight", isPlayingModeDoom() ? 25 : 5);
 
         JsonObject hoglin = new JsonObject();
         hoglin.addProperty("type", "minecraft:hoglin");
@@ -265,7 +264,7 @@ public class NetherBiomesLoader {
 
         warpedForestMonsters.add(enderman);
         warpedForestMonsters.add(piglin);
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             warpedForestMonsters.add(hoglin);
             warpedForestMonsters.add(piglinBrute);
             warpedForestMonsters.add(magmaCube);

@@ -1,31 +1,30 @@
 package net.dillon.speedrunnermod.data.loader;
 
 import com.google.gson.JsonElement;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.world.biome.SpawnSettings;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 public class EntitySpawnsLoader {
 
     public static void modifyBiomesWithDefaultMonsters(JsonElement jsonElement) {
         Map<String, Integer[]> monsterSpawns = new HashMap<>();
-        monsterSpawns.put("minecraft:spider", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 75 : 100, options().main.playingMode.doom() ? 1 : 4, options().main.playingMode.doom() ? 5 : 4));
-        monsterSpawns.put("minecraft:slime", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 50 : 100, 1, 4));
-        monsterSpawns.put("minecraft:enderman", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 25 : 50, options().main.playingMode.doom() ? 1 : 4, 4));
-        monsterSpawns.put("minecraft:witch", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 50 : 5, 1, options().main.playingMode.doom() ? 4 : 1));
+        monsterSpawns.put("minecraft:spider", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 75 : 100, isPlayingModeDoom() ? 1 : 4, isPlayingModeDoom() ? 5 : 4));
+        monsterSpawns.put("minecraft:slime", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 50 : 100, 1, 4));
+        monsterSpawns.put("minecraft:enderman", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 25 : 50, isPlayingModeDoom() ? 1 : 4, 4));
+        monsterSpawns.put("minecraft:witch", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 50 : 5, 1, isPlayingModeDoom() ? 4 : 1));
 
         LoaderMain.modifyMonsterSpawns(jsonElement, monsterSpawns, false);
 
         Map<String, Integer[]> customOrNoChangedWeightMonsterSpawns = new HashMap<>();
-        monsterSpawns.put("minecraft:zombie", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 1 : 4, 4));
-        monsterSpawns.put("minecraft:creeper", LoaderMain.createSpawnSettings(options().main.playingMode.doom() ? 1 : 2, 4));
+        monsterSpawns.put("minecraft:zombie", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 1 : 4, 4));
+        monsterSpawns.put("minecraft:creeper", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 1 : 2, 4));
 
         LoaderMain.modifyMonsterSpawns(jsonElement, customOrNoChangedWeightMonsterSpawns, true);
     }

@@ -9,7 +9,7 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * For all speedrunner mod "eye" items and "state of the art items" which are used to locate exact distances of structures and print them.
@@ -75,7 +75,7 @@ public interface StateOfTheArtItem {
      * Adds the tooltips for {@code State-Of-The-Art} items.
      */
     default void addStateOfTheArtItemTooltip(Consumer<Text> textConsumer) {
-        if (!options().main.playingMode.easy()) {
+        if (!isPlayingModeEasy()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }

@@ -16,6 +16,7 @@ import net.minecraft.world.gen.GenerationStep;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * All Speedrunner Mod {@code custom world gen features.}
@@ -35,9 +36,9 @@ public class ModWorldGen {
         addOres();
         addVegetalDecoration();
 
-        if (options().main.playingMode.doom()) {
-            if (options().main.strongholdLibraryCount > 5) {
-                options().main.strongholdLibraryCount = 5;
+        if (isPlayingModeDoom()) {
+            if (options().main.strongholdLibraryCount.getCurrentValue() > 5) {
+                options().main.strongholdLibraryCount.set(5);
                 warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
             }
         }
@@ -84,7 +85,7 @@ public class ModWorldGen {
      * All Speedrunner Mod {@code vegetation decoration features.}
      */
     private static void addVegetalDecoration() {
-        if (options().advanced.generateSpeedrunnerWood) {
+        if (options().advanced.generateSpeedrunnerWood.getCurrentValue()) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                             BiomeKeys.PLAINS,
                             BiomeKeys.FOREST,
@@ -134,7 +135,7 @@ public class ModWorldGen {
                     GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_FANCY_SPEEDRUNNER_PLACED);
         }
 
-        if (options().main.playingMode.doom()) {
+        if (isPlayingModeDoom()) {
             BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(),
                     GenerationStep.Feature.VEGETAL_DECORATION,
                     ModPlacedFeatures.DOOM_TREE_PLACED);
@@ -142,7 +143,7 @@ public class ModWorldGen {
     }
 
     static {
-        MODIFIED_STRONGHOLD_PIECES = options().main.playingMode.doom() ? // Doom Mode generation
+        MODIFIED_STRONGHOLD_PIECES = isPlayingModeDoom() ? // Doom Mode generation
                 new StrongholdGenerator.PieceData[]{
                         new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 25, 5),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 50, 5),
@@ -153,7 +154,7 @@ public class ModWorldGen {
                         new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 50, 5),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 50, 5),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 25, 5),
-                        new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 100, options().main.strongholdLibraryCount * 2) {
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 100, options().main.strongholdLibraryCount.getCurrentValue() * 2) {
 
                             @Override
                             public boolean canGenerate(int chainLength) {
@@ -175,13 +176,13 @@ public class ModWorldGen {
                         new StrongholdGenerator.PieceData(StrongholdGenerator.SpiralStaircase.class, 10, 1),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.FiveWayCrossing.class, 10, 2),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.ChestCorridor.class, 25, 2),
-                        new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 200, options().main.strongholdPortalRoomCount) {
+                        new StrongholdGenerator.PieceData(StrongholdGenerator.PortalRoom.class, 200, options().main.strongholdPortalRoomCount.getCurrentValue()) {
 
                             @Override
                             public boolean canGenerate(int chainLength) {
                                 return super.canGenerate(chainLength);
                             }
-                        }, new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 200, options().main.strongholdLibraryCount) {
+                        }, new StrongholdGenerator.PieceData(StrongholdGenerator.Library.class, 200, options().main.strongholdLibraryCount.getCurrentValue()) {
 
                     @Override
                     public boolean canGenerate(int chainLength) {
@@ -206,7 +207,7 @@ public class ModWorldGen {
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 20, 2)};
 
-        NETHER_FORTRESS_MOB_SPAWNS = options().main.playingMode.doom() ?
+        NETHER_FORTRESS_MOB_SPAWNS = isPlayingModeDoom() ?
                 Pool.<SpawnSettings.SpawnEntry>builder()
                         .add(new SpawnSettings.SpawnEntry(EntityType.BLAZE, 1, 4), 50)
                         .add(new SpawnSettings.SpawnEntry(EntityType.PIGLIN_BRUTE, 2, 4), 25)

@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -32,6 +31,7 @@ import net.minecraft.world.World;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
@@ -47,7 +47,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
         ItemStack itemStack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (options().main.playingMode.easy()) {
+            if (isPlayingModeEasy()) {
                 if (world.getRegistryKey() == World.NETHER) {
                     player.sendMessage(this.calculatingText(), false);
                     BlockPos blazeSpawnerPos = this.findNearestBlazeSpawner((ServerWorld)world, player.getBlockPos());
@@ -94,9 +94,9 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
     /**
      * Finds the nearest blaze spawner.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private BlockPos findNearestBlazeSpawner(ServerWorld world, BlockPos fortressPos) {
-        for (BlockPos pos : BlockPos.iterate(fortressPos.add(options().advanced.blazeSpotterDistanceXYZ[0], options().advanced.blazeSpotterDistanceXYZ[1], options().advanced.blazeSpotterDistanceXYZ[2]), fortressPos.add(options().advanced.blazeSpotterDistanceXYZ[3], options().advanced.blazeSpotterDistanceXYZ[4], options().advanced.blazeSpotterDistanceXYZ[5]))) {
+        for (BlockPos pos : BlockPos.iterate(fortressPos.add(options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().getFirst(), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(1), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(2)), fortressPos.add(options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(3), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(4), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(5)))) {
             if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof MobSpawnerBlockEntity) {

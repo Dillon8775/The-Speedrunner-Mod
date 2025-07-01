@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
@@ -56,7 +56,7 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
 
                     ModUtil.completeStepS2C(TutorialStep.USE_INFERNO_EYE, player,
                             "speedrunnermod.tutorial_mode.used_inferno_eye",
-                            options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
+                            isPlayingModeEasy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
                                     "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
 
                     if (!player.getAbilities().creativeMode) {

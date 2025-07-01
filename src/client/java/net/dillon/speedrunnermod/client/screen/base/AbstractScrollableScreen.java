@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -51,7 +50,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Loads and parses lines from the specified resource text file.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private void loadAndPrintText(Identifier path) {
         try (BufferedReader reader = new BufferedReader(this.client.getResourceManager().openAsReader(path))) {
             String line;
@@ -75,7 +74,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Parses a line, detecting headers ("#") and applying scaled formatting.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private LineObject parseLine(String line) {
         // Handle image line with optional scale
         if (line.startsWith("!image:")) {
@@ -144,7 +143,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Parses legacy Minecraft formatting codes (e.g., §a, §l) into styled text.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private Text parseLegacyFormattedText(String input) {
         Style currentStyle = Style.EMPTY;
         MutableText result = Text.literal("");
@@ -166,7 +165,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Applies a single Minecraft formatting code to the current style.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private Style applyFormatCode(Style style, char code) {
         return switch (code) {
             case '0' -> style.withColor(0x000000);
@@ -217,7 +216,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Computes total height of all lines (scaled).
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private int getTotalContentHeight() {
         int totalHeight = 0;
 
@@ -247,7 +246,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Calculates maximum scroll offset needed to fit all content.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private int getAccurateMaxScroll() {
         int visibleHeight = bottom - top;
         int totalHeight = getTotalContentHeight();
@@ -277,7 +276,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Renders scrollable formatted text.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (!isDraggingScrollbar && !isDraggingAnywhere) {
@@ -401,7 +400,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Enables scrollbar dragging when clicked.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         for (LineObject line : objectsToDisplay) {
@@ -433,7 +432,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Releases dragging state.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
         isDraggingScrollbar = false;
@@ -444,7 +443,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Handles mouse wheel scrolling.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         this.targetScrollOffset -= verticalAmount * scrollSpeed;
@@ -456,7 +455,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Scrolls content when dragging the scrollbar.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     @Override
     public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
         initializeTopAndBottom();
@@ -489,7 +488,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Handles keyboard arrow key scrolling.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         float maxScroll = getAccurateMaxScroll();
@@ -571,7 +570,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Data structure representing a line of text with a scale factor.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     public record LineObject(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ButtonWidget button) {
         public boolean isImage() {
             return imageId != null;

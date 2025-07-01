@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(WitherEntity.class)
 public class WitherEntityMixin extends HostileEntity {
@@ -39,7 +39,7 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public void onDeath(DamageSource source) {
         super.onDeath(source);
-        if (this.getAttacker() instanceof PlayerEntity player && options().main.playingMode.doom()) {
+        if (this.getAttacker() instanceof PlayerEntity player && isPlayingModeDoom()) {
             ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
         }
     }

@@ -11,7 +11,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 @Mixin(ServerWorld.class)
 public class ServerWorldMixin {
@@ -22,13 +23,13 @@ public class ServerWorldMixin {
     @Inject(method = "onDimensionChanged", at = @At("TAIL"))
     private void tutorialModeDimensionChange(Entity entity, CallbackInfo ci) {
         if (entity instanceof ServerPlayerEntity player && player.getWorld().getRegistryKey() == World.END) {
-            if (options().main.playingMode.doom()) {
+            if (isPlayingModeDoom()) {
                 ModUtil.completeStepS2C(TutorialStep.ENTER_END, player,
                         "speedrunnermod.tutorial_mode.entered_end.doom",
                         "speedrunnermod.tutorial_mode.obtain_totem");
             } else {
                 ModUtil.completeStepS2C(TutorialStep.ENTER_END, player,
-                        options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.entered_end.easy" :
+                        isPlayingModeEasy() ? "speedrunnermod.tutorial_mode.entered_end.easy" :
                         "speedrunnermod.tutorial_mode.entered_end.normal");
             }
         }

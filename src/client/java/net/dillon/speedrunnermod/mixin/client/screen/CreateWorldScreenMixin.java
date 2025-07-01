@@ -27,10 +27,10 @@ public abstract class CreateWorldScreenMixin {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (clientOptions().client.fastWorldCreation) {
+        if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
 
             Difficulty difficulty = null;
-            switch (clientOptions().client.difficulty) {
+            switch (clientOptions().client.difficulty.getCurrentValue()) {
                 case PEACEFUL:
                     difficulty = Difficulty.PEACEFUL;
                     break;
@@ -46,7 +46,7 @@ public abstract class CreateWorldScreenMixin {
             }
 
             WorldCreator.Mode gameMode = null;
-            switch (clientOptions().client.gameMode) {
+            switch (clientOptions().client.gameMode.getCurrentValue()) {
                 case SURVIVAL:
                     gameMode = WorldCreator.Mode.SURVIVAL;
                     break;
@@ -65,7 +65,7 @@ public abstract class CreateWorldScreenMixin {
             assert difficulty != null;
             this.worldCreator.setGameMode(gameMode);
             this.worldCreator.setDifficulty(difficulty);
-            this.worldCreator.setCheatsEnabled(clientOptions().client.allowCheats);
+            this.worldCreator.setCheatsEnabled(clientOptions().client.allowCheats.getCurrentValue());
             createLevel();
         }
     }

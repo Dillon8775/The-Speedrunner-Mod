@@ -24,8 +24,8 @@ public class BetterDeathScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.showDeathCords ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.showDeathCords = !options().main.showDeathCords;
+        this.addButtonObject(ButtonWidget.builder(options().main.showDeathCords.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.showDeathCords.set(!options().main.showDeathCords.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

@@ -31,7 +31,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.enter_tutorial_mode"), button -> {
-            clientOptions().client.tutorialMode = true;
+            clientOptions().client.tutorialMode.set(true);
             saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
@@ -40,13 +40,14 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
-                clientOptions().client.firstTimePlaying = false;
+                clientOptions().client.firstTimePlaying.set(false);
                 saveClientChanges();
                 this.client.setScreen(new TitleScreen());
             }
         }).build());
         this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
             this.client.setScreen(this.getPreviousScreen());
+            restartRequired = false;
         }).build());
     }
 

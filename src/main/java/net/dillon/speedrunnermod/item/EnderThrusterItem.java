@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
@@ -42,7 +42,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
         ItemStack itemStack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (options().main.playingMode.easy()) {
+            if (isPlayingModeEasy()) {
                 if (!(world.getRegistryKey() == World.NETHER)) {
                     int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
                     BlockPos pos = new BlockPos(player.getBlockX(), y - 1, player.getBlockZ());

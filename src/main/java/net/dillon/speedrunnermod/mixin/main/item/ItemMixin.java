@@ -34,6 +34,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.*;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
@@ -61,7 +62,7 @@ public abstract class ItemMixin {
             if (stack.isOf(ModItems.SPEEDRUNNER_BOAT)) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_SPEEDRUNNER_BOAT, player,
                         "speedrunnermod.tutorial_mode.speedrunner_boat_description",
-                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.craft_inferno_eye");
+                        isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.craft_inferno_eye");
             }
 
             boolean[] speedrunnerArmorItem = new boolean[4];
@@ -121,7 +122,7 @@ public abstract class ItemMixin {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.change_speedrunners_eye_locator");
             }
 
-            if (stack.isOf(Items.ENDER_EYE) && options().main.playingMode.balanced()) {
+            if (stack.isOf(Items.ENDER_EYE) && isPlayingModeBalanced()) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_ENDER_EYE, player, "speedrunnermod.tutorial_mode.use_ender_eye");
             }
 
@@ -134,7 +135,7 @@ public abstract class ItemMixin {
 
             if (stack.isOf(ModItems.ANNUL_EYE)) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_ANNUL_EYE, player,
-                        options().main.playingMode.doom() ? "speedrunnermod.tutorial_mode.find_experience_ore" : "speedrunnermod.tutorial_mode.use_annul_eye");
+                        isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.find_experience_ore" : "speedrunnermod.tutorial_mode.use_annul_eye");
             }
 
             if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
@@ -156,7 +157,7 @@ public abstract class ItemMixin {
 
             if (stack.isOf(ModItems.ENDER_MATTER)) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_ENDER_MATTER, player,
-                        options().main.playingMode.easy() ? "speedrunnermod.tutorial_mode.craft_dragons_sword" :
+                        isPlayingModeEasy() ? "speedrunnermod.tutorial_mode.craft_dragons_sword" :
                                 "speedrunnermod.tutorial_mode.craft_infini_pearl");
             }
 
@@ -222,7 +223,7 @@ public abstract class ItemMixin {
         if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
             textConsumer.accept(Text.translatable("item.totem_of_undying.tooltip"));
         }
-        if (options().main.lavaBoats && (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS))) {
+        if (options().main.lavaBoats.getCurrentValue() && (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS))) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip").formatted(Formatting.GRAY));
         }
         if (stack.isIn(ModItemTags.FASTER_BOATS) || stack.isIn(ModItemTags.FASTER_CHEST_BOATS)) {

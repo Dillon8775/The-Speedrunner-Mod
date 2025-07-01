@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.server;
 
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.*;
 /**
  * Stores server-synced client options.
  */
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 public class ServerSyncedClientOptions {
     private static final Map<UUID, Boolean> ACTIONBAR_PREFS = new HashMap<>();
     private static final Map<UUID, Integer> ICARUS_FIREWORK_SLOT = new HashMap<>();

@@ -27,7 +27,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
         int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET_CONFIRM, (buttonWidget) -> {
             if (tutorial) {
-                ClientModOptions.resetAllTutorialModeOptions();
+                ClientModOptions.resetTutorialModeProgression();
             } else {
                 ClientModOptions.resetAllOptions();
                 ClientModOptions.resetAllClientOptions();

@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(RavagerEntity.class)
 public abstract class RavagerEntityMixin extends RaiderEntity {
@@ -47,12 +47,12 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createRavagerAttributes() {
-        final double genericMaxHealth = options().main.playingMode.doom() ? 100.0D : 50.0D;
+        final double genericMaxHealth = isPlayingModeDoom() ? 100.0D : 50.0D;
         final double genericMovementSpeed = 0.3D;
         final double genericKnockbackResistance = 0.75D;
-        final double genericAttackDamage = options().main.playingMode.doom() ? 16.0D : 10.0D;
-        final double genericAttackKnockback = options().main.playingMode.doom() ? 1.6D : 1.1D;
-        final double genericFollowRange = options().main.playingMode.doom() ? 48.0D : 32.0D;
+        final double genericAttackDamage = isPlayingModeDoom() ? 16.0D : 10.0D;
+        final double genericAttackKnockback = isPlayingModeDoom() ? 1.6D : 1.1D;
+        final double genericFollowRange = isPlayingModeDoom() ? 48.0D : 32.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
@@ -67,7 +67,7 @@ public abstract class RavagerEntityMixin extends RaiderEntity {
      */
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
-        if (options().main.playingMode.doom() && target instanceof PlayerEntity) {
+        if (isPlayingModeDoom() && target instanceof PlayerEntity) {
             ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
         }
     }

@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.screen;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -76,7 +75,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
     /**
      * Refresh the slots and give the player the item.
      */
-    @ChatGPT(Credit.PARTIAL_CREDIT)
+    @AI
     @Override
     public void onTakeOutput(PlayerEntity player, ItemStack stack) {
         if (!player.getAbilities().creativeMode) {
@@ -97,7 +96,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
      * Handles transferring enchantments.
      * <p>See additional comments inside of this method for more documentation.</p>
      */
-    @ChatGPT(Credit.PARTIAL_CREDIT)
+    @AI
     @Override
     public void updateResult() {
         ItemStack firstSlot = this.input.getStack(0); // Get the stack in the first slot

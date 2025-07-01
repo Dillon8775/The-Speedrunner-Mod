@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.block.dispenser;
 
 import net.dillon.speedrunnermod.block.SkullBlockInvoker;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
@@ -31,7 +30,7 @@ public interface DispenserBehaviorMixin {
      * Registers dispenser behavior for summmoning Goliath.
      * <p>See {@link DispenserBehavior#registerDefaults()} for more.</p>
      */
-    @ChatGPT(Credit.PARTIAL_CREDIT)
+    @AI
     @Inject(method = "registerDefaults", at = @At("TAIL"))
     private static void registerGoliathSummoning(CallbackInfo ci) {
         DispenserBlock.registerBehavior(

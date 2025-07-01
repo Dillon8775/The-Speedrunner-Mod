@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.option;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,11 +12,10 @@ import net.minecraft.util.math.MathHelper;
 import java.util.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.inBounds;
-import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
-import static net.dillon.speedrunnermod.util.ModUtil.createListOption;
-import static net.dillon.speedrunnermod.util.ModUtil.createStructureSpawnRateOption;
+import static net.dillon.speedrunnermod.option.ModOptions.isInBounds;
+import static net.dillon.speedrunnermod.option.ModOptions.isSafeToPlay;
 
 /**
  * All {@code Client-side Speedrunner Mod options.}
@@ -51,33 +50,33 @@ public class ClientModOptions {
 
         @Override
         protected void safeCheck() {
-            if (clientOptions().client.itemMessages == null) {
+            if (clientOptions().client.itemMessages.getCurrentValue() == null) {
                 error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.itemMessages");
-                isSafe(false);
+                isSafeToPlay(false);
                 ClientBrokenModOptions.itemMessages = true;
             }
 
-            if (clientOptions().client.gameMode == null) {
+            if (clientOptions().client.gameMode.getCurrentValue() == null) {
                 error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.gameMode");
-                isSafe(false);
+                isSafeToPlay(false);
                 ClientBrokenModOptions.gameMode = true;
             }
 
-            if (clientOptions().client.difficulty == null) {
+            if (clientOptions().client.difficulty.getCurrentValue() == null) {
                 error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.difficulty");
-                isSafe(false);
+                isSafeToPlay(false);
                 ClientBrokenModOptions.difficulty = true;
             }
 
             if (!clientOptions().isIcarusFireworksInventorySlotValid()) {
                 error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.icarusFireworksInventorySlot");
-                isSafe(false);
+                isSafeToPlay(false);
                 BrokenModOptions.iCarusFireworksInventorySlot = true;
             }
 
             if (!clientOptions().isInfiniPearlInventorySlotValid()) {
                 error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.infiniPearlInventorySlot");
-                isSafe(false);
+                isSafeToPlay(false);
                 BrokenModOptions.infiniPearlInventorySlot = true;
             }
         }
@@ -86,76 +85,75 @@ public class ClientModOptions {
     public static class Client {
 
         /**
-         * Tutorial mode, takes the player through various different features in the mod.
+         * Takes the player through various different features in the mod.
          */
-        @RequiresRestart
-        public boolean tutorialMode = false;
+        public OptionValue<Boolean> tutorialMode = new OptionValue<>(false, true);
 
         /**
          * Determines if the first-time playing screens should load.
          */
-        public boolean firstTimePlaying = true;
+        public OptionValue<Boolean> firstTimePlaying = new OptionValue<>(true, false);
 
         /**
          * Enable/disable Minecraft's default fog.
          */
-        public boolean fog = true;
+        public OptionValue<Boolean> fog = new OptionValue<>(true, false);
 
         /**
          * Enables/disables fullbright.
          */
-        public boolean fullBright = false;
+        public OptionValue<Boolean> fullBright = new OptionValue<>(false, false);
 
         /**
          * Determines whether certain player messages should be sent to the player's chat or actionbar (the area above the hotbar).
          */
-        public ClientModOptions.ItemMessages itemMessages = ClientModOptions.ItemMessages.ACTIONBAR;
+        public OptionValue<ItemMessages> itemMessages = new OptionValue<>(ItemMessages.ACTIONBAR, false);
 
         /**
          * Create a new world with just one click.
          */
-        public boolean fastWorldCreation = true;
+        public OptionValue<Boolean> fastWorldCreation = new OptionValue<>(true, false);
 
         /**
          * Determines the gamemode they every new world should generate with.
          */
-        public ClientModOptions.GameMode gameMode =  ClientModOptions.GameMode.SURVIVAL;
+        public OptionValue<GameMode> gameMode = new OptionValue<>(GameMode.SURVIVAL, false);
 
         /**
          * Determines the difficulty that every new world should generate with.
          */
-        public ClientModOptions.Difficulty difficulty =  ClientModOptions.Difficulty.EASY;
+        public OptionValue<Difficulty> difficulty = new OptionValue<>(Difficulty.EASY, false);
 
         /**
          * Allows cheats when a new world is created.
          */
-        public boolean allowCheats = false;
+        public OptionValue<Boolean> allowCheats = new OptionValue<>(false, false);
 
         /**
          * Display the reset button on the title screen, game menu screen and pause screen.
          */
-        public boolean showResetButton = true;
+        public OptionValue<Boolean> showResetButton = new OptionValue<>(true, false);
 
         /**
          * Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.
          */
-        public int iCarusFireworksInventorySlot = 1;
+        public OptionValue<Integer> iCarusFireworksInventorySlot = new OptionValue<>(1, false);
 
         /**
          * Sets the inventory slot that the InfiniPearl item should be given to when InfiniPearl mode is enabled.
          * <p>This value is incremented by one if iCarus Mode is already enabled.</p>
          */
-        public int infiniPearlInventorySlot = 1;
+        public OptionValue<Integer> infiniPearlInventorySlot = new OptionValue<>(1, false);
 
         /**
          * The minimum brightness amount for the Speedrunner Mod.
          */
-        public double minimumBrightness = 0.0D;
+        public OptionValue<Double> minimumBrightness = new OptionValue<>(0.0D, false);
 
         /**
          * The maximum brightness amount for the Speedrunner Mod.
          */
-        public double maximumBrightness = 12.0D;
+        public OptionValue<Double> maximumBrightness = new OptionValue<>(12.0D, false);
     }
 
     public static class Mixins {
@@ -164,29 +162,25 @@ public class ClientModOptions {
          * Applies the fog option into the game.
          * <p>Disable this if you are experiencing compatibility issues with other mods that may also mess with fog settings.</p>
          */
-        @RequiresRestart
-        public boolean backgroundRendererMixin = true;
+        public OptionValue<Boolean> backgroundRendererMixin = new OptionValue<>(true, true);
 
         /**
          * Applies the simple option mixin into the game, which controls the brightness option slider.
          * <p>Disable this if you are experiencing compatibility issues with other mods, or if you don't want the new brightness slider.</p>
          */
-        @RequiresRestart
-        public boolean simpleOptionMixin = true;
+        public OptionValue<Boolean> simpleOptionMixin = new OptionValue<>(true, true);
 
         /**
          * Applies the logo drawer mixin into the game, which adds the custom speedrunner edition logo to the title screen.
          * <p>Disable this if you do not want the custom logo, or are making a custom texture pack that uses a different logo, or are experiencing compatibility issues with other mods.</p>
          */
-        @RequiresRestart
-        public boolean logoDrawerMixin = true;
+        public OptionValue<Boolean> logoDrawerMixin = new OptionValue<>(true, true);
 
         /**
          * Applies the render layers mixin into the game, which registers a render layer for lava boats.
          * <p>I would only disable this if you absolutely have to, or if you are experiencing noticeable issues with lava boats, or aren't using them.</p>
          */
-        @RequiresRestart
-        public boolean renderLayersMixin = true;
+        public OptionValue<Boolean> renderLayersMixin = new OptionValue<>(true, true);
     }
 
     /**
@@ -197,147 +191,147 @@ public class ClientModOptions {
         /**
          * Returns the last completed tutorial step message translation key(s). These messages are sent when the player rejoins the world.
          */
-        public List<String> lastCompletedTutorialStepTranslations = new ArrayList<>();
+        public OptionValue<List<String>> lastCompletedTutorialStepTranslations = new OptionValue<>(new ArrayList<>(), false);
     }
 
     /**
      * All booleans for doing certain things in the tutorial mode.
      */
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     public static class TutorialMode implements net.dillon.speedrunnermod.tutorial.TutorialMode {
-        public boolean enterWorld = false;
-        public boolean obtainedSpeedrunnerPickaxe = false;
-        public boolean obtainedSpeedrunnerPaddle = false;
-        public boolean obtainedSpeedrunnerBoat = false;
-        public boolean obtainedSpeedrunnerArmorSet = false;
-        public boolean obtainedSpeedrunnerShield = false;
-        public boolean obtainedInfernoEye = false;
-        public boolean usedInfernoEye = false;
-        public boolean obtainedPiglinAwakener = false;
-        public boolean usedPiglinAwakener = false;
-        public boolean obtainedBlazeSpotter = false;
-        public boolean usedBlazeSpotter = false;
-        public boolean obtainedSpeedrunnersEye = false;
-        public boolean changedSpeedrunnersEyeLocator = false;
-        public boolean usedSpeedrunnersEye = false;
-        public boolean obtainedEnderEye = false;
-        public boolean usedEnderEye = false;
-        public boolean obtainedDragonsPearl = false;
-        public boolean obtainedAnnulEye = false;
-        public boolean usedAnnulEye = false;
-        public boolean enteredEnd = false;
-        public boolean obtainedTotem = false;
-        public boolean freeFalledIntoVoid = false;
-        public boolean obtainedSpeedrunnersTotem = false;
-        public boolean brokenDoomBlock = false;
-        public boolean killedGoliath = false;
-        public boolean killedWither = false;
-        public boolean usedDragonsPearl = false;
-        public boolean killedDragon = false;
-        public boolean exitEnd = false;
-        public boolean brokenExperienceOre = false;
-        public boolean obtainedSpeedrunnersWorkbench = false;
-        public boolean transferedEnchantments = false;
-        public boolean interactedWithRetiredSpeedrunner = false;
-        public boolean obtainedEnderThruster = false;
-        public boolean usedEnderThruster = false;
-        public boolean obtainedDragonsSword = false;
-        public boolean obtainedWitherBone = false;
-        public boolean obtainedWitherSword = false;
-        public boolean obtainedEnderMatter = false;
-        public boolean obtainedInfiniPearl = false;
+        public OptionValue<Boolean> enterWorld = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnerPickaxe = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnerPaddle = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnerBoat = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnerArmorSet = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnerShield = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedInfernoEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedInfernoEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedPiglinAwakener = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedPiglinAwakener = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedBlazeSpotter = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedBlazeSpotter = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnersEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> changedSpeedrunnersEyeLocator = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedSpeedrunnersEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedEnderEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedEnderEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedDragonsPearl = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedAnnulEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedAnnulEye = new OptionValue<>(false, false);
+        public OptionValue<Boolean> enteredEnd = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedTotem = new OptionValue<>(false, false);
+        public OptionValue<Boolean> freeFalledIntoVoid = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnersTotem = new OptionValue<>(false, false);
+        public OptionValue<Boolean> brokenDoomBlock = new OptionValue<>(false, false);
+        public OptionValue<Boolean> killedGoliath = new OptionValue<>(false, false);
+        public OptionValue<Boolean> killedWither = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedDragonsPearl = new OptionValue<>(false, false);
+        public OptionValue<Boolean> killedDragon = new OptionValue<>(false, false);
+        public OptionValue<Boolean> exitEnd = new OptionValue<>(false, false);
+        public OptionValue<Boolean> brokenExperienceOre = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedSpeedrunnersWorkbench = new OptionValue<>(false, false);
+        public OptionValue<Boolean> transferedEnchantments = new OptionValue<>(false, false);
+        public OptionValue<Boolean> interactedWithRetiredSpeedrunner = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedEnderThruster = new OptionValue<>(false, false);
+        public OptionValue<Boolean> usedEnderThruster = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedDragonsSword = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedWitherBone = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedWitherSword = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedEnderMatter = new OptionValue<>(false, false);
+        public OptionValue<Boolean> obtainedInfiniPearl = new OptionValue<>(false, false);
 
         @Override
         public boolean getStep(TutorialStep step) {
             return switch (step) {
-                case ENTER_WORLD -> enterWorld;
-                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe;
-                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle;
-                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat;
-                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet;
-                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield;
-                case CRAFT_INFERNO_EYE -> obtainedInfernoEye;
-                case USE_INFERNO_EYE -> usedInfernoEye;
-                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener;
-                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener;
-                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter;
-                case USE_BLAZE_SPOTTER -> usedBlazeSpotter;
-                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye;
-                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator;
-                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye;
-                case USE_ENDER_EYE -> usedEnderEye;
-                case CRAFT_ANNUL_EYE -> obtainedAnnulEye;
-                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl;
-                case CRAFT_ENDER_EYE -> obtainedEnderEye;
-                case USE_ANNUL_EYE -> usedAnnulEye;
-                case ENTER_END -> enteredEnd;
-                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem;
-                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid;
-                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem;
-                case BREAK_DOOM_BLOCK -> brokenDoomBlock;
-                case KILL_GOLIATH -> killedGoliath;
-                case KILL_WITHER -> killedWither;
-                case USE_DRAGONS_PEARL -> usedDragonsPearl;
-                case KILL_DRAGON -> killedDragon;
-                case EXIT_END -> exitEnd;
-                case MINE_EXPERIENCE_ORE -> brokenExperienceOre;
-                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench;
-                case TRANSFER_ENCHANTMENTS -> transferedEnchantments;
-                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner;
-                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster;
-                case USE_ENTER_THRUSTER -> usedEnderThruster;
-                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword;
-                case OBTAIN_WITHER_BONE -> obtainedWitherBone;
-                case OBTAIN_WITHER_SWORD -> obtainedWitherSword;
-                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter;
-                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl;
+                case ENTER_WORLD -> enterWorld.getCurrentValue();
+                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe.getCurrentValue();
+                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle.getCurrentValue();
+                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat.getCurrentValue();
+                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet.getCurrentValue();
+                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield.getCurrentValue();
+                case CRAFT_INFERNO_EYE -> obtainedInfernoEye.getCurrentValue();
+                case USE_INFERNO_EYE -> usedInfernoEye.getCurrentValue();
+                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener.getCurrentValue();
+                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener.getCurrentValue();
+                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter.getCurrentValue();
+                case USE_BLAZE_SPOTTER -> usedBlazeSpotter.getCurrentValue();
+                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye.getCurrentValue();
+                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator.getCurrentValue();
+                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye.getCurrentValue();
+                case USE_ENDER_EYE -> usedEnderEye.getCurrentValue();
+                case CRAFT_ANNUL_EYE -> obtainedAnnulEye.getCurrentValue();
+                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl.getCurrentValue();
+                case CRAFT_ENDER_EYE -> obtainedEnderEye.getCurrentValue();
+                case USE_ANNUL_EYE -> usedAnnulEye.getCurrentValue();
+                case ENTER_END -> enteredEnd.getCurrentValue();
+                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem.getCurrentValue();
+                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid.getCurrentValue();
+                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem.getCurrentValue();
+                case BREAK_DOOM_BLOCK -> brokenDoomBlock.getCurrentValue();
+                case KILL_GOLIATH -> killedGoliath.getCurrentValue();
+                case KILL_WITHER -> killedWither.getCurrentValue();
+                case USE_DRAGONS_PEARL -> usedDragonsPearl.getCurrentValue();
+                case KILL_DRAGON -> killedDragon.getCurrentValue();
+                case EXIT_END -> exitEnd.getCurrentValue();
+                case MINE_EXPERIENCE_ORE -> brokenExperienceOre.getCurrentValue();
+                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench.getCurrentValue();
+                case TRANSFER_ENCHANTMENTS -> transferedEnchantments.getCurrentValue();
+                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner.getCurrentValue();
+                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster.getCurrentValue();
+                case USE_ENTER_THRUSTER -> usedEnderThruster.getCurrentValue();
+                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword.getCurrentValue();
+                case OBTAIN_WITHER_BONE -> obtainedWitherBone.getCurrentValue();
+                case OBTAIN_WITHER_SWORD -> obtainedWitherSword.getCurrentValue();
+                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter.getCurrentValue();
+                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl.getCurrentValue();
             };
         }
 
         @Override
         public void setStep(TutorialStep step, boolean value) {
             switch (step) {
-                case ENTER_WORLD -> enterWorld = value;
-                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe = value;
-                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle = value;
-                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat = value;
-                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet = value;
-                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield = value;
-                case CRAFT_INFERNO_EYE -> obtainedInfernoEye = value;
-                case USE_INFERNO_EYE -> usedInfernoEye = value;
-                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener = value;
-                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener = value;
-                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter = value;
-                case USE_BLAZE_SPOTTER -> usedBlazeSpotter = value;
-                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye = value;
-                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator = value;
-                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye = value;
-                case CRAFT_ENDER_EYE -> obtainedEnderEye = value;
-                case USE_ENDER_EYE -> usedEnderEye = value;
-                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl = value;
-                case CRAFT_ANNUL_EYE -> obtainedAnnulEye = value;
-                case USE_ANNUL_EYE -> usedAnnulEye = value;
-                case ENTER_END -> enteredEnd = value;
-                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem = value;
-                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid = value;
-                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem = value;
-                case BREAK_DOOM_BLOCK -> brokenDoomBlock = value;
-                case KILL_GOLIATH -> killedGoliath = value;
-                case KILL_WITHER -> killedWither = value;
-                case USE_DRAGONS_PEARL -> usedDragonsPearl = value;
-                case KILL_DRAGON -> killedDragon = value;
-                case EXIT_END -> exitEnd = value;
-                case MINE_EXPERIENCE_ORE -> brokenExperienceOre = value;
-                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench = value;
-                case TRANSFER_ENCHANTMENTS -> transferedEnchantments = value;
-                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner = value;
-                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster = value;
-                case USE_ENTER_THRUSTER -> usedEnderThruster = value;
-                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword = value;
-                case OBTAIN_WITHER_BONE -> obtainedWitherBone = value;
-                case OBTAIN_WITHER_SWORD -> obtainedWitherSword = value;
-                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter = value;
-                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl = value;
+                case ENTER_WORLD -> enterWorld.set(value);
+                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe.set(value);
+                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle.set(value);
+                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat.set(value);
+                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet.set(value);
+                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield.set(value);
+                case CRAFT_INFERNO_EYE -> obtainedInfernoEye.set(value);
+                case USE_INFERNO_EYE -> usedInfernoEye.set(value);
+                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener.set(value);
+                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener.set(value);
+                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter.set(value);
+                case USE_BLAZE_SPOTTER -> usedBlazeSpotter.set(value);
+                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye.set(value);
+                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator.set(value);
+                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye.set(value);
+                case CRAFT_ENDER_EYE -> obtainedEnderEye.set(value);
+                case USE_ENDER_EYE -> usedEnderEye.set(value);
+                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl.set(value);
+                case CRAFT_ANNUL_EYE -> obtainedAnnulEye.set(value);
+                case USE_ANNUL_EYE -> usedAnnulEye.set(value);
+                case ENTER_END -> enteredEnd.set(value);
+                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem.set(value);
+                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid.set(value);
+                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem.set(value);
+                case BREAK_DOOM_BLOCK -> brokenDoomBlock.set(value);
+                case KILL_GOLIATH -> killedGoliath.set(value);
+                case KILL_WITHER -> killedWither.set(value);
+                case USE_DRAGONS_PEARL -> usedDragonsPearl.set(value);
+                case KILL_DRAGON -> killedDragon.set(value);
+                case EXIT_END -> exitEnd.set(value);
+                case MINE_EXPERIENCE_ORE -> brokenExperienceOre.set(value);
+                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench.set(value);
+                case TRANSFER_ENCHANTMENTS -> transferedEnchantments.set(value);
+                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner.set(value);
+                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster.set(value);
+                case USE_ENTER_THRUSTER -> usedEnderThruster.set(value);
+                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword.set(value);
+                case OBTAIN_WITHER_BONE -> obtainedWitherBone.set(value);
+                case OBTAIN_WITHER_SWORD -> obtainedWitherSword.set(value);
+                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter.set(value);
+                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl.set(value);
             }
         }
     }
@@ -461,176 +455,57 @@ public class ClientModOptions {
         public static ItemMessages byId(int id) {
             return VALUES[MathHelper.floorMod(id, VALUES.length)];
         }
+    }
 
-        /**
-         * Returns true if the {@code Item Messages} option is set to actionbar.
-         */
-        public boolean isActionbar() {
-            return clientOptions().client.itemMessages.equals(ACTIONBAR);
-        }
+    /**
+     * Returns true if the {@code Item Messages} option is set to actionbar.
+     */
+    public static boolean isActionbar() {
+        return clientOptions().client.itemMessages.getCurrentValue().equals(ItemMessages.ACTIONBAR);
     }
 
     /**
      * @return {@code true} if the {@code Icarus Fireworks Inventory Slot} advanced option is valid.
      */
     public boolean isIcarusFireworksInventorySlotValid() {
-        return inBounds(client.iCarusFireworksInventorySlot, 1, 36);
+        return isInBounds(client.iCarusFireworksInventorySlot.getCurrentValue(), 1, 36);
     }
 
     /**
      * @return {@code true} if the {@code InfiniPearl Inventory Slot} advanced option is valid.
      */
     public boolean isInfiniPearlInventorySlotValid() {
-        return inBounds(client.infiniPearlInventorySlot, 1, 36);
+        return isInBounds(client.infiniPearlInventorySlot.getCurrentValue(), 1, 36);
     }
 
     /**
      * Resets all of the {@code speedrunner mod options} back to factory default.
      */
-    @Environment(EnvType.CLIENT)
+    @AI
     public static void resetAllOptions() {
-        options().main.playingMode = ModOptions.PlayingMode.EASY;
-        options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
-        options().main.fasterBlockBreaking = true;
-        options().main.blockBreakingMultiplier = 1;
-        options().main.iCarusMode = false;
-        options().main.infiniPearlMode = false;
-        options().main.dragonPerchTime = 8;
-        options().main.killGhastOnFireball = false;
-        options().main.betterVillagerTrades = true;
-        options().main.fireproofItems = true;
-        options().main.customBiomesAndCustomBiomeFeatures = true;
-        options().main.commonOres = true;
-        options().main.lavaBoats = true;
-        options().main.netherWater = true;
-        options().main.betterFoods = true;
-        options().main.fallDamage = true;
-        options().main.kineticDamage = true;
-        options().main.strongholdDistance = 4;
-        options().main.strongholdSpread = 3;
-        options().main.strongholdCount = 128;
-        options().main.strongholdPortalRoomCount = 3;
-        options().main.strongholdLibraryCount = 2;
-        options().main.mobSpawningRate = ModOptions.MobSpawningRate.HIGH;
-        options().main.fasterSpawners = true;
-        options().main.netherPortalDelay = 2;
-        options().main.throwableFireballs = true;
-        options().main.arrowsDestroyBeds = true;
-        options().main.globalNetherPortals = true;
-        options().main.betterAnvil = true;
-        options().main.anvilCostLimit = 10;
-        options().main.higherEnchantmentLevels = true;
-        options().main.rightClickToRemoveSilkTouch = true;
-        options().main.customDataGeneration = true;
-        options().main.leaderboardsMode = false;
-
-        options().advanced.modifiedStrongholdGeneration = true;
-        options().advanced.modifiedStrongholdYGeneration = true;
-        options().advanced.modifiedNetherFortressGeneration = true;
-        options().advanced.higherBreathTime = true;
-        options().advanced.generateSpeedrunnerWood = true;
-        options().advanced.speedrunnersWastelandBiomeWeight = 9;
-        options().advanced.longerDragonPerchStayTime = true;
-        options().advanced.decreasedZombifiedPiglinScareDistance = true;
-        options().advanced.enderEyeBreakingCooldown = 60;
-        options().advanced.piglinAwakenerPiglinCount = 10;
-        options().advanced.fireballExplosionPower = 1;
-        options().advanced.dragonKillsNearbyHostileEntities = true;
-        options().advanced.dragonImmunityFromGoliathAndWither = true;
-        options().advanced.annulEyePortalRoomDistanceXYZ = createListOption(-128, -128, -128, 128, 128, 128);
-        options().advanced.piglinAwakenerPiglinDistanceXYZ = createListOption(100.0D, 100.0D, 100.0D);
-        options().advanced.blazeSpotterDistanceXYZ = createListOption(-156, -72, -156, 156, 72, 156);
-        options().advanced.raidEradicatorDistanceXYZ = createListOption(300.0D, 300.0D, 300.0D);
-        options().advanced.dragonsPearlDragonDistanceXYZ = createListOption(150.0D, 150.0D, 150.0D);
-        options().advanced.dragonKillsHostileEntitiesDistance = createListOption(200.0D, 200.0D, 200.0D);
-        options().advanced.dragonImmunityDetectionDistanceForGoliath = createListOption(200.0D, 200.0D, 200.0D);
-        options().advanced.dragonImmunityDetectionDistanceForWither = createListOption(300.0D, 300.0D, 300.0D);
-
-        options().structureSpawnRates.ancientCities = createStructureSpawnRateOption(16, 8);
-        options().structureSpawnRates.villages = createStructureSpawnRateOption(16, 8);
-        options().structureSpawnRates.desertPyramids = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.junglePyramids = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.pillagerOutposts = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.endCities = createStructureSpawnRateOption(7, 3);
-        options().structureSpawnRates.woodlandMansions = createStructureSpawnRateOption(25, 12);
-        options().structureSpawnRates.ruinedPortals = createStructureSpawnRateOption(9, 4);
-        options().structureSpawnRates.shipwrecks = createStructureSpawnRateOption(10, 5);
-        options().structureSpawnRates.trialChambers = createStructureSpawnRateOption(12, 6);
-        options().structureSpawnRates.netherComplexes = createStructureSpawnRateOption(8, 4);
-
-        options().mixins.terraBlenderSurfaceRuleDataMixin = true;
-
-        resetAllTutorialModeOptions();
+        configHandler().resetToDefault();
+        resetTutorialModeProgression();
     }
 
     /**
      * Resets all of the {@code speedrunner mod client-side options} back to factory default.
      */
+    @AI
     public static void resetAllClientOptions() {
-        clientOptions().client.tutorialMode = false;
-        clientOptions().client.firstTimePlaying = true;
-        clientOptions().client.fog = true;
-        clientOptions().client.itemMessages = ClientModOptions.ItemMessages.ACTIONBAR;
-        clientOptions().client.fastWorldCreation = true;
-        clientOptions().client.gameMode = ClientModOptions.GameMode.SURVIVAL;
-        clientOptions().client.difficulty = ClientModOptions.Difficulty.EASY;
-        clientOptions().client.allowCheats = false;
-        clientOptions().client.showResetButton = true;
-        clientOptions().client.minimumBrightness = 0.0D;
-        clientOptions().client.maximumBrightness = 12.0D;
-        clientOptions().client.iCarusFireworksInventorySlot = 1;
-        clientOptions().client.infiniPearlInventorySlot = 1;
-
-        clientOptions().mixins.backgroundRendererMixin = true;
-        clientOptions().mixins.simpleOptionMixin = true;
-        clientOptions().mixins.logoDrawerMixin = true;
-        clientOptions().mixins.renderLayersMixin = true;
-
-        clientOptions().storedValues.lastCompletedTutorialStepTranslations = new ArrayList<>();
+        clientConfigHandler().resetToDefault();
     }
 
     /**
      * Resets all tutorial mode options.
      */
-    public static void resetAllTutorialModeOptions() {
-        clientOptions().tutorialMode.enterWorld = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnerPickaxe = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnerPaddle = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnerBoat = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnerArmorSet = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnerShield = false;
-        clientOptions().tutorialMode.obtainedInfernoEye = false;
-        clientOptions().tutorialMode.usedInfernoEye = false;
-        clientOptions().tutorialMode.obtainedPiglinAwakener = false;
-        clientOptions().tutorialMode.usedPiglinAwakener = false;
-        clientOptions().tutorialMode.obtainedBlazeSpotter = false;
-        clientOptions().tutorialMode.usedBlazeSpotter = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnersEye = false;
-        clientOptions().tutorialMode.changedSpeedrunnersEyeLocator = false;
-        clientOptions().tutorialMode.usedSpeedrunnersEye = false;
-        clientOptions().tutorialMode.obtainedEnderEye = false;
-        clientOptions().tutorialMode.usedEnderEye = false;
-        clientOptions().tutorialMode.obtainedDragonsPearl = false;
-        clientOptions().tutorialMode.obtainedAnnulEye = false;
-        clientOptions().tutorialMode.usedAnnulEye = false;
-        clientOptions().tutorialMode.enteredEnd = false;
-        clientOptions().tutorialMode.obtainedTotem = false;
-        clientOptions().tutorialMode.freeFalledIntoVoid = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnersTotem = false;
-        clientOptions().tutorialMode.killedGoliath = false;
-        clientOptions().tutorialMode.killedWither = false;
-        clientOptions().tutorialMode.usedDragonsPearl = false;
-        clientOptions().tutorialMode.killedDragon = false;
-        clientOptions().tutorialMode.brokenExperienceOre = false;
-        clientOptions().tutorialMode.obtainedSpeedrunnersWorkbench = false;
-        clientOptions().tutorialMode.transferedEnchantments = false;
-        clientOptions().tutorialMode.interactedWithRetiredSpeedrunner = false;
-        clientOptions().tutorialMode.obtainedEnderThruster = false;
-        clientOptions().tutorialMode.usedEnderThruster = false;
-        clientOptions().tutorialMode.obtainedWitherBone = false;
-        clientOptions().tutorialMode.obtainedWitherSword = false;
-        clientOptions().tutorialMode.obtainedEnderMatter = false;
-        clientOptions().tutorialMode.obtainedDragonsSword = false;
-        clientOptions().tutorialMode.obtainedInfiniPearl = false;
+    public static void resetTutorialModeProgression() {
+        for (TutorialStep step : TutorialStep.values()) {
+            try {
+                clientOptions().tutorialMode.setStep(step, false);
+            } catch (Exception e) {
+                SpeedrunnerMod.error("Error resetting tutorial mode option: " + step.name());
+                e.printStackTrace();
+            }
+        }
     }
 }

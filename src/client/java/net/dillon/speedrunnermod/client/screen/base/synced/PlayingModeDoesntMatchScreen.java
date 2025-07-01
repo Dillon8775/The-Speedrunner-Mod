@@ -27,7 +27,7 @@ public class PlayingModeDoesntMatchScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.matchPlayingModeToServerButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_PLAYING_MODE_TO_SERVER, (buttonWidget) -> {
-            options().main.playingMode = this.serverSidePlayingMode;
+            options().main.playingMode.set(this.serverSidePlayingMode);
             saveDedicatedServerChanges();
             this.client.scheduleStop();
         }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());

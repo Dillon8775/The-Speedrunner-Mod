@@ -15,7 +15,8 @@ import net.minecraft.text.Text;
 import java.util.stream.IntStream;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * The Speedrunner Mod {@code item group.}
@@ -29,8 +30,8 @@ public class ModItemGroups {
             FabricItemGroup.builder()
                     .displayName(Text.literal("Speedrunner Mod"))
                     .icon(() -> new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH)).entries((displayContext, entries) -> {
-                        boolean playingModeEasy = options().main.playingMode.easy();
-                        boolean playingModeBalanced = options().main.playingMode.balanced();
+                        boolean playingModeEasy = isPlayingModeEasy();
+                        boolean playingModeBalanced = isPlayingModeBalanced();
                         entries.add(ModItems.SPEEDRUNNER_INGOT);
                         entries.add(ModItems.SPEEDRUNNER_NUGGET);
                         entries.add(ModItems.SPEEDRUNNER_BLOCK);

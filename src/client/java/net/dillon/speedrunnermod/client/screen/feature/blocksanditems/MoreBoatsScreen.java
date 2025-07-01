@@ -24,8 +24,8 @@ public class MoreBoatsScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.lavaBoats ? ModTexts.DISABLE_LAVA_BOATS : ModTexts.ENABLE_LAVA_BOATS, button -> {
-            options().main.lavaBoats = !options().main.lavaBoats;
+        this.addButtonObject(ButtonWidget.builder(options().main.lavaBoats.getCurrentValue() ? ModTexts.DISABLE_LAVA_BOATS : ModTexts.ENABLE_LAVA_BOATS, button -> {
+            options().main.lavaBoats.set(!options().main.lavaBoats.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

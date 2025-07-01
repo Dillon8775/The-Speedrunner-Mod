@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.packet.server;
 
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
@@ -13,7 +12,7 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
-@ChatGPT(Credit.MOST_CREDIT)
+@AI
 public record TutorialStepCompleteC2SPacket(TutorialStep step, List<String> messageKeys) implements CustomPayload {
     public static final Identifier ID = ofSpeedrunnerMod("tutorial_step_complete_c2s");
 

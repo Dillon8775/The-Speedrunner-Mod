@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import terrablender.worldgen.TBSurfaceRuleData;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(TBSurfaceRuleData.class)
 public class TBSurfaceRuleDataMixin {
@@ -18,6 +18,6 @@ public class TBSurfaceRuleDataMixin {
      */
     @Overwrite
     public static MaterialRules.MaterialRule end() {
-        return options().main.playingMode.doom() ? MaterialRules.block(ModBlocks.DOOM_STONE.getDefaultState()) : MaterialRules.block(Blocks.END_STONE.getDefaultState());
+        return isPlayingModeDoom() ? MaterialRules.block(ModBlocks.DOOM_STONE.getDefaultState()) : MaterialRules.block(Blocks.END_STONE.getDefaultState());
     }
 }

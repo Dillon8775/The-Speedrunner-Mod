@@ -24,8 +24,8 @@ public class ArrowsExplodeBedsScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.arrowsDestroyBeds ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.arrowsDestroyBeds = !options().main.arrowsDestroyBeds;
+        this.addButtonObject(ButtonWidget.builder(options().main.arrowsDestroyBeds.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.arrowsDestroyBeds.set(!options().main.arrowsDestroyBeds.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

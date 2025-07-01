@@ -4,8 +4,7 @@ import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,7 +27,8 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
@@ -39,7 +39,7 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
         super(settings.maxCount(16).component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
     }
 
-    @ChatGPT(Credit.PARTIAL_CREDIT)
+    @AI
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
@@ -85,7 +85,7 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
                     player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
 
-                    if (options().main.playingMode.easy() || options().main.playingMode.doom()) {
+                    if (isPlayingModeEasy() || isPlayingModeDoom()) {
                         ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player,
                                 "speedrunnermod.tutorial_mode.craft_dragons_pearl", "speedrunnermod.tutorial_mode.dragons_pearl_recipe");
                     } else {

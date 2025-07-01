@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(ZoglinEntity.class)
 public class ZoglinEntityMixin extends HostileEntity {
@@ -39,11 +39,11 @@ public class ZoglinEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createZoglinAttributes() {
-        final double genericMaxHealth = options().main.playingMode.doom() ? 60.0D : 25.0D;
+        final double genericMaxHealth = isPlayingModeDoom() ? 60.0D : 25.0D;
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericKnockbackResistance = options().main.playingMode.doom() ? 0.7000000238518589D : 0.6000000238418579D;
-        final double genericAttackKnockback = options().main.playingMode.doom() ? 1.2D : 0.5D;
-        final double genericAttackDamage = options().main.playingMode.doom() ? 8.0D : 4.0D;
+        final double genericKnockbackResistance = isPlayingModeDoom() ? 0.7000000238518589D : 0.6000000238418579D;
+        final double genericAttackKnockback = isPlayingModeDoom() ? 1.2D : 0.5D;
+        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

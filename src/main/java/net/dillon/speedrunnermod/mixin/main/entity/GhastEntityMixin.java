@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(GhastEntity.class)
 public class GhastEntityMixin extends FlyingEntity {
@@ -40,8 +40,8 @@ public class GhastEntityMixin extends FlyingEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createGhastAttributes() {
-        final double genericMaxHealth = options().main.playingMode.doom() ? 20.0D : 5.0D;
-        final double genericFollowRange = options().main.playingMode.doom() ? 100.0D : 50.0D;
+        final double genericMaxHealth = isPlayingModeDoom() ? 20.0D : 5.0D;
+        final double genericFollowRange = isPlayingModeDoom() ? 100.0D : 50.0D;
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange);

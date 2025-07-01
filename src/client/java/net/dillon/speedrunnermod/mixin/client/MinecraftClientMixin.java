@@ -48,12 +48,12 @@ public abstract class MinecraftClientMixin {
                 if (SpeedrunnerMod.safeBoot) {
                     this.setScreen(new SafeBootScreen(null));
                     warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
-                } else if (clientOptions().client.firstTimePlaying) {
+                } else if (clientOptions().client.firstTimePlaying.getCurrentValue()) {
                     this.setScreen(new FirstTimePlayingScreen(null));
-                } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().main.leaderboardsMode) {
+                } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().main.leaderboardsMode.getCurrentValue()) {
                     this.setScreen(new LeaderboardsSafeScreen(null));
                     warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");
-                } else if (options().main.leaderboardsMode && SpeedrunnerModClient.speedrunIGTMissing) {
+                } else if (options().main.leaderboardsMode.getCurrentValue() && SpeedrunnerModClient.speedrunIGTMissing) {
                     this.setScreen(new SpeedrunIGTMissingScreen(null));
                     warn("SpeedrunIGT mod is missing, please download to submit speedruns.");
                 } else {

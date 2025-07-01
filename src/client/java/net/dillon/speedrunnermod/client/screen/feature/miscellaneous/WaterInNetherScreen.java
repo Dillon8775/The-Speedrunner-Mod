@@ -24,8 +24,8 @@ public class WaterInNetherScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.netherWater ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.netherWater = !options().main.netherWater;
+        this.addButtonObject(ButtonWidget.builder(options().main.netherWater.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            options().main.netherWater.set(!options().main.netherWater.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

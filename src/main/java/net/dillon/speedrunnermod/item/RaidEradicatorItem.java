@@ -33,6 +33,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
 
 /**
  * An item that kills all nearby {@link RaiderEntity}s.
@@ -48,8 +49,8 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            if (!options().main.playingMode.balanced()) {
-                List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ[0], options().advanced.raidEradicatorDistanceXYZ[1], options().advanced.raidEradicatorDistanceXYZ[2]), entity -> true);
+            if (!isPlayingModeBalanced()) {
+                List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().getFirst(), options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().get(1), options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().get(2)), entity -> true);
 
                 if (!raiders.isEmpty()) {
                     boolean hasTotemEquipped = player.getInventory().contains(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack()) || player.getMainHandStack().isIn(ModItemTags.TOTEMS) || player.getOffHandStack().isIn(ModItemTags.TOTEMS);
@@ -116,7 +117,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
-        if (options().main.playingMode.balanced()) {
+        if (isPlayingModeBalanced()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }

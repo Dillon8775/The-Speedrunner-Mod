@@ -105,6 +105,7 @@ public class ModTexts {
 
     public static final Text MENU_OPEN_OPTIONS_FILE = Text.translatable("speedrunnermod.menu.open_options_file");
     public static final Text OPEN_OPTIONS_FILE_TOOLTIP = Text.translatable("speedrunnermod.menu.open_options_file.tooltip");
+    public static final Text OPEN_CLIENT_OPTIONS_FILE_TOOLTIP = Text.translatable("speedrunnermod.menu.open_client_options_file.tooltip");
 
     public static final Text SODIUM = Text.translatable("speedrunnermod.title.resources.mods.sodium").formatted(Formatting.GREEN);
     public static final Text SODIUM_TOOLTIP = Text.translatable("speedrunnermod.title.resources.mods.sodium.tooltip");

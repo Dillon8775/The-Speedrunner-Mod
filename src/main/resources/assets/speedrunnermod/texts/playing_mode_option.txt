@@ -4,7 +4,7 @@
 
 #### §e§lBalanced§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.
 
-#### §c§lDoom§r§c mode§r, well, I'll leave that for you to figure out.
+#### §c§lDoom§r§c mode§r flips this mod's description upside-down, and makes the game extremely difficult in various different ways, resuling in longer runs.
 
 ## §a§lWhich mode do you want to play on?
 

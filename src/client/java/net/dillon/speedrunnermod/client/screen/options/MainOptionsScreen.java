@@ -72,12 +72,12 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.RIGHT_CLICK_TO_REMOVE_SILK_TOUCH);
         this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_BIOMES_AND_CUSTOM_BIOME_FEATURES);
 
-        this.deactivateOptionIf(3, ButtonSide.LEFT, options().main.fasterBlockBreaking);
-        this.deactivateOptionIf(8, ButtonSide.LEFT, options().main.customDataGeneration);
-        this.deactivateOptionIf(8, ButtonSide.RIGHT, options().main.customDataGeneration);
-        this.deactivateOptionIf(9, ButtonSide.LEFT, options().main.customDataGeneration);
-        this.deactivateOptionIf(9, ButtonSide.RIGHT, options().main.customDataGeneration);
-        this.deactivateOptionIf(10, ButtonSide.LEFT, options().main.customDataGeneration);
+        this.deactivateOptionIf(3, ButtonSide.LEFT, options().main.fasterBlockBreaking.getCurrentValue());
+        this.deactivateOptionIf(8, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
+        this.deactivateOptionIf(8, ButtonSide.RIGHT, options().main.customDataGeneration.getCurrentValue());
+        this.deactivateOptionIf(9, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
+        this.deactivateOptionIf(9, ButtonSide.RIGHT, options().main.customDataGeneration.getCurrentValue());
+        this.deactivateOptionIf(10, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }
@@ -87,7 +87,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 3,
                 ButtonSide.LEFT,
-                options().main.fasterBlockBreaking,
+                options().main.fasterBlockBreaking.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip"),
                 Text.translatable("speedrunnermod.options.block_breaking_multiplier.inactive"),
                 context,
@@ -97,7 +97,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 8,
                 ButtonSide.LEFT,
-                options().main.customDataGeneration,
+                options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_count.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
                 context,
@@ -107,7 +107,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 8,
                 ButtonSide.RIGHT,
-                options().main.customDataGeneration,
+                options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_distance.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
                 context,
@@ -117,7 +117,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 9,
                 ButtonSide.LEFT,
-                options().main.customDataGeneration,
+                options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_spread.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
                 context,
@@ -127,7 +127,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 9,
                 ButtonSide.RIGHT,
-                options().main.customDataGeneration,
+                options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
                 context,
@@ -137,7 +137,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.renderOptionTooltip(
                 10,
                 ButtonSide.LEFT,
-                options().main.customDataGeneration,
+                options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
                 context,

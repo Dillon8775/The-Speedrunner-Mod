@@ -20,6 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * Be careful what you wish for...
@@ -151,10 +152,10 @@ public class DoomBlock {
      */
     private static void fallDamage(Entity entity, double fallDistance) {
         float fallDamage;
-        if (!options().main.fallDamage) {
+        if (!options().main.fallDamage.getCurrentValue()) {
             fallDamage = 0.0F;
         } else {
-            fallDamage = options().main.playingMode.doom() ? 1.15F : 1.0F;
+            fallDamage = isPlayingModeDoom() ? 1.15F : 1.0F;
             if (entity.isSneaking()) {
                 fallDamage = fallDamage / 1.25F;
             }
@@ -178,7 +179,7 @@ public class DoomBlock {
 
         @Override
         public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-            if (options().main.playingMode.doom()) {
+            if (isPlayingModeDoom()) {
                 whenBroken(world, pos, player);
             }
             return super.onBreak(world, pos, state, player);
@@ -201,7 +202,7 @@ public class DoomBlock {
 
         @Override
         public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-            if (options().main.playingMode.doom()) {
+            if (isPlayingModeDoom()) {
                 whenBroken(world, pos, player);
             }
             return super.onBreak(world, pos, state, player);
@@ -224,7 +225,7 @@ public class DoomBlock {
 
         @Override
         public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-            if (options().main.playingMode.doom()) {
+            if (isPlayingModeDoom()) {
                 whenBroken(world, pos, player);
             }
             return super.onBreak(world, pos, state, player);

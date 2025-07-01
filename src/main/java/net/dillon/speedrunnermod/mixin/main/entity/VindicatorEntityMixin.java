@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(VindicatorEntity.class)
 public abstract class VindicatorEntityMixin extends IllagerEntity {
@@ -45,8 +45,8 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
     @Overwrite
     public static DefaultAttributeContainer.Builder createVindicatorAttributes() {
         final double genericMovementSpeed = 0.3499999940395355D;
-        final double genericFollowRange = options().main.playingMode.doom() ? 48.0D : 12.0D;
-        final double genericMaxHealth = options().main.playingMode.doom() ? 20.0D : 24.0D;
+        final double genericFollowRange = isPlayingModeDoom() ? 48.0D : 12.0D;
+        final double genericMaxHealth = isPlayingModeDoom() ? 20.0D : 24.0D;
         final double genericAttackDamage = 5.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
@@ -63,7 +63,7 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
         if (!super.tryAttack(world, target)) {
             return false;
         } else {
-            if (options().main.playingMode.doom() && target instanceof PlayerEntity) {
+            if (isPlayingModeDoom() && target instanceof PlayerEntity) {
                 ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
             }
 

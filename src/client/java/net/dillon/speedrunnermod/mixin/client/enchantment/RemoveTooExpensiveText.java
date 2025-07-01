@@ -21,7 +21,7 @@ public class RemoveTooExpensiveText {
      */
     @ModifyConstant(method = "drawForeground", constant = @Constant(intValue = 40))
     private int mixinLimitInt(int i) {
-        if (options().main.betterAnvil) {
+        if (options().main.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;
         } else {
             return 40;

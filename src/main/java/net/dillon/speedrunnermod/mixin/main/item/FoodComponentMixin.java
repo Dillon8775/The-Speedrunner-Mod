@@ -21,7 +21,7 @@ public class FoodComponentMixin {
 
     @Inject(method = "onConsume", at = @At("TAIL"))
     private void addFoodEffects(World world, LivingEntity user, ItemStack stack, ConsumableComponent consumable, CallbackInfo ci) {
-        if (options().main.betterFoods && user instanceof PlayerEntity player && stack.isOf(Items.GOLDEN_CARROT)) {
+        if (options().main.betterFoods.getCurrentValue() && user instanceof PlayerEntity player && stack.isOf(Items.GOLDEN_CARROT)) {
              player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 200, 0));
         }
     }

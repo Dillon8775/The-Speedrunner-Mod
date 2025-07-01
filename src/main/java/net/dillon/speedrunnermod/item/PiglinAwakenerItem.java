@@ -32,6 +32,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
 
 /**
  * An item that teleports {@code nearby piglin} to the player.
@@ -47,9 +48,9 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (options().main.playingMode.easy()) {
+            if (isPlayingModeEasy()) {
                 if (world.getRegistryKey() == World.NETHER) {
-                    List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(options().advanced.piglinAwakenerPiglinDistanceXYZ[0], options().advanced.piglinAwakenerPiglinDistanceXYZ[1], options().advanced.piglinAwakenerPiglinDistanceXYZ[2]), entity -> true);
+                    List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().getFirst(), options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().get(1), options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().get(2)), entity -> true);
 
                     if (!piglins.isEmpty()) {
                         boolean isSafe = player.getAbilities().creativeMode;
@@ -87,7 +88,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                                 piglin.teleport(x, y, z, false);
                                                 maxNumberOfPiglin++;
                                             }
-                                            if (maxNumberOfPiglin >= options().advanced.piglinAwakenerPiglinCount) {
+                                            if (maxNumberOfPiglin >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue()) {
                                                 break;
                                             }
                                         }

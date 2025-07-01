@@ -5,10 +5,12 @@ import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.option.*;
+import net.dillon.speedrunnermod.option.BrokenModOptions;
+import net.dillon.speedrunnermod.option.ClientBrokenModOptions;
+import net.dillon.speedrunnermod.option.ClientModOptions;
+import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -38,7 +40,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     /**
      * Initializes all the client-side {@code speedrunner mod} renderers, configurations, etc.
      */
-    @ChatGPT(Credit.PARTIAL_CREDIT)
+    @AI
     @Override
     public void onInitializeClient() {
         ClientModPackets.registerClientPackets();
@@ -49,12 +51,12 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         clientConfigHandler().load();
 
-        options().advanced.modIds = new ArrayList<>();
+        options().advanced.modIds.reset();
         for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
-            options().advanced.modIds.add(mod.getMetadata().getId()); // add all mod ids to list
+            options().advanced.modIds.getCurrentValue().add(mod.getMetadata().getId()); // add all mod ids to list
         }
 
-        if (options().main.leaderboardsMode && !isSpeedrunIGTLoaded()) {
+        if (options().main.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
             speedrunIGTMissing = true;
             warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
         }
@@ -165,71 +167,71 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      */
     public static void fixOptions() {
         if (BrokenModOptions.playingMode) {
-            options().main.playingMode = ModOptions.PlayingMode.EASY;
+            options().main.playingMode.reset();
         }
 
         if (BrokenModOptions.structureSpawnRates) {
-            options().main.structureSpawnRates = ModOptions.StructureSpawnRate.COMMON;
+            options().main.structureSpawnRates.reset();
         }
 
         if (BrokenModOptions.blockBreakingMultiplier) {
-            options().main.blockBreakingMultiplier = 1;
+            options().main.blockBreakingMultiplier.reset();
         }
 
         if (BrokenModOptions.strongholdDistance) {
-            options().main.strongholdDistance = 4;
+            options().main.strongholdDistance.reset();
         }
 
         if (BrokenModOptions.strongholdSpread) {
-            options().main.strongholdSpread = 3;
+            options().main.strongholdSpread.reset();
         }
 
         if (BrokenModOptions.strongholdCount) {
-            options().main.strongholdCount = 128;
+            options().main.strongholdCount.reset();
         }
 
         if (BrokenModOptions.strongholdPortalRoomCount) {
-            options().main.strongholdPortalRoomCount = 3;
+            options().main.strongholdPortalRoomCount.reset();
         }
 
         if (BrokenModOptions.strongholdLibraryCount) {
-            options().main.strongholdLibraryCount = 2;
+            options().main.strongholdLibraryCount.reset();
         }
 
         if (BrokenModOptions.netherPortalCooldown) {
-            options().main.netherPortalDelay = 2;
+            options().main.netherPortalDelay.reset();
         }
 
         if (BrokenModOptions.mobSpawningRate) {
-            options().main.mobSpawningRate = ModOptions.MobSpawningRate.HIGH;
+            options().main.mobSpawningRate.reset();
         }
 
         if (BrokenModOptions.leaderboards) {
-            options().main.leaderboardsMode = false;
+            options().main.leaderboardsMode.reset();
         }
 
         if (BrokenModOptions.speedrunnersWastelandBiomeWeight) {
-            options().advanced.speedrunnersWastelandBiomeWeight = 9;
+            options().advanced.speedrunnersWastelandBiomeWeight.reset();
         }
 
         if (BrokenModOptions.iCarusFireworksInventorySlot) {
-            clientOptions().client.iCarusFireworksInventorySlot = 1;
+            clientOptions().client.iCarusFireworksInventorySlot.reset();
         }
 
         if (BrokenModOptions.infiniPearlInventorySlot) {
-            clientOptions().client.infiniPearlInventorySlot = 1;
+            clientOptions().client.infiniPearlInventorySlot.reset();
         }
 
         if (ClientBrokenModOptions.itemMessages) {
-            clientOptions().client.itemMessages = ClientModOptions.ItemMessages.CHAT;
+            clientOptions().client.itemMessages.reset();
         }
 
         if (ClientBrokenModOptions.gameMode) {
-            clientOptions().client.gameMode = ClientModOptions.GameMode.SURVIVAL;
+            clientOptions().client.gameMode.reset();
         }
 
         if (ClientBrokenModOptions.difficulty) {
-            clientOptions().client.difficulty = ClientModOptions.Difficulty.EASY;
+            clientOptions().client.difficulty.reset();
         }
 
         saveAllChanges();
@@ -239,13 +241,13 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Returns the {@code minimum brightness} value for the speedrunner mod.
      */
     public static double getMinBrightness() {
-        return clientOptions().client.minimumBrightness;
+        return clientOptions().client.minimumBrightness.getCurrentValue();
     }
 
     /**
      * Returns the {@code maximum brightness} value for the speedrunner mod.
      */
     public static double getMaxBrightness() {
-        return clientOptions().client.maximumBrightness;
+        return clientOptions().client.maximumBrightness.getCurrentValue();
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 @Mixin(SpiderEntity.class)
 public class SpiderEntityMixin extends HostileEntity {
@@ -43,7 +43,7 @@ public class SpiderEntityMixin extends HostileEntity {
             return false;
         } else {
             if (target instanceof PlayerEntity) {
-                if (options().main.playingMode.doom()) {
+                if (isPlayingModeDoom()) {
                     ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
                 }
             }

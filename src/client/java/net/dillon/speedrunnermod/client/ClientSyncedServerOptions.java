@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client;
 
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -16,7 +15,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChan
 /**
  * Stores client-synced server options.
  */
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 @Environment(EnvType.CLIENT)
 public class ClientSyncedServerOptions {
     private static final Map<UUID, List<String>> TRANSLATIONS = new HashMap<>();
@@ -26,7 +25,7 @@ public class ClientSyncedServerOptions {
      */
     public static void setLastSentTutorialModeMessageTranslations(UUID playerUuid, List<String> translations) {
         TRANSLATIONS.put(playerUuid, translations);
-        clientOptions().storedValues.lastCompletedTutorialStepTranslations = getLastSentTutorialModeMessageTranslations(playerUuid);
+        clientOptions().storedValues.lastCompletedTutorialStepTranslations.set(getLastSentTutorialModeMessageTranslations(playerUuid));
         saveClientChanges();
     }
 
@@ -34,7 +33,7 @@ public class ClientSyncedServerOptions {
      * @return the last sent {@code tutorial mode message translations.}
      */
     public static List<String> getLastSentTutorialModeMessageTranslations(UUID playerUuid) {
-        return TRANSLATIONS.getOrDefault(playerUuid, clientOptions().storedValues.lastCompletedTutorialStepTranslations);
+        return TRANSLATIONS.getOrDefault(playerUuid, clientOptions().storedValues.lastCompletedTutorialStepTranslations.getCurrentValue());
     }
 
     /**
@@ -48,7 +47,7 @@ public class ClientSyncedServerOptions {
      * Writes the last sent {@code tutorial mode message translations,} but clears them from memory to save heap space.
      */
     public static void writeAndClearTutorialModeMessageTranslations(UUID playerUuid) {
-        clientOptions().storedValues.lastCompletedTutorialStepTranslations = getLastSentTutorialModeMessageTranslations(playerUuid);
+        clientOptions().storedValues.lastCompletedTutorialStepTranslations.set(getLastSentTutorialModeMessageTranslations(playerUuid));
         saveClientChanges();
         TRANSLATIONS.remove(playerUuid);
     }

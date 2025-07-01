@@ -76,7 +76,7 @@ public abstract class AbstractBoatEntityMixin extends Entity {
      */
     @Override
     public boolean isFireImmune() {
-        if (options().main.lavaBoats) {
+        if (options().main.lavaBoats.getCurrentValue()) {
             return ModEntityTypes.isFireproofBoat(this.itemSupplier) || super.isFireImmune();
         } else {
             return super.isFireImmune();

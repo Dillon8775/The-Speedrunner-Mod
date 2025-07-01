@@ -22,6 +22,7 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 
 /**
  * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, external links, other mods, and more.
@@ -52,7 +53,7 @@ public class MainScreen extends AbstractModScreen {
         this.optionsButton = ButtonWidget.builder(Text.translatable("menu.options").formatted(getOptionsTextColor()), (button) -> {
             RestartRequiredScreen.getCurrentOptions();
             Leaderboards.getCurrentLeaderboardsMode();
-            if (options().main.leaderboardsMode) {
+            if (options().main.leaderboardsMode.getCurrentValue()) {
                 Leaderboards.getCurrentOptions();
             }
             this.client.setScreen(new ModOptionsScreen(this));
@@ -85,7 +86,7 @@ public class MainScreen extends AbstractModScreen {
                 this.client.setScreen(new SecretDoomModeScreen(this));
             }
         }).build();
-        this.doomModeButton.visible = options().main.playingMode.doom();
+        this.doomModeButton.visible = isPlayingModeDoom();
 
         super.init();
     }
@@ -93,7 +94,7 @@ public class MainScreen extends AbstractModScreen {
     @Override
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
         if (this.optionsButton.isHovered()) {
-            if (options().main.leaderboardsMode) {
+            if (options().main.leaderboardsMode.getCurrentValue()) {
                 if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                     this.renderBasicTooltip(ModTexts.MENU_OPTIONS_ACTION_NEEDED, context, mouseX, mouseY);
                 } else {
@@ -124,7 +125,7 @@ public class MainScreen extends AbstractModScreen {
      * Sets the color of the options button, depending on if leaderboards mode is on, and if the options meet the leaderboards criteria.
      */
     private static Formatting getOptionsTextColor() {
-        if (options().main.leaderboardsMode) {
+        if (options().main.leaderboardsMode.getCurrentValue()) {
             if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 return Formatting.RED;
             } else {

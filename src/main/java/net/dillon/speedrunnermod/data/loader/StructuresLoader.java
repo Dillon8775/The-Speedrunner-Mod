@@ -2,16 +2,16 @@ package net.dillon.speedrunnermod.data.loader;
 
 import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.mixin.main.registry.RegistryLoaderMixin;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.world.ModWorldGen;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.*;
 
 /**
  * Contains all of the {@code structure modifications,} making them generate more commonly.
  */
-@ChatGPT(Credit.FULL_CREDIT)
+@AI
 public class StructuresLoader {
 
     /**
@@ -85,9 +85,9 @@ public class StructuresLoader {
      * <p>Count - the total amount of strongholds that are allowed to create in a single Minecraft world.</p>
      */
     public static void modifyStrongholds(JsonElement jsonElement) {
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", options().main.strongholdDistance);
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", options().main.strongholdSpread);
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", options().main.strongholdCount);
+        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", options().main.strongholdDistance.getCurrentValue());
+        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", options().main.strongholdSpread.getCurrentValue());
+        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", options().main.strongholdCount.getCurrentValue());
     }
 
     /**
@@ -118,409 +118,409 @@ public class StructuresLoader {
      * See {@link ModWorldGen} and {@link RegistryLoaderMixin} for more.
      */
     private static int ancientCitySpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 4;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 16;
-        } else if (options().main.structureSpawnRates.normal() || options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesNormal() || isStructureSpawnRatesDefault()) {
             return 24;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 28;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 32;
         } else {
-            return options().structureSpawnRates.ancientCities[0];
+            return options().structureSpawnRates.ancientCities.getCurrentValue().getFirst();
         }
     }
 
     private static int ancientCitySeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.common() || options().main.structureSpawnRates.normal() || options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesCommon() || isStructureSpawnRatesNormal() || isStructureSpawnRatesDefault()) {
             return 8;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 12;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 16;
         } else {
-            return options().structureSpawnRates.ancientCities[1];
+            return options().structureSpawnRates.ancientCities.getCurrentValue().get(1);
         }
     }
 
     private static int villageSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 4;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 16;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 20;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 32;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 42;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 52;
         } else {
-            return options().structureSpawnRates.villages[0];
+            return options().structureSpawnRates.villages.getCurrentValue().getFirst();
         }
     }
 
     private static int villageSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 9;
-        } else if (options().main.structureSpawnRates.commonNormalOrDefault()) {
+        } else if (isStructureSpawnRatesCommonNormalOrDefault()) {
             return 8;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 10;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 16;
         } else {
-            return options().structureSpawnRates.villages[1];
+            return options().structureSpawnRates.villages.getCurrentValue().get(1);
         }
     }
 
     private static int desertPyramidSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 20;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 32;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 42;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 52;
         } else {
-            return options().structureSpawnRates.desertPyramids[0];
+            return options().structureSpawnRates.desertPyramids.getCurrentValue().getFirst();
         }
     }
 
     private static int desertPyramidSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.commonNormalOrDefault()) {
+        } else if (isStructureSpawnRatesCommonNormalOrDefault()) {
             return 8;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 10;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 16;
         } else {
-            return options().structureSpawnRates.desertPyramids[1];
+            return options().structureSpawnRates.desertPyramids.getCurrentValue().get(1);
         }
     }
 
     private static int jungleTempleSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 20;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 32;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 40;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 50;
         } else {
-            return options().structureSpawnRates.junglePyramids[0];
+            return options().structureSpawnRates.junglePyramids.getCurrentValue().getFirst();
         }
     }
 
     private static int jungleTempleSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.commonNormalOrDefault()) {
+        } else if (isStructureSpawnRatesCommonNormalOrDefault()) {
             return 8;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 10;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 12;
         } else {
-            return options().structureSpawnRates.junglePyramids[1];
+            return options().structureSpawnRates.junglePyramids.getCurrentValue().get(1);
         }
     }
 
     private static int pillagerOutpostSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 20;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 32;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 40;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 50;
         } else {
-            return options().structureSpawnRates.pillagerOutposts[0];
+            return options().structureSpawnRates.pillagerOutposts.getCurrentValue().getFirst();
         }
     }
 
     private static int pillagerOutpostSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.commonNormalOrDefault()) {
+        } else if (isStructureSpawnRatesCommonNormalOrDefault()) {
             return 8;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 10;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 12;
         } else {
-            return options().structureSpawnRates.pillagerOutposts[1];
+            return options().structureSpawnRates.pillagerOutposts.getCurrentValue().get(1);
         }
     }
 
     private static int endCitySpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 4;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 5;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 15;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 20;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 25;
         } else {
-            return options().structureSpawnRates.endCities[0];
+            return options().structureSpawnRates.endCities.getCurrentValue().getFirst();
         }
     }
 
     private static int endCitySeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 4;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 6;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 10;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 11;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 16;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 18;
         } else {
-            return options().structureSpawnRates.endCities[1];
+            return options().structureSpawnRates.endCities.getCurrentValue().get(1);
         }
     }
 
     private static int woodlandMansionSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 6;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 16;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 25;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 40;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 80;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 100;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 120;
         } else {
-            return options().structureSpawnRates.woodlandMansions[0];
+            return options().structureSpawnRates.woodlandMansions.getCurrentValue().getFirst();
         }
     }
 
     private static int woodlandMansionSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 4;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.commonNormalOrDefault() || options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesCommonNormalOrDefault() || isStructureSpawnRatesRare()) {
             return 20;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 25;
         } else {
-            return options().structureSpawnRates.woodlandMansions[1];
+            return options().structureSpawnRates.woodlandMansions.getCurrentValue().get(1);
         }
     }
 
     private static int ruinedPortalSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 4;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 9;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 16;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 40;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 50;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 60;
         } else {
-            return options().structureSpawnRates.ruinedPortals[0];
+            return options().structureSpawnRates.ruinedPortals.getCurrentValue().getFirst();
         }
     }
 
     private static int ruinedPortalSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 6;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 9;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 15;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 16;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 20;
         } else {
-            return options().structureSpawnRates.ruinedPortals[1];
+            return options().structureSpawnRates.ruinedPortals.getCurrentValue().get(1);
         }
     }
 
     private static int shipwreckSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 20;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 24;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 30;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 40;
         } else {
-            return options().structureSpawnRates.shipwrecks[0];
+            return options().structureSpawnRates.shipwrecks.getCurrentValue().getFirst();
         }
     }
 
     private static int shipwreckSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 2;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.common() ||
-                options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesCommon() ||
+                isStructureSpawnRatesNormal()) {
             return 8;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 4;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 9;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 10;
         } else {
-            return options().structureSpawnRates.shipwrecks[1];
+            return options().structureSpawnRates.shipwrecks.getCurrentValue().get(1);
         }
     }
 
     private static int trialChambersSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 5;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 12;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 20;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 34;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 40;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 45;
         } else {
-            return options().structureSpawnRates.trialChambers[0];
+            return options().structureSpawnRates.trialChambers.getCurrentValue().getFirst();
         }
     }
 
     private static int trialChambersSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.common() ||
-                options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesCommon() ||
+                isStructureSpawnRatesNormal()) {
             return 8;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 12;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 16;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 20;
         } else {
-            return options().structureSpawnRates.trialChambers[1];
+            return options().structureSpawnRates.trialChambers.getCurrentValue().get(1);
         }
     }
 
     private static int netherComplexesSpacing() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 5;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 10;
-        } else if (options().main.structureSpawnRates.normal()) {
+        } else if (isStructureSpawnRatesNormal()) {
             return 17;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 30;
-        } else if (options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesRare()) {
             return 40;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 50;
         } else {
-            return options().structureSpawnRates.netherComplexes[0];
+            return options().structureSpawnRates.netherComplexes.getCurrentValue().getFirst();
         }
     }
 
     private static int netherComplexesSeparation() {
-        if (options().main.structureSpawnRates.everywhere()) {
+        if (isStructureSpawnRatesEverywhere()) {
             return 3;
-        } else if (options().main.structureSpawnRates.veryCommon()) {
+        } else if (isStructureSpawnRatesVeryCommon()) {
             return 7;
-        } else if (options().main.structureSpawnRates.common()) {
+        } else if (isStructureSpawnRatesCommon()) {
             return 8;
-        } else if (options().main.structureSpawnRates.normal() ||
-                options().main.structureSpawnRates.rare()) {
+        } else if (isStructureSpawnRatesNormal() ||
+                isStructureSpawnRatesRare()) {
             return 10;
-        } else if (options().main.structureSpawnRates.ddefault()) {
+        } else if (isStructureSpawnRatesDefault()) {
             return 4;
-        } else if (options().main.structureSpawnRates.veryRare()) {
+        } else if (isStructureSpawnRatesVeryRare()) {
             return 14;
         } else {
-            return options().structureSpawnRates.netherComplexes[1];
+            return options().structureSpawnRates.netherComplexes.getCurrentValue().get(1);
         }
     }
 }

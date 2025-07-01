@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.tutorial;
 
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -14,9 +13,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Environment(EnvType.CLIENT)
@@ -88,30 +88,30 @@ public interface TutorialMode {
     /**
      * Gets a step in tutorial mode.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     boolean getStep(TutorialStep step);
 
     /**
      * Sets a step in tutorial mode.
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     void setStep(TutorialStep step, boolean value);
 
     /**
      * Returns true if a tutorial step can complete.
      */
-    @ChatGPT(Credit.PARTIAL_CREDIT)
+    @AI
     default boolean canComplete(TutorialStep step) {
-        if (!clientOptions().client.tutorialMode) {
+        if (!clientOptions().client.tutorialMode.getCurrentValue()) {
             return false;
         }
         TutorialStep[] steps;
         List<TutorialStep> stepsList = new ArrayList<>(Arrays.stream(TutorialStep.values()).toList());
-        if (options().main.playingMode.balanced()) {
+        if (isPlayingModeBalanced()) {
             for (TutorialStep excludedStep : EXCLUDED_BALANCED_MODE_STEPS) {
                 stepsList.remove(excludedStep);
             }
-        } else if (options().main.playingMode.doom()) {
+        } else if (isPlayingModeDoom()) {
             stepsList = DOOM_MODE_STEPS;
         } else {
             for (TutorialStep excludedStep : EXCLUDED_EASY_MODE_STEPS) {
@@ -133,7 +133,7 @@ public interface TutorialMode {
     /**
      * Completes a tutorial step.
      */
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     default void completeStep(TutorialStep step, PlayerEntity player, String... messageKey) {
         if (canComplete(step) && !this.getStep(step)) {
             setStep(step, true);
@@ -142,8 +142,8 @@ public interface TutorialMode {
                 sendWithPrefix(s, player);
                 translations.add(s);
             }
-            if ((!options().main.playingMode.doom() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
-                    options().main.playingMode.doom() && this.getStep(TutorialStep.EXIT_END)) {
+            if ((!isPlayingModeDoom() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
+                    isPlayingModeDoom() && this.getStep(TutorialStep.EXIT_END)) {
                 translations = List.of(); // blank list if tutorial mode is completed
             }
             ClientPlayNetworking.send(new TutorialStepCompleteC2SPacket(step, translations));

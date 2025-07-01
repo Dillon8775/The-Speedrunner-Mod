@@ -20,7 +20,7 @@ public abstract class StrongholdFeatureMixin {
      */
     @ModifyArgs(method = "addPieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/structure/StructurePiecesCollector;shiftInto(IILnet/minecraft/util/math/random/Random;I)I"))
     private static void changeMinAndMaxYValue(Args args) {
-        if (options().main.customDataGeneration && options().advanced.modifiedStrongholdYGeneration) {
+        if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdYGeneration.getCurrentValue()) {
             args.set(1, ModConstants.STRONGHOLD_MIN_Y);
             args.set(0, ModConstants.STRONGHOLD_MAX_Y);
         }

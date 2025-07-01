@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base.synced;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -17,7 +16,7 @@ import java.util.TimerTask;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 
 @Environment(EnvType.CLIENT)
-@ChatGPT(Credit.PARTIAL_CREDIT)
+@AI
 public class TimedScreen extends AbstractModScreen {
     public int countdown;
     private Timer timer;

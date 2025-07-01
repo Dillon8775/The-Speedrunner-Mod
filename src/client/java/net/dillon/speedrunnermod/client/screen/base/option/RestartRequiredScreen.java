@@ -2,7 +2,9 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.option.OptionValue;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -11,6 +13,12 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
@@ -18,25 +26,9 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
 
 @Environment(EnvType.CLIENT)
 public class RestartRequiredScreen extends AbstractModScreen {
-    public static boolean currentTutorialMode;
-    public static boolean currentLeaderboardsMode;
-    public static ModOptions.PlayingMode currentPlayingMode;
-    public static boolean currentBetterVillagerTrades;
-    public static boolean currentCustomBiomesAndCustomBiomeFeatures;
-    public static boolean currentModifiedStrongholdGeneration;
-    public static boolean currentModifiedStrongholdYGeneration;
-    public static boolean currentModifiedNetherFortressGeneration;
-    public static boolean currentTerraBlenderSurfaceRuleDataMixin;
-    public static boolean currentBackgroundRendererMixin;
-    public static boolean currentSimpleOptionMixin;
-    public static boolean currentLogoDrawerMixin;
-    public static boolean currentRenderLayersMixin;
-    public static int currentStrongholdDistance;
-    public static int currentStrongholdSpread;
-    public static int currentStrongholdCount;
-    public static int currentStrongholdPortalRoomCount;
-    public static int currentStrongholdLibraryCount;
-    public static int currentSpeedrunnersWastelandBiomeWeight;
+    private static final List<OptionValue<?>> restartTrackedValues = new ArrayList<>();
+    private static final List<Object> initialValues = new ArrayList<>();
+    private static final Set<Object> processedObjects = new HashSet<>();
 
     public RestartRequiredScreen(Screen parent) {
         super(parent, ModTexts.TITLE_RESTART_REQUIRED);
@@ -51,7 +43,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
         }).dimensions(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
         this.addDrawableChild(ButtonWidget.builder(ModTexts.REVERT_CHANGES, (buttonWidget) -> {
             revertChanges();
-            saveAllChanges();
             info("Changes reverted.");
             this.client.setScreen(this.parent);
             if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
@@ -108,69 +99,84 @@ public class RestartRequiredScreen extends AbstractModScreen {
         return true;
     }
 
+    /**
+     * Gets the current options when opening the screen.
+     */
     public static void getCurrentOptions() {
-        currentTutorialMode = clientOptions().client.tutorialMode;
-        currentLeaderboardsMode = options().main.leaderboardsMode;
-        currentPlayingMode = options().main.playingMode;
-        currentBetterVillagerTrades = options().main.betterVillagerTrades;
-        currentCustomBiomesAndCustomBiomeFeatures = options().main.customBiomesAndCustomBiomeFeatures;
-        currentModifiedStrongholdGeneration = options().advanced.modifiedStrongholdGeneration;
-        currentModifiedStrongholdYGeneration = options().advanced.modifiedStrongholdYGeneration;
-        currentModifiedNetherFortressGeneration = options().advanced.modifiedNetherFortressGeneration;
-        currentTerraBlenderSurfaceRuleDataMixin = options().mixins.terraBlenderSurfaceRuleDataMixin;
-        currentBackgroundRendererMixin = clientOptions().mixins.backgroundRendererMixin;
-        currentSimpleOptionMixin = clientOptions().mixins.simpleOptionMixin;
-        currentLogoDrawerMixin = clientOptions().mixins.logoDrawerMixin;
-        currentRenderLayersMixin = clientOptions().mixins.renderLayersMixin;
-        currentStrongholdDistance = options().main.strongholdDistance;
-        currentStrongholdSpread = options().main.strongholdSpread;
-        currentStrongholdCount = options().main.strongholdCount;
-        currentStrongholdPortalRoomCount = options().main.strongholdPortalRoomCount;
-        currentStrongholdLibraryCount = options().main.strongholdLibraryCount;
-        currentSpeedrunnersWastelandBiomeWeight = options().advanced.speedrunnersWastelandBiomeWeight;
+        restartTrackedValues.clear();
+        initialValues.clear();
+        processedObjects.clear();
+
+        scanOptions(options());
+        scanOptions(clientOptions());
     }
 
+    /**
+     * Scans each option in the {@code options class} to determine if it requires a restart.
+     */
+    private static void scanOptions(Object optionsClass) {
+        if (optionsClass == null) {
+            SpeedrunnerMod.error("Options class is null");
+            return;
+        }
+
+        if (processedObjects.contains(optionsClass)) {
+            return;
+        }
+
+        processedObjects.add(optionsClass);
+
+        for (Field field : optionsClass.getClass().getDeclaredFields()) {
+            try {
+                field.setAccessible(true);
+                Object value = field.get(optionsClass);
+
+                if (value == null) {
+                    continue;
+                }
+
+                if (value instanceof OptionValue<?> optionValue) {
+                    if (optionValue.requiresRestart()) {
+                        restartTrackedValues.add(optionValue);
+                        initialValues.add(optionValue.getCurrentValue());
+                    }
+                } else if (value != null && !value.getClass().isPrimitive()
+                        && value.getClass().getName().startsWith("net.dillon.speedrunnermod")) {
+                    scanOptions(value);
+                }
+            } catch (IllegalAccessException e) {
+                SpeedrunnerMod.debug("Failed to access field: " + field.getName() + " - " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @return {@code true} if the game needs a restart due to a {@code restart required} option.
+     */
     public static boolean needsRestart() {
-        return currentTutorialMode != clientOptions().client.tutorialMode ||
-                currentLeaderboardsMode != options().main.leaderboardsMode ||
-                currentPlayingMode != options().main.playingMode ||
-                currentBetterVillagerTrades != options().main.betterVillagerTrades ||
-                currentCustomBiomesAndCustomBiomeFeatures != options().main.customBiomesAndCustomBiomeFeatures ||
-                currentModifiedStrongholdGeneration != options().advanced.modifiedStrongholdGeneration ||
-                currentModifiedStrongholdYGeneration != options().advanced.modifiedStrongholdYGeneration ||
-                currentModifiedNetherFortressGeneration != options().advanced.modifiedNetherFortressGeneration ||
-                currentTerraBlenderSurfaceRuleDataMixin != options().mixins.terraBlenderSurfaceRuleDataMixin ||
-                currentBackgroundRendererMixin != clientOptions().mixins.backgroundRendererMixin ||
-                currentSimpleOptionMixin != clientOptions().mixins.simpleOptionMixin ||
-                currentLogoDrawerMixin != clientOptions().mixins.logoDrawerMixin ||
-                currentRenderLayersMixin != clientOptions().mixins.renderLayersMixin ||
-                currentStrongholdDistance != options().main.strongholdDistance ||
-                currentStrongholdSpread != options().main.strongholdSpread ||
-                currentStrongholdCount != options().main.strongholdCount ||
-                currentStrongholdPortalRoomCount != options().main.strongholdPortalRoomCount ||
-                currentStrongholdLibraryCount != options().main.strongholdLibraryCount ||
-                currentSpeedrunnersWastelandBiomeWeight != options().advanced.speedrunnersWastelandBiomeWeight;
+        for (int i = 0; i < restartTrackedValues.size(); i++) {
+            OptionValue<?> option = restartTrackedValues.get(i);
+            Object initialValue = initialValues.get(i);
+
+            if (!option.getCurrentValue().equals(initialValue)) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    /**
+     * Revert the changes back to it's original value before the screen was opened.
+     */
+    @AI
     private static void revertChanges() {
-        clientOptions().client.tutorialMode = currentTutorialMode;
-        options().main.leaderboardsMode = currentLeaderboardsMode;
-        options().main.playingMode = currentPlayingMode;
-        options().main.betterVillagerTrades = currentBetterVillagerTrades;
-        options().main.customBiomesAndCustomBiomeFeatures = currentCustomBiomesAndCustomBiomeFeatures;
-        options().advanced.modifiedStrongholdGeneration = currentModifiedStrongholdGeneration;
-        options().advanced.modifiedStrongholdYGeneration = currentModifiedStrongholdYGeneration;
-        options().advanced.modifiedNetherFortressGeneration = currentModifiedNetherFortressGeneration;
-        options().mixins.terraBlenderSurfaceRuleDataMixin = currentTerraBlenderSurfaceRuleDataMixin;
-        clientOptions().mixins.backgroundRendererMixin = currentBackgroundRendererMixin;
-        clientOptions().mixins.simpleOptionMixin = currentSimpleOptionMixin;
-        clientOptions().mixins.logoDrawerMixin = currentLogoDrawerMixin;
-        clientOptions().mixins.renderLayersMixin = currentRenderLayersMixin;
-        options().main.strongholdDistance = currentStrongholdDistance;
-        options().main.strongholdSpread = currentStrongholdSpread;
-        options().main.strongholdCount = currentStrongholdCount;
-        options().main.strongholdPortalRoomCount = currentStrongholdPortalRoomCount;
-        options().main.strongholdLibraryCount = currentStrongholdLibraryCount;
-        options().advanced.speedrunnersWastelandBiomeWeight = currentSpeedrunnersWastelandBiomeWeight;
+        for (int i = 0; i < restartTrackedValues.size(); i++) {
+            @SuppressWarnings("unchecked")
+            OptionValue<Object> option = (OptionValue<Object>) restartTrackedValues.get(i);
+            option.set(initialValues.get(i));
+            saveAllChanges();
+            getCurrentOptions();
+        }
     }
 }

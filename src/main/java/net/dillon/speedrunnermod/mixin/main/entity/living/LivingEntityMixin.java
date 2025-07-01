@@ -126,7 +126,7 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "checkGlidingCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"), cancellable = true)
     private void cancelElytraDamage(double oldSpeed, double newSpeed, CallbackInfo ci) {
-        if (!options().main.kineticDamage) {
+        if (!options().main.kineticDamage.getCurrentValue()) {
             ci.cancel();
         }
     }
@@ -136,7 +136,7 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "checkGlidingCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"), cancellable = true)
     private void cancelElytraDamageSound(double oldSpeed, double newSpeed, CallbackInfo ci) {
-        if (!options().main.kineticDamage) {
+        if (!options().main.kineticDamage.getCurrentValue()) {
             ci.cancel();
         }
     }

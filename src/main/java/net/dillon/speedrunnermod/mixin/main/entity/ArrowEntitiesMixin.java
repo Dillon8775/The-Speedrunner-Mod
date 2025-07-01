@@ -27,7 +27,7 @@ public abstract class ArrowEntitiesMixin extends PersistentProjectileEntity {
      */
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
-        if (options().main.arrowsDestroyBeds && !(this.getWorld().getRegistryKey() == World.OVERWORLD) && blockHitResult.getType() == HitResult.Type.BLOCK) {
+        if (options().main.arrowsDestroyBeds.getCurrentValue() && !(this.getWorld().getRegistryKey() == World.OVERWORLD) && blockHitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos blockPos = blockHitResult.getBlockPos();
             BlockState blockState = this.getWorld().getBlockState(blockPos);
 

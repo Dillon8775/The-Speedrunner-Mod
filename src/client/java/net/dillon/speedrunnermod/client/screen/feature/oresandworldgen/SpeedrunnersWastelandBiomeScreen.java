@@ -24,8 +24,8 @@ public class SpeedrunnersWastelandBiomeScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.customBiomesAndCustomBiomeFeatures ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
-            options().main.customBiomesAndCustomBiomeFeatures = !options().main.customBiomesAndCustomBiomeFeatures;
+        this.addButtonObject(ButtonWidget.builder(options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue() ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
+            options().main.customBiomesAndCustomBiomeFeatures.set(!options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

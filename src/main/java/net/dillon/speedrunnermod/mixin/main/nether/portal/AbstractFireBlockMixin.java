@@ -29,7 +29,7 @@ public class AbstractFireBlockMixin {
      */
     @Overwrite
     private static boolean isOverworldOrNether(World world) {
-        if (options().main.globalNetherPortals) {
+        if (options().main.globalNetherPortals.getCurrentValue()) {
             return world.getRegistryKey() == World.OVERWORLD || world.getRegistryKey() == World.NETHER || world.getRegistryKey() == World.END;
         } else {
             return world.getRegistryKey() == World.OVERWORLD || world.getRegistryKey() == World.NETHER;

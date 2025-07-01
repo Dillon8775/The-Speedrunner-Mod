@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.mixin.plugin;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
@@ -16,7 +15,9 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Set;
 
-@ChatGPT(Credit.FULL_CREDIT)
+import static net.dillon.speedrunnermod.option.ModOptions.isSafeToPlay;
+
+@AI
 public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
 
     /**
@@ -69,7 +70,7 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
      * Reads a boolean from the options file.
      * <p>Used with conditional mixin plugins to prevent crashing.</p>
      */
-    @ChatGPT(Credit.FULL_CREDIT)
+    @AI
     private static boolean readOptionAsBoolean(String option) {
         File configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModUtil.CLIENT_CONFIG_FILE_NAME);
 
@@ -83,11 +84,16 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
             if (json.has("mixins")) {
                 JsonObject mixins = json.getAsJsonObject("mixins");
                 if (mixins.has(option)) {
-                    return mixins.get(option).getAsBoolean();
+                    JsonObject optionValue = mixins.getAsJsonObject(option);
+                    if (optionValue.has("value")) {
+                        return optionValue.get("value").getAsBoolean();
+                    }
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
+            isSafeToPlay(false);
         }
 
         return true;

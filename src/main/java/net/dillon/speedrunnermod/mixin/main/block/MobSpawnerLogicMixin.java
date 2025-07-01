@@ -12,5 +12,5 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 @Mixin(value = MobSpawnerLogic.class, priority = 999)
 public class MobSpawnerLogicMixin {
     @Shadow
-    private int maxSpawnDelay = options().main.fasterSpawners ? 400 : 800;
+    private int maxSpawnDelay = options().main.fasterSpawners.getCurrentValue() ? 400 : 800;
 }

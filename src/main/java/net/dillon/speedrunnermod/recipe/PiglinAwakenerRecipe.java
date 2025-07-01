@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.recipe;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.ChatGPT;
-import net.dillon.speedrunnermod.util.Credit;
+import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -17,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
 
 /**
  * The recipe for the piglin awakener recipe, which makes it drop the correct item if crafted on the wrong mode.
@@ -47,14 +46,14 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
     /**
      * Copies the item over as a placeholder for what item to drop if used on the wrong playing mode.
      */
-    @ChatGPT(Credit.MOST_CREDIT)
+    @AI
     @Override
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = new ItemStack(ModItems.PIGLIN_AWAKENER);
 
         ItemStack center = input.getStackInSlot(CENTER_SLOT); // 4 is center slot
 
-        if (options().main.playingMode.balanced() && center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
+        if (isPlayingModeBalanced() && center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             result.set(ModDataComponentTypes.STORED_ITEMSTACK, center.copyWithCount(1));
         }
 
