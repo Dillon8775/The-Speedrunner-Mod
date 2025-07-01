@@ -38,7 +38,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(clientOptions(this.gameOptions));
-        this.deactivateOptionIf(0, ButtonSide.LARGE, SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue());
+        this.lockOption(0, ButtonSide.LARGE, SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue());
         this.addSelectableChild(this.optionList);
     }
 

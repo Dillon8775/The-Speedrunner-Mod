@@ -90,7 +90,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             this.matchSettingsWithServer = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_SETTINGS_WITH_SERVER, (button) -> {
                 this.client.setScreen(new MatchSettingsWithServerScreen(this.parent));
             }).dimensions(this.getButtonsLeftSide() - 104, this.getDoneButtonsHeight(), 100, 20).build());
-            this.matchSettingsWithServer.active = !this.client.isInSingleplayer() && !(this.client.getCurrentServerEntry() == null);
+            this.matchSettingsWithServer.active = this.isOnServer();
         } else {
             if (!this.buttons().isEmpty()) {
                 this.initializeCustomButtonListWidget();
@@ -298,8 +298,14 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Deactivates certain buttons based on certain boolean values.
      * <p>Indexes go from top-down-left, then right side.
      * <p>Do not call if {@code optionList} is {@code null.}</p>
+     * @param buttonListIndex determines the index of the button list. For example, each button counts as an index.
+     * @param buttonSide deteremines which side the button is on.
+     *                   <p>{@link ButtonSide#LEFT} determines a small button on the left column.</p>
+     *                   <p>{@link ButtonSide#RIGHT} determines a small button on the right column.</p>
+     *                   <p>{@link ButtonSide#LARGE} determines a large button, which takes up both columns.</p>
+     * @param option the boolean expression to determine if the option should be locked (if {@code option} is {@code false}, the specified option is locked.
      */
-    protected void deactivateOptionIf(int buttonListIndex, ButtonSide buttonSide, boolean option) {
+    protected void lockOption(int buttonListIndex, ButtonSide buttonSide, boolean option) {
         try {
             if (this.optionList != null) {
                 for (int i = 0; i < this.optionList.children().size(); i++) {
@@ -316,6 +322,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
             this.client.scheduleStop();
             n.printStackTrace();
         }
+    }
+
+    /**
+     * @return {@code true} if the player is on a server.
+     */
+    public boolean isOnServer() {
+        return !this.client.isInSingleplayer() && !(this.client.getCurrentServerEntry() == null);
     }
 
     /**

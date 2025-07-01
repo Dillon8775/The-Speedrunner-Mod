@@ -72,18 +72,29 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.RIGHT_CLICK_TO_REMOVE_SILK_TOUCH);
         this.optionList.addSingleOptionEntry(ModListOptions.CUSTOM_BIOMES_AND_CUSTOM_BIOME_FEATURES);
 
-        this.deactivateOptionIf(3, ButtonSide.LEFT, options().main.fasterBlockBreaking.getCurrentValue());
-        this.deactivateOptionIf(8, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
-        this.deactivateOptionIf(8, ButtonSide.RIGHT, options().main.customDataGeneration.getCurrentValue());
-        this.deactivateOptionIf(9, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
-        this.deactivateOptionIf(9, ButtonSide.RIGHT, options().main.customDataGeneration.getCurrentValue());
-        this.deactivateOptionIf(10, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
+        this.lockOption(0, ButtonSide.LARGE, !this.isOnServer());
+        this.lockOption(3, ButtonSide.LEFT, options().main.fasterBlockBreaking.getCurrentValue());
+        this.lockOption(8, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
+        this.lockOption(8, ButtonSide.RIGHT, options().main.customDataGeneration.getCurrentValue());
+        this.lockOption(9, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
+        this.lockOption(9, ButtonSide.RIGHT, options().main.customDataGeneration.getCurrentValue());
+        this.lockOption(10, ButtonSide.LEFT, options().main.customDataGeneration.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }
 
     @Override
     protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.renderOptionTooltip(
+                0,
+                ButtonSide.LARGE,
+                !this.isOnServer(),
+                Text.translatable("speedrunnermod.options.playing_mode.tooltip"),
+                Text.translatable("speedrunnermod.options.playing_mode.server.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
         this.renderOptionTooltip(
                 3,
                 ButtonSide.LEFT,

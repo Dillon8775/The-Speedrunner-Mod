@@ -25,7 +25,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isStructureSpawnRatesC
 public class ModListOptions {
 
     public static final SimpleOption<ModOptions.PlayingMode> PLAYING_MODE =
-            new SimpleOption<>("speedrunnermod.options.playing_mode", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.playing_mode.tooltip")), SimpleOption.enumValueText(),
+            new SimpleOption<>("speedrunnermod.options.playing_mode", SimpleOption.emptyTooltip(), SimpleOption.enumValueText(),
                     new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.PlayingMode.values()), Codec.INT.xmap(ModOptions.PlayingMode::byId, ModOptions.PlayingMode::getId)),
                     options().main.playingMode.getCurrentValue(), value -> options().main.playingMode.set(value));
 

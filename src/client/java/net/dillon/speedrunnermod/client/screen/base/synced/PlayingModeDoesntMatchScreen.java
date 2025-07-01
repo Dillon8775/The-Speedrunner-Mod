@@ -29,7 +29,7 @@ public class PlayingModeDoesntMatchScreen extends AbstractModScreen {
         this.matchPlayingModeToServerButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_PLAYING_MODE_TO_SERVER, (buttonWidget) -> {
             options().main.playingMode.set(this.serverSidePlayingMode);
             saveDedicatedServerChanges();
-            this.client.scheduleStop();
+            this.client.setScreen(new TimedScreen(null, 5));
         }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.toMenu"), (buttonWidget) -> {
             this.close();

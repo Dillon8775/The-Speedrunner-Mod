@@ -39,9 +39,9 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(fwcOptions());
-        this.deactivateOptionIf(0, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
-        this.deactivateOptionIf(1, ButtonSide.LEFT, clientOptions().client.fastWorldCreation.getCurrentValue());
-        this.deactivateOptionIf(1, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.lockOption(0, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.lockOption(1, ButtonSide.LEFT, clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.lockOption(1, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }

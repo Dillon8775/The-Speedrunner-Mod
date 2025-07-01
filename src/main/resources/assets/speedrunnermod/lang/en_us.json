@@ -525,6 +525,7 @@
   "speedrunnermod.options.playing_mode.doom": "§c§lDOOM",
   "speedrunnermod.options.playing_mode_doom_required.tooltip": "You must set the §bPlaying Mode§r§f option to §c§lDOOM§r§f to modify this option.",
   "speedrunnermod.options.playing_mode.tooltip": "The §b§lPlaying Mode§r allows certain features and items to be enabled.\n\n§lBy default,§r this is set to §bEasy.\n\nEasy mode§f enables §oall features,§r like §deye of annul, §5dragons pearl,§r §ddragons sword,§r etc.\n\n§eBalanced mode§r disables certain items, disables §aexperience ores§r from generating, and disables other features to make the game a little more balanced with this mod.\n\n§b§cDoom mode§r takes the mod's description and flips it §cupside down.§f §oGood luck ;)",
+  "speedrunnermod.options.playing_mode.server.tooltip": "This option is determined by the server. Changing it will cause issues between client and server.",
   "speedrunnermod.options.structure_spawn_rates": "Make Structures",
   "speedrunnermod.options.structure_spawn_rates.everywhere": "§bEverywhere",
   "speedrunnermod.options.structure_spawn_rates.very_common": "§2Very Common",

@@ -12,6 +12,7 @@ import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -89,8 +90,6 @@ public class ModPackets {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.getPlayer();
             if (player != null) {
-                ServerPlayNetworking.send(player, new CheckPlayingModeS2CPacket(options().main.playingMode.getCurrentValue()));
-
                 // Handle icarus and infini pearl mode
                 if (handler.getPlayer().getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
                     // Create a timer to give the server time to receive the slots from client
@@ -133,6 +132,15 @@ public class ModPackets {
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
             ServerSyncedClientOptions.clearPrefs(handler.getPlayer().getUuid());
         });
+
+        if (isEnvironmentTypeServer()) {
+            // Make sure each player's playing mode always matches each tick
+            ServerTickEvents.END_SERVER_TICK.register(server -> {
+                for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                    ServerPlayNetworking.send(player, new CheckPlayingModeS2CPacket(options().main.playingMode.getCurrentValue()));
+                }
+            });
+        }
     }
 
     /**

@@ -56,14 +56,14 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.optionList.addAll(advancedOptions());
 
         for (int i = 0; i < 3; i++) {
-            this.deactivateOptionIf(i, ButtonSide.LARGE, options().main.customDataGeneration.getCurrentValue());
+            this.lockOption(i, ButtonSide.LARGE, options().main.customDataGeneration.getCurrentValue());
         }
-        this.deactivateOptionIf(4, ButtonSide.LARGE, options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue());
-        this.deactivateOptionIf(8, ButtonSide.LARGE, isPlayingModeEasy());
-        this.deactivateOptionIf(9, ButtonSide.LARGE, options().main.iCarusMode.getCurrentValue());
-        this.deactivateOptionIf(10, ButtonSide.LARGE, options().main.infiniPearlMode.getCurrentValue());
-        this.deactivateOptionIf(12, ButtonSide.LARGE, isPlayingModeDoom());
-        this.deactivateOptionIf(14, ButtonSide.LEFT, options().main.throwableFireballs.getCurrentValue());
+        this.lockOption(4, ButtonSide.LARGE, options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue());
+        this.lockOption(8, ButtonSide.LARGE, isPlayingModeEasy());
+        this.lockOption(9, ButtonSide.LARGE, options().main.iCarusMode.getCurrentValue());
+        this.lockOption(10, ButtonSide.LARGE, options().main.infiniPearlMode.getCurrentValue());
+        this.lockOption(12, ButtonSide.LARGE, isPlayingModeDoom());
+        this.lockOption(14, ButtonSide.LEFT, options().main.throwableFireballs.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }
