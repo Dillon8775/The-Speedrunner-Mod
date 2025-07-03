@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(WardenEntity.class)
 public class WardenEntityMixin extends HostileEntity {
@@ -78,11 +78,11 @@ public class WardenEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder addAttributes() {
-        double genericMaxHealth = isPlayingModeDoom() ? 400.0 : 200.0;
-        double genericMovementSpeed = isPlayingModeDoom() ? 0.4 : 0.2;
-        double genericKnockbackResistance = isPlayingModeDoom() ? 1.0 : 0.65;
-        double genericAttackKnockback = isPlayingModeDoom() ? 2.0 : 1.0;
-        double genericAttackDamage = isPlayingModeDoom() ? 30.0 : 15.0;
+        double genericMaxHealth = isDoomMode() ? 400.0 : 200.0;
+        double genericMovementSpeed = isDoomMode() ? 0.4 : 0.2;
+        double genericKnockbackResistance = isDoomMode() ? 1.0 : 0.65;
+        double genericAttackKnockback = isDoomMode() ? 2.0 : 1.0;
+        double genericAttackDamage = isDoomMode() ? 30.0 : 15.0;
         return HostileEntity.createHostileAttributes().add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
                 .add(EntityAttributes.KNOCKBACK_RESISTANCE, genericKnockbackResistance)

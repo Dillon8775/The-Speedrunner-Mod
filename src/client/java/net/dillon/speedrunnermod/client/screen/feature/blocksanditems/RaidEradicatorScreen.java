@@ -3,17 +3,17 @@ package net.dillon.speedrunnermod.client.screen.feature.blocksanditems;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class RaidEradicatorScreen extends AbstractFeatureScreen {
 
     public RaidEradicatorScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.raid_eradicator"));
+        super(parent, ModTexts.TITLE_FEATURE_RAID_ERADICATOR);
     }
 
     @Override

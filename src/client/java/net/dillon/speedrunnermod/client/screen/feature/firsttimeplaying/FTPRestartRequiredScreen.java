@@ -8,14 +8,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.glfw.GLFW;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 @Environment(EnvType.CLIENT)
 public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
@@ -27,27 +24,17 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.BACK, button -> {
             this.client.setScreen(this.getPreviousScreen());
-            if (isPlayingModeEasy()) {
+            if (isEasyMode()) {
                 restartRequired = false;
             }
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.restart_now"), button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.RESTART_NOW, button -> {
             clientOptions().client.firstTimePlaying.set(false);
             saveClientChanges();
             this.client.scheduleStop();
         }).build());
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
-            warn("Please restart your game.");
-            return true;
-        } else {
-            return super.keyPressed(keyCode, scanCode, modifiers);
-        }
     }
 
     @Override

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(PillagerEntity.class)
 public abstract class PillagerEntityMixin extends IllagerEntity {
@@ -29,7 +29,7 @@ public abstract class PillagerEntityMixin extends IllagerEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PillagerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PillagerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -41,9 +41,9 @@ public abstract class PillagerEntityMixin extends IllagerEntity {
     @Overwrite
     public static DefaultAttributeContainer.Builder createPillagerAttributes() {
         final double genericMovementSpeed = 0.3499999940395355D;
-        final double genericMaxHealth = isPlayingModeDoom() ? 32.0D : 12.0D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0;
-        final double genericFollowRange = isPlayingModeDoom() ? 32.0D : 16.0D;
+        final double genericMaxHealth = isDoomMode() ? 32.0D : 12.0D;
+        final double genericAttackDamage = isDoomMode() ? 8.0D : 4.0;
+        final double genericFollowRange = isDoomMode() ? 32.0D : 16.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)

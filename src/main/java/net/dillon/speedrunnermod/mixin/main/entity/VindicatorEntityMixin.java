@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(VindicatorEntity.class)
 public abstract class VindicatorEntityMixin extends IllagerEntity {
@@ -33,7 +33,7 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((VindicatorEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((VindicatorEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -45,8 +45,8 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
     @Overwrite
     public static DefaultAttributeContainer.Builder createVindicatorAttributes() {
         final double genericMovementSpeed = 0.3499999940395355D;
-        final double genericFollowRange = isPlayingModeDoom() ? 48.0D : 12.0D;
-        final double genericMaxHealth = isPlayingModeDoom() ? 20.0D : 24.0D;
+        final double genericFollowRange = isDoomMode() ? 48.0D : 12.0D;
+        final double genericMaxHealth = isDoomMode() ? 20.0D : 24.0D;
         final double genericAttackDamage = 5.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
@@ -63,7 +63,7 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
         if (!super.tryAttack(world, target)) {
             return false;
         } else {
-            if (isPlayingModeDoom() && target instanceof PlayerEntity) {
+            if (isDoomMode() && target instanceof PlayerEntity) {
                 ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
             }
 

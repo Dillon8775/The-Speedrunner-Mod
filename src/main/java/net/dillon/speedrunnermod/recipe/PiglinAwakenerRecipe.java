@@ -16,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * The recipe for the piglin awakener recipe, which makes it drop the correct item if crafted on the wrong mode.
@@ -44,7 +44,7 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
     }
 
     /**
-     * Copies the item over as a placeholder for what item to drop if used on the wrong playing mode.
+     * Copies the item over as a placeholder for what item to drop if used on the wrong mode.
      */
     @AI
     @Override
@@ -53,7 +53,7 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
 
         ItemStack center = input.getStackInSlot(CENTER_SLOT); // 4 is center slot
 
-        if (isPlayingModeBalanced() && center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
+        if (isBalancedMode() && center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             result.set(ModDataComponentTypes.STORED_ITEMSTACK, center.copyWithCount(1));
         }
 

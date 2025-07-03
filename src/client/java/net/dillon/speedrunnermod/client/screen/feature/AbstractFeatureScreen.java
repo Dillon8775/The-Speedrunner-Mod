@@ -83,9 +83,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         // A starter feature screen (or the first page of a certain category of features)
         // consists of only a "Next" and "Done" button
         if (this.getScreenType() != ScreenType.FINAL && this.getScreenType() != ScreenType.END && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
-            this.nextButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.NEXT, button -> {
+            this.nextButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.NEXT_ARROW, button -> {
                 this.client.setScreen(this.getNextScreen());
-            }).dimensions(this.getButtonsRightSide() + 100, this.getDoneButtonsHeight(), 20, 20).build());
+            }).dimensions(this.getButtonsRightSide() + 100, this.getDoneButtonHeight(), 20, 20).build());
         }
 
         // A normal feature screen, which is any page between the first and last page of a certain category of features,
@@ -93,7 +93,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         if (this.getScreenType() != ScreenType.STARTER && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
             this.previousButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PREVIOUS, button -> {
                 this.client.setScreen(this.getPreviousScreen());
-            }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonsHeight(), 20, 20).build());
+            }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonHeight(), 20, 20).build());
         }
 
         // A final feature screen (the last page of a certain category of features),
@@ -138,7 +138,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         int rightSide = leftSide + 160;
         int farRightSide = rightSide + 273;
         int height = this.height - 24;
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), farRightSide, height, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : farRightSide, height, 16777215);
 
         if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
             int middle = this.width / 2 - 128;
@@ -176,17 +176,15 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_R) {
-            this.refreshFeatureScreen(getPageNumber(), this.getScreenCategory());
-            return true;
-        }
         if (keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_A) {
             if (this.getPageNumber() != 1) {
                 this.client.setScreen(this.getPreviousScreen());
             }
             return true;
         } else if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
-            if (this.getPageNumber() != this.getMaxPages()) {
+            if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING && !(this.getPageNumber() < 3)) {
+                warn("Please choose an option!");
+            } else if (this.getPageNumber() != this.getMaxPages()) {
                 this.client.setScreen(this.getNextScreen());
             }
             return true;
@@ -332,7 +330,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
         if (this.getScreenType() == ScreenType.STARTER || this.getScreenType() == ScreenType.NORMAL) {
             if (this.nextButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.NEXT_TOOLTIP, context, mouseX, mouseY);
+                this.renderBasicTooltip(ModTexts.NEXT_ARROW_TOOLTIP, context, mouseX, mouseY);
             }
             if (this.getScreenType() == ScreenType.NORMAL && this.previousButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);

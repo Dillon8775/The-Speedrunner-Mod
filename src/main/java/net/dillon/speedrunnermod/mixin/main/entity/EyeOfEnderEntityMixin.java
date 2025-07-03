@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(EyeOfEnderEntity.class)
 public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItemEntity {
@@ -100,7 +100,7 @@ public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItem
             this.lifespan++;
             if (this.lifespan > options().advanced.enderEyeBreakingCooldown.getCurrentValue() && !this.getWorld().isClient) {
                 this.discard();
-                if (isPlayingModeDoom()) {
+                if (isDoomMode()) {
                     if (this.getStack().getItem() == Items.ENDER_EYE) {
                         this.getWorld().syncWorldEvent(WorldEvents.EYE_OF_ENDER_BREAKS, this.getBlockPos(), 0);
                     } else if (this.getStack().getItem() == ModItems.ANNUL_EYE) {

@@ -15,8 +15,8 @@ import net.minecraft.text.Text;
 import java.util.stream.IntStream;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * The Speedrunner Mod {@code item group.}
@@ -30,8 +30,8 @@ public class ModItemGroups {
             FabricItemGroup.builder()
                     .displayName(Text.literal("Speedrunner Mod"))
                     .icon(() -> new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH)).entries((displayContext, entries) -> {
-                        boolean playingModeEasy = isPlayingModeEasy();
-                        boolean playingModeBalanced = isPlayingModeBalanced();
+                        boolean easyMode = isEasyMode();
+                        boolean balancedMode = isBalancedMode();
                         entries.add(ModItems.SPEEDRUNNER_INGOT);
                         entries.add(ModItems.SPEEDRUNNER_NUGGET);
                         entries.add(ModItems.SPEEDRUNNER_BLOCK);
@@ -65,24 +65,24 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
                         entries.add(ModItems.SPEEDRUNNER_SHIELD);
                         entries.add(ModItems.SPEEDRUNNERS_TOTEM);
-                        if (!playingModeBalanced) {
+                        if (!balancedMode) {
                             entries.add(ModItems.SPEEDRUNNERS_WORKBENCH);
                         }
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
-                        if (playingModeEasy) {
+                        if (easyMode) {
                             entries.add(ModItems.ENDER_THRUSTER);
                             entries.add(ModItems.THRUSTED_BLOCK);
                         }
                         entries.add(ModItems.INFERNO_EYE);
-                        if (playingModeEasy) {
+                        if (easyMode) {
                             entries.add(ModItems.PIGLIN_AWAKENER);
                             entries.add(ModItems.BLAZE_SPOTTER);
                         }
-                        if (!playingModeBalanced) {
+                        if (!balancedMode) {
                             entries.add(ModItems.RAID_ERADICATOR);
                         }
                         entries.add(ModItems.ANNUL_EYE);
-                        if (!playingModeBalanced) {
+                        if (!balancedMode) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
                         entries.add(ModUtil.createUnbreakableItem(Items.ELYTRA));
@@ -90,7 +90,7 @@ public class ModItemGroups {
                         entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);
-                        if (playingModeEasy) {
+                        if (easyMode) {
                             entries.add(ModItems.DRAGONS_SWORD);
                         }
                         entries.add(ModItems.WITHER_SWORD);

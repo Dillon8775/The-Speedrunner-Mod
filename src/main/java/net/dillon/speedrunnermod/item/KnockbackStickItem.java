@@ -31,7 +31,7 @@ public class KnockbackStickItem extends Item  {
     @Override
     public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
         if (!stack.hasEnchantments()) {
-            stack.addEnchantment(ModUtil.worldEnchantment(world, Enchantments.KNOCKBACK), 5);
+            stack.addEnchantment(ModUtil.enchantment(world, Enchantments.KNOCKBACK), 5);
         }
     }
 

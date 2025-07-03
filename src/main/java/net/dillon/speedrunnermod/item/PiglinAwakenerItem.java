@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -32,7 +31,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * An item that teleports {@code nearby piglin} to the player.
@@ -48,7 +47,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (isPlayingModeEasy()) {
+            if (isEasyMode()) {
                 if (world.getRegistryKey() == World.NETHER) {
                     List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().getFirst(), options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().get(1), options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().get(2)), entity -> true);
 
@@ -102,17 +101,17 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                 return ActionResult.SUCCESS;
                             } else {
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 3.0F, 1.0F);
-                                player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.RED, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot"), Formatting.RED, Formatting.WHITE);
                             }
                         } else {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.5F, 1.0F);
-                            player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.unsafe").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.RED, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.unsafe"), Formatting.RED, Formatting.WHITE);
                         }
                     } else {
-                        player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.RED, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins"), Formatting.RED, Formatting.WHITE);
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.RED, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), Formatting.RED, Formatting.WHITE);
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);

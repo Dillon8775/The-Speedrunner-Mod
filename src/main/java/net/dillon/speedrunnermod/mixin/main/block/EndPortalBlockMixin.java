@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Mixin(EndPortalBlock.class)
@@ -29,7 +29,7 @@ public class EndPortalBlockMixin {
     @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;detachForDimensionChange()V"))
     private void exitEndTutorialMode(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, CallbackInfo ci) {
         if (entity instanceof ServerPlayerEntity player && ServerSyncedClientOptions.hasCompletedStep(player, TutorialStep.KILL_DRAGON)) {
-            if (isPlayingModeDoom()) {
+            if (isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.EXIT_END, player, "speedrunnermod.tutorial_mode.exit_end.doom");
             } else {
                 List<String> translations = new ArrayList<>();

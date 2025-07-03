@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(WitherSkeletonEntity.class)
 public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
@@ -35,7 +35,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherSkeletonEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((WitherSkeletonEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -45,7 +45,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
      */
     @ModifyArg(method = "initialize", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeInstance;setBaseValue(D)V"))
     private double genericAttackDamage(double baseValue) {
-        return isPlayingModeDoom() ? 10.0D : 1.0D;
+        return isDoomMode() ? 10.0D : 1.0D;
     }
 
     /**
@@ -61,7 +61,7 @@ public abstract class WitherSkeletonEntityMixin extends AbstractSkeletonEntity {
      */
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<?> cir) {
-        if (isPlayingModeDoom() && target instanceof PlayerEntity) {
+        if (isDoomMode() && target instanceof PlayerEntity) {
             ((LivingEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
         }
     }

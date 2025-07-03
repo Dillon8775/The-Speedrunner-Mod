@@ -11,11 +11,10 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.*;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.option.ModOptions.isInBounds;
-import static net.dillon.speedrunnermod.option.ModOptions.isSafeToPlay;
 
 /**
  * All {@code Client-side Speedrunner Mod options.}
@@ -51,33 +50,23 @@ public class ClientModOptions {
         @Override
         protected void safeCheck() {
             if (clientOptions().client.itemMessages.getCurrentValue() == null) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.itemMessages");
-                isSafeToPlay(false);
-                ClientBrokenModOptions.itemMessages = true;
+                this.setBroken(clientOptions().client.itemMessages, "itemMessages");
             }
 
             if (clientOptions().client.gameMode.getCurrentValue() == null) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.gameMode");
-                isSafeToPlay(false);
-                ClientBrokenModOptions.gameMode = true;
+                this.setBroken(clientOptions().client.gameMode, "gameMode");
             }
 
             if (clientOptions().client.difficulty.getCurrentValue() == null) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.difficulty");
-                isSafeToPlay(false);
-                ClientBrokenModOptions.difficulty = true;
+                this.setBroken(clientOptions().client.difficulty, "difficulty");
             }
 
             if (!clientOptions().isIcarusFireworksInventorySlotValid()) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.icarusFireworksInventorySlot");
-                isSafeToPlay(false);
-                BrokenModOptions.iCarusFireworksInventorySlot = true;
+                this.setBroken(clientOptions().client.iCarusFireworksInventorySlot, "iCarusFireworksInventorySlot");
             }
 
             if (!clientOptions().isInfiniPearlInventorySlotValid()) {
-                error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.infiniPearlInventorySlot");
-                isSafeToPlay(false);
-                BrokenModOptions.infiniPearlInventorySlot = true;
+                this.setBroken(clientOptions().client.infiniPearlInventorySlot, "infiniPearlInventorySlot");
             }
         }
     }

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -12,8 +11,8 @@ import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * A screen for some of the {@code advanced speedrunner mod options.}
@@ -30,49 +29,53 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
      */
     private SimpleOption<?>[] advancedOptions() {
         return new SimpleOption[]{
-                ModListOptions.SHOW_RESET_BUTTON,
-                ModListOptions.HIGHER_BREATH_TIME,
-                ModListOptions.FIREBALL_EXPLOSION_POWER,
-                ModListOptions.SHIFT_TO_THROW_FIREBALL
+                ModListOptions.showResetButton(),
+                ModListOptions.higherBreathTime(),
+                ModListOptions.fireballExplosionPower(),
+                ModListOptions.shiftToThrowFireball()
         };
     }
 
     @Override
     protected void init() {
         super.init();
-        this.optionList.addSingleOptionEntry(ModListOptions.MODIFIED_STRONGHOLD_GENERATION);
-        this.optionList.addSingleOptionEntry(ModListOptions.MODIFIED_STRONGHOLD_Y_GENERATION);
-        this.optionList.addSingleOptionEntry(ModListOptions.MODIFIED_NETHER_FORTRESS_GENERATION);
-        this.optionList.addSingleOptionEntry(ModListOptions.GENERATE_SPEEDRUNNER_WOOD);
-        this.optionList.addSingleOptionEntry(ModListOptions.SPEEDRUNNERS_WASTELAND_BIOME_WEIGHT);
-        this.optionList.addSingleOptionEntry(ModListOptions.ENDER_EYE_BREAKING_COOLDOWN);
-        this.optionList.addSingleOptionEntry(ModListOptions.LONGER_DRAGON_PERCH_STAY_TIME);
-        this.optionList.addSingleOptionEntry(ModListOptions.DECREASED_ZOMBIFIED_PIGLIN_SCARE_DISTANCE);
-        this.optionList.addSingleOptionEntry(ModListOptions.PIGLIN_AWAKENER_PIGLIN_COUNT);
-        this.optionList.addSingleOptionEntry(ModListOptions.ICARUS_FIREWORKS_INVENTORY_SLOT);
-        this.optionList.addSingleOptionEntry(ModListOptions.INFINI_PEARL_INVENTORY_SLOT);
-        this.optionList.addSingleOptionEntry(ModListOptions.DRAGON_KILLS_NEARBY_HOSTILE_ENTITIES);
-        this.optionList.addSingleOptionEntry(ModListOptions.DRAGON_IMMUNITY_FROM_GOLIATH_AND_WITHER);
+        this.optionList.addSingleOptionEntry(ModListOptions.modifiedStrongholdGeneration());
+        this.optionList.addSingleOptionEntry(ModListOptions.modifiedStrongholdYGeneration());
+        this.optionList.addSingleOptionEntry(ModListOptions.modifiedNetherFortressGeneration());
+        this.optionList.addSingleOptionEntry(ModListOptions.generateSpeedrunnerWood());
+        this.optionList.addSingleOptionEntry(ModListOptions.speedrunnersWastelandBiomeWeight());
+        this.optionList.addSingleOptionEntry(ModListOptions.enderEyeBreakingCooldown());
+        this.optionList.addSingleOptionEntry(ModListOptions.longerDragonPerchStayTime());
+        this.optionList.addSingleOptionEntry(ModListOptions.decreasedZombifiedPiglinScareDistance());
+        this.optionList.addSingleOptionEntry(ModListOptions.piglinAwakenerPiglinCount());
+        this.optionList.addSingleOptionEntry(ModListOptions.icarusFireworksInventorySlot());
+        this.optionList.addSingleOptionEntry(ModListOptions.infiniPearlInventorySlot());
+        this.optionList.addSingleOptionEntry(ModListOptions.dragonKillsNearbyHostileEntities());
+        this.optionList.addSingleOptionEntry(ModListOptions.dragonImmunityFromGoliathAndWither());
         this.optionList.addAll(advancedOptions());
-
-        for (int i = 0; i < 3; i++) {
-            this.lockOption(i, ButtonSide.LARGE, options().main.customDataGeneration.getCurrentValue());
-        }
-        this.lockOption(4, ButtonSide.LARGE, options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue());
-        this.lockOption(8, ButtonSide.LARGE, isPlayingModeEasy());
-        this.lockOption(9, ButtonSide.LARGE, options().main.iCarusMode.getCurrentValue());
-        this.lockOption(10, ButtonSide.LARGE, options().main.infiniPearlMode.getCurrentValue());
-        this.lockOption(12, ButtonSide.LARGE, isPlayingModeDoom());
-        this.lockOption(14, ButtonSide.LEFT, options().main.throwableFireballs.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }
 
     @Override
-    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
+        boolean customDataGen = options().main.customDataGeneration.getCurrentValue();
+        boolean customDataGenAndCustomBiomesAndCustomBiomeFeatures = customDataGen && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue();
+
+        this.lockOption(ModListOptions.modifiedStrongholdGeneration(), customDataGen);
+        this.lockOption(ModListOptions.modifiedStrongholdYGeneration(), customDataGen);
+        this.lockOption(ModListOptions.modifiedNetherFortressGeneration(), customDataGen);
+        this.lockOption(ModListOptions.generateSpeedrunnerWood(), customDataGenAndCustomBiomesAndCustomBiomeFeatures);
+        this.lockOption(ModListOptions.speedrunnersWastelandBiomeWeight(), customDataGenAndCustomBiomesAndCustomBiomeFeatures);
+
+        this.lockOption(ModListOptions.piglinAwakenerPiglinCount(), isEasyMode());
+        this.lockOption(ModListOptions.icarusFireworksInventorySlot(), options().main.iCarusMode.getCurrentValue());
+        this.lockOption(ModListOptions.infiniPearlInventorySlot(), options().main.infiniPearlMode.getCurrentValue());
+        this.lockOption(ModListOptions.dragonImmunityFromGoliathAndWither(), isDoomMode());
+        this.lockOption(ModListOptions.fireballExplosionPower(), options().main.throwableFireballs.getCurrentValue());
+
         this.renderOptionTooltip(
-                0,
-                ButtonSide.LARGE,
+                ModListOptions.modifiedStrongholdGeneration(),
                 options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.modified_stronghold_generation.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
@@ -81,8 +84,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                1,
-                ButtonSide.LARGE,
+                ModListOptions.modifiedStrongholdYGeneration(),
                 options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.modified_stronghold_y_generation.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
@@ -91,8 +93,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                2,
-                ButtonSide.LARGE,
+                ModListOptions.modifiedNetherFortressGeneration(),
                 options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.modified_nether_fortress_generation.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
@@ -101,28 +102,38 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                4,
-                ButtonSide.LARGE,
-                options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),
+                ModListOptions.generateSpeedrunnerWood(),
+                options().main.customDataGeneration.getCurrentValue() && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),
+                Text.translatable("speedrunnermod.options.generate_speedrunner_wood.tooltip"),
+                !options().main.customDataGeneration.getCurrentValue() ?
+                        Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                ModListOptions.speedrunnersWastelandBiomeWeight(),
+                options().main.customDataGeneration.getCurrentValue() && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.speedrunners_wasteland_biome_weight.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip"),
+                !options().main.customDataGeneration.getCurrentValue() ?
+                        Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip"),
                 context,
                 mouseX,
                 mouseY
         );
         this.renderOptionTooltip(
-                8,
-                ButtonSide.LARGE,
-                isPlayingModeEasy(),
+                ModListOptions.piglinAwakenerPiglinCount(),
+                isEasyMode(),
                 Text.translatable("speedrunnermod.options.piglin_awakener_piglin_count.tooltip"),
-                Text.translatable("speedrunnermod.options.playing_mode_easy_required.tooltip"),
+                Text.translatable("speedrunnermod.options.mode_easy_required.tooltip"),
                 context,
                 mouseX,
                 mouseY
         );
         this.renderOptionTooltip(
-                9,
-                ButtonSide.LARGE,
+                ModListOptions.icarusFireworksInventorySlot(),
                 options().main.iCarusMode.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.icarus_fireworks_inventory_slot.tooltip"),
                 Text.translatable("speedrunnermod.options.icarus_mode_must_be_enabled.tooltip"),
@@ -131,8 +142,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                10,
-                ButtonSide.LARGE,
+                ModListOptions.infiniPearlInventorySlot(),
                 options().main.infiniPearlMode.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.infini_pearl_inventory_slot.tooltip"),
                 Text.translatable("speedrunnermod.options.infini_pearl_mode_must_be_enabled.tooltip"),
@@ -141,18 +151,16 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                12,
-                ButtonSide.LARGE,
-                isPlayingModeDoom(),
+                ModListOptions.dragonImmunityFromGoliathAndWither(),
+                isDoomMode(),
                 Text.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip"),
-                Text.translatable("speedrunnermod.options.playing_mode_doom_required.tooltip"),
+                Text.translatable("speedrunnermod.options.mode_doom_required.tooltip"),
                 context,
                 mouseX,
                 mouseY
         );
         this.renderOptionTooltip(
-                14,
-                ButtonSide.LEFT,
+                ModListOptions.fireballExplosionPower(),
                 options().main.throwableFireballs.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.fireball_explosion_power.tooltip"),
                 Text.translatable("speedrunnermod.options.throwable_fireballs_must_be_enabled.tooltip"),

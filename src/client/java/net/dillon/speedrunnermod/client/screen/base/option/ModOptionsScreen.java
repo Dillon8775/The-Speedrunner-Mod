@@ -14,7 +14,7 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isStructureSpawnRatesCustom;
+import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
 
 /**
  * The {@code options} screen for the Speedrunner Mod, consisting of all the option categories.
@@ -60,27 +60,27 @@ public class ModOptionsScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.mainOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
-            this.client.setScreen(new MainOptionsScreen(this));
+            this.openOptionsScreen(new MainOptionsScreen(this));
         }).build();
 
         this.fwcOptionsButton = ButtonWidget.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
-            this.client.setScreen(new FastWorldCreationOptionsScreen(this));
+            this.openOptionsScreen(new FastWorldCreationOptionsScreen(this));
         }).build();
 
         this.clientOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
-            this.client.setScreen(new ClientOptionsScreen(this));
+            this.openOptionsScreen(new ClientOptionsScreen(this));
         }).build();
 
         this.ssrOptionsButton = ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
-            this.client.setScreen(new StructureSpawnRateOptionsScreen(this));
+            this.openOptionsScreen(new StructureSpawnRateOptionsScreen(this));
         }).build();
 
         this.advancedOptionsButton = ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
-            this.client.setScreen(new AdvancedOptionsScreen(this));
+            this.openOptionsScreen(new AdvancedOptionsScreen(this));
         }).build();
 
         this.mixinOptionsButton = ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
-            this.client.setScreen(new MixinOptionsScreen(this));
+            this.openOptionsScreen(new MixinOptionsScreen(this));
         }).build();
 
         this.resetOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
@@ -96,9 +96,17 @@ public class ModOptionsScreen extends AbstractModScreen {
         super.init();
     }
 
+    /**
+     * Gets the current options and sets the screen.
+     */
+    private void openOptionsScreen(AbstractModScreen screen) {
+        RestartRequiredScreen.getCurrentOptions();
+        this.client.setScreen(screen);
+    }
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
-        this.ssrOptionsButton.active = isStructureSpawnRatesCustom();
+        this.ssrOptionsButton.active = isSsrCustom();
         super.render(context, mouseX, mouseY, deltaTicks);
     }
 
@@ -114,7 +122,7 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_CLIENT_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.ssrOptionsButton.isHovered()) {
-            if (isStructureSpawnRatesCustom()) {
+            if (isSsrCustom()) {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_TOOLTIP, context, mouseX, mouseY);
             } else {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_NEEDS_CUSTOM_TOOLTIP, context, mouseX, mouseY);

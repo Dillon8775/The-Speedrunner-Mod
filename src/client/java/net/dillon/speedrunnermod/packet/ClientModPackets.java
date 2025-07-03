@@ -1,12 +1,12 @@
 package net.dillon.speedrunnermod.packet;
 
 import net.dillon.speedrunnermod.client.ClientSyncedServerOptions;
-import net.dillon.speedrunnermod.client.screen.base.synced.PlayingModeDoesntMatchScreen;
+import net.dillon.speedrunnermod.client.screen.base.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.client.screen.base.synced.TimedScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.packet.client.CheckPlayingModeS2CPacket;
+import net.dillon.speedrunnermod.packet.client.CheckModeS2CPacket;
 import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
 import net.dillon.speedrunnermod.packet.client.MatchClientOptionsWithServerS2CPacket;
 import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
@@ -14,11 +14,11 @@ import net.dillon.speedrunnermod.packet.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.text.Text;
 
 import java.util.List;
 
@@ -30,15 +30,15 @@ import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 public class ClientModPackets {
 
     /**
-     * Registers the {@code server-to-client} packet to ensure that client-side. playing mode option matches server-side.
+     * Registers the {@code server-to-client} packet to ensure that client-side mode option matches server-side.
      */
-    private static void registerS2CCheckPlayingModePacket() {
-        PayloadTypeRegistry.playS2C().register(CheckPlayingModeS2CPacket.PACKET, CheckPlayingModeS2CPacket.CODEC);
+    private static void registerS2CCheckModePacket() {
+        PayloadTypeRegistry.playS2C().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
 
-        ClientPlayNetworking.registerGlobalReceiver(CheckPlayingModeS2CPacket.PACKET, (packet, context) -> {
-            if (options().main.playingMode.getCurrentValue() != packet.serverSidePlayingMode()) {
-                context.client().getNetworkHandler().getConnection().disconnect(Text.translatable("speedrunnermod.playing_mode.doesnt_match_server"));
-                context.client().disconnect(new PlayingModeDoesntMatchScreen(null, packet.serverSidePlayingMode()));
+        ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
+            if (options().main.mode.getCurrentValue() != packet.serverSideMode()) {
+                context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MODE_DOESNT_MATCH_SERVER_SETTING);
+                context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()));
             }
         });
     }
@@ -96,6 +96,7 @@ public class ClientModPackets {
      */
     private static void registerClientJoinAndDisconnectEvents() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            ModUtil.i = 0;
             sendNewC2SOptions();
 
             ClientPlayerEntity player = client.player;
@@ -121,7 +122,7 @@ public class ClientModPackets {
      * Registers all client-sided packets.
      */
     public static void registerClientPackets() {
-        registerS2CCheckPlayingModePacket();
+        registerS2CCheckModePacket();
         registerS2CCompleteTutorialStep();
         registerS2CMatchClientOptionsWithServer();
         registerS2CLastCompletedTutorialStepTranslations();

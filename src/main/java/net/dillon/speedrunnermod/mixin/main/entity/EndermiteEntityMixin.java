@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(EndermiteEntity.class)
 public class EndermiteEntityMixin extends HostileEntity {
@@ -28,7 +28,7 @@ public class EndermiteEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((EndermiteEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 16;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((EndermiteEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 16;
         }
         return super.getExperienceToDrop(world);
     }
@@ -39,9 +39,9 @@ public class EndermiteEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createEndermiteAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 8.0D : 4.0D;
-        final double genericMovementSpeed = isPlayingModeDoom() ? 0.25D : 0.15D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 2.0D : 0.01D;
+        final double genericMaxHealth = isDoomMode() ? 8.0D : 4.0D;
+        final double genericMovementSpeed = isDoomMode() ? 0.25D : 0.15D;
+        final double genericAttackDamage = isDoomMode() ? 2.0D : 0.01D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

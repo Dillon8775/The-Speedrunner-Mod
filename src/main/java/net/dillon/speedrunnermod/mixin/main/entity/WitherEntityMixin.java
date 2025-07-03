@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(WitherEntity.class)
 public class WitherEntityMixin extends HostileEntity {
@@ -31,7 +31,7 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 150;
+            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 150;
         }
         return super.getExperienceToDrop(world);
     }
@@ -39,7 +39,7 @@ public class WitherEntityMixin extends HostileEntity {
     @Override
     public void onDeath(DamageSource source) {
         super.onDeath(source);
-        if (this.getAttacker() instanceof PlayerEntity player && isPlayingModeDoom()) {
+        if (this.getAttacker() instanceof PlayerEntity player && isDoomMode()) {
             ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
         }
     }

@@ -22,7 +22,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 public class ModOptions {
     public final Main main = new Main();
     public final Advanced advanced = new Advanced();
-    public final StructureSpawnRates structureSpawnRates = new StructureSpawnRates();
+    public final CustomStructureSpawnRates customStructureSpawnRates = new CustomStructureSpawnRates();
     public final Mixins mixins = new Mixins();
 
     public static final Handler OPTIONS = new Handler();
@@ -48,13 +48,11 @@ public class ModOptions {
 
         @Override
         protected void safeCheck() {
-            if (options().main.playingMode.getCurrentValue() == null) {
+            if (options().main.mode.getCurrentValue() == null) {
                 if (isEnvironmentTypeServer()) {
-                    this.throwNullPointerException("Playing Mode", PlayingMode.values());
+                    this.throwNullPointerException("Mode", Mode.values());
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.playingMode");
-                    isSafeToPlay(false);
-                    BrokenModOptions.playingMode = true;
+                    this.setBroken(options().main.mode, "mode");
                 }
             }
 
@@ -62,9 +60,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNullPointerException("Structure Spawn Rates", StructureSpawnRate.values());
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.structureSpawnRates");
-                    isSafeToPlay(false);
-                    BrokenModOptions.structureSpawnRates = true;
+                    this.setBroken(options().main.structureSpawnRates, "structureSpawnRates");
                 }
             }
 
@@ -72,9 +68,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNullPointerException("Mob Spawning Rate", MobSpawningRate.values());
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.mobSpawningRate");
-                    isSafeToPlay(false);
-                    BrokenModOptions.mobSpawningRate = true;
+                    this.setBroken(options().main.mobSpawningRate, "mobSpawningRate");
                 }
             }
 
@@ -83,9 +77,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     throw new IllegalStateException(message);
                 } else {
-                    error(message);
-                    isSafeToPlay(false);
-                    BrokenModOptions.leaderboards = true;
+                    this.setBroken(options().main.leaderboardsMode, message);
                 }
             }
 
@@ -93,9 +85,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Nether Portal Cooldown");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
-                    isSafeToPlay(false);
-                    BrokenModOptions.netherPortalCooldown = true;
+                    this.setBroken(options().main.netherPortalDelay, "netherPortalDelay");
                 }
             } else if (!options().isNetherPortalCooldownValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
@@ -105,9 +95,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Distance");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
-                    isSafeToPlay(false);
-                    BrokenModOptions.strongholdDistance = true;
+                    this.setBroken(options().main.strongholdDistance, "strongholdDistance");
                 }
             } else if (!options().isStrongholdDistanceValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
@@ -117,9 +105,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Spread");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
-                    isSafeToPlay(false);
-                    BrokenModOptions.strongholdSpread = true;
+                    this.setBroken(options().main.strongholdSpread, "strongholdSpread");
                 }
             } else if (!options().isStrongholdSpreadValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
@@ -129,9 +115,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Count");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdCount");
-                    isSafeToPlay(false);
-                    BrokenModOptions.strongholdCount = true;
+                    this.setBroken(options().main.strongholdCount, "strongholdCount");
                 }
             } else if (!options().isStrongholdCountValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
@@ -141,9 +125,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Portal Room Count");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
-                    isSafeToPlay(false);
-                    BrokenModOptions.strongholdPortalRoomCount = true;
+                    this.setBroken(options().main.strongholdPortalRoomCount, "strongholdPortalRoomCount");
                 }
             } else if (!options().isStrongholdPortalRoomCountValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
@@ -153,9 +135,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Library Count");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
-                    isSafeToPlay(false);
-                    BrokenModOptions.strongholdLibraryCount = true;
+                    this.setBroken(options().main.strongholdLibraryCount, "strongholdLibraryCount");
                 }
             } else if (!options().isStrongholdLibraryCountValid()) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
@@ -165,9 +145,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     throw new ArithmeticException("blockBreakingMultiplier cannot be set to a value less than 1.");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
-                    isSafeToPlay(false);
-                    BrokenModOptions.blockBreakingMultiplier = true;
+                    this.setBroken(options().main.blockBreakingMultiplier, "blockBreakingMultiplier");
                     warn("Cannot divide by zero! o_0");
                 }
             } else if (!options().isBlockBreakingMultiplierValid()) {
@@ -178,9 +156,7 @@ public class ModOptions {
                 if (isEnvironmentTypeServer()) {
                     throw new IllegalStateException("Option \"Speedrunner's Wasteland Biome Weight\" cannot be set below 1. If you do not want the speedrunner's wasteland biome to generate, turn \"Custom Biomes and Custom Biome Features\" OFF. Otherwise, please set speedrunnersWastelandBiomeWeight to a value greater than or equal to 1.");
                 } else {
-                    error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.speedrunnersWastelandBiomeWeight");
-                    isSafeToPlay(false);
-                    BrokenModOptions.speedrunnersWastelandBiomeWeight = true;
+                    this.setBroken(options().advanced.speedrunnersWastelandBiomeWeight, "speedrunnersWastelandBiomeWeight");
                     warn("Speedrunner's Wasteland Biome Weight is below 1. Instead, turn \"Custom Biomes and Custom Biome Features\" OFF.");
                 }
             } else if (!options().isSpeedrunnersWastelandBiomeWeightValid()) {
@@ -209,9 +185,9 @@ public class ModOptions {
     public static class Main {
 
         /**
-         * Determines the playing mode of the mod. The mode determines what features are added.
+         * Determines the mode of the mod. The mode determines what features are added.
          */
-        public OptionValue<PlayingMode> playingMode = new OptionValue<>(PlayingMode.EASY, true);
+        public OptionValue<Mode> mode = new OptionValue<>(Mode.EASY, true);
 
         /**
          * Determines how frequently Minecraft structures generate throughout the world.
@@ -507,7 +483,7 @@ public class ModOptions {
          * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.
          * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
          */
-        public OptionValue<List<String>> modIds = new OptionValue<>(new ArrayList<>(), false);
+        public OptionValue<Set<String>> modIds = new OptionValue<>(new TreeSet<>(), false);
     }
 
     /**
@@ -529,7 +505,7 @@ public class ModOptions {
      * <p>The {@code second integer} in the option list is the {@code separation value.}
      * <p>The {@code separation value} should NEVER be greater than or equal to the spacing value. The game will crash if this happens.
      */
-    public static class StructureSpawnRates {
+    public static class CustomStructureSpawnRates {
         public OptionValue<List<Integer>> ancientCities = new OptionValue<>(ModUtil.createStructureSpawnRateOption(16, 8), false);
         public OptionValue<List<Integer>> villages = new OptionValue<>(ModUtil.createStructureSpawnRateOption(16, 8), false);
         public OptionValue<List<Integer>> desertPyramids = new OptionValue<>(ModUtil.createStructureSpawnRateOption(10, 5), false);
@@ -655,22 +631,22 @@ public class ModOptions {
         return option >= min && option <= max;
     }
 
-    public enum PlayingMode implements TranslatableOption {
-        EASY(0, "speedrunnermod.options.playing_mode.easy"),
-        BALANCED(1, "speedrunnermod.options.playing_mode.balanced"),
-        DOOM(2, "speedrunnermod.options.playing_mode.doom");
+    public enum Mode implements TranslatableOption {
+        EASY(0, "speedrunnermod.options.mode.easy"),
+        BALANCED(1, "speedrunnermod.options.mode.balanced"),
+        DOOM(2, "speedrunnermod.options.mode.doom");
 
-        private static final PlayingMode[] VALUES = Arrays.stream(PlayingMode.values()).sorted(Comparator.comparingInt(PlayingMode::getId)).toArray(PlayingMode[]::new);
+        private static final Mode[] VALUES = Arrays.stream(Mode.values()).sorted(Comparator.comparingInt(Mode::getId)).toArray(Mode[]::new);
         private final int id;
         private final String translateKey;
 
-        PlayingMode(int id, String translationKey) {
+        Mode(int id, String translationKey) {
             this.id = id;
             this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
         }
 
         /**
-         * Returns the {@code id value} of the {@code Playing Mode} option.
+         * Returns the {@code id value} of the {@code Mode} option.
          */
         @Override
         public int getId() {
@@ -678,7 +654,7 @@ public class ModOptions {
         }
 
         /**
-         * Returns the {@code translation key} of the {@code Playing Mode} option.
+         * Returns the {@code translation key} of the {@code Mode} option.
          */
         @Override
         public String getTranslationKey() {
@@ -688,7 +664,7 @@ public class ModOptions {
         /**
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
-        public static PlayingMode byId(int id) {
+        public static Mode byId(int id) {
             return VALUES[MathHelper.floorMod(id, VALUES.length)];
         }
     }
@@ -704,8 +680,7 @@ public class ModOptions {
         DEFAULT(4, "speedrunnermod.options.structure_spawn_rates.default"),
         RARE(5, "speedrunnermod.options.structure_spawn_rates.rare"),
         VERY_RARE(6, "speedrunnermod.options.structure_spawn_rates.very_rare"),
-        CUSTOM(7, "speedrunnermod.options.structure_spawn_rates.custom"),
-        DISABLED(8, "speedrunnermod.options.structure_spawn_rates.disabled");
+        CUSTOM(7, "speedrunnermod.options.structure_spawn_rates.custom");
 
         private static final StructureSpawnRate[] VALUES = Arrays.stream(StructureSpawnRate.values()).sorted(Comparator.comparingInt(StructureSpawnRate::getId)).toArray(StructureSpawnRate[]::new);
         private final int id;
@@ -782,100 +757,93 @@ public class ModOptions {
     }
 
     /**
-     * @return the {@code Easy} playing mode option.
+     * @return the {@code Easy} mode option.
      */
-    public static boolean isPlayingModeEasy() {
-        return options().main.playingMode.getCurrentValue().equals(PlayingMode.EASY);
+    public static boolean isEasyMode() {
+        return options().main.mode.getCurrentValue().equals(Mode.EASY);
     }
 
     /**
-     * @return the {@code Balanced} playing mode option.
+     * @return the {@code Balanced} mode option.
      */
-    public static boolean isPlayingModeBalanced() {
-        return options().main.playingMode.getCurrentValue().equals(PlayingMode.BALANCED);
+    public static boolean isBalancedMode() {
+        return options().main.mode.getCurrentValue().equals(Mode.BALANCED);
     }
 
     /**
-     * @return the {@code Doom} playing mode option.
+     * @return the {@code Doom} mode option.
      */
-    public static boolean isPlayingModeDoom() {
-        return options().main.playingMode.getCurrentValue().equals(PlayingMode.DOOM);
+    public static boolean isDoomMode() {
+        return options().main.mode.getCurrentValue().equals(Mode.DOOM);
     }
 
     /**
      * Returns the {@code Everywhere} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesEverywhere() {
+    public static boolean isSsrEverywhere() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.EVERYWHERE);
     }
 
     /**
      * Returns the {@code Very Common} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesVeryCommon() {
+    public static boolean isSsrVeryCommon() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_COMMON);
     }
 
     /**
      * Returns the {@code Very Common} or {@code Common} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesVeryCommonOrCommon() {
+    public static boolean isSsrVeryCommonCommon() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_COMMON) || options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON);
     }
 
     /**
      * Returns the {@code Common} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesCommon() {
+    public static boolean isSsrCommon() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON);
     }
 
     /**
      * Returns the {@code Normal} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesNormal() {
+    public static boolean isSsrNormal() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.NORMAL);
     }
 
     /**
-     * Returns the {@code Default} structure spawn rate option,
+     * Returns the {@code Default} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesDefault() {
+    public static boolean isSsrDefault() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.DEFAULT);
-    }
-
-    /**
-     * Returns the {@code Normal} or {@code Default} structure spawn rate option.
-     */
-    public static boolean isStructureSpawnRatesCommonNormalOrDefault() {
-        return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON) || options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.NORMAL) || options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.DEFAULT);
     }
 
     /**
      * Returns the {@code Rare} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesRare() {
+    public static boolean isSsrRare() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.RARE);
     }
 
     /**
      * Returns the {@code Very Rare} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesVeryRare() {
+    public static boolean isSsrVeryRare() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_RARE);
     }
 
     /**
      * Returns the {@code Custom} structure spawn rate option.
      */
-    public static boolean isStructureSpawnRatesCustom() {
+    public static boolean isSsrCustom() {
         return options().main.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.CUSTOM);
     }
 
     /**
      * The game is safe to run if the {@code safe} parameter returns true.
      */
-    public static void isSafeToPlay(boolean safe) {
+    public static void isSafe(boolean safe) {
         SpeedrunnerMod.safeBoot = !safe;
     }
 }

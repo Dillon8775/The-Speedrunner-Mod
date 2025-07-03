@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -33,7 +32,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * An item that kills all nearby {@link RaiderEntity}s.
@@ -49,7 +48,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient && world instanceof ServerWorld serverWorld) {
-            if (!isPlayingModeBalanced()) {
+            if (!isBalancedMode()) {
                 List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().getFirst(), options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().get(1), options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().get(2)), entity -> true);
 
                 if (!raiders.isEmpty()) {
@@ -95,10 +94,10 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
                         return ActionResult.SUCCESS;
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_WITCH_AMBIENT, SoundCategory.NEUTRAL, 3.0F, 1.0F);
-                        player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.no_totem").formatted(Formatting.YELLOW), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.raid_eradicator.no_totem").formatted(Formatting.YELLOW));
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"));
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GRAY), false);
@@ -117,7 +116,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip"));
-        if (isPlayingModeBalanced()) {
+        if (isBalancedMode()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }

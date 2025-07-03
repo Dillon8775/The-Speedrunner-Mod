@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(CaveSpiderEntity.class)
 public class CaveSpiderEntityMixin {
@@ -21,7 +21,7 @@ public class CaveSpiderEntityMixin {
      */
     @Inject(method = "tryAttack", at = @At(value = "RETURN", ordinal = 0))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
-        if (isPlayingModeDoom() && target instanceof PlayerEntity) {
+        if (isDoomMode() && target instanceof PlayerEntity) {
             ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 0));
         }
     }

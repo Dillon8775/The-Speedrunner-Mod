@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
@@ -15,19 +14,19 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
 @Environment(EnvType.CLIENT)
-public class PlayingModeDoesntMatchScreen extends AbstractModScreen {
-    private ButtonWidget matchPlayingModeToServerButton;
-    private final ModOptions.PlayingMode serverSidePlayingMode;
+public class ModeDoesntMatchScreen extends AbstractModScreen {
+    private ButtonWidget matchModeToServerButton;
+    private final ModOptions.Mode serverSideMode;
 
-    public PlayingModeDoesntMatchScreen(Screen parent, ModOptions.PlayingMode serverSidePlayingMode) {
-        super(parent, ModTexts.TITLE_PLAYING_MODE_DOESNT_MATCH_SERVER_SETTING);
-        this.serverSidePlayingMode = serverSidePlayingMode;
+    public ModeDoesntMatchScreen(ModOptions.Mode serverSideMode) {
+        super(null, ModTexts.TITLE_MODE_DOESNT_MATCH_SERVER_SETTING);
+        this.serverSideMode = serverSideMode;
     }
 
     @Override
     protected void init() {
-        this.matchPlayingModeToServerButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_PLAYING_MODE_TO_SERVER, (buttonWidget) -> {
-            options().main.playingMode.set(this.serverSidePlayingMode);
+        this.matchModeToServerButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_MODE_TO_SERVER, (buttonWidget) -> {
+            options().main.mode.set(this.serverSideMode);
             saveDedicatedServerChanges();
             this.client.setScreen(new TimedScreen(null, 5));
         }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());
@@ -38,14 +37,14 @@ public class PlayingModeDoesntMatchScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.playing_mode.doesnt_match_server.line1"), this.width / 2, 110, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.playing_mode.doesnt_match_server.line2"), this.width / 2, 130, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.mode.doesnt_match_server.line1"), this.width / 2, 110, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.mode.doesnt_match_server.line2"), this.width / 2, 130, 16777215);
     }
 
     @Override
     public void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.matchPlayingModeToServerButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.match_playing_mode_to_server.tooltip"), context, mouseX, mouseY);
+        if (this.matchModeToServerButton.isHovered()) {
+            this.renderBasicTooltip(Text.translatable("speedrunnermod.match_mode_to_server.tooltip"), context, mouseX, mouseY);
         }
     }
 

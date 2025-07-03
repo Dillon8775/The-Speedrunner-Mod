@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.client.screen.base.misc.ModCreditsScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ResourcesScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.SecretDoomModeScreen;
 import net.dillon.speedrunnermod.client.screen.base.option.ModOptionsScreen;
-import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -22,7 +21,7 @@ import net.minecraft.util.Formatting;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, external links, other mods, and more.
@@ -51,7 +50,6 @@ public class MainScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.optionsButton = ButtonWidget.builder(Text.translatable("menu.options").formatted(getOptionsTextColor()), (button) -> {
-            RestartRequiredScreen.getCurrentOptions();
             Leaderboards.getCurrentLeaderboardsMode();
             if (options().main.leaderboardsMode.getCurrentValue()) {
                 Leaderboards.getCurrentOptions();
@@ -86,7 +84,7 @@ public class MainScreen extends AbstractModScreen {
                 this.client.setScreen(new SecretDoomModeScreen(this));
             }
         }).build();
-        this.doomModeButton.visible = isPlayingModeDoom();
+        this.doomModeButton.visible = isDoomMode();
 
         super.init();
     }

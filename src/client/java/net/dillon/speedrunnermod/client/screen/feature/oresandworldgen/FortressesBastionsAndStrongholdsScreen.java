@@ -6,20 +6,20 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.BetterHotkeysScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FortressesBastionsAndStrongholdsScreen extends AbstractFeatureScreen {
 
     public FortressesBastionsAndStrongholdsScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.fortresses_bastions_and_strongholds"),
-                new BetterHotkeysScreen(parent), Text.translatable("speedrunnermod.menu.features.miscellaneous"),
-                new SpeedrunnerIngotsScreen(parent), Text.translatable("speedrunnermod.menu.features.blocks_and_items"),
-                new SpeedrunnerArmorScreen(parent), Text.translatable("speedrunnermod.menu.features.tools_and_armor"),
+        super(parent, ModTexts.TITLE_FEATURE_FORTRESSES_BASTIONS_AND_STRONGHOLDS,
+                new BetterHotkeysScreen(parent), ModTexts.MENU_MISCELLANEOUS,
+                new SpeedrunnerIngotsScreen(parent), ModTexts.MENU_BLOCKS_AND_ITEMS,
+                new SpeedrunnerArmorScreen(parent), ModTexts.MENU_TOOLS_AND_ARMOR,
                 false, null, null);
     }
 

@@ -8,7 +8,6 @@ import net.dillon.speedrunnermod.client.screen.base.synced.MatchSettingsWithServ
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.options.FastWorldCreationOptionsScreen;
-import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
@@ -51,10 +50,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected File configFile; // This returns null unless the screen is an options screen
     protected final File configDirectory = new File(FabricLoader.getInstance().getConfigDir().toUri()); // The directory for the speedrunner mod's configuration file
     protected final Screen parent;
-    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, resetOptionsButton, openOptionsDirectoryButton, doneButton, matchSettingsWithServer;
+    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, openOptionsDirectoryButton, doneButton, matchSettingsWithServer;
+    public ButtonWidget resetOptionsButton;
     public OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> featureButtons = new ArrayList<>();
+    public boolean isResettingOptions = false;
 
     public AbstractModScreen(Screen parent, Text title) {
         super(parent, title);
@@ -68,28 +69,28 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
             this.saveButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.SAVE, (button) -> {
                 this.close();
-            }).dimensions(this.getButtonsLeftSide(), this.getDoneButtonsHeight(), 100, 20).build());
+            }).dimensions(this.getButtonsLeftSide(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.openOptionsFileButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MENU_OPEN_OPTIONS_FILE, (button) -> {
                 this.close();
                 this.configFile = !hasShiftDown() ? configHandler().getConfigFile() : clientConfigHandler().getConfigFile();
                 Util.getOperatingSystem().open(this.configFile);
-            }).dimensions(this.getButtonsMiddle(), this.getDoneButtonsHeight(), 100, 20).build());
+            }).dimensions(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.resetOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET, (button) -> {
                 this.client.setScreen(new ResetOptionsConfirmScreen(this.parent, false));
-            }).dimensions(this.getButtonsRightSide(), this.getDoneButtonsHeight(), 100, 20).build());
+            }).dimensions(this.getButtonsRightSide(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.helpButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 this.openLink(ModLinks.OPTIONS_EXPLANATION, true);
-            }).dimensions(this.getButtonsRightSide() + 104, this.getDoneButtonsHeight(), 20, 20).build());
+            }).dimensions(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
             this.openOptionsDirectoryButton = this.addDrawableChild(ButtonWidget.builder(Text.literal("D."), (button) -> {
                 this.close();
                 Util.getOperatingSystem().open(this.configDirectory);
-            }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonsHeight(), 20, 20).build());
-            this.matchSettingsWithServer = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_SETTINGS_WITH_SERVER, (button) -> {
+            }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonHeight(), 20, 20).build());
+            this.matchSettingsWithServer = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 this.client.setScreen(new MatchSettingsWithServerScreen(this.parent));
-            }).dimensions(this.getButtonsLeftSide() - 104, this.getDoneButtonsHeight(), 100, 20).build());
+            }).dimensions(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer.active = this.isOnServer();
         } else {
             if (!this.buttons().isEmpty()) {
@@ -97,8 +98,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.buttonList.addAll(this.buttons());
                 this.addSelectableChild(this.buttonList);
             }
-            this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonsHeight(), 200, 20).build());
-            this.doneButton.active = (this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING) || !(this instanceof AbstractFeatureScreen);
+            if ((this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING) || !(this instanceof AbstractFeatureScreen)) {
+                this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
+            }
         }
     }
 
@@ -114,7 +116,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                     IntegratedServer integratedServer = MinecraftClient.getInstance().getServer();
                     if (integratedServer != null) {
                         integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats.getCurrentValue());
-                        int i = this.client.player.getPermissionLevel();
+                        int i = integratedServer.getPermissionLevel(this.client.player.getGameProfile());
                         this.client.player.setClientPermissionLevel(i);
 
                         for (ServerPlayerEntity serverPlayerEntity : integratedServer.getPlayerManager().getPlayerList()) {
@@ -178,6 +180,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
         if (this.isOptionsScreen()) {
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+            context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/gui/sync.png"), matchSettingsWithServer.getX() + 2, matchSettingsWithServer.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
         }
 
         if (this.shouldRenderSpeedrunnerModTitle()) {
@@ -186,7 +189,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
         }
         this.renderCustomObjects(context);
-        this.renderOptionTooltips(context, mouseX, mouseY);
+        this.lockOptionsAndRenderTooltips(context, mouseX, mouseY);
         if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
             this.renderTooltips(context, mouseX, mouseY);
         }
@@ -239,20 +242,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Renders a tooltip for a {@link SimpleOption}. Only for simple options that can be activated/deactivated.
-     */
-    protected void renderOptionTooltip(int buttonListIndex, ButtonSide buttonSide, boolean bl, Text tooltipWhenBooleanIsTrue, Text tooltipWhenBooleanIsFalse, DrawContext context, int mouseX, int mouseY) {
-        OptionListWidget.WidgetEntry widget = this.optionList.children().get(buttonListIndex);
-        if (buttonSide.equals(ButtonSide.LARGE) || buttonSide.equals(ButtonSide.LEFT) ? widget.widgets.getFirst().isHovered() : widget.widgets.getLast().isHovered()) {
-            if (bl) {
-                this.renderBasicTooltip(tooltipWhenBooleanIsTrue, context, mouseX, mouseY);
-            } else {
-                this.renderBasicTooltip(tooltipWhenBooleanIsFalse, context, mouseX, mouseY);
-            }
-        }
-    }
-
-    /**
      * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
      */
     @AI
@@ -298,30 +287,70 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Deactivates certain buttons based on certain boolean values.
      * <p>Indexes go from top-down-left, then right side.
      * <p>Do not call if {@code optionList} is {@code null.}</p>
-     * @param buttonListIndex determines the index of the button list. For example, each button counts as an index.
-     * @param buttonSide deteremines which side the button is on.
-     *                   <p>{@link ButtonSide#LEFT} determines a small button on the left column.</p>
-     *                   <p>{@link ButtonSide#RIGHT} determines a small button on the right column.</p>
-     *                   <p>{@link ButtonSide#LARGE} determines a large button, which takes up both columns.</p>
      * @param option the boolean expression to determine if the option should be locked (if {@code option} is {@code false}, the specified option is locked.
      */
-    protected void lockOption(int buttonListIndex, ButtonSide buttonSide, boolean option) {
+    protected void lockOption(SimpleOption<?> option, boolean bl) {
         try {
             if (this.optionList != null) {
-                for (int i = 0; i < this.optionList.children().size(); i++) {
-                    OptionListWidget.WidgetEntry widget = this.optionList.children().get(i);
-                    if (i == buttonListIndex && !option) {
-                        widget.widgets.get(ButtonSide.buttonIndexes(buttonSide)).active = false;
-                    }
+                if (this.getWidget(option) == null) {
+                    SpeedrunnerMod.error("No widget found with option: " + option.toString());
+                } else {
+                    this.getWidget(option).active = bl;
                 }
             } else {
-                throw new NullPointerException();
+                throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
             }
         } catch (NullPointerException n) {
-            SpeedrunnerMod.error("\"optionList\" variable cannot be null on \"deactivateButtonIf\" call.");
             this.client.scheduleStop();
             n.printStackTrace();
         }
+    }
+
+    /**
+     * Renders a tooltip for a {@link SimpleOption}. Only for simple options that can be activated/deactivated.
+     */
+    protected void renderOptionTooltip(SimpleOption<?> option, boolean bl, Text tooltipWhenBooleanIsTrue, Text tooltipWhenBooleanIsFalse, DrawContext context, int mouseX, int mouseY) {
+        try {
+            if (this.optionList != null) {
+                if (this.getWidget(option) != null) {
+                    if (this.getWidget(option).getTooltip() == null) {
+                        if (this.getWidget(option).isHovered()) {
+                            if (bl) {
+                                this.renderBasicTooltip(tooltipWhenBooleanIsTrue, context, mouseX, mouseY);
+                            } else {
+                                this.renderBasicTooltip(tooltipWhenBooleanIsFalse, context, mouseX, mouseY);
+                            }
+                        }
+                    } else {
+                        throw new IllegalStateException("Option \"" + option.toString() + "\" has a tooltip. Remove (or replace with \"SimpleOption.emptyTooltip()\" tooltip to use \"renderOptionTooltip\".");
+                    }
+                } else {
+                    SpeedrunnerMod.error("No widget found with option: " + option.toString());
+                }
+            } else {
+                throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
+            }
+        } catch (NullPointerException | IllegalStateException n) {
+            this.client.scheduleStop();
+            n.printStackTrace();
+        }
+    }
+
+    /**
+     * @return the widget containing {@link SimpleOption} {@code (option).}
+     */
+    private ClickableWidget getWidget(SimpleOption<?> option) {
+        for (OptionListWidget.WidgetEntry entry : this.optionList.children()) {
+            for (ClickableWidget widget : entry.widgets) {
+                String messageText = widget.getMessage().getString();
+                messageText = messageText.substring(0, messageText.indexOf(":"));
+                if (messageText.equals(option.toString())) {
+                    return widget;
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -371,7 +400,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * @return the {@code "done"} buttons height, typically at the bottom of a screen.
      */
-    protected int getDoneButtonsHeight() {
+    protected int getDoneButtonHeight() {
         return this.height - 29;
     }
 
@@ -413,12 +442,11 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * Renders all {@link SimpleOption} tooltips.
      */
-    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
     }
 
     /**
      * Returns the page ID of a screen. This is used to determined the refreshed screen.
-     * @return
      */
     public abstract String pageId();
 

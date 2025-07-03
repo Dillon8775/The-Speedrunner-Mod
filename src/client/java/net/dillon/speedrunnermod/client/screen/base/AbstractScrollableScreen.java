@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.NativeImage;
-import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Style;
@@ -240,7 +239,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     private void initializeTopAndBottom() {
         this.top = this.buttonList.getY() + 20;
-        this.bottom = this.doneButton.getY() - 16;
+        this.bottom = this.getDoneButtonHeight() - 16;
     }
 
     /**
@@ -269,7 +268,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
         loadAndPrintText(ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
-        this.addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, (button) -> this.close()).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
         super.init();
     }
 

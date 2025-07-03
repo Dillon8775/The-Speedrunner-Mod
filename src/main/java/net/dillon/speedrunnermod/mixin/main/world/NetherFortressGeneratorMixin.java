@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * Makes nether fortress smaller and easier to navigate, see {@link ModWorldGen} for more.
@@ -21,7 +21,7 @@ public class NetherFortressGeneratorMixin {
     private static  NetherFortressGenerator.PieceData[] ALL_CORRIDOR_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
 
     static {
-        if (options().main.customDataGeneration.getCurrentValue() && (!isPlayingModeBalanced() || !options().advanced.modifiedNetherFortressGeneration.getCurrentValue())) {
+        if (options().main.customDataGeneration.getCurrentValue() && (!isBalancedMode() || !options().advanced.modifiedNetherFortressGeneration.getCurrentValue())) {
             ALL_BRIDGE_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_BRIDGE_PIECES;
             ALL_CORRIDOR_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
         }

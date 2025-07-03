@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(GhastEntity.class)
 public class GhastEntityMixin extends FlyingEntity {
@@ -29,7 +29,7 @@ public class GhastEntityMixin extends FlyingEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((GhastEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((GhastEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -40,8 +40,8 @@ public class GhastEntityMixin extends FlyingEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createGhastAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 20.0D : 5.0D;
-        final double genericFollowRange = isPlayingModeDoom() ? 100.0D : 50.0D;
+        final double genericMaxHealth = isDoomMode() ? 20.0D : 5.0D;
+        final double genericFollowRange = isDoomMode() ? 100.0D : 50.0D;
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange);

@@ -8,14 +8,13 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class StructuresScreen extends AbstractFeatureScreen {
 
     public StructuresScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.structures"));
+        super(parent, ModTexts.TITLE_FEATURE_STRUCTURES);
     }
 
     @Override

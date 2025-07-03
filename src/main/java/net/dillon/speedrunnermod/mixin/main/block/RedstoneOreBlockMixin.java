@@ -31,25 +31,25 @@ public class RedstoneOreBlockMixin extends Block {
     @Inject(method = "onStacksDropped", at = @At("TAIL"))
     private void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
-        if (player != null && EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
+        if (player != null && EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;
             int i;
             if (world.getBiome(pos) == ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY) {
                 if (state.isOf(Blocks.REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 52;
+                    f = EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 52;
                     i = 4 + world.random.nextInt(11) + f;
                     this.dropExperience(world, pos, i);
                 } else if (state.isOf(Blocks.DEEPSLATE_REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 76;
+                    f = EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 76;
                     i = 4 + world.random.nextInt(11) + f;
                     this.dropExperience(world, pos, i);
                 }
             } else {
                 if (state.isOf(Blocks.REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 48;
+                    f = EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 48;
                     this.dropExperience(world, pos, f);
                 } else if (state.isOf(Blocks.DEEPSLATE_REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getLevel(ModUtil.entityEnchantment(player, Enchantments.FORTUNE), stack) * 72;
+                    f = EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 72;
                     this.dropExperience(world, pos, f);
                 }
             }

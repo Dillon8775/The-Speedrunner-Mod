@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
@@ -47,16 +47,16 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 2.0F, 1.0F);
                     }
 
-                    player.sendMessage(Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
                 } else {
-                    player.sendMessage(this.calculatingText(), false);
+                    player.sendMessage(ModTexts.CALCULATING, false);
                     ModUtil.findStructureAndShoot(world, player, itemStack, itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
-                    player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
 
                     ModUtil.completeStepS2C(TutorialStep.USE_INFERNO_EYE, player,
                             "speedrunnermod.tutorial_mode.used_inferno_eye",
-                            isPlayingModeEasy() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
+                            isEasyMode() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
                                     "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
 
                     if (!player.getAbilities().creativeMode) {
@@ -68,7 +68,7 @@ public class InfernoEyeItem extends Item implements StateOfTheArtItem {
                 player.swingHand(hand, true);
                 return ActionResult.SUCCESS;
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_inferno.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.RED, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.wrong_dimension"), Formatting.RED, Formatting.WHITE);
             }
         }
 

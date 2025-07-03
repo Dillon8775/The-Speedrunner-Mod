@@ -10,17 +10,16 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Environment(EnvType.CLIENT)
 public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
 
     public OtherThingsToKnowScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.doom_mode.other_things_to_know"));
+        super(parent, ModTexts.TITLE_FEATURE_DOOM_MODE_OTHER_THINGS_TO_KNOW);
     }
 
     @Override
@@ -30,12 +29,12 @@ public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
         this.addButtonObject(ButtonWidget.builder(ModTexts.OK, button -> this.close()).build());
         ButtonWidget enableDoomMode = this.addButtonObject(ButtonWidget.builder(ModTexts.ENABLE_DOOM_MODE, button -> {
             RestartRequiredScreen.getCurrentOptions();
-            if (!isPlayingModeDoom()) {
+            if (!isDoomMode()) {
                 this.client.setScreen(new RestartRequiredScreen(this));
             }
-            options().main.playingMode.set(ModOptions.PlayingMode.DOOM);
+            options().main.mode.set(ModOptions.Mode.DOOM);
         }).build());
-        enableDoomMode.active = !isPlayingModeDoom();
+        enableDoomMode.active = !isDoomMode();
     }
 
     @Override

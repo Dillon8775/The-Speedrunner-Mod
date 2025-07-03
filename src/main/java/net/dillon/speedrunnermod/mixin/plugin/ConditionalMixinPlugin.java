@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.isEnvironmentTypeServer;
-import static net.dillon.speedrunnermod.option.ModOptions.isSafeToPlay;
+import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 
 @AI
 public class ConditionalMixinPlugin implements IMixinConfigPlugin {
@@ -92,7 +92,7 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
                 throw new IllegalStateException("Failed to read config for mixin plugin: " + e.getMessage() + ". This is likely caused to updating to the newest version of the speedrunner mod, please relaunch the server and everything should work.");
             } else {
                 SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
-                isSafeToPlay(false);
+                isSafe(false);
             }
         }
 

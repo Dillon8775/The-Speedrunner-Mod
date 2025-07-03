@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class MatchSettingsWithServerScreen extends AbstractModScreen {
@@ -31,14 +30,14 @@ public class MatchSettingsWithServerScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.match_settings_with_server.line1"), this.width / 2, 110, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.match_settings_with_server.line2"), this.width / 2, 130, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE1, this.width / 2, 110, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE2, this.width / 2, 130, 16777215);
     }
 
     @Override
     public void renderTooltips(DrawContext context, int mouseX, int mouseY) {
         if (this.matchAndRestartButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.match_and_restart.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(ModTexts.MATCH_AND_RESTART_TOOLTIP, context, mouseX, mouseY);
         }
     }
 

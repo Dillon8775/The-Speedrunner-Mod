@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(AbstractSkeletonEntity.class)
 public class AbstractSkeletonEntityMixin extends HostileEntity {
@@ -29,7 +29,7 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((AbstractSkeletonEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((AbstractSkeletonEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
         }
         return super.getExperienceToDrop(world);
     }
@@ -39,9 +39,9 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
      */
     @ModifyVariable(method = "updateAttackType", at = @At("STORE"), ordinal = 0)
     private int updateAttackType(int x) {
-        int i = isPlayingModeDoom() ? 5 : 20;
+        int i = isDoomMode() ? 5 : 20;
         if (this.getWorld().getDifficulty() != Difficulty.HARD) {
-            i = isPlayingModeDoom() ? 10 : 20;
+            i = isDoomMode() ? 10 : 20;
         }
         return i;
     }
@@ -51,6 +51,6 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
      */
     @ModifyArg(method = "createAbstractSkeletonAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
     private static double genericMovementSpeed(double baseValue) {
-        return isPlayingModeDoom() ? 0.3D : 0.25D;
+        return isDoomMode() ? 0.3D : 0.25D;
     }
 }

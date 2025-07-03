@@ -8,23 +8,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @AI
 public class EntitySpawnsLoader {
 
     public static void modifyBiomesWithDefaultMonsters(JsonElement jsonElement) {
         Map<String, Integer[]> monsterSpawns = new HashMap<>();
-        monsterSpawns.put("minecraft:spider", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 75 : 100, isPlayingModeDoom() ? 1 : 4, isPlayingModeDoom() ? 5 : 4));
-        monsterSpawns.put("minecraft:slime", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 50 : 100, 1, 4));
-        monsterSpawns.put("minecraft:enderman", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 25 : 50, isPlayingModeDoom() ? 1 : 4, 4));
-        monsterSpawns.put("minecraft:witch", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 50 : 5, 1, isPlayingModeDoom() ? 4 : 1));
+        monsterSpawns.put("minecraft:spider", LoaderMain.createSpawnSettings(isDoomMode() ? 75 : 100, isDoomMode() ? 1 : 4, isDoomMode() ? 5 : 4));
+        monsterSpawns.put("minecraft:slime", LoaderMain.createSpawnSettings(isDoomMode() ? 50 : 100, 1, 4));
+        monsterSpawns.put("minecraft:enderman", LoaderMain.createSpawnSettings(isDoomMode() ? 25 : 50, isDoomMode() ? 1 : 4, 4));
+        monsterSpawns.put("minecraft:witch", LoaderMain.createSpawnSettings(isDoomMode() ? 50 : 5, 1, isDoomMode() ? 4 : 1));
 
         LoaderMain.modifyMonsterSpawns(jsonElement, monsterSpawns, false);
 
         Map<String, Integer[]> customOrNoChangedWeightMonsterSpawns = new HashMap<>();
-        monsterSpawns.put("minecraft:zombie", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 1 : 4, 4));
-        monsterSpawns.put("minecraft:creeper", LoaderMain.createSpawnSettings(isPlayingModeDoom() ? 1 : 2, 4));
+        monsterSpawns.put("minecraft:zombie", LoaderMain.createSpawnSettings(isDoomMode() ? 1 : 4, 4));
+        monsterSpawns.put("minecraft:creeper", LoaderMain.createSpawnSettings(isDoomMode() ? 1 : 2, 4));
 
         LoaderMain.modifyMonsterSpawns(jsonElement, customOrNoChangedWeightMonsterSpawns, true);
     }

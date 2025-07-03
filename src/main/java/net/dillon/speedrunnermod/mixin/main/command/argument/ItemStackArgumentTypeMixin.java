@@ -55,7 +55,7 @@ public class ItemStackArgumentTypeMixin {
      * Fixes bug where typing in a speedrunner mod item does without the {@code "speedrunnermod:"} namespace, doesn't work.
      */
     @AI
-    @Inject(method = "parse", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "parse(Lcom/mojang/brigadier/StringReader;)Lnet/minecraft/command/argument/ItemStackArgument;", at = @At("HEAD"), cancellable = true)
     private void modifyItemParsing(StringReader reader, CallbackInfoReturnable<ItemStackArgument> cir) {
         int cursor = reader.getCursor();
         try {
@@ -69,7 +69,7 @@ public class ItemStackArgumentTypeMixin {
             }
 
             for (int i = 0; i < options().advanced.modIds.getCurrentValue().size(); i++) {
-                Identifier modId = Identifier.of(options().advanced.modIds.getCurrentValue().get(i), id.getPath());
+                Identifier modId = Identifier.of(options().advanced.modIds.getCurrentValue().stream().toList().get(i), id.getPath());
                 if (Registries.ITEM.containsId(modId)) {
                     entry = Registries.ITEM.getEntry(modId).orElseThrow();
                     cir.setReturnValue(new ItemStackArgument(entry, entry.value().getDefaultStack().getComponentChanges()));

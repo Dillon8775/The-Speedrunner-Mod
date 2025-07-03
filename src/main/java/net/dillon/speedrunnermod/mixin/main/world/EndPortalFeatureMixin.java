@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(EndPortalFeature.class)
 public class EndPortalFeatureMixin {
@@ -19,6 +19,6 @@ public class EndPortalFeatureMixin {
      */
     @Redirect(method = "generate", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;END_STONE:Lnet/minecraft/block/Block;"))
     private Block changeBaseBlock() {
-        return options().main.customDataGeneration.getCurrentValue() && isPlayingModeDoom() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
+        return options().main.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

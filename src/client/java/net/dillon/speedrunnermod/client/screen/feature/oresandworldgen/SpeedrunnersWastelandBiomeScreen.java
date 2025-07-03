@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -17,7 +16,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public class SpeedrunnersWastelandBiomeScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersWastelandBiomeScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunners_wasteland_biome"));
+        super(parent, ModTexts.TITLE_FEATURE_SPEEDRUNNERS_WASTELAND);
     }
 
     @Override

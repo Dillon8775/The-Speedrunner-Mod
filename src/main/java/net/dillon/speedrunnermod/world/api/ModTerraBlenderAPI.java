@@ -17,8 +17,8 @@ public class ModTerraBlenderAPI implements TerraBlenderApi {
      */
     @Override
     public void onTerraBlenderInitialized() {
-        if (options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue()) {
-            Regions.register(new ModOverworldRegion(ofSpeedrunnerMod("overworld"), 9));
+        if (options().main.customDataGeneration.getCurrentValue() && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue()) {
+            Regions.register(new ModOverworldRegion(ofSpeedrunnerMod("overworld"), options().advanced.speedrunnersWastelandBiomeWeight.getCurrentValue()));
             SpeedrunnerMod.debug("Registered the region for the Speedrunner's Wasteland biome.");
             SpeedrunnerMod.debug("You will now see the biome generate throughout each Minecraft world.");
         } else {

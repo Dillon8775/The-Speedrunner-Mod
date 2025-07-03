@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(PiglinBruteEntity.class)
 public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
@@ -27,7 +27,7 @@ public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 20 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PiglinBruteEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
+            this.experiencePoints = 20 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PiglinBruteEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
         }
         return super.getExperienceToDrop(world);
     }
@@ -37,6 +37,6 @@ public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
      */
     @ModifyArg(method = "createPiglinBruteAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 0), index = 1)
     private static double genericMaxHealth(double baseValue) {
-        return isPlayingModeDoom() ? 25.0D : 50.0D;
+        return isDoomMode() ? 25.0D : 50.0D;
     }
 }

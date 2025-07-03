@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(EndermanEntity.class)
 public class EndermanEntityMixin extends HostileEntity {
@@ -38,7 +38,7 @@ public class EndermanEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((EndermanEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 48;
+            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((EndermanEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 48;
         }
         return super.getExperienceToDrop(world);
     }
@@ -72,10 +72,10 @@ public class EndermanEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createEndermanAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 60.0D : 25.0D;
+        final double genericMaxHealth = isDoomMode() ? 60.0D : 25.0D;
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0D;
-        final double genericFollowRange = isPlayingModeDoom() ? 64.0D : 12.0D;
+        final double genericAttackDamage = isDoomMode() ? 8.0D : 4.0D;
+        final double genericFollowRange = isDoomMode() ? 64.0D : 12.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed).

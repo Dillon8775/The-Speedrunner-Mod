@@ -1,6 +1,7 @@
 KEY CHANGES:
 - Updated to Minecraft 1.21.5!
-- Tons of bug fixes and optimizations.
+- Tons of bug fixes, crash fixes, and optimizations.
+- Renamed "Playing Mode" option to "Mode".
 - Optimized options and changed configuration file layout.
 - To change an option's value in the configuration file, change the "current_value". Leave everything else alone.
 - Hold down "shift" on an options screen to open the client-side configuration file.
@@ -31,7 +32,9 @@ REMOVALS:
 - Removed item tooltips and texture tooltips option.
 - Deleted place on Dillon8775's webpage, everything you would need for this mod is now on CurseForge and Modrinth.
 
-MISCELLANEOUS:
-- Added option to sync client-side options with server-side options, to allow for optimal gameplay.
+MISCELLANEOUS
+- Removed "DISABLED" structure spawn rate option, now set to "Default" to use Minecraft's default structure spawn rates.
+- You can now use the Ender Thruster on doom mode if the player is in a mountain/hill biome, or if the player's Y-level is less than 0.
 - Changing the "allow cheats" option in the fast world creation screen will enable/disable cheats in your current world.
-- Experiences ores now generate on every playing mode.
+- Experiences ores now generate on every mode.
+- Added option to sync client-side options with server-side options, to allow for optimal gameplay.

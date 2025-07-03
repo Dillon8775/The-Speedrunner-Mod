@@ -1,16 +1,16 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class ToolsAndArmorScreen extends AbstractModScreen {
 
     public ToolsAndArmorScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.tools_and_armor"));
+        super(parent, ModTexts.TITLE_TOOLS_AND_ARMOR);
     }
 
     @Override

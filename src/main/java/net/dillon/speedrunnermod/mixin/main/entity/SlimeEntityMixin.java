@@ -26,7 +26,7 @@ public class SlimeEntityMixin extends MobEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SlimeEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((SlimeEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -28,10 +27,10 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
      */
     private SimpleOption<?>[] fwcOptions() {
         return new SimpleOption[]{
-                ModListOptions.FAST_WORLD_CREATION,
-                ModListOptions.DIFFICULTY,
-                ModListOptions.GAMEMODE,
-                ModListOptions.ALLOW_CHEATS
+                ModListOptions.fastWorldCreation(),
+                ModListOptions.difficulty(),
+                ModListOptions.gameMode(),
+                ModListOptions.allowCheats()
         };
     }
 
@@ -39,18 +38,18 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(fwcOptions());
-        this.lockOption(0, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
-        this.lockOption(1, ButtonSide.LEFT, clientOptions().client.fastWorldCreation.getCurrentValue());
-        this.lockOption(1, ButtonSide.RIGHT, clientOptions().client.fastWorldCreation.getCurrentValue());
 
         this.addSelectableChild(this.optionList);
     }
 
     @Override
-    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.lockOption(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.lockOption(ModListOptions.difficulty(), clientOptions().client.fastWorldCreation.getCurrentValue());
+        this.lockOption(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue());
+
         this.renderOptionTooltip(
-                0,
-                ButtonSide.RIGHT,
+                ModListOptions.gameMode(),
                 clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.difficulty.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
@@ -59,8 +58,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                1,
-                ButtonSide.LEFT,
+                ModListOptions.difficulty(),
                 clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
@@ -69,8 +67,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
                 mouseY
         );
         this.renderOptionTooltip(
-                1,
-                ButtonSide.RIGHT,
+                ModListOptions.allowCheats(),
                 clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),

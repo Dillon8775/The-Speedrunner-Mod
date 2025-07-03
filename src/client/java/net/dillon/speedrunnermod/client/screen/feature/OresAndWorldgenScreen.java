@@ -1,16 +1,16 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
 public class OresAndWorldgenScreen extends AbstractModScreen {
 
     public OresAndWorldgenScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.ores_and_worldgen"));
+        super(parent, ModTexts.TITLE_ORES_AND_WORLDGEN);
     }
 
     @Override

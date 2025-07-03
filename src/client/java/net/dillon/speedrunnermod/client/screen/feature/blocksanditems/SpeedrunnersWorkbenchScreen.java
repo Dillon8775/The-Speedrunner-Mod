@@ -6,20 +6,20 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.feature.doommode.BasicsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersWorkbenchScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_workbench"),
-                new SpeedrunnerArmorScreen(parent), Text.translatable("speedrunnermod.menu.features.tools_and_armor"),
-                new SpeedrunnersWastelandBiomeScreen(parent), Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"),
-                new BasicsScreen(parent), Text.translatable("speedrunnermod.menu.features.doom_mode"),
+        super(parent, ModTexts.TITLE_FEATURE_SPEEDRUNNERS_WORKBENCH,
+                new SpeedrunnerArmorScreen(parent), ModTexts.MENU_TOOLS_AND_ARMOR,
+                new SpeedrunnersWastelandBiomeScreen(parent), ModTexts.MENU_ORES_AND_WORLDGEN,
+                new BasicsScreen(parent), ModTexts.MENU_FEATURE_DOOM_MODE,
                 false, null, null);
     }
 

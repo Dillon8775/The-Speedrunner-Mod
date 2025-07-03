@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.screen.base.text.AllFeaturesScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,7 +13,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class FeaturesScreen extends AbstractModScreen {
-    private ButtonWidget allFeaturesButton, blocksAndItemsButton, toolsAndArmorButton, oresAndWorldgenButton, doomModeButton, miscellaneousButton;
+    private ButtonWidget blocksAndItemsButton, toolsAndArmorButton, oresAndWorldgenButton, doomModeButton, miscellaneousButton;
 
     public FeaturesScreen(Screen parent) {
         super(parent, ModTexts.TITLE_FEATURES);
@@ -23,7 +22,6 @@ public class FeaturesScreen extends AbstractModScreen {
     @Override
     protected List<ClickableWidget> buttons() {
         return List.of(
-                this.allFeaturesButton,
                 this.blocksAndItemsButton,
                 this.toolsAndArmorButton,
                 this.oresAndWorldgenButton,
@@ -34,10 +32,6 @@ public class FeaturesScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.allFeaturesButton = ButtonWidget.builder(ModTexts.MENU_ALL_FEATURES, (buttonWidget) -> {
-            this.client.setScreen(new AllFeaturesScreen(this.parent));
-        }).build();
-
         this.blocksAndItemsButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), (buttonWidget) -> {
             this.client.setScreen(new BlocksAndItemsScreen(this.parent));
         }).build();

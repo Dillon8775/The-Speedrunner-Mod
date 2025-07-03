@@ -23,7 +23,7 @@ public abstract class EvokerEntityMixin extends SpellcastingIllagerEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((EvokerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 63;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((EvokerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 63;
         }
         return super.getExperienceToDrop(world);
     }

@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(ElderGuardianEntity.class)
 public class ElderGuardianEntityMixin extends GuardianEntity {
@@ -35,7 +35,7 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((ElderGuardianEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
+            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((ElderGuardianEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
         }
         return super.getExperienceToDrop(world);
     }
@@ -47,8 +47,8 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
     @Overwrite
     public static DefaultAttributeContainer.Builder createElderGuardianAttributes() {
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0D;
-        final double genericMaxHealth = isPlayingModeDoom() ? 50.0D : 25.0D;
+        final double genericAttackDamage = isDoomMode() ? 8.0D : 4.0D;
+        final double genericMaxHealth = isDoomMode() ? 50.0D : 25.0D;
         return GuardianEntity.createGuardianAttributes()
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
                 .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
@@ -62,10 +62,10 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
     @Overwrite
     public void mobTick(ServerWorld world) {
         super.mobTick(world);
-        final int i = isPlayingModeDoom() ? 600 : 6000;
+        final int i = isDoomMode() ? 600 : 6000;
         if ((this.age + this.getId()) % i == 0) {
-            final int duration = isPlayingModeDoom() ? ModUtil.minutesInTicks(5) : ModUtil.secondsInTicks(30);
-            final double d = isPlayingModeDoom() ? 55.0D : 25.0D;
+            final int duration = isDoomMode() ? ModUtil.minutesInTicks(5) : ModUtil.secondsInTicks(30);
+            final double d = isDoomMode() ? 55.0D : 25.0D;
             StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.MINING_FATIGUE, duration, 2);
             List<ServerPlayerEntity> list = StatusEffectUtil.addEffectToPlayersWithinDistance((ServerWorld)this.getWorld(), this, this.getPos(), d, statusEffectInstance, 1200);
             list.forEach(serverPlayerEntity -> serverPlayerEntity.networkHandler.sendPacket(new GameStateChangeS2CPacket(GameStateChangeS2CPacket.ELDER_GUARDIAN_EFFECT, this.isSilent() ? GameStateChangeS2CPacket.DEMO_OPEN_SCREEN : (int)1.0f)));

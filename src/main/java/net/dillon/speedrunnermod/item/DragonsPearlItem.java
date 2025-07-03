@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -27,7 +26,7 @@ import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
@@ -42,7 +41,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         if (!world.isClient) {
-            if (!isPlayingModeBalanced()) {
+            if (!isBalancedMode()) {
                 if (world.getRegistryKey() == World.END) {
                     List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().getFirst(), options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().get(1), options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().get(2)), entity -> true);
 
@@ -66,22 +65,22 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                         } else {
                             if (!isDragonDead(enderDragon)) {
                                 if (isDragonSitting(enderDragon)) {
-                                    player.sendMessage(Text.translatable("item.speedrunnermod.dragons_pearl.already_perched").formatted(Formatting.LIGHT_PURPLE), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.already_perched").formatted(Formatting.LIGHT_PURPLE));
                                 } else {
-                                    player.sendMessage(Text.translatable("item.speedrunnermod.dragons_pearl.already_perching").formatted(Formatting.LIGHT_PURPLE), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.already_perching").formatted(Formatting.LIGHT_PURPLE));
                                 }
                             } else {
-                                player.sendMessage(Text.translatable("item.speedrunnermod.dragons_pearl.dragon_dead").formatted(Formatting.LIGHT_PURPLE), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.dragon_dead").formatted(Formatting.LIGHT_PURPLE));
                             }
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
                         }
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 3.0F);
-                        player.sendMessage(Text.translatable("item.speedrunnermod.dragons_pearl.cannot_find_dragon").formatted(Formatting.LIGHT_PURPLE), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.cannot_find_dragon").formatted(Formatting.LIGHT_PURPLE));
                     }
                 } else {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
-                    player.sendMessage(Text.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").formatted(Formatting.LIGHT_PURPLE), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").formatted(Formatting.LIGHT_PURPLE));
                 }
                 player.swingHand(hand, true);
             } else {
@@ -125,7 +124,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
-        if (isPlayingModeBalanced()) {
+        if (isBalancedMode()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }
     }

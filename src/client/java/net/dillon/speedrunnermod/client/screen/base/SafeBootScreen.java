@@ -24,7 +24,7 @@ public class SafeBootScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.addDrawableChild(ButtonWidget.builder(ModTexts.FIX_AND_RESTART, (buttonWidget) -> {
-            SpeedrunnerModClient.fixOptions();
+            SpeedrunnerModClient.fixAllBrokenOptions();
             info("Fixing options! Re-launch to apply changes.");
             this.client.scheduleStop();
         }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 100, 20).build());

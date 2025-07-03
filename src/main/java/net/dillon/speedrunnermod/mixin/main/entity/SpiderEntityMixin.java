@@ -14,7 +14,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(SpiderEntity.class)
 public class SpiderEntityMixin extends HostileEntity {
@@ -29,7 +29,7 @@ public class SpiderEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((SpiderEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((SpiderEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
         }
         return super.getExperienceToDrop(world);
     }
@@ -43,7 +43,7 @@ public class SpiderEntityMixin extends HostileEntity {
             return false;
         } else {
             if (target instanceof PlayerEntity) {
-                if (isPlayingModeDoom()) {
+                if (isDoomMode()) {
                     ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
                 }
             }

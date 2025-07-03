@@ -23,11 +23,14 @@ import net.dillon.speedrunnermod.world.ModWorldGen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import java.util.List;
+
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * The home initializer for the Speedrunner Mod.
@@ -84,7 +87,31 @@ public class SpeedrunnerMod implements ModInitializer {
         safeBoot = false;
         configHandler().load();
 
-        if (options().main.playingMode != null && isPlayingModeDoom()) {
+        // Get all mod ids, add and sort
+        options().advanced.modIds.getCurrentValue().clear();
+        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
+            String modId = mod.getMetadata().getId();
+            boolean exclude = false;
+            List<String> excludedMods = List.of(
+                    "fabric-",
+                    "fabricloader",
+                    "java",
+                    "mixinextras"
+            );
+            for (String excludedMod : excludedMods) {
+                if (modId.startsWith(excludedMod)) {
+                    exclude = true;
+                    break;
+                }
+            }
+
+            if (!exclude) {
+                options().advanced.modIds.getCurrentValue().add(modId);
+            }
+        }
+        configHandler().save();
+
+        if (options().main.mode != null && isDoomMode()) {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 
@@ -154,5 +181,12 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     public static boolean isEnvironmentTypeServer() {
         return FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER);
+    }
+
+    /**
+     * @return {@code true} if the mod is running on {@code EnvType.CLIENT}
+     */
+    public static boolean isEnvironmentTypeClient() {
+        return FabricLoader.getInstance().getEnvironmentType().equals(EnvType.CLIENT);
     }
 }

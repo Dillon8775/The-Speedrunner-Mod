@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(ShulkerEntity.class)
 public abstract class ShulkerEntityMixin extends GolemEntity {
@@ -37,7 +37,7 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((ShulkerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((ShulkerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -47,7 +47,7 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
      */
     @ModifyArg(method = "createShulkerAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
     private static double genericMaxHealth(double baseValue) {
-        return isPlayingModeDoom() ? 32.0D : 20.0D;
+        return isDoomMode() ? 32.0D : 20.0D;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
         Entity entity2;
         if (this.isClosed()) {
             entity2 = source.getSource();
-            if (isPlayingModeDoom()) {
+            if (isDoomMode()) {
                 if (entity2 instanceof PersistentProjectileEntity) {
                     return false;
                 }

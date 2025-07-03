@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Set;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isSafeToPlay;
+import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 
 @AI
 public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
@@ -93,7 +93,7 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
         }
         catch (Exception e) {
             SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
-            isSafeToPlay(false);
+            isSafe(false);
         }
 
         return true;

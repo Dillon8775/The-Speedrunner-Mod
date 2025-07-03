@@ -35,7 +35,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
     }
 
     /**
-     * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link ModOptions.PlayingMode} is {@link ModOptions.PlayingMode#BALANCED}.
+     * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link ModOptions.Mode} is {@link ModOptions.Mode#BALANCED}.
      */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {

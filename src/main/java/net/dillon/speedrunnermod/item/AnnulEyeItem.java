@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -29,7 +29,7 @@ import net.minecraft.world.World;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
@@ -47,7 +47,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
         player.setCurrentHand(hand);
         if (!world.isClient) {
             if (world.getRegistryKey() == World.OVERWORLD) {
-                if (!isPlayingModeBalanced()) {
+                if (!isBalancedMode()) {
                     boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));
                     boolean hasEnderPearl = player.getInventory().contains(new ItemStack(Items.ENDER_PEARL));
                     boolean hasRequiredItems = hasEnderEye && hasEnderPearl;
@@ -57,11 +57,11 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                     }
 
                     if (hasRequiredItems) {
-                        player.sendMessage(this.calculatingText(), false);
+                        player.sendMessage(ModTexts.CALCULATING, false);
                         BlockPos endPortalFrameBlock = findPortalRoom(world, player.getBlockPos());
 
                         if (endPortalFrameBlock != null) {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
                             player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, true);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                             player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(1));
@@ -81,17 +81,17 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                             player.swingHand(hand, true);
                             return ActionResult.SUCCESS;
                         } else {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED));
                         }
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
                         player.swingHand(hand, true);
                         if (!hasEnderEye && !hasEnderPearl) {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.has_none").formatted(Formatting.DARK_GREEN), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.has_none").formatted(Formatting.DARK_GREEN));
                         } else if (!hasEnderEye) {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_eye").formatted(Formatting.GREEN), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_eye").formatted(Formatting.GREEN));
                         } else {
-                            player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_pearl").formatted(Formatting.BLUE), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_pearl").formatted(Formatting.BLUE));
                         }
                     }
                 } else {
@@ -104,7 +104,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                     player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);
                 }
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.eye_of_annul.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.GREEN, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.wrong_dimension"), Formatting.GREEN, Formatting.WHITE);
             }
         }
 
@@ -159,10 +159,10 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1")
-                .formatted(isPlayingModeBalanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
+                .formatted(isBalancedMode() ? Formatting.STRIKETHROUGH : Formatting.RESET));
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2")
-                .formatted(isPlayingModeBalanced() ? Formatting.STRIKETHROUGH : Formatting.RESET));
-        if (isPlayingModeBalanced()) {
+                .formatted(isBalancedMode() ? Formatting.STRIKETHROUGH : Formatting.RESET));
+        if (isBalancedMode()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled")
                     .formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
         }

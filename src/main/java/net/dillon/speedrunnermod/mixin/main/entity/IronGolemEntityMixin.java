@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(IronGolemEntity.class)
 public class IronGolemEntityMixin extends GolemEntity {
@@ -29,7 +29,7 @@ public class IronGolemEntityMixin extends GolemEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((IronGolemEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((IronGolemEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
         }
         return super.getExperienceToDrop(world);
     }
@@ -40,10 +40,10 @@ public class IronGolemEntityMixin extends GolemEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createIronGolemAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 100.0D : 50.0D;
-        final double genericMovementSpeed = isPlayingModeDoom() ? 0.3D : 0.25D;
-        final double genericKnockbackResistance = isPlayingModeDoom() ? 0.7D : 0.5D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 20.0D : 7.0D;
+        final double genericMaxHealth = isDoomMode() ? 100.0D : 50.0D;
+        final double genericMovementSpeed = isDoomMode() ? 0.3D : 0.25D;
+        final double genericKnockbackResistance = isDoomMode() ? 0.7D : 0.5D;
+        final double genericAttackDamage = isDoomMode() ? 20.0D : 7.0D;
         return MobEntity.createMobAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

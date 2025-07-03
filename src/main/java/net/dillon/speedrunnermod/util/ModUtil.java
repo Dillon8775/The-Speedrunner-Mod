@@ -9,6 +9,7 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,6 +39,7 @@ import java.util.*;
  * Helper methods for various different things (ex. items and math calculations)
  */
 public class ModUtil {
+    public static int i = 0;
     public static final String CONFIG_FILE_NAME = "speedrunnermod-config.json";
     public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod-client_config.json";
 
@@ -83,6 +85,27 @@ public class ModUtil {
     }
 
     /**
+     * Returns a specific type of formatting.
+     */
+    public static Formatting toFormatting(UUID uuid, Formatting actionbar, Formatting chat) {
+        return ServerSyncedClientOptions.shouldShowInActionbar(uuid) ? actionbar : chat;
+    }
+
+    /**
+     * Sends a player message with the actionbar preference and formatting.
+     */
+    public static void sendMessageWithActionbarPref(PlayerEntity player, Text text) {
+        player.sendMessage(text, ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+    }
+
+    /**
+     * Sends a player message with the actionbar preference and formatting with formatting for actionbar on/off.
+     */
+    public static void sendMessageWithActionbarPref(PlayerEntity player, Text text, Formatting actionbar, Formatting chat) {
+        player.sendMessage(text.copy().formatted(ModUtil.toFormatting(player.getUuid(), actionbar, chat)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+    }
+
+    /**
      * Sends the new {@link TutorialStep} boolean over to the client-side.
      */
     public static void completeStepS2C(TutorialStep step, PlayerEntity player, String... messageKeys) {
@@ -93,39 +116,46 @@ public class ModUtil {
     }
 
     /**
-     * Returns an enchantment using the {@code Entity} class.
+     * @return {@code enchantment} with the use of the {@link Entity} or {@link World} class.
+     * @param obj should never be anything other than {@link Entity} or {@link World}.
+     * @param enchantment the enchantment that should be returned.
      */
-    public static RegistryEntry<Enchantment> entityEnchantment(Entity entity, RegistryKey<Enchantment> enchantment) {
+    @Deprecated
+    public static RegistryEntry<Enchantment> enchantment(Object obj, RegistryKey<Enchantment> enchantment) {
         try {
-            Optional<RegistryEntry.Reference<Enchantment>> optional = entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
+            Optional<RegistryEntry.Reference<Enchantment>> optional =
+                    obj instanceof Entity entity ? entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
+                            obj instanceof World world ? world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
+                                    Optional.empty();
             return optional.orElseThrow();
         } catch (Exception o) {
-            return noSuchElementExceptionCrash(o);
+            if (!(i > 100)) {
+                SpeedrunnerMod.error("(" + i + ") Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.");
+            }
+            if (i == 101) {
+                SpeedrunnerMod.error("(" + i + ") Returning LOOTING enchantment.");
+                o.printStackTrace();
+                SpeedrunnerMod.error("(" + i + ") This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.");
+            }
+            i++;
+            World world = null;
+            if (obj instanceof Entity entity) {
+                world = entity.getWorld();
+            } else if (obj instanceof World w) {
+                world = w;
+            }
+            if (world != null) {
+                return world.getRegistryManager()
+                        .getOrThrow(RegistryKeys.ENCHANTMENT)
+                        .getEntry(Enchantments.LOOTING.getValue())
+                        .orElseThrow();
+            }
+            throw o;
         }
     }
 
     /**
-     * Returns an enchantment using the {@code World} class.
-     */
-    public static RegistryEntry<Enchantment> worldEnchantment(World world, RegistryKey<Enchantment> enchantment) {
-        try {
-            Optional<RegistryEntry.Reference<Enchantment>> optional = world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue());
-            return optional.orElseThrow();
-        } catch (Exception o) {
-            return noSuchElementExceptionCrash(o);
-        }
-    }
-
-    /**
-     * @return {@code null,} crashes the game accordingly when you join a server that doesn't have the speedrunner mod installed.
-     */
-    private static RegistryEntry<Enchantment> noSuchElementExceptionCrash(Exception o) {
-        SpeedrunnerMod.error("Speedrunner Mod Crashed! Likely caused due to the server you joined doesn't have the speedrunner mod installed.");
-        o.printStackTrace();
-        return null;
-    }
-
-    /**
+     * Creates an unbreakable item.
      */
     public static ItemStack createUnbreakableItem(Item item) {
         ItemStack stack = new ItemStack(item);
@@ -151,13 +181,6 @@ public class ModUtil {
         int j = z2 - z1;
 
         return MathHelper.sqrt((float) (i * i + j * j));
-    }
-
-    /**
-     * Returns a specific type of formatting.
-     */
-    public static Formatting toFormatting(UUID uuid, Formatting actionbar, Formatting chat) {
-        return ServerSyncedClientOptions.shouldShowInActionbar(uuid) ? actionbar : chat;
     }
 
     /**

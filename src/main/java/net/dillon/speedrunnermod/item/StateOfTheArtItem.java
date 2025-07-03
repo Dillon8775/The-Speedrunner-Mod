@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.tag.ModStructureTags;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -9,7 +10,7 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * For all speedrunner mod "eye" items and "state of the art items" which are used to locate exact distances of structures and print them.
@@ -65,18 +66,11 @@ public interface StateOfTheArtItem {
     }
 
     /**
-     * The calculating text for when the item begins calcuating the distance of the structure.
-     */
-    default Text calculatingText() {
-        return Text.translatable("item.speedrunnermod.eye.calculating").formatted(Formatting.RED);
-    }
-
-    /**
      * Adds the tooltips for {@code State-Of-The-Art} items.
      */
     default void addStateOfTheArtItemTooltip(Consumer<Text> textConsumer) {
-        if (!isPlayingModeEasy()) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
+        if (!isEasyMode()) {
+            textConsumer.accept(ModTexts.STATE_OF_THE_ART_ITEM_DISABLED);
         }
     }
 }

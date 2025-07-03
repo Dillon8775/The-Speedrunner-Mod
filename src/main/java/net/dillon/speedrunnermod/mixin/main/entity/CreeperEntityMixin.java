@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(CreeperEntity.class)
 public abstract class CreeperEntityMixin extends HostileEntity {
@@ -39,7 +39,7 @@ public abstract class CreeperEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((CreeperEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((CreeperEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
         }
         return super.getExperienceToDrop(world);
     }
@@ -49,7 +49,7 @@ public abstract class CreeperEntityMixin extends HostileEntity {
      */
     @ModifyArg(method = "createCreeperAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
     private static double genericMovementSpeed(double baseValue) {
-        return isPlayingModeDoom() ? 0.3D : 0.25D;
+        return isDoomMode() ? 0.3D : 0.25D;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class CreeperEntityMixin extends HostileEntity {
     private void explode(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         float o = this.isCharged() ? 2.0F : 1.0F;
-        if (!this.getWorld().isClient && isPlayingModeDoom()) {
+        if (!this.getWorld().isClient && isDoomMode()) {
             this.discard();
             this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius * o, World.ExplosionSourceType.MOB);
             this.getWorld().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ITEM_BREAK, this.getSoundCategory(), 1.5F, this.random.nextFloat() * 0.4F + 0.8F);

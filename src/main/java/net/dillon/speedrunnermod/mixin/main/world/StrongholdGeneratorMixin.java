@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * Makes strongholds smaller, and easier to navigate.
@@ -20,7 +20,7 @@ public class StrongholdGeneratorMixin {
     private static StrongholdGenerator.PieceData[] ALL_PIECES;
 
     static {
-        if (options().main.customDataGeneration.getCurrentValue() && (!isPlayingModeBalanced() || !options().advanced.modifiedStrongholdGeneration.getCurrentValue())) {
+        if (options().main.customDataGeneration.getCurrentValue() && (!isBalancedMode() || !options().advanced.modifiedStrongholdGeneration.getCurrentValue())) {
             ALL_PIECES = ModWorldGen.MODIFIED_STRONGHOLD_PIECES;
         }
     }

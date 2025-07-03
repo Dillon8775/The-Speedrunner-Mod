@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.tag.BiomeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -26,7 +27,8 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
@@ -42,34 +44,41 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
         ItemStack itemStack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (isPlayingModeEasy()) {
+            if (!isBalancedMode()) {
                 if (!(world.getRegistryKey() == World.NETHER)) {
-                    int y = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
-                    BlockPos pos = new BlockPos(player.getBlockX(), y - 1, player.getBlockZ());
+                    int topY = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
+                    BlockPos topPos = new BlockPos(player.getBlockX(), topY - 1, player.getBlockZ());
                     double playerY = player.getY();
 
-                    if (y != playerY && !(playerY > y)) {
+                    boolean validTeleport = topY != playerY && !(playerY > topY);
+                    boolean bl = isDoomMode() ?
+                            validTeleport && (playerY < 0 ||
+                                    player.getWorld().getBiome(topPos).isIn(BiomeTags.IS_MOUNTAIN) ||
+                                    player.getWorld().getBiome(topPos).isIn(BiomeTags.IS_HILL)) :
+                            validTeleport;
+
+                    if (bl) {
                         player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(10));
                         if (!player.getAbilities().creativeMode) {
                             itemStack.decrement(1);
                         }
 
-                        if (world.getBlockState(pos).getBlock() == Blocks.WATER) {
-                            world.setBlockState(pos, Blocks.FROSTED_ICE.getDefaultState());
-                        } else if (world.getBlockState(pos).getBlock() == Blocks.LAVA) {
-                            world.setBlockState(pos, Blocks.BASALT.getDefaultState());
+                        if (world.getBlockState(topPos).getBlock() == Blocks.WATER) {
+                            world.setBlockState(topPos, Blocks.FROSTED_ICE.getDefaultState());
+                        } else if (world.getBlockState(topPos).getBlock() == Blocks.LAVA) {
+                            world.setBlockState(topPos, Blocks.BASALT.getDefaultState());
                         } else {
-                            world.setBlockState(pos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
+                            world.setBlockState(topPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
                         }
 
-                        boolean isAir = world.getBlockState(pos.up()).isAir() && world.getBlockState(pos.up(1)).isAir();
+                        boolean isAir = world.getBlockState(topPos.up()).isAir() && world.getBlockState(topPos.up(1)).isAir();
                         if (!isAir) {
                             for (int i = 1; i < 3; i++) {
-                                world.setBlockState(pos.up(i), Blocks.AIR.getDefaultState(), 3);
+                                world.setBlockState(topPos.up(i), Blocks.AIR.getDefaultState(), 3);
                             }
                         }
 
-                        player.teleport(player.getX(), y, player.getZ(), true);
+                        player.teleport(player.getX(), topY, player.getZ(), true);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
                         ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
@@ -80,10 +89,14 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
                         player.swingHand(hand, true);
                         return ActionResult.SUCCESS;
                     } else {
-                        player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.couldnt_teleport"), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                        if (!validTeleport) {
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.ender_thruster.couldnt_teleport"));
+                        } else {
+                            player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.cannot_teleport_doom_mode"), false);
+                        }
                     }
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.ender_thruster.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.AQUA, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.ender_thruster.wrong_dimension"), Formatting.AQUA, Formatting.WHITE);
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.BLUE), false);
@@ -101,6 +114,12 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.ender_thruster.tooltip"));
-        this.addStateOfTheArtItemTooltip(textConsumer);
+        if (isBalancedMode()) {
+            textConsumer.accept(ModTexts.STATE_OF_THE_ART_ITEM_DISABLED);
+        } else if (isDoomMode()) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_thruster.doom_mode.tooltip.line1").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_thruster.doom_mode.tooltip.line2").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_thruster.doom_mode.tooltip.line3").formatted(Formatting.GRAY));
+        }
     }
 }

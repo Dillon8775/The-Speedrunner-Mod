@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -31,7 +31,7 @@ import net.minecraft.world.World;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
@@ -47,9 +47,9 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
         ItemStack itemStack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
-            if (isPlayingModeEasy()) {
+            if (isEasyMode()) {
                 if (world.getRegistryKey() == World.NETHER) {
-                    player.sendMessage(this.calculatingText(), false);
+                    player.sendMessage(ModTexts.CALCULATING, false);
                     BlockPos blazeSpawnerPos = this.findNearestBlazeSpawner((ServerWorld)world, player.getBlockPos());
                     if (blazeSpawnerPos != null) {
                         player.teleport(blazeSpawnerPos.getX() + 0.5F, blazeSpawnerPos.getY() + 1.0F, blazeSpawnerPos.getZ() + 0.5F, true);
@@ -71,11 +71,11 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                         return ActionResult.SUCCESS;
                     } else {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 3.0F);
-                        player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.GOLD, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner"), Formatting.GOLD, Formatting.WHITE);
                     }
                 } else {
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
-                    player.sendMessage(Text.translatable("item.speedrunnermod.blaze_spotter.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.GOLD, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.blaze_spotter.wrong_dimension"), Formatting.GOLD, Formatting.WHITE);
                 }
             } else {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);

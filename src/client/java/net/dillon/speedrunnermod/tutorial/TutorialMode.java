@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 
@@ -15,8 +15,8 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Environment(EnvType.CLIENT)
@@ -107,11 +107,11 @@ public interface TutorialMode {
         }
         TutorialStep[] steps;
         List<TutorialStep> stepsList = new ArrayList<>(Arrays.stream(TutorialStep.values()).toList());
-        if (isPlayingModeBalanced()) {
+        if (isBalancedMode()) {
             for (TutorialStep excludedStep : EXCLUDED_BALANCED_MODE_STEPS) {
                 stepsList.remove(excludedStep);
             }
-        } else if (isPlayingModeDoom()) {
+        } else if (isDoomMode()) {
             stepsList = DOOM_MODE_STEPS;
         } else {
             for (TutorialStep excludedStep : EXCLUDED_EASY_MODE_STEPS) {
@@ -134,7 +134,7 @@ public interface TutorialMode {
      * Completes a tutorial step.
      */
     @AI
-    default void completeStep(TutorialStep step, PlayerEntity player, String... messageKey) {
+    default void completeStep(TutorialStep step, ClientPlayerEntity player, String... messageKey) {
         if (canComplete(step) && !this.getStep(step)) {
             setStep(step, true);
             List<String> translations = new ArrayList<>();
@@ -142,8 +142,8 @@ public interface TutorialMode {
                 sendWithPrefix(s, player);
                 translations.add(s);
             }
-            if ((!isPlayingModeDoom() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
-                    isPlayingModeDoom() && this.getStep(TutorialStep.EXIT_END)) {
+            if ((!isDoomMode() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
+                    isDoomMode() && this.getStep(TutorialStep.EXIT_END)) {
                 translations = List.of(); // blank list if tutorial mode is completed
             }
             ClientPlayNetworking.send(new TutorialStepCompleteC2SPacket(step, translations));

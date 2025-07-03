@@ -10,12 +10,9 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.glfw.GLFW;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
@@ -30,13 +27,13 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.enter_tutorial_mode"), button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.ENTER_TUTORIAL_MODE, button -> {
             clientOptions().client.tutorialMode.set(true);
             saveDedicatedServerChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.beginPlayingButton = this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.begin_playing"), button -> {
+        this.beginPlayingButton = this.addButtonObject(ButtonWidget.builder(ModTexts.BEGIN_PLAYING, button -> {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
@@ -45,7 +42,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
                 this.client.setScreen(new TitleScreen());
             }
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.BACK, button -> {
             this.client.setScreen(this.getPreviousScreen());
             restartRequired = false;
         }).build());
@@ -54,19 +51,9 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     @Override
     protected void renderTooltips(DrawContext context, int x, int y) {
         if (this.beginPlayingButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.begin_playing.tooltip"), context, x, y);
+            this.renderBasicTooltip(ModTexts.BEGIN_PLAYING_TOOLTIP, context, x, y);
         }
         super.renderTooltips(context, x, y);
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
-            warn("Please choose an option!");
-            return true;
-        } else {
-            return super.keyPressed(keyCode, scanCode, modifiers);
-        }
     }
 
     @Override

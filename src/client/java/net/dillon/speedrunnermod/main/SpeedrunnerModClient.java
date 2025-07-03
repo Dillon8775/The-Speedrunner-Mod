@@ -5,17 +5,15 @@ import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.option.BrokenModOptions;
-import net.dillon.speedrunnermod.option.ClientBrokenModOptions;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.Leaderboards;
+import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.gui.screen.Screen;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
@@ -51,11 +49,6 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         clientConfigHandler().load();
 
-        options().advanced.modIds.reset();
-        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
-            options().advanced.modIds.getCurrentValue().add(mod.getMetadata().getId()); // add all mod ids to list
-        }
-
         if (options().main.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
             speedrunIGTMissing = true;
             warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
@@ -64,7 +57,6 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         // For adding all screens to a list, without having to manually add them all
         Reflections modScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen", Scanners.SubTypes);
         Reflections featureScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.feature", Scanners.SubTypes);
-        Reflections changelogsDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.base.text.changelog", Scanners.SubTypes);
         Set<Class<? extends AbstractModScreen>> modScreenClasses = modScreenDirectory.getSubTypesOf(AbstractModScreen.class);
         Set<Class<? extends AbstractFeatureScreen>> featureScreenClasses = featureScreenDirectory.getSubTypesOf(AbstractFeatureScreen.class);
 
@@ -165,73 +157,12 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     /**
      * Fixes broken speedrunner mod options.
      */
-    public static void fixOptions() {
-        if (BrokenModOptions.playingMode) {
-            options().main.playingMode.reset();
-        }
-
-        if (BrokenModOptions.structureSpawnRates) {
-            options().main.structureSpawnRates.reset();
-        }
-
-        if (BrokenModOptions.blockBreakingMultiplier) {
-            options().main.blockBreakingMultiplier.reset();
-        }
-
-        if (BrokenModOptions.strongholdDistance) {
-            options().main.strongholdDistance.reset();
-        }
-
-        if (BrokenModOptions.strongholdSpread) {
-            options().main.strongholdSpread.reset();
-        }
-
-        if (BrokenModOptions.strongholdCount) {
-            options().main.strongholdCount.reset();
-        }
-
-        if (BrokenModOptions.strongholdPortalRoomCount) {
-            options().main.strongholdPortalRoomCount.reset();
-        }
-
-        if (BrokenModOptions.strongholdLibraryCount) {
-            options().main.strongholdLibraryCount.reset();
-        }
-
-        if (BrokenModOptions.netherPortalCooldown) {
-            options().main.netherPortalDelay.reset();
-        }
-
-        if (BrokenModOptions.mobSpawningRate) {
-            options().main.mobSpawningRate.reset();
-        }
-
-        if (BrokenModOptions.leaderboards) {
-            options().main.leaderboardsMode.reset();
-        }
-
-        if (BrokenModOptions.speedrunnersWastelandBiomeWeight) {
-            options().advanced.speedrunnersWastelandBiomeWeight.reset();
-        }
-
-        if (BrokenModOptions.iCarusFireworksInventorySlot) {
-            clientOptions().client.iCarusFireworksInventorySlot.reset();
-        }
-
-        if (BrokenModOptions.infiniPearlInventorySlot) {
-            clientOptions().client.infiniPearlInventorySlot.reset();
-        }
-
-        if (ClientBrokenModOptions.itemMessages) {
-            clientOptions().client.itemMessages.reset();
-        }
-
-        if (ClientBrokenModOptions.gameMode) {
-            clientOptions().client.gameMode.reset();
-        }
-
-        if (ClientBrokenModOptions.difficulty) {
-            clientOptions().client.difficulty.reset();
+    public static void fixAllBrokenOptions() {
+        for (OptionValue<?> option : OptionValue.getBrokenOptions()) {
+            if (option.isBroken()) {
+                option.reset();
+                option.setFixed();
+            }
         }
 
         saveAllChanges();

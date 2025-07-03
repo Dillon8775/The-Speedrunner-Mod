@@ -62,7 +62,7 @@ public abstract class ItemMixin {
             if (stack.isOf(ModItems.SPEEDRUNNER_BOAT)) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_SPEEDRUNNER_BOAT, player,
                         "speedrunnermod.tutorial_mode.speedrunner_boat_description",
-                        isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.craft_inferno_eye");
+                        isDoomMode() ? "speedrunnermod.tutorial_mode.craft_speedrunner_armor" : "speedrunnermod.tutorial_mode.craft_inferno_eye");
             }
 
             boolean[] speedrunnerArmorItem = new boolean[4];
@@ -81,7 +81,7 @@ public abstract class ItemMixin {
                 }
             }
             boolean bl = speedrunnerArmorItem[0] && speedrunnerArmorItem[1] && speedrunnerArmorItem[2] && speedrunnerArmorItem[3];
-            if (bl) {
+            if (bl && isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_SPEEDRUNNER_ARMOR, player, "speedrunnermod.tutorial_mode.craft_speedrunner_shield");
             }
 
@@ -92,11 +92,11 @@ public abstract class ItemMixin {
                 }
             }
 
-            if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
+            if (stack.isOf(Items.TOTEM_OF_UNDYING) && isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_TOTEM_OF_UNDYING, player, "speedrunnermod.tutorial_mode.free_fall_into_void");
             }
 
-            if (stack.isOf(ModItems.SPEEDRUNNERS_TOTEM)) {
+            if (stack.isOf(ModItems.SPEEDRUNNERS_TOTEM) && isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_SPEEDRUNNERS_TOTEM, player,
                         "speedrunnermod.tutorial_mode.speedrunners_totem_description",
                         "speedrunnermod.tutorial_mode.break_doom_block");
@@ -106,15 +106,15 @@ public abstract class ItemMixin {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_INFERNO_EYE, player, "speedrunnermod.tutorial_mode.inferno_eye_description");
             }
 
-            if (stack.isOf(ModItems.PIGLIN_AWAKENER)) {
+            if (stack.isOf(ModItems.PIGLIN_AWAKENER) && isEasyMode()) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_PIGLIN_AWAKENER, player, "speedrunnermod.tutorial_mode.use_piglin_awakener");
             }
 
-            if (stack.isOf(ModItems.BLAZE_SPOTTER)) {
+            if (stack.isOf(ModItems.BLAZE_SPOTTER) && isEasyMode()) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_BLAZE_SPOTTER, player, "speedrunnermod.tutorial_mode.use_blaze_spotter");
             }
 
-            if (stack.isOf(ModItems.ENDER_THRUSTER)) {
+            if (stack.isOf(ModItems.ENDER_THRUSTER) && isEasyMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_ENDER_THRUSTER, player, "speedrunnermod.tutorial_mode.use_ender_thruster");
             }
 
@@ -122,7 +122,7 @@ public abstract class ItemMixin {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.change_speedrunners_eye_locator");
             }
 
-            if (stack.isOf(Items.ENDER_EYE) && isPlayingModeBalanced()) {
+            if (stack.isOf(Items.ENDER_EYE) && isBalancedMode()) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_ENDER_EYE, player, "speedrunnermod.tutorial_mode.use_ender_eye");
             }
 
@@ -135,7 +135,7 @@ public abstract class ItemMixin {
 
             if (stack.isOf(ModItems.ANNUL_EYE)) {
                 ModUtil.completeStepS2C(TutorialStep.CRAFT_ANNUL_EYE, player,
-                        isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.find_experience_ore" : "speedrunnermod.tutorial_mode.use_annul_eye");
+                        isDoomMode() ? "speedrunnermod.tutorial_mode.find_experience_ore" : "speedrunnermod.tutorial_mode.use_annul_eye");
             }
 
             if (stack.isOf(ModItems.SPEEDRUNNERS_WORKBENCH)) {
@@ -144,30 +144,30 @@ public abstract class ItemMixin {
                         "speedrunnermod.tutorial_mode.transfer_enchantments");
             }
 
-            if (stack.isOf(ModItems.WITHER_BONE)) {
+            if (stack.isOf(ModItems.WITHER_BONE) && !isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_WITHER_BONE, player, "speedrunnermod.tutorial_mode.craft_wither_sword");
             }
 
-            if (stack.isOf(ModItems.WITHER_SWORD)) {
+            if (stack.isOf(ModItems.WITHER_SWORD) && !isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_WITHER_SWORD, player,
                         "speedrunnermod.tutorial_mode.wither_sword_description",
                         "speedrunnermod.tutorial_mode.almost_done",
                         "speedrunnermod.tutorial_mode.obtain_ender_matter");
             }
 
-            if (stack.isOf(ModItems.ENDER_MATTER)) {
+            if (stack.isOf(ModItems.ENDER_MATTER) && !isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_ENDER_MATTER, player,
-                        isPlayingModeEasy() ? "speedrunnermod.tutorial_mode.craft_dragons_sword" :
+                        isEasyMode() ? "speedrunnermod.tutorial_mode.craft_dragons_sword" :
                                 "speedrunnermod.tutorial_mode.craft_infini_pearl");
             }
 
-            if (stack.isOf(ModItems.DRAGONS_SWORD)) {
+            if (stack.isOf(ModItems.DRAGONS_SWORD) && !isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_DRAGONS_SWORD, player,
                         "speedrunnermod.tutorial_mode.dragons_sword_description",
                         "speedrunnermod.tutorial_mode.craft_infini_pearl");
             }
 
-            if (stack.isOf(ModItems.INFINI_PEARL)) {
+            if (stack.isOf(ModItems.INFINI_PEARL) && !isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.OBTAIN_INFINI_PEARL, player, "speedrunnermod.tutorial_mode.completed");
             }
         }

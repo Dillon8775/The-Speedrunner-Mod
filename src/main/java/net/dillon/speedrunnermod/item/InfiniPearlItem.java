@@ -41,7 +41,7 @@ public class InfiniPearlItem extends EnderPearlItem  {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_PEARL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
-        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment(player, ModEnchantments.COOLDOWN), player);
+        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment(player, ModEnchantments.COOLDOWN), player);
         int cooldown = coolEnchantment > 3 ? 20 : coolEnchantment == 3 ? 25 : coolEnchantment == 2 ? 30 : coolEnchantment == 1 ? 45 : 60;
         player.getItemCooldownManager().set(this.getDefaultStack(), cooldown);
 

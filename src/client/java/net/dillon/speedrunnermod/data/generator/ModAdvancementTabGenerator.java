@@ -44,7 +44,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNERS_WORKBENCH,
                         Text.translatable("advancements.speedrunnermod.title"),
                         Text.translatable("advancements.speedrunnermod.description"),
-                        Identifier.ofVanilla("textures/gui/advancements/backgrounds/stone.png"),
+                        Identifier.ofVanilla("gui/advancements/backgrounds/stone"),
                         AdvancementFrame.TASK,
                         false,
                         false,

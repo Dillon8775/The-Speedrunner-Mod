@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,8 +27,7 @@ import net.minecraft.world.World;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeEasy;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
@@ -74,23 +73,22 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_VILLAGER_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                     }
 
-                    player.sendMessage(Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
                 } else {
-                    player.sendMessage(this.calculatingText(), false);
+                    player.sendMessage(ModTexts.CALCULATING, false);
                     ServerWorld serverWorld = (ServerWorld)world;
                     BlockPos playerpos = player.getBlockPos();
                     ModUtil.findStructureAndShoot(world, player, itemStack, itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
                     BlockPos blockPos = serverWorld.locateStructure(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE), playerpos, 100, false);
                     int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-                    player.sendMessage(this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                    ModUtil.sendMessageWithActionbarPref(player, this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
 
-                    if (isPlayingModeEasy() || isPlayingModeDoom()) {
-                        ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player,
-                                "speedrunnermod.tutorial_mode.craft_dragons_pearl", "speedrunnermod.tutorial_mode.dragons_pearl_recipe");
-                    } else {
-                        ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player, "speedrunnermod.tutorial_mode.craft_ender_eye");
-                    }
+                    String[] messages = !isBalancedMode() ?
+                            new String[]{"speedrunnermod.tutorial_mode.craft_dragons_pearl",
+                                    "speedrunnermod.tutorial_mode.dragons_pearl_recipe"} :
+                            new String[]{"speedrunnermod.tutorial_mode.craft_ender_eye"};
+                    ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player, messages);
 
                     if (!player.getAbilities().creativeMode) {
                         itemStack.decrement(1);
@@ -101,7 +99,7 @@ public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
                 player.swingHand(hand, true);
                 return ActionResult.SUCCESS;
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.speedrunners_eye.wrong_dimension").formatted(ModUtil.toFormatting(player.getUuid(), Formatting.AQUA, Formatting.WHITE)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.speedrunners_eye.wrong_dimension"), Formatting.AQUA, Formatting.WHITE);
             }
         }
 

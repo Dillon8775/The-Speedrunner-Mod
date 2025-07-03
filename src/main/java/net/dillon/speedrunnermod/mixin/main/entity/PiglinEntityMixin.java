@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(PiglinEntity.class)
 public abstract class PiglinEntityMixin extends AbstractPiglinEntity {
@@ -29,7 +29,7 @@ public abstract class PiglinEntityMixin extends AbstractPiglinEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PiglinEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PiglinEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
         }
         return super.getExperienceToDrop(world);
     }
@@ -40,9 +40,9 @@ public abstract class PiglinEntityMixin extends AbstractPiglinEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createPiglinAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 24.0D : 16.0D;
+        final double genericMaxHealth = isDoomMode() ? 24.0D : 16.0D;
         final double genericMovementSpeed = 0.3499999940395355D;
-        final double genericAttackDamage =  isPlayingModeDoom() ? 6.0D : 2.0D;
+        final double genericAttackDamage =  isDoomMode() ? 6.0D : 2.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

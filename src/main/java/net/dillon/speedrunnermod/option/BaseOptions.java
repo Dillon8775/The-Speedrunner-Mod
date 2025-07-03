@@ -10,6 +10,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.OPTIONS_ERROR_MESSAGE;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.error;
+import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
+
 /**
  * The base class for registering options on different environment sides.
  */
@@ -47,6 +51,15 @@ public abstract class BaseOptions<T> {
      * <p>If an option is broken or invalid, and it is not recommended to run, the user will automatically boot into the Safe boot screen.</p>
      */
     protected abstract void safeCheck();
+
+    /**
+     * Sets an option to be broken and logs it.
+     */
+    public void setBroken(OptionValue<?> option, String value) {
+        error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options."+value);
+        isSafe(false);
+        option.setBroken();
+    }
 
     /**
      * Creates the {@code GSON reader,} which reads options correctly.

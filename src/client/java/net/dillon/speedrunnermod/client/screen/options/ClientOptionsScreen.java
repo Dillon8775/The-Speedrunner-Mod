@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.client.util.ButtonSide;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -28,9 +27,9 @@ public class ClientOptionsScreen extends AbstractModScreen {
      */
     private SimpleOption<?>[] clientOptions(GameOptions gameOptions) {
         return new SimpleOption[]{
-                ModListOptions.FOG,
+                ModListOptions.fog(),
                 gameOptions.getGamma(),
-                ModListOptions.ITEM_MESSAGES
+                ModListOptions.itemMessages()
         };
     }
 
@@ -38,15 +37,15 @@ public class ClientOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(clientOptions(this.gameOptions));
-        this.lockOption(0, ButtonSide.LARGE, SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue());
         this.addSelectableChild(this.optionList);
     }
 
     @Override
-    protected void renderOptionTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
+        this.lockOption(ModListOptions.fog(), SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue());
+
         this.renderOptionTooltip(
-                0,
-                ButtonSide.LEFT,
+                ModListOptions.fog(),
                 SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.fog.tooltip"),
                 Text.translatable("speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip"),

@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(BlazeEntity.class)
 public class BlazeEntityMixin extends HostileEntity {
@@ -28,7 +28,7 @@ public class BlazeEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((BlazeEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 48;
+            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((BlazeEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 48;
         }
         return super.getExperienceToDrop(world);
     }
@@ -39,9 +39,9 @@ public class BlazeEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createBlazeAttributes() {
-        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0D;
+        final double genericAttackDamage = isDoomMode() ? 8.0D : 4.0D;
         final double genericMovementSpeed = 0.23000000417232513D;
-        final double genericFollowRange = isPlayingModeDoom() ? 48.0D : 16.0D;
+        final double genericFollowRange = isDoomMode() ? 48.0D : 16.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

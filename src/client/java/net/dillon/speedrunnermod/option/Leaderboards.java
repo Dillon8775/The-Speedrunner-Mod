@@ -71,7 +71,7 @@ public class Leaderboards {
         ineligibleOptions.clear();
         if (!areStructureSpawnRatesEligible()) {
             warnIneligible("Structure Spawn Rates");
-            addIneligible("structure_spawn_rates", withFormatting(options.structureSpawnRates.toString(), isStructureSpawnRatesEverywhere() ? Formatting.AQUA : isStructureSpawnRatesDefault() || options.structureSpawnRates.getCurrentValue().equals(ModOptions.StructureSpawnRate.DISABLED) ? Formatting.WHITE : isStructureSpawnRatesRare() ? Formatting.LIGHT_PURPLE : isStructureSpawnRatesVeryRare() ? Formatting.DARK_PURPLE : Formatting.RED, Formatting.BOLD));
+            addIneligible("structure_spawn_rates", withFormatting(options.structureSpawnRates.toString(), isSsrEverywhere() ? Formatting.AQUA : isSsrDefault() || isSsrDefault() ? Formatting.WHITE : isSsrRare() ? Formatting.LIGHT_PURPLE : isSsrVeryRare() ? Formatting.DARK_PURPLE : Formatting.RED, Formatting.BOLD));
         }
 
         if (!isDragonPerchTimeEligible()) {
@@ -398,9 +398,9 @@ public class Leaderboards {
     }
 
     private static boolean areStructureSpawnRatesEligible() {
-        return isStructureSpawnRatesVeryCommon() ||
-                isStructureSpawnRatesCommon() ||
-                isStructureSpawnRatesNormal();
+        return isSsrVeryCommon() ||
+                isSsrCommon() ||
+                isSsrNormal();
     }
 
     private static boolean isBlockBreakingMultiplierEligible() {

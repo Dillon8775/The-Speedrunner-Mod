@@ -3,17 +3,17 @@ package net.dillon.speedrunnermod.client.screen.feature.toolsandarmor;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class SpeedrunnerSafeBootsScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerSafeBootsScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots"));
+        super(parent, ModTexts.TITLE_FEATURE_SPEEDRUNNER_SAFE_BOOTS);
     }
 
     @Override

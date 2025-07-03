@@ -61,6 +61,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
         if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
             this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
         }
+        super.close();
     }
 
     @Override
@@ -102,6 +103,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * Gets the current options when opening the screen.
      */
+    @AI
     public static void getCurrentOptions() {
         restartTrackedValues.clear();
         initialValues.clear();
@@ -114,6 +116,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * Scans each option in the {@code options class} to determine if it requires a restart.
      */
+    @AI
     private static void scanOptions(Object optionsClass) {
         if (optionsClass == null) {
             SpeedrunnerMod.error("Options class is null");
@@ -154,6 +157,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * @return {@code true} if the game needs a restart due to a {@code restart required} option.
      */
+    @AI
     public static boolean needsRestart() {
         for (int i = 0; i < restartTrackedValues.size(); i++) {
             OptionValue<?> option = restartTrackedValues.get(i);

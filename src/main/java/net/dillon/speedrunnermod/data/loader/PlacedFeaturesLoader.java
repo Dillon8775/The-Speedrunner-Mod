@@ -23,7 +23,7 @@ public class PlacedFeaturesLoader {
         for (JsonElement element : placement) {
             JsonObject placementObj = element.getAsJsonObject();
             if (placementObj.has("type") && placementObj.get("type").getAsString().equals("minecraft:count")) {
-                placementObj.addProperty("count", isStructureSpawnRatesEverywhere() || isStructureSpawnRatesVeryCommonOrCommon() || isStructureSpawnRatesNormal() ? 16 : 8);
+                placementObj.addProperty("count", isSsrEverywhere() || isSsrVeryCommonCommon() || isSsrNormal() ? 16 : 8);
                 break;
             }
         }

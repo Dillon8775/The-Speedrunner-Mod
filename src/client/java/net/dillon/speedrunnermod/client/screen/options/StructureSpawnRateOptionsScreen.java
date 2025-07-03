@@ -26,16 +26,16 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
      */
     private SimpleOption<?>[] structures() {
         return new SimpleOption[]{
-                ModListOptions.structureSpawnRate(TranslationStringKeys.VILLAGE),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.ANCIENT_CITY),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.DESERT_PYRAMID),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.JUNGLE_PYRAMID),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.PILLAGER_OUTPOST),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.END_CITY),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.WOODLAND_MANSION),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.RUINED_PORTAL),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.SHIPWRECK),
-                ModListOptions.structureSpawnRate(TranslationStringKeys.TRIAL_CHAMBER)
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.VILLAGE),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.ANCIENT_CITY),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.DESERT_PYRAMID),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.JUNGLE_PYRAMID),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.PILLAGER_OUTPOST),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.END_CITY),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.WOODLAND_MANSION),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.RUINED_PORTAL),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.SHIPWRECK),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.TRIAL_CHAMBER)
         };
     }
 
@@ -43,7 +43,7 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addAll(structures());
-        this.optionList.addSingleOptionEntry(ModListOptions.structureSpawnRate(TranslationStringKeys.NETHER_COMPLEXES));
+        this.optionList.addSingleOptionEntry(ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.NETHER_COMPLEXES));
 
         this.addSelectableChild(this.optionList);
         this.configFile = configHandler().getConfigFile();

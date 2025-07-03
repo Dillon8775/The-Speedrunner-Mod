@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
@@ -21,10 +20,10 @@ public class KeyFeaturesScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.next"), button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.NEXT, button -> {
             this.client.setScreen(this.getNextScreen());
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.BACK, button -> {
             this.client.setScreen(this.getPreviousScreen());
         }).build());
     }

@@ -16,7 +16,7 @@ import net.minecraft.world.gen.GenerationStep;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * All Speedrunner Mod {@code custom world gen features.}
@@ -36,7 +36,7 @@ public class ModWorldGen {
         addOres();
         addVegetalDecoration();
 
-        if (isPlayingModeDoom()) {
+        if (isDoomMode()) {
             if (options().main.strongholdLibraryCount.getCurrentValue() > 5) {
                 options().main.strongholdLibraryCount.set(5);
                 warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
@@ -135,7 +135,7 @@ public class ModWorldGen {
                     GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_FANCY_SPEEDRUNNER_PLACED);
         }
 
-        if (isPlayingModeDoom()) {
+        if (isDoomMode()) {
             BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(),
                     GenerationStep.Feature.VEGETAL_DECORATION,
                     ModPlacedFeatures.DOOM_TREE_PLACED);
@@ -143,7 +143,7 @@ public class ModWorldGen {
     }
 
     static {
-        MODIFIED_STRONGHOLD_PIECES = isPlayingModeDoom() ? // Doom Mode generation
+        MODIFIED_STRONGHOLD_PIECES = isDoomMode() ? // Doom Mode generation
                 new StrongholdGenerator.PieceData[]{
                         new StrongholdGenerator.PieceData(StrongholdGenerator.Corridor.class, 25, 5),
                         new StrongholdGenerator.PieceData(StrongholdGenerator.PrisonHall.class, 50, 5),
@@ -207,7 +207,7 @@ public class ModWorldGen {
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2),
                 new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 20, 2)};
 
-        NETHER_FORTRESS_MOB_SPAWNS = isPlayingModeDoom() ?
+        NETHER_FORTRESS_MOB_SPAWNS = isDoomMode() ?
                 Pool.<SpawnSettings.SpawnEntry>builder()
                         .add(new SpawnSettings.SpawnEntry(EntityType.BLAZE, 1, 4), 50)
                         .add(new SpawnSettings.SpawnEntry(EntityType.PIGLIN_BRUTE, 2, 4), 25)

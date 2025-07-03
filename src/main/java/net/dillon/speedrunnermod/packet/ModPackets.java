@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.packet;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.packet.client.CheckPlayingModeS2CPacket;
+import net.dillon.speedrunnermod.packet.client.CheckModeS2CPacket;
 import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
 import net.dillon.speedrunnermod.packet.client.MatchClientOptionsWithServerS2CPacket;
 import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
@@ -75,7 +75,7 @@ public class ModPackets {
     private static void registerS2COnServer() {
         // Only register on server
         if (isEnvironmentTypeServer()) {
-            PayloadTypeRegistry.playS2C().register(CheckPlayingModeS2CPacket.PACKET, CheckPlayingModeS2CPacket.CODEC);
+            PayloadTypeRegistry.playS2C().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(CompleteTutorialStepS2CPacket.PACKET, CompleteTutorialStepS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(UpdateLastCompletedTutorialStepTranslationsS2CPacket.PACKET, UpdateLastCompletedTutorialStepTranslationsS2CPacket.CODEC);
@@ -86,7 +86,7 @@ public class ModPackets {
      * Registers {@code join and disconnect} events on the server-side.
      */
     private static void registerDedicatedServerJoinAndDisconnectEvents() {
-        // When a player joins the server, send the CheckPlayingModeS2CPacket over to client, to check if client-side playing mode matches server-side playing mode
+        // When a player joins the server, send the CheckPlayingModeS2CPacket over to client, to check if client-side playing mode matches server-side mode
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             ServerPlayerEntity player = handler.getPlayer();
             if (player != null) {
@@ -137,7 +137,7 @@ public class ModPackets {
             // Make sure each player's playing mode always matches each tick
             ServerTickEvents.END_SERVER_TICK.register(server -> {
                 for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                    ServerPlayNetworking.send(player, new CheckPlayingModeS2CPacket(options().main.playingMode.getCurrentValue()));
+                    ServerPlayNetworking.send(player, new CheckModeS2CPacket(options().main.mode.getCurrentValue()));
                 }
             });
         }

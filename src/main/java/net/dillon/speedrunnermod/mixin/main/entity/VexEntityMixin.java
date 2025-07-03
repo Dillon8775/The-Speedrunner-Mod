@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(VexEntity.class)
 public class VexEntityMixin extends HostileEntity {
@@ -33,7 +33,7 @@ public class VexEntityMixin extends HostileEntity {
     @Override
     public int getExperienceToDrop(ServerWorld world) {
         if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((VexEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
+            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((VexEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
         }
         return super.getExperienceToDrop(world);
     }
@@ -44,8 +44,8 @@ public class VexEntityMixin extends HostileEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createVexAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 7.0D : 14.0D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 3.0D : 4.0D;
+        final double genericMaxHealth = isDoomMode() ? 7.0D : 14.0D;
+        final double genericAttackDamage = isDoomMode() ? 3.0D : 4.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage);
@@ -57,7 +57,7 @@ public class VexEntityMixin extends HostileEntity {
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/VexEntity;noClip:Z"))
     private void setNoClip(VexEntity vex, boolean value) {
-        vex.noClip = !isPlayingModeDoom();
+        vex.noClip = !isDoomMode();
     }
 
     /**
@@ -73,6 +73,6 @@ public class VexEntityMixin extends HostileEntity {
      */
     @Override
     public boolean handleFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
-        return !isPlayingModeDoom();
+        return !isDoomMode();
     }
 }

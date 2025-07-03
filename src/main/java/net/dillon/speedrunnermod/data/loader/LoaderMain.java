@@ -9,7 +9,7 @@ import net.dillon.speedrunnermod.util.AI;
 import java.util.Map;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * Contains helper methods used to create certain objects and arrays in JSON files.
@@ -69,7 +69,7 @@ public class LoaderMain {
             }
         }
 
-        if (isPlayingModeDoom()) {
+        if (isDoomMode()) {
             JsonObject vindicator = new JsonObject();
             vindicator.addProperty("type", "minecraft:vindicator");
             vindicator.addProperty("maxCount", 4);

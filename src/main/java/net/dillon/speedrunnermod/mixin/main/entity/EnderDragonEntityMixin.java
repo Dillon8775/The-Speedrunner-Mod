@@ -33,8 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeBalanced;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
@@ -127,8 +127,8 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
         if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
-            boolean bl = !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isPlayingModeBalanced();
-            if ((isPlayingModeDoom() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) || bl) {
+            boolean bl = !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
+            if ((isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) || bl) {
                 this.setHealth(1.0F);
                 if (bl && !this.isGiantOrWitherAlive()) {
                     List<String> translations = new ArrayList<>();
@@ -140,7 +140,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             } else {
                 PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
                 ModUtil.completeStepS2C(TutorialStep.KILL_DRAGON, player,
-                        isPlayingModeDoom() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
+                        isDoomMode() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
                                 "speedrunnermod.tutorial_mode.killed_dragon");
                 super.onDeath(source);
             }
@@ -165,7 +165,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                 return false;
             }
 
-            if (isPlayingModeDoom() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) {
+            if (isDoomMode() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) {
                 return false;
             } else {
                 if (source.getAttacker() instanceof PlayerEntity || source.isIn(DamageTypeTags.ALWAYS_HURTS_ENDER_DRAGONS)) {

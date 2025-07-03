@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(HoglinEntity.class)
 public abstract class HoglinEntityMixin extends AnimalEntity {
@@ -28,7 +28,7 @@ public abstract class HoglinEntityMixin extends AnimalEntity {
      */
     @Override
     public int getExperienceToDrop(ServerWorld world) {
-        int looting = this.getAttacker() != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((HoglinEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36 : 0;
+        int looting = this.getAttacker() != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((HoglinEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36 : 0;
         return this.experiencePoints + looting;
     }
 
@@ -38,11 +38,11 @@ public abstract class HoglinEntityMixin extends AnimalEntity {
      */
     @Overwrite
     public static DefaultAttributeContainer.Builder createHoglinAttributes() {
-        final double genericMaxHealth = isPlayingModeDoom() ? 60.0D : 25.0D;
+        final double genericMaxHealth = isDoomMode() ? 60.0D : 25.0D;
         final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericKnockbackResistance = isPlayingModeDoom() ? 0.7000000238518589D : 0.6000000238418579D;
-        final double genericAttackKnockback = isPlayingModeDoom() ? 1.2D : 0.5D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 8.0D : 4.0D;
+        final double genericKnockbackResistance = isDoomMode() ? 0.7000000238518589D : 0.6000000238418579D;
+        final double genericAttackKnockback = isDoomMode() ? 1.2D : 0.5D;
+        final double genericAttackDamage = isDoomMode() ? 8.0D : 4.0D;
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

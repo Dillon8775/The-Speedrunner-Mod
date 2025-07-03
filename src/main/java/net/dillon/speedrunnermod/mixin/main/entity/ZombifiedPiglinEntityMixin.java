@@ -7,7 +7,7 @@ import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(ZombifiedPiglinEntity.class)
 public class ZombifiedPiglinEntityMixin {
@@ -19,8 +19,8 @@ public class ZombifiedPiglinEntityMixin {
     @Overwrite
     public static DefaultAttributeContainer.Builder createZombifiedPiglinAttributes() {
         final double zombieSpawnReinforcements = 0.0D;
-        final double genericMovementSpeed = isPlayingModeDoom() ? 0.33000000427232513D : 0.23000000427232513D;
-        final double genericAttackDamage = isPlayingModeDoom() ? 7.0D : 2.0D;
+        final double genericMovementSpeed = isDoomMode() ? 0.33000000427232513D : 0.23000000427232513D;
+        final double genericAttackDamage = isDoomMode() ? 7.0D : 2.0D;
         return ZombieEntity.createZombieAttributes()
                 .add(EntityAttributes.SPAWN_REINFORCEMENTS, zombieSpawnReinforcements)
                 .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)

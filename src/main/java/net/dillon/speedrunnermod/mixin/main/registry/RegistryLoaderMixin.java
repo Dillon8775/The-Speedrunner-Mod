@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Decoder;
 import net.dillon.speedrunnermod.data.loader.*;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
@@ -21,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isSsrDefault;
 
 @Mixin(RegistryLoader.class)
 public class RegistryLoaderMixin {
@@ -108,7 +108,7 @@ public class RegistryLoaderMixin {
                 }
             }
 
-            if (!options().main.structureSpawnRates.getCurrentValue().equals(ModOptions.StructureSpawnRate.DISABLED)) {
+            if (!isSsrDefault()) {
                 if (fileName.equals(JsonIdentifiers.ANCIENT_CITIES)) {
                     StructuresLoader.modifyAncientCities(jsonElement);
                 }

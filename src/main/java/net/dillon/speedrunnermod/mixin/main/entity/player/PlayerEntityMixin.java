@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isPlayingModeDoom;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
@@ -58,9 +58,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
     private void takeShieldHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
-        if (isPlayingModeDoom()) {
+        if (isDoomMode()) {
             if (attacker instanceof GiantEntity) {
-                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.entityEnchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
+                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
                 int shieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 10 : coolEnchantment == 4 ? 25 : coolEnchantment == 3 ? 50 : coolEnchantment == 2 ? 100 : coolEnchantment == 1 ? 150 : 200;
                 int speedrunnerShieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 15 : coolEnchantment == 3 ? 25 : coolEnchantment == 2 ? 75 : coolEnchantment == 1 ? 150 : 180;
                 this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), shieldCooldown);
@@ -126,11 +126,11 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
                 PlayerEntity player = (PlayerEntity) (Object)this;
                 if (player instanceof ServerPlayerEntity serverPlayer && !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.FREE_FALL_INTO_VOID)) {
-                    if (!player.getInventory().contains(Items.TOTEM_OF_UNDYING.getDefaultStack())) {
-                        player.getInventory().offerOrDrop(Items.TOTEM_OF_UNDYING.getDefaultStack());
+                    if (!serverPlayer.getInventory().contains(Items.TOTEM_OF_UNDYING.getDefaultStack())) {
+                        serverPlayer.getInventory().offerOrDrop(Items.TOTEM_OF_UNDYING.getDefaultStack());
                     }
-                    if (!player.getInventory().contains(ModItems.ENDER_MATTER.getDefaultStack())) {
-                        player.getInventory().offerOrDrop(ModItems.ENDER_MATTER.getDefaultStack());
+                    if (!serverPlayer.getInventory().contains(ModItems.ENDER_MATTER.getDefaultStack())) {
+                        serverPlayer.getInventory().offerOrDrop(ModItems.ENDER_MATTER.getDefaultStack());
                     }
                     ModUtil.completeStepS2C(TutorialStep.FREE_FALL_INTO_VOID, serverPlayer,
                             "speedrunnermod.tutorial_mode.craft_speedrunners_totem");
