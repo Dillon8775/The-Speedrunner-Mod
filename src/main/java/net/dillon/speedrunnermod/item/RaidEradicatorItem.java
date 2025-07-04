@@ -49,7 +49,7 @@ public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
         player.setCurrentHand(hand);
         if (!world.isClient && world instanceof ServerWorld serverWorld) {
             if (!isBalancedMode()) {
-                List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().getFirst(), options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().get(1), options().advanced.raidEradicatorDistanceXYZ.getCurrentValue().get(2)), entity -> true);
+                List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorSearchRadius.getCurrentValue().getFirst(), options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(1), options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(2)), entity -> true);
 
                 if (!raiders.isEmpty()) {
                     boolean hasTotemEquipped = player.getInventory().contains(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack()) || player.getMainHandStack().isIn(ModItemTags.TOTEMS) || player.getOffHandStack().isIn(ModItemTags.TOTEMS);

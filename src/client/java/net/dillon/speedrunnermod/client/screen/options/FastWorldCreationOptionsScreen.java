@@ -44,36 +44,19 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
-        this.lockOption(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue());
-        this.lockOption(ModListOptions.difficulty(), clientOptions().client.fastWorldCreation.getCurrentValue());
-        this.lockOption(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue());
-
-        this.renderOptionTooltip(
-                ModListOptions.gameMode(),
-                clientOptions().client.fastWorldCreation.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.difficulty.tooltip"),
-                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.difficulty(),
-                clientOptions().client.fastWorldCreation.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.difficulty(), clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
-                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.allowCheats(),
-                clientOptions().client.fastWorldCreation.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.gamemode.tooltip"),
-                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
     }
 

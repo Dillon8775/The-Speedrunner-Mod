@@ -76,96 +76,49 @@ public class MainOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
-        this.lockOption(ModListOptions.mode(), !this.isOnServer());
-        this.lockOption(ModListOptions.structureSpawnRate(), options().main.customDataGeneration.getCurrentValue());
-        this.lockOption(ModListOptions.blockBreakingMultiplier(), options().main.fasterBlockBreaking.getCurrentValue());
-        this.lockOption(ModListOptions.strongholdCount(), options().main.customDataGeneration.getCurrentValue());
-        this.lockOption(ModListOptions.strongholdDistance(), options().main.customDataGeneration.getCurrentValue());
-        this.lockOption(ModListOptions.strongholdSpread(), options().main.customDataGeneration.getCurrentValue());
-        this.lockOption(ModListOptions.strongholdPortalRoomCount(), options().main.customDataGeneration.getCurrentValue());
-        this.lockOption(ModListOptions.strongholdLibraryCount(), options().main.customDataGeneration.getCurrentValue());
-        this.lockOption(ModListOptions.customBiomesAndCustomBiomeFeatures(), options().main.customDataGeneration.getCurrentValue());
-
-        this.renderOptionTooltip(
-                ModListOptions.mode(),
-                !this.isOnServer(),
+        this.lockOptionWithTooltip(ModListOptions.mode(), !this.isOnServer(),
                 Text.translatable("speedrunnermod.options.mode.tooltip"),
-                Text.translatable("speedrunnermod.options.mode.server.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.mode.server.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.structureSpawnRate(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.structureSpawnRate(), options().main.customDataGeneration.getCurrentValue(),
                 ModListOptions.structureSpawnRateTooltip(),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.blockBreakingMultiplier(),
-                options().main.fasterBlockBreaking.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.blockBreakingMultiplier(), options().main.fasterBlockBreaking.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip"),
-                Text.translatable("speedrunnermod.options.block_breaking_multiplier.inactive"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.block_breaking_multiplier.inactive")
         );
-        this.renderOptionTooltip(
-                ModListOptions.strongholdCount(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.strongholdCount(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_count.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.strongholdDistance(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.strongholdDistance(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_distance.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.strongholdSpread(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.strongholdSpread(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_spread.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.strongholdPortalRoomCount(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.strongholdPortalRoomCount(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.strongholdLibraryCount(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.strongholdLibraryCount(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
-        this.renderOptionTooltip(
-                ModListOptions.customBiomesAndCustomBiomeFeatures(),
-                options().main.customDataGeneration.getCurrentValue(),
+
+        this.lockOptionWithTooltip(ModListOptions.customBiomesAndCustomBiomeFeatures(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
     }
 

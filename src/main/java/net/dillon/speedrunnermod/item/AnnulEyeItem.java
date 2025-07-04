@@ -134,7 +134,13 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
      */
     @AI
     private BlockPos findEndPortalFrame(World world, BlockPos strongholdPos) {
-        for (BlockPos pos : BlockPos.iterate(strongholdPos.add(options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().getFirst(), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(1), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(2)), strongholdPos.add(options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(3), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(4), options().advanced.annulEyePortalRoomDistanceXYZ.getCurrentValue().get(5)))) {
+        for (BlockPos pos : BlockPos.iterate(strongholdPos.add(
+                options().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
+                options().advanced.annulEyeSearchRadius.getCurrentValue().get(1),
+                options().advanced.annulEyeSearchRadius.getCurrentValue().get(2)),
+                strongholdPos.add(options().advanced.annulEyeSearchRadius.getCurrentValue().get(3),
+                        options().advanced.annulEyeSearchRadius.getCurrentValue().get(4),
+                        options().advanced.annulEyeSearchRadius.getCurrentValue().get(5)))) {
             if (world.getBlockState(pos).getBlock().equals(Blocks.END_PORTAL_FRAME)) {
                 return pos.toImmutable();
             }

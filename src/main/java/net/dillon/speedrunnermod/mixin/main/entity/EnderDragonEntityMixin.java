@@ -94,7 +94,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
             World world = this.getEntityWorld();
 
             List<HostileEntity> hostiles = world.getEntitiesByClass(HostileEntity.class,
-                    dragon.getBoundingBox().expand(options().advanced.dragonKillsHostileEntitiesDistance.getCurrentValue().getFirst(), options().advanced.dragonKillsHostileEntitiesDistance.getCurrentValue().get(1), options().advanced.dragonKillsHostileEntitiesDistance.getCurrentValue().get(2)), entity -> true);
+                    dragon.getBoundingBox().expand(options().advanced.dragonMassKillRadius.getCurrentValue().getFirst(), options().advanced.dragonMassKillRadius.getCurrentValue().get(1), options().advanced.dragonMassKillRadius.getCurrentValue().get(2)), entity -> true);
 
             for (HostileEntity hostile : hostiles) {
                 if (!(hostile instanceof EndermanEntity) && !hostile.hasCustomName()) {
@@ -198,9 +198,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     private boolean isGiantOrWitherAlive() {
         EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
         List<GiantEntity> giants = this.getWorld().getEntitiesByClass(GiantEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForGoliath.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionDistanceForGoliath.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionDistanceForGoliath.getCurrentValue().get(2)), entity -> true);
+                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(2)), entity -> true);
         List<WitherEntity> withers = this.getWorld().getEntitiesByClass(WitherEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionDistanceForWither.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionDistanceForWither.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionDistanceForWither.getCurrentValue().get(2)), entity -> true);
+                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(2)), entity -> true);
 
         for (GiantEntity giant : giants) {
             if (giant.isAlive()) {

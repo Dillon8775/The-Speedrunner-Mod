@@ -235,7 +235,7 @@ public class ModUtil {
     /**
      * Creates an {@code integer list option,} with {@code positive} coordinate values.
      */
-    public static List<Double> createListOption(double posX, double posY, double posZ) {
+    public static List<Integer> createListOption(int posX, int posY, int posZ) {
         return List.of(posX, posY, posZ);
     }
 

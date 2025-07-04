@@ -42,16 +42,9 @@ public class ClientOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
-        this.lockOption(ModListOptions.fog(), SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue());
-
-        this.renderOptionTooltip(
-                ModListOptions.fog(),
-                SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.fog(), SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.fog.tooltip"),
-                Text.translatable("speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip"),
-                context,
-                mouseX,
-                mouseY
+                Text.translatable("speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip")
         );
     }
 

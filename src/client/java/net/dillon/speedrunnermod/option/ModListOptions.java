@@ -12,7 +12,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
@@ -77,30 +79,27 @@ public class ModListOptions {
     }
 
     public static SimpleOption<Boolean> tutorialMode() {
-        return new SimpleOption<>("speedrunnermod.options.tutorial_mode",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.tutorial_mode",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.tutorial_mode.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                clientOptions().client.tutorialMode.getCurrentValue(),
-                value -> clientOptions().client.tutorialMode.set(value));
+                clientOptions().client.tutorialMode
+        );
     }
 
     public static SimpleOption<Boolean> fasterBlockBreaking() {
-        return new SimpleOption<>("speedrunnermod.options.faster_block_breaking",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.faster_block_breaking",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.fasterBlockBreaking.getCurrentValue(),
-                value -> options().main.fasterBlockBreaking.set(value));
+                options().main.fasterBlockBreaking
+        );
     }
 
     public static SimpleOption<Boolean> icarusMode() {
-        return new SimpleOption<>("speedrunnermod.options.icarus_mode",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.icarus_mode",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.icarus_mode.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.iCarusMode.getCurrentValue(),
-                value -> options().main.iCarusMode.set(value));
+                options().main.iCarusMode
+        );
     }
 
     public static SimpleOption<Boolean> fog() {
@@ -116,363 +115,344 @@ public class ModListOptions {
     }
 
     public static SimpleOption<Boolean> infiniPearlMode() {
-        return new SimpleOption<>("speedrunnermod.options.infini_pearl_mode",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.infini_pearl_mode",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.infini_pearl_mode.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.infiniPearlMode.getCurrentValue(),
-                value -> options().main.infiniPearlMode.set(value));
+                options().main.infiniPearlMode
+        );
     }
 
     @Deprecated
     public static SimpleOption<Boolean> leaderboardsMode() {
-        return new SimpleOption<>("speedrunnermod.options.leaderboards_mode",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.leaderboards_mode",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.leaderboards_mode.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.leaderboardsMode.getCurrentValue(),
-                value -> options().main.leaderboardsMode.set(value));
+                options().main.leaderboardsMode
+        );
     }
 
     public static SimpleOption<Boolean> killGhastOnFireball() {
-        return new SimpleOption<>("speedrunnermod.options.kill_ghast_on_fireball",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.kill_ghast_on_fireball",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kill_ghast_on_fireball.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.killGhastOnFireball.getCurrentValue(),
-                value -> options().main.killGhastOnFireball.set(value));
+                options().main.killGhastOnFireball
+        );
     }
 
     public static SimpleOption<Boolean> betterVillagerTrades() {
-        return new SimpleOption<>("speedrunnermod.options.better_villager_trades",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.better_villager_trades",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_villager_trades.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.betterVillagerTrades.getCurrentValue(),
-                value -> options().main.betterVillagerTrades.set(value));
+                options().main.betterVillagerTrades
+        );
     }
 
     public static SimpleOption<Boolean> fireproofItems() {
-        return new SimpleOption<>("speedrunnermod.options.fireproof_items",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.fireproof_items",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fireproof_items.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.fireproofItems.getCurrentValue(),
-                value -> options().main.fireproofItems.set(value));
+                options().main.fireproofItems
+        );
     }
 
     public static SimpleOption<Boolean> fasterSpawners() {
-        return new SimpleOption<>("speedrunnermod.options.faster_spawners",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.faster_spawners",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_spawners.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.fasterSpawners.getCurrentValue(),
-                value -> options().main.fasterSpawners.set(value));
+                options().main.fasterSpawners
+        );
     }
 
     public static SimpleOption<Boolean> customBiomesAndCustomBiomeFeatures() {
-        return new SimpleOption<>("speedrunnermod.options.custom_biomes_and_custom_biome_features",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.custom_biomes_and_custom_biome_features",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),
-                value -> options().main.customBiomesAndCustomBiomeFeatures.set(value));
+                options().main.customBiomesAndCustomBiomeFeatures
+        );
     }
 
     public static SimpleOption<Boolean> commonOres() {
-        return new SimpleOption<>("speedrunnermod.options.common_ores",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.common_ores",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.common_ores.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.commonOres.getCurrentValue(),
-                value -> options().main.commonOres.set(value));
+                options().main.commonOres
+        );
     }
 
     public static SimpleOption<Boolean> lavaBoats() {
-        return new SimpleOption<>("speedrunnermod.options.lava_boats",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.lava_boats",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.lava_boats.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.lavaBoats.getCurrentValue(),
-                value -> options().main.lavaBoats.set(value));
+                options().main.lavaBoats
+        );
     }
 
     public static SimpleOption<Boolean> netherWater() {
-        return new SimpleOption<>("speedrunnermod.options.nether_water",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.nether_water",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.nether_water.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.netherWater.getCurrentValue(),
-                value -> options().main.netherWater.set(value));
+                options().main.netherWater
+        );
     }
 
     public static SimpleOption<Boolean> betterFoods() {
-        return new SimpleOption<>("speedrunnermod.options.better_foods",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.better_foods",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_foods.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.betterFoods.getCurrentValue(),
-                value -> options().main.betterFoods.set(value));
+                options().main.betterFoods
+        );
     }
 
     public static SimpleOption<Boolean> fallDamage() {
-        return new SimpleOption<>("speedrunnermod.options.fall_damage",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.fall_damage",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fall_damage.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.fallDamage.getCurrentValue(),
-                value -> options().main.fallDamage.set(value));
+                options().main.fallDamage
+        );
     }
 
     public static SimpleOption<Boolean> arrowsDestroyBeds() {
-        return new SimpleOption<>("speedrunnermod.options.arrows_destroy_beds",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.arrows_destroy_beds",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.arrows_destroy_beds.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.arrowsDestroyBeds.getCurrentValue(),
-                value -> options().main.arrowsDestroyBeds.set(value));
+                options().main.arrowsDestroyBeds
+        );
     }
 
     public static SimpleOption<Boolean> globalNetherPortals() {
-        return new SimpleOption<>("speedrunnermod.options.global_nether_portals",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.global_nether_portals",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.global_nether_portals.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.globalNetherPortals.getCurrentValue(),
-                value -> options().main.globalNetherPortals.set(value));
+                options().main.globalNetherPortals
+        );
     }
 
     public static SimpleOption<Boolean> betterAnvil() {
-        return new SimpleOption<>("speedrunnermod.options.better_anvil",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.better_anvil",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_anvil.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.betterAnvil.getCurrentValue(),
-                value -> options().main.betterAnvil.set(value));
+                options().main.betterAnvil
+        );
     }
 
     public static SimpleOption<Boolean> higherEnchantmentLevels() {
-        return new SimpleOption<>("speedrunnermod.options.higher_enchantment_levels",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.higher_enchantment_levels",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.higher_enchantment_levels.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.higherEnchantmentLevels.getCurrentValue(),
-                value -> options().main.higherEnchantmentLevels.set(value));
+                options().main.higherEnchantmentLevels
+        );
     }
 
     public static SimpleOption<Boolean> rightClickToRemoveSilkTouch() {
-        return new SimpleOption<>("speedrunnermod.options.right_click_to_remove_silk_touch",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.right_click_to_remove_silk_touch",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.right_click_to_remove_silk_touch.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.rightClickToRemoveSilkTouch.getCurrentValue(),
-                value -> options().main.rightClickToRemoveSilkTouch.set(value));
+                options().main.rightClickToRemoveSilkTouch
+        );
     }
 
     public static SimpleOption<Boolean> showDeathCords() {
-        return new SimpleOption<>("speedrunnermod.options.show_death_cords",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.show_death_cords",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_death_cords.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.showDeathCords.getCurrentValue(),
-                value -> options().main.showDeathCords.set(value));
+                options().main.showDeathCords
+        );
     }
 
     public static SimpleOption<Boolean> kineticDamage() {
-        return new SimpleOption<>("speedrunnermod.options.kinetic_damage",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.kinetic_damage",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kinetic_damage.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.kineticDamage.getCurrentValue(),
-                value -> options().main.kineticDamage.set(value));
+                options().main.kineticDamage
+        );
     }
 
     public static SimpleOption<Boolean> throwableFireballs() {
-        return new SimpleOption<>("speedrunnermod.options.throwable_fireballs",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.throwable_fireballs",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.throwable_fireballs.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.throwableFireballs.getCurrentValue(),
-                value -> options().main.throwableFireballs.set(value));
+                options().main.throwableFireballs
+        );
     }
 
     public static SimpleOption<Boolean> customDataGeneration() {
-        return new SimpleOption<>("speedrunnermod.options.custom_data_generation",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.custom_data_generation",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.custom_data_generation.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().main.customDataGeneration.getCurrentValue(),
-                value -> options().main.customDataGeneration.set(value));
+                options().main.customDataGeneration
+        );
     }
 
     public static SimpleOption<Boolean> fastWorldCreation() {
-        return new SimpleOption<>("speedrunnermod.options.fast_world_creation", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fast_world_creation.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.fastWorldCreation.getCurrentValue(), value -> clientOptions().client.fastWorldCreation.set(value));
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.fast_world_creation",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fast_world_creation.tooltip")),
+                clientOptions().client.fastWorldCreation
+        );
     }
 
     public static SimpleOption<Boolean> allowCheats() {
-        return new SimpleOption<>("speedrunnermod.options.allow_cheats", SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON, SimpleOption.BOOLEAN, clientOptions().client.allowCheats.getCurrentValue(), value -> clientOptions().client.allowCheats.set(value));
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.allow_cheats",
+                SimpleOption.emptyTooltip(),
+                clientOptions().client.allowCheats
+        );
     }
 
     public static SimpleOption<Boolean> modifiedStrongholdGeneration() {
-        return new SimpleOption<>("speedrunnermod.options.modified_stronghold_generation",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.modified_stronghold_generation",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.modifiedStrongholdGeneration.getCurrentValue(),
-                value -> options().advanced.modifiedStrongholdGeneration.set(value));
+                options().advanced.modifiedStrongholdGeneration
+        );
     }
 
     public static SimpleOption<Boolean> modifiedStrongholdYGeneration() {
-        return new SimpleOption<>("speedrunnermod.options.modified_stronghold_y_generation",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.modified_stronghold_y_generation",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.modifiedStrongholdYGeneration.getCurrentValue(),
-                value -> options().advanced.modifiedStrongholdYGeneration.set(value));
+                options().advanced.modifiedStrongholdYGeneration
+        );
     }
 
     public static SimpleOption<Boolean> modifiedNetherFortressGeneration() {
-        return new SimpleOption<>("speedrunnermod.options.modified_nether_fortress_generation",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.modified_nether_fortress_generation",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.modifiedNetherFortressGeneration.getCurrentValue(),
-                value -> options().advanced.modifiedNetherFortressGeneration.set(value));
+                options().advanced.modifiedNetherFortressGeneration
+        );
     }
 
     public static SimpleOption<Boolean> dragonKillsNearbyHostileEntities() {
-        return new SimpleOption<>("speedrunnermod.options.dragon_kills_nearby_hostile_entities",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.dragon_kills_nearby_hostile_entities",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.dragonKillsNearbyHostileEntities.getCurrentValue(),
-                value -> options().advanced.dragonKillsNearbyHostileEntities.set(value));
+                options().advanced.dragonKillsNearbyHostileEntities
+        );
     }
 
     public static SimpleOption<Boolean> dragonImmunityFromGoliathAndWither() {
-        return new SimpleOption<>("speedrunnermod.options.dragon_immunity_from_goliath_and_wither",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.dragon_immunity_from_goliath_and_wither",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue(),
-                value -> options().advanced.dragonImmunityFromGoliathAndWither.set(value));
+                options().advanced.dragonImmunityFromGoliathAndWither
+        );
     }
 
     public static SimpleOption<Boolean> shiftToThrowFireball() {
-        return new SimpleOption<>("speedrunnermod.options.shift_to_throw_fireball",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.shift_to_throw_fireball",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.shift_to_throw_fireball.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.shiftToThrowFireball.getCurrentValue(),
-                value -> options().advanced.shiftToThrowFireball.set(value));
+                options().advanced.shiftToThrowFireball
+        );
     }
 
     public static SimpleOption<Boolean> showResetButton() {
-        return new SimpleOption<>("speedrunnermod.options.show_reset_button",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.show_reset_button",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_reset_button.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                clientOptions().client.showResetButton.getCurrentValue(),
-                value -> clientOptions().client.showResetButton.set(value));
+                clientOptions().client.showResetButton
+        );
     }
 
     public static SimpleOption<Boolean> higherBreathTime() {
-        return new SimpleOption<>("speedrunnermod.options.higher_breath_time",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.higher_breath_time",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.higher_breath_time.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.higherBreathTime.getCurrentValue(),
-                value -> options().advanced.higherBreathTime.set(value));
+                options().advanced.higherBreathTime
+        );
     }
 
     public static SimpleOption<Boolean> generateSpeedrunnerWood() {
-        return new SimpleOption<>("speedrunnermod.options.generate_speedrunner_wood",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.generate_speedrunner_wood",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.generateSpeedrunnerWood.getCurrentValue(),
-                value -> options().advanced.generateSpeedrunnerWood.set(value));
+                options().advanced.generateSpeedrunnerWood
+        );
     }
 
     public static SimpleOption<Boolean> longerDragonPerchStayTime() {
-        return new SimpleOption<>("speedrunnermod.options.longer_dragon_perch_stay_time",
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.longer_dragon_perch_stay_time",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.longer_dragon_perch_stay_time.tooltip")),
-                (optionText, value) -> !value ? ModTexts.NO : ModTexts.YES,
-                SimpleOption.BOOLEAN,
-                options().advanced.longerDragonPerchStayTime.getCurrentValue(),
-                value -> options().advanced.longerDragonPerchStayTime.set(value));
+                options().advanced.longerDragonPerchStayTime,
+                true
+        );
     }
 
     public static SimpleOption<Boolean> decreasedZombifiedPiglinScareDistance() {
-        return new SimpleOption<>("speedrunnermod.options.decreased_zombified_piglin_scare_distance",
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.decreased_zombified_piglin_scare_distance",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip")),
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
-                options().advanced.decreasedZombifiedPiglinScareDistance.getCurrentValue(),
-                value -> options().advanced.decreasedZombifiedPiglinScareDistance.set(value));
+                options().advanced.decreasedZombifiedPiglinScareDistance
+        );
     }
 
     public static SimpleOption<Boolean> terraBlenderSurfaceRuleDataMixin() {
-        return new SimpleOption<>("speedrunnermod.options.terrablender_surface_rule_data_mixin",
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.terrablender_surface_rule_data_mixin",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.terrablender_surface_rule_data_mixin.tooltip")),
-                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED,
-                SimpleOption.BOOLEAN,
-                options().mixins.terraBlenderSurfaceRuleDataMixin.getCurrentValue(),
-                value -> options().mixins.terraBlenderSurfaceRuleDataMixin.set(value));
+                options().mixins.terraBlenderSurfaceRuleDataMixin,
+                false
+        );
     }
 
     public static SimpleOption<Boolean> backgroundRendererMixin() {
-        return new SimpleOption<>("speedrunnermod.options.background_renderer_mixin",
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.background_renderer_mixin",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.background_renderer_mixin.tooltip")),
-                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED,
-                SimpleOption.BOOLEAN,
-                clientOptions().mixins.backgroundRendererMixin.getCurrentValue(),
-                value -> clientOptions().mixins.backgroundRendererMixin.set(value));
+                clientOptions().mixins.backgroundRendererMixin,
+                false
+        );
     }
 
     public static SimpleOption<Boolean> simpleOptionMixin() {
-        return new SimpleOption<>("speedrunnermod.options.simple_option_mixin",
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.simple_option_mixin",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.simple_option_mixin.tooltip")),
-                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED,
-                SimpleOption.BOOLEAN,
-                clientOptions().mixins.simpleOptionMixin.getCurrentValue(),
-                value -> clientOptions().mixins.simpleOptionMixin.set(value));
+                clientOptions().mixins.simpleOptionMixin,
+                false
+        );
     }
 
     public static SimpleOption<Boolean> logoDrawerMixin() {
-        return new SimpleOption<>("speedrunnermod.options.logo_drawer_mixin",
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.logo_drawer_mixin",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.logo_drawer_mixin.tooltip")),
-                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED,
-                SimpleOption.BOOLEAN,
-                clientOptions().mixins.logoDrawerMixin.getCurrentValue(),
-                value -> clientOptions().mixins.logoDrawerMixin.set(value));
+                clientOptions().mixins.logoDrawerMixin,
+                false
+        );
     }
 
     public static SimpleOption<Boolean> renderLayersMixin() {
-        return new SimpleOption<>("speedrunnermod.options.render_layers_mixin",
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.render_layers_mixin",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.render_layers_mixin.tooltip")),
-                (optionText, value) -> !value ? ModTexts.DISABLED : ModTexts.ENABLED,
-                SimpleOption.BOOLEAN,
-                clientOptions().mixins.renderLayersMixin.getCurrentValue(),
-                value -> clientOptions().mixins.renderLayersMixin.set(value));
+                clientOptions().mixins.renderLayersMixin,
+                false
+        );
     }
 
     public static SimpleOption<Integer> blockBreakingMultiplier() {
-        return new SimpleOption<>("speedrunnermod.options.block_breaking_multiplier", SimpleOption.emptyTooltip(),
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.block_breaking_multiplier",
+                SimpleOption.emptyTooltip(),
+                options().main.blockBreakingMultiplier,
                 (optionText, value) -> {
                     if (value == 1) {
                         return GameOptions.getGenericValueText(optionText, ModTexts.OFF);
                     } else {
                         return GameOptions.getGenericValueText(optionText, Text.literal("x" + value).formatted(Formatting.AQUA));
                     }
-                },
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 3), options().main.blockBreakingMultiplier.getCurrentValue(), value -> options().main.blockBreakingMultiplier.set(value));
+                }
+        );
     }
 
     public static SimpleOption<Integer> dragonPerchTime() {
-        return new SimpleOption<>("speedrunnermod.options.dragon_perch_time", SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_perch_time.tooltip")),
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.dragon_perch_time",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_perch_time.tooltip")),
+                options().main.dragonPerchTime,
                 (optionText, value) -> {
                     if (value == 9) {
                         return GameOptions.getGenericValueText(optionText, Text.literal("Instant").formatted(Formatting.GREEN));
@@ -488,55 +468,56 @@ public class ModListOptions {
                         }
                     } else {
                         return GameOptions.getGenericValueText(optionText, Text.literal(value + "s").formatted(Formatting.AQUA));
-                    }},
-                new SimpleOption.ValidatingIntSliderCallbacks(8, 90), options().main.dragonPerchTime.getCurrentValue(), value -> options().main.dragonPerchTime.set(value));
+                    }
+                }
+        );
     }
 
     public static SimpleOption<Integer> strongholdDistance() {
-        return new SimpleOption<>("speedrunnermod.options.stronghold_distance", SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(3, 64), options().main.strongholdDistance.getCurrentValue(), value -> options().main.strongholdDistance.set(value));
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.stronghold_distance",
+                SimpleOption.emptyTooltip(),
+                options().main.strongholdDistance
+        );
     }
 
     public static SimpleOption<Integer> strongholdSpread() {
-        return new SimpleOption<>("speedrunnermod.options.stronghold_spread",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.stronghold_spread",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(2, 32),
-                options().main.strongholdSpread.getCurrentValue(),
-                value -> options().main.strongholdSpread.set(value));
+                options().main.strongholdSpread
+        );
     }
 
     public static SimpleOption<Integer> strongholdCount() {
-        return new SimpleOption<>("speedrunnermod.options.stronghold_count",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.stronghold_count",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(4, 156),
-                options().main.strongholdCount.getCurrentValue(),
-                value -> options().main.strongholdCount.set(value));
+                options().main.strongholdCount
+        );
     }
 
     public static SimpleOption<Integer> strongholdPortalRoomCount() {
-        return new SimpleOption<>("speedrunnermod.options.stronghold_portal_room_count",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.stronghold_portal_room_count",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 3),
-                options().main.strongholdPortalRoomCount.getCurrentValue(),
-                value -> options().main.strongholdPortalRoomCount.set(value));
+                options().main.strongholdPortalRoomCount
+        );
     }
 
     public static SimpleOption<Integer> strongholdLibraryCount() {
-        return new SimpleOption<>("speedrunnermod.options.stronghold_library_count",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.stronghold_library_count",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 8),
-                options().main.strongholdLibraryCount.getCurrentValue(),
-                value -> options().main.strongholdLibraryCount.set(value));
+                options().main.strongholdLibraryCount
+        );
     }
 
     public static SimpleOption<Integer> netherPortalDelay() {
-        return new SimpleOption<>("speedrunnermod.options.nether_portal_delay",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.nether_portal_delay",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.nether_portal_delay.tooltip")),
+                options().main.netherPortalDelay,
                 (optionText, value) -> {
                     if (value == -1) {
                         return GameOptions.getGenericValueText(optionText, Text.literal("Go by Gamerule").formatted(Formatting.GREEN));
@@ -545,15 +526,15 @@ public class ModListOptions {
                     } else {
                         return GameOptions.getGenericValueText(optionText, Text.literal(value + "s").formatted(Formatting.AQUA));
                     }
-                },
-                new SimpleOption.ValidatingIntSliderCallbacks(-1, 20),
-                options().main.netherPortalDelay.getCurrentValue(),
-                value -> options().main.netherPortalDelay.set(value));
+                }
+        );
     }
 
     public static SimpleOption<Integer> anvilCostLimit() {
-        return new SimpleOption<>("speedrunnermod.options.anvil_cost_limit",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.anvil_cost_limit",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.anvil_cost_limit.tooltip")),
+                options().main.anvilCostLimit,
                 (optionText, value) -> {
                     if (value == 50) {
                         return GameOptions.getGenericValueText(optionText, Text.literal("No Limit").formatted(Formatting.RED));
@@ -562,19 +543,16 @@ public class ModListOptions {
                     } else {
                         return GameOptions.getGenericValueText(optionText, Text.literal(value + " levels").formatted(Formatting.AQUA));
                     }
-                },
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 50),
-                options().main.anvilCostLimit.getCurrentValue(),
-                value -> options().main.anvilCostLimit.set(value));
+                }
+        );
     }
 
     public static SimpleOption<Integer> speedrunnersWastelandBiomeWeight() {
-        return new SimpleOption<>("speedrunnermod.options.speedrunners_wasteland_biome_weight",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.speedrunners_wasteland_biome_weight",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(2, 32),
-                options().advanced.speedrunnersWastelandBiomeWeight.getCurrentValue(),
-                value -> options().advanced.speedrunnersWastelandBiomeWeight.set(value));
+                options().advanced.speedrunnersWastelandBiomeWeight
+        );
     }
 
     public static SimpleOption<Integer> enderEyeBreakingCooldown() {
@@ -587,36 +565,187 @@ public class ModListOptions {
     }
 
     public static SimpleOption<Integer> piglinAwakenerPiglinCount() {
-        return new SimpleOption<>("speedrunnermod.options.piglin_awakener_piglin_count",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.piglin_awakener_piglin_count",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(3, 25),
-                options().advanced.piglinAwakenerPiglinCount.getCurrentValue(),
-                value -> options().advanced.piglinAwakenerPiglinCount.set(value));
+                options().advanced.piglinAwakenerPiglinCount
+        );
     }
 
     public static SimpleOption<Integer> icarusFireworksInventorySlot() {
-        return new SimpleOption<>("speedrunnermod.options.icarus_fireworks_inventory_slot",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.icarus_fireworks_inventory_slot",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 36),
-                clientOptions().client.iCarusFireworksInventorySlot.getCurrentValue(),
-                value -> clientOptions().client.iCarusFireworksInventorySlot.set(value));
+                clientOptions().client.iCarusFireworksInventorySlot
+        );
     }
 
     public static SimpleOption<Integer> infiniPearlInventorySlot() {
-        return new SimpleOption<>("speedrunnermod.options.infini_pearl_inventory_slot",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.infini_pearl_inventory_slot",
                 SimpleOption.emptyTooltip(),
-                ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 36),
-                clientOptions().client.infiniPearlInventorySlot.getCurrentValue(),
-                value -> clientOptions().client.infiniPearlInventorySlot.set(value));
+                clientOptions().client.infiniPearlInventorySlot
+        );
     }
 
     public static SimpleOption<Integer> fireballExplosionPower() {
-        return new SimpleOption<>("speedrunnermod.options.fireball_explosion_power", SimpleOption.emptyTooltip(),
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.fireball_explosion_power",
+                SimpleOption.emptyTooltip(),
+                options().advanced.fireballExplosionPower
+        );
+    }
+
+    public static SimpleOption<Integer> annulEyeSearchRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.annul_eye_search_radius",
+                SimpleOption.emptyTooltip(),
+                options().advanced.annulEyeSearchRadius,
+                100,
+                200,
+                x,
+                y,
+                z,
+                true
+        );
+    }
+
+    public static SimpleOption<Integer> piglinAwakenerSearchRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.piglin_awakener_search_radius",
+                SimpleOption.emptyTooltip(),
+                options().advanced.piglinAwakenerSearchRadius,
+                100,
+                300,
+                x,
+                y,
+                z,
+                false
+        );
+    }
+
+    public static SimpleOption<Integer> blazeSpotterSearchRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.blaze_spotter_search_radius",
+                SimpleOption.emptyTooltip(),
+                options().advanced.blazeSpotterSearchRadius,
+                50,
+                300,
+                x,
+                y,
+                z,
+                true
+        );
+    }
+
+    public static SimpleOption<Integer> raidEradicatorSearchRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.raid_eradicator_search_radius",
+                SimpleOption.emptyTooltip(),
+                options().advanced.raidEradicatorSearchRadius,
+                100,
+                400,
+                x,
+                y,
+                z,
+                false
+        );
+    }
+
+    public static SimpleOption<Integer> dragonsPearlSearchRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.dragons_pearl_search_radius",
+                SimpleOption.emptyTooltip(),
+                options().advanced.dragonsPearlSearchRadius,
+                100,
+                350,
+                x,
+                y,
+                z,
+                false
+        );
+    }
+
+    public static SimpleOption<Integer> dragonMassKillRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.dragon_mass_kill_radius",
+                SimpleOption.constantTooltip(ModListOptions.listIntegerTooltip(Text.translatable("speedrunnermod.options.dragon_mass_kill_radius.tooltip"))),
+                options().advanced.dragonMassKillRadius,
+                100,
+                300,
+                x,
+                y,
+                z,
+                false
+        );
+    }
+
+    public static SimpleOption<Integer> dragonImmunityDetectionRadiusForGoliath(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.dragon_immunity_detection_radius_for_goliath",
+                SimpleOption.emptyTooltip(),
+                options().advanced.dragonImmunityDetectionRadiusForGoliath,
+                100,
+                300,
+                x,
+                y,
+                z,
+                false
+        );
+    }
+
+    public static SimpleOption<Integer> dragonImmunityDetectionRadiusForWither(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.dragon_immunity_detection_radius_for_wither",
+                SimpleOption.emptyTooltip(),
+                options().advanced.dragonImmunityDetectionRadiusForWither,
+                100,
+                350,
+                x,
+                y,
+                z,
+                false
+        );
+    }
+
+    /**
+     * Creates a new {@code simple boolean option.}
+     */
+    private static SimpleOption<Boolean> createSimpleBooleanOption(String key, SimpleOption.TooltipFactory<Boolean> tooltip, OptionValue<Boolean> option) {
+        return new SimpleOption<>(key, tooltip,
+                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
+                SimpleOption.BOOLEAN,
+                option.getCurrentValue(),
+                option::set);
+    }
+
+    /**
+     * Creates a new {@code simple boolean option} with different text displayers.
+     */
+    private static SimpleOption<Boolean> createSimpleBooleanOptionWithCustomSwitch(String key, SimpleOption.TooltipFactory<Boolean> tooltip, OptionValue<Boolean> option, boolean question) {
+        return new SimpleOption<>(key, tooltip,
+                (optionText, value) -> !value ? question ? ModTexts.NO : ModTexts.DISABLED : question ? ModTexts.YES : ModTexts.ENABLED,
+                SimpleOption.BOOLEAN,
+                option.getCurrentValue(),
+                option::set);
+    }
+
+    /**
+     * Creates a new {@code simple integer option.}
+     */
+    private static SimpleOption<Integer> createSimpleIntegerOption(String key, SimpleOption.TooltipFactory<Integer> tooltip, IntegerOptionValue option) {
+        return new SimpleOption<>(key, tooltip,
                 ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 10), options().advanced.fireballExplosionPower.getCurrentValue(), value -> options().advanced.fireballExplosionPower.set(value));
+                new SimpleOption.ValidatingIntSliderCallbacks(option.getMinValue(), option.getMaxValue()), option.getCurrentValue(), option::set);
+    }
+
+    /**
+     * Creates a new {@code simple integer option} custom a custom {@code text supplier.}
+     */
+    private static SimpleOption<Integer> createSimpleIntegerOption(String key, SimpleOption.TooltipFactory<Integer> tooltip, IntegerOptionValue option, BiFunction<Text, Integer, Text> formatter) {
+        return new SimpleOption<>(key, tooltip,
+                formatter::apply,
+                new SimpleOption.ValidatingIntSliderCallbacks(option.getMinValue(), option.getMaxValue()), option.getCurrentValue(), option::set);
     }
 
     /**
@@ -626,6 +755,76 @@ public class ModListOptions {
         return new SimpleOption<>("speedrunnermod.options.structure_spawn_rates." + structure, isSsrCustom() ? SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.structure_spawn_rates_description.tooltip")) : SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.structure_spawn_rates.custom_required")),
                 (optionText, value) -> ModListOptions.listIntegerText(optionText, structure),
                 new SimpleOption.ValidatingIntSliderCallbacks(3, 24), defaultStructureValue(structure), value -> determineValue(structure, value));
+    }
+
+    /**
+     * Creates an {@code integer list option.}
+     */
+    private static SimpleOption<Integer> ofIntegerList(String key, SimpleOption.TooltipFactory<Integer> tooltip, OptionValue<List<Integer>> option, int min, int max, boolean x, boolean y, boolean z, boolean includeNeg) {
+        return new SimpleOption<>(key, tooltip,
+                (optionText, value) -> ModListOptions.listIntegerText(optionText,
+                        option,
+                        x,
+                        y,
+                        z,
+                        includeNeg
+                ),
+                new SimpleOption.ValidatingIntSliderCallbacks(min, max),
+                x ? option.getCurrentValue().get(includeNeg ? 3 : 0) :
+                        y ? option.getCurrentValue().get(includeNeg ? 4 : 1) :
+                                option.getCurrentValue().get(includeNeg ? 5 : 2),
+                value -> setValue(option.getCurrentValue(), value, x, y, z, includeNeg));
+    }
+
+    /**
+     * Bounds the value of the {@link SimpleOption} to the {@code -X, -Y, -Z, X, Y and Z}.
+     */
+    private static void setValue(List<Integer> option, int value, boolean x, boolean y, boolean z, boolean includeNeg) {
+        if (includeNeg) {
+            if (x) {
+                option.set(0, -value);
+                option.set(3, value);
+            } else if (y) {
+                option.set(1, -value);
+                option.set(4, value);
+            } else if (z) {
+                option.set(2, -value);
+                option.set(5, value);
+            } else {
+                for (int i = 0; i < option.size(); i++) {
+                    option.set(i, i < 3 ? -value : value);
+                }
+            }
+        } else {
+            if (x) {
+                option.set(0, value);
+            } else if (y) {
+                option.set(1, value);
+            } else if (z) {
+                option.set(2, value);
+            } else {
+                Collections.fill(option, value);
+            }
+        }
+    }
+
+    /**
+     * @return the text for {@code list integer options}, with {@code x, y, and z} values.
+     */
+    private static Text listIntegerText(Text prefix, OptionValue<List<Integer>> value, boolean x, boolean y, boolean z, boolean includeNeg) {
+        boolean all = !x && !y && !z;
+        Text xText = Text.literal("X: " + value.getCurrentValue().get(includeNeg ? 3 : 0)).formatted(x || all ? Formatting.GREEN : Formatting.GRAY);
+        Text yText = Text.literal("Y: " + value.getCurrentValue().get(includeNeg ? 4 : 1)).formatted(y || all ? Formatting.GREEN : Formatting.GRAY);
+        Text zText = Text.literal("Z: " + value.getCurrentValue().get(includeNeg ? 5 : 2)).formatted(z || all ? Formatting.GREEN : Formatting.GRAY);
+        Text comma = Text.literal(", ").formatted(Formatting.WHITE);
+        return GameOptions.getGenericValueText(prefix, xText.copy().append(comma).append(yText).append(comma).append(zText));
+    }
+
+    /**
+     * @return the {@code tooltip} to display, along with the {@code list options control} tooltip.
+     */
+    public static Text listIntegerTooltip(Text tooltip) {
+        return tooltip.copy().append("\n\n").append(Text.translatable("speedrunnermod.options.list_options_control"));
     }
 
     /**

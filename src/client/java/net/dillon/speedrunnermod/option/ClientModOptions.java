@@ -126,13 +126,13 @@ public class ClientModOptions {
         /**
          * Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.
          */
-        public OptionValue<Integer> iCarusFireworksInventorySlot = new OptionValue<>(1, false);
+        public IntegerOptionValue iCarusFireworksInventorySlot = new IntegerOptionValue(1, false, 1, 36);
 
         /**
          * Sets the inventory slot that the InfiniPearl item should be given to when InfiniPearl mode is enabled.
          * <p>This value is incremented by one if iCarus Mode is already enabled.</p>
          */
-        public OptionValue<Integer> infiniPearlInventorySlot = new OptionValue<>(1, false);
+        public IntegerOptionValue infiniPearlInventorySlot = new IntegerOptionValue(1, false, 1, 36);
 
         /**
          * The minimum brightness amount for the Speedrunner Mod.

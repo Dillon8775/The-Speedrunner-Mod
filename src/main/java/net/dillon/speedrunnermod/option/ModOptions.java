@@ -202,7 +202,7 @@ public class ModOptions {
         /**
          * The multiplier for how faster blocks can be broken.
          */
-        public OptionValue<Integer> blockBreakingMultiplier = new OptionValue<>(1, false);
+        public IntegerOptionValue blockBreakingMultiplier = new IntegerOptionValue(1, false, 1, 3);
 
         /**
          * Grants the player with a pre-equipped unbreakable elytra and a stack of flight duration 3 firework rockets.
@@ -218,7 +218,7 @@ public class ModOptions {
          *  Determines the amount of time (in seconds) that it takes for the ender dragon to automatically perch upon entering the end.
          *  <p>Note: {@code 8 = OFF, 9 = Instant.}</p>
          */
-        public OptionValue<Integer> dragonPerchTime = new OptionValue<>(8, false);
+        public IntegerOptionValue dragonPerchTime = new IntegerOptionValue(8, false, 8, 90);
 
         /**
          * Instantly kills a ghast when they shoot a fireball.
@@ -273,27 +273,27 @@ public class ModOptions {
         /**
          * Determines how far from spawn strongholds can generate.
          */
-        public OptionValue<Integer> strongholdDistance = new OptionValue<>(4, true);
+        public IntegerOptionValue strongholdDistance = new IntegerOptionValue(4, true, 3, 64);
 
         /**
          * Determines how far apart strongholds can generate from each other.
          */
-        public OptionValue<Integer> strongholdSpread = new OptionValue<>(3, true);
+        public IntegerOptionValue strongholdSpread = new IntegerOptionValue(3, true, 2, 32);
 
         /**
          * Determines the total amount of strongholds that can generate in a singular Minecraft world.
          */
-        public OptionValue<Integer> strongholdCount = new OptionValue<>(128, true);
+        public IntegerOptionValue strongholdCount = new IntegerOptionValue(128, true, 4, 156);
 
         /**
          * Determines how many stronghold portal rooms can generate per stronghold.
          */
-        public OptionValue<Integer> strongholdPortalRoomCount = new OptionValue<>(3, true);
+        public IntegerOptionValue strongholdPortalRoomCount = new IntegerOptionValue(3, true, 1, 3);
 
         /**
          * Determines how many libraries can generate per stronghold.
          */
-        public OptionValue<Integer> strongholdLibraryCount = new OptionValue<>(2, true);
+        public IntegerOptionValue strongholdLibraryCount = new IntegerOptionValue(2, true, 1, 8);
 
         /**
          * Determines how big of packs mobs can spawn in.
@@ -303,7 +303,7 @@ public class ModOptions {
         /**
          * Sets the delay when entering/exiting the nether via a nether portal block.
          */
-        public OptionValue<Integer> netherPortalDelay = new OptionValue<>(2, false);
+        public IntegerOptionValue netherPortalDelay = new IntegerOptionValue(2, false, -1, 20);
 
         /**
          * Allows fireballs to be thrown.
@@ -329,7 +329,7 @@ public class ModOptions {
          * Sets the maximum cost that is allowed when using an anvil.
          * <p>If the cost goes above this value, the cost will instead be this value.</p>
          */
-        public OptionValue<Integer> anvilCostLimit = new OptionValue<>(10, false);
+        public IntegerOptionValue anvilCostLimit = new IntegerOptionValue(10, false, 1, 50);
 
         /**
          * Allows the combination of two maximum level enchanted items to go above the enchantment level cap.
@@ -396,7 +396,7 @@ public class ModOptions {
         /**
          * The weight for the Speedrunner's Wasteland biome (how commonly it can generate).
          */
-        public OptionValue<Integer> speedrunnersWastelandBiomeWeight = new OptionValue<>(9, true);
+        public IntegerOptionValue speedrunnersWastelandBiomeWeight = new IntegerOptionValue(9, true, 2, 32);
 
         /**
          * In vanilla Minecraft, the ender dragon will fly away after perching when it takes so much damage. However, this option extends that damage amount, to allow the dragon to stay perched for a longer period of time, even after taking a large amount of damage.
@@ -416,12 +416,12 @@ public class ModOptions {
         /**
          * Determines the total amount of piglin that can teleport to the player per time using the piglin awakener item (Default = 10).
          */
-        public OptionValue<Integer> piglinAwakenerPiglinCount = new OptionValue<>(10, false);
+        public IntegerOptionValue piglinAwakenerPiglinCount = new IntegerOptionValue(10, false, 3, 25);
 
         /**
          * Determines the explosion power for fireballs when thrown with a fire charge.
          */
-        public OptionValue<Integer> fireballExplosionPower = new OptionValue<>(2, false);
+        public IntegerOptionValue fireballExplosionPower = new IntegerOptionValue(2, false, 1, 10);
 
         /**
          * Determines if -- while the player is looking at a block, if they need to be shifting to throw a fireball. Disable this if you want to do things like fireball jump.
@@ -441,43 +441,43 @@ public class ModOptions {
         /**
          * When using the eye of annul stronghold portal room teleporter feature, it iterates through [-X, -Y, -Z, X, Y, Z] all blocks in this location to locate the portal room block. Negative values go below the player, positive values go above.
          */
-        public OptionValue<List<Integer>> annulEyePortalRoomDistanceXYZ = new OptionValue<>(ModUtil.createListOption(-128, -128, -128, 128, 128, 128), false);
+        public OptionValue<List<Integer>> annulEyeSearchRadius = new OptionValue<>(ModUtil.createListOption(-128, -128, -128, 128, 128, 128), false);
 
         /**
          * When using the piglin awakener, the game will search around the player [X_Y_Z] blocks to find nearby piglin. The higher these numbers, the farther out the game looks. Increasing these numbers however is not recommended, as it could create extreme amounts of lag.
          */
-        public OptionValue<List<Double>> piglinAwakenerPiglinDistanceXYZ = new OptionValue<>(ModUtil.createListOption(100.0D, 100.0D, 100.0D), false);
+        public OptionValue<List<Integer>> piglinAwakenerSearchRadius = new OptionValue<>(ModUtil.createListOption(100, 100, 100), false);
 
         /**
          * Determines the distance that the blaze spotter will use to determine the nearest blaze spawner.
          */
-        public OptionValue<List<Integer>> blazeSpotterDistanceXYZ = new OptionValue<>(ModUtil.createListOption(-156, -72, -156, 156, 72, 156), false);
+        public OptionValue<List<Integer>> blazeSpotterSearchRadius = new OptionValue<>(ModUtil.createListOption(-156, -72, -156, 156, 72, 156), false);
 
         /**
          * When using the raid eradicator, the item will search a distance to search for the nearest raider entities.
          */
-        public OptionValue<List<Double>> raidEradicatorDistanceXYZ = new OptionValue<>(ModUtil.createListOption(300.0D, 300.0D, 300.0D), false);
+        public OptionValue<List<Integer>> raidEradicatorSearchRadius = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
 
         /**
          * The dragon's pearl item will look in the radius of [X_Y_Z] for the nearest ender dragon, and choose that dragon to control perching.
          */
-        public OptionValue<List<Double>> dragonsPearlDragonDistanceXYZ = new OptionValue<>(ModUtil.createListOption(150.0D, 150.0D, 150.0D), false);
+        public OptionValue<List<Integer>> dragonsPearlSearchRadius = new OptionValue<>(ModUtil.createListOption(150, 150, 150), false);
 
         /**
          * Determines the entities in range that will be killed upon the ender dragon's death.
          * <p>This option is redundant if the option Dragon Kills Nearby Hostile Entities is OFF.</p>
          */
-        public OptionValue<List<Double>> dragonKillsHostileEntitiesDistance = new OptionValue<>(ModUtil.createListOption(200.0D, 200.0D, 200.0D), false);
+        public OptionValue<List<Integer>> dragonMassKillRadius = new OptionValue<>(ModUtil.createListOption(200, 200, 200), false);
 
         /**
          * When on doom mode, the dragon cannot die if there is a nearby Goliath. This option specifies the range that the Goliath has to be in from the dragon in order for it to be immune.
          */
-        public OptionValue<List<Double>> dragonImmunityDetectionDistanceForGoliath = new OptionValue<>(ModUtil.createListOption(200.0D, 200.0D, 200.0D), false);
+        public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForGoliath = new OptionValue<>(ModUtil.createListOption(200, 200, 200), false);
 
         /**
          * When on doom mode, the dragon cannot die if there is a nearby wither. This option specifies the range that the wither has to be in from the dragon in order for it to be immune.
          */
-        public OptionValue<List<Double>> dragonImmunityDetectionDistanceForWither = new OptionValue<>(ModUtil.createListOption(300.0D, 300.0D, 300.0D), false);
+        public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForWither = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
 
         /**
          * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.

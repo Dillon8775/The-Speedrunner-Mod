@@ -7,6 +7,7 @@ import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen
 import net.dillon.speedrunnermod.client.screen.base.synced.MatchSettingsWithServerScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
+import net.dillon.speedrunnermod.client.screen.options.AdvancedOptionsScreen;
 import net.dillon.speedrunnermod.client.screen.options.FastWorldCreationOptionsScreen;
 import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
@@ -21,17 +22,20 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.OptionListWidget;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -196,6 +200,23 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
+     * Refreshes the screen to allow the user to modify list options.
+     */
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (this.isOptionsScreen()) {
+            if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
+                double scrollY = advancedOptionsScreen.optionList.getScrollY();
+                this.refreshScreen(this.pageId());
+                AbstractModScreen modScreen = (AdvancedOptionsScreen)MinecraftClient.getInstance().currentScreen;
+                modScreen.optionList.setScrollY(scrollY);
+                return true;
+            }
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+
+    /**
      * Initializes the custom button list widget. Used similarly to an {@link OptionListWidget}, but for normal buttons. Also see {@link AbstractScrollableScreen} for the top Y.
      */
     protected void initializeCustomButtonListWidget() {
@@ -284,53 +305,31 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Deactivates certain buttons based on certain boolean values.
-     * <p>Indexes go from top-down-left, then right side.
+     * Deactivates certain buttons based on certain boolean values, and renders the option's default tooltip and disabled tooltip.
      * <p>Do not call if {@code optionList} is {@code null.}</p>
-     * @param option the boolean expression to determine if the option should be locked (if {@code option} is {@code false}, the specified option is locked.
+     * @param option the boolean expression to determine if the option should be locked.
+     *               <p>if {@code bl} is {@code false}, the specified option is locked.</p>
+     * @param defaultTooltip the tooltip to render when the option is enabled/unlocked.
+     * @param disabledTooltip the tooltip to render when the option is disabled/locked.
      */
-    protected void lockOption(SimpleOption<?> option, boolean bl) {
+    protected void lockOptionWithTooltip(
+            SimpleOption<?> option,
+            boolean bl,
+            Text defaultTooltip,
+            Text disabledTooltip
+    ) {
         try {
             if (this.optionList != null) {
                 if (this.getWidget(option) == null) {
                     SpeedrunnerMod.error("No widget found with option: " + option.toString());
                 } else {
                     this.getWidget(option).active = bl;
+                    this.getWidget(option).setTooltip(Tooltip.of(bl ? defaultTooltip : disabledTooltip));
                 }
             } else {
                 throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
             }
         } catch (NullPointerException n) {
-            this.client.scheduleStop();
-            n.printStackTrace();
-        }
-    }
-
-    /**
-     * Renders a tooltip for a {@link SimpleOption}. Only for simple options that can be activated/deactivated.
-     */
-    protected void renderOptionTooltip(SimpleOption<?> option, boolean bl, Text tooltipWhenBooleanIsTrue, Text tooltipWhenBooleanIsFalse, DrawContext context, int mouseX, int mouseY) {
-        try {
-            if (this.optionList != null) {
-                if (this.getWidget(option) != null) {
-                    if (this.getWidget(option).getTooltip() == null) {
-                        if (this.getWidget(option).isHovered()) {
-                            if (bl) {
-                                this.renderBasicTooltip(tooltipWhenBooleanIsTrue, context, mouseX, mouseY);
-                            } else {
-                                this.renderBasicTooltip(tooltipWhenBooleanIsFalse, context, mouseX, mouseY);
-                            }
-                        }
-                    } else {
-                        throw new IllegalStateException("Option \"" + option.toString() + "\" has a tooltip. Remove (or replace with \"SimpleOption.emptyTooltip()\" tooltip to use \"renderOptionTooltip\".");
-                    }
-                } else {
-                    SpeedrunnerMod.error("No widget found with option: " + option.toString());
-                }
-            } else {
-                throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
-            }
-        } catch (NullPointerException | IllegalStateException n) {
             this.client.scheduleStop();
             n.printStackTrace();
         }
@@ -417,6 +416,34 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected boolean shouldRenderTooltips() {
         return this.isOptionsScreen();
+    }
+
+    /**
+     * @return {@code true} if the {@code A} key is being held down.
+     */
+    protected boolean hasADown() {
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_A);
+    }
+
+    /**
+     * @return {@code true} if the {@code X} key is being held down.
+     */
+    protected boolean hasXDown() {
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_X);
+    }
+
+    /**
+     * @return {@code true} if the {@code Y} key is being held down.
+     */
+    protected boolean hasYDown() {
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_Y);
+    }
+
+    /**
+     * @return {@code true} if the {@code Z} key is being held down.
+     */
+    protected boolean hasZDown() {
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_Z);
     }
 
     /**

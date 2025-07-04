@@ -49,7 +49,11 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
         if (!world.isClient) {
             if (isEasyMode()) {
                 if (world.getRegistryKey() == World.NETHER) {
-                    List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().getFirst(), options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().get(1), options().advanced.piglinAwakenerPiglinDistanceXYZ.getCurrentValue().get(2)), entity -> true);
+                    List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(
+                            options().advanced.piglinAwakenerSearchRadius.getCurrentValue().getFirst(),
+                            options().advanced.piglinAwakenerSearchRadius.getCurrentValue().get(1),
+                            options().advanced.piglinAwakenerSearchRadius.getCurrentValue().get(2)),
+                            entity -> true);
 
                     if (!piglins.isEmpty()) {
                         boolean isSafe = player.getAbilities().creativeMode;

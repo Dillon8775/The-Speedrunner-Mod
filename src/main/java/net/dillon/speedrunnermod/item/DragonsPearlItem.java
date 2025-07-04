@@ -43,7 +43,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
         if (!world.isClient) {
             if (!isBalancedMode()) {
                 if (world.getRegistryKey() == World.END) {
-                    List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().getFirst(), options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().get(1), options().advanced.dragonsPearlDragonDistanceXYZ.getCurrentValue().get(2)), entity -> true);
+                    List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlSearchRadius.getCurrentValue().getFirst(), options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(1), options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(2)), entity -> true);
 
                     if (!dragons.isEmpty()) {
                         EnderDragonEntity enderDragon = dragons.get(0);

@@ -34,6 +34,13 @@ public class OptionValue<T> {
     }
 
     /**
+     * @return the {@code default value} of the option.
+     */
+    public T getDefaultValue() {
+        return this.defaultValue;
+    }
+
+    /**
      * @return {@code true} if the option requires a restart.
      */
     public boolean requiresRestart() {

@@ -96,7 +96,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
      */
     @AI
     private BlockPos findNearestBlazeSpawner(ServerWorld world, BlockPos fortressPos) {
-        for (BlockPos pos : BlockPos.iterate(fortressPos.add(options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().getFirst(), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(1), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(2)), fortressPos.add(options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(3), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(4), options().advanced.blazeSpotterDistanceXYZ.getCurrentValue().get(5)))) {
+        for (BlockPos pos : BlockPos.iterate(fortressPos.add(options().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2)), fortressPos.add(options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(3), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(4), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(5)))) {
             if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof MobSpawnerBlockEntity) {

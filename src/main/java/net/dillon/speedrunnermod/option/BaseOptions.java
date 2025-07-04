@@ -3,11 +3,16 @@ package net.dillon.speedrunnermod.option;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.OPTIONS_ERROR_MESSAGE;
@@ -64,10 +69,50 @@ public abstract class BaseOptions<T> {
     /**
      * Creates the {@code GSON reader,} which reads options correctly.
      */
-    private Gson createGson() {
+    @AI
+    public Gson createGson() {
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setPrettyPrinting();
+                .setPrettyPrinting()
+                .registerTypeAdapter(IntegerOptionValue.class, new TypeAdapter<IntegerOptionValue>() {
+                    @Override
+                    public void write(JsonWriter out, IntegerOptionValue value) throws IOException {
+                        out.beginObject();
+                        out.name("min").value(value.getMinValue());
+                        out.name("max").value(value.getMaxValue());
+                        out.name("requires_restart").value(value.requiresRestart());
+                        out.name("default_value").value(value.getDefaultValue());
+                        out.name("current_value").value(value.getCurrentValue());
+                        out.name("broken").value(value.isBroken());
+                        out.endObject();
+                    }
+
+                    @Override
+                    public IntegerOptionValue read(JsonReader in) throws IOException {
+                        in.beginObject();
+                        int min = 0, max = 0, defaultValue = 0, currentValue = 0;
+                        boolean requiresRestart = false, broken = false;
+
+                        while (in.hasNext()) {
+                            switch (in.nextName()) {
+                                case "min" -> min = in.nextInt();
+                                case "max" -> max = in.nextInt();
+                                case "requires_restart" -> requiresRestart = in.nextBoolean();
+                                case "default_value" -> defaultValue = in.nextInt();
+                                case "current_value" -> currentValue = in.nextInt();
+                                case "broken" -> broken = in.nextBoolean();
+                            }
+                        }
+                        in.endObject();
+
+                        IntegerOptionValue value = new IntegerOptionValue(defaultValue, requiresRestart, min, max);
+                        value.set(currentValue);
+                        if (broken) {
+                            value.setBroken();
+                        }
+                        return value;
+                    }
+                });
         return builder.create();
     }
 
