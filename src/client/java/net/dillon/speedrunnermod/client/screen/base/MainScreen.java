@@ -4,9 +4,11 @@ import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsScre
 import net.dillon.speedrunnermod.client.screen.base.misc.ExternalScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ModCreditsScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ResourcesScreen;
-import net.dillon.speedrunnermod.client.screen.base.misc.SecretDoomModeScreen;
 import net.dillon.speedrunnermod.client.screen.base.option.ModOptionsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
+import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.AbstractSecretDoomModeScreen;
+import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.PageFive;
+import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.PageOne;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -78,10 +80,10 @@ public class MainScreen extends AbstractModScreen {
         this.leaderboardsButton.active = false;
 
         this.doomModeButton = ButtonWidget.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
-            if (SecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
-                this.client.setScreen(new SecretDoomModeScreen.ScreenFive(this));
+            if (AbstractSecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
+                this.client.setScreen(new PageFive(this.parent));
             } else {
-                this.client.setScreen(new SecretDoomModeScreen(this));
+                this.client.setScreen(new PageOne(this.parent));
             }
         }).build();
         this.doomModeButton.visible = isDoomMode();

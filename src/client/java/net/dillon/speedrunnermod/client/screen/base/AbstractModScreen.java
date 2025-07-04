@@ -98,7 +98,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.buttonList.addAll(this.buttons());
                 this.addSelectableChild(this.buttonList);
             }
-            if ((this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING) || !(this instanceof AbstractFeatureScreen)) {
+            if ((this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING && featureScreen.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) || !(this instanceof AbstractFeatureScreen)) {
                 this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
             }
         }

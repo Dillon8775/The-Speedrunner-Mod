@@ -33,6 +33,6 @@ public class BetterLootTablesScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.NORMAL;
+        return ScreenType.DEFAULT;
     }
 }

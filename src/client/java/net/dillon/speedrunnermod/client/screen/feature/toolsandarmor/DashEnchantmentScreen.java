@@ -35,6 +35,6 @@ public class DashEnchantmentScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.NORMAL;
+        return ScreenType.DEFAULT;
     }
 }

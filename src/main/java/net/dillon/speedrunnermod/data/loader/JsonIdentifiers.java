@@ -34,8 +34,6 @@ public final class JsonIdentifiers {
     public static final String VILLAGES = structure("villages");
     public static final String WOODLAND_MANSIONS = structure("woodland_mansions");
 
-    public static final String END = "worldgen/noise_settings/end.json";
-
     /**
      * Returns the filename for a biome in the "worldgen/biome" folder.
      */

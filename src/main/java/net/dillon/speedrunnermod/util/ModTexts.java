@@ -235,6 +235,9 @@ public class ModTexts {
     public static final Text ABORT = Text.translatable("speedrunnermod.abort");
     public static final Text MATCH_SETTINGS_WITH_SERVER_LINE1 = Text.translatable("speedrunnermod.match_settings_with_server.line1");
     public static final Text MATCH_SETTINGS_WITH_SERVER_LINE2 = Text.translatable("speedrunnermod.match_settings_with_server.line2");
+    public static final Text MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED = Text.translatable("speedrunnermod.match_settings_with_server_sync_failed");
+    public static final Text MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED_LINE2 = Text.translatable("speedrunnermod.match_settings_with_server_sync_failed.line2");
+    public static final Text MATCH_SETTINGS_WITH_SERVER_FAILED = MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED.copy().append(" ").append(MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED_LINE2);
 
     // Title screen
     public static final Text FEATURES_TOOLTIP = Text.translatable("speedrunnermod.features.tooltip");

@@ -22,6 +22,7 @@ public class MatchSettingsWithServerScreen extends AbstractModScreen {
     protected void init() {
         this.matchAndRestartButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_AND_RESTART, (button) -> {
             ClientPlayNetworking.send(new RequestServerSideOptionsC2SPacket());
+            this.matchAndRestartButton.active = false;
         }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());
         this.addDrawableChild(ButtonWidget.builder(ModTexts.ABORT, (button) -> {
             this.close();
@@ -30,14 +31,23 @@ public class MatchSettingsWithServerScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE1, this.width / 2, 110, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE2, this.width / 2, 130, 16777215);
+        if (this.matchAndRestartButton.active) {
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE1, this.width / 2, 110, 16777215);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE2, this.width / 2, 130, 16777215);
+        } else {
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED, this.width / 2, 110, 16777215);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED_LINE2, this.width / 2, 130, 16777215);
+        }
     }
 
     @Override
     public void renderTooltips(DrawContext context, int mouseX, int mouseY) {
         if (this.matchAndRestartButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MATCH_AND_RESTART_TOOLTIP, context, mouseX, mouseY);
+            if (this.matchAndRestartButton.active) {
+                this.renderBasicTooltip(ModTexts.MATCH_AND_RESTART_TOOLTIP, context, mouseX, mouseY);
+            } else {
+                this.renderBasicTooltip(ModTexts.MATCH_SETTINGS_WITH_SERVER_FAILED, context, mouseX, mouseY);
+            }
         }
     }
 

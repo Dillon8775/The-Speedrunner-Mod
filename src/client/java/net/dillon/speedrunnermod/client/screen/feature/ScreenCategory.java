@@ -13,5 +13,6 @@ public enum ScreenCategory {
     ORES_AND_WORLDGEN,
     MISCELLANEOUS,
     DOOM_MODE,
+    SECRET_DOOM_MODE,
     FIRST_TIME_PLAYING
 }

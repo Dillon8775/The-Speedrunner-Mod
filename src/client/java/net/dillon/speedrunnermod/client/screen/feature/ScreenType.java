@@ -11,9 +11,9 @@ import net.fabricmc.api.Environment;
  */
 @Environment(EnvType.CLIENT)
 public enum ScreenType {
-    STARTER,
-    NORMAL,
-    FINAL,
+    FIRST_PAGE,
+    DEFAULT,
+    LAST_PAGE,
     END,
     FIRST_TIME_PLAYING
 }

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractScrollableScreen;
+import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
@@ -80,51 +81,53 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected void init() {
         super.init();
 
-        // A starter feature screen (or the first page of a certain category of features)
-        // consists of only a "Next" and "Done" button
-        if (this.getScreenType() != ScreenType.FINAL && this.getScreenType() != ScreenType.END && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
-            this.nextButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.NEXT_ARROW, button -> {
-                this.client.setScreen(this.getNextScreen());
-            }).dimensions(this.getButtonsRightSide() + 100, this.getDoneButtonHeight(), 20, 20).build());
-        }
-
-        // A normal feature screen, which is any page between the first and last page of a certain category of features,
-        // consists of a "Next", "Previous" and "Done" button
-        if (this.getScreenType() != ScreenType.STARTER && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
-            this.previousButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PREVIOUS, button -> {
-                this.client.setScreen(this.getPreviousScreen());
-            }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonHeight(), 20, 20).build());
-        }
-
-        // A final feature screen (the last page of a certain category of features),
-        // Consists of all the other remaining categories to explore, along with a "Previous" and "Done" button.
-        if (this.getScreenType() == ScreenType.FINAL) {
-            this.addButtonObject(ButtonWidget.builder(this.category1Text, button -> this.client.setScreen(this.category1Screen)).build());
-            this.addButtonObject(ButtonWidget.builder(this.category2Text, button -> this.client.setScreen(this.category2Screen)).build());
-            this.addButtonObject(ButtonWidget.builder(this.category3Text, button -> this.client.setScreen(this.category3Screen)).build());
-            if (hasFourthCategory) {
-                this.addButtonObject(ButtonWidget.builder(this.category4Text, button -> this.client.setScreen(this.category4Screen)).build());
+        if (this.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) {
+            // A starter feature screen (or the first page of a certain category of features)
+            // consists of only a "Next" and "Done" button
+            if (this.getScreenType() != ScreenType.LAST_PAGE && this.getScreenType() != ScreenType.END && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
+                this.nextButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.NEXT_ARROW, button -> {
+                    this.client.setScreen(this.getNextScreen());
+                }).dimensions(this.getButtonsRightSide() + 100, this.getDoneButtonHeight(), 20, 20).build());
             }
-        }
 
-        // An "end" feature screen, which is only used for the last page of a certain category and the last actual category,
-        // Consists of all the other categories to re-explore, as well as a "Previous" and "Done" button.
-        if (this.getScreenType() == ScreenType.END) {
-            this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.learn_more"), button -> {
-                this.openLink(ModLinks.MODRINTH, true);
-            }).build());
+            // A normal feature screen, which is any page between the first and last page of a certain category of features,
+            // consists of a "Next", "Previous" and "Done" button
+            if (this.getScreenType() != ScreenType.FIRST_PAGE && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
+                this.previousButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.PREVIOUS, button -> {
+                    this.client.setScreen(this.getPreviousScreen());
+                }).dimensions(this.getButtonsLeftSide() + 30, this.getDoneButtonHeight(), 20, 20).build());
+            }
 
-            this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), button -> {
-                this.client.setScreen(new SpeedrunnerIngotsScreen(this.parent));
-            }).build());
+            // A final feature screen (the last page of a certain category of features),
+            // Consists of all the other remaining categories to explore, along with a "Previous" and "Done" button.
+            if (this.getScreenType() == ScreenType.LAST_PAGE) {
+                this.addButtonObject(ButtonWidget.builder(this.category1Text, button -> this.client.setScreen(this.category1Screen)).build());
+                this.addButtonObject(ButtonWidget.builder(this.category2Text, button -> this.client.setScreen(this.category2Screen)).build());
+                this.addButtonObject(ButtonWidget.builder(this.category3Text, button -> this.client.setScreen(this.category3Screen)).build());
+                if (hasFourthCategory) {
+                    this.addButtonObject(ButtonWidget.builder(this.category4Text, button -> this.client.setScreen(this.category4Screen)).build());
+                }
+            }
 
-            this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), button -> {
-                this.client.setScreen(new SpeedrunnerArmorScreen(this.parent));
-            }).build());
+            // An "end" feature screen, which is only used for the last page of a certain category and the last actual category,
+            // Consists of all the other categories to re-explore, as well as a "Previous" and "Done" button.
+            if (this.getScreenType() == ScreenType.END) {
+                this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.learn_more"), button -> {
+                    this.openLink(ModLinks.MODRINTH, true);
+                }).build());
 
-            this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), button -> {
-                this.client.setScreen(new SpeedrunnersWastelandBiomeScreen(this.parent));
-            }).build());
+                this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.blocks_and_items"), button -> {
+                    this.client.setScreen(new SpeedrunnerIngotsScreen(this.parent));
+                }).build());
+
+                this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.tools_and_armor"), button -> {
+                    this.client.setScreen(new SpeedrunnerArmorScreen(this.parent));
+                }).build());
+
+                this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.menu.features.ores_and_worldgen"), button -> {
+                    this.client.setScreen(new SpeedrunnersWastelandBiomeScreen(this.parent));
+                }).build());
+            }
         }
     }
 
@@ -138,7 +141,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
         int rightSide = leftSide + 160;
         int farRightSide = rightSide + 273;
         int height = this.height - 24;
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : farRightSide, height, 16777215);
+        if (this.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) {
+            context.drawCenteredTextWithShadow(this.textRenderer, Text.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : farRightSide, height, 16777215);
+        }
 
         if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
             int middle = this.width / 2 - 128;
@@ -164,6 +169,8 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             this.client.setScreen(new MiscellaneousScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.DOOM_MODE) {
             this.client.setScreen(new DoomModeScreen(this.parent));
+        } else if (this.getScreenCategory() == ScreenCategory.SECRET_DOOM_MODE) {
+            this.client.setScreen(new MainScreen(this.parent));
         } else if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
             warn("Cannot close this screen!");
         } else {
@@ -212,6 +219,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             case DOOM_MODE -> {
                 return this.inDoomModeFolder(this.linesKey());
             }
+            case SECRET_DOOM_MODE -> {
+                return this.inSecretDoomModeFolder(this.linesKey());
+            }
             case FIRST_TIME_PLAYING -> {
                 return this.inTextsFolder(this.linesKey());
             }
@@ -258,6 +268,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             case DOOM_MODE -> {
                 return calculateMaxPages(ScreenCategory.DOOM_MODE);
             }
+            case SECRET_DOOM_MODE -> {
+                return calculateMaxPages(ScreenCategory.SECRET_DOOM_MODE);
+            }
             case FIRST_TIME_PLAYING ->  {
                 return calculateMaxPages(ScreenCategory.FIRST_TIME_PLAYING);
             }
@@ -286,6 +299,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             }
             case DOOM_MODE -> {
                 return determineScreen(pageNumber, ScreenCategory.DOOM_MODE);
+            }
+            case SECRET_DOOM_MODE -> {
+                return determineScreen(pageNumber, ScreenCategory.SECRET_DOOM_MODE);
             }
             case FIRST_TIME_PLAYING -> {
                 return determineScreen(pageNumber, ScreenCategory.FIRST_TIME_PLAYING);
@@ -328,16 +344,18 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      * Render custom tooltips on screen.
      */
     protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.getScreenType() == ScreenType.STARTER || this.getScreenType() == ScreenType.NORMAL) {
-            if (this.nextButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.NEXT_ARROW_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.getScreenType() == ScreenType.NORMAL && this.previousButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
-            }
-        } else if (this.getScreenType() == ScreenType.FINAL || this.getScreenType() == ScreenType.END) {
-            if (this.previousButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
+        if (this.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) {
+            if (this.getScreenType() == ScreenType.FIRST_PAGE || this.getScreenType() == ScreenType.DEFAULT) {
+                if (this.nextButton.isHovered()) {
+                    this.renderBasicTooltip(ModTexts.NEXT_ARROW_TOOLTIP, context, mouseX, mouseY);
+                }
+                if (this.getScreenType() == ScreenType.DEFAULT && this.previousButton.isHovered()) {
+                    this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
+                }
+            } else if (this.getScreenType() == ScreenType.LAST_PAGE || this.getScreenType() == ScreenType.END) {
+                if (this.previousButton.isHovered()) {
+                    this.renderBasicTooltip(ModTexts.PREVIOUS_TOOLTIP, context, mouseX, mouseY);
+                }
             }
         }
     }
@@ -368,7 +386,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
 
     /**
      * <p>Gets the {@code previous screen}, which goes back to the screen displayed before.</p>
-     * <p>On {@link ScreenType#STARTER} pages, there may not be a previous screen.</p>
+     * <p>On {@link ScreenType#FIRST_PAGE} pages, there may not be a previous screen.</p>
      */
     @Nullable
     protected Screen getPreviousScreen() {
@@ -383,14 +401,21 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
-     * Helper for referencing file paths in features/blocksanditems directory.
+     * Helper for referencing file paths in features/doommode directory.
      */
     protected String inDoomModeFolder(String fileName) {
         return "texts/features/doommode/" + fileName + ".txt";
     }
 
     /**
-     * Helper for referencing file paths in features/referencing directory.
+     * Helper for referencing file paths in features/secretdoommode directory.
+     */
+    protected String inSecretDoomModeFolder(String fileName) {
+        return "texts/features/secretdoommode/" + fileName + ".txt";
+    }
+
+    /**
+     * Helper for referencing file paths in features/miscellaneous directory.
      */
     protected String inMiscellaneousFolder(String fileName) {
         return "texts/features/miscellaneous/" + fileName + ".txt";

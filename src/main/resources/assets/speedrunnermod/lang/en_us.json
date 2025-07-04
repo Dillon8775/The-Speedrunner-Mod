@@ -779,6 +779,8 @@
   "speedrunnermod.title.match_settings_with_server": "Match Settings With Server",
   "speedrunnermod.match_settings_with_server.line1": "You are about to sync all of §oyour §r§f§bSpeedrunner Mod options §r§fwith §othis server's options.",
   "speedrunnermod.match_settings_with_server.line2": "This is a §cpermanent action §r§fand cannot be undone. Press abort to cancel.",
+  "speedrunnermod.match_settings_with_server_sync_failed": "Sync failed.",
+  "speedrunnermod.match_settings_with_server_sync_failed.line2": "This server doesn't seem to have the speedrunner mod installed...",
   "speedrunnermod.match_and_restart": "Match and Restart",
   "speedrunnermod.match_and_restart.tooltip": "This will match §b§oALL §r§fof your §bSpeedrunner Mod §r§fsettings with this server's settings.\n\nPlease note that there is no way to preview what this server settings are, and this action is §cpermanent.§r§f\n\nDoing this will restart your game, you will need to re-open it manually.",
   "speedrunnermod.abort": "Abort",

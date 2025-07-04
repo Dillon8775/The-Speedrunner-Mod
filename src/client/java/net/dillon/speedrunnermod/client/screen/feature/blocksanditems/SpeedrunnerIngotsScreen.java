@@ -35,6 +35,6 @@ public class SpeedrunnerIngotsScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.STARTER;
+        return ScreenType.FIRST_PAGE;
     }
 }

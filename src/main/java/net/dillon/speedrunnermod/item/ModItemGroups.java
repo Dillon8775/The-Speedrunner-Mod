@@ -69,7 +69,7 @@ public class ModItemGroups {
                             entries.add(ModItems.SPEEDRUNNERS_WORKBENCH);
                         }
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
-                        if (easyMode) {
+                        if (!balancedMode) {
                             entries.add(ModItems.ENDER_THRUSTER);
                             entries.add(ModItems.THRUSTED_BLOCK);
                         }

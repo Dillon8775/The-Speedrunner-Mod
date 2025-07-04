@@ -35,6 +35,6 @@ public class BasicsScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.STARTER;
+        return ScreenType.FIRST_PAGE;
     }
 }

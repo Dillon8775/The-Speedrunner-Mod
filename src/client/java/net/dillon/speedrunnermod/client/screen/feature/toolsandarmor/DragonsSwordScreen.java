@@ -41,6 +41,6 @@ public class DragonsSwordScreen extends AbstractFeatureScreen {
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FINAL;
+        return ScreenType.LAST_PAGE;
     }
 }

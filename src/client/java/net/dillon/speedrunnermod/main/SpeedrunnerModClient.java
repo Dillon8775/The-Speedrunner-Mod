@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
+import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.AbstractSecretDoomModeScreen;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.option.OptionValue;
@@ -81,6 +82,10 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         // Add all instances of AbstractFeatureScreen to ALL_FEATURE_SCREENS list
         for (Class<? extends AbstractFeatureScreen> featureScreen : featureScreenClasses) {
+            if (featureScreen == AbstractSecretDoomModeScreen.class) {
+                continue;
+            }
+
             try {
                 Constructor<? extends AbstractFeatureScreen> constructor = featureScreen.getConstructor(Screen.class);
 

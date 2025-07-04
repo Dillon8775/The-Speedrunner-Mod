@@ -99,7 +99,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
                     ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.ender_thruster.wrong_dimension"), Formatting.AQUA, Formatting.WHITE);
                 }
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.BLUE), false);
+                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.BLUE), false);
                 player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                 itemStack.decrement(1);

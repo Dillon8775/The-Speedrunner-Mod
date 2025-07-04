@@ -42,6 +42,6 @@ public class FortressesBastionsAndStrongholdsScreen extends AbstractFeatureScree
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FINAL;
+        return ScreenType.LAST_PAGE;
     }
 }
