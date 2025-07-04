@@ -6,21 +6,86 @@
         "discipline": "Creators and Founders",
         "titles": [
           {
-            "title": "Mod Creator",
+            "title": "Creator/Owner/Founder",
             "names": [
               "Dillon8775"
             ]
           },
           {
-            "title": "Textures (partial)",
+            "title": "Textures Assistant",
             "names": [
-              "MannyQUESO265"
+              "MannyQUESO"
+            ]
+          },
+          {
+            "title": "Former Co-Lead",
+            "names": [
+              "Rowan P."
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Feature Creators",
+        "titles": [
+          {
+            "title": "Speedrunner's Edition Logo",
+            "names": [
+              "MannyQUESO"
             ]
           },
           {
             "title": "Panorama Screen",
             "names": [
               "Vaplayk"
+            ]
+          },
+          {
+            "title": "Experience Ore Texture",
+            "names": [
+              "krevikus"
+            ]
+          },
+          {
+            "title": "InfiniPearl™ Creator",
+            "names": [
+              "DuncanRuns"
+            ]
+          },
+          {
+            "title": "Fullbright Feature",
+            "names": [
+              "Adam Viola"
+            ]
+          },
+          {
+            "title": "Lava Boat Functionality and Paddle Sound",
+            "names": [
+              "Anxietie"
+            ]
+          },
+          {
+            "title": "Data Generation Modification",
+            "names": [
+              "MaxenceDC"
+            ]
+          },
+          {
+            "title": "Speedrunner's Totem Functionality",
+            "names": [
+              "Yeleefff"
+            ]
+          },
+          {
+            "title": "Custom Sign APIs",
+            "names": [
+              "TerraformersMC"
+            ]
+          },
+          {
+            "title": "Lots of other features...",
+            "names": [
+              "ChatGPT"
             ]
           }
         ]

@@ -18,6 +18,7 @@
     "client.render.CustomWorldEvents",
     "client.render.item.model.special.SpecialModelTypesMixin",
     "client.screen.CreateWorldScreenMixin",
+    "client.screen.CreditsScreenMixin",
     "client.screen.DeathScreenMixin",
     "client.screen.GameMenuScreenMixin",
     "client.screen.LogoDrawerMixin",

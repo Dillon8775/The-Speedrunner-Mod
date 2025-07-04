@@ -172,7 +172,7 @@ public class ModListOptions {
 
     public static SimpleOption<Boolean> customBiomesAndCustomBiomeFeatures() {
         return new SimpleOption<>("speedrunnermod.options.custom_biomes_and_custom_biome_features",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features.tooltip")),
+                SimpleOption.emptyTooltip(),
                 (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
                 SimpleOption.BOOLEAN,
                 options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),

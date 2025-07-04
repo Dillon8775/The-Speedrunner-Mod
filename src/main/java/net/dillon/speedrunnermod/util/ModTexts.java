@@ -61,7 +61,7 @@ public class ModTexts {
     public static final Text MENU_ADVANCED_OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.menu.options.advanced.tooltip");
     public static final Text TITLE_ADVANCED_OPTIONS = Text.translatable("speedrunnermod.title.options.advanced");
     public static final Text MENU_CREDITS = Text.translatable("speedrunnermod.menu.credits");
-    public static final Text TITLE_CREDITS = Text.translatable("speedrunnermod.title.credits");
+    public static final Text MENU_CREDITS_TOOLIP = Text.translatable("speedrunnermod.menu.credits.tooltip");
     public static final Text MENU_EXTERNAL = Text.translatable("speedrunnermod.menu.external").formatted(Formatting.RED);
     public static final Text TITLE_EXTERNAL = Text.translatable("speedrunnermod.external");
     public static final Text MENU_FEATURES_TOOLTIP = Text.translatable("speedrunnermod.menu.features.tooltip");
@@ -79,8 +79,6 @@ public class ModTexts {
     public static final Text TITLE_SPEEDRUN_IGT_MISSING = Text.translatable("speedrunnermod.title.speedrun_igt_missing");
     public static final Text ENABLE_DOOM_MODE = Text.translatable("speedrunnermod.doom_mode.enable").formatted(Formatting.RED);
     public static final Text MENU_DOOM_MODE = Text.translatable("speedrunnermod.menu.doom_mode");
-    public static final Text TITLE_DOOM_MODE = Text.translatable("speedrunnermod.title.doom_mode");
-    public static final Text TITLE_SPEEDRUNNER_MOD_NOT_INSTALLED = Text.translatable("speedrunnermod.title.speedrunner_mod_not_installed");
 
     // Feature screens enable/disable features
     public static final Text DISABLE_LAVA_BOATS = Text.translatable("speedrunnermod.options.lava_boats.disable").formatted(Formatting.GOLD);

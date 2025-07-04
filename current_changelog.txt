@@ -1,5 +1,6 @@
 KEY CHANGES:
 - A new credits story. I recommend reading it once you complete a speedrun with this mod.
+- Splash texts are back!
 - Updated to Minecraft 1.21.5!
 - Tons of bug fixes, crash fixes, and optimizations.
 - Renamed "Playing Mode" option to "Mode".

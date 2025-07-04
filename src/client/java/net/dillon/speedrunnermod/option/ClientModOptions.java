@@ -143,6 +143,11 @@ public class ClientModOptions {
          * The maximum brightness amount for the Speedrunner Mod.
          */
         public OptionValue<Double> maximumBrightness = new OptionValue<>(12.0D, false);
+
+        /**
+         * To show people who to turn to.
+         */
+        public OptionValue<Boolean> canCloseEndCredits = new OptionValue<>(false, false);
     }
 
     public static class Mixins {

@@ -18,9 +18,7 @@ public interface RegistryEntryListDirectAccessor<T> {
     @Accessor
     List<RegistryEntry<T>> getEntries();
 
-    @Accessor
-    @Final
-    @Mutable
+    @Accessor @Final @Mutable
     void setEntries(List<RegistryEntry<T>> var1);
 
     @Accessor

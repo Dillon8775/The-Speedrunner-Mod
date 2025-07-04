@@ -698,7 +698,7 @@
   "speedrunnermod.options.generate_speedrunner_wood": "Generate Speedrunner Wood",
   "speedrunnermod.options.generate_speedrunner_wood.tooltip": "Allows all types/variants of speedrunner wood to generate across the world. This includes different variants of speedrunner trees, dead speedrunner trees, and dead speedrunner bushes.\n\n§a§lRequires Restart.",
   "speedrunnermod.options.decreased_zombified_piglin_scare_distance": "Decreased Zombified Piglin Scare Distance",
-  "speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip": "By default, piglins get scared of zombified piglin if they are within 6 blocks of the zombified piglin. You can change that value with this option.",
+  "speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip": "By default, piglins get scared of zombified piglin if they are within 6 blocks of the zombified piglin. This lowers that distance to 2 blocks.",
   "speedrunnermod.options.ender_eye_breaking_cooldown": "Ender Eye Breaking Cooldown",
   "speedrunnermod.options.ender_eye_breaking_cooldown.tooltip": "Determines how long it takes for an eye of ender to break after throwing it.",
   "speedrunnermod.options.longer_dragon_perch_stay_time": "Ender Dragon Stays Sitting Longer After Perching",
@@ -706,9 +706,9 @@
   "speedrunnermod.options.piglin_awakener_piglin_count": "Piglin Awakener Piglin Count",
   "speedrunnermod.options.piglin_awakener_piglin_count.tooltip": "Determines the total amount of piglin that can teleport to the player per time using the item.",
   "speedrunnermod.options.icarus_fireworks_inventory_slot": "iCarus Fireworks Inventory Slot",
-  "speedrunnermod.options.icarus_fireworks_inventory_slot.tooltip": "Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.",
+  "speedrunnermod.options.icarus_fireworks_inventory_slot.tooltip": "The inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.",
   "speedrunnermod.options.infini_pearl_inventory_slot": "InfiniPearl Inventory Slot",
-  "speedrunnermod.options.infini_pearl_inventory_slot.tooltip": "Sets the inventory slot that the InfiniPearl item should be given to when InfiniPearl mode is enabled.\n\nThis value is automatically incremented by one if iCarus Mode is also enabled.",
+  "speedrunnermod.options.infini_pearl_inventory_slot.tooltip": "The inventory slot that the InfiniPearl item should be given to when InfiniPearl mode is enabled.\n\nThis value is automatically incremented by one if iCarus Mode is also enabled.",
   "speedrunnermod.options.fireball_explosion_power": "Fireball Explosion Power",
   "speedrunnermod.options.fireball_explosion_power.tooltip": "Determines the explosion power for fireballs when throwing.",
   "speedrunnermod.options.shift_to_throw_fireball": "Shift to Throw Fireball",
@@ -719,7 +719,7 @@
   "speedrunnermod.options.apply_fog_mixin.tooltip": "Applies the fog option into the game.\n\nDisable this if you are experiencing compatibility issues with other mods that may also mess with fog settings.\n\n§a§lRequires restart.",
   "speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip": "§l\"Apply Fog Mixin\"§r must be §aenabled§r to modify this option.\n\nSee §amixin options.",
   "speedrunnermod.options.dragon_kills_nearby_hostile_entities": "Ender Dragon Kills Nearby Hostile Entities upon Death",
-  "speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip": "Makes the ender dragon kill all nearby hostile entities upon death (not including enderman).",
+  "speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip": "Makes the ender dragon kill all nearby hostile entities upon death (excluding enderman).",
   "speedrunnermod.options.dragon_immunity_from_goliath_and_wither": "Ender Dragon Immunity from Goliath and Wither",
   "speedrunnermod.options.dragon_immunity_from_goliath_and_wither.tooltip": "On doom mode, the ender dragon cannot be killed by any means if Goliath and the Wither are still alive in the end.",
 
@@ -977,7 +977,7 @@
   "speedrunnermod.nuzland_youtube.tooltip": "Check out my other friend's channel, §b§lNuzLand! §r:)",
 
   "speedrunnermod.menu.credits": "Credits...",
-  "speedrunnermod.title.credits": "Credits",
+  "speedrunnermod.menu.credits.tooltip": "I urge you.\n\nHold shift and click to hear a story...",
 
   "speedrunnermod.menu.doom_mode": "§c§kDon't Bother...",
   "speedrunnermod.title.doom_mode": "§cDoom Mode",

@@ -16,6 +16,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
+import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,8 +35,6 @@ public class TitleScreenMixin extends Screen {
     private boolean doBackgroundFade;
     @Shadow
     private long backgroundFadeStart;
-    @Shadow
-    private float backgroundAlpha;
     @Unique
     private ButtonWidget featuresButton, createWorldButton, optionsButton;
 
@@ -101,5 +100,16 @@ public class TitleScreenMixin extends Screen {
         if (this.optionsButton.isHovered()) {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
         }
+    }
+
+    /**
+     * Allows the user to refresh the title screen.
+     */
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_R) {
+            this.client.setScreen(new TitleScreen());
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 }

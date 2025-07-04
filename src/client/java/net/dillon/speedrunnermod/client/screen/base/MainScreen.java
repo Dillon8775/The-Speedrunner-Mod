@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ExternalScreen;
-import net.dillon.speedrunnermod.client.screen.base.misc.ModCreditsScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ResourcesScreen;
 import net.dillon.speedrunnermod.client.screen.base.option.ModOptionsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
@@ -14,6 +13,7 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -71,7 +71,7 @@ public class MainScreen extends AbstractModScreen {
         }).build();
 
         this.creditsButton = ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
-            this.client.setScreen(new ModCreditsScreen(this));
+            this.client.setScreen(new CreditsScreen(hasShiftDown(), () -> this.client.setScreen(this)));
         }).build();
 
         this.leaderboardsButton = ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
@@ -109,6 +109,9 @@ public class MainScreen extends AbstractModScreen {
         }
         if (this.resourcesButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_RESOURCES_TOOLTIP, context, mouseX, mouseY);
+        }
+        if (this.creditsButton.isHovered()) {
+            this.renderBasicTooltip(ModTexts.MENU_CREDITS_TOOLIP, context, mouseX, mouseY);
         }
         if (this.leaderboardsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_LEADERBOARDS_DISABLED, context, mouseX, mouseY);

@@ -84,6 +84,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.lockOption(ModListOptions.strongholdSpread(), options().main.customDataGeneration.getCurrentValue());
         this.lockOption(ModListOptions.strongholdPortalRoomCount(), options().main.customDataGeneration.getCurrentValue());
         this.lockOption(ModListOptions.strongholdLibraryCount(), options().main.customDataGeneration.getCurrentValue());
+        this.lockOption(ModListOptions.customBiomesAndCustomBiomeFeatures(), options().main.customDataGeneration.getCurrentValue());
 
         this.renderOptionTooltip(
                 ModListOptions.mode(),
@@ -152,6 +153,15 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.strongholdLibraryCount(),
                 options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
+                context,
+                mouseX,
+                mouseY
+        );
+        this.renderOptionTooltip(
+                ModListOptions.customBiomesAndCustomBiomeFeatures(),
+                options().main.customDataGeneration.getCurrentValue(),
+                Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip"),
                 context,
                 mouseX,
