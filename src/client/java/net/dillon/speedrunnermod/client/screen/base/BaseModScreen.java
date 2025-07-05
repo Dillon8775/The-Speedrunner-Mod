@@ -104,6 +104,10 @@ public class BaseModScreen extends GameOptionsScreen {
         for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
             AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == screenCategory) {
+                if (this instanceof AbstractFeatureScreen previous) {
+                    screen.targetScrollOffset = previous.targetScrollOffset;
+                    screen.scrollOffset = previous.scrollOffset;
+                }
                 return screen;
             }
         }

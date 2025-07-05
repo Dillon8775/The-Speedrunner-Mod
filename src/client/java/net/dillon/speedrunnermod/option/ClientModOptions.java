@@ -185,7 +185,12 @@ public class ClientModOptions {
         /**
          * Returns the last completed tutorial step message translation key(s). These messages are sent when the player rejoins the world.
          */
-        public OptionValue<List<String>> lastCompletedTutorialStepTranslations = new OptionValue<>(new ArrayList<>(), false);
+        public OptionValue<List<String>> lastCompletedTutorialStepMessageTranslations = new OptionValue<>(new ArrayList<>(), false);
+
+        /**
+         * Tells the game whether to boot into the {@code feature screens} or not.
+         */
+        public OptionValue<Boolean> enterFeaturesScreen = new OptionValue<>(false, false);
     }
 
     /**

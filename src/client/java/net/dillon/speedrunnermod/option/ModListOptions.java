@@ -388,6 +388,15 @@ public class ModListOptions {
         );
     }
 
+    public static SimpleOption<Boolean> enterFeatureScreens() {
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.enter_feature_screens",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.enter_feature_screens.tooltip")),
+                clientOptions().storedValues.enterFeaturesScreen,
+                true
+        );
+    }
+
     public static SimpleOption<Boolean> terraBlenderSurfaceRuleDataMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.terrablender_surface_rule_data_mixin",

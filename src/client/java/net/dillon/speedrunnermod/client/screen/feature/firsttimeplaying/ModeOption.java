@@ -10,6 +10,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +19,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerC
 
 @Environment(EnvType.CLIENT)
 public class ModeOption extends AbstractFeatureScreen {
-    private ButtonWidget easyButton, balancedButton, doomButton;
+    private ClickableWidget easyButton, balancedButton, doomButton;
 
     public ModeOption(Screen parent) {
         super(parent, ModTexts.BLANK);

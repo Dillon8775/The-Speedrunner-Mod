@@ -98,6 +98,14 @@ public interface TutorialMode {
     void setStep(TutorialStep step, boolean value);
 
     /**
+     * @return {@code true} if tutorial mode is completed.
+     */
+    default boolean completed() {
+        return (!isDoomMode() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
+                (isDoomMode() && this.getStep(TutorialStep.EXIT_END));
+    }
+
+    /**
      * Returns true if a tutorial step can complete.
      */
     @AI
@@ -142,8 +150,7 @@ public interface TutorialMode {
                 sendWithPrefix(s, player);
                 translations.add(s);
             }
-            if ((!isDoomMode() && this.getStep(TutorialStep.OBTAIN_INFINI_PEARL)) ||
-                    isDoomMode() && this.getStep(TutorialStep.EXIT_END)) {
+            if (completed()) {
                 translations = List.of(); // blank list if tutorial mode is completed
             }
             ClientPlayNetworking.send(new TutorialStepCompleteC2SPacket(step, translations));

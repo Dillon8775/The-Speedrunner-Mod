@@ -3,13 +3,17 @@ package net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
+import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
+import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
@@ -18,7 +22,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChan
 
 @Environment(EnvType.CLIENT)
 public class ReadyToPlayScreen extends AbstractFeatureScreen {
-    private ButtonWidget beginPlayingButton;
+    private ClickableWidget beginPlayingButton;
 
     public ReadyToPlayScreen(Screen parent) {
         super(parent, ModTexts.BLANK);
@@ -29,7 +33,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
         super.init();
         this.addButtonObject(ButtonWidget.builder(ModTexts.ENTER_TUTORIAL_MODE, button -> {
             clientOptions().client.tutorialMode.set(true);
-            saveDedicatedServerChanges();
+            saveClientChanges();
             restartRequired = true;
             this.client.setScreen(this.getNextScreen());
         }).build());
@@ -38,10 +42,16 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
                 this.client.setScreen(this.getNextScreen());
             } else {
                 clientOptions().client.firstTimePlaying.set(false);
+                if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
+                    this.client.setScreen(new SpeedrunnerIngotsScreen(null));
+                    clientOptions().storedValues.enterFeaturesScreen.set(false);
+                } else {
+                    this.client.setScreen(new TitleScreen());
+                }
                 saveClientChanges();
-                this.client.setScreen(new TitleScreen());
             }
         }).build());
+        this.addButtonObject(ModListOptions.enterFeatureScreens().createWidget(MinecraftClient.getInstance().options));
         this.addButtonObject(ButtonWidget.builder(ModTexts.BACK, button -> {
             this.client.setScreen(this.getPreviousScreen());
             restartRequired = false;

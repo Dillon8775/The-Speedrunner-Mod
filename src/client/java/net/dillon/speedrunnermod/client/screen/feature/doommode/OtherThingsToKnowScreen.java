@@ -10,6 +10,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -27,7 +28,7 @@ public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
         super.init();
 
         this.addButtonObject(ButtonWidget.builder(ModTexts.OK, button -> this.close()).build());
-        ButtonWidget enableDoomMode = this.addButtonObject(ButtonWidget.builder(ModTexts.ENABLE_DOOM_MODE, button -> {
+        ClickableWidget enableDoomMode = this.addButtonObject(ButtonWidget.builder(ModTexts.ENABLE_DOOM_MODE, button -> {
             RestartRequiredScreen.getCurrentOptions();
             if (!isDoomMode()) {
                 this.client.setScreen(new RestartRequiredScreen(this));

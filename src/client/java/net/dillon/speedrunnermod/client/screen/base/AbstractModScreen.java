@@ -59,7 +59,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     public OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> featureButtons = new ArrayList<>();
-    public boolean isResettingOptions = false;
 
     public AbstractModScreen(Screen parent, Text title) {
         super(parent, title);
@@ -227,8 +226,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Sets the screen to the {@code parent} screen and resizes it correctly.
      */
     protected void setParentAndResize() {
-        this.parent.resize(this.client, this.width, this.height);
-        this.client.setScreen(this.parent);
+        if (this.parent != null) {
+            this.parent.resize(this.client, this.width, this.height);
+            this.client.setScreen(this.parent);
+        } else {
+            super.close();
+        }
     }
 
     /**

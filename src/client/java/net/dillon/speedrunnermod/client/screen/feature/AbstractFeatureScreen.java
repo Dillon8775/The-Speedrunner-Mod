@@ -46,7 +46,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     @Nullable
     private Text category4Text;
     private ButtonWidget nextButton, previousButton;
-    public static boolean restartRequired = false;
+    protected static boolean restartRequired = false;
 
     /**
      * A basic feature screen constructor.
@@ -104,7 +104,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 this.addButtonObject(ButtonWidget.builder(this.category1Text, button -> this.client.setScreen(this.category1Screen)).build());
                 this.addButtonObject(ButtonWidget.builder(this.category2Text, button -> this.client.setScreen(this.category2Screen)).build());
                 this.addButtonObject(ButtonWidget.builder(this.category3Text, button -> this.client.setScreen(this.category3Screen)).build());
-                if (hasFourthCategory) {
+                if (this.hasFourthCategory) {
                     this.addButtonObject(ButtonWidget.builder(this.category4Text, button -> this.client.setScreen(this.category4Screen)).build());
                 }
             }

@@ -182,11 +182,4 @@ public class SpeedrunnerMod implements ModInitializer {
     public static boolean isEnvironmentTypeServer() {
         return FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER);
     }
-
-    /**
-     * @return {@code true} if the mod is running on {@code EnvType.CLIENT}
-     */
-    public static boolean isEnvironmentTypeClient() {
-        return FabricLoader.getInstance().getEnvironmentType().equals(EnvType.CLIENT);
-    }
 }

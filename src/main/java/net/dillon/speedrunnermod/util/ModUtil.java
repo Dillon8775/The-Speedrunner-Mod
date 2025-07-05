@@ -12,6 +12,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EyeOfEnderEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Style;
@@ -30,6 +33,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 
@@ -161,6 +165,34 @@ public class ModUtil {
         ItemStack stack = new ItemStack(item);
         stack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         return stack;
+    }
+
+    /**
+     * Spawns a {@code floating item entity} from the player's position.
+     */
+    public static void spawnFloatingItemEntity(World world, ItemStack stack, PlayerEntity player) {
+        spawnFloatingItemEntity(world, player.getBlockPos(), stack, player, false);
+    }
+
+    /**
+     * Spawns a {@code floating item entity} from the {@link BlockPos}'s position.
+     */
+    public static void spawnFloatingItemEntity(World world, BlockPos pos, ItemStack stack, PlayerEntity player, boolean playSound) {
+        ItemEntity item = new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + 3.0F, pos.getZ() + 0.5F, stack);
+        item.setInvulnerable(true);
+        item.setGlowing(true);
+        item.setNoGravity(true);
+        item.setNeverDespawn();
+
+        Vec3d itemPos = item.getPos();
+        Vec3d playerPos = player.getPos();
+        Vec3d motion = playerPos.subtract(itemPos).normalize().multiply(0.1D);
+        item.setVelocity(motion.x, motion.y, motion.z);
+
+        if (playSound) {
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 3.0F, 1.0F);
+        }
+        world.spawnEntity(item);
     }
 
     /**

@@ -8,6 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.text.MutableText;
@@ -33,8 +34,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     protected final Screen parent;
     public final List<LineObject> objectsToDisplay = new ArrayList<>();
     private final int scrollSpeed = 12;
-    private float scrollOffset;
-    private float targetScrollOffset;
+    protected float scrollOffset;
+    protected float targetScrollOffset;
     private static final float SCROLL_LERP_SPEED = 0.2F;
     private boolean isDraggingScrollbar = false;
     private boolean isDraggingAnywhere = false;
@@ -349,7 +350,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             }
 
             if (line.isButton()) {
-                ButtonWidget button = line.button();
+                ClickableWidget button = line.button();
                 button.setWidth(this.getButtonsWidth());
                 button.setHeight(20);
                 button.setX(this.width / 2 - 75);
@@ -403,7 +404,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         for (LineObject line : objectsToDisplay) {
             if (line.isButton() && line.button.visible && line.button.isMouseOver(mouseX, mouseY)) {
-                line.button.onPress();
+                if (line.button instanceof ButtonWidget buttonWidget) {
+                    buttonWidget.onPress();
+                } else {
+                    line.button.onClick(mouseX, mouseY);
+                }
                 line.button.playDownSound(MinecraftClient.getInstance().getSoundManager());
                 return true;
             }
@@ -541,7 +546,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Adds a button to scrollable text screen.
      */
-    protected ButtonWidget addButtonObject(ButtonWidget button) {
+    protected ClickableWidget addButtonObject(ClickableWidget button) {
         this.objectsToDisplay.add(new LineObject(null, 1.0F, null, 0, 0, button));
         return button;
     }
@@ -569,7 +574,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Data structure representing a line of text with a scale factor.
      */
     @AI
-    public record LineObject(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ButtonWidget button) {
+    public record LineObject(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ClickableWidget button) {
         public boolean isImage() {
             return imageId != null;
         }
@@ -579,7 +584,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         }
 
         @NotNull
-        public ButtonWidget getButton() {
+        public ClickableWidget getButton() {
             return this.button;
         }
 

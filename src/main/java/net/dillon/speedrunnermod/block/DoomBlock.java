@@ -124,19 +124,7 @@ public class DoomBlock {
                 stack = new ItemStack(ModItems.DRAGONS_PEARL);
             }
 
-            ItemEntity item = new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + 3.0F, pos.getZ() + 0.5F, stack);
-            item.setInvulnerable(true);
-            item.setGlowing(true);
-            item.setNoGravity(true);
-            item.setNeverDespawn();
-
-            Vec3d itemPos = item.getPos();
-            Vec3d playerPos = player.getPos();
-            Vec3d motion = playerPos.subtract(itemPos).normalize().multiply(0.1D);
-            item.setVelocity(motion.x, motion.y, motion.z);
-
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 3.0F, 1.0F);
-            world.spawnEntity(item);
+            ModUtil.spawnFloatingItemEntity(world, pos, stack, player, true);
             generatedItem = true;
         }
 

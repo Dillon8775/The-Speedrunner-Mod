@@ -25,7 +25,7 @@ public class ClientSyncedServerOptions {
      */
     public static void setLastSentTutorialModeMessageTranslations(UUID playerUuid, List<String> translations) {
         TRANSLATIONS.put(playerUuid, translations);
-        clientOptions().storedValues.lastCompletedTutorialStepTranslations.set(getLastSentTutorialModeMessageTranslations(playerUuid));
+        clientOptions().storedValues.lastCompletedTutorialStepMessageTranslations.set(getLastSentTutorialModeMessageTranslations(playerUuid));
         saveClientChanges();
     }
 
@@ -33,7 +33,7 @@ public class ClientSyncedServerOptions {
      * @return the last sent {@code tutorial mode message translations.}
      */
     public static List<String> getLastSentTutorialModeMessageTranslations(UUID playerUuid) {
-        return TRANSLATIONS.getOrDefault(playerUuid, clientOptions().storedValues.lastCompletedTutorialStepTranslations.getCurrentValue());
+        return TRANSLATIONS.getOrDefault(playerUuid, clientOptions().storedValues.lastCompletedTutorialStepMessageTranslations.getCurrentValue());
     }
 
     /**
@@ -47,7 +47,7 @@ public class ClientSyncedServerOptions {
      * Writes the last sent {@code tutorial mode message translations,} but clears them from memory to save heap space.
      */
     public static void writeAndClearTutorialModeMessageTranslations(UUID playerUuid) {
-        clientOptions().storedValues.lastCompletedTutorialStepTranslations.set(getLastSentTutorialModeMessageTranslations(playerUuid));
+        clientOptions().storedValues.lastCompletedTutorialStepMessageTranslations.set(getLastSentTutorialModeMessageTranslations(playerUuid));
         saveClientChanges();
         TRANSLATIONS.remove(playerUuid);
     }

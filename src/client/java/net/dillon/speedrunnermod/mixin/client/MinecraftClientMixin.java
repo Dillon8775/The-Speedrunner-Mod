@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.dillon.speedrunnermod.client.screen.base.SafeBootScreen;
 import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsSafeScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.SpeedrunIGTMissingScreen;
+import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
@@ -24,6 +25,7 @@ import java.util.function.Function;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
@@ -50,6 +52,10 @@ public abstract class MinecraftClientMixin {
                     warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
                 } else if (clientOptions().client.firstTimePlaying.getCurrentValue()) {
                     this.setScreen(new FirstTimePlayingScreen(null));
+                } else if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
+                    this.setScreen(new SpeedrunnerIngotsScreen(null));
+                    clientOptions().storedValues.enterFeaturesScreen.set(false);
+                    saveClientChanges();
                 } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().main.leaderboardsMode.getCurrentValue()) {
                     this.setScreen(new LeaderboardsSafeScreen(null));
                     warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");

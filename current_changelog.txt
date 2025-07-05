@@ -1,42 +1,5 @@
-KEY CHANGES:
-- A new credits story. I recommend reading it once you complete a speedrun with this mod.
-- Splash texts are back!
-- Updated to Minecraft 1.21.5!
-- Tons of bug fixes, crash fixes, and optimizations.
-- Renamed "Playing Mode" option to "Mode".
-- Optimized options and changed configuration file layout.
-- To change an option's value in the configuration file, change the "current_value". Leave everything else alone.
-- Hold down "shift" on an options screen to open the client-side configuration file.
-
-CRASH FIXES:
-- Fixed server crash with Terraform Wood API (this mod no longer depends on Terraform Wood API).
-- Split client and common sources. Client-sided options are now strictly client-side and do not interfere with the server side. Same with server-side options, they do not interfere with the client-side.
-
-TUTORIAL MODE:
-- Tutorial mode is now client-side only, meaning multiple players can work at their own pace and progress on their own.
-- Tutorial mode now works correctly on servers.
-- Tutorial mode is no longer a beta feature, it's official.
-- Optimized and fixed bugs in tutorial mode.
-
-SPEEDRUNNER BOAT CHANGES:
-- New item! - Speedrunner paddle: used to paddle the speedrunner boat. Crafted with a speedrunner block, speedrunner ingot, and a speedrunner stick.
-- Normal speedrunner boats are now crafted with 5 speedrunner planks, a lava bucket and 2 speedrunner paddles.
-
-SPEEDRUNNER's WORKBENCH:
-- The Speedrunner's Workbench is now crafted with 3 speedrunner planks, a speedrunner block, a speedrunner paddle, ANY speedrunner tool, and 3 speedrunner ingots.
-- Transferring enchantments via the speedrunner's workbench will now damage the output based on each enchantment's transferred level.
-- You can no longer use enchanted books with the speedrunner's workbench.
-
-REMOVALS:
-- Removed the button and keybind (R) to "refresh" a screen (refreshing screen is never needed now because the bug where buttons don't display correctly is fixed).
-- Removed custom panorama option.
-- Removed confirmation messages option.
-- Removed item tooltips and texture tooltips option.
-- Deleted place on Dillon8775's webpage, everything you would need for this mod is now on CurseForge and Modrinth.
-
-MISCELLANEOUS
-- Removed "DISABLED" structure spawn rate option, now set to "Default" to use Minecraft's default structure spawn rates.
-- You can now use the Ender Thruster on doom mode if the player is in a mountain/hill biome, or if the player's Y-level is less than 0.
-- Changing the "allow cheats" option in the fast world creation screen will enable/disable cheats in your current world.
-- Experiences ores now generate on every mode.
-- Added option to sync client-side options with server-side options, to allow for optimal gameplay.
+- New advanced options for changing different radius settings.
+- Optimizations and bug fixes.
+- Fixed crash when falling into the void.
+- Fixed tutorial mode bug(s).
+- Fixed bug when crafting piglin awakener on a mode other than balanced doesn't give item back.

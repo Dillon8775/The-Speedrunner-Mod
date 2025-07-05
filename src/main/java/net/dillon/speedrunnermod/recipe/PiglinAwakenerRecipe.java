@@ -53,7 +53,7 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
 
         ItemStack center = input.getStackInSlot(CENTER_SLOT); // 4 is center slot
 
-        if (isBalancedMode() && center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
+        if (center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             result.set(ModDataComponentTypes.STORED_ITEMSTACK, center.copyWithCount(1));
         }
 
