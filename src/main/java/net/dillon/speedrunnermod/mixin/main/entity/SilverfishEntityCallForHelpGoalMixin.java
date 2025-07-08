@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.mob.SilverfishEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,6 +17,6 @@ public class SilverfishEntityCallForHelpGoalMixin {
      */
     @Redirect(method = "onHurt", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/SilverfishEntity$CallForHelpGoal;delay:I", ordinal = 0))
     private int onHurt(SilverfishEntity.CallForHelpGoal callForHelpGoal) {
-        return this.delay = ModConstants.SILVERFISH_CALL_FOR_HELP_DELAY;
+        return this.delay = ModUtil.getSilverfishCallForHelpDelay();
     }
 }

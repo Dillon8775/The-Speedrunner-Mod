@@ -1,22 +1,17 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.VexEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -28,27 +23,12 @@ public class VexEntityMixin extends HostileEntity {
     }
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies {@code vex} attributes.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((VexEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Modifies {@code vex} attributes.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createVexAttributes() {
-        final double genericMaxHealth = isDoomMode() ? 7.0D : 14.0D;
-        final double genericAttackDamage = isDoomMode() ? 3.0D : 4.0D;
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends VexEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 7.0D : 14.0D);
+        ModUtil.modifyAttackDamage(this, isDoomMode() ? 3.0D : 4.0D);
     }
 
     /**
@@ -65,7 +45,7 @@ public class VexEntityMixin extends HostileEntity {
      */
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/VexEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"), index = 1)
     private float amount(float amount) {
-        return ModConstants.VEX_DECAY_DAMAGE_VALUE;
+        return ModUtil.getVexDecayDamageValue();
     }
 
     /**

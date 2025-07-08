@@ -1,14 +1,11 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -17,7 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
@@ -26,30 +23,19 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 public abstract class CreeperEntityMixin extends HostileEntity {
     @Shadow
     private int explosionRadius;
-
-    @Shadow public abstract boolean isCharged();
+    @Shadow
+    public abstract boolean isCharged();
 
     public CreeperEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
     /**
-     * Increases the experience dropped upon death.
-     */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((CreeperEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
      * Lowers the creeper's max health.
      */
-    @ModifyArg(method = "createCreeperAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
-    private static double genericMovementSpeed(double baseValue) {
-        return isDoomMode() ? 0.3D : 0.25D;
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void genericMaxHealth(EntityType<? extends CreeperEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
     /**

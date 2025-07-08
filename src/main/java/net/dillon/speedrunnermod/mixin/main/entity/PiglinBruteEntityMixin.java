@@ -1,42 +1,26 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.AbstractPiglinEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PiglinBruteEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(PiglinBruteEntity.class)
-public abstract class PiglinBruteEntityMixin extends AbstractPiglinEntity {
-
-    public PiglinBruteEntityMixin(EntityType<? extends AbstractPiglinEntity> entityType, World world) {
-        super(entityType, world);
-    }
+public class PiglinBruteEntityMixin {
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies the {@code maximum health} for the piglin brute.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 20 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PiglinBruteEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * Modifies the piglin brute's maximum health.
-     */
-    @ModifyArg(method = "createPiglinBruteAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 0), index = 1)
-    private static double genericMaxHealth(double baseValue) {
-        return isDoomMode() ? 25.0D : 50.0D;
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends PiglinBruteEntity> entityType, World world, CallbackInfo ci) {
+        MobEntity dis = (MobEntity)(Object)this;
+        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 25.0D : 50.0D);
     }
 }

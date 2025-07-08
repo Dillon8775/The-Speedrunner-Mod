@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -37,7 +36,7 @@ public class SlimeEntityMixin extends MobEntity {
      */
     @Overwrite
     public int getTicksUntilNextJump() {
-        return ModConstants.SLIME_JUMP_TIME;
+        return ModUtil.getSlimeJumpTime();
     }
 
     /**
@@ -46,6 +45,6 @@ public class SlimeEntityMixin extends MobEntity {
      */
     @Overwrite
     public float getDamageAmount() {
-        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * ModConstants.SLIME_DAMAGE_MULTIPLIER;
+        return (float)this.getAttributeValue(EntityAttributes.ATTACK_DAMAGE) * ModUtil.getSlimeDamageMultiplier();
     }
 }

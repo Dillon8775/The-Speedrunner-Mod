@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.client.util.ModIcons;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -47,20 +48,20 @@ public class TitleScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void addButtons(CallbackInfo ci) {
+        this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
+            this.client.setScreen(new MainScreen(this));
+        }).dimensions(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
+
         this.featuresButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
             this.client.setScreen(new FeaturesScreen(this));
-        }).dimensions(this.width / 2 - 124, this.height / 4 + 48, 20, 20).build());
+        }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 48, 20, 20).build());
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {
             this.createWorldButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                 CreateWorldScreen.show(this.client, this);
-            }).dimensions(this.width / 2 - 124, this.height / 4 + 72, 20, 20).build());
+            }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
             this.createWorldButton.active = clientOptions().client.fastWorldCreation.getCurrentValue();
         }
-
-        this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-            this.client.setScreen(new MainScreen(this));
-        }).dimensions(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
     }
 
     /**
@@ -68,7 +69,7 @@ public class TitleScreenMixin extends Screen {
      */
     @Inject(method = "render", at = @At("TAIL"))
     private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/item/golden_speedrunner_upgrade_smithing_template.png"), featuresButton.getX() + 2, this.featuresButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+        ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton);
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {
             context.drawTexture(RenderLayer::getGuiTextured, ofSpeedrunnerMod("textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
@@ -59,8 +59,8 @@ public class WastelandPlacedFeatures {
         PlacedFeatures.register(context, ORE_EXPERIENCE, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_EXPERIENCE),
                 modifiersWithCount(18, HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(62))));
         PlacedFeatures.register(context, ORE_DIAMOND, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_DIAMOND),
-                modifiersWithCount(ModConstants.DIAMOND_ORE_SPAWN_CHANCE - 1, HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))));
+                modifiersWithCount(ModUtil.DIAMOND_ORE_SPAWN_CHANCE - 1, HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))));
         PlacedFeatures.register(context, ORE_DIAMOND_BURIED, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_DIAMOND_BURIED),
-                modifiersWithCount(ModConstants.BURIED_DIAMOND_ORE_SPAWN_CHANCE - 2, HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))));
+                modifiersWithCount(ModUtil.BURIED_DIAMOND_ORE_SPAWN_CHANCE - 2, HeightRangePlacementModifier.trapezoid(YOffset.aboveBottom(-80), YOffset.aboveBottom(80))));
     }
 }

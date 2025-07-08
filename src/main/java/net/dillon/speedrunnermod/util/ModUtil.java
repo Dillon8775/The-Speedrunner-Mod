@@ -9,10 +9,14 @@ import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,13 +43,30 @@ import net.minecraft.world.gen.structure.Structure;
 
 import java.util.*;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
+
 /**
  * Helper methods for various different things (ex. items and math calculations)
  */
 public class ModUtil {
-    public static int i = 0;
+    public static int errorMessagesSent = 0;
     public static final String CONFIG_FILE_NAME = "speedrunnermod-config.json";
     public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod-client_config.json";
+
+    public static final int SPEEDRUNNER_WATER_COLOR = 0x85C1E9;
+    public static final int SPEEDRUNNER_WATER_FOG_COLOR = 0x85C1E9;
+    public static final int DOLPHIN_RANGE = 200;
+    public static final int TREES_PLAINS_COUNT = 1;
+    public static final int DIAMOND_ORE_SPAWN_CHANCE = 8;
+    public static final int BURIED_DIAMOND_ORE_SPAWN_CHANCE = 9;
+    public static final int LARGE_DIAMOND_ORE_SPAWN_CHANCE = 5;
+    public static final int LAPIS_LAZULI_ORE_SPAWN_CHANCE = 3;
+    public static final int BURIED_LAPIS_LAZULI_ORE_SPAWN_CHANCE = 4;
+    public static final float LAVA_BOAT_VELOCITY_MULTIPLIER = 0.95F;
+    public static final float FAST_BOAT_VELOCITY_MULTIPLIER = 1.035F;
+    public static final double DOLPHIN_PREDICATE_RANGE = 20.0D;
 
     /**
      * Locates structures.
@@ -133,15 +154,15 @@ public class ModUtil {
                                     Optional.empty();
             return optional.orElseThrow();
         } catch (Exception o) {
-            if (!(i > 100)) {
-                SpeedrunnerMod.error("(" + i + ") Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.");
+            if (!(errorMessagesSent > 100)) {
+                SpeedrunnerMod.error("(" + errorMessagesSent + ") Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.");
             }
-            if (i == 101) {
-                SpeedrunnerMod.error("(" + i + ") Returning LOOTING enchantment.");
+            if (errorMessagesSent == 101) {
+                SpeedrunnerMod.error("(" + errorMessagesSent + ") Returning LOOTING enchantment.");
                 o.printStackTrace();
-                SpeedrunnerMod.error("(" + i + ") This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.");
+                SpeedrunnerMod.error("(" + errorMessagesSent + ") This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.");
             }
-            i++;
+            errorMessagesSent++;
             World world = null;
             if (obj instanceof Entity entity) {
                 world = entity.getWorld();
@@ -168,7 +189,7 @@ public class ModUtil {
     }
 
     /**
-     * Spawns a {@code floating item entity} from the player's position.
+     * Spawns a {@code floating item entity} from the player's position and follows them.
      */
     public static void spawnFloatingItemEntity(World world, ItemStack stack, PlayerEntity player) {
         spawnFloatingItemEntity(world, player.getBlockPos(), stack, player, false);
@@ -202,6 +223,77 @@ public class ModUtil {
         ItemStack fireworks = new ItemStack(Items.FIREWORK_ROCKET, count);
         fireworks.set(DataComponentTypes.FIREWORKS, new FireworksComponent(3, List.of()));
         return fireworks;
+    }
+
+    /**
+     * Modifies the {@code maximum health} of an entity.
+     */
+    public static void modifyMaxHealth(LivingEntity entity, double health) {
+        if (entity.getAttributeInstance(EntityAttributes.MAX_HEALTH) != null) {
+            entity.getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(health);
+        }
+        entity.setHealth(entity.getMaxHealth());
+    }
+
+    /**
+     * Modifies the {@code generic movement speed} of an entity.
+     */
+    public static void modifyMovementSpeed(LivingEntity entity, double speed) {
+        if (entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED) != null) {
+            entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
+        }
+    }
+
+    /**
+     * Modifies the {@code follow range} of an entity.
+     */
+    public static void modifyFollowRange(LivingEntity entity, double range) {
+        if (entity.getAttributeInstance(EntityAttributes.FOLLOW_RANGE) != null) {
+            entity.getAttributeInstance(EntityAttributes.FOLLOW_RANGE).setBaseValue(range);
+        }
+    }
+
+    /**
+     * Modifies the {@code attack damage} of an entity.
+     */
+    public static void modifyAttackDamage(LivingEntity entity, double attackDamage) {
+        if (entity.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE) != null) {
+            entity.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(attackDamage);
+        }
+    }
+
+    /**
+     * Modifies the {@code attack knockback} of an entity.
+     */
+    public static void modifyAttackKnockback(LivingEntity entity, double attackKnockback) {
+        if (entity.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK) != null) {
+            entity.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK).setBaseValue(attackKnockback);
+        }
+    }
+
+    /**
+     * Modifies the {@code knockback resistance} of an entity.
+     */
+    public static void modifyKnockbackResistance(LivingEntity entity, double resistance) {
+        if (entity.getAttributeInstance(EntityAttributes.KNOCKBACK_RESISTANCE) != null) {
+            entity.getAttributeInstance(EntityAttributes.KNOCKBACK_RESISTANCE).setBaseValue(resistance);
+        }
+    }
+
+    /**
+     * Modifies the {@code armor attribute} of an entity.
+     */
+    public static void modifyArmor(LivingEntity entity, double value) {
+        if (entity.getAttributeInstance(EntityAttributes.ARMOR) != null) {
+            entity.getAttributeInstance(EntityAttributes.ARMOR).setBaseValue(value);
+        }
+    }
+
+    /**
+     * Modifies the {@code experiencePoints} variable in {@link MobEntity}.
+     */
+    public static int modifyExperiencePoints(MobEntity reference, LivingEntity attacker, int base, int multiplier) {
+        return base + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment(reference, Enchantments.LOOTING), attacker) * multiplier;
     }
 
     /**
@@ -283,5 +375,191 @@ public class ModUtil {
      */
     public static List<Integer> createStructureSpawnRateOption(int spacing, int separation) {
         return List.of(spacing, separation);
+    }
+
+    /**
+     * @return the bed block explosion power based.
+     */
+    public static float getBedBlockExplosionPower(World world) {
+        if (isDoomMode()) {
+            return world.getRegistryKey() == World.END ? 15.0F : 5.0F;
+        } else {
+            return 5.0F;
+        }
+    }
+
+    /**
+     * @return how long an entity should be set on fire for from lava (in seconds).
+     */
+    public static int getFireDamageFromLavaDuration() {
+        return isDoomMode() ? 15 : 7;
+    }
+
+    /**
+     * @return how long an entity should be set on fire for from a fireball (in seconds).
+     */
+    public static int getFireballFireDamageTime() {
+        return isDoomMode() ? 6 : 3;
+    }
+
+    /**
+     * @return the blaze's fireball shooting cooldown (in ticks).
+     */
+    public static int getBlazeFireballCooldown() {
+        return isDoomMode() ? 60 : 180;
+    }
+
+    /**
+     * @return the ghast's fireball shooting cooldown (in ticks).
+     * <p>I don't know why, but these values have to be negative.</p>
+     */
+    public static int getGhastFireballCooldown() {
+        return isDoomMode() ? -5 : -40;
+    }
+
+    /**
+     * @return how long it takes for a slime to make it's next jump (in ticks).
+     */
+    public static int getSlimeJumpTime() {
+        return isDoomMode() ? 20 : 100;
+    }
+
+    /**
+     * @return how long it takes for a player to lose an air bubble (in seconds).
+     */
+    public static int getPlayerBreathTime() {
+        return options().advanced.higherBreathTime.getCurrentValue() ? 8 : 4;
+    }
+
+    /**
+     * @return how long it takes for a silverfish to call for more backup (in ticks).
+     */
+    public static int getSilverfishCallForHelpDelay() {
+        return isDoomMode() ? 20 : 100;
+    }
+
+    /**
+     * @return how long a wither skeleton inflicts the wither effect for (in ticks).
+     */
+    public static int getWitherSkeletonWitherEffectDuration() {
+        return isDoomMode() ? 200 : 60;
+    }
+
+    /**
+     * @return the minimum y-level that a stronghold can generate at.
+     */
+    public static int getStrongholdMinY() {
+        return isDoomMode() ? -48 : 27;
+    }
+
+    /**
+     * @return the maximum y-level that a stronghold can generate at.
+     */
+    public static int getStrongholdMaxY() {
+        int seaLevel = 63;
+        return isDoomMode() ? 0 : seaLevel;
+    }
+
+    /**
+     * @return the chance of an ender eye being pre-filled in an end portal frame block.
+     * <p>The higher the value, the less the chance.</p>
+     */
+    public static float getPrefilledEnderEyeChance() {
+        return isDoomMode() ? 0.99F : isEasyMode() ? 0.6F : 0.9F;
+    }
+
+    /**
+     * @return how much damage lava does to an entity (each 0.5 = half a heart).
+     */
+    public static float getLavaDamageValue() {
+        return isDoomMode() ? 4.0F : 2.0F;
+    }
+
+    /**
+     * @return how much damage a fireball does when hitting an entity (each 0.5 = half a heart).
+     */
+    public static float getFireballDamageValue() {
+        return isDoomMode() ? 5.0F : 1.0F;
+    }
+
+    /**
+     * @return how much damage a slime does when attacking.
+     */
+    public static float getSlimeDamageMultiplier() {
+        return isDoomMode() ? 2.2F : 1.5F;
+    }
+
+    /**
+     * @return how much damage a vex takes each time it takes damage from decaying.
+     */
+    public static float getVexDecayDamageValue() {
+        return isDoomMode() ? 100.0F : 1.0F;
+    }
+
+    /**
+     * @return how much damage the ender dragon does.
+     */
+    public static float getEnderDragonDamageValue() {
+        return isDoomMode() ? 12.0F : 3.0F;
+    }
+
+    /**
+     * @return the maximum health for the ender dragon.
+     */
+    public static double getEnderDragonMaxHealth() {
+        return isDoomMode() ? 500.0D : 100.0D;
+    }
+
+    /**
+     * @return the amplifier for the instant damage effect upon the ender dragon shooting a fireball from it's mouth.
+     */
+    public static int getEnderDragonFireballInstantDamageAmplifier() {
+        return isDoomMode() ? 1 : 0;
+    }
+
+    /**
+     * @return how much the ender dragon heals when connecting to an end crystal.
+     */
+    public static float getEnderDragonEndCrystalHealingValue() {
+        return isDoomMode() ? 1.7F : 0.1F;
+    }
+
+    /**
+     * @return how much damage the ender dragon takes when connected to an end crystal and that end crystal is destroyed.
+     */
+    public static float getEnderDragonDestroyedEndCrystalDamageValue() {
+        return isDoomMode() ? 3.0F : 20.0F;
+    }
+
+    /**
+     * @return how long the ender dragon should stay sitting.
+     */
+    public static float getEnderDragonSittingTime() {
+        if (options().advanced.longerDragonPerchStayTime.getCurrentValue()) {
+            return isDoomMode() ? 0.18F : 0.60F;
+        } else {
+            return 0.25F;
+        }
+    }
+
+    /**
+     * @return the damage that an ender pearl does to the thrower when landing (each 0.5 = half a heart).
+     */
+    public static float getEnderPearlDamageValue() {
+        return isDoomMode() ? 5.0F : 2.0F;
+    }
+
+    /**
+     * @return the maximum health for the wither.
+     */
+    public static double getWitherMaxHealth() {
+        return isDoomMode() ? 150.0D : 100.0D;
+    }
+
+    /**
+     * @return the distance in blocks that a zombified piglin must be in from a piglin in order to get scared and run away.
+     */
+    public static double getZombifiedPiglinRunawayDistance() {
+        return options().advanced.decreasedZombifiedPiglinScareDistance.getCurrentValue() ? 2.0D : 6.0D;
     }
 }

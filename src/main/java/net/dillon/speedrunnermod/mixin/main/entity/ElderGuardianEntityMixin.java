@@ -1,11 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffectUtil;
 import net.minecraft.entity.effect.StatusEffects;
@@ -17,6 +13,9 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
@@ -30,29 +29,13 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
     }
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies {@code elder guardian} attributes.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((ElderGuardianEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 72;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Modifies {@code elder guardian} attributes.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createElderGuardianAttributes() {
-        final double genericMovementSpeed = 0.30000001192092896D;
-        final double genericAttackDamage = isDoomMode() ? 8.0D : 4.0D;
-        final double genericMaxHealth = isDoomMode() ? 50.0D : 25.0D;
-        return GuardianEntity.createGuardianAttributes()
-                .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
-                .add(EntityAttributes.MAX_HEALTH, genericMaxHealth);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends ElderGuardianEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMovementSpeed(this, 0.30000001192092896D);
+        ModUtil.modifyAttackDamage(this, isDoomMode() ? 8.0D : 4.0D);
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 50.0D : 25.0D);
     }
 
     /**

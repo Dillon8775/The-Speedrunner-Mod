@@ -1,13 +1,10 @@
 package net.dillon.speedrunnermod.mixin.main.entity.basic;
 
-import it.unimi.dsi.fastutil.objects.Object2DoubleMap;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSources;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,18 +25,14 @@ public abstract class EntityMixin {
     @Shadow
     public abstract @Nullable Entity getVehicle();
     @Shadow
-    private int fireTicks;
-    @Shadow
     public abstract World getWorld();
-
-    @Shadow protected Object2DoubleMap<TagKey<Fluid>> fluidHeight;
 
     /**
      * Decreases time set on fire for from lava.
      */
     @ModifyArg(method = "igniteByLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
     private float setOnFireFromLavaTime(float x) {
-        return ModConstants.FIRE_DAMAGE_FROM_LAVA_DURATION;
+        return ModUtil.getFireDamageFromLavaDuration();
     }
 
     /**
@@ -47,7 +40,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"))
     private float setOnFireFromLavaAmount(float x) {
-        return ModConstants.LAVA_DAMAGE_VALUE;
+        return ModUtil.getLavaDamageValue();
     }
 
     /**

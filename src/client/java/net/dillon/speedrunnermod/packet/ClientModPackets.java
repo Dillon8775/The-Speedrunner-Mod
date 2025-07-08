@@ -18,9 +18,14 @@ import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
@@ -96,11 +101,19 @@ public class ClientModPackets {
      */
     private static void registerClientJoinAndDisconnectEvents() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            ModUtil.i = 0;
+            ModUtil.errorMessagesSent = 0;
             sendNewC2SOptions();
 
             ClientPlayerEntity player = client.player;
             if (player != null) {
+                int delayInTicks = 150;
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        syncFwc(client, delayInTicks);
+                    }
+                }, delayInTicks);
+
                 List<String> translations = ClientSyncedServerOptions.getLastSentTutorialModeMessageTranslations(player.getUuid());
                 ClientSyncedServerOptions.setLastSentTutorialModeMessageTranslations(player.getUuid(), translations);
                 if (ClientSyncedServerOptions.tutorialModeMessageTranslationsContainsPlayerUuid(player.getUuid()) && clientOptions().client.tutorialMode.getCurrentValue()) {
@@ -132,6 +145,24 @@ public class ClientModPackets {
         registerClientJoinAndDisconnectEvents();
 
         SpeedrunnerMod.debug("Registered server-to-client packets.");
+    }
+
+    /**
+     * Syncs the {@code fast world creation} options with the world.
+     */
+    public static void syncFwc(MinecraftClient client, int delayTicks) {
+        IntegratedServer integratedServer = client.getServer();
+        if (integratedServer != null) {
+            integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats.getCurrentValue());
+            int i = integratedServer.getPermissionLevel(client.player.getGameProfile());
+            client.player.setClientPermissionLevel(i);
+
+            for (ServerPlayerEntity serverPlayerEntity : integratedServer.getPlayerManager().getPlayerList()) {
+                integratedServer.getCommandManager().sendCommandTree(serverPlayerEntity);
+            }
+
+            SpeedrunnerMod.debug("Synced fast world creation settings with world in " + delayTicks + " ticks.");
+        }
     }
 
     /**

@@ -1,20 +1,17 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -26,14 +23,11 @@ public class WitherEntityMixin extends HostileEntity {
     }
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies the {@code maximum health} for the wither.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 50 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((WitherEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 150;
-        }
-        return super.getExperienceToDrop(world);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void genericMaxHealth(EntityType<? extends WitherEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMaxHealth(this, ModUtil.getWitherMaxHealth());
     }
 
     @Override
@@ -42,13 +36,5 @@ public class WitherEntityMixin extends HostileEntity {
         if (this.getAttacker() instanceof PlayerEntity player && isDoomMode()) {
             ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
         }
-    }
-
-    /**
-     * Decreases the maximum health for withers.
-     */
-    @ModifyArg(method = "createWitherAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;", ordinal = 0), index = 1)
-    private static double genericMaxHealth(double baseValue) {
-        return ModConstants.WITHER_MAX_HEALTH;
     }
 }

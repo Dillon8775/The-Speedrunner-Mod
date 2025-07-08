@@ -16,8 +16,6 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
-
 /**
  * The recipe for the piglin awakener recipe, which makes it drop the correct item if crafted on the wrong mode.
  */

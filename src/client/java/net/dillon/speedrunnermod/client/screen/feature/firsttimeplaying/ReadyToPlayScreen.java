@@ -16,7 +16,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import org.jetbrains.annotations.NotNull;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 

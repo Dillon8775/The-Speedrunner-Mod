@@ -1,7 +1,9 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
 import net.dillon.speedrunnermod.client.screen.base.MainScreen;
+import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.client.util.ModIcons;
+import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,7 +32,7 @@ public class GameMenuScreenMixin extends Screen {
     @Shadow @Final
     private boolean showMenu;
     @Unique
-    private ButtonWidget optionsButton, createWorldButton;
+    private ButtonWidget featuresButton, optionsButton, createWorldButton;
 
     public GameMenuScreenMixin(Text title, ButtonWidget createWorldButton) {
         super(title);
@@ -42,6 +44,14 @@ public class GameMenuScreenMixin extends Screen {
     @Inject(method = "initWidgets", at = @At("TAIL"))
     private void addButtons(CallbackInfo ci) {
         if (this.showMenu) {
+            this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
+                this.client.setScreen(new MainScreen(this));
+            }).dimensions(this.width / 2 - 4 - 120 - 2, this.height / 4 + 96 - 16, 20, 20).build());
+
+            this.featuresButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
+                this.client.setScreen(new FeaturesScreen(this));
+            }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 48, 20, 20).build());
+
             if (clientOptions().client.showResetButton.getCurrentValue()) {
                 this.createWorldButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                     if (this.client.inGameHud != null) {
@@ -50,13 +60,9 @@ public class GameMenuScreenMixin extends Screen {
                     this.client.world.disconnect();
                     this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")));
                     CreateWorldScreen.show(this.client, this);
-                }).dimensions(this.width / 2 - 4 - 120 - 2, this.height / 4 + 72 - 16, 20, 20).build());
+                }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
                 this.createWorldButton.active = clientOptions().client.fastWorldCreation.getCurrentValue() && this.client.isInSingleplayer() && this.client.isIntegratedServerRunning() && !this.client.getServer().isRemote();
             }
-
-            this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new MainScreen(this));
-            }).dimensions(this.width / 2 - 4 - 120 - 2, this.height / 4 + 96 - 16, 20, 20).build());
         }
     }
 
@@ -66,6 +72,8 @@ public class GameMenuScreenMixin extends Screen {
     @Inject(method = "render", at = @At("TAIL"))
     private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (this.showMenu) {
+            ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton);
+
             context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), this.width / 2 - 4 - 58 - 2, this.height / 4 - 26 + 2, 0.0F, 0.0F, 129, 16, 129, 16);
 
             if (clientOptions().client.showResetButton.getCurrentValue()) {
@@ -93,6 +101,9 @@ public class GameMenuScreenMixin extends Screen {
 
         if (this.optionsButton.isHovered()) {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
+        }
+        if (this.featuresButton.isHovered()) {
+            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
         }
     }
 }

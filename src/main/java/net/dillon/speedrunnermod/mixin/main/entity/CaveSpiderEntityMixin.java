@@ -21,8 +21,8 @@ public class CaveSpiderEntityMixin {
      */
     @Inject(method = "tryAttack", at = @At(value = "RETURN", ordinal = 0))
     private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
-        if (isDoomMode() && target instanceof PlayerEntity) {
-            ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 0));
+        if (isDoomMode() && target instanceof PlayerEntity player) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 0));
         }
     }
 }

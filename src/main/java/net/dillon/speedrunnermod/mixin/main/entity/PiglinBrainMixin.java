@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.entity.mob.PiglinEntity;
 import net.minecraft.item.ItemStack;
@@ -26,6 +26,6 @@ public class PiglinBrainMixin {
      */
     @ModifyArg(method = "getNearestZombifiedPiglin", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/PiglinEntity;isInRange(Lnet/minecraft/entity/Entity;D)Z"), index = 1)
     private static double nearestZombifiedPiglin(double radius) {
-        return ModConstants.ZOMBIFIED_PIGLIN_RUNAWAY_DISTANCE;
+        return ModUtil.getZombifiedPiglinRunawayDistance();
     }
 }

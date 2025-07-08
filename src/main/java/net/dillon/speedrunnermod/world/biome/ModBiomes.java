@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.world.biome;
 
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.world.feature.ModPlacedFeatures;
 import net.dillon.speedrunnermod.world.feature.WastelandPlacedFeatures;
 import net.minecraft.entity.EntityType;
@@ -61,8 +61,8 @@ public class ModBiomes {
                 .temperature(0.3F)
                 .downfall(0.7F)
                 .effects(new BiomeEffects.Builder()
-                        .waterColor(ModConstants.SPEEDRUNNER_WATER_COLOR)
-                        .waterFogColor(ModConstants.SPEEDRUNNER_WATER_FOG_COLOR)
+                        .waterColor(ModUtil.SPEEDRUNNER_WATER_COLOR)
+                        .waterFogColor(ModUtil.SPEEDRUNNER_WATER_FOG_COLOR)
                         .fogColor(0xEBF5FB)
                         .skyColor(OverworldBiomeCreator.getSkyColor(0.5F))
                         .foliageColor(0xAED6F1)

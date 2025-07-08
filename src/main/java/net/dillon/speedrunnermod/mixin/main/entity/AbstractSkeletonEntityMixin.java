@@ -1,18 +1,16 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.AbstractSkeletonEntity;
 import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -24,14 +22,11 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
     }
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies the {@code generic movement speed} of any skeleton entity.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((AbstractSkeletonEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
-        }
-        return super.getExperienceToDrop(world);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void genericMovementSpeed(EntityType<? extends AbstractSkeletonEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
     /**
@@ -44,13 +39,5 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
             i = isDoomMode() ? 10 : 20;
         }
         return i;
-    }
-
-    /**
-     * Modifies the movement speed of skeleton entities.
-     */
-    @ModifyArg(method = "createAbstractSkeletonAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
-    private static double genericMovementSpeed(double baseValue) {
-        return isDoomMode() ? 0.3D : 0.25D;
     }
 }

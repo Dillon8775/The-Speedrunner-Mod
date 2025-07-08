@@ -1,12 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.HostileEntity;
@@ -15,10 +11,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -29,29 +24,15 @@ public class ZombieEntityMixin extends HostileEntity {
         super(entityType, world);
     }
 
-    @Inject(method = "getExperienceToDrop", at = @At("HEAD"))
-    private void getExperiencePoints(CallbackInfoReturnable<Integer> cir) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((ZombieEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 32;
-        }
-    }
-
     /**
-     * @author Dillon8775
-     * @reason Modifies {@code zombie} attributes.
+     * Modifies {@code zombie} attributes.
      */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createZombieAttributes() {
-        final double genericFollowRange = isDoomMode() ? 50.0D : 25.0D;
-        final double genericMovementSpeed = isDoomMode() ? 0.33000000417232513D : 0.23000000417232513D;
-        final double genericAttackDamage = isDoomMode() ? 7.0D : 2.0D;
-        final double genericArmor = isDoomMode() ? 2.0D : 1.0D;
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange)
-                .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
-                .add(EntityAttributes.ARMOR, genericArmor)
-                .add(EntityAttributes.SPAWN_REINFORCEMENTS);
+    @Inject(method = "<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V", at = @At("TAIL"))
+    private void init(EntityType<? extends ZombieEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyFollowRange(this, isDoomMode() ? 50.0D : 25.0D);
+        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.33D : 0.23D);
+        ModUtil.modifyAttackDamage(this, isDoomMode() ? 7.0D : 2.0D);
+        ModUtil.modifyArmor(this, isDoomMode() ? 2.0D : 1.0D);
     }
 
     /**
@@ -62,8 +43,8 @@ public class ZombieEntityMixin extends HostileEntity {
         if (!super.tryAttack(world, target)) {
             return false;
         } else {
-            if (isDoomMode() && target instanceof PlayerEntity) {
-                ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
+            if (isDoomMode() && target instanceof PlayerEntity player) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
             }
 
             return true;

@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
@@ -84,6 +83,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
      */
     @Override
     public int getNextAirOnLand(int air) {
-        return Math.min(air + ModConstants.PLAYER_BREATH_TIME, this.getMaxAir());
+        return Math.min(air + ModUtil.getPlayerBreathTime(), this.getMaxAir());
     }
 }

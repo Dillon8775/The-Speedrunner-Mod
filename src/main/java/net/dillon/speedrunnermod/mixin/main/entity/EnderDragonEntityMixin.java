@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
@@ -55,9 +54,9 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     /**
      * Modifies the ender dragon's maximum health.
      */
-    @ModifyArg(method = "createEnderDragonAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
-    private static double genericMaxHealth(double baseValue) {
-        return ModConstants.ENDER_DRAGON_MAX_HEALTH;
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(CallbackInfo ci) {
+        ModUtil.modifyMaxHealth(this, ModUtil.getEnderDragonMaxHealth());
     }
 
     /**
@@ -65,7 +64,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @ModifyArg(method = "tickWithEndCrystals", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;setHealth(F)V"))
     private float tickCrystals(float value) {
-        return this.getHealth() + ModConstants.ENDER_DRAGON_END_CRYSTAL_HEALING_VALUE;
+        return this.getHealth() + ModUtil.getEnderDragonEndCrystalHealingValue();
     }
 
     /**
@@ -73,7 +72,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @ModifyArg(method = "damageLivingEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 2)
     private float damageLivingEntities(float amount) {
-        return ModConstants.ENDER_DRAGON_DAMAGE_VALUE;
+        return ModUtil.getEnderDragonDamageValue();
     }
 
     /**
@@ -81,7 +80,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      */
     @ModifyArg(method = "crystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;damagePart(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/boss/dragon/EnderDragonPart;Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 3)
     private float crystalDestroyed(float amount) {
-        return ModConstants.ENDER_DRAGON_DESTROYED_END_CRYSTAL_DAMAGE_VALUE;
+        return ModUtil.getEnderDragonDestroyedEndCrystalDamageValue();
     }
 
     /**
@@ -178,7 +177,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
 
                     if (this.phaseManager.getCurrent().isSittingOrHovering()) {
                         this.damageDuringSitting = (int) ((float) this.damageDuringSitting + (f - this.getHealth()));
-                        if ((float) this.damageDuringSitting > ModConstants.ENDER_DRAGON_SITTING_TIME * this.getMaxHealth()) {
+                        if ((float) this.damageDuringSitting > ModUtil.getEnderDragonSittingTime() * this.getMaxHealth()) {
                             this.damageDuringSitting = 0;
                             this.phaseManager.setPhase(PhaseType.TAKEOFF);
                         }

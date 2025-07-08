@@ -1,22 +1,19 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.IllagerEntity;
 import net.minecraft.entity.mob.VindicatorEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -28,31 +25,12 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
     }
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies {@code vindicator} attributes.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((VindicatorEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Modifies {@code vindicator} attributes.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createVindicatorAttributes() {
-        final double genericMovementSpeed = 0.3499999940395355D;
-        final double genericFollowRange = isDoomMode() ? 48.0D : 12.0D;
-        final double genericMaxHealth = isDoomMode() ? 20.0D : 24.0D;
-        final double genericAttackDamage = 5.0D;
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
-                .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange)
-                .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends VindicatorEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyFollowRange(this, isDoomMode() ? 48.0D : 12.0D);
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 20.0D : 24.0D);
     }
 
     /**

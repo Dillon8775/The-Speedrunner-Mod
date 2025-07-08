@@ -1,5 +1,7 @@
 - New advanced options for changing different radius settings.
+- New animated texture for the golden speedrunner upgrade smithing template!
 - Optimizations and bug fixes.
+- Fixed critical bug where health values and other attributes are not initialized correctly.
 - Fixed crash when falling into the void.
 - Fixed tutorial mode bug(s).
 - Fixed bug when crafting piglin awakener on a mode other than balanced doesn't give item back.

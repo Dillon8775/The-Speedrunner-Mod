@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -76,26 +75,11 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
 
             if (!ServerSyncedClientOptions.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
-                int i;
                 if (!this.getInventory().contains(totem)) {
-                    i = this.getInventory().getOccupiedSlotWithRoomForStack(totem);
-                    if (i == -1) {
-                        ModUtil.spawnFloatingItemEntity(this.getWorld(), totem, this);
-                        SpeedrunnerMod.error("ENTITY");
-                    } else {
-                        this.getInventory().offerOrDrop(totem);
-                        SpeedrunnerMod.error("ITEM");
-                    }
+                    ModUtil.spawnFloatingItemEntity(this.getWorld(), totem, this);
                 }
                 if (!this.getInventory().contains(enderMatter)) {
-                    i = this.getInventory().getOccupiedSlotWithRoomForStack(enderMatter);
-                    if (i == -1) {
-                        ModUtil.spawnFloatingItemEntity(this.getWorld(), enderMatter, this);
-                        SpeedrunnerMod.error("ENTITY");
-                    } else {
-                        this.getInventory().offerOrDrop(enderMatter);
-                        SpeedrunnerMod.error("ITEM");
-                    }
+                    ModUtil.spawnFloatingItemEntity(this.getWorld(), enderMatter, this);
                 }
                 ModUtil.completeStepS2C(TutorialStep.FREE_FALL_INTO_VOID, (ServerPlayerEntity)(Object)this,
                         "speedrunnermod.tutorial_mode.craft_speedrunners_totem");

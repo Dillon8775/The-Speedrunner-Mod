@@ -1,52 +1,28 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.GuardianEntity;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(GuardianEntity.class)
-public class GuardianEntityMixin extends HostileEntity {
-
-    public GuardianEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
-        super(entityType, world);
-    }
+public class GuardianEntityMixin {
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies {@code guardian} attributes.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 10 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((GuardianEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Modifies {@code guardian} attributes.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createGuardianAttributes() {
-        final double genericAttackDamage = isDoomMode() ? 7.0D : 3.0D;
-        final double genericMovementSpeed = 0.5D;
-        final double genericFollowRange = isDoomMode() ? 24.0D : 8.0;
-        final double genericMaxHealth = isDoomMode() ? 35.0D : 15.0D;
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage)
-                .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
-                .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange)
-                .add(EntityAttributes.MAX_HEALTH, genericMaxHealth);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends GuardianEntity> entityType, World world, CallbackInfo ci) {
+        MobEntity dis = (MobEntity)(Object)this;
+        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 3.0D);
+        ModUtil.modifyFollowRange(dis, isDoomMode() ? 24.0D : 8.0D);
+        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 35.0D : 15.0D);
     }
 }

@@ -1,11 +1,12 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.ZombieEntity;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -13,17 +14,12 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 public class ZombifiedPiglinEntityMixin {
 
     /**
-     * @author Dillon8775
-     * @reason Modifies {@code zombified piglin} attributes.
+     * Modifies {@code zombified piglin} attributes.
      */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createZombifiedPiglinAttributes() {
-        final double zombieSpawnReinforcements = 0.0D;
-        final double genericMovementSpeed = isDoomMode() ? 0.33000000427232513D : 0.23000000427232513D;
-        final double genericAttackDamage = isDoomMode() ? 7.0D : 2.0D;
-        return ZombieEntity.createZombieAttributes()
-                .add(EntityAttributes.SPAWN_REINFORCEMENTS, zombieSpawnReinforcements)
-                .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(CallbackInfo ci) {
+        MobEntity dis = (MobEntity)(Object)this;
+        ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.33D : 0.23D);
+        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 2.0D);
     }
 }

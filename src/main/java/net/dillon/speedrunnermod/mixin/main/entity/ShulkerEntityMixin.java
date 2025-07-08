@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.damage.DamageSource;
@@ -16,7 +14,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -32,22 +31,11 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
     }
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies the {@code maximum health} of a shulker.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.attackingPlayer != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((ShulkerEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * Modifies the shulker's maximum health.
-     */
-    @ModifyArg(method = "createShulkerAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;add(Lnet/minecraft/registry/entry/RegistryEntry;D)Lnet/minecraft/entity/attribute/DefaultAttributeContainer$Builder;"), index = 1)
-    private static double genericMaxHealth(double baseValue) {
-        return isDoomMode() ? 32.0D : 20.0D;
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void genericMaxHealth(EntityType<? extends ShulkerEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 32.0D : 20.0D);
     }
 
     /**

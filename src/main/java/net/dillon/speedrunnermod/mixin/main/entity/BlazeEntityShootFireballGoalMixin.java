@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.BlazeEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -17,7 +17,7 @@ public class BlazeEntityShootFireballGoalMixin {
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/BlazeEntity$ShootFireballGoal;fireballCooldown:I", ordinal = 4, opcode = Opcodes.PUTFIELD))
     private void changeFireballCooldown(BlazeEntity.ShootFireballGoal blaze, int value) {
-        blaze.fireballCooldown = ModConstants.BLAZE_FIREBALL_COOLDOWN;
+        blaze.fireballCooldown = ModUtil.getBlazeFireballCooldown();
     }
 
     /**

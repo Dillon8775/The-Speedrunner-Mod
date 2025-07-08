@@ -30,8 +30,6 @@ import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.screen.ScreenTexts;
-import net.minecraft.server.integrated.IntegratedServer;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -43,7 +41,8 @@ import java.util.List;
 import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.
@@ -116,16 +115,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             if (bl || bl2) {
                 ClientModPackets.sendNewC2SOptions();
                 if (bl2 && this instanceof FastWorldCreationOptionsScreen) {
-                    IntegratedServer integratedServer = MinecraftClient.getInstance().getServer();
-                    if (integratedServer != null) {
-                        integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats.getCurrentValue());
-                        int i = integratedServer.getPermissionLevel(this.client.player.getGameProfile());
-                        this.client.player.setClientPermissionLevel(i);
-
-                        for (ServerPlayerEntity serverPlayerEntity : integratedServer.getPlayerManager().getPlayerList()) {
-                            integratedServer.getCommandManager().sendCommandTree(serverPlayerEntity);
-                        }
-                    }
+                    ClientModPackets.syncFwc(this.client, 0);
                 }
             }
 

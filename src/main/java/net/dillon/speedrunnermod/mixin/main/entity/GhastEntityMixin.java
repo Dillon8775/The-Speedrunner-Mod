@@ -1,49 +1,27 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.mob.FlyingEntity;
 import net.minecraft.entity.mob.GhastEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(GhastEntity.class)
-public class GhastEntityMixin extends FlyingEntity {
-
-    public GhastEntityMixin(EntityType<? extends FlyingEntity> entityType, World world) {
-        super(entityType, world);
-    }
+public class GhastEntityMixin {
 
     /**
-     * Increases the experience dropped upon death.
+     * Modifies {@code ghast} attributes.
      */
-    @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        if (this.getAttacker() != null) {
-            this.experiencePoints = 5 + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((GhastEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 36;
-        }
-        return super.getExperienceToDrop(world);
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Modifies {@code ghast} attributes.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createGhastAttributes() {
-        final double genericMaxHealth = isDoomMode() ? 20.0D : 5.0D;
-        final double genericFollowRange = isDoomMode() ? 100.0D : 50.0D;
-        return MobEntity.createMobAttributes()
-                .add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
-                .add(EntityAttributes.FOLLOW_RANGE, genericFollowRange);
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends GhastEntity> entityType, World world, CallbackInfo ci) {
+        MobEntity dis = (MobEntity)(Object)this;
+        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 20.0D : 5.0D);
+        ModUtil.modifyFollowRange(dis, isDoomMode() ? 100.0D : 50.0D);
     }
 }

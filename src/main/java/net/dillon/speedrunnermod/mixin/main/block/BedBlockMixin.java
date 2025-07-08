@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BedBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,7 +24,7 @@ public class BedBlockMixin {
     private void increaseExplosionPower(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         cir.cancel();
         Vec3d vec3d = pos.toCenterPos();
-        world.createExplosion(null, world.getDamageSources().badRespawnPoint(vec3d), null, vec3d, ModConstants.bedBlockExplosionPower(world), true, World.ExplosionSourceType.BLOCK);
+        world.createExplosion(null, world.getDamageSources().badRespawnPoint(vec3d), null, vec3d, ModUtil.getBedBlockExplosionPower(world), true, World.ExplosionSourceType.BLOCK);
         cir.setReturnValue(ActionResult.SUCCESS);
     }
 }

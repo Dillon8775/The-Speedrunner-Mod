@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.dillon.speedrunnermod.util.ModConstants;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -68,7 +67,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
                                 ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsInTicks(3), 0));
                             }
                         }
-                        entity.damage(serverWorld, entity.getDamageSources().fall(), ModConstants.ENDER_PEARL_DAMAGE_VALUE);
+                        entity.damage(serverWorld, entity.getDamageSources().fall(), ModUtil.getEnderPearlDamageValue());
                     }
                 }
             } else if (entity != null) {

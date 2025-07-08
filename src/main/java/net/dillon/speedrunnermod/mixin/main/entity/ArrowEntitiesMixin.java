@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.ArrowEntity;
@@ -34,7 +34,7 @@ public abstract class ArrowEntitiesMixin extends PersistentProjectileEntity {
             if (blockState.getBlock().getDefaultState().isIn(BlockTags.BEDS)) {
                 this.discard();
                 this.getWorld().removeBlock(blockPos, false);
-                this.getWorld().createExplosion(this, getX(), getY(), getZ(), ModConstants.bedBlockExplosionPower(this.getWorld()), true, World.ExplosionSourceType.BLOCK);
+                this.getWorld().createExplosion(this, getX(), getY(), getZ(), ModUtil.getBedBlockExplosionPower(this.getWorld()), true, World.ExplosionSourceType.BLOCK);
             }
         }
         super.onBlockHit(blockHitResult);

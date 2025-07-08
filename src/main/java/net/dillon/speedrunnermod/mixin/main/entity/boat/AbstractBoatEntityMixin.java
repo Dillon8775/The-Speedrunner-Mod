@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModFluidTags;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.dillon.speedrunnermod.util.ModConstants;
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -53,11 +53,11 @@ public abstract class AbstractBoatEntityMixin extends Entity {
         AbstractBoatEntity abstractBoat = (AbstractBoatEntity)(Object)this;
 
         if (abstractBoat.isInLava()) {
-            abstractBoat.setVelocity(abstractBoat.getVelocity().multiply(ModConstants.LAVA_BOAT_VELOCITY_MULTIPLIER));
+            abstractBoat.setVelocity(abstractBoat.getVelocity().multiply(ModUtil.LAVA_BOAT_VELOCITY_MULTIPLIER));
         }
 
         if (ModEntityTypes.isFastBoat(this.itemSupplier)) {
-            abstractBoat.setVelocity(abstractBoat.getVelocity().multiply(ModConstants.FAST_BOAT_VELOCITY_MULTIPLIER));
+            abstractBoat.setVelocity(abstractBoat.getVelocity().multiply(ModUtil.FAST_BOAT_VELOCITY_MULTIPLIER));
         }
     }
 
