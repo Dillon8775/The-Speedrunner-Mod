@@ -14,8 +14,6 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.ai.pathing.MobNavigation;
 import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.ai.pathing.SwimNavigation;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -40,7 +38,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -92,19 +89,10 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
         this.waterNavigation = new SwimNavigation(this, this.getWorld());
         this.landNavigation = new MobNavigation(this, this.getWorld());
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Attributes for the Giant, including maximum health, movement speed, attack damage, and knockback amount.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder createGiantAttributes() {
-        return HostileEntity.createHostileAttributes()
-                .add(EntityAttributes.MAX_HEALTH, 300.0D)
-                .add(EntityAttributes.MOVEMENT_SPEED, 0.3500000528343624D)
-                .add(EntityAttributes.ATTACK_DAMAGE, 10.0D)
-                .add(EntityAttributes.ATTACK_KNOCKBACK, 1.0D);
+        ModUtil.modifyMaxHealth(this, 300.0D);
+        ModUtil.modifyMovementSpeed(this, 0.35D);
+        ModUtil.modifyAttackDamage(this, 10.0D);
+        ModUtil.modifyAttackKnockback(this, 1.0D);
     }
 
     /**

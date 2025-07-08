@@ -553,7 +553,7 @@ public class ModUtil {
      * @return the maximum health for the wither.
      */
     public static double getWitherMaxHealth() {
-        return isDoomMode() ? 150.0D : 100.0D;
+        return isDoomMode() ? 250.0D : 100.0D;
     }
 
     /**
