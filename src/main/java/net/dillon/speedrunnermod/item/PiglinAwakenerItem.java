@@ -72,7 +72,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                             if (hasGold) {
                                 boolean sneakingWhenClicked = player.isSneaking();
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_ANGRY, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(1));
+                                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
                                 if (!player.getAbilities().creativeMode) {
                                     stack.decrement(1);
                                 }
@@ -83,7 +83,7 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                         for (PiglinEntity piglin : piglins) {
                                             if (!piglin.isBaby() && !piglin.hasCustomName()) {
                                                 if (world.random.nextFloat() < 0.50F) {
-                                                    piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesInTicks(1), 0, false, true, false));
+                                                    piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(1), 0, false, true, false));
                                                 }
                                                 double x = !sneakingWhenClicked ? player.getX() + world.random.nextInt(7) - 3 : player.getX();
                                                 double y = !sneakingWhenClicked ? player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();

@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.mixin.client.screen;
 
 import net.dillon.speedrunnermod.client.screen.base.MainScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
-import net.dillon.speedrunnermod.client.util.ModIcons;
 import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -80,7 +79,7 @@ public class GameMenuScreenMixin extends Screen {
                 context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
             }
 
-            context.drawTexture(RenderLayer::getGuiTextured, ModIcons.SPEEDRUNNER_MOD_ICON, optionsButton.getX() + 1, optionsButton.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18);
+            ClientModUtil.renderModIcon(context, this.optionsButton);
 
             this.renderTooltips(context, mouseX, mouseY);
         }

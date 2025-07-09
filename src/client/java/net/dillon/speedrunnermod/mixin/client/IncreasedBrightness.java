@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.mixin.client;
 
 import com.mojang.serialization.Codec;
-import net.dillon.speedrunnermod.client.util.IncreasedBrightnessSliderCallbacks;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.util.IncreasedBrightnessSliderCallbacks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;

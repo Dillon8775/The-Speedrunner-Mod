@@ -14,7 +14,7 @@ import java.util.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isInBounds;
+import static net.dillon.speedrunnermod.option.ModOptions.isIntegerOptionValid;
 
 /**
  * All {@code Client-side Speedrunner Mod options.}
@@ -61,11 +61,11 @@ public class ClientModOptions {
                 this.setBroken(clientOptions().client.difficulty, "difficulty");
             }
 
-            if (!clientOptions().isIcarusFireworksInventorySlotValid()) {
+            if (!isIntegerOptionValid(clientOptions().client.iCarusFireworksInventorySlot)) {
                 this.setBroken(clientOptions().client.iCarusFireworksInventorySlot, "iCarusFireworksInventorySlot");
             }
 
-            if (!clientOptions().isInfiniPearlInventorySlotValid()) {
+            if (!isIntegerOptionValid(clientOptions().client.infiniPearlInventorySlot)) {
                 this.setBroken(clientOptions().client.infiniPearlInventorySlot, "infiniPearlInventorySlot");
             }
         }
@@ -464,20 +464,6 @@ public class ClientModOptions {
     }
 
     /**
-     * @return {@code true} if the {@code Icarus Fireworks Inventory Slot} advanced option is valid.
-     */
-    public boolean isIcarusFireworksInventorySlotValid() {
-        return isInBounds(client.iCarusFireworksInventorySlot.getCurrentValue(), 1, 36);
-    }
-
-    /**
-     * @return {@code true} if the {@code InfiniPearl Inventory Slot} advanced option is valid.
-     */
-    public boolean isInfiniPearlInventorySlotValid() {
-        return isInBounds(client.infiniPearlInventorySlot.getCurrentValue(), 1, 36);
-    }
-
-    /**
      * Resets all of the {@code speedrunner mod options} back to factory default.
      */
     @AI
@@ -501,6 +487,7 @@ public class ClientModOptions {
         for (TutorialStep step : TutorialStep.values()) {
             try {
                 clientOptions().tutorialMode.setStep(step, false);
+                clientOptions().storedValues.lastCompletedTutorialStepMessageTranslations.getCurrentValue().clear();
             } catch (Exception e) {
                 SpeedrunnerMod.error("Error resetting tutorial mode option: " + step.name());
                 e.printStackTrace();

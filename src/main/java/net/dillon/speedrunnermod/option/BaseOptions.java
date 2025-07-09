@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -14,6 +15,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.OPTIONS_ERROR_MESSAGE;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.error;
@@ -78,8 +80,8 @@ public abstract class BaseOptions<T> {
                     @Override
                     public void write(JsonWriter out, IntegerOptionValue value) throws IOException {
                         out.beginObject();
-                        out.name("min").value(value.getMinValue());
-                        out.name("max").value(value.getMaxValue());
+                        out.name("minValue").value(value.getMinValue());
+                        out.name("maxValue").value(value.getMaxValue());
                         out.name("requires_restart").value(value.requiresRestart());
                         out.name("default_value").value(value.getDefaultValue());
                         out.name("current_value").value(value.getCurrentValue());
@@ -90,13 +92,13 @@ public abstract class BaseOptions<T> {
                     @Override
                     public IntegerOptionValue read(JsonReader in) throws IOException {
                         in.beginObject();
-                        int min = 0, max = 0, defaultValue = 0, currentValue = 0;
+                        int minValue = 0, maxValue = 0, defaultValue = 0, currentValue = 0;
                         boolean requiresRestart = false, broken = false;
 
                         while (in.hasNext()) {
                             switch (in.nextName()) {
-                                case "min" -> min = in.nextInt();
-                                case "max" -> max = in.nextInt();
+                                case "minValue" -> minValue = in.nextInt();
+                                case "maxValue" -> maxValue = in.nextInt();
                                 case "requires_restart" -> requiresRestart = in.nextBoolean();
                                 case "default_value" -> defaultValue = in.nextInt();
                                 case "current_value" -> currentValue = in.nextInt();
@@ -105,7 +107,7 @@ public abstract class BaseOptions<T> {
                         }
                         in.endObject();
 
-                        IntegerOptionValue value = new IntegerOptionValue(defaultValue, requiresRestart, min, max);
+                        IntegerOptionValue value = new IntegerOptionValue(defaultValue, requiresRestart, minValue, maxValue);
                         value.set(currentValue);
                         if (broken) {
                             value.setBroken();
@@ -148,6 +150,13 @@ public abstract class BaseOptions<T> {
      */
     public void load() {
         File configFile = getConfigFile();
+        for (File oldConfigFile : this.oldConfigFiles()) {
+            if (oldConfigFile.exists()) {
+                if (oldConfigFile.delete()) {
+                    SpeedrunnerMod.warn("Found old speedrunner mod config file, deleting.");
+                }
+            }
+        }
         if (!configFile.exists()) {
             this.instance = createDefault();
         } else {
@@ -186,8 +195,26 @@ public abstract class BaseOptions<T> {
      */
     public File getConfigFile() {
         if (this.file == null) {
-            this.file = new File(FabricLoader.getInstance().getConfigDir().toFile(), this.fileName);
+            this.file = this.ofFile(this.fileName);
         }
         return this.file;
+    }
+
+    /**
+     * @return the {@link File} in the fabric config directory.
+     */
+    private File ofFile(String fileName) {
+        return new File(FabricLoader.getInstance().getConfigDir().toFile(), fileName);
+    }
+
+    /**
+     * @return a list of old config files to be deleted.
+     */
+    private List<File> oldConfigFiles() {
+        return List.of(
+                this.ofFile("speedrunnermod-config.json"),
+                this.ofFile("speedrunnermod-client_config.json"),
+                this.ofFile("speedrunnermod-options.json")
+        );
     }
 }

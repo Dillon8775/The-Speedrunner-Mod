@@ -13,11 +13,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 /**
  * All Speedrunner Mod {@code options.}
  * <p>When adding new options...</p>
- * <p>- Must add a check for restart required in restart required screen, only if necessary,</p>
- * <p>- Determine if it is leaderboard-eligible, and then implement into {@code Leaderboards}.</p>
  * <p>- An {@code "isBroken"} check safe boot screen and in {@link BaseOptions#safeCheck()}</p>
- * <p>- A ModListOption,</p>
- * <p>- A reset option in {@code resetAllOptions()} method.</p>
+ * <p>- and a {@code ModListOption.}</p>
  */
 public class ModOptions {
     public final Main main = new Main();
@@ -81,13 +78,13 @@ public class ModOptions {
                 }
             }
 
-            if (options().main.netherPortalDelay.getCurrentValue() < 1) {
+            if (options().main.netherPortalDelay.getCurrentValue() < options().main.netherPortalDelay.getMinValue()) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Nether Portal Cooldown");
                 } else {
                     this.setBroken(options().main.netherPortalDelay, "netherPortalDelay");
                 }
-            } else if (!options().isNetherPortalCooldownValid()) {
+            } else if (!isIntegerOptionValid(options().main.netherPortalDelay)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
             }
 
@@ -97,7 +94,7 @@ public class ModOptions {
                 } else {
                     this.setBroken(options().main.strongholdDistance, "strongholdDistance");
                 }
-            } else if (!options().isStrongholdDistanceValid()) {
+            } else if (!isIntegerOptionValid(options().main.strongholdDistance)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
             }
 
@@ -107,7 +104,7 @@ public class ModOptions {
                 } else {
                     this.setBroken(options().main.strongholdSpread, "strongholdSpread");
                 }
-            } else if (!options().isStrongholdSpreadValid()) {
+            } else if (!isIntegerOptionValid(options().main.strongholdSpread)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
             }
 
@@ -117,7 +114,7 @@ public class ModOptions {
                 } else {
                     this.setBroken(options().main.strongholdCount, "strongholdCount");
                 }
-            } else if (!options().isStrongholdCountValid()) {
+            } else if (!isIntegerOptionValid(options().main.strongholdCount)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
             }
 
@@ -127,7 +124,7 @@ public class ModOptions {
                 } else {
                     this.setBroken(options().main.strongholdPortalRoomCount, "strongholdPortalRoomCount");
                 }
-            } else if (!options().isStrongholdPortalRoomCountValid()) {
+            } else if (!isIntegerOptionValid(options().main.strongholdPortalRoomCount)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
             }
 
@@ -137,7 +134,7 @@ public class ModOptions {
                 } else {
                     this.setBroken(options().main.strongholdLibraryCount, "strongholdLibraryCount");
                 }
-            } else if (!options().isStrongholdLibraryCountValid()) {
+            } else if (!isIntegerOptionValid(options().main.strongholdLibraryCount)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
             }
 
@@ -148,7 +145,7 @@ public class ModOptions {
                     this.setBroken(options().main.blockBreakingMultiplier, "blockBreakingMultiplier");
                     warn("Cannot divide by zero! o_0");
                 }
-            } else if (!options().isBlockBreakingMultiplierValid()) {
+            } else if (!isIntegerOptionValid(options().main.blockBreakingMultiplier)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
             }
 
@@ -159,20 +156,20 @@ public class ModOptions {
                     this.setBroken(options().advanced.speedrunnersWastelandBiomeWeight, "speedrunnersWastelandBiomeWeight");
                     warn("Speedrunner's Wasteland Biome Weight is below 1. Instead, turn \"Custom Biomes and Custom Biome Features\" OFF.");
                 }
-            } else if (!options().isSpeedrunnersWastelandBiomeWeightValid()) {
+            } else if (!isIntegerOptionValid(options().advanced.speedrunnersWastelandBiomeWeight)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.speedrunnersWastelandBiomeWeight");
                 warn("The weight for the Speedrunner's Wasteland biome is either too high or too low. Proceed with caution.");
             }
 
-            if (!options().isDragonPerchTimeValid()) {
+            if (!isIntegerOptionValid(options().main.dragonPerchTime)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.dragonPerchTime");
             }
 
-            if (!options().isAnvilCostLimitValid()) {
+            if (!isIntegerOptionValid(options().main.anvilCostLimit)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.anvilCostLimit");
             }
 
-            if (!options().isEyeOfEnderBreakingCooldownValid()) {
+            if (!isIntegerOptionValid(options().advanced.enderEyeBreakingCooldown)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.eyeOfEnderBreakingCooldown");
             }
         }
@@ -411,7 +408,7 @@ public class ModOptions {
         /**
          * Determines how long it takes (in ticks) for an eye of ender to break after throwing it.
          */
-        public OptionValue<Integer> enderEyeBreakingCooldown = new OptionValue<>(60, false);
+        public IntegerOptionValue enderEyeBreakingCooldown = new IntegerOptionValue(3, false, 1, 10);
 
         /**
          * Determines the total amount of piglin that can teleport to the player per time using the piglin awakener item (Default = 10).
@@ -441,7 +438,7 @@ public class ModOptions {
         /**
          * When using the eye of annul stronghold portal room teleporter feature, it iterates through [-X, -Y, -Z, X, Y, Z] all blocks in this location to locate the portal room block. Negative values go below the player, positive values go above.
          */
-        public OptionValue<List<Integer>> annulEyeSearchRadius = new OptionValue<>(ModUtil.createListOption(-128, -128, -128, 128, 128, 128), false);
+        public OptionValue<List<Integer>> annulEyeSearchRadius = new OptionValue<>(ModUtil.createListOption(128, 128, 128), false);
 
         /**
          * When using the piglin awakener, the game will search around the player [X_Y_Z] blocks to find nearby piglin. The higher these numbers, the farther out the game looks. Increasing these numbers however is not recommended, as it could create extreme amounts of lag.
@@ -451,7 +448,7 @@ public class ModOptions {
         /**
          * Determines the distance that the blaze spotter will use to determine the nearest blaze spawner.
          */
-        public OptionValue<List<Integer>> blazeSpotterSearchRadius = new OptionValue<>(ModUtil.createListOption(-156, -72, -156, 156, 72, 156), false);
+        public OptionValue<List<Integer>> blazeSpotterSearchRadius = new OptionValue<>(ModUtil.createListOption(156, 72, 156), false);
 
         /**
          * When using the raid eradicator, the item will search a distance to search for the nearest raider entities.
@@ -520,21 +517,21 @@ public class ModOptions {
     }
 
     /**
-     * Returns true if the {@code Dragon Perch Time} option is valid.
+     * @return {@code true} if the {@link IntegerOptionValue} is valid.
      */
-    public boolean isDragonPerchTimeValid() {
-        return isInBounds(main.dragonPerchTime.getCurrentValue(), 8, 90);
+    public static boolean isIntegerOptionValid(IntegerOptionValue option) {
+        return isInBounds(option.getCurrentValue(), option.getMinValue(), option.getMaxValue());
     }
 
     /**
-     * Returns true if the {@code Dragon Perch Time} option is {@code on.}
+     * @return {@code true} if the {@code Dragon Perch Time} option is {@code on.}
      */
     public boolean isDragonPerchTimeOn() {
         return isInBounds(main.dragonPerchTime.getCurrentValue(), 10);
     }
 
     /**
-     * Returns true if the {@code Dragon Perch Time} option is {@code "instant".}
+     * @return {@code true} if the {@code Dragon Perch Time} option is {@code "instant".}
      */
     public boolean isInstantDragonPerchTime() {
         return options().main.dragonPerchTime.getCurrentValue() == 9;
@@ -548,73 +545,10 @@ public class ModOptions {
     }
 
     /**
-     * Returns true if the {@code Block Breaking Multiplier} option is valid.
+     * Returns the current {@code Ender Eye Breaking Cooldown} option in ticks.
      */
-    public boolean isBlockBreakingMultiplierValid() {
-        return isInBounds(main.blockBreakingMultiplier.getCurrentValue(), 1, 3);
-    }
-
-    /**
-     * Returns true if the {@code Stronghold Distance} option is valid.
-     */
-    public boolean isStrongholdDistanceValid() {
-        return isInBounds(main.strongholdDistance.getCurrentValue(), 3, 64);
-    }
-
-    /**
-     * Returns true if the {@code Stronghold Spread} option is valid.
-     */
-    public boolean isStrongholdSpreadValid() {
-        return isInBounds(main.strongholdSpread.getCurrentValue(), 2, 32);
-    }
-
-    /**
-     * Returns true if the {@code Stronghold Count} option is valid.
-     */
-    public boolean isStrongholdCountValid() {
-        return isInBounds(main.strongholdCount.getCurrentValue(), 4, 156);
-    }
-
-    /**
-     * Returns true if the {@code Stronghold Portal Room Count} option is valid.
-     */
-    public boolean isStrongholdPortalRoomCountValid() {
-        return isInBounds(main.strongholdPortalRoomCount.getCurrentValue(), 0, 3);
-    }
-
-    /**
-     * Returns true if the {@code Stronghold Library Count} option is valid.
-     */
-    public boolean isStrongholdLibraryCountValid() {
-        return isInBounds(main.strongholdLibraryCount.getCurrentValue(), 1, 10);
-    }
-
-    /**
-     * Returns true if the {@code Anvil Cost Limit} option is valid.
-     */
-    public boolean isAnvilCostLimitValid() {
-        return isInBounds(main.anvilCostLimit.getCurrentValue(), 1, 50);
-    }
-
-    /**
-     * Returns true if the {@code Nether Portal Cooldown} option is valid.
-     */
-    public boolean isNetherPortalCooldownValid() {
-        return isInBounds(main.netherPortalDelay.getCurrentValue(), 0, 20);
-    }
-
-    /**
-     * Returns true if the {@code Speedrunner's Wasteland Biome Weight} option is valid.
-     */
-    public boolean isSpeedrunnersWastelandBiomeWeightValid() {
-        return isInBounds(advanced.speedrunnersWastelandBiomeWeight.getCurrentValue(), 1, 32);
-    }
-
-    /**
-     * Returns true if the {@code Eye of Ender Breaking Cooldown} advanced option is valid.
-     */
-    public boolean isEyeOfEnderBreakingCooldownValid() {
-        return isInBounds(advanced.enderEyeBreakingCooldown.getCurrentValue(), 20, 200);
+    public int getEnderEyeBreakingCooldown() {
+        return ModUtil.secondsAsTicks(options().advanced.enderEyeBreakingCooldown.getCurrentValue());
     }
 
     /**

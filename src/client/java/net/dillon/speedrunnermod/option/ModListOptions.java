@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.option;
 
 import com.mojang.serialization.Codec;
-import net.dillon.speedrunnermod.client.util.TranslationStringKeys;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.util.TranslationStringKeys;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -565,12 +565,11 @@ public class ModListOptions {
     }
 
     public static SimpleOption<Integer> enderEyeBreakingCooldown() {
-        return new SimpleOption<>("speedrunnermod.options.ender_eye_breaking_cooldown",
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.ender_eye_breaking_cooldown",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.ender_eye_breaking_cooldown.tooltip")),
-                (optionText, value) -> GameOptions.getGenericValueText(optionText, Text.literal(value + " seconds")),
-                new SimpleOption.ValidatingIntSliderCallbacks(1, 10),
-                options().advanced.enderEyeBreakingCooldown.getCurrentValue() / 20,
-                value -> options().advanced.enderEyeBreakingCooldown.set(value * 20));
+                options().advanced.enderEyeBreakingCooldown
+        );
     }
 
     public static SimpleOption<Integer> piglinAwakenerPiglinCount() {
@@ -614,8 +613,7 @@ public class ModListOptions {
                 200,
                 x,
                 y,
-                z,
-                true
+                z
         );
     }
 
@@ -628,8 +626,7 @@ public class ModListOptions {
                 300,
                 x,
                 y,
-                z,
-                false
+                z
         );
     }
 
@@ -642,8 +639,7 @@ public class ModListOptions {
                 300,
                 x,
                 y,
-                z,
-                true
+                z
         );
     }
 
@@ -656,8 +652,7 @@ public class ModListOptions {
                 400,
                 x,
                 y,
-                z,
-                false
+                z
         );
     }
 
@@ -670,8 +665,7 @@ public class ModListOptions {
                 350,
                 x,
                 y,
-                z,
-                false
+                z
         );
     }
 
@@ -684,8 +678,7 @@ public class ModListOptions {
                 300,
                 x,
                 y,
-                z,
-                false
+                z
         );
     }
 
@@ -698,8 +691,7 @@ public class ModListOptions {
                 300,
                 x,
                 y,
-                z,
-                false
+                z
         );
     }
 
@@ -712,8 +704,7 @@ public class ModListOptions {
                 350,
                 x,
                 y,
-                z,
-                false
+                z
         );
     }
 
@@ -769,62 +760,44 @@ public class ModListOptions {
     /**
      * Creates an {@code integer list option.}
      */
-    private static SimpleOption<Integer> ofIntegerList(String key, SimpleOption.TooltipFactory<Integer> tooltip, OptionValue<List<Integer>> option, int min, int max, boolean x, boolean y, boolean z, boolean includeNeg) {
+    private static SimpleOption<Integer> ofIntegerList(String key, SimpleOption.TooltipFactory<Integer> tooltip, OptionValue<List<Integer>> option, int min, int max, boolean x, boolean y, boolean z) {
         return new SimpleOption<>(key, tooltip,
                 (optionText, value) -> ModListOptions.listIntegerText(optionText,
                         option,
                         x,
                         y,
-                        z,
-                        includeNeg
+                        z
                 ),
                 new SimpleOption.ValidatingIntSliderCallbacks(min, max),
-                x ? option.getCurrentValue().get(includeNeg ? 3 : 0) :
-                        y ? option.getCurrentValue().get(includeNeg ? 4 : 1) :
-                                option.getCurrentValue().get(includeNeg ? 5 : 2),
-                value -> setValue(option.getCurrentValue(), value, x, y, z, includeNeg));
+                x ? option.getCurrentValue().get(0) :
+                        y ? option.getCurrentValue().get(1) :
+                                option.getCurrentValue().get(2),
+                value -> setValue(option.getCurrentValue(), value, x, y, z));
     }
 
     /**
      * Bounds the value of the {@link SimpleOption} to the {@code -X, -Y, -Z, X, Y and Z}.
      */
-    private static void setValue(List<Integer> option, int value, boolean x, boolean y, boolean z, boolean includeNeg) {
-        if (includeNeg) {
-            if (x) {
-                option.set(0, -value);
-                option.set(3, value);
-            } else if (y) {
-                option.set(1, -value);
-                option.set(4, value);
-            } else if (z) {
-                option.set(2, -value);
-                option.set(5, value);
-            } else {
-                for (int i = 0; i < option.size(); i++) {
-                    option.set(i, i < 3 ? -value : value);
-                }
-            }
+    private static void setValue(List<Integer> option, int value, boolean x, boolean y, boolean z) {
+        if (x) {
+            option.set(0, value);
+        } else if (y) {
+            option.set(1, value);
+        } else if (z) {
+            option.set(2, value);
         } else {
-            if (x) {
-                option.set(0, value);
-            } else if (y) {
-                option.set(1, value);
-            } else if (z) {
-                option.set(2, value);
-            } else {
-                Collections.fill(option, value);
-            }
+            Collections.fill(option, value);
         }
     }
 
     /**
      * @return the text for {@code list integer options}, with {@code x, y, and z} values.
      */
-    private static Text listIntegerText(Text prefix, OptionValue<List<Integer>> value, boolean x, boolean y, boolean z, boolean includeNeg) {
+    private static Text listIntegerText(Text prefix, OptionValue<List<Integer>> value, boolean x, boolean y, boolean z) {
         boolean all = !x && !y && !z;
-        Text xText = Text.literal("X: " + value.getCurrentValue().get(includeNeg ? 3 : 0)).formatted(x || all ? Formatting.GREEN : Formatting.GRAY);
-        Text yText = Text.literal("Y: " + value.getCurrentValue().get(includeNeg ? 4 : 1)).formatted(y || all ? Formatting.GREEN : Formatting.GRAY);
-        Text zText = Text.literal("Z: " + value.getCurrentValue().get(includeNeg ? 5 : 2)).formatted(z || all ? Formatting.GREEN : Formatting.GRAY);
+        Text xText = Text.literal("X: " + value.getCurrentValue().get(0)).formatted(x || all ? Formatting.GREEN : Formatting.GRAY);
+        Text yText = Text.literal("Y: " + value.getCurrentValue().get(1)).formatted(y || all ? Formatting.GREEN : Formatting.GRAY);
+        Text zText = Text.literal("Z: " + value.getCurrentValue().get(2)).formatted(z || all ? Formatting.GREEN : Formatting.GRAY);
         Text comma = Text.literal(", ").formatted(Formatting.WHITE);
         return GameOptions.getGenericValueText(prefix, xText.copy().append(comma).append(yText).append(comma).append(zText));
     }

@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.client.util;
+package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.option.ModListOptions;
 

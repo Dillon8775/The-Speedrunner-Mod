@@ -47,7 +47,7 @@ public class ElderGuardianEntityMixin extends GuardianEntity {
         super.mobTick(world);
         final int i = isDoomMode() ? 600 : 6000;
         if ((this.age + this.getId()) % i == 0) {
-            final int duration = isDoomMode() ? ModUtil.minutesInTicks(5) : ModUtil.secondsInTicks(30);
+            final int duration = isDoomMode() ? ModUtil.minutesAsTicks(5) : ModUtil.secondsAsTicks(30);
             final double d = isDoomMode() ? 55.0D : 25.0D;
             StatusEffectInstance statusEffectInstance = new StatusEffectInstance(StatusEffects.MINING_FATIGUE, duration, 2);
             List<ServerPlayerEntity> list = StatusEffectUtil.addEffectToPlayersWithinDistance((ServerWorld)this.getWorld(), this, this.getPos(), d, statusEffectInstance, 1200);

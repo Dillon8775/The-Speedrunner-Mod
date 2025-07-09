@@ -269,10 +269,15 @@
               "treasure": false
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
         {
           "type": "minecraft:item",
-          "weight": 5,
+          "weight": 7,
           "name": "speedrunnermod:ender_matter",
           "functions": [
             {

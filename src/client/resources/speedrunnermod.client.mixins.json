@@ -23,7 +23,6 @@
     "client.screen.GameMenuScreenMixin",
     "client.screen.LogoDrawerMixin",
     "client.MinecraftClientMixin",
-    "client.screen.OptionsScreenMixin",
     "client.screen.TitleScreenMixin",
     "terraform.sign.impl.AbstractSignBlockEntityRendererMixin",
     "terraform.sign.impl.HangingSignEditScreenMixin",

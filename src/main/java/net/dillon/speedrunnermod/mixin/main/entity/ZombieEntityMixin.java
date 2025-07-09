@@ -44,7 +44,7 @@ public class ZombieEntityMixin extends HostileEntity {
             return false;
         } else {
             if (isDoomMode() && target instanceof PlayerEntity player) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
             }
 
             return true;

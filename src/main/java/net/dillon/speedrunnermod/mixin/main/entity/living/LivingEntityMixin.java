@@ -164,6 +164,6 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/DeathProtectionComponent;applyDeathEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/LivingEntity;)V"))
     private void applyFireResistance(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesInTicks(2), 0));
+        this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(2), 0));
     }
 }

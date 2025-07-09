@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.pathing.PathNodeType;
 import net.minecraft.entity.ai.pathing.SwimNavigation;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -162,6 +163,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         Entity entity = source.getSource();
 
         if (entity instanceof WitherSkullEntity ||
+                entity instanceof WitherEntity ||
                 entity instanceof IronGolemEntity ||
                 entity instanceof RavagerEntity ||
                 entity instanceof VindicatorEntity ||

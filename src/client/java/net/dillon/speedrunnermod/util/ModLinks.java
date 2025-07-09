@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.client.util;
+package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.api.EnvType;
@@ -25,6 +25,4 @@ public class ModLinks {
 
     public static final String QUESTIONS_AND_ISSUES = "https://docs.google.com/forms/d/e/1FAIpQLSfkTe-xvvYiqLAYmqdMqeE6IgEJkt6S4sfhVfi4D_eAJ2FAXQ/viewform";
     public static final String SUGGESTIONS_AND_FEEDBACK = "https://docs.google.com/forms/d/e/1FAIpQLSf1b3cmA95jpQgY3dd_e8X1oY9jdLlzL36LTyBsjl8Z2ekHQw/viewform";
-
-    public static final String OPTIONS_EXPLANATION = "https://sites.google.com/view/dillon8775/speedrunner-mod-options-explanations";
 }

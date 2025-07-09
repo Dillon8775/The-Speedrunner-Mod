@@ -5,17 +5,24 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.text.Text;
 
 @Environment(EnvType.CLIENT)
-public class RefreshingScreen extends AbstractModScreen {
+public class TemporaryScreen extends AbstractModScreen {
+    private final Text text;
 
-    public RefreshingScreen(Screen parent) {
+    public TemporaryScreen(Screen parent, Text text) {
         super(parent, ModTexts.BLANK);
+        this.text = text;
+    }
+
+    @Override
+    public void close() {
     }
 
     @Override
     protected void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.REFRESHING, this.width / 2, 100, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.text, this.width / 2, 100, 16777215);
     }
 
     @Override

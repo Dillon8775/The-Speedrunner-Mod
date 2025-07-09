@@ -42,7 +42,7 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
             return false;
         } else {
             if (isDoomMode() && target instanceof PlayerEntity) {
-                ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
+                ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
             }
 
             return true;

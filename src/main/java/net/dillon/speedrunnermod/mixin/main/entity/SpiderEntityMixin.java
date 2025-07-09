@@ -31,7 +31,7 @@ public class SpiderEntityMixin extends HostileEntity {
         } else {
             if (target instanceof PlayerEntity player) {
                 if (isDoomMode()) {
-                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(10), 0));
+                     player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
                 }
             }
 

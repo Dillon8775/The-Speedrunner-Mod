@@ -1,7 +1,15 @@
 - New advanced options for changing different radius settings.
 - New animated texture for the golden speedrunner upgrade smithing template!
 - Optimizations and bug fixes.
+- Renamed config files to have to mod's version to prevent issues when upgrading.
+- The speedrunner's paddle is now crafted with only 2 speedrunner ingots and a speedrunner stick.
+- Using the eye of annul will now teleport you to the center of the end portal, and place a thrusted block in the center to stand on.
 - The wither's maximum health is now 250 on doom mode instead of 150.
+- Using a speedrunner sword no longer increases the chances of getting ender matter from killing an enderman.
+- Increased chance of ender matter dropping from enderman.
+- Ender matter now has a 100% chance to generate in a shipwreck treasure chest and end city chests.
+- Removed the speedrunner mod options button from the vanilla options screen.
+- Fixed bug where you can't smelt or craft speedrunner ingots via raw speedrunner.
 - Fixed critical bug where health values and other attributes and values are not initialized correctly.
 - Fixed crash when falling into the void.
 - Fixed tutorial mode bug(s).

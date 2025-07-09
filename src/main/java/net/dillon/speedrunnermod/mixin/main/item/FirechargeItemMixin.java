@@ -78,7 +78,7 @@ public class FirechargeItemMixin extends Item {
             world.spawnEntity(fireball);
             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
 
-            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(1));
+            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(1));
             if (!player.getAbilities().creativeMode) {
                 stack.decrement(1);
             }

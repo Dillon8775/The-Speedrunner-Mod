@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -17,7 +16,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public class InfiniPearlModeScreen extends AbstractFeatureScreen {
 
     public InfiniPearlModeScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.miscellaneous.infini_pearl_mode"));
+        super(parent, ModTexts.TITLE_FEATURE_INFINI_PEARL_MODE);
     }
 
     @Override

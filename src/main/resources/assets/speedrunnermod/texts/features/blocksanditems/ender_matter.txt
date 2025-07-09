@@ -1,6 +1,7 @@
 ### A §brare substance§f of matter, found only in §bshipwrecks§f and §dend cities.
 
 #### They also have a §a5% chance§f of dropping when killing an §denderman.
-This chance can be increased by using §alooting§f or a §bspeedrunner sword.
+
+This chance can be increased by using §alooting.
 
 !image:textures/gui/features/items/ender_matter.png scale=.4

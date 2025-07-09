@@ -1,7 +1,22 @@
 ### The §a§lGiant§r (also known as §aGoliath)§r will target anything in it's path, and slowly regenerate at all times.
 
-#### It cannot be killed from the void. If it gets knocked into the void, it will simply teleport back to the middle of the end island. Once the giant reaches half health, ranged weapons are no good.
-The giant will also randomly spawn §c§lTNT§r around itself when taking damage, so watch out for that.
-The giant is completely immune to explosives, fall damage, fire and lava damage. Good luck with this boss. §a>:)
+#### It cannot be killed from the void. If it gets knocked into the void, it will teleport to the middle of the end island.
+
+Once §a§lGoliath§r§f reaches half health, ranged weapons are no good.
+
+§a§lGoliath§r§f will randomly drop §erotten§r§f and §6cooked§r§f flesh when taking damage.
+
+§a§lGoliath§r§f will randomly spawn §c§lTNT§r around itself when taking damage.
+
+§a§lGoliath§r§f is completely immune to explosives, fall damage, fire and lava damage.
+
+!image:textures/gui/features/screenshots/goliath.png scale=.14
+§a§lGoliath§r§f can also be summoned with §e2 flesh blocks§r§f and a §azombie head.
+##### This also works on §bother modes!
+
+!image:textures/gui/features/screenshots/summon_goliath.png scale=.14
+In order to craft a §eflesh block, §r§fyou will need §b9 pieces§r§f of either §erotten§r§f or §6cooked§r§f flesh.
+
+!image:textures/gui/features/recipes/flesh_block_crafting_recipe.png scale=.5
 
 !image:textures/gui/features/other/goliath.png scale=.20

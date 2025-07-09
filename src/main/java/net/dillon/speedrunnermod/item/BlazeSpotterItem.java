@@ -55,8 +55,8 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                         player.teleport(blazeSpawnerPos.getX() + 0.5F, blazeSpawnerPos.getY() + 1.0F, blazeSpawnerPos.getZ() + 0.5F, true);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 3.0F, 0.6F);
-                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsInTicks(world.random.nextInt(4) + 7), 0, false, true, true));
-                        player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
+                        player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsAsTicks(world.random.nextInt(4) + 7), 0, false, true, true));
+                        player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(30));
 
                         ModUtil.completeStepS2C(TutorialStep.USE_BLAZE_SPOTTER, player,
                                 "speedrunnermod.tutorial_mode.used_blaze_spotter",
@@ -96,7 +96,10 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
      */
     @AI
     private BlockPos findNearestBlazeSpawner(ServerWorld world, BlockPos fortressPos) {
-        for (BlockPos pos : BlockPos.iterate(fortressPos.add(options().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2)), fortressPos.add(options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(3), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(4), options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(5)))) {
+        for (BlockPos pos : BlockPos.iterateOutwards(fortressPos,
+                options().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(),
+                options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1),
+                options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2))) {
             if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof MobSpawnerBlockEntity) {

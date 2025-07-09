@@ -9,12 +9,12 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.options.AdvancedOptionsScreen;
 import net.dillon.speedrunnermod.client.screen.options.FastWorldCreationOptionsScreen;
-import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.dillon.speedrunnermod.util.AI;
+import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -84,7 +84,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).dimensions(this.getButtonsRightSide(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.helpButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
-                this.openLink(ModLinks.OPTIONS_EXPLANATION, true);
+                this.openLink(ModLinks.MODRINTH, true);
             }).dimensions(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
             this.openOptionsDirectoryButton = this.addDrawableChild(ButtonWidget.builder(Text.literal("D."), (button) -> {
                 this.close();

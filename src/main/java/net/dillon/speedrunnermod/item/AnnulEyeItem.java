@@ -1,11 +1,13 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,6 +26,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import java.util.function.Consumer;
@@ -64,7 +67,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                             ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
                             player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, true);
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesInTicks(1));
+                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
 
                             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
 
@@ -119,7 +122,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
         BlockPos strongholdPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, startPos, 100, false);
 
         if (strongholdPos != null) {
-            BlockPos portalRoomPos = findEndPortalFrame(world, strongholdPos);
+            BlockPos portalRoomPos = this.findEndPortalFrame(world, strongholdPos);
 
             if (portalRoomPos != null) {
                 return new BlockPos(portalRoomPos.getX(), portalRoomPos.getY(), portalRoomPos.getZ());
@@ -134,19 +137,99 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
      */
     @AI
     private BlockPos findEndPortalFrame(World world, BlockPos strongholdPos) {
-        for (BlockPos pos : BlockPos.iterate(strongholdPos.add(
+        for (BlockPos pos : BlockPos.iterateOutwards(strongholdPos,
                 options().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
                 options().advanced.annulEyeSearchRadius.getCurrentValue().get(1),
-                options().advanced.annulEyeSearchRadius.getCurrentValue().get(2)),
-                strongholdPos.add(options().advanced.annulEyeSearchRadius.getCurrentValue().get(3),
-                        options().advanced.annulEyeSearchRadius.getCurrentValue().get(4),
-                        options().advanced.annulEyeSearchRadius.getCurrentValue().get(5)))) {
-            if (world.getBlockState(pos).getBlock().equals(Blocks.END_PORTAL_FRAME)) {
-                return pos.toImmutable();
+                options().advanced.annulEyeSearchRadius.getCurrentValue().get(2))) {
+            if (this.isEndPortalFrame(world, pos)) {
+                return this.getCenterPos(world, pos);
             }
         }
 
         return null;
+    }
+
+    /**
+     * @return the center pos from the found portal block.
+     */
+    private BlockPos getCenterPos(World world, BlockPos portalPos) {
+        Direction facing = world.getBlockState(portalPos).get(HorizontalFacingBlock.FACING);
+        BlockPos left;
+        BlockPos right;
+        BlockPos centerPos = portalPos;
+        if (facing.equals(Direction.NORTH)) {
+            left = portalPos.add(-1, 0, 0);
+            right = portalPos.add(1, 0, 0);
+            // if portalPos is center north block
+            if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, right)) {
+                centerPos = portalPos.add(0, 0, -2);
+            }
+            // if portalPos is left north block
+            else if (this.isEndPortalFrame(world, right) && this.isEndPortalFrame(world, right.add(1, 0, 0))) {
+                centerPos = portalPos.add(1, 0, -2);
+            }
+            // if portalPos is right north block
+            else if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, left.add(-1, 0, 0))) {
+                centerPos = portalPos.add(-1, 0, -2);
+            }
+        } else if (facing.equals(Direction.EAST)) {
+            left = portalPos.add(0, 0, -1);
+            right = portalPos.add(0, 0, 1);
+            // if portalPos is center east block
+            if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, right)) {
+                centerPos = portalPos.add(2, 0, 0);
+            }
+            // if portalPos is left east block
+            else if (this.isEndPortalFrame(world, right) && this.isEndPortalFrame(world, right.add(0, 0, 1))) {
+                centerPos = portalPos.add(2, 0, 1);
+            }
+            // if portalPos is right east block
+            else if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, left.add(0, 0, -1))) {
+                centerPos = portalPos.add(2, 0, -1);
+            }
+        } else if (facing.equals(Direction.WEST)) {
+            left = portalPos.add(0, 0, 1);
+            right = portalPos.add(0, 0, -1);
+            // if portalPos is center west block
+            if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, right)) {
+                centerPos = portalPos.add(-2, 0, 0);
+            }
+            // if portalPos is left west block
+            else if (this.isEndPortalFrame(world, right) && this.isEndPortalFrame(world, right.add(0, 0, -1))) {
+                centerPos = portalPos.add(-2, 0, -1);
+            }
+            // if portalPos is right west block
+            else if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, left.add(1, 0, 0))) {
+                centerPos = portalPos.add(-2, 0, 1);
+            }
+        } else {
+            left = portalPos.add(1, 0, 0);
+            right = portalPos.add(-1, 0, 0);
+            // if portalPos is center south block
+            if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, right)) {
+                centerPos = portalPos.add(0, 0, 2);
+            }
+            // if portalPos is left south block
+            else if (this.isEndPortalFrame(world, right) && this.isEndPortalFrame(world, right.add(-1, 0, 0))) {
+                centerPos = portalPos.add(-1, 0, 2);
+            }
+            // if portalPos is right south block
+            else if (this.isEndPortalFrame(world, left) && this.isEndPortalFrame(world, left.add(1, 0, 0))) {
+                centerPos = portalPos.add(1, 0, 2);
+            }
+        }
+
+        if (centerPos != portalPos) {
+            world.setBlockState(centerPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
+        }
+        return centerPos;
+    }
+
+    /**
+     * @return {@code true} if the {@code searchingPos} is an end portal frame.
+     */
+    private boolean isEndPortalFrame(World world, BlockPos searchingPos) {
+        return world.getBlockState(searchingPos).getBlock().equals(Blocks.END_PORTAL_FRAME);
     }
 
     /**

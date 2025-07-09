@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -14,7 +13,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public class BetterFoodsScreen extends AbstractFeatureScreen {
 
     public BetterFoodsScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.features.miscellaneous.better_foods"));
+        super(parent, ModTexts.TITLE_FEATURE_BETTER_FOODS);
     }
 
     @Override

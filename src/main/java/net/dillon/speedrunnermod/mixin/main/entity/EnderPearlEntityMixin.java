@@ -64,7 +64,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
                     if (!isInfiniPearl) {
                         if (isDoomMode()) {
                             if (!serverPlayerEntity.isCreative() || !serverPlayerEntity.isSpectator()) {
-                                ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsInTicks(3), 0));
+                                ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsAsTicks(3), 0));
                             }
                         }
                         entity.damage(serverWorld, entity.getDamageSources().fall(), ModUtil.getEnderPearlDamageValue());

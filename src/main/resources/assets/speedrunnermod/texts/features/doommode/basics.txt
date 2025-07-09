@@ -1,3 +1,7 @@
-### Doom mode is a special hard-coded mode, which makes the game extremely difficult to beat.
+### §c§lDoom mode§r§f is a special mode, which makes the game extremely difficult to beat.
 
-### Mobs have more health, speed, and do more damage. §lEverything else§r does basically double damage, and upon entering the end, not only will an §dEnder Dragon§r spawn, but along with a §7wither§r and a §agiant (known as Goliath).
+### Mobs have more health, speed, and do more damage.
+
+#### §lEverything else§r does basically double damage, and upon entering the end, not only will an §dEnder Dragon§r spawn, but along with a §7wither§r and a §agiant (known as Goliath).
+
+!image:textures/gui/features/gui/difficulty_doom.png

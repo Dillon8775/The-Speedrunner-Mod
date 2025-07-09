@@ -49,7 +49,7 @@ public class DragonsPearlItem extends Item implements StateOfTheArtItem {
                         EnderDragonEntity enderDragon = dragons.get(0);
                         if (!isDragonAlreadyPerchingOrPerched(enderDragon) && !isDragonDead(enderDragon)) {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 2.0F, 0.3F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(30));
+                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(30));
                             if (!player.getAbilities().creativeMode) {
                                 itemStack.decrement(1);
                             }

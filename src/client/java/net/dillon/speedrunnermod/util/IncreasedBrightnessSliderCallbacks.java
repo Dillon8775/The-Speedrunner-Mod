@@ -1,10 +1,8 @@
-package net.dillon.speedrunnermod.client.util;
+package net.dillon.speedrunnermod.util;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.minecraft.client.option.SimpleOption;
 
 import java.util.Optional;

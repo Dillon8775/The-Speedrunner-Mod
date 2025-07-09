@@ -58,7 +58,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
                             validTeleport;
 
                     if (bl) {
-                        player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsInTicks(10));
+                        player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(10));
                         if (!player.getAbilities().creativeMode) {
                             itemStack.decrement(1);
                         }

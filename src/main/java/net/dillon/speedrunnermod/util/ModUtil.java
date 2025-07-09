@@ -40,6 +40,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -52,8 +53,8 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
  */
 public class ModUtil {
     public static int errorMessagesSent = 0;
-    public static final String CONFIG_FILE_NAME = "speedrunnermod-config.json";
-    public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod-client_config.json";
+    public static final String CONFIG_FILE_NAME = "speedrunnermod-config_1.11.1.json";
+    public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod-client_config_1.11.1.json";
 
     public static final int SPEEDRUNNER_WATER_COLOR = 0x85C1E9;
     public static final int SPEEDRUNNER_WATER_FOG_COLOR = 0x85C1E9;
@@ -142,15 +143,15 @@ public class ModUtil {
 
     /**
      * @return {@code enchantment} with the use of the {@link Entity} or {@link World} class.
-     * @param obj should never be anything other than {@link Entity} or {@link World}.
+     * @param entityOrWorld should never be anything other than {@link Entity} or {@link World}.
      * @param enchantment the enchantment that should be returned.
      */
     @Deprecated
-    public static RegistryEntry<Enchantment> enchantment(Object obj, RegistryKey<Enchantment> enchantment) {
+    public static RegistryEntry<Enchantment> enchantment(@NotNull Object entityOrWorld, @NotNull RegistryKey<Enchantment> enchantment) {
         try {
             Optional<RegistryEntry.Reference<Enchantment>> optional =
-                    obj instanceof Entity entity ? entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
-                            obj instanceof World world ? world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
+                    entityOrWorld instanceof Entity entity ? entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
+                            entityOrWorld instanceof World world ? world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
                                     Optional.empty();
             return optional.orElseThrow();
         } catch (Exception o) {
@@ -164,9 +165,9 @@ public class ModUtil {
             }
             errorMessagesSent++;
             World world = null;
-            if (obj instanceof Entity entity) {
+            if (entityOrWorld instanceof Entity entity) {
                 world = entity.getWorld();
-            } else if (obj instanceof World w) {
+            } else if (entityOrWorld instanceof World w) {
                 world = w;
             }
             if (world != null) {
@@ -232,7 +233,7 @@ public class ModUtil {
         if (entity.getAttributeInstance(EntityAttributes.MAX_HEALTH) != null) {
             entity.getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(health);
         }
-        entity.setHealth(entity.getMaxHealth());
+        entity.setHealth((float)entity.getAttributeInstance(EntityAttributes.MAX_HEALTH).getBaseValue());
     }
 
     /**
@@ -242,6 +243,7 @@ public class ModUtil {
         if (entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED) != null) {
             entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
         }
+        entity.setMovementSpeed((float)entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getBaseValue());
     }
 
     /**
@@ -332,7 +334,7 @@ public class ModUtil {
     /**
      * Converts seconds to ticks.
      */
-    public static int secondsInTicks(int seconds) {
+    public static int secondsAsTicks(int seconds) {
         try {
             int testSeconds = 0;
             while (testSeconds < 525600) {
@@ -345,14 +347,14 @@ public class ModUtil {
         } catch (NumberFormatException o) {
             SpeedrunnerMod.error("Use method minutesInTicks(int) if you're inputting an exact minute.");
             o.printStackTrace();
-            return minutesInTicks(seconds / 60);
+            return minutesAsTicks(seconds / 60);
         }
     }
 
     /**
      * Converts minutes to ticks.
      */
-    public static int minutesInTicks(int minutes) {
+    public static int minutesAsTicks(int minutes) {
         return (minutes * 60) * 20;
     }
 

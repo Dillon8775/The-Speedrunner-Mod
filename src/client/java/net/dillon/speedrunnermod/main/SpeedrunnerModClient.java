@@ -105,7 +105,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         Leaderboards.initializeLeaderboards();
 
-        info("The client-side for The Speedrunner Mod has successfully loaded.");
+        debug("The client-side for The Speedrunner Mod has successfully loaded.");
     }
 
     /**

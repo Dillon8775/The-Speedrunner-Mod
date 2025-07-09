@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -72,7 +73,7 @@ public class BaseModScreen extends GameOptionsScreen {
      * Refreshes a base mod screen.
      */
     public void refreshScreen(String id) {
-        this.client.setScreen(new RefreshingScreen(parent));
+        this.client.setScreen(new TemporaryScreen(this.parent, ModTexts.REFRESHING));
         this.client.setScreen(this.determineRefreshedScreen(id));
     }
 
@@ -80,7 +81,7 @@ public class BaseModScreen extends GameOptionsScreen {
      * Refreshes a feature screen.
      */
     public void refreshFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
-        this.client.setScreen(new RefreshingScreen(parent));
+        this.client.setScreen(new TemporaryScreen(this.parent, ModTexts.REFRESHING));
         this.client.setScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
     }
 

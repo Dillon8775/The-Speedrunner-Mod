@@ -37,12 +37,12 @@ public class ModDataComponentTypes {
                     new ApplyEffectsConsumeEffect(
                             List.of(
                                     new StatusEffectInstance(StatusEffects.REGENERATION, 1800, 1),
-                                    new StatusEffectInstance(StatusEffects.ABSORPTION, ModUtil.minutesInTicks(1), 1),
-                                    new StatusEffectInstance(StatusEffects.RESISTANCE, ModUtil.secondsInTicks(30)),
-                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesInTicks(2)),
-                                    new StatusEffectInstance(StatusEffects.STRENGTH, ModUtil.secondsInTicks(15)),
-                                    new StatusEffectInstance(StatusEffects.SPEED, ModUtil.secondsInTicks(30)),
-                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, ModUtil.secondsInTicks(10))
+                                    new StatusEffectInstance(StatusEffects.ABSORPTION, ModUtil.minutesAsTicks(1), 1),
+                                    new StatusEffectInstance(StatusEffects.RESISTANCE, ModUtil.secondsAsTicks(30)),
+                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(2)),
+                                    new StatusEffectInstance(StatusEffects.STRENGTH, ModUtil.secondsAsTicks(15)),
+                                    new StatusEffectInstance(StatusEffects.SPEED, ModUtil.secondsAsTicks(30)),
+                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, ModUtil.secondsAsTicks(10))
                             )
                     )
             ));

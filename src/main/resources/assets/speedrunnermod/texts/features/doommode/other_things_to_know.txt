@@ -1,10 +1,24 @@
-#### §cHostile mobs§r inflict the player with §7slowness§r when attacking, and skeletons shoot §9slowness arrows.
+#### §7§lVindicators §r§fwill spawn across the §aoverworld§r§f and §lthe end.
 
-#### Ghasts shoot §9fireballs§r at an extremely fast rate,
-#### right-clicking a §acreeper§r with a flint and steel will make it §linstantly explode,
-#### end crystals do more damage, §9ender pearls§r give §lblindness§r upon use,
-#### §aender eyes§f will always break,
-#### §lstrongholds are extremely large,§f and generate close to the bottom of the world.
+#### §6§lPiglin Brutes§r§f will spawn §oall§r§f across §cthe nether.
+
+#### §e§lEvokers,§r§f §9§lBreezes,§r§f and §7§lRavagers§r§f will spawn in §lthe end.
+
+#### §cHostile mobs§r inflict the player with §7slowness§r when attacking.
+
+#### §lSkeletons§r§f shoot §9slowness arrows.
+
+#### §lGhasts§r§f shoot §6fireballs§r at an extremely fast rate.
+
+#### Right-clicking a §acreeper§r with a flint and steel makes it §linstantly explode.
+
+#### §dEnd crystals§r§f do more damage when exploding.
+
+#### §9Ender pearls§r give the player §lblindness§r when landing.
+
+#### §aEnder eyes§f always break.
+
+#### §lStrongholds§r§f are extremely large,§f and generate close to the bottom of the world, making them §cdifficult §r§fto §afind§r§f and §7navigate.
 
 ## §c§oIf you're up for the challenge, I wish you luck.
 

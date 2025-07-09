@@ -16,6 +16,30 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "speedrunnermod:ender_matter",
+          "conditions": [
+            {
+              "condition": "minecraft:killed_by_player"
+            },
+            {
+              "condition": "minecraft:random_chance_with_enchanted_bonus",
+              "enchanted_chance": {
+                "type": "minecraft:linear",
+                "base": 0.27,
+                "per_level_above_first": 0.04
+              },
+              "enchantment": "minecraft:looting",
+              "unenchanted_chance": 0.23
+            }
+          ]
+        }
+      ]
     }
   ]
 }

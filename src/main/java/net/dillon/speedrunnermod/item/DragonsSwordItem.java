@@ -43,8 +43,8 @@ public class DragonsSwordItem extends Item implements StateOfTheArtItem {
             } else {
                 if (isDoomMode()) {
                     attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloat(2.0F, 3.0F));
-                    attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsInTicks(5), 0, false, true, true));
-                    attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsInTicks(2), 0, false, true, true));
+                    attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(5), 0, false, true, true));
+                    attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsAsTicks(2), 0, false, true, true));
                     if (attacker instanceof PlayerEntity) {
                         ((PlayerEntity)attacker).sendMessage(Text.translatable("item.speedrunnermod.dragons_sword.failed").formatted(Formatting.LIGHT_PURPLE), false);
                     }

@@ -34,7 +34,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
     private static final ImmutableList<ItemConvertible> LAPIS_ORES = ImmutableList.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE);
     private static final ImmutableList<ItemConvertible> REDSTONE_ORES = ImmutableList.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE);
     private static final ImmutableList<ItemConvertible> IGNEOUS_ORES = ImmutableList.of(ModBlocks.IGNEOUS_ORE, ModBlocks.DEEPSLATE_IGNEOUS_ORE, ModBlocks.NETHER_IGNEOUS_ORE);
-    private static final ImmutableList<ItemConvertible> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE);
+    private static final ImmutableList<ItemConvertible> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE, ModItems.RAW_SPEEDRUNNER);
 
     public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
@@ -150,6 +150,16 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         "speedrunner_block_from_speedrunner_ingot",
                         null,
                         "speedrunner_ingot_from_speedrunner_block",
+                        null
+                );
+                helper.offerModdedReversibleCompactingRecipes(
+                        RecipeCategory.MISC,
+                        ModItems.RAW_SPEEDRUNNER,
+                        RecipeCategory.MISC,
+                        ModItems.RAW_SPEEDRUNNER_BLOCK,
+                        "raw_speedrunner_block_from_raw_speedrunner_ingot",
+                        null,
+                        "raw_speedrunner_ingot_from_raw_speedrunner_block",
                         null
                 );
                 helper.offerModdedReversibleCompactingRecipes(
@@ -853,11 +863,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShaped(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_PADDLE)
                         .input('I', ModItems.SPEEDRUNNER_INGOT)
-                        .input('B', ModItems.SPEEDRUNNER_BLOCK)
                         .input('S', ModItems.SPEEDRUNNER_STICK)
                         .pattern("I")
-                        .pattern("B")
                         .pattern("S")
+                        .pattern("I")
                         .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
                         .offerTo(this.exporter);
 
