@@ -80,8 +80,8 @@ public class ModItemGroups {
                         }
                         if (!balancedMode) {
                             entries.add(ModItems.RAID_ERADICATOR);
+                            entries.add(ModItems.ANNUL_EYE);
                         }
-                        entries.add(ModItems.ANNUL_EYE);
                         if (!balancedMode) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }

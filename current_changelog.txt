@@ -9,6 +9,7 @@
 - Increased chance of ender matter dropping from enderman.
 - Ender matter now has a 100% chance to generate in a shipwreck treasure chest and end city chests.
 - Removed the speedrunner mod options button from the vanilla options screen.
+- The "New Run" button now only appears in singleplayer.
 - Fixed bug where you can't smelt or craft speedrunner ingots via raw speedrunner.
 - Fixed critical bug where health values and other attributes and values are not initialized correctly.
 - Fixed crash when falling into the void.

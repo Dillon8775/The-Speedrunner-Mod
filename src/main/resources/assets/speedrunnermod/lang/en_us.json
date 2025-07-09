@@ -169,6 +169,7 @@
   "item.speedrunnermod.golden_speedrunner_leggings": "Golden Speedrunner Leggings",
   "item.speedrunnermod.golden_speedrunner_boots": "Golden Speedrunner Boots",
   "item.speedrunnermod.golden_speedrunner_upgrade_smithing_template": "Smithing Template",
+  "item.speedrunnermod.golden_speedrunner_upgrade_smithing_template.tooltip": "Right-click to view all Speedrunner Mod features!",
   "item.speedrunnermod.smithing_template.golden_speedrunner_upgrade.additions_slot_description": "Add Speedrunner Ingot",
   "item.speedrunnermod.smithing_template.golden_speedrunner_upgrade.applies_to": "Golden Equipment",
   "item.speedrunnermod.smithing_template.golden_speedrunner_upgrade.base_slot_description": "Add golden armor, weapon, or tool",

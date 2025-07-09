@@ -37,7 +37,9 @@ public class DeathScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z"))
     private void addResetButton(CallbackInfo ci) {
-        if (clientOptions().client.fastWorldCreation.getCurrentValue() && clientOptions().client.showResetButton.getCurrentValue()) {
+        if (clientOptions().client.fastWorldCreation.getCurrentValue() &&
+                clientOptions().client.showResetButton.getCurrentValue() &&
+                this.client.isInSingleplayer() && this.client.getCurrentServerEntry() == null) {
             this.buttons.add(this.addDrawableChild(ButtonWidget.builder(Text.translatable("speedrunnermod.new_run"), button -> {
                 if (this.client.inGameHud != null) {
                     this.client.inGameHud.getChatHud().clear(false);

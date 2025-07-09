@@ -15,7 +15,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.Util;
 
 import java.util.function.Consumer;
 
@@ -25,10 +24,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All Speedrunner Mod {@code items.}
  */
 public class ModItems {
-    private static final Text GOLDEN_SPEEDRUNNER_UPGRADE_APPLIES_TO_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.applies_to"))).formatted(Formatting.GOLD);
-    private static final Text GOLDEN_SPEEDRUNNER_INGREDIENTS_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.ingredients"))).formatted(Formatting.AQUA);
-    private static final Text GOLDEN_SPEEDRUNNER_BASE_SLOT_DESCRIPTION_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.base_slot_description")));
-    private static final Text GOLDEN_SPEEDRUNNER_ADDITIONS_SLOT_DESCRIPTION_TEXT = Text.translatable(Util.createTranslationKey("item", ofSpeedrunnerMod("smithing_template.golden_speedrunner_upgrade.additions_slot_description")));
     public static final Identifier SPEEDRUNNER_ARMOR_PATH = Identifier.of("speedrunnermod:speedrunner");
     public static final Identifier GOLDEN_SPEEDRUNNER_ARMOR_PATH = Identifier.of("speedrunnermod:golden_speedrunner");
 
@@ -143,14 +138,7 @@ public class ModItems {
                     .maxDamage(EquipmentType.BOOTS.getMaxDamage(11))
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE = Items.register(of("golden_speedrunner_upgrade_smithing_template"), settings -> new SmithingTemplateItem(
-            GOLDEN_SPEEDRUNNER_UPGRADE_APPLIES_TO_TEXT,
-            GOLDEN_SPEEDRUNNER_INGREDIENTS_TEXT,
-            GOLDEN_SPEEDRUNNER_BASE_SLOT_DESCRIPTION_TEXT,
-            GOLDEN_SPEEDRUNNER_ADDITIONS_SLOT_DESCRIPTION_TEXT,
-            SmithingTemplateItem.getNetheriteUpgradeEmptyBaseSlotTextures(),
-            SmithingTemplateItem.getNetheriteUpgradeEmptyAdditionsSlotTextures(),
-            settings));
+    public static final Item GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE = Items.register(of("golden_speedrunner_upgrade_smithing_template"), GoldenSpeedrunnerUpgradeSmithingTemplateItem::new);
 
     public static final Item SPEEDRUNNER_BULK = Items.register(of("speedrunner_bulk"), settings -> new Item(
             settings) {

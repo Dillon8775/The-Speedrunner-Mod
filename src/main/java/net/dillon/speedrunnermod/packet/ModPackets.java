@@ -3,10 +3,7 @@ package net.dillon.speedrunnermod.packet;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.packet.client.CheckModeS2CPacket;
-import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
-import net.dillon.speedrunnermod.packet.client.MatchClientOptionsWithServerS2CPacket;
-import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
+import net.dillon.speedrunnermod.packet.client.*;
 import net.dillon.speedrunnermod.packet.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
@@ -78,6 +75,7 @@ public class ModPackets {
             PayloadTypeRegistry.playS2C().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(CompleteTutorialStepS2CPacket.PACKET, CompleteTutorialStepS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
+            PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(UpdateLastCompletedTutorialStepTranslationsS2CPacket.PACKET, UpdateLastCompletedTutorialStepTranslationsS2CPacket.CODEC);
         }
     }

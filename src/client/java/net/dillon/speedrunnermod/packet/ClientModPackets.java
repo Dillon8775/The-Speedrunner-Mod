@@ -3,13 +3,11 @@ package net.dillon.speedrunnermod.packet;
 import net.dillon.speedrunnermod.client.ClientSyncedServerOptions;
 import net.dillon.speedrunnermod.client.screen.base.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.client.screen.base.synced.TimedScreen;
+import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.packet.client.CheckModeS2CPacket;
-import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
-import net.dillon.speedrunnermod.packet.client.MatchClientOptionsWithServerS2CPacket;
-import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
+import net.dillon.speedrunnermod.packet.client.*;
 import net.dillon.speedrunnermod.packet.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
@@ -70,6 +68,17 @@ public class ClientModPackets {
             configHandler().matchWithServer(serverOptions);
             context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MATCHED_SETTINGS_WITH_SERVER);
             context.client().disconnect(new TimedScreen(null, 5));
+        });
+    }
+
+    /**
+     * Registers the {@code server-to-client open features screen} packet.
+     */
+    private static void registerS2COpenFeaturesScreen() {
+        PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
+
+        ClientPlayNetworking.registerGlobalReceiver(OpenFeaturesScreenS2CPacket.PACKET, (payload, context) -> {
+            context.client().setScreen(new FeaturesScreen(null));
         });
     }
 
@@ -138,6 +147,7 @@ public class ClientModPackets {
         registerS2CCheckModePacket();
         registerS2CCompleteTutorialStep();
         registerS2CMatchClientOptionsWithServer();
+        registerS2COpenFeaturesScreen();
         registerS2CLastCompletedTutorialStepTranslations();
 
         registerC2SOnServer(); // register client-to-server ONLY on EnvType.SERVER
