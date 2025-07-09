@@ -29,7 +29,7 @@ public class ModItemGroups {
     public static ItemGroup SPEEDRUNNER_MOD = Registry.register(Registries.ITEM_GROUP, ofSpeedrunnerMod("speedrunner_mod_item_group"),
             FabricItemGroup.builder()
                     .displayName(Text.literal("Speedrunner Mod"))
-                    .icon(() -> new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH)).entries((displayContext, entries) -> {
+                    .icon(() -> new ItemStack(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE)).entries((displayContext, entries) -> {
                         boolean easyMode = isEasyMode();
                         boolean balancedMode = isBalancedMode();
                         entries.add(ModItems.SPEEDRUNNER_INGOT);

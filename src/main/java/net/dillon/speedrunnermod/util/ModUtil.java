@@ -325,6 +325,13 @@ public class ModUtil {
     }
 
     /**
+     * Returns a {@code percent percentChance.}
+     */
+    public static boolean percentChance(net.minecraft.util.math.random.Random random, int percentChance) {
+        return random.nextInt(100) < percentChance;
+    }
+
+    /**
      * Converts seconds to milliseconds.
      */
     public static int millisecondsAsSeconds(int seconds) {
@@ -463,8 +470,8 @@ public class ModUtil {
     }
 
     /**
-     * @return the chance of an ender eye being pre-filled in an end portal frame block.
-     * <p>The higher the value, the less the chance.</p>
+     * @return the percentChance of an ender eye being pre-filled in an end portal frame block.
+     * <p>The higher the value, the less the percentChance.</p>
      */
     public static float getPrefilledEnderEyeChance() {
         return isDoomMode() ? 0.99F : isEasyMode() ? 0.6F : 0.9F;

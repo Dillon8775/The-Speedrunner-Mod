@@ -1,4 +1,4 @@
-## Shooting an arrow at a §lbed§r and makes it §cexplode.
+## Shooting an arrow at a §lbed§r makes it §cexplode.
 
 §oThis can be disabled in the §b§ospeedrunner mod options menu.
 

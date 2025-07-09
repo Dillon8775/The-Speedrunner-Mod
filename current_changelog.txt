@@ -1,3 +1,4 @@
+- New mod icon!
 - New advanced options for changing different radius settings.
 - New animated texture for the golden speedrunner upgrade smithing template!
 - Optimizations and bug fixes.

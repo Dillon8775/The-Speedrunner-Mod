@@ -1,4 +1,4 @@
-### These §cdoom blocks§r§f replace the default end stone blocks in the end
+### These §cdoom blocks§r§f replace the default end stone blocks in the end.
 
 ### If broken, they will spawn §cvarious hostile mobs, §r§falong with some §6lava.
 
