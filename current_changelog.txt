@@ -4,6 +4,7 @@
 - Optimizations and bug fixes.
 - Renamed config files to have to mod's version to prevent issues when upgrading.
 - The speedrunner's paddle is now crafted with only 2 speedrunner ingots and a speedrunner stick.
+- The speedrunner boat is now crafted with only 1 speedrunner paddle.
 - Using the eye of annul will now teleport you to the center of the end portal, and place a thrusted block in the center to stand on.
 - The wither's maximum health is now 250 on doom mode instead of 150.
 - Using a speedrunner sword no longer increases the chances of getting ender matter from killing an enderman.

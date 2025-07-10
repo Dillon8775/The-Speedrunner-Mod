@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.mob.HostileEntity;
@@ -12,7 +11,6 @@ import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,6 +25,19 @@ public class WardenEntityMixin extends HostileEntity {
 
     public WardenEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    /**
+     * Modifies {@code warden} attributes.
+
+     */
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void init(EntityType<? extends WardenEntity> entityType, World world, CallbackInfo ci) {
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 400.0D : 200.0D);
+        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.4D : 0.2D);
+        ModUtil.modifyKnockbackResistance(this, isDoomMode() ? 1.0D : 0.65D);
+        ModUtil.modifyAttackKnockback(this, isDoomMode() ? 2.0D : 1.0D);
+        ModUtil.modifyAttackDamage(this, isDoomMode() ? 30.0D : 15.0D);
     }
 
     /**
@@ -70,23 +81,5 @@ public class WardenEntityMixin extends HostileEntity {
     public void onStoppedTrackingBy(ServerPlayerEntity player) {
         super.onStoppedTrackingBy(player);
         this.bossBar.removePlayer(player);
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Modifies {@code warden} attributes.
-     */
-    @Overwrite
-    public static DefaultAttributeContainer.Builder addAttributes() {
-        double genericMaxHealth = isDoomMode() ? 400.0 : 200.0;
-        double genericMovementSpeed = isDoomMode() ? 0.4 : 0.2;
-        double genericKnockbackResistance = isDoomMode() ? 1.0 : 0.65;
-        double genericAttackKnockback = isDoomMode() ? 2.0 : 1.0;
-        double genericAttackDamage = isDoomMode() ? 30.0 : 15.0;
-        return HostileEntity.createHostileAttributes().add(EntityAttributes.MAX_HEALTH, genericMaxHealth)
-                .add(EntityAttributes.MOVEMENT_SPEED, genericMovementSpeed)
-                .add(EntityAttributes.KNOCKBACK_RESISTANCE, genericKnockbackResistance)
-                .add(EntityAttributes.ATTACK_KNOCKBACK, genericAttackKnockback)
-                .add(EntityAttributes.ATTACK_DAMAGE, genericAttackDamage);
     }
 }

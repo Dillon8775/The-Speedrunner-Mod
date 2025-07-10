@@ -24,8 +24,6 @@ public class ModBlockTags {
     public static TagKey<Block> SPEEDRUNNER_PLANKS = of("speedrunner_planks");
     public static TagKey<Block> SPEEDRUNNER_SAPLING_PLACEABLES = of("speedrunner_sapling_placeables");
     public static TagKey<Block> SPEEDRUNNER_SIGNS = of("speedrunner_signs");
-    public static TagKey<Block> TEXTURE_CREATOR_MANNYQUESO = of("texture_creator_mannyqueso");
-    public static TagKey<Block> TEXTURE_CREATOR_KREVIKUS = of("texture_creator_krevikus");
 
     /**
      * These are the block tags that have a modified hardness value. See {@link net.dillon.speedrunnermod.mixin.main.block.AbstractBlockStateMixin} for more.

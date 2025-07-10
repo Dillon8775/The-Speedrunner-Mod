@@ -5,12 +5,11 @@
   "key": {
     "#": "speedrunnermod:speedrunner_planks",
     "C": "minecraft:chest",
-    "L": "minecraft:lava_bucket",
     "P": "speedrunnermod:speedrunner_paddle"
   },
   "pattern": [
-    "PCP",
-    "#L#",
+    " P ",
+    "#C#",
     "###"
   ],
   "result": {

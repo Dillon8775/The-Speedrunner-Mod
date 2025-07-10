@@ -6,13 +6,15 @@
 
 #### §cHostile mobs§r inflict the player with §7slowness§r when attacking.
 
-#### §lSkeletons§r§f shoot §9slowness arrows.
+#### §lSkeletons§r§f shoot §9slowness arrows,§r§f and shoot §lquicker.
 
 #### §lGhasts§r§f shoot §6fireballs§r at an extremely fast rate.
 
 #### Right-clicking a §acreeper§r with a flint and steel makes it §linstantly explode.
 
 #### §dEnd crystals§r§f do more damage when exploding.
+
+#### §lBeds§r§f do more damage when exploding in §lthe end.
 
 #### §9Ender pearls§r give the player §lblindness§r when landing.
 

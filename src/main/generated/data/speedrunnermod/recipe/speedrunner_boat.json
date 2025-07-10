@@ -4,12 +4,10 @@
   "group": "boat",
   "key": {
     "#": "speedrunnermod:speedrunner_planks",
-    "L": "minecraft:lava_bucket",
     "P": "speedrunnermod:speedrunner_paddle"
   },
   "pattern": [
-    "P P",
-    "#L#",
+    "#P#",
     "###"
   ],
   "result": {

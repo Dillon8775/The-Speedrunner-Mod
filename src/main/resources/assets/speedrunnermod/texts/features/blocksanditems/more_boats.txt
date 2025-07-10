@@ -9,5 +9,5 @@
 
 ### The §bSpeedrunner Boat§r is crafted with §b5 speedrunner planks, §r§fa §6lava bucket,§r§f and §b2 speedrunner paddles.
 
-!image:textures/gui/features/recipes/speedrunner_boat.png scale=.3
-!image:textures/gui/features/recipes/speedrunner_chest_boat.png scale=.3
+!image:textures/gui/features/recipes/speedrunner_boat_crafting_recipe.png scale=.3
+!image:textures/gui/features/recipes/speedrunner_chest_boat_crafting_recipe.png scale=.3
