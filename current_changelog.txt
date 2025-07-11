@@ -18,6 +18,7 @@
 - Goliath now has a lower pitch.
 - Removed the speedrunner mod options button from the vanilla options screen.
 - The "New Run" button now only appears in singleplayer.
+- /syncoptions command to request to sync a player's speedrunner mod options with the server options.
 - Fixed critical bug where health values and other attributes and values are not initialized correctly.
 - Fixed bug where certain recipes don't show or work.
 - Fixed bug where some recipes weren't setup correctly.
