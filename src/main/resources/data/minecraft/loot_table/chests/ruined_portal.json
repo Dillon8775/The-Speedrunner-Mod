@@ -105,6 +105,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "weight": 8,
+          "name": "minecraft:ender_pearl"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 21,
           "name": "minecraft:golden_carrot",
           "functions": [

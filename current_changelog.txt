@@ -9,6 +9,7 @@
 - Using the eye of annul will now teleport you to the center of the end portal, and place a thrusted block in the center to stand on.
 - Thrown InfiniPearls are now faster in water.
 - InfiniPearls now shoot faster and further.
+- Ruined portal loot chest now have a chance to contain an ender pearl.
 - The wither's maximum health is now 250 on doom mode instead of 150.
 - Beds are now dragon immune on doom mode.
 - Using a speedrunner sword no longer increases the chances of getting ender matter from killing an enderman.
