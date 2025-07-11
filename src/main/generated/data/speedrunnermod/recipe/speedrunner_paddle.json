@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "I": "speedrunnermod:speedrunner_ingot",
-    "S": "speedrunnermod:speedrunner_stick"
+    "S": "#speedrunnermod:speedrunner_sticks"
   },
   "pattern": [
     "I",

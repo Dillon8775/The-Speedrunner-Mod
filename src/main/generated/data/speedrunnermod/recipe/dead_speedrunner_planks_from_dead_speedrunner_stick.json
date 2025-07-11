@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "planks",
+  "key": {
+    "/": "speedrunnermod:dead_speedrunner_stick"
+  },
+  "pattern": [
+    "//",
+    "//"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:dead_speedrunner_planks"
+  }
+}

@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.main;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.command.ModCommands;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
@@ -50,7 +51,11 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Override
     public void onInitialize() {
+        safeBoot = false;
+        configHandler().load();
+
         ModPackets.registerPackets();
+        ModCommands.registerCommands();
 
         ModWorldGen.initializeWorldGenFeatures();
 
@@ -83,9 +88,6 @@ public class SpeedrunnerMod implements ModInitializer {
         ModFuels.registerFuels();
 
         ModScreenHandlerTypes.initializeScreenHandlers();
-
-        safeBoot = false;
-        configHandler().load();
 
         // Get all mod ids, add and sort
         options().advanced.modIds.getCurrentValue().clear();

@@ -9,6 +9,7 @@ import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.packet.client.*;
 import net.dillon.speedrunnermod.packet.server.ClientPreferencesC2SPacket;
+import net.dillon.speedrunnermod.packet.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -20,6 +21,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 
 import java.util.List;
 import java.util.Timer;
@@ -65,7 +67,7 @@ public class ClientModPackets {
 
         ClientPlayNetworking.registerGlobalReceiver(MatchClientOptionsWithServerS2CPacket.PACKET, (packet, context) -> {
             ModOptions serverOptions = packet.toOptions();
-            configHandler().matchWithServer(serverOptions);
+            configHandler().match(serverOptions);
             context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MATCHED_SETTINGS_WITH_SERVER);
             context.client().disconnect(new TimedScreen(null, 5));
         });
@@ -83,9 +85,21 @@ public class ClientModPackets {
     }
 
     /**
+     * Registers the {@code server-to-client} requesting syncing options packet.
+     */
+    private static void registerS2CRequestClientSideOptions() {
+        PayloadTypeRegistry.playS2C().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
+
+        ClientPlayNetworking.registerGlobalReceiver(RequestClientSideOptionsS2CPacket.PACKET, (payload, context) -> {
+            ClientPlayNetworking.send(MatchServerOptionsWithClientC2SPacket.from(options(), context.player().getName().getString()));
+            context.player().sendMessage(Text.translatable("speedrunnermod.client_options_sent"), false);
+        });
+    }
+
+    /**
      * Registers {@code server-to-client tutorial step translations}  packet.
      */
-    private static void registerS2CLastCompletedTutorialStepTranslations() {
+    private static void registerS2CUpdateLastCompletedTutorialStepTranslations() {
         PayloadTypeRegistry.playS2C().register(UpdateLastCompletedTutorialStepTranslationsS2CPacket.PACKET, UpdateLastCompletedTutorialStepTranslationsS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(UpdateLastCompletedTutorialStepTranslationsS2CPacket.PACKET, (packet, context) -> {
@@ -99,9 +113,10 @@ public class ClientModPackets {
     private static void registerC2SOnServer() {
         // only register on server
         if (isEnvironmentTypeServer()) {
+            PayloadTypeRegistry.playC2S().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
+            PayloadTypeRegistry.playC2S().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
             PayloadTypeRegistry.playC2S().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
             PayloadTypeRegistry.playC2S().register(TutorialStepCompleteC2SPacket.PACKET, TutorialStepCompleteC2SPacket.CODEC);
-            PayloadTypeRegistry.playC2S().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
         }
     }
 
@@ -148,7 +163,8 @@ public class ClientModPackets {
         registerS2CCompleteTutorialStep();
         registerS2CMatchClientOptionsWithServer();
         registerS2COpenFeaturesScreen();
-        registerS2CLastCompletedTutorialStepTranslations();
+        registerS2CRequestClientSideOptions();
+        registerS2CUpdateLastCompletedTutorialStepTranslations();
 
         registerC2SOnServer(); // register client-to-server ONLY on EnvType.SERVER
 

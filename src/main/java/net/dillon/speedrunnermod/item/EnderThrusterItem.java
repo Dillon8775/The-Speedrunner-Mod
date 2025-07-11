@@ -41,7 +41,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
             if (!isBalancedMode()) {
@@ -59,8 +59,11 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
 
                     if (bl) {
                         player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(10));
+
+                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+
                         if (!player.getAbilities().creativeMode) {
-                            itemStack.decrement(1);
+                            stack.decrement(1);
                         }
 
                         if (world.getBlockState(topPos).getBlock() == Blocks.WATER) {
@@ -81,8 +84,6 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
                         player.teleport(player.getX(), topY, player.getZ(), true);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
-                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
-
                         ModUtil.completeStepS2C(TutorialStep.USE_ENTER_THRUSTER, player,
                                 "speedrunnermod.tutorial_mode.ender_thruster_description",
                                 "speedrunnermod.tutorial_mode.craft_wither_bone");
@@ -102,7 +103,7 @@ public class EnderThrusterItem extends Item implements StateOfTheArtItem {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.BLUE), false);
                 player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                itemStack.decrement(1);
+                stack.decrement(1);
                 player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
                 player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
             }

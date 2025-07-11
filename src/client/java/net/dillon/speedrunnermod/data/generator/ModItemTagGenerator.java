@@ -155,7 +155,12 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ModItemTags.STICKS)
                 .add(Items.STICK)
-                .add(ModItems.SPEEDRUNNER_STICK);
+                .add(ModItems.SPEEDRUNNER_STICK)
+                .add(ModItems.DEAD_SPEEDRUNNER_STICK);
+
+        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_STICKS)
+                .add(ModItems.SPEEDRUNNER_STICK)
+                .add(ModItems.DEAD_SPEEDRUNNER_STICK);
 
         getOrCreateTagBuilder(ModItemTags.TOTEMS)
                 .add(Items.TOTEM_OF_UNDYING)
@@ -163,52 +168,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         getOrCreateTagBuilder(ModItemTags.WITHER_TOOL_MATERIALS)
                 .add(ModItems.WITHER_BONE);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL)
-                .add(Items.ENDER_PEARL)
-                .add(Items.FIRE_CHARGE)
-                .add(Items.BLAZE_POWDER)
-                .add(Items.ENDER_EYE);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER)
-                .add(Items.ENDER_PEARL)
-                .add(Items.FIRE_CHARGE)
-                .add(Items.LAVA_BUCKET);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
-                .add(Items.ENDER_PEARL)
-                .add(Items.BLAZE_POWDER)
-                .add(Items.FIRE_CHARGE)
-                .add(ModItems.SPEEDRUNNERS_EYE);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.DRAGONS_SWORD)
-                .add(ModItems.SPEEDRUNNER_SWORD)
-                .add(ModItems.DRAGONS_PEARL);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.ENDER_THRUSTER)
-                .add(Items.ENDER_PEARL)
-                .add(ModItems.SPEEDRUNNERS_EYE);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.INFERNO_EYE)
-                .add(Items.ENDER_PEARL)
-                .add(Items.BLAZE_POWDER);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.RAID_ERADICATOR)
-                .forceAddTag(ModItemTags.TOTEMS)
-                .add(Items.ENCHANTED_GOLDEN_APPLE);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER)
-                .forceAddTag(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
-                .add(Items.GOLD_INGOT);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL)
-                .add(Items.FLINT)
-                .add(Items.FLINT_AND_STEEL)
-                .add(ModItems.SPEEDRUNNER_INGOT);
-
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH)
-                .forceAddTag(ModItemTags.Block.SPEEDRUNNER_PLANKS)
-                .add(ModItems.SPEEDRUNNER_INGOT);
 
         getOrCreateTagBuilder(ModItemTags.Block.DOOM_LOGS)
                 .add(ModItems.DOOM_LOG)
@@ -281,12 +240,51 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.DEAD_SPEEDRUNNER_SIGN)
                 .add(ModItems.DEAD_SPEEDRUNNER_HANGING_SIGN);
 
-        getOrCreateTagBuilder(ModItemTags.Block.TEXTURE_CREATOR_MANNYQUESO)
-                .add(ModItems.SPEEDRUNNERS_WORKBENCH)
-                .add(ModItems.THRUSTED_BLOCK);
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL)
+                .add(Items.ENDER_PEARL)
+                .add(Items.FIRE_CHARGE)
+                .add(Items.BLAZE_POWDER)
+                .add(Items.ENDER_EYE);
 
-        getOrCreateTagBuilder(ModItemTags.Block.TEXTURE_CREATOR_KREVIKUS)
-                .forceAddTag(ModItemTags.Block.EXPERIENCE_ORES);
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER)
+                .add(Items.ENDER_PEARL)
+                .add(Items.FIRE_CHARGE)
+                .add(Items.LAVA_BUCKET);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
+                .add(Items.ENDER_PEARL)
+                .add(Items.BLAZE_POWDER)
+                .add(Items.FIRE_CHARGE)
+                .add(ModItems.SPEEDRUNNERS_EYE);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.DRAGONS_SWORD)
+                .add(ModItems.SPEEDRUNNER_SWORD)
+                .add(ModItems.DRAGONS_PEARL);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.ENDER_THRUSTER)
+                .add(Items.ENDER_PEARL)
+                .add(ModItems.SPEEDRUNNERS_EYE);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.INFERNO_EYE)
+                .add(Items.ENDER_PEARL)
+                .add(Items.BLAZE_POWDER);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.RAID_ERADICATOR)
+                .forceAddTag(ModItemTags.TOTEMS)
+                .add(Items.ENCHANTED_GOLDEN_APPLE);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER)
+                .forceAddTag(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
+                .add(Items.GOLD_INGOT);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL)
+                .add(Items.FLINT)
+                .add(Items.FLINT_AND_STEEL)
+                .add(ModItems.SPEEDRUNNER_INGOT);
+
+        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH)
+                .forceAddTag(ModItemTags.Block.SPEEDRUNNER_PLANKS)
+                .add(ModItems.SPEEDRUNNER_INGOT);
 
         getOrCreateTagBuilder(ItemTags.BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)

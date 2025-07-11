@@ -185,8 +185,8 @@ public abstract class BaseOptions<T> {
     /**
      * Matches client-side options with server-side options.
      */
-    public void matchWithServer(T serverOptions) {
-        this.instance = serverOptions;
+    public void match(T sentOptions) {
+        this.instance = sentOptions;
         save();
     }
 

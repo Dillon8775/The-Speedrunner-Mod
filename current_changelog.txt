@@ -1,19 +1,28 @@
 - New mod icon!
 - New advanced options for changing different radius settings.
 - New animated texture for the golden speedrunner upgrade smithing template!
+- Added Dead Speedrunner Stick.
 - Optimizations and bug fixes.
 - Renamed config files to have to mod's version to prevent issues when upgrading.
 - The speedrunner's paddle is now crafted with only 2 speedrunner ingots and a speedrunner stick.
 - The speedrunner boat is now crafted with only 1 speedrunner paddle.
 - Using the eye of annul will now teleport you to the center of the end portal, and place a thrusted block in the center to stand on.
+- Thrown InfiniPearls are now faster in water.
+- InfiniPearls now shoot faster and further.
 - The wither's maximum health is now 250 on doom mode instead of 150.
+- Beds are now dragon immune on doom mode.
 - Using a speedrunner sword no longer increases the chances of getting ender matter from killing an enderman.
 - Increased chance of ender matter dropping from enderman.
 - Ender matter now has a 100% chance to generate in a shipwreck treasure chest and end city chests.
+- Goliath now has a lower pitch.
 - Removed the speedrunner mod options button from the vanilla options screen.
 - The "New Run" button now only appears in singleplayer.
-- Fixed bug where you can't smelt or craft speedrunner ingots via raw speedrunner.
 - Fixed critical bug where health values and other attributes and values are not initialized correctly.
+- Fixed bug where certain recipes don't show or work.
+- Fixed bug where some recipes weren't setup correctly.
+- Fixed bug where you can't smelt or craft speedrunner ingots via raw speedrunner.
+- Fixed bug where doom trees don't generate.
+- Fixed bug with speedrunner's workbench where you can't upgrade levels.
 - Fixed crash when falling into the void.
 - Fixed tutorial mode bug(s).
 - Fixed bug when crafting piglin awakener on a mode other than balanced doesn't give item back.

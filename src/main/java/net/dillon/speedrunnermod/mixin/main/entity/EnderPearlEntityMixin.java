@@ -16,10 +16,14 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -40,7 +44,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
         super.onCollision(hitResult);
         boolean isInfiniPearl = super.getStack().isOf(ModItems.INFINI_PEARL);
 
-        for(int i = 0; i < 32; ++i) {
+        for (int i = 0; i < 32; ++i) {
             this.getWorld().addParticleClient(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
@@ -76,6 +80,20 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
             }
 
             this.discard();
+        }
+    }
+
+    /**
+     * Adds {@code ender} particles around {@code InfiniPearls.}
+     */
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void addParticles(CallbackInfo ci) {
+        if (super.getStack().isOf(ModItems.INFINI_PEARL)) {
+            Vec3d vec3d = this.getVelocity();
+            Vec3d vec3d2 = this.getPos();
+            for (int i = 0; i < 32; ++i) {
+                this.getWorld().addParticleClient(ParticleTypes.PORTAL, vec3d2.x - vec3d.x * 0.25, vec3d2.y - vec3d.y * 0.25, vec3d2.z - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
+            }
         }
     }
 }

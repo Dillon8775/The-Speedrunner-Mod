@@ -50,8 +50,8 @@ public abstract class LivingEntityMixin extends Entity {
     protected abstract boolean shouldSwimInFluids();
     @Shadow
     public abstract boolean canWalkOnFluid(FluidState fluidState);
-
-    @Shadow public abstract void stopRiding();
+    @Shadow
+    public abstract void stopRiding();
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);

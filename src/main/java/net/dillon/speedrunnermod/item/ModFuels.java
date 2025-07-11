@@ -25,8 +25,9 @@ public class ModFuels {
             builder.add(ModBlocks.SPEEDRUNNER_SAPLING, 200);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, 300);
             builder.add(ModBlocks.SPEEDRUNNER_PLANKS, 400);
-            builder.add(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, 500);
             builder.add(ModItems.SPEEDRUNNER_STICK, 200);
+            builder.add(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, 500);
+            builder.add(ModItems.DEAD_SPEEDRUNNER_STICK, 200);
             builder.add(ModItems.SPEEDRUNNER_BOAT, 300);
             builder.add(ModItems.SPEEDRUNNER_CHEST_BOAT, 300);
             builder.add(ModItems.DEAD_SPEEDRUNNER_BOAT, 400);

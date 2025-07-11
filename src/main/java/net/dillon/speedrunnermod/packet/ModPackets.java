@@ -5,9 +5,10 @@ import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.packet.client.*;
 import net.dillon.speedrunnermod.packet.server.ClientPreferencesC2SPacket;
+import net.dillon.speedrunnermod.packet.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -18,6 +19,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.text.Text;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,6 +28,20 @@ import java.util.UUID;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
 public class ModPackets {
+
+    /**
+     * Registers the {@link ClientPreferencesC2SPacket} packet.
+     */
+    private static void registerC2SClientPreferences() {
+        PayloadTypeRegistry.playC2S().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
+            UUID playerUuid = context.player().getUuid();
+            ServerStorage.setActionbarPref(playerUuid, packet.actionbar());
+            ServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
+            ServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
+        });
+    }
 
     /**
      * Registers the receiver for syncing client-side options with server-side.
@@ -41,28 +57,28 @@ public class ModPackets {
     }
 
     /**
+     * Registers the packet for syncing server-side options with client-side.
+     */
+    private static void registerC2SMatchServerOptionsWithClient() {
+        PayloadTypeRegistry.playC2S().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
+
+        ServerPlayNetworking.registerGlobalReceiver(MatchServerOptionsWithClientC2SPacket.PACKET, (packet, context) -> {
+            ModOptions clientOptions = packet.toOptions();
+            String player = packet.playerName();
+            ServerStorage.storePendingSyncRequest(player, clientOptions);
+            context.server().sendMessage(Text.translatable("speedrunnermod.client_options_request_received", player, player));
+        });
+    }
+
+    /**
      * Registers the receiver for completing tutorial steps.
      */
     private static void registerC2STutorialStepComplete() {
         PayloadTypeRegistry.playC2S().register(TutorialStepCompleteC2SPacket.PACKET, TutorialStepCompleteC2SPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(TutorialStepCompleteC2SPacket.PACKET, (packet, context) -> {
-            ServerSyncedClientOptions.completeTutorialStepC2S(context.player(), packet.step());
+            ServerStorage.completeTutorialStepC2S(context.player(), packet.step());
             ServerPlayNetworking.send(context.player(), new UpdateLastCompletedTutorialStepTranslationsS2CPacket(packet.messageKeys()));
-        });
-    }
-
-    /**
-     * Registers the {@link ClientPreferencesC2SPacket} packet.
-     */
-    private static void registerC2SClientPreferences() {
-        PayloadTypeRegistry.playC2S().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
-
-        ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
-            UUID playerUuid = context.player().getUuid();
-            ServerSyncedClientOptions.setActionbarPref(playerUuid, packet.actionbar());
-            ServerSyncedClientOptions.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
-            ServerSyncedClientOptions.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
         });
     }
 
@@ -76,6 +92,7 @@ public class ModPackets {
             PayloadTypeRegistry.playS2C().register(CompleteTutorialStepS2CPacket.PACKET, CompleteTutorialStepS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
+            PayloadTypeRegistry.playS2C().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(UpdateLastCompletedTutorialStepTranslationsS2CPacket.PACKET, UpdateLastCompletedTutorialStepTranslationsS2CPacket.CODEC);
         }
     }
@@ -95,8 +112,8 @@ public class ModPackets {
                         @Override
                         public void run() {
                             UUID playerUuid = handler.getPlayer().getUuid();
-                            int iCarusFireworksInventorySlot = ServerSyncedClientOptions.getIcarusFireworkSlot(playerUuid);
-                            int infiniPearlInventorySlot = ServerSyncedClientOptions.getInfiniPearlSlot(playerUuid);
+                            int iCarusFireworksInventorySlot = ServerStorage.getIcarusFireworkSlot(playerUuid);
+                            int infiniPearlInventorySlot = ServerStorage.getInfiniPearlSlot(playerUuid);
 
                             ItemStack item;
                             if (options().main.iCarusMode.getCurrentValue()) {
@@ -128,7 +145,7 @@ public class ModPackets {
         });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            ServerSyncedClientOptions.clearPrefs(handler.getPlayer().getUuid());
+            ServerStorage.clearPrefs(handler.getPlayer().getUuid());
         });
 
         if (isEnvironmentTypeServer()) {
@@ -145,9 +162,10 @@ public class ModPackets {
      * Registers all speedrunner mod payloads/packets.
      */
     public static void registerPackets() {
+        registerC2SClientPreferences();
+        registerC2SMatchServerOptionsWithClient();
         registerC2SRequestServerSideOptions();
         registerC2STutorialStepComplete();
-        registerC2SClientPreferences();
 
         registerS2COnServer(); // register server-to-client ONLY on EnvType.SERVER
 

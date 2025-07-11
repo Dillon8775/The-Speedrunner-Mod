@@ -82,6 +82,8 @@ public class ModItemGroups {
                             entries.add(ModItems.RAID_ERADICATOR);
                             entries.add(ModItems.ANNUL_EYE);
                         }
+                        entries.add(Items.ENDER_PEARL);
+                        entries.add(Items.ENDER_EYE);
                         if (!balancedMode) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
@@ -129,8 +131,9 @@ public class ModItemGroups {
                         entries.add(ModItems.DEAD_SPEEDRUNNER_SAPLING);
                         entries.add(ModItems.DEAD_SPEEDRUNNER_BUSH);
                         entries.add(ModItems.SPEEDRUNNER_PLANKS);
-                        entries.add(ModItems.DEAD_SPEEDRUNNER_PLANKS);
                         entries.add(ModItems.SPEEDRUNNER_STICK);
+                        entries.add(ModItems.DEAD_SPEEDRUNNER_PLANKS);
+                        entries.add(ModItems.DEAD_SPEEDRUNNER_STICK);
                         entries.add(ModItems.SPEEDRUNNER_SLAB);
                         entries.add(ModItems.DEAD_SPEEDRUNNER_SLAB);
                         entries.add(ModItems.SPEEDRUNNER_STAIRS);
@@ -228,15 +231,15 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.TOOLS, ModItems.WARPED_CHEST_BOAT);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.WITHER_BONE);
         addToItemGroup(ItemGroups.COMBAT, ModItems.WITHER_SWORD);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.ANNUL_EYE);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.SPEEDRUNNERS_EYE);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.INFERNO_EYE);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.PIGLIN_AWAKENER);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.BLAZE_SPOTTER);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.RAID_ERADICATOR);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.ENDER_THRUSTER);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.ANNUL_EYE);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.SPEEDRUNNERS_EYE);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.INFERNO_EYE);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.PIGLIN_AWAKENER);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.BLAZE_SPOTTER);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.RAID_ERADICATOR);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.ENDER_THRUSTER);
         addToItemGroup(ItemGroups.COMBAT, ModItems.DRAGONS_SWORD);
-        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.DRAGONS_PEARL);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.DRAGONS_PEARL);
 
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.SPEEDRUNNER_LOG);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.STRIPPED_SPEEDRUNNER_LOG);
@@ -288,10 +291,10 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.NETHER_EXPERIENCE_ORE);
         addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.FLESH_BLOCK);
 
-        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_STONE);
-        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_LOG);
-        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.STRIPPED_DOOM_LOG);
-        addToItemGroup(ItemGroups.BUILDING_BLOCKS, ModItems.DOOM_LEAVES);
+        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.DOOM_STONE);
+        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.DOOM_LOG);
+        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.STRIPPED_DOOM_LOG);
+        addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.DOOM_LEAVES);
 
         SpeedrunnerMod.debug("Registered modified item groups.");
     }

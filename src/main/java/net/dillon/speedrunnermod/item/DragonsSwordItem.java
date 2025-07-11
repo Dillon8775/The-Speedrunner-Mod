@@ -19,8 +19,8 @@ import net.minecraft.util.Rarity;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * A weapon that {@code one-shots} the {@code ender dragon.}
@@ -37,7 +37,7 @@ public class DragonsSwordItem extends Item implements StateOfTheArtItem {
     @Override
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
-            if (!isDoomMode() && !isBalancedMode()) {
+            if (isEasyMode()) {
                 dragon.setHealth(0.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
             } else {

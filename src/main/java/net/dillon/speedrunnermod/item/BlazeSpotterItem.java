@@ -44,7 +44,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
             if (isEasyMode()) {
@@ -62,11 +62,12 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                                 "speedrunnermod.tutorial_mode.used_blaze_spotter",
                                 "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
 
-                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
 
                         if (!player.getAbilities().creativeMode) {
-                            itemStack.decrement(1);
+                            stack.decrement(1);
                         }
+
                         player.swingHand(hand, true);
                         return ActionResult.SUCCESS;
                     } else {
@@ -81,7 +82,7 @@ public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
                 player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
                 player.swingHand(hand, true);
                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                itemStack.decrement(1);
+                stack.decrement(1);
                 player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
                 player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
                 player.dropItem((ServerWorld)world, Items.LAVA_BUCKET);

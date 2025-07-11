@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.entity.player;
 import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
@@ -74,7 +74,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
 
-            if (!ServerSyncedClientOptions.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
+            if (!ServerStorage.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
                 if (!this.getInventory().contains(totem)) {
                     ModUtil.spawnFloatingItemEntity(this.getWorld(), totem, this);
                 }

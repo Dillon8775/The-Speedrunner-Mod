@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.server;
 
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -10,11 +11,12 @@ import java.util.*;
  * Stores server-synced client options.
  */
 @AI
-public class ServerSyncedClientOptions {
+public class ServerStorage {
     private static final Map<UUID, Boolean> ACTIONBAR_PREFS = new HashMap<>();
     private static final Map<UUID, Integer> ICARUS_FIREWORK_SLOT = new HashMap<>();
     private static final Map<UUID, Integer> INFINI_PEARL_SLOT = new HashMap<>();
     private static final Map<UUID, Set<TutorialStep>> COMPLETED_STEPS = new HashMap<>();
+    private static final Map<String, ModOptions> pendingRequests = new HashMap<>();
 
     /**
      * Sets the {@code action bar preference} for a player.
@@ -79,5 +81,33 @@ public class ServerSyncedClientOptions {
      */
     public static boolean hasCompletedStep(ServerPlayerEntity player, TutorialStep step) {
         return COMPLETED_STEPS.getOrDefault(player.getUuid(), Set.of()).contains(step);
+    }
+
+    /**
+     * Stores a {@code syncoption request} (with the player name and the requesting player's options).
+     */
+    public static void storePendingSyncRequest(String player, ModOptions options) {
+        pendingRequests.put(player, options);
+    }
+
+    /**
+     * Gets the {@code pending sync request} for a player.
+     */
+    public static ModOptions getPendingSyncRequest(String player) {
+        return pendingRequests.get(player);
+    }
+
+    /**
+     * @return {@code true} if a player's syncoptions request exists.
+     */
+    public static boolean hasPendingSyncRequest(String player) {
+        return pendingRequests.containsKey(player);
+    }
+
+    /**
+     * Removes a {@code syncoptions request.}
+     */
+    public static void removePendingSyncRequest(String player) {
+        pendingRequests.remove(player);
     }
 }

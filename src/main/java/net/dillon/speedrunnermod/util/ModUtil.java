@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
@@ -114,21 +114,21 @@ public class ModUtil {
      * Returns a specific type of formatting.
      */
     public static Formatting toFormatting(UUID uuid, Formatting actionbar, Formatting chat) {
-        return ServerSyncedClientOptions.shouldShowInActionbar(uuid) ? actionbar : chat;
+        return ServerStorage.shouldShowInActionbar(uuid) ? actionbar : chat;
     }
 
     /**
      * Sends a player message with the actionbar preference and formatting.
      */
     public static void sendMessageWithActionbarPref(PlayerEntity player, Text text) {
-        player.sendMessage(text, ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+        player.sendMessage(text, ServerStorage.shouldShowInActionbar(player.getUuid()));
     }
 
     /**
      * Sends a player message with the actionbar preference and formatting with formatting for actionbar on/off.
      */
     public static void sendMessageWithActionbarPref(PlayerEntity player, Text text, Formatting actionbar, Formatting chat) {
-        player.sendMessage(text.copy().formatted(ModUtil.toFormatting(player.getUuid(), actionbar, chat)), ServerSyncedClientOptions.shouldShowInActionbar(player.getUuid()));
+        player.sendMessage(text.copy().formatted(ModUtil.toFormatting(player.getUuid(), actionbar, chat)), ServerStorage.shouldShowInActionbar(player.getUuid()));
     }
 
     /**

@@ -46,7 +46,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
         if (!world.isClient) {
             if (world.getRegistryKey() == World.OVERWORLD) {
@@ -69,12 +69,12 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                             world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
                             player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
 
-                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, itemStack);
+                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
 
                             ModUtil.completeStepS2C(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
 
                             if (!player.getAbilities().creativeMode) {
-                                itemStack.decrement(1);
+                                stack.decrement(1);
                                 this.decrementItem(player, Items.ENDER_EYE);
                                 this.decrementItem(player, Items.ENDER_PEARL);
                             }
@@ -101,7 +101,7 @@ public class AnnulEyeItem extends Item implements StateOfTheArtItem {
                     player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
                     player.swingHand(hand, true);
                     world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 0.5F);
-                    itemStack.decrement(1);
+                    stack.decrement(1);
                     player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
                     player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
                     player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);

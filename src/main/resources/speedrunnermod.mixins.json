@@ -54,6 +54,7 @@
     "main.entity.SlimeEntityMixin",
     "main.entity.SmallFireballEntityMixin",
     "main.entity.SpiderEntityMixin",
+    "main.entity.ThrownEntityMixin",
     "main.entity.VexEntityMixin",
     "main.entity.VillagerEntityMixin",
     "main.entity.VindicatorEntityMixin",

@@ -243,6 +243,8 @@ A rare substance, which can be obtained by killing enderman, or via shipwreck or
 ### The InfiniPearl™
 An ender pearl with 571 durability points, and it doesn't do damage upon use.
 
+It also shoots further and faster than regular ender pearls.
+
 <img src="https://i.imgur.com/YmYli8t.png" width="228" height="104" alt="Image description">
 
 ---
@@ -335,6 +337,8 @@ And finally, a Giant will spawn. In vanilla Minecraft, the giant does not have a
 The Ender Dragon *cannot die* if Goliath and the wither are still alive.
 
 <img src="https://i.imgur.com/VSSj3Cn.png" width="252" height="187" alt="Image description">
+
+Another small feature, beds are dragon immune on this mode.
 
 ---
 
@@ -955,26 +959,49 @@ Determines if the player must be shifting in order to throw a fireball.
 #### Stored ItemStack *("speedrunnermod:stored_itemstack")* data component type, which stores an itemstack within an item.
 #### Using the /give command will correctly suggest every item for each mod loaded.
 
-## Speedrunner's Workbench Cost and Durability Handing
-#### As mentioned before, using the speedrunner's workbench costs levels, and the resulted item takes durability points.
-#### The cost is calculated by taking the *total amount of transferred enchantments*, and then adding each transferred enchantment's level to the cost.
-#### The output durability is calculated by taking the item's *current durability* and dividing it by (1, PLUS -> each enchantment's level represents an additional .1 point. So fortune 3 would be 1.3, Efficiency 5 would be 1.5, etc.).
+## /syncoptions Command
+#### If you don't want to go through the struggle of configuring your speedrunner mod options in the .json file on a server, you can simply configure everything that you want in-game, and then run the /syncoptions command on the server, and all of your settings will be sent over to the server.
+#### The server console will need to authorize the request by executing "syncoptions *playername* accept/deny".
+
 
 ## Match Settings with Server
 #### If you are playing with multiple people and have the speedrunner mod installed on the server, you can join that server and match *your* settings by pressing the "Match Settings with Server" button, located at the bottom left of any speedrunner mod options screen.
 #### You will be required to restart your game, and you will not be able to undo the changes.
+
+## Speedrunner's Workbench Cost and Durability Handing
+#### As mentioned before, using the speedrunner's workbench costs levels, and the resulted item takes durability points.
+#### The cost is calculated by taking the *total amount of transferred enchantments*, and then adding each transferred enchantment's level to the cost.
+#### The output durability is calculated by taking the item's *current durability* and dividing it by (1, PLUS -> each enchantment's level represents an additional .1 point. So fortune 3 would be 1.3, Efficiency 5 would be 1.5, etc.).
 
 ## Server-to-Client (S2C) packets
 #### CheckModePacket *("speedrunnermod:check_mode_s2c")* - this packet is sent to each player whenever they join a server, and it ensures that the player's mode matches the server's mode. If the mode does not match, that player will not be able to join the server and they will be asked to match the mode with the server's mode.
 #### CompleteTutorialStepPacket *("speedrunnermod:complete_tutorial_step_s2c")* - this packet is sent to a player whenever they complete a tutorial step, to update their client-side settings, because all of the Tutorial Mode progression is client-side.
 #### MatchClientOptionsWithServer *("speedrunnermod:match_client_options_with_server_s2c")* - this packet is sent from the server to the client to match the client's settings with server settings (see *RequestServerSideOptionsPacket*)
 #### OpenFeaturesScreenPacket *("speedrunnermod:open_features_screen_s2c")* - this packet is sent whenever a player uses a Golden Speedrunner Upgrade Smithing Template Item, to open the features screen.
+#### RequestClintSideOptionsPacket *("speedrunnermod:request_client_side_options_s2c")* - this packet is sent to request to send the requesting player's options over to the server.
 #### UpdateLastCompletedTutorialStepTranslationsPacket *("speedrunnermod:update_last_completed_tutorial_step_translations_s2c")* - this packet is sent to the client-player to update their last tutorial mode message, so if they leave and rejoin, they can still see the task they need to complete.
 
 ## Client-to-Server (C2S) packets
 #### ClientPreferencesPacket *("speedrunnermod:client_preferences_c2s")* - this packet is sent to tell the server what option to go by, according to the client-player's setting (ex. actionbar preferences).
+#### MatchServerOptionsWithClientPacket *("speedrunnermod:match_server_options_with_client_c2s")* - this packet is sent to match the server's speedrunner mod settings with the requesting player's settings.
 #### RequestServerSideOptionsPacket *("speedrunnermod:request_server_side_options_c2s")* - this packet is sent to the server to request the server side options, and then the server sends the MatchClientOptionsWithServerPacket back to the client to match options.
 #### TutorialStepCompletePacket *("speedrunnermod:tutorial_step_complete_c2s")* - this packet is sent to the server to complete a tutorial step for a player.
+
+## Configuration Files
+The configuration files store all the values for each Speedrunner Mod option.
+
+Configuration files are stored as *.json* files. They are stored in your *.minecraft/config* directory.
+
+Each configuration option has a different stored values, including:
+- The current value (currentValue) - **this is the ONLY value that you can change**
+- The default value (defaultValue)
+- A statement declaring if the option requires a restart (requiresRestart)
+- A statement declaring if the option is "broken"
+- For number options, a "minValue" and "maxValue".
+
+Do not change _**ANY**_ of these values, except for the currentValue. The currentValue is the only value that you should change. Changing anything else will do nothing and will eventually revert back.
+
+The only reason you should modify the Speedrunner Mod configuration file directly is if you are playing on a server, and you need to change the server's config and you don't want to use the /syncoptions command. Otherwise, you should just change the options via the configuration screen(s).
 
 # Dependencies & Compatibility
 - ## **Requires** [Fabric API](https://modrinth.com/mod/fabric-api).

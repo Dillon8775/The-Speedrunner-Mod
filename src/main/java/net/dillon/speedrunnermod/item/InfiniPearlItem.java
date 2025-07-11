@@ -46,7 +46,7 @@ public class InfiniPearlItem extends EnderPearlItem  {
         player.getItemCooldownManager().set(this.getDefaultStack(), cooldown);
 
         if (world instanceof ServerWorld serverWorld) {
-            ProjectileEntity.spawnWithVelocity(EnderPearlEntity::new, serverWorld, itemStack, player, 0.0F, 1.5F, 1.0F);
+            ProjectileEntity.spawnWithVelocity(EnderPearlEntity::new, serverWorld, itemStack, player, 0.0F, 2.0F, 1.2F);
         }
 
         // Safer boolean check

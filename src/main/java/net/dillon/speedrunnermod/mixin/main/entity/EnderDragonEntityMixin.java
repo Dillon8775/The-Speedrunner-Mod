@@ -1,10 +1,11 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
-import net.dillon.speedrunnermod.server.ServerSyncedClientOptions;
+import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -18,7 +19,9 @@ import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.DamageTypeTags;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
@@ -26,6 +29,7 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
@@ -84,6 +88,14 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     }
 
     /**
+     * Makes beds immune on doom mode.
+     */
+    @Redirect(method = "destroyBlocks", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isIn(Lnet/minecraft/registry/tag/TagKey;)Z", ordinal = 1))
+    private boolean makeBedsImmuneOnDoomMode(BlockState blockState, TagKey<?> tagKey) {
+        return isDoomMode() ? blockState.isIn(BlockTags.DRAGON_IMMUNE) || blockState.isIn(BlockTags.BEDS) : blockState.isIn(BlockTags.DRAGON_IMMUNE);
+    }
+
+    /**
      * Makes all nearby hostile entities die upon the dragon's death, excluding {@code Enderman.}
      */
     @Inject(method = "updatePostDeath", at = @At("TAIL"))
@@ -126,7 +138,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
         if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
-            boolean bl = !ServerSyncedClientOptions.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
+            boolean bl = !ServerStorage.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
             if ((isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) || bl) {
                 this.setHealth(1.0F);
                 if (bl && !this.isGiantOrWitherAlive()) {

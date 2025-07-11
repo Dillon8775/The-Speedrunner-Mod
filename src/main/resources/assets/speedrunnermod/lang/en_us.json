@@ -208,6 +208,7 @@
   "item.speedrunnermod.speedrunners_workbench.tooltip.line3": "Also used as the",
   "item.speedrunnermod.speedrunners_workbench.tooltip.line4": "Retired Speedrunner's job site block.",
   "item.speedrunnermod.speedrunner_stick": "Speedrunner Stick",
+  "item.speedrunnermod.dead_speedrunner_stick": "Dead Speedrunner Stick",
   "item.speedrunnermod.knockback_stick": "Knockback Stick",
   "item.speedrunnermod.knockback_stick.tooltip": "You know what this is.",
   "item.speedrunnermod.speedrunner_paddle": "Speedrunner Paddle",
@@ -806,6 +807,13 @@
   "speedrunnermod.match_and_restart.tooltip": "This will match §b§oALL §r§fof your §bSpeedrunner Mod §r§fsettings with this server's settings.\n\nPlease note that there is no way to preview what this server settings are, and this action is §cpermanent.§r§f\n\nDoing this will restart your game, you will need to re-open it manually.",
   "speedrunnermod.abort": "Abort",
   "speedrunnermod.restarting_game_timer": "Closing game in",
+
+  "speedrunnermod.client_options_sent": "Request sent to sync speedrunner mod server options with your options. You may need to notify the owner of the server because they must authorize it via console.",
+  "speedrunnermod.denied_sync_options_request": "Denied /syncoptions request by %s. This player has been notified.",
+  "speedrunnermod.sync_options_request_denied": "Your request to sync speedrunner mod server options with your options has been §cdenied.",
+  "speedrunnermod.client_options_request_received": "/syncoptions command was used by %s. This means the server's speedrunner mod settings will be set to this player's speedrunner mod settings. Do you wish to authorize this? Execute the following command: \"syncoptionsauthorize %s accept/deny\".",
+  "speedrunnermod.closing_server_sync_options": "Synced options from %s. Closing server.",
+  "speedrunnermod.server_closed_sync_options": "/syncoptions command was used by %s. Server closed.",
 
   "speedrunnermod.menu.open_options_file": "Open File...",
   "speedrunnermod.menu.open_options_file.tooltip": "Open the main configuration file...",

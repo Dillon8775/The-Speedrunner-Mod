@@ -45,7 +45,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * The {@code Giant Boss (doom mode)} exclusive.
+ * The {@code Goliath Boss (doom mode)} exclusive.
  * <p>- Constantly regenerates health</p>
  * <p>- Knocks back players and mobs when attacking</p>
  * <p>- Teleports to the middle of the end island if it falls into the void</p>
@@ -80,7 +80,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Gives the Giant a bossbar and other navigation functions.
+     * Gives Goliath a bossbar and other navigation functions.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
@@ -97,7 +97,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Gives the Giant different goals, to be able to swim, look around, attack other entities, etc.
+     * Gives Goliath different goals, to be able to swim, look around, attack other entities, etc.
      */
     @Override
     protected void initGoals() {
@@ -112,7 +112,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Ticks the bossbar and heals the giant progressively.
+     * Ticks the bossbar and heals Goliath progressively.
      */
     @Override
     public void tick() {
@@ -125,7 +125,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Teleports the Giant to the middle of the end island if it falls into the void.
+     * Teleports Goliath to the middle of the end island if it falls into the void.
      */
     @Override
     public void attemptTickInVoid() {
@@ -156,7 +156,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Handles damaging for the Giant.
+     * Handles {@code damaging} for Goliath.
      */
     @Override
     public boolean damage(ServerWorld world, DamageSource source, float amount) {
@@ -201,7 +201,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Handles attacking for the Giant.
+     * Handles {@code attacking} for Goliath.
      */
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
@@ -210,7 +210,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Handles knockback for the Giant.
+     * Handles {@code knockback} for Goliath.
      */
     @Override
     protected void knockback(LivingEntity target) {
@@ -218,7 +218,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Handles movements for the Giant.
+     * Handles {@code movements} for Goliath.
      */
     @Override
     public void travel(Vec3d movementInput) {
@@ -232,7 +232,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Handles swimming for the Giant.
+     * Handles {@code swimming} for Goliath.
      */
     @Override
     public void updateSwimming() {
@@ -249,7 +249,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Checks if the Giant can despawn.
+     * Checks if Goliath can despawn.
      */
     @Override
     public void checkDespawn() {
@@ -261,7 +261,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Makes the Giant immune to fall damage.
+     * Makes Goliath {@code immune to fall damage.}
      */
     @Override
     public boolean handleFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
@@ -269,7 +269,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Prevents the Giant from getting status effects.
+     * Prevents Goliath from getting status effects.
      */
     @Override
     public boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source) {
@@ -277,7 +277,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Makes the Giant immune to fire and lava damage.
+     * Makes Goliath immune to fire and lava damage.
      */
     @Override
     public boolean isFireImmune() {
@@ -285,7 +285,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Makes the Giant immune to explosion damage.
+     * Makes Goliath immune to explosion damage.
      */
     @Override
     public boolean isImmuneToExplosion(Explosion explosion) {
@@ -293,7 +293,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Prevents the Giant from being able to be ridden.
+     * Prevents Goliath from being able to be ridden.
      */
     @Override
     public boolean canStartRiding(Entity entity) {
@@ -301,7 +301,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Prevents the Giant from being able to use portals.
+     * Prevents Goliath from being able to use portals.
      */
     @Override
     public boolean canUsePortals(boolean allowVehicles) {
@@ -309,7 +309,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Sets the bossbars name to {@code "Giant".}
+     * Sets the bossbars name to {@code "Goliath".}
      */
     @Override
     public void setCustomName(@Nullable Text name) {
@@ -318,7 +318,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Detects when a player is {@code in range} of the Giant, and then {@code displays} the bossbar on that players screen.
+     * Detects when a player is {@code in range} of Goliath, and then {@code displays} the bossbar on that players screen.
      */
     @Override
     public void onStartedTrackingBy(ServerPlayerEntity player) {
@@ -327,7 +327,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Detects when the player gets {@code out of range} of the Giant, and then {@code removes} the bossbar from that players screen.
+     * Detects when the player gets {@code out of range} of the Goliath, and then {@code removes} the bossbar from that players screen.
      */
     @Override
     public void onStoppedTrackingBy(ServerPlayerEntity player) {
@@ -336,7 +336,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Puts the Giant's sound under the {@code "hostile"} category (neutral if doom mode is disabled).
+     * Puts Goliath's sound under the {@code "hostile"} category (neutral if doom mode is disabled).
      */
     @Override
     public SoundCategory getSoundCategory() {
@@ -344,7 +344,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Returns the {@code ambient sound} of a Giant.
+     * @return the {@code ambient sound} for Goliath.
      */
     @Override
     public SoundEvent getAmbientSound() {
@@ -352,7 +352,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Returns the {@code hurt sound} of a Giant.
+     * @return the {@code hurt sound} for Goliath.
      */
     @Override
     public SoundEvent getHurtSound(DamageSource source) {
@@ -360,7 +360,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Returns the {@code death sound} of a Giant.
+     * @return the {@code death sound} for Goliath.
      */
     @Override
     public SoundEvent getDeathSound() {
@@ -368,15 +368,15 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Applies the {@code stepping sound} for a Giant.
+     * Applies the {@code stepping sound} for Goliath.
      */
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.25F, 1.0F);
+        this.playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.50F, this.getSoundPitch());
     }
 
     /**
-     * Returns the {@code volume} of a Giant.
+     * @return the {@code volume} for Goliath.
      */
     @Override
     public float getSoundVolume() {
@@ -384,7 +384,14 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Returns true if the Giant is attacking while underwater.
+     * @return the {@code pitch} for Goliath.
+     */
+    public float getSoundPitch() {
+        return 0.7F;
+    }
+
+    /**
+     * @return {@code true} if Goliath is attacking while underwater.
      */
     @Unique
     boolean isTargetingUnderwater() {
@@ -397,7 +404,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Drops rotten flesh randomly when the Giant is damaged.
+     * Drops rotten flesh randomly when Goliath is damaged.
      */
     @Unique
     private void onGiantDamageDropFood(ServerWorld serverWorld) {
@@ -423,7 +430,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Spawns four TNT entities around the giant, randomly, when damaged.
+     * Spawns four TNT entities around Goliath, randomly, when damaged.
      */
     @Unique
     private void onGiantDamage() {
@@ -439,7 +446,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     }
 
     /**
-     * Spawns TNT (13 exactly) entities around the giant upon dying.
+     * Spawns TNT (13 exactly) entities around Goliath upon dying.
      */
     @Unique
     @AI

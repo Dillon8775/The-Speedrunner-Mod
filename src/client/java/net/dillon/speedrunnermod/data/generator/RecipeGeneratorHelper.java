@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
+import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.block.Blocks;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
@@ -27,11 +27,9 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * A helper class to easily create recipes.
  */
 public class RecipeGeneratorHelper extends RecipeGenerator {
-    private final RegistryEntryLookup<Item> itemLookup;
 
     protected RecipeGeneratorHelper(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
         super(registries, exporter);
-        this.itemLookup = registries.getOrThrow(RegistryKeys.ITEM);
     }
 
     /**
@@ -138,6 +136,8 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
         this.createShaped(RecipeCategory.DECORATIONS, sign, 3)
                 .input('#', plank)
                 .input('X', ModItemTags.STICKS)
+                .group("wooden_sign")
+                .pattern("###")
                 .pattern("###")
                 .pattern(" X ")
                 .criterion("has_plank", this.conditionsFromItem(plank))
@@ -147,27 +147,58 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * Creates a {@code fence recipe} with speedrunner sticks.
      */
-    public void createModdedFenceRecipe(ItemConvertible output, ItemConvertible input) {
+    public void createModdedFenceRecipe(ItemConvertible output, ItemConvertible input, boolean dead) {
         int i = output == Blocks.NETHER_BRICK_FENCE ? 6 : 3;
-        Item item = output == Blocks.NETHER_BRICK_FENCE ? Items.NETHER_BRICK : ModItems.SPEEDRUNNER_STICK;
+        Item item = output == Blocks.NETHER_BRICK_FENCE ? Items.NETHER_BRICK : dead ? ModItems.DEAD_SPEEDRUNNER_STICK : ModItems.SPEEDRUNNER_STICK;
         this.createShaped(RecipeCategory.DECORATIONS, output, i)
                 .input('W', input)
                 .input('#', item)
+                .group("wooden_fence")
                 .pattern("W#W")
                 .pattern("W#W")
-                .criterion(hasItem(input), this.conditionsFromItem(input));
+                .criterion(hasItem(input), this.conditionsFromItem(input))
+                .offerTo(this.exporter);
     }
 
     /**
      * Creates a {@code fence gate recipe} with speedrunner sticks.
      */
-    public void createModdedFenceGateRecipe(ItemConvertible output, ItemConvertible input) {
+    public void createModdedFenceGateRecipe(ItemConvertible output, ItemConvertible input, boolean dead) {
         this.createShaped(RecipeCategory.REDSTONE, output)
-                .input('#', ModItems.SPEEDRUNNER_STICK)
+                .input('#', dead ? ModItems.DEAD_SPEEDRUNNER_STICK : ModItems.SPEEDRUNNER_STICK)
                 .input('W', input)
+                .group("wooden_fence_gate")
                 .pattern("#W#")
                 .pattern("#W#")
-                .criterion(hasItem(input), this.conditionsFromItem(input));
+                .criterion(hasItem(input), this.conditionsFromItem(input))
+                .offerTo(this.exporter);
+    }
+
+    /**
+     * Creates a {@code stick} recipe.
+     */
+    public void createStickRecipe(boolean dead) {
+        this.createShaped(RecipeCategory.MISC, dead ? ModItems.DEAD_SPEEDRUNNER_STICK : ModItems.SPEEDRUNNER_STICK, 4)
+                .input('S', dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS)
+                .group("sticks")
+                .pattern("S")
+                .pattern("S")
+                .group("sticks")
+                .criterion("has_planks", this.conditionsFromItem(dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS))
+                .offerTo(this.exporter);
+    }
+
+    /**
+     * Creates a {@code reverse plank} recipe.
+     */
+    public void createReversePlankRecipe(boolean dead) {
+        this.createShaped(RecipeCategory.MISC, dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS)
+                .input('/', dead ? ModItems.DEAD_SPEEDRUNNER_STICK : ModItems.SPEEDRUNNER_STICK)
+                .group("planks")
+                .pattern("//")
+                .pattern("//")
+                .criterion("has_sticks", this.conditionsFromItem(dead ? ModItems.DEAD_SPEEDRUNNER_STICK : ModItems.SPEEDRUNNER_STICK))
+                .offerTo(this.exporter, this.speedrunnerModRecipe(dead ? "dead_speedrunner_planks_from_dead_speedrunner_stick" : "speedrunner_planks_from_speedrunner_stick"));
     }
 
     /**

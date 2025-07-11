@@ -136,7 +136,7 @@ public class ModWorldGen {
         }
 
         if (isDoomMode()) {
-            BiomeModifications.addFeature(BiomeSelectors.foundInTheEnd(),
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.THE_END),
                     GenerationStep.Feature.VEGETAL_DECORATION,
                     ModPlacedFeatures.DOOM_TREE_PLACED);
         }

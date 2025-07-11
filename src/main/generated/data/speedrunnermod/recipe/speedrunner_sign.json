@@ -1,11 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "wooden_sign",
   "key": {
     "#": "speedrunnermod:speedrunner_planks",
     "X": "#speedrunnermod:sticks"
   },
   "pattern": [
+    "###",
     "###",
     " X "
   ],

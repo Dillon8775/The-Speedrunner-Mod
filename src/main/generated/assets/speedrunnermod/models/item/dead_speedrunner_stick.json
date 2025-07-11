@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "speedrunnermod:item/dead_speedrunner_stick"
+  }
+}

@@ -266,7 +266,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.DRAGONS_PEARL))
+                .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.DRAGONS_PEARL))
                 .build(exporter, "speedrunnermod:items/perch_already");
 
         AdvancementEntry piglinRally = Advancement.Builder.create()

@@ -33,6 +33,7 @@ public class ModItemTags {
     public static TagKey<Item> SPEEDRUNNER_SWORDS = of("speedrunner_swords");
     public static TagKey<Item> STATE_OF_THE_ART_ITEMS = of("state_of_the_art_items");
     public static TagKey<Item> STICKS = of("sticks");
+    public static TagKey<Item> SPEEDRUNNER_STICKS = of("speedrunner_sticks");
     public static TagKey<Item> TOTEMS = of("totems");
     public static TagKey<Item> WITHER_TOOL_MATERIALS = of("wither_tool_materials");
 
@@ -69,8 +70,6 @@ public class ModItemTags {
         public static TagKey<Item> SPEEDRUNNER_PLANKS = of("speedrunner_planks");
         public static TagKey<Item> SPEEDRUNNER_SAPLING_PLACEABLES = of("speedrunner_sapling_placeables");
         public static TagKey<Item> SPEEDRUNNER_SIGNS = of("speedrunner_signs");
-        public static TagKey<Item> TEXTURE_CREATOR_MANNYQUESO = of("texture_creator_mannyqueso");
-        public static TagKey<Item> TEXTURE_CREATOR_KREVIKUS = of("texture_creator_krevikus");
     }
 
     /**

@@ -1,15 +1,13 @@
 {
   "parent": "speedrunnermod:items/the_end_is_near",
   "criteria": {
-    "has_item": {
+    "used_item": {
       "conditions": {
-        "items": [
-          {
-            "items": "speedrunnermod:dragons_pearl"
-          }
-        ]
+        "item": {
+          "items": "speedrunnermod:dragons_pearl"
+        }
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "minecraft:triggered_by_item_criterion"
     }
   },
   "display": {
@@ -26,7 +24,7 @@
   },
   "requirements": [
     [
-      "has_item"
+      "used_item"
     ]
   ],
   "sends_telemetry_event": true

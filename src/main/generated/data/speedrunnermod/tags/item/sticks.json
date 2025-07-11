@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:stick",
-    "speedrunnermod:speedrunner_stick"
+    "speedrunnermod:speedrunner_stick",
+    "speedrunnermod:dead_speedrunner_stick"
   ]
 }

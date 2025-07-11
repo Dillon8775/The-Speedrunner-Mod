@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -144,15 +145,12 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
                     // If all enchantments are compatible with each other and can be combined, OR can be upgraded
                     // Try to transfer enchantments
                     if ((allIsCompatible && enchantment.isAcceptableItem(secondSlot)) || alreadyPresentButUpgradable) {
-                        // Ensure no duplicates or invalid levels (BUGGY)
-                        if (!registryEntry.getIdAsString().equals(registryEntry2.getIdAsString())) {
-                            if (secondSlotBuilder.getLevel(entry.getKey()) != enchantment.getMaxLevel()
-                                    && firstSlotBuilder.getLevel(entry.getKey()) != secondSlotBuilder.getLevel(entry.getKey())
-                                    && secondSlotBuilder.getLevel(entry.getKey()) < firstSlotBuilder.getLevel(entry.getKey())) {
-                                enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
-                                enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
-                                this.sendContentUpdates();
-                            }
+                        if (secondSlotBuilder.getLevel(entry.getKey()) != enchantment.getMaxLevel() // ensure enchantment isn't already at max level; if it is then ignore transferring
+                                && firstSlotBuilder.getLevel(entry.getKey()) != secondSlotBuilder.getLevel(entry.getKey()) // ensure first slot enchantment level isn't the same as second slot enchantment level
+                                && secondSlotBuilder.getLevel(entry.getKey()) < firstSlotBuilder.getLevel(entry.getKey())) { // ensure first slot enchantment level isn't less than the second slot enchantment level
+                            enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
+                            enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
+                            this.sendContentUpdates();
                         }
                     }
                 }
@@ -166,11 +164,16 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
             int firstSlotLevel = firstSlotBuilder.getLevel(entry.getKey());
             int secondSlotLevel = secondSlotBuilder.getLevel(entry.getKey());
 
+            SpeedrunnerMod.error("what?");
             // Check if second slot already has the enchantment
             if (secondSlotLevel > 0) {
+                SpeedrunnerMod.error("YES!");
                 // If second slot has a lower level, upgrade it
                 if (secondSlotLevel < firstSlotLevel) {
+                    SpeedrunnerMod.error("HUH?");
                     EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), firstSlotLevel));
+                } else {
+                    SpeedrunnerMod.error("NO!");
                 }
                 // No further action needed if the levels are equal or second slot has a higher level
             } else {

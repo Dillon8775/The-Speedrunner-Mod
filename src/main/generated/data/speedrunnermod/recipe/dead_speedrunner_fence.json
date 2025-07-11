@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "wooden_fence",
+  "key": {
+    "#": "speedrunnermod:dead_speedrunner_stick",
+    "W": "speedrunnermod:dead_speedrunner_planks"
+  },
+  "pattern": [
+    "W#W",
+    "W#W"
+  ],
+  "result": {
+    "count": 3,
+    "id": "speedrunnermod:dead_speedrunner_fence"
+  }
+}

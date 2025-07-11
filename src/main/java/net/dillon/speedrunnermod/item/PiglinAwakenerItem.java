@@ -73,9 +73,13 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                 boolean sneakingWhenClicked = player.isSneaking();
                                 world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_ANGRY, SoundCategory.HOSTILE, 3.0F, 1.0F);
                                 player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
+
+                                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+
                                 if (!player.getAbilities().creativeMode) {
                                     stack.decrement(1);
                                 }
+
                                 new Timer().schedule(new TimerTask() {
                                     @Override
                                     public void run() {
@@ -98,7 +102,6 @@ public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
                                         ModUtil.completeStepS2C(TutorialStep.USE_PIGLIN_AWAKENER, player,
                                                 "speedrunnermod.tutorial_mode.used_piglin_awakener",
                                                 "speedrunnermod.tutorial_mode.craft_blaze_spotter");
-                                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
                                     }
                                 }, ModUtil.millisecondsAsSeconds(2));
                                 player.swingHand(hand, true);
