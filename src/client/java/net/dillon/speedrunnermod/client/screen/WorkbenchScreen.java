@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
@@ -86,14 +87,14 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
         super.drawForeground(context, mouseX, mouseY);
         int i = this.handler.getLevelCost();
         if (i > 0) {
-            int j = 8453920;
+            int j = -8323296; // green
             Text text;
             if (!this.handler.getSlot(2).hasStack()) {
                 text = null;
             } else {
                 text = Text.translatable("block.speedrunnermod.speedrunners_workbench.cost", i);
                 if (!this.handler.getSlot(2).canTakeItems(this.player)) {
-                    j = 16736352;
+                    j = -40864; // red
                 }
             }
 
