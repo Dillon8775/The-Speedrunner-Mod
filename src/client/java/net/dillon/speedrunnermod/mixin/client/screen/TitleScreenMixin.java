@@ -79,7 +79,6 @@ public class TitleScreenMixin extends Screen {
         ClientModUtil.renderModIcon(context, this.optionsButton, f);
 
         this.renderTooltips(context, mouseX, mouseY);
-
         context.drawTextWithShadow(this.textRenderer, SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION, 2, this.height - 20, ColorHelper.withAlpha(f, Formatting.AQUA.getColorValue()));
     }
 
