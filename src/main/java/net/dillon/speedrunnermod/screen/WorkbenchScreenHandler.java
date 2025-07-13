@@ -164,16 +164,11 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
             int firstSlotLevel = firstSlotBuilder.getLevel(entry.getKey());
             int secondSlotLevel = secondSlotBuilder.getLevel(entry.getKey());
 
-            SpeedrunnerMod.error("what?");
             // Check if second slot already has the enchantment
             if (secondSlotLevel > 0) {
-                SpeedrunnerMod.error("YES!");
                 // If second slot has a lower level, upgrade it
                 if (secondSlotLevel < firstSlotLevel) {
-                    SpeedrunnerMod.error("HUH?");
                     EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), firstSlotLevel));
-                } else {
-                    SpeedrunnerMod.error("NO!");
                 }
                 // No further action needed if the levels are equal or second slot has a higher level
             } else {
