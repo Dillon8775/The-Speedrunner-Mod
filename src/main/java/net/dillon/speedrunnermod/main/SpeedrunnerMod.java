@@ -39,7 +39,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  */
 public class SpeedrunnerMod implements ModInitializer {
     public static final String MOD_VERSION = "v1.11.2";
-    public static final String MC_VERSION = "1.21.6";
+    public static final String MC_VERSION = "1.21.6x";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
