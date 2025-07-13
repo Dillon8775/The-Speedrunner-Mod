@@ -1,6 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -66,7 +68,7 @@ public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItem
             for (int p = 0; p < 4; p++) {
                 this.getWorld().addParticleClient(ParticleTypes.BUBBLE, d - vec3d.x * 0.25, e - vec3d.y * 0.25, f - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
             }
-        } else if (this.getStack().getItem() == Items.ENDER_EYE || this.getStack().getItem() == ModItems.ANNUL_EYE ) {
+        } else if (this.getStack().getItem() == Items.ENDER_EYE) {
             this.getWorld().addParticleClient(
                     ParticleTypes.PORTAL,
                     d - vec3d.x * 0.25D + this.random.nextDouble() * 0.6D - 0.3D,
@@ -85,7 +87,7 @@ public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItem
         } else {
             this.getWorld()
                     .addParticleClient(
-                            ParticleTypes.PORTAL,
+                            ModParticleTypes.BLUE_PORTAL,
                             d - vec3d.x * 0.25 + this.random.nextDouble() * 0.6 - 0.3,
                             e - vec3d.y * 0.25 - 0.5,
                             f - vec3d.z * 0.25 + this.random.nextDouble() * 0.6 - 0.3,
@@ -103,18 +105,16 @@ public abstract class EyeOfEnderEntityMixin extends Entity implements FlyingItem
                 if (isDoomMode()) {
                     if (this.getStack().getItem() == Items.ENDER_EYE) {
                         this.getWorld().syncWorldEvent(WorldEvents.EYE_OF_ENDER_BREAKS, this.getBlockPos(), 0);
-                    } else if (this.getStack().getItem() == ModItems.ANNUL_EYE) {
-                        this.getWorld().syncWorldEvent(10001, this.getBlockPos(), 0);
                     } else if (this.getStack().getItem() == ModItems.INFERNO_EYE) {
-                        this.getWorld().syncWorldEvent(10002, this.getBlockPos(), 0);
+                        this.getWorld().syncWorldEvent(ModStatuses.ADD_SMOKE_PARTICLES, this.getBlockPos(), 0);
                     } else if (this.getStack().getItem() == ModItems.SPEEDRUNNERS_EYE) {
-                        this.getWorld().syncWorldEvent(10003, this.getBlockPos(), 0);
+                        this.getWorld().syncWorldEvent(ModStatuses.ADD_BLUE_PORTAL_PARTICLES_FOR_SPEEDRUNNERS_EYE, this.getBlockPos(), 0);
                     }
                 } else {
                     this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), this.getStack()));
                 }
 
-                if (this.getStack().getItem() == Items.ENDER_EYE || this.getStack().getItem() == ModItems.ANNUL_EYE || this.getStack().getItem() == ModItems.SPEEDRUNNERS_EYE) {
+                if (this.getStack().getItem() == Items.ENDER_EYE || this.getStack().getItem() == ModItems.SPEEDRUNNERS_EYE) {
                     this.playSound(SoundEvents.ENTITY_ENDER_EYE_DEATH, 1.0F, 1.0F);
                 } else if (this.getStack().getItem() == ModItems.INFERNO_EYE) {
                     this.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0F, 1.0F);

@@ -13,6 +13,7 @@ import net.dillon.speedrunnermod.item.ModItemGroups;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.packet.ModPackets;
+import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.screen.ModScreenHandlerTypes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
@@ -37,7 +38,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    public static final String MOD_VERSION = "v1.11.1";
+    public static final String MOD_VERSION = "v1.11.2";
     public static final String MC_VERSION = "1.21.5";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
@@ -56,6 +57,8 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModPackets.registerPackets();
         ModCommands.registerCommands();
+
+        ModParticleTypes.registerParticles();
 
         ModWorldGen.initializeWorldGenFeatures();
 

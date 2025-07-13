@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.main;
 
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
+import net.dillon.speedrunnermod.client.particle.ModParticleManager;
 import net.dillon.speedrunnermod.client.render.ModRenderers;
 import net.dillon.speedrunnermod.client.screen.ModHandledScreens;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
@@ -44,6 +45,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     public void onInitializeClient() {
         ClientModPackets.registerClientPackets();
 
+        ModParticleManager.registerDefaults();
         ModRenderers.initializeRenderers();
         ModHandledScreens.registerScreens();
         ModKeybindings.initializeKeybinds();

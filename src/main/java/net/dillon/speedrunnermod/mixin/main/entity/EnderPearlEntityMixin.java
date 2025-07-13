@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -92,7 +93,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
             Vec3d vec3d = this.getVelocity();
             Vec3d vec3d2 = this.getPos();
             for (int i = 0; i < 32; ++i) {
-                this.getWorld().addParticleClient(ParticleTypes.PORTAL, vec3d2.x - vec3d.x * 0.25, vec3d2.y - vec3d.y * 0.25, vec3d2.z - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
+                this.getWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, vec3d2.x - vec3d.x * 0.25, vec3d2.y - vec3d.y * 0.25, vec3d2.z - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
             }
         }
     }

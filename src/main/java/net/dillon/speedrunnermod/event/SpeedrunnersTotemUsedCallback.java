@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.event;
 
+import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnersTotemItem;
 import net.dillon.speedrunnermod.util.Author;
@@ -26,7 +27,7 @@ public interface SpeedrunnersTotemUsedCallback {
 
             if (stack.isOf(ModItems.SPEEDRUNNERS_TOTEM)) {
                 entity.setHealth(1.0F);
-                entity.getWorld().sendEntityStatus(entity, SpeedrunnersTotemItem.use());
+                entity.getWorld().sendEntityStatus(entity, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES);
             }
         }
     });

@@ -50,7 +50,7 @@ public abstract class MinecraftClientMixin {
                 if (SpeedrunnerMod.safeBoot) {
                     this.setScreen(new SafeBootScreen(null));
                     warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
-                } else if (clientOptions().client.firstTimePlaying.getCurrentValue()) {
+                } else if (clientOptions().storedValues.firstTimePlaying.getCurrentValue()) {
                     this.setScreen(new FirstTimePlayingScreen(null));
                 } else if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
                     this.setScreen(new SpeedrunnerIngotsScreen(null));

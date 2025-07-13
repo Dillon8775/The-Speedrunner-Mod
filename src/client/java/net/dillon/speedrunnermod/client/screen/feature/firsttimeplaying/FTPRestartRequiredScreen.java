@@ -31,7 +31,7 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
             }
         }).build());
         this.addButtonObject(ButtonWidget.builder(ModTexts.RESTART_NOW, button -> {
-            clientOptions().client.firstTimePlaying.set(false);
+            clientOptions().storedValues.firstTimePlaying.set(false);
             saveClientChanges();
             this.client.scheduleStop();
         }).build());

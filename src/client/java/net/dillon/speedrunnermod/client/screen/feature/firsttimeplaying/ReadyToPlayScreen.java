@@ -40,7 +40,7 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
-                clientOptions().client.firstTimePlaying.set(false);
+                clientOptions().storedValues.firstTimePlaying.set(false);
                 if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
                     this.client.setScreen(new SpeedrunnerIngotsScreen(null));
                     clientOptions().storedValues.enterFeaturesScreen.set(false);

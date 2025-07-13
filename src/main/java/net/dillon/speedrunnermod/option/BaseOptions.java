@@ -25,6 +25,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
  * The base class for registering options on different environment sides.
  */
 public abstract class BaseOptions<T> {
+    public static final String CURRENT_VALUE = "current_value";
     private final Gson GSON = createGson();
     private final String fileName;
     private File file;

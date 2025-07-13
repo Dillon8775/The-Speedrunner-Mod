@@ -95,7 +95,7 @@ public abstract class Keybindings {
         }
 
         while (ModKeybindings.fogKey.wasPressed()) {
-            if (clientOptions().mixins.backgroundRendererMixin.getCurrentValue()) {
+            if (clientOptions().mixins.fogMixins.getCurrentValue()) {
                 clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
                 saveClientChanges();
                 MinecraftClient.getInstance().worldRenderer.reload();
