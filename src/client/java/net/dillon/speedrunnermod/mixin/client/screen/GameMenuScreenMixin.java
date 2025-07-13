@@ -6,13 +6,13 @@ import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Final;
@@ -56,8 +56,8 @@ public class GameMenuScreenMixin extends Screen {
                     if (this.client.inGameHud != null) {
                         this.client.inGameHud.getChatHud().clear(false);
                     }
-                    this.client.world.disconnect();
-                    this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")));
+                    this.client.world.disconnect(Text.translatable("menu.savingLevel"));
+                    this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false);
                     CreateWorldScreen.show(this.client, this);
                 }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
                 this.createWorldButton.active = clientOptions().client.fastWorldCreation.getCurrentValue() && this.client.isInSingleplayer() && this.client.isIntegratedServerRunning() && !this.client.getServer().isRemote();
@@ -73,10 +73,10 @@ public class GameMenuScreenMixin extends Screen {
         if (this.showMenu) {
             ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton);
 
-            context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), this.width / 2 - 4 - 58 - 2, this.height / 4 - 26 + 2, 0.0F, 0.0F, 129, 16, 129, 16);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), this.width / 2 - 4 - 58 - 2, this.height / 4 - 26 + 2, 0.0F, 0.0F, 129, 16, 129, 16);
 
             if (clientOptions().client.showResetButton.getCurrentValue()) {
-                context.drawTexture(RenderLayer::getGuiTextured, Identifier.of("speedrunnermod:textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+                context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("speedrunnermod:textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
             }
 
             ClientModUtil.renderModIcon(context, this.optionsButton);

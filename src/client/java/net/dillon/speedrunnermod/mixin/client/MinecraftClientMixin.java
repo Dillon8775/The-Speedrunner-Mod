@@ -11,6 +11,7 @@ import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.QuickPlay;
+import net.minecraft.client.gui.LogoDrawer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +33,7 @@ public abstract class MinecraftClientMixin {
     @Shadow
     public abstract void setScreen(@Nullable Screen screen);
     @Shadow
-    protected abstract void createInitScreens(List<Function<Runnable, Screen>> list);
+    protected abstract boolean createInitScreens(List<Function<Runnable, Screen>> list);
 
     /**
      * @author Dillon8775
@@ -41,16 +42,16 @@ public abstract class MinecraftClientMixin {
      */
     @Overwrite
     private Runnable onInitFinished(@Nullable MinecraftClient.LoadingContext loadingContext) {
-        ArrayList<Function<Runnable, Screen>> list = new ArrayList<Function<Runnable, Screen>>();
-        this.createInitScreens(list);
+        List<Function<Runnable, Screen>> list = new ArrayList();
+        boolean bl = this.createInitScreens(list);
         Runnable runnable = () -> {
             if (loadingContext != null && loadingContext.quickPlayData().isEnabled()) {
-                QuickPlay.startQuickPlay(MinecraftClient.getInstance(), loadingContext.quickPlayData(), loadingContext.realmsClient());
+                QuickPlay.startQuickPlay((MinecraftClient)(Object)this, loadingContext.quickPlayData().variant(), loadingContext.realmsClient());
             } else {
                 if (SpeedrunnerMod.safeBoot) {
                     this.setScreen(new SafeBootScreen(null));
                     warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
-                } else if (clientOptions().client.firstTimePlaying.getCurrentValue()) {
+                } else if (clientOptions().storedValues.firstTimePlaying.getCurrentValue()) {
                     this.setScreen(new FirstTimePlayingScreen(null));
                 } else if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
                     this.setScreen(new SpeedrunnerIngotsScreen(null));
@@ -63,7 +64,7 @@ public abstract class MinecraftClientMixin {
                     this.setScreen(new SpeedrunIGTMissingScreen(null));
                     warn("SpeedrunIGT mod is missing, please download to submit speedruns.");
                 } else {
-                    this.setScreen(new TitleScreen(true));
+                    this.setScreen(new TitleScreen(true, new LogoDrawer(bl)));
                 }
             }
         };

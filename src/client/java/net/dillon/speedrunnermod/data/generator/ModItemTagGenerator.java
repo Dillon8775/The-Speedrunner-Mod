@@ -22,38 +22,38 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(ConventionalItemTags.BOW_TOOLS)
+        valueLookupBuilder(ConventionalItemTags.BOW_TOOLS)
                 .add(ModItems.SPEEDRUNNER_BOW);
 
-        getOrCreateTagBuilder(ConventionalItemTags.CROSSBOW_TOOLS)
+        valueLookupBuilder(ConventionalItemTags.CROSSBOW_TOOLS)
                 .add(ModItems.SPEEDRUNNER_CROSSBOW);
 
-        getOrCreateTagBuilder(ConventionalItemTags.IGNITER_TOOLS)
+        valueLookupBuilder(ConventionalItemTags.IGNITER_TOOLS)
                 .add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
 
-        getOrCreateTagBuilder(ConventionalItemTags.IRON_INGOTS)
+        valueLookupBuilder(ConventionalItemTags.IRON_INGOTS)
                 .add(ModItems.SPEEDRUNNER_INGOT);
 
-        getOrCreateTagBuilder(ConventionalItemTags.IRON_NUGGETS)
+        valueLookupBuilder(ConventionalItemTags.IRON_NUGGETS)
                 .add(ModItems.SPEEDRUNNER_NUGGET);
 
-        getOrCreateTagBuilder(ConventionalItemTags.SHEAR_TOOLS)
+        valueLookupBuilder(ConventionalItemTags.SHEAR_TOOLS)
                 .add(ModItems.SPEEDRUNNER_SHEARS);
 
-        getOrCreateTagBuilder(ConventionalItemTags.SHIELD_TOOLS)
+        valueLookupBuilder(ConventionalItemTags.SHIELD_TOOLS)
                 .add(ModItems.SPEEDRUNNER_SHIELD);
 
-        getOrCreateTagBuilder(ModItemTags.SPEED_BOOTS)
+        valueLookupBuilder(ModItemTags.SPEED_BOOTS)
                 .add(ModItems.SPEEDRUNNER_BOOTS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-        getOrCreateTagBuilder(ModItemTags.COOLDOWN_ENCHANTMENT_ITEMS)
+        valueLookupBuilder(ModItemTags.COOLDOWN_ENCHANTMENT_ITEMS)
                 .forceAddTag(ConventionalItemTags.SHIELD_TOOLS)
                 .add(Items.ENDER_PEARL)
                 .add(ModItems.INFINI_PEARL)
                 .add(Items.CHORUS_FRUIT);
 
-        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_TOOLS)
+        valueLookupBuilder(ModItemTags.SPEEDRUNNER_TOOLS)
                 .add(ModItems.SPEEDRUNNER_SWORD)
                 .add(ModItems.SPEEDRUNNER_SHOVEL)
                 .add(ModItems.SPEEDRUNNER_PICKAXE)
@@ -65,65 +65,65 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_SPEEDRUNNER_AXE)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_HOE);
 
-        getOrCreateTagBuilder(ModItemTags.DOOM_STONE_SAFE_TOOLS)
+        valueLookupBuilder(ModItemTags.DOOM_STONE_SAFE_TOOLS)
                 .forceAddTag(ModItemTags.SPEEDRUNNER_TOOLS);
 
-        getOrCreateTagBuilder(ModItemTags.DRAGON_TOOL_MATERIALS)
+        valueLookupBuilder(ModItemTags.DRAGON_TOOL_MATERIALS)
                 .add(ModItems.DRAGONS_PEARL);
 
-        getOrCreateTagBuilder(ModItemTags.FASTER_BOATS)
+        valueLookupBuilder(ModItemTags.FASTER_BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_BOAT);
 
-        getOrCreateTagBuilder(ModItemTags.FASTER_CHEST_BOATS)
+        valueLookupBuilder(ModItemTags.FASTER_CHEST_BOATS)
                 .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT);
 
-        getOrCreateTagBuilder(ModItemTags.FLESH)
+        valueLookupBuilder(ModItemTags.FLESH)
                 .add(ModItems.COOKED_FLESH)
                 .add(Items.ROTTEN_FLESH);
 
-        getOrCreateTagBuilder(ModItemTags.FIREPROOF_BOATS)
+        valueLookupBuilder(ModItemTags.FIREPROOF_BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
                 .add(ModItems.CRIMSON_BOAT)
                 .add(ModItems.WARPED_BOAT);
 
-        getOrCreateTagBuilder(ModItemTags.FIREPROOF_CHEST_BOATS)
+        valueLookupBuilder(ModItemTags.FIREPROOF_CHEST_BOATS)
                 .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.CRIMSON_CHEST_BOAT)
                 .add(ModItems.WARPED_CHEST_BOAT);
 
-        getOrCreateTagBuilder(ModItemTags.FIREPROOF_ITEMS)
+        valueLookupBuilder(ModItemTags.FIREPROOF_ITEMS)
                 .add(Items.BLAZE_ROD)
                 .add(Items.BLAZE_POWDER)
                 .add(Items.FIRE_CHARGE);
 
-        getOrCreateTagBuilder(ModItemTags.GOLDEN_FOOD_ITEMS)
+        valueLookupBuilder(ModItemTags.GOLDEN_FOOD_ITEMS)
                 .add(Items.GOLDEN_APPLE)
                 .add(Items.ENCHANTED_GOLDEN_APPLE)
                 .add(Items.GOLDEN_CARROT);
 
-        getOrCreateTagBuilder(ModItemTags.GOLDEN_SPEEDRUNNER_TOOL_MATERIALS)
+        valueLookupBuilder(ModItemTags.GOLDEN_SPEEDRUNNER_TOOL_MATERIALS)
                 .add(Items.GOLD_INGOT);
 
-        getOrCreateTagBuilder(ModItemTags.IGNITABLES)
+        valueLookupBuilder(ModItemTags.IGNITABLES)
                 .forceAddTag(ConventionalItemTags.IGNITER_TOOLS)
                 .add(Items.FIRE_CHARGE);
 
-        getOrCreateTagBuilder(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
+        valueLookupBuilder(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
                 .forceAddTag(ModItemTags.GOLDEN_FOOD_ITEMS)
                 .add(Items.ENDER_PEARL)
                 .add(Items.BLAZE_POWDER);
 
-        getOrCreateTagBuilder(ModItemTags.SCULK_SENSOR_SAFE_BOOTS)
+        valueLookupBuilder(ModItemTags.SCULK_SENSOR_SAFE_BOOTS)
                 .add(ModItems.SPEEDRUNNER_BOOTS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-        getOrCreateTagBuilder(ModItemTags.SPEED_BOOTS)
+        valueLookupBuilder(ModItemTags.SPEED_BOOTS)
                 .add(ModItems.SPEEDRUNNER_BOOTS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_ARMOR)
+        valueLookupBuilder(ModItemTags.SPEEDRUNNER_ARMOR)
                 .add(ModItems.SPEEDRUNNER_HELMET)
                 .add(ModItems.SPEEDRUNNER_CHESTPLATE)
                 .add(ModItems.SPEEDRUNNER_LEGGINGS)
@@ -133,18 +133,18 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_SHIELD_REPAIRABLE)
+        valueLookupBuilder(ModItemTags.SPEEDRUNNER_SHIELD_REPAIRABLE)
                 .forceAddTag(ItemTags.PLANKS)
                 .add(ModItems.SPEEDRUNNER_INGOT);
 
-        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS)
+        valueLookupBuilder(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS)
                 .add(ModItems.SPEEDRUNNER_INGOT);
 
-        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_SWORDS)
+        valueLookupBuilder(ModItemTags.SPEEDRUNNER_SWORDS)
                 .add(ModItems.SPEEDRUNNER_SWORD)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SWORD);
 
-        getOrCreateTagBuilder(ModItemTags.STATE_OF_THE_ART_ITEMS)
+        valueLookupBuilder(ModItemTags.STATE_OF_THE_ART_ITEMS)
                 .add(ModItems.ANNUL_EYE)
                 .add(ModItems.BLAZE_SPOTTER)
                 .add(ModItems.DRAGONS_PEARL)
@@ -153,65 +153,65 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.PIGLIN_AWAKENER)
                 .add(ModItems.RAID_ERADICATOR);
 
-        getOrCreateTagBuilder(ModItemTags.STICKS)
+        valueLookupBuilder(ModItemTags.STICKS)
                 .add(Items.STICK)
                 .add(ModItems.SPEEDRUNNER_STICK)
                 .add(ModItems.DEAD_SPEEDRUNNER_STICK);
 
-        getOrCreateTagBuilder(ModItemTags.SPEEDRUNNER_STICKS)
+        valueLookupBuilder(ModItemTags.SPEEDRUNNER_STICKS)
                 .add(ModItems.SPEEDRUNNER_STICK)
                 .add(ModItems.DEAD_SPEEDRUNNER_STICK);
 
-        getOrCreateTagBuilder(ModItemTags.TOTEMS)
+        valueLookupBuilder(ModItemTags.TOTEMS)
                 .add(Items.TOTEM_OF_UNDYING)
                 .add(ModItems.SPEEDRUNNERS_TOTEM);
 
-        getOrCreateTagBuilder(ModItemTags.WITHER_TOOL_MATERIALS)
+        valueLookupBuilder(ModItemTags.WITHER_TOOL_MATERIALS)
                 .add(ModItems.WITHER_BONE);
 
-        getOrCreateTagBuilder(ModItemTags.Block.DOOM_LOGS)
+        valueLookupBuilder(ModItemTags.Block.DOOM_LOGS)
                 .add(ModItems.DOOM_LOG)
                 .add(ModItems.STRIPPED_DOOM_LOG);
 
-        getOrCreateTagBuilder(ModItemTags.Block.EXPERIENCE_ORES)
+        valueLookupBuilder(ModItemTags.Block.EXPERIENCE_ORES)
                 .add(ModItems.EXPERIENCE_ORE)
                 .add(ModItems.DEEPSLATE_EXPERIENCE_ORE)
                 .add(ModItems.NETHER_EXPERIENCE_ORE);
 
-        getOrCreateTagBuilder(ModItemTags.Block.IGNEOUS_ORES)
+        valueLookupBuilder(ModItemTags.Block.IGNEOUS_ORES)
                 .add(ModItems.IGNEOUS_ORE)
                 .add(ModItems.DEEPSLATE_IGNEOUS_ORE)
                 .add(ModItems.NETHER_IGNEOUS_ORE);
 
-        getOrCreateTagBuilder(ModItemTags.Block.IRON_BLOCKS)
+        valueLookupBuilder(ModItemTags.Block.IRON_BLOCKS)
                 .add(Items.IRON_BLOCK)
                 .add(ModItems.SPEEDRUNNER_BLOCK);
 
-        getOrCreateTagBuilder(ModItemTags.Block.NETHER_PORTAL_BASE_BLOCKS)
+        valueLookupBuilder(ModItemTags.Block.NETHER_PORTAL_BASE_BLOCKS)
                 .add(Items.OBSIDIAN)
                 .add(Items.CRYING_OBSIDIAN);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SMITHING_TABLES)
+        valueLookupBuilder(ModItemTags.Block.SMITHING_TABLES)
                 .add(Items.SMITHING_TABLE)
                 .add(ModItems.SPEEDRUNNERS_WORKBENCH);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SPEEDRUNNER_LOGS)
+        valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_LOGS)
                 .add(ModItems.SPEEDRUNNER_LOG)
                 .add(ModItems.STRIPPED_SPEEDRUNNER_LOG)
                 .add(ModItems.SPEEDRUNNER_WOOD)
                 .add(ModItems.STRIPPED_SPEEDRUNNER_WOOD);
 
-        getOrCreateTagBuilder(ModItemTags.Block.DEAD_SPEEDRUNNER_LOGS)
+        valueLookupBuilder(ModItemTags.Block.DEAD_SPEEDRUNNER_LOGS)
                 .add(ModItems.DEAD_SPEEDRUNNER_LOG)
                 .add(ModItems.DEAD_STRIPPED_SPEEDRUNNER_LOG)
                 .add(ModItems.DEAD_SPEEDRUNNER_WOOD)
                 .add(ModItems.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SPEEDRUNNER_PLANKS)
+        valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_PLANKS)
                 .add(ModItems.SPEEDRUNNER_PLANKS)
                 .add(ModItems.DEAD_SPEEDRUNNER_PLANKS);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SPEEDRUNNER_FUELS)
+        valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_FUELS)
                 .forceAddTag(ModItemTags.Block.SPEEDRUNNER_LOGS)
                 .add(ModItems.SPEEDRUNNER_SAPLING)
                 .add(ModItems.SPEEDRUNNER_SLAB)
@@ -223,113 +223,113 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.WOODEN_SPEEDRUNNER_BUTTON)
                 .add(ModItems.DEAD_SPEEDRUNNER_BUSH);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SPEEDRUNNER_ORES)
+        valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_ORES)
                 .add(ModItems.SPEEDRUNNER_ORE)
                 .add(ModItems.DEEPSLATE_SPEEDRUNNER_ORE)
                 .add(ModItems.NETHER_SPEEDRUNNER_ORE);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SPEEDRUNNER_SAPLING_PLACEABLES)
+        valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_SAPLING_PLACEABLES)
                 .forceAddTag(ItemTags.SAND)
                 .add(Items.NETHERRACK)
                 .add(Items.CRIMSON_NYLIUM)
                 .add(Items.WARPED_NYLIUM);
 
-        getOrCreateTagBuilder(ModItemTags.Block.SPEEDRUNNER_SIGNS)
+        valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_SIGNS)
                 .add(ModItems.SPEEDRUNNER_SIGN)
                 .add(ModItems.SPEEDRUNNER_HANGING_SIGN)
                 .add(ModItems.DEAD_SPEEDRUNNER_SIGN)
                 .add(ModItems.DEAD_SPEEDRUNNER_HANGING_SIGN);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL)
                 .add(Items.ENDER_PEARL)
                 .add(Items.FIRE_CHARGE)
                 .add(Items.BLAZE_POWDER)
                 .add(Items.ENDER_EYE);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER)
                 .add(Items.ENDER_PEARL)
                 .add(Items.FIRE_CHARGE)
                 .add(Items.LAVA_BUCKET);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
                 .add(Items.ENDER_PEARL)
                 .add(Items.BLAZE_POWDER)
                 .add(Items.FIRE_CHARGE)
                 .add(ModItems.SPEEDRUNNERS_EYE);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.DRAGONS_SWORD)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.DRAGONS_SWORD)
                 .add(ModItems.SPEEDRUNNER_SWORD)
                 .add(ModItems.DRAGONS_PEARL);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.ENDER_THRUSTER)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.ENDER_THRUSTER)
                 .add(Items.ENDER_PEARL)
                 .add(ModItems.SPEEDRUNNERS_EYE);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.INFERNO_EYE)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.INFERNO_EYE)
                 .add(Items.ENDER_PEARL)
                 .add(Items.BLAZE_POWDER);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.RAID_ERADICATOR)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.RAID_ERADICATOR)
                 .forceAddTag(ModItemTags.TOTEMS)
                 .add(Items.ENCHANTED_GOLDEN_APPLE);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER)
                 .forceAddTag(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
                 .add(Items.GOLD_INGOT);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL)
                 .add(Items.FLINT)
                 .add(Items.FLINT_AND_STEEL)
                 .add(ModItems.SPEEDRUNNER_INGOT);
 
-        getOrCreateTagBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH)
+        valueLookupBuilder(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH)
                 .forceAddTag(ModItemTags.Block.SPEEDRUNNER_PLANKS)
                 .add(ModItems.SPEEDRUNNER_INGOT);
 
-        getOrCreateTagBuilder(ItemTags.BOATS)
+        valueLookupBuilder(ItemTags.BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_BOAT)
                 .add(ModItems.CRIMSON_BOAT)
                 .add(ModItems.WARPED_BOAT);
 
-        getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
+        valueLookupBuilder(ItemTags.CHEST_BOATS)
                 .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.CRIMSON_CHEST_BOAT)
                 .add(ModItems.WARPED_CHEST_BOAT);
 
-        getOrCreateTagBuilder(ItemTags.CREEPER_IGNITERS)
+        valueLookupBuilder(ItemTags.CREEPER_IGNITERS)
                 .add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
 
-        getOrCreateTagBuilder(ItemTags.DOORS)
+        valueLookupBuilder(ItemTags.DOORS)
                 .add(ModItems.SPEEDRUNNER_DOOR);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_DOORS)
+        valueLookupBuilder(ItemTags.WOODEN_DOORS)
                 .add(ModItems.WOODEN_SPEEDRUNNER_DOOR)
                 .add(ModItems.DEAD_WOODEN_SPEEDRUNNER_DOOR);
 
-        getOrCreateTagBuilder(ItemTags.FENCE_GATES)
+        valueLookupBuilder(ItemTags.FENCE_GATES)
                 .add(ModItems.SPEEDRUNNER_FENCE_GATE)
                 .add(ModItems.DEAD_SPEEDRUNNER_FENCE_GATE);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_FENCES)
+        valueLookupBuilder(ItemTags.WOODEN_FENCES)
                 .add(ModItems.SPEEDRUNNER_FENCE)
                 .add(ModItems.DEAD_SPEEDRUNNER_FENCE);
 
-        getOrCreateTagBuilder(ItemTags.LEAVES)
+        valueLookupBuilder(ItemTags.LEAVES)
                 .add(ModItems.SPEEDRUNNER_LEAVES)
                 .add(ModItems.DEAD_SPEEDRUNNER_LEAVES)
                 .add(ModItems.DOOM_LEAVES);
 
-        getOrCreateTagBuilder(ItemTags.LOGS)
+        valueLookupBuilder(ItemTags.LOGS)
                 .forceAddTag(ModItemTags.Block.SPEEDRUNNER_LOGS)
                 .forceAddTag(ModItemTags.Block.DOOM_LOGS);
 
-        getOrCreateTagBuilder(ItemTags.PIGLIN_FOOD)
+        valueLookupBuilder(ItemTags.PIGLIN_FOOD)
                 .add(ModItems.PIGLIN_PORK)
                 .add(ModItems.COOKED_PIGLIN_PORK);
 
-        getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED)
+        valueLookupBuilder(ItemTags.PIGLIN_LOVED)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SWORD)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SHOVEL)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_PICKAXE)
@@ -341,106 +341,106 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE);
 
-        getOrCreateTagBuilder(ItemTags.PLANKS)
+        valueLookupBuilder(ItemTags.PLANKS)
                 .add(ModItems.SPEEDRUNNER_PLANKS)
                 .add(ModItems.DEAD_SPEEDRUNNER_PLANKS);
 
-        getOrCreateTagBuilder(ItemTags.SAPLINGS)
+        valueLookupBuilder(ItemTags.SAPLINGS)
                 .add(ModItems.SPEEDRUNNER_SAPLING)
                 .add(ModItems.DEAD_SPEEDRUNNER_SAPLING);
 
-        getOrCreateTagBuilder(ItemTags.STONE_CRAFTING_MATERIALS)
+        valueLookupBuilder(ItemTags.STONE_CRAFTING_MATERIALS)
                 .add(Items.ANDESITE)
                 .add(Items.DIORITE)
                 .add(Items.GRANITE)
                 .add(Items.MOSSY_COBBLESTONE)
                 .add(Items.END_STONE);
 
-        getOrCreateTagBuilder(ItemTags.TRAPDOORS)
+        valueLookupBuilder(ItemTags.TRAPDOORS)
                 .add(ModItems.SPEEDRUNNER_TRAPDOOR)
                 .add(ModItems.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
 
-        getOrCreateTagBuilder(ItemTags.TRIMMABLE_ARMOR)
+        valueLookupBuilder(ItemTags.TRIMMABLE_ARMOR)
                 .forceAddTag(ModItemTags.SPEEDRUNNER_ARMOR);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_BUTTONS)
+        valueLookupBuilder(ItemTags.WOODEN_BUTTONS)
                 .add(ModItems.WOODEN_SPEEDRUNNER_BUTTON)
                 .add(ModItems.DEAD_WOODEN_SPEEDRUNNER_BUTTON);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_PRESSURE_PLATES)
+        valueLookupBuilder(ItemTags.WOODEN_PRESSURE_PLATES)
                 .add(ModItems.WOODEN_SPEEDRUNNER_PRESSURE_PLATE)
                 .add(ModItems.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_SLABS)
+        valueLookupBuilder(ItemTags.WOODEN_SLABS)
                 .add(ModItems.SPEEDRUNNER_SLAB)
                 .add(ModItems.DEAD_SPEEDRUNNER_SLAB);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_STAIRS)
+        valueLookupBuilder(ItemTags.WOODEN_STAIRS)
                 .add(ModItems.SPEEDRUNNER_STAIRS)
                 .add(ModItems.DEAD_SPEEDRUNNER_STAIRS);
 
-        getOrCreateTagBuilder(ItemTags.WOODEN_TRAPDOORS)
+        valueLookupBuilder(ItemTags.WOODEN_TRAPDOORS)
                 .add(ModItems.WOODEN_SPEEDRUNNER_TRAPDOOR)
                 .add(ModItems.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
 
-        getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.SWORD_ENCHANTABLE)
                 .forceAddTag(ItemTags.AXES);
 
-        getOrCreateTagBuilder(ItemTags.MINING_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
                 .add(ModItems.SPEEDRUNNER_SHEARS);
 
-        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ModItems.SPEEDRUNNER_SHEARS)
                 .add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL)
                 .add(ModItems.SPEEDRUNNER_BOW)
                 .add(ModItems.SPEEDRUNNER_CROSSBOW)
                 .add(ModItems.SPEEDRUNNER_SHIELD);
 
-        getOrCreateTagBuilder(ItemTags.BOW_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.BOW_ENCHANTABLE)
                 .add(ModItems.SPEEDRUNNER_BOW);
 
-        getOrCreateTagBuilder(ItemTags.CROSSBOW_ENCHANTABLE)
+        valueLookupBuilder(ItemTags.CROSSBOW_ENCHANTABLE)
                 .add(ModItems.SPEEDRUNNER_CROSSBOW);
 
-        getOrCreateTagBuilder(ItemTags.SWORDS)
+        valueLookupBuilder(ItemTags.SWORDS)
                 .add(ModItems.SPEEDRUNNER_SWORD)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SWORD)
                 .add(ModItems.DRAGONS_SWORD)
                 .add(ModItems.WITHER_SWORD);
 
-        getOrCreateTagBuilder(ItemTags.SHOVELS)
+        valueLookupBuilder(ItemTags.SHOVELS)
                 .add(ModItems.SPEEDRUNNER_SHOVEL)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SHOVEL);
 
-        getOrCreateTagBuilder(ItemTags.PICKAXES)
+        valueLookupBuilder(ItemTags.PICKAXES)
                 .add(ModItems.SPEEDRUNNER_PICKAXE)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_PICKAXE);
 
-        getOrCreateTagBuilder(ItemTags.AXES)
+        valueLookupBuilder(ItemTags.AXES)
                 .add(ModItems.SPEEDRUNNER_AXE)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_AXE);
 
-        getOrCreateTagBuilder(ItemTags.HOES)
+        valueLookupBuilder(ItemTags.HOES)
                 .add(ModItems.SPEEDRUNNER_HOE)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_HOE);
 
-        getOrCreateTagBuilder(ItemTags.HEAD_ARMOR)
+        valueLookupBuilder(ItemTags.HEAD_ARMOR)
                 .add(ModItems.SPEEDRUNNER_HELMET)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_HELMET);
 
-        getOrCreateTagBuilder(ItemTags.CHEST_ARMOR)
+        valueLookupBuilder(ItemTags.CHEST_ARMOR)
                 .add(ModItems.SPEEDRUNNER_CHESTPLATE)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE);
 
-        getOrCreateTagBuilder(ItemTags.LEG_ARMOR)
+        valueLookupBuilder(ItemTags.LEG_ARMOR)
                 .add(ModItems.SPEEDRUNNER_LEGGINGS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
 
-        getOrCreateTagBuilder(ItemTags.FOOT_ARMOR)
+        valueLookupBuilder(ItemTags.FOOT_ARMOR)
                 .add(ModItems.SPEEDRUNNER_BOOTS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-        getOrCreateTagBuilder(ItemTags.PIGLIN_SAFE_ARMOR)
+        valueLookupBuilder(ItemTags.PIGLIN_SAFE_ARMOR)
                 .add(Items.GOLDEN_HELMET)
                 .add(Items.GOLDEN_CHESTPLATE)
                 .add(Items.GOLDEN_LEGGINGS)

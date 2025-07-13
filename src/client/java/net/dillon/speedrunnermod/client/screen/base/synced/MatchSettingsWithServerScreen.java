@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.util.Colors;
 
 @Environment(EnvType.CLIENT)
 public class MatchSettingsWithServerScreen extends AbstractModScreen {
@@ -32,11 +33,11 @@ public class MatchSettingsWithServerScreen extends AbstractModScreen {
     @Override
     public void renderCustomText(DrawContext context) {
         if (this.matchAndRestartButton.active) {
-            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE1, this.width / 2, 110, 16777215);
-            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE2, this.width / 2, 130, 16777215);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE1, this.width / 2, 110, Colors.WHITE);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_LINE2, this.width / 2, 130, Colors.WHITE);
         } else {
-            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED, this.width / 2, 110, 16777215);
-            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED_LINE2, this.width / 2, 130, 16777215);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED, this.width / 2, 110, Colors.WHITE);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCH_SETTINGS_WITH_SERVER_SYNC_FAILED_LINE2, this.width / 2, 130, Colors.WHITE);
         }
     }
 

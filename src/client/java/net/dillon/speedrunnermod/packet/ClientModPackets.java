@@ -43,7 +43,7 @@ public class ClientModPackets {
         ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
             if (options().main.mode.getCurrentValue() != packet.serverSideMode()) {
                 context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MODE_DOESNT_MATCH_SERVER_SETTING);
-                context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()));
+                context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()), false);
             }
         });
     }
@@ -69,7 +69,7 @@ public class ClientModPackets {
             ModOptions serverOptions = packet.toOptions();
             configHandler().match(serverOptions);
             context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MATCHED_SETTINGS_WITH_SERVER);
-            context.client().disconnect(new TimedScreen(null, 5));
+            context.client().disconnect(new TimedScreen(null, 5), false);
         });
     }
 

@@ -21,7 +21,7 @@ public class MixinOptionsScreen extends AbstractModScreen {
     protected void init() {
         super.init();
         this.optionList.addSingleOptionEntry(ModListOptions.terraBlenderSurfaceRuleDataMixin());
-        this.optionList.addSingleOptionEntry(ModListOptions.backgroundRendererMixin());
+        this.optionList.addSingleOptionEntry(ModListOptions.fogMixins());
         this.optionList.addSingleOptionEntry(ModListOptions.simpleOptionMixin());
         this.optionList.addSingleOptionEntry(ModListOptions.logoDrawerMixin());
         this.optionList.addSingleOptionEntry(ModListOptions.renderLayersMixin());

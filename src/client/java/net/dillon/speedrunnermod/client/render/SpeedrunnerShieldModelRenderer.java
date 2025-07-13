@@ -22,8 +22,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * The renderer class for the {@code speedrunner shield.}
@@ -91,6 +93,13 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Comp
     @Override
     public @Nullable ComponentMap getData(ItemStack stack) {
         return stack.getImmutableComponents();
+    }
+
+    @Override
+    public void collectVertices(Set<Vector3f> vertices) {
+        MatrixStack matrixStack = new MatrixStack();
+        matrixStack.scale(1.0F, -1.0F, -1.0F);
+        this.shieldModel.getRootPart().collectVertices(matrixStack, vertices);
     }
 
     @Environment(EnvType.CLIENT)

@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.mixin.plugin;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.option.BaseOptions;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.loader.api.FabricLoader;
@@ -82,8 +83,8 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
                 JsonObject mixins = json.getAsJsonObject("mixins");
                 if (mixins.has("terra_blender_surface_rule_data_mixin")) {
                     JsonObject optionValue = mixins.getAsJsonObject("terra_blender_surface_rule_data_mixin");
-                    if (optionValue.has("value")) {
-                        return optionValue.get("value").getAsBoolean();
+                    if (optionValue.has(BaseOptions.CURRENT_VALUE)) {
+                        return optionValue.get(BaseOptions.CURRENT_VALUE).getAsBoolean();
                     }
                 }
             }

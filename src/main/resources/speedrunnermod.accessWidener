@@ -1,7 +1,5 @@
 accessWidener v1 named
 
-accessible class net/minecraft/client/render/BackgroundRenderer$FogData
-accessible class net/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier
 accessible class net/minecraft/structure/NetherFortressGenerator$Piece
 accessible class net/minecraft/structure/NetherFortressGenerator$PieceData
 accessible class net/minecraft/structure/StrongholdGenerator$Piece
@@ -40,6 +38,7 @@ accessible method net/minecraft/entity/mob/PiglinBrain acceptsForBarter (Lnet/mi
 accessible method net/minecraft/entity/mob/PiglinBrain doBarter (Lnet/minecraft/entity/mob/PiglinEntity;Ljava/util/List;)V
 accessible method net/minecraft/entity/mob/BlazeEntity setFireActive (Z)V
 accessible method net/minecraft/entity/projectile/ProjectileEntity updateRotation (FF)F
+accessible method net/minecraft/entity/EyeOfEnderEntity updateVelocity (Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;
 accessible method net/minecraft/entity/SpawnRestriction register (Lnet/minecraft/entity/EntityType;Lnet/minecraft/entity/SpawnLocation;Lnet/minecraft/world/Heightmap$Type;Lnet/minecraft/entity/SpawnRestriction$SpawnPredicate;)V
 accessible method net/minecraft/item/SmithingTemplateItem getNetheriteUpgradeEmptyBaseSlotTextures ()Ljava/util/List;
 accessible method net/minecraft/item/SmithingTemplateItem getNetheriteUpgradeEmptyAdditionsSlotTextures ()Ljava/util/List;
@@ -53,7 +52,6 @@ accessible method net/minecraft/village/TradeOffers copyToFastUtilMap (Lcom/goog
 accessible method net/minecraft/world/poi/PointOfInterestTypes register (Lnet/minecraft/registry/Registry;Lnet/minecraft/registry/RegistryKey;Ljava/util/Set;II)Lnet/minecraft/world/poi/PointOfInterestType;
 accessible method net/minecraft/village/VillagerProfession register (Lnet/minecraft/registry/Registry;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/registry/RegistryKey;Lnet/minecraft/sound/SoundEvent;)Lnet/minecraft/village/VillagerProfession;
 accessible method net/minecraft/screen/ScreenHandlerType register (Ljava/lang/String;Lnet/minecraft/screen/ScreenHandlerType$Factory;)Lnet/minecraft/screen/ScreenHandlerType;
-accessible method net/minecraft/client/render/BackgroundRenderer getFogModifier (Lnet/minecraft/entity/Entity;F)Lnet/minecraft/client/render/BackgroundRenderer$StatusEffectFogModifier;
 
 accessible field net/minecraft/structure/StrongholdGenerator ALL_PIECES [Lnet/minecraft/structure/StrongholdGenerator$PieceData;
 accessible field net/minecraft/structure/NetherFortressGenerator ALL_BRIDGE_PIECES [Lnet/minecraft/structure/NetherFortressGenerator$PieceData;

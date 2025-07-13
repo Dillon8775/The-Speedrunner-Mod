@@ -9,6 +9,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
@@ -37,8 +38,8 @@ public class ModeDoesntMatchScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.mode.doesnt_match_server.line1"), this.width / 2, 110, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.mode.doesnt_match_server.line2"), this.width / 2, 130, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.mode.doesnt_match_server.line1"), this.width / 2, 110, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.mode.doesnt_match_server.line2"), this.width / 2, 130, Colors.WHITE);
     }
 
     @Override

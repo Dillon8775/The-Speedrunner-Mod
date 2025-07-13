@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
-import net.dillon.speedrunnermod.item.StateOfTheArtItem;
+import net.dillon.speedrunnermod.item.EyeItem;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -21,12 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 @Mixin(EnderEyeItem.class)
-public class EnderEyeItemMixin implements StateOfTheArtItem {
+public class EnderEyeItemMixin implements EyeItem {
 
     /**
      * Locates the exact distance of the nearest stronghold and sends it to the player.
      */
-    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EyeOfEnderEntity;initTargetPos(Lnet/minecraft/util/math/BlockPos;)V"))
+    @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EyeOfEnderEntity;initTargetPos(Lnet/minecraft/util/math/Vec3d;)V"))
     private void locateExactDistance(World world, PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         BlockPos blockPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, player.getBlockPos(), 100, false);
         BlockPos playerpos = player.getBlockPos();

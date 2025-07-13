@@ -1,30 +1,16 @@
 package net.dillon.speedrunnermod.block.sign.wall;
 
-import net.dillon.speedrunnermod.block.sign.CustomSign;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.block.sign.TerraformSignBlockHelper;
 import net.minecraft.block.WallSignBlock;
-import net.minecraft.block.WoodType;
-import net.minecraft.util.Identifier;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * Creates a {@code wall sign block.}
  */
-@Author(Authors.TERRAFORMERSMC)
-public class CustomWallSignBlock extends WallSignBlock implements CustomSign {
-	private final Identifier texture;
+public class CustomWallSignBlock extends WallSignBlock {
 
-	public CustomWallSignBlock(Identifier texture, WoodType woodType, Settings settings) {
-		super(woodType, settings);
-		this.texture = texture;
-	}
-
-	public CustomWallSignBlock(Identifier texture, Settings settings) {
-		this(texture, WoodType.OAK, settings);
-	}
-
-	@Override
-	public Identifier getTexture() {
-		return texture;
+	public CustomWallSignBlock(String id,  Settings settings) {
+		super(TerraformSignBlockHelper.registerDefaultWoodType(ofSpeedrunnerMod(id)), settings);
 	}
 }

@@ -5,16 +5,18 @@ import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -90,7 +92,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                     try {
                         customScale = Float.parseFloat(parts[i].substring("scale=".length()));
                     } catch (NumberFormatException e) {
-                        System.err.println("Invalid scale format in line: " + line);
+                        SpeedrunnerMod.error("Invalid scale format in line: " + line);
                     }
                 }
             }
@@ -168,22 +170,22 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     @AI
     private Style applyFormatCode(Style style, char code) {
         return switch (code) {
-            case '0' -> style.withColor(0x000000);
-            case '1' -> style.withColor(0x0000AA);
-            case '2' -> style.withColor(0x00AA00);
-            case '3' -> style.withColor(0x00AAAA);
-            case '4' -> style.withColor(0xAA0000);
-            case '5' -> style.withColor(0xAA00AA);
-            case '6' -> style.withColor(0xFFAA00);
-            case '7' -> style.withColor(0xAAAAAA);
-            case '8' -> style.withColor(0x555555);
-            case '9' -> style.withColor(0x5555FF);
-            case 'a' -> style.withColor(0x55FF55);
-            case 'b' -> style.withColor(0x55FFFF);
-            case 'c' -> style.withColor(0xFF5555);
-            case 'd' -> style.withColor(0xFF55FF);
-            case 'e' -> style.withColor(0xFFFF55);
-            case 'f' -> style.withColor(0xFFFFFF);
+            case '0' -> style.withColor(Formatting.BLACK);
+            case '1' -> style.withColor(Formatting.DARK_BLUE);
+            case '2' -> style.withColor(Formatting.DARK_GREEN);
+            case '3' -> style.withColor(Formatting.DARK_AQUA);
+            case '4' -> style.withColor(Formatting.DARK_RED);
+            case '5' -> style.withColor(Formatting.DARK_PURPLE);
+            case '6' -> style.withColor(Formatting.GOLD);
+            case '7' -> style.withColor(Formatting.GRAY);
+            case '8' -> style.withColor(Formatting.DARK_GRAY);
+            case '9' -> style.withColor(Formatting.BLUE);
+            case 'a' -> style.withColor(Formatting.GREEN);
+            case 'b' -> style.withColor(Formatting.AQUA);
+            case 'c' -> style.withColor(Formatting.RED);
+            case 'd' -> style.withColor(Formatting.LIGHT_PURPLE);
+            case 'e' -> style.withColor(Formatting.YELLOW);
+            case 'f' -> style.withColor(Formatting.WHITE);
             case 'l' -> style.withBold(true);
             case 'o' -> style.withItalic(true);
             case 'n' -> style.withUnderline(true);
@@ -286,7 +288,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             this.scrollOffset = targetScrollOffset;
         }
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, 0xFFFFFF);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, Colors.WHITE);
 
         initializeTopAndBottom();
         int scrollbarX = this.width - 10;
@@ -314,11 +316,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                     int textWidth = this.textRenderer.getWidth(wrappedLine);
                     double textX = (this.width - textWidth * scale) / 2.0;
 
-                    context.getMatrices().push();
-                    context.getMatrices().translate(this.centerAligned() ? textX : this.width / 2 - 175, y, 0);
-                    context.getMatrices().scale(scale, scale, 1);
-                    context.drawTextWithShadow(this.textRenderer, wrappedLine, 0, 0, 0xFFFFFF);
-                    context.getMatrices().pop();
+                    context.getMatrices().pushMatrix();
+                    context.getMatrices().translate(this.centerAligned() ? (float)textX : (float)this.width / 2 - 175, (float)y);
+                    context.getMatrices().scale(scale, scale);
+                    context.drawTextWithShadow(this.textRenderer, wrappedLine, 0, 0, Colors.WHITE);
+                    context.getMatrices().popMatrix();
 
                     y += lineHeight;
                 }
@@ -342,7 +344,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
                 if (visibleHeight > 0) {
                     int x = (this.width - scaledWidth) / 2;
-                    context.drawTexture(RenderLayer::getGuiTextured, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
+                    context.drawTexture(RenderPipelines.GUI_TEXTURED, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
                 }
 
                 y += scaledHeight + 16;

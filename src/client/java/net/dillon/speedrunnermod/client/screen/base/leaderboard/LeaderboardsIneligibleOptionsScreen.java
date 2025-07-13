@@ -8,6 +8,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.util.Colors;
 
 @Deprecated
 @Environment(EnvType.CLIENT)
@@ -34,7 +35,7 @@ public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
         boolean longList = Leaderboards.ineligibleOptions.size() > 12;
         int textHeight = longList ? 35 : 50;
         for (int i = 0; i < Leaderboards.ineligibleOptions.size(); i++) {
-            context.drawCenteredTextWithShadow(this.textRenderer, Leaderboards.ineligibleOptions.get(i), this.width / 2, textHeight, 16777215);
+            context.drawCenteredTextWithShadow(this.textRenderer, Leaderboards.ineligibleOptions.get(i), this.width / 2, textHeight, Colors.WHITE);
             textHeight = longList ? textHeight + 10 : textHeight + 20;
         }
     }

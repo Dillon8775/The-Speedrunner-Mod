@@ -4,9 +4,9 @@ import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -111,7 +111,7 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     @Override
     protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
         if ((this.handler.getSlot(0).hasStack() || this.handler.getSlot(1).hasStack()) && !this.handler.getSlot(this.handler.getResultSlotIndex()).hasStack()) {
-            context.drawGuiTexture(RenderLayer::getGuiTextured, ERROR_TEXTURE, x + 99, y + 45, 28, 21);
+            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 45, 28, 21);
         }
     }
 

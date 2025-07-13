@@ -9,6 +9,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
@@ -50,7 +51,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
     public void renderCustomText(DrawContext context) {
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable(
                 tutorial ? "speedrunnermod.reset_tutorial_mode_options_confirm" : "speedrunnermod.reset_options_confirm"),
-                this.width / 2, 110, 16777215);
+                this.width / 2, 110, Colors.WHITE);
     }
 
     @Override

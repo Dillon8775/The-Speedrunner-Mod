@@ -102,7 +102,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     public void killAllHostiles(CallbackInfo ci) {
         if (options().advanced.dragonKillsNearbyHostileEntities.getCurrentValue() && this.getWorld() instanceof ServerWorld serverWorld) {
             EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
-            World world = this.getEntityWorld();
+            World world = this.getWorld();
 
             List<HostileEntity> hostiles = world.getEntitiesByClass(HostileEntity.class,
                     dragon.getBoundingBox().expand(options().advanced.dragonMassKillRadius.getCurrentValue().getFirst(), options().advanced.dragonMassKillRadius.getCurrentValue().get(1), options().advanced.dragonMassKillRadius.getCurrentValue().get(2)), entity -> true);

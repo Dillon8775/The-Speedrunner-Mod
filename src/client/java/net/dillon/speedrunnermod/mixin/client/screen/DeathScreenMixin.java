@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -44,8 +45,8 @@ public class DeathScreenMixin extends Screen {
                 if (this.client.inGameHud != null) {
                     this.client.inGameHud.getChatHud().clear(false);
                 }
-                this.client.world.disconnect();
-                this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")));
+                this.client.world.disconnect(Text.translatable("menu.savingLevel"));
+                this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false);
                 CreateWorldScreen.show(this.client, this);
             }).dimensions(this.width / 2 - 100, this.height / 4 + 120, 200, 20).build()));
         }
@@ -57,7 +58,7 @@ public class DeathScreenMixin extends Screen {
     @Inject(method = "render", at = @At("TAIL"))
     private void displayDeathCords(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (options().main.showDeathCords.getCurrentValue()) {
-            context.drawCenteredTextWithShadow(this.textRenderer, ModUtil.deathCords(this.client.player.getX(), this.client.player.getY(), this.client.player.getZ()), this.width / 2, 115, 0xFFFFFF);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModUtil.deathCords(this.client.player.getX(), this.client.player.getY(), this.client.player.getZ()), this.width / 2, 115, Colors.WHITE);
         }
     }
 }

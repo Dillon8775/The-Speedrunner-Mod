@@ -13,9 +13,9 @@ import java.util.function.Consumer;
 import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
- * For all speedrunner mod "eye" items and "state of the art items" which are used to locate exact distances of structures and print them.
+ * For all speedrunner mod "eye" items which are used to locate exact distances of structures and print them.
  */
-public interface StateOfTheArtItem {
+public interface EyeItem {
 
     /**
      * The text to send when the eye has located a structure.

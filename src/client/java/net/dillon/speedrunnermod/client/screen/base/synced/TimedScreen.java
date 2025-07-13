@@ -9,6 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,9 +49,9 @@ public class TimedScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(this.countdown+"..."), this.width / 2, 160, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(this.countdown+"..."), this.width / 2, 160, Colors.WHITE);
     }
 
     @Override

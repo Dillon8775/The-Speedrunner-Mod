@@ -6,6 +6,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 @Environment(EnvType.CLIENT)
 public class TemporaryScreen extends AbstractModScreen {
@@ -22,7 +23,7 @@ public class TemporaryScreen extends AbstractModScreen {
 
     @Override
     protected void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, this.text, this.width / 2, 100, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.text, this.width / 2, 100, Colors.WHITE);
     }
 
     @Override

@@ -38,7 +38,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
-public class AnnulEyeItem extends Item implements StateOfTheArtItem {
+public class AnnulEyeItem extends Item implements EyeItem {
 
     public AnnulEyeItem(Settings settings) {
         super(settings.rarity(Rarity.EPIC));

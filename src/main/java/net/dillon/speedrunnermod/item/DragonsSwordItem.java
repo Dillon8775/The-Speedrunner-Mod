@@ -25,7 +25,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 /**
  * A weapon that {@code one-shots} the {@code ender dragon.}
  */
-public class DragonsSwordItem extends Item implements StateOfTheArtItem {
+public class DragonsSwordItem extends Item implements EyeItem {
 
     public DragonsSwordItem(Item.Settings settings) {
         super(settings.sword(ModToolMaterials.DRAGONS_SWORD, 9, -2.4F).rarity(Rarity.EPIC));

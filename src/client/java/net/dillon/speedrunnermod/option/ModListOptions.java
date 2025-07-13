@@ -105,13 +105,22 @@ public class ModListOptions {
     public static SimpleOption<Boolean> fog() {
         return new SimpleOption<>("speedrunnermod.options.fog",
                 SimpleOption.emptyTooltip(),
-                (optionText, value) -> !clientOptions().mixins.backgroundRendererMixin.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
+                (optionText, value) -> !clientOptions().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
                 SimpleOption.BOOLEAN,
                 clientOptions().client.fog.getCurrentValue(),
                 value -> {
                     clientOptions().client.fog.set(value);
                     MinecraftClient.getInstance().worldRenderer.reload();
                 });
+    }
+
+    public static SimpleOption<Boolean> increasedLavaVision() {
+        return new SimpleOption<>("speedrunnermod.options.increased_lava_vision",
+                SimpleOption.emptyTooltip(),
+                (optionText, value) -> !clientOptions().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
+                SimpleOption.BOOLEAN,
+                clientOptions().client.increasedLavaVision.getCurrentValue(),
+                value -> clientOptions().client.increasedLavaVision.set(value));
     }
 
     public static SimpleOption<Boolean> infiniPearlMode() {
@@ -406,11 +415,11 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Boolean> backgroundRendererMixin() {
+    public static SimpleOption<Boolean> fogMixins() {
         return createSimpleBooleanOptionWithCustomSwitch(
-                "speedrunnermod.options.background_renderer_mixin",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.background_renderer_mixin.tooltip")),
-                clientOptions().mixins.backgroundRendererMixin,
+                "speedrunnermod.options.fog_mixins",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fog_mixins.tooltip")),
+                clientOptions().mixins.fogMixins,
                 false
         );
     }

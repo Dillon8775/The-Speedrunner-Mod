@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.mixin.plugin;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.option.BaseOptions;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.loader.api.FabricLoader;
@@ -25,7 +26,11 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
      */
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return !shouldNotApply(mixinClassName);
+        boolean bl = shouldNotApply(mixinClassName);
+        if (bl) {
+            SpeedrunnerMod.warn("Mixin " + mixinClassName + " is disabled.");
+        }
+        return !bl;
     }
 
     // Other methods...
@@ -60,7 +65,8 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
      * Returns client-side mixins that should not apply based on certain conditions.
      */
     private boolean shouldNotApply(String mixinClassName) {
-        return !readOptionAsBoolean("background_renderer_mixin") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.Fog") ||
+        return !readOptionAsBoolean("fog_mixins") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.FogRendererMixin") ||
+                !readOptionAsBoolean("fog_mixins") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.LavaFogModifierMixin") ||
                 !readOptionAsBoolean("simple_option_mixin") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.IncreasedBrightness") ||
                 !readOptionAsBoolean("logo_drawer_mixin") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.screen.LogoDrawerMixin") ||
                 !readOptionAsBoolean("render_layers_mixin") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.fix.RenderLayersMixin");
@@ -85,8 +91,8 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
                 JsonObject mixins = json.getAsJsonObject("mixins");
                 if (mixins.has(option)) {
                     JsonObject optionValue = mixins.getAsJsonObject(option);
-                    if (optionValue.has("value")) {
-                        return optionValue.get("value").getAsBoolean();
+                    if (optionValue.has(BaseOptions.CURRENT_VALUE)) {
+                        return optionValue.get(BaseOptions.CURRENT_VALUE).getAsBoolean();
                     }
                 }
             }

@@ -36,7 +36,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 /**
  * An item that teleports {@code nearby piglin} to the player.
  */
-public class PiglinAwakenerItem extends Item implements StateOfTheArtItem {
+public class PiglinAwakenerItem extends Item implements EyeItem {
 
     public PiglinAwakenerItem(Settings settings) {
         super(settings.component(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY).maxCount(16));

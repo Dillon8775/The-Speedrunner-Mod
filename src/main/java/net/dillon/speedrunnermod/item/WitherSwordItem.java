@@ -30,10 +30,10 @@ public class WitherSwordItem extends Item  {
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof WitherSkeletonEntity witherSkeleton) {
             if (ModUtil.percentChance(witherSkeleton.getRandom(), 65)) {
-                witherSkeleton.dropItem(witherSkeleton.getServer().getWorld(witherSkeleton.getEntityWorld().getRegistryKey()), Items.WITHER_SKELETON_SKULL);
+                witherSkeleton.dropItem(witherSkeleton.getServer().getWorld(witherSkeleton.getWorld().getRegistryKey()), Items.WITHER_SKELETON_SKULL);
                 stack.damage(ModToolMaterials.WITHER_SWORD.durability(), attacker, EquipmentSlot.MAINHAND);
             }
-            witherSkeleton.kill(witherSkeleton.getServer().getWorld(witherSkeleton.getEntityWorld().getRegistryKey()));
+            witherSkeleton.kill(witherSkeleton.getServer().getWorld(witherSkeleton.getWorld().getRegistryKey()));
         }
         super.postHit(stack, target, attacker);
     }

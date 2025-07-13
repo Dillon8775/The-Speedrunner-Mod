@@ -79,11 +79,6 @@ public class ClientModOptions {
         public OptionValue<Boolean> tutorialMode = new OptionValue<>(false, true);
 
         /**
-         * Determines if the first-time playing screens should load.
-         */
-        public OptionValue<Boolean> firstTimePlaying = new OptionValue<>(true, false);
-
-        /**
          * Enable/disable Minecraft's default fog.
          */
         public OptionValue<Boolean> fog = new OptionValue<>(true, false);
@@ -135,6 +130,11 @@ public class ClientModOptions {
         public IntegerOptionValue infiniPearlInventorySlot = new IntegerOptionValue(1, false, 1, 36);
 
         /**
+         * Increases lava vision distance when submerged in lava with the fire resistance effect.
+         */
+        public OptionValue<Boolean> increasedLavaVision = new OptionValue<>(true, false);
+
+        /**
          * The minimum brightness amount for the Speedrunner Mod.
          */
         public OptionValue<Double> minimumBrightness = new OptionValue<>(0.0D, false);
@@ -156,7 +156,7 @@ public class ClientModOptions {
          * Applies the fog option into the game.
          * <p>Disable this if you are experiencing compatibility issues with other mods that may also mess with fog settings.</p>
          */
-        public OptionValue<Boolean> backgroundRendererMixin = new OptionValue<>(true, true);
+        public OptionValue<Boolean> fogMixins = new OptionValue<>(true, true);
 
         /**
          * Applies the simple option mixin into the game, which controls the brightness option slider.
@@ -181,6 +181,11 @@ public class ClientModOptions {
      * Unconfigurable options; just used for storage and reference.
      */
     public static class StoredValues {
+
+        /**
+         * Determines if the first-time playing screens should load.
+         */
+        public OptionValue<Boolean> firstTimePlaying = new OptionValue<>(true, false);
 
         /**
          * Returns the last completed tutorial step message translation key(s). These messages are sent when the player rejoins the world.

@@ -36,7 +36,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
  */
-public class BlazeSpotterItem extends Item implements StateOfTheArtItem {
+public class BlazeSpotterItem extends Item implements EyeItem {
 
     public BlazeSpotterItem(Settings settings) {
         super(settings.maxCount(16));

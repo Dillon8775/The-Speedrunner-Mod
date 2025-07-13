@@ -1,4 +1,4 @@
-// 1.21.5	-999999999-01-01T00:00:00	Speedrunner Mod/Block Loot Tables
+// 1.21.6	-999999999-01-01T00:00:00	Speedrunner Mod/Block Loot Tables
 b55f757d2d616e71ce26f2639328b81a61c1e87c data/speedrunnermod/loot_table/blocks/dead_speedrunner_bush.json
 23b699bf33989cefbacb8c1cf2a967eb48f2f818 data/speedrunnermod/loot_table/blocks/dead_speedrunner_fence.json
 9dca4f1de3ee3e20b88f2fdcea858cf96926f23a data/speedrunnermod/loot_table/blocks/dead_speedrunner_fence_gate.json

@@ -39,7 +39,7 @@ public abstract class Keybindings {
     @Shadow
     public ClientWorld world;
     @Shadow
-    public abstract void disconnect(Screen screen);
+    public abstract void disconnect(Screen disconnectionScreen, boolean transferring);
     @Shadow
     public abstract void setScreen(@Nullable Screen screen);
     @Shadow
@@ -72,8 +72,8 @@ public abstract class Keybindings {
                         this.inGameHud.getChatHud().clear(false);
                     }
                     assert this.world != null;
-                    this.world.disconnect();
-                    this.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")));
+                    this.world.disconnect(Text.translatable("menu.savingLevel"));
+                    this.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false);
                     CreateWorldScreen.show(MinecraftClient.getInstance(), null);
                 } else {
                     debugWarn("\"Fast World Creation\" is OFF, please enable to use this feature.");
@@ -95,7 +95,7 @@ public abstract class Keybindings {
         }
 
         while (ModKeybindings.fogKey.wasPressed()) {
-            if (clientOptions().mixins.backgroundRendererMixin.getCurrentValue()) {
+            if (clientOptions().mixins.fogMixins.getCurrentValue()) {
                 clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
                 saveClientChanges();
                 MinecraftClient.getInstance().worldRenderer.reload();

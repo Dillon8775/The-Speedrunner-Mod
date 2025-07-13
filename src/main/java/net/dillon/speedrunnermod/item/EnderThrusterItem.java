@@ -33,7 +33,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
-public class EnderThrusterItem extends Item implements StateOfTheArtItem {
+public class EnderThrusterItem extends Item implements EyeItem {
 
     public EnderThrusterItem(Settings settings) {
         super(settings.maxCount(1));

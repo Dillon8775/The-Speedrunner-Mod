@@ -10,6 +10,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
@@ -56,9 +57,9 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.speedrun_igt_missing.line1"), this.width / 2, 90, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.speedrun_igt_missing.line2"), this.width / 2, 110, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.speedrun_igt_missing.line3"), this.width / 2, 130, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.speedrun_igt_missing.line1"), this.width / 2, 90, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.speedrun_igt_missing.line2"), this.width / 2, 110, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.speedrun_igt_missing.line3"), this.width / 2, 130, Colors.WHITE);
     }
 
     @Override

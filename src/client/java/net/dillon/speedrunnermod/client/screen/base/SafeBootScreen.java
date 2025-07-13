@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
@@ -45,8 +46,8 @@ public class SafeBootScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.options.error.line1"), this.width / 2, 100, 16777215);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.options.error.line2"), this.width / 2, 120, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.options.error.line1"), this.width / 2, 100, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.options.error.line2"), this.width / 2, 120, Colors.WHITE);
     }
 
     @Override

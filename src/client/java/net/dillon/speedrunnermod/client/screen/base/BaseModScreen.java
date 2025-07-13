@@ -12,6 +12,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
@@ -33,10 +34,10 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     protected void quitWorld() {
         if (this.client.isInSingleplayer()) {
-            this.client.world.disconnect();
-            this.client.disconnect(new MessageScreen(Text.translatable("menu.savingLevel")));
+            this.client.world.disconnect(Text.translatable("menu.savingLevel"));
+            this.client.disconnect(new MessageScreen(Text.translatable("menu.savingLevel")), false);
         } else {
-            this.client.disconnect();
+            this.client.disconnect(new TitleScreen(), false);
         }
     }
 

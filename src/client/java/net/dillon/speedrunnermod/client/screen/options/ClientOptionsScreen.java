@@ -29,7 +29,8 @@ public class ClientOptionsScreen extends AbstractModScreen {
         return new SimpleOption[]{
                 ModListOptions.fog(),
                 gameOptions.getGamma(),
-                ModListOptions.itemMessages()
+                ModListOptions.itemMessages(),
+                ModListOptions.increasedLavaVision()
         };
     }
 
@@ -42,10 +43,13 @@ public class ClientOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
-        this.lockOptionWithTooltip(ModListOptions.fog(), SpeedrunnerModClient.clientOptions().mixins.backgroundRendererMixin.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.fog(), SpeedrunnerModClient.clientOptions().mixins.fogMixins.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.fog.tooltip"),
-                Text.translatable("speedrunnermod.options.apply_fog_mixin_must_be_enabled.tooltip")
+                Text.translatable("speedrunnermod.options.fog_mixins_must_be_enabled.tooltip")
         );
+        this.lockOptionWithTooltip(ModListOptions.increasedLavaVision(), SpeedrunnerModClient.clientOptions().mixins.fogMixins.getCurrentValue(),
+                Text.translatable("speedrunnermod.options.increased_lava_vision.tooltip"),
+                Text.translatable("speedrunnermod.options.fog_mixins_must_be_enabled.tooltip"));
     }
 
     @Override

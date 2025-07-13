@@ -80,7 +80,8 @@ public class ModUtil {
 
         EyeOfEnderEntity finderentity = new EyeOfEnderEntity(world, player.getX(), player.getBodyY(0.5D), player.getZ());
         finderentity.setItem(itemstack);
-        finderentity.initTargetPos(locpos);
+        Vec3d vec3d = new Vec3d(locpos.getX(), locpos.getY(), locpos.getZ());
+        finderentity.initTargetPos(vec3d);
         world.spawnEntity(finderentity);
 
         if (player instanceof ServerPlayerEntity) {

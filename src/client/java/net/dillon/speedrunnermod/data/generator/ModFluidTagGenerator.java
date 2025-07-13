@@ -19,7 +19,7 @@ public class ModFluidTagGenerator extends FabricTagProvider.FluidTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(ModFluidTags.BOAT_SAFE_FLUIDS)
+        valueLookupBuilder(ModFluidTags.BOAT_SAFE_FLUIDS)
                 .forceAddTag(FluidTags.WATER)
                 .forceAddTag(FluidTags.LAVA);
     }

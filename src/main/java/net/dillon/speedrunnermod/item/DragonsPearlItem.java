@@ -33,7 +33,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
  */
-public class DragonsPearlItem extends Item implements StateOfTheArtItem {
+public class DragonsPearlItem extends Item implements EyeItem {
 
     public DragonsPearlItem(Settings settings) {
         super(settings.maxCount(16).rarity(Rarity.EPIC));

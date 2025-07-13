@@ -37,7 +37,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 /**
  * An item that kills all nearby {@link RaiderEntity}s.
  */
-public class RaidEradicatorItem extends Item implements StateOfTheArtItem {
+public class RaidEradicatorItem extends Item implements EyeItem {
 
     public RaidEradicatorItem(Settings settings) {
         super(settings.rarity(Rarity.EPIC).maxCount(1));

@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.data.tag.EnchantmentTagProvider;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.registry.RegistryWrapper;
 
@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Contains all the entries for new or already existing enchantment tags.
  */
-public class ModEnchantmentTagGenerator extends FabricTagProvider.EnchantmentTagProvider {
+public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
 
     public ModEnchantmentTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
         super(output, completableFuture);
@@ -19,7 +19,7 @@ public class ModEnchantmentTagGenerator extends FabricTagProvider.EnchantmentTag
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
+        this.builder(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
                 .add(Enchantments.PROTECTION)
                 .add(Enchantments.FEATHER_FALLING)
                 .add(Enchantments.THORNS)

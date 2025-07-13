@@ -35,11 +35,11 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow
     public abstract void sendMessage(Text message, boolean actionBar);
-    @Shadow
-    public abstract ServerWorld getServerWorld();
 
-    public ServerPlayerEntityMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    @Shadow public abstract ServerWorld getWorld();
+
+    public ServerPlayerEntityMixin(World world, GameProfile profile) {
+        super(world, profile);
     }
 
     /**
@@ -69,7 +69,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 }
             }
 
-            this.damage((ServerWorld)this.getWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
+            this.damage(this.getWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
             this.teleport(0.5, y, 0.5, true);
             this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
@@ -94,7 +94,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      */
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void sendCords(DamageSource source, CallbackInfo ci) {
-        if (options().main.showDeathCords.getCurrentValue() && this.getServerWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
+        if (options().main.showDeathCords.getCurrentValue() && this.getWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
             this.sendMessage(ModUtil.deathCords(this.getX(), this.getY(), this.getZ()), false);
         }
     }

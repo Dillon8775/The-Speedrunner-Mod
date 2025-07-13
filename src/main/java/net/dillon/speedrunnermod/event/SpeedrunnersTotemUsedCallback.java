@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.event;
 
-import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnersTotemItem;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
@@ -24,10 +23,8 @@ public interface SpeedrunnersTotemUsedCallback {
         for (SpeedrunnersTotemUsedCallback listener : listeners) {
             listener.invoke(entity, stack, source);
 
-            if (stack.isOf(ModItems.SPEEDRUNNERS_TOTEM)) {
-                entity.setHealth(1.0F);
-                entity.getWorld().sendEntityStatus(entity, SpeedrunnersTotemItem.use());
-            }
+            entity.setHealth(1.0F);
+            entity.getWorld().sendEntityStatus(entity, SpeedrunnersTotemItem.use());
         }
     });
 }

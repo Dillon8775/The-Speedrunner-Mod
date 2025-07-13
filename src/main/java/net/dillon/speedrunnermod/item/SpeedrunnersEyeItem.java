@@ -32,7 +32,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
-public class SpeedrunnersEyeItem extends Item implements StateOfTheArtItem {
+public class SpeedrunnersEyeItem extends Item implements EyeItem {
 
     public SpeedrunnersEyeItem(Settings settings) {
         super(settings.maxCount(16).component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
