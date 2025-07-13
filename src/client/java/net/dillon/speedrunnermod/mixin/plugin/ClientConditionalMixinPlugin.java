@@ -28,7 +28,7 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         boolean bl = shouldNotApply(mixinClassName);
         if (bl) {
-            SpeedrunnerMod.warn("Mixin " + mixinClassName + " is disabled.");
+            SpeedrunnerMod.warn("Skipping mixin " + mixinClassName + " for target " + targetClassName + " because it should not be applied.");
         }
         return !bl;
     }

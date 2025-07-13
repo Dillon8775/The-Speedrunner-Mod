@@ -27,7 +27,11 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
      */
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return !shouldNotApply(mixinClassName);
+        boolean bl = shouldNotApply(mixinClassName);
+        if (bl) {
+            SpeedrunnerMod.warn("Skipping mixin " + mixinClassName + " for target " + targetClassName + " because it should not be applied.");
+        }
+        return !bl;
     }
 
     // Other methods...
