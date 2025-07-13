@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.network;
 
+import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.dillon.speedrunnermod.util.Author;
@@ -49,14 +50,14 @@ public abstract class ClientPlayNetworkHandlerMixin extends ClientCommonNetworkH
             switch (packet.getStatus()) {
                 case 63 -> this.client.getSoundManager().play(new SnifferDigSoundInstance((SnifferEntity) entity));
                 case 21 -> this.client.getSoundManager().play(new GuardianAttackSoundInstance((GuardianEntity) entity));
-                case 35, 77 -> {
+                case 35, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES -> {
                     this.client.particleManager.addEmitter(entity, packet.getStatus() == 35 ? ParticleTypes.TOTEM_OF_UNDYING : ModParticleTypes.SPEEDRUNNERS_TOTEM, 30);
                     this.world.playSoundClient(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
                     if (entity != this.client.player) break;
 
                     switch (packet.getStatus()) {
                         case 35 -> this.client.gameRenderer.showFloatingItem(Items.TOTEM_OF_UNDYING.getDefaultStack());
-                        case 77 -> this.client.gameRenderer.showFloatingItem(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
+                        case ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES -> this.client.gameRenderer.showFloatingItem(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
                     }
                 }
                 default -> entity.handleStatus(packet.getStatus());

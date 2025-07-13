@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -81,7 +82,8 @@ public class EnderThrusterItem extends Item implements EyeItem {
                             }
                         }
 
-                        player.teleport(player.getX(), topY, player.getZ(), true);
+                        player.teleport(player.getX(), topY, player.getZ(), false);
+                        world.sendEntityStatus(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
                         world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 
                         ModUtil.completeStepS2C(TutorialStep.USE_ENTER_THRUSTER, player,

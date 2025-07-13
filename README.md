@@ -103,6 +103,8 @@ Comes with more durability than a normal shield, and has a faster cooldown when 
 ### The Speedrunner's Totem
 Stacks to 3, works anywhere in the player's inventory, and gives better effects upon use.
 
+This totem also immitts a special particle, similar to the vanilla totem particle, but blue.
+
 <img src="https://i.imgur.com/jtmh3nP.png" width="228" height="104" alt="">
 
 ---
@@ -963,7 +965,6 @@ Determines if the player must be shifting in order to throw a fireball.
 #### If you don't want to go through the struggle of configuring your speedrunner mod options in the .json file on a server, you can simply configure everything that you want in-game, and then run the /syncoptions command on the server, and all of your settings will be sent over to the server.
 #### The server console will need to authorize the request by executing "syncoptions *playername* accept/deny".
 
-
 ## Match Settings with Server
 #### If you are playing with multiple people and have the speedrunner mod installed on the server, you can join that server and match *your* settings by pressing the "Match Settings with Server" button, located at the bottom left of any speedrunner mod options screen.
 #### You will be required to restart your game, and you will not be able to undo the changes.
@@ -1002,6 +1003,9 @@ Each configuration option has a different stored values, including:
 Do not change _**ANY**_ of these values, except for the currentValue. The currentValue is the only value that you should change. Changing anything else will do nothing and will eventually revert back.
 
 The only reason you should modify the Speedrunner Mod configuration file directly is if you are playing on a server, and you need to change the server's config and you don't want to use the /syncoptions command. Otherwise, you should just change the options via the configuration screen(s).
+
+## Mixin Options
+Mixin options are options that change the vanilla game's code, and should only be disabled if you are experiencing compatibility issues with other mods, or if another mod interferes with a similar feature that this mod changes.
 
 # Dependencies & Compatibility
 - ## **Requires** [Fabric API](https://modrinth.com/mod/fabric-api).

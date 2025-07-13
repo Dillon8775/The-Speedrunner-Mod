@@ -1,6 +1,8 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
+import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.WorldRenderer;
@@ -35,12 +37,10 @@ public abstract class CustomWorldEvents {
      */
     @Inject(method = "processWorldEvent", at = @At("TAIL"))
     private void moddedWorldEvents(int eventId, BlockPos pos, int data, CallbackInfo ci) {
-        if (eventId == 10001) {
-            this.eyeOfEnderBreakEvent(ModItems.ANNUL_EYE, ParticleTypes.PORTAL, pos);
-        } else if (eventId == 10002) {
+        if (eventId == ModStatuses.ADD_SMOKE_PARTICLES) {
             this.eyeOfEnderBreakEvent(ModItems.INFERNO_EYE, ParticleTypes.SMOKE, pos);
-        } else if (eventId == 10003) {
-            this.eyeOfEnderBreakEvent(ModItems.SPEEDRUNNERS_EYE, ParticleTypes.PORTAL, pos);
+        } else if (eventId == ModStatuses.ADD_BLUE_PORTAL_PARTICLES_FOR_SPEEDRUNNERS_EYE) {
+            this.eyeOfEnderBreakEvent(ModItems.SPEEDRUNNERS_EYE, ModParticleTypes.BLUE_PORTAL, pos);
         }
     }
 

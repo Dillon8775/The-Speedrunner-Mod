@@ -1,4 +1,5 @@
 - Updated to 1.21.6!
-- New particle color specifically for the speedrunner's totem!
+- New particle color type for the speedrunner's totem!
+- New particle type for other speedrunner items!
 - A couple of optimizations and bug fixes.
 - Fixed bug where the player can't see further when under lava with the fire resistance effect.

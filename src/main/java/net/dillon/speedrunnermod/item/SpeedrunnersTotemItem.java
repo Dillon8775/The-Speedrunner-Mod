@@ -23,18 +23,10 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 @Author(Authors.YELEEFFF)
 public class SpeedrunnersTotemItem extends Item  {
-    private static final byte BYTE_ID = 77;
 
     public SpeedrunnersTotemItem(Settings settings) {
         super(settings.maxCount(3).rarity(Rarity.RARE).component(DataComponentTypes.DEATH_PROTECTION, ModDataComponentTypes.TOTEM_SPEEDRUNNERS)
                 .registryKey(RegistryKey.of(RegistryKeys.ITEM, ofSpeedrunnerMod("speedrunners_totem"))));
-    }
-
-    /**
-     * Returns the byte identifier for the Speedrunners totem.
-     */
-    public static byte use() {
-        return BYTE_ID;
     }
 
     @Override

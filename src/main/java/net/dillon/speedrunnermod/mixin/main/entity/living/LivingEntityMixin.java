@@ -1,10 +1,12 @@
 package net.dillon.speedrunnermod.mixin.main.entity.living;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.event.SpeedrunnersTotemUsedCallback;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnersTotemItem;
 import net.dillon.speedrunnermod.mixin.main.entity.player.InventoryAccessor;
+import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
@@ -24,6 +26,7 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
@@ -119,6 +122,27 @@ public abstract class LivingEntityMixin extends Entity {
         }
 
         return stack;
+    }
+
+    /**
+     * Implements the {@code BluePortal} particle entity status.
+     */
+    @Inject(method = "handleStatus", at = @At("HEAD"))
+    private void handleStatus(byte status, CallbackInfo ci) {
+        switch (status) {
+            case ModStatuses.ADD_BLUE_PORTAL_PARTICLES:
+                for (int j = 0; j < 128; j++) {
+                    double d = j / 127.0;
+                    float f = (this.random.nextFloat() - 0.5F) * 0.2F;
+                    float g = (this.random.nextFloat() - 0.5F) * 0.2F;
+                    float h = (this.random.nextFloat() - 0.5F) * 0.2F;
+                    double e = MathHelper.lerp(d, this.lastX, this.getX()) + (this.random.nextDouble() - 0.5) * this.getWidth() * 2.0;
+                    double k = MathHelper.lerp(d, this.lastY, this.getY()) + this.random.nextDouble() * this.getHeight();
+                    double l = MathHelper.lerp(d, this.lastZ, this.getZ()) + (this.random.nextDouble() - 0.5) * this.getWidth() * 2.0;
+                    this.getWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, e, k, l, f, g, h);
+                }
+                break;
+        }
     }
 
     /**
