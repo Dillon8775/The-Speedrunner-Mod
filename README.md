@@ -12,7 +12,7 @@ Next, download and run the [Fabric Installer](https://fabricmc.net/use/installer
 
 To install, place the mod .jar file in your ".mods" folder, and don't forget to also download [Fabric API.](https://modrinth.com/mod/fabric-api) Without it, the mod will not run.
 
-### Currently compatible with Minecraft version(s) 1.21.5.
+### Currently compatible with Minecraft version(s) 1.21.5-1.21.7.
 
 ---
 
