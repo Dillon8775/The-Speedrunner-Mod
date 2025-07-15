@@ -15,7 +15,7 @@ public class TntBlockMixin {
      * Fixes {@code ignitables} not working on TNT blocks.
      */
     @Redirect(method = "onUseWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean onUse(ItemStack stack, Item item) {
+    private boolean redirectTntOnUseWithItem(ItemStack stack, Item item) {
         return stack.isIn(ModItemTags.IGNITABLES);
     }
 }

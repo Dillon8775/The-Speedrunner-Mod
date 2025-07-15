@@ -24,7 +24,7 @@ public class SpecialModelTypesMixin {
     public static Codecs.IdMapper<Identifier, MapCodec<? extends SpecialModelRenderer.Unbaked>> ID_MAPPER;
 
     @Inject(method = "bootstrap", at = @At("TAIL"))
-    private static void bootstrap(CallbackInfo ci) {
+    private static void registerSpeedrunnerShieldModelRenderer(CallbackInfo ci) {
         ID_MAPPER.put(ofSpeedrunnerMod("speedrunner_shield"), SpeedrunnerShieldModelRenderer.Unbaked.CODEC);
     }
 }

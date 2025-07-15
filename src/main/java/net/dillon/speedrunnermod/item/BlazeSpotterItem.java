@@ -85,7 +85,6 @@ public class BlazeSpotterItem extends Item implements EyeItem {
                 stack.decrement(1);
                 player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
                 player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
-                player.dropItem((ServerWorld)world, Items.LAVA_BUCKET);
             }
         }
 

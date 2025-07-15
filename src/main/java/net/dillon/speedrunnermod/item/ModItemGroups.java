@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -98,14 +99,28 @@ public class ModItemGroups {
                         entries.add(ModItems.WITHER_SWORD);
                         entries.add(ModItems.WITHER_BONE);
                         entries.add(ModItems.SPEEDRUNNER_PADDLE);
-                        entries.add(ModItems.SPEEDRUNNER_BOAT);
-                        entries.add(ModItems.SPEEDRUNNER_CHEST_BOAT);
+                        ItemStack[] fireproofBoats = new ItemStack[]{
+                                new ItemStack(ModItems.SPEEDRUNNER_BOAT),
+                                new ItemStack(ModItems.SPEEDRUNNER_CHEST_BOAT)
+                        };
+                        for (ItemStack fireproofBoat : fireproofBoats) {
+                            entries.add(fireproofBoat.getItem().getDefaultStack());
+                            fireproofBoat.set(ModDataComponentTypes.BOOLEAN, true);
+                            entries.add(fireproofBoat);
+                        }
                         entries.add(ModItems.DEAD_SPEEDRUNNER_BOAT);
                         entries.add(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT);
-                        entries.add(ModItems.CRIMSON_BOAT);
-                        entries.add(ModItems.CRIMSON_CHEST_BOAT);
-                        entries.add(ModItems.WARPED_BOAT);
-                        entries.add(ModItems.WARPED_CHEST_BOAT);
+                        fireproofBoats = new ItemStack[]{
+                                new ItemStack(ModItems.CRIMSON_BOAT),
+                                new ItemStack(ModItems.CRIMSON_CHEST_BOAT),
+                                new ItemStack(ModItems.WARPED_BOAT),
+                                new ItemStack(ModItems.WARPED_CHEST_BOAT)
+                        };
+                        for (ItemStack fireproofBoat : fireproofBoats) {
+                            entries.add(fireproofBoat.getItem().getDefaultStack());
+                            fireproofBoat.set(ModDataComponentTypes.BOOLEAN, true);
+                            entries.add(fireproofBoat);
+                        }
                         displayContext.lookup().getOptional(RegistryKeys.ENCHANTMENT).ifPresent(registryWrapper -> {
                             addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.DASH);
                             addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.COOLDOWN);

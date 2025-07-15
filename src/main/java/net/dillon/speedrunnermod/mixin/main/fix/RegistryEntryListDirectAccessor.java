@@ -17,10 +17,8 @@ import java.util.Set;
 public interface RegistryEntryListDirectAccessor<T> {
     @Accessor
     List<RegistryEntry<T>> getEntries();
-
     @Accessor @Final @Mutable
     void setEntries(List<RegistryEntry<T>> var1);
-
     @Accessor
     void setEntrySet(Set<RegistryEntry<T>> var1);
 }

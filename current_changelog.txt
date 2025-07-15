@@ -1,5 +1,13 @@
-- Updated to 1.21.6!
-- New particle color type for the speedrunner's totem!
-- New particle type for other speedrunner items!
-- A couple of optimizations and bug fixes.
-- Fixed bug where the player can't see further when under lava with the fire resistance effect.
+Important Changes:
+- The Speedrunner Mod now requires Fabric version 0.16.14 in order to run.
+
+BOAT CHANGES:
+- Speedrunner, crimson, and warped boats can now all be crafted like normal boats, however, they will not be fireproof.
+- To make these boats fireproof, you must add a speedrunner paddle in the normal crafting recipe for the boat to make it fireproof.
+- This allows the player to still be able to easily craft boats, but if they want a fireproof one, they will need a speedrunner paddle.
+- Created separate animated texture for all fireproof boats, so that the player can easily tell if it's fireproof or not.
+
+Optimizations and bug fixes:
+- Fixed bug where sheep drop way too much wool.
+- Fixed duplication glitch where the Blaze Spotter drops a lava bucket (duplicating buckets) no matter what. It no longer drops a lava bucket when using on a disabled mode.
+- Fixed bug where title text renders twice on some scrollable screens.

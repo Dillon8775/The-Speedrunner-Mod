@@ -26,7 +26,7 @@ public abstract class CreateWorldScreenMixin {
      * Reworks how the create world button works, and allows the {@code fast world creation} feature to work accordingly.
      */
     @Inject(method = "init", at = @At("TAIL"))
-    private void init(CallbackInfo ci) {
+    private void fastWorldCreationButtonFunction(CallbackInfo ci) {
         if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
 
             Difficulty difficulty = null;

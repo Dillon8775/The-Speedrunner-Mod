@@ -19,7 +19,7 @@ public interface VibrationsCallbackMixin {
      * Allows players to safely run by or across {@code sculk sensor blocks} if the player is wearing {@code speedrunner boots.}
      */
     @Inject(method = "canAccept", at = @At("RETURN"), cancellable = true)
-    private void isPlayerWearingSpeedrunnerBoots(RegistryEntry<GameEvent> gameEvent, GameEvent.Emitter emitter, CallbackInfoReturnable<Boolean> cir) {
+    private void playerIsSafeWithSpeedrunnerBoots(RegistryEntry<GameEvent> gameEvent, GameEvent.Emitter emitter, CallbackInfoReturnable<Boolean> cir) {
         Entity entity = emitter.sourceEntity();
         if (entity instanceof PlayerEntity player && player.getEquippedStack(EquipmentSlot.FEET).isIn(ModItemTags.SCULK_SENSOR_SAFE_BOOTS)) {
             cir.setReturnValue(false);

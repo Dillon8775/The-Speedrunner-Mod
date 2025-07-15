@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;

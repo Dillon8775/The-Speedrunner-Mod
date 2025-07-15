@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.mixin.main.fix;
 
 import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.SpeedrunnerShearsItem;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
@@ -24,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * This mixin class allows {@link net.dillon.speedrunnermod.item.SpeedrunnerShearsItem} to work correctly.
+ * This mixin class allows the {@link SpeedrunnerShearsItem} to work correctly.
  */
 @Author(Authors.CECH12)
 @Mixin(MatchToolLootCondition.class)

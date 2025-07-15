@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;

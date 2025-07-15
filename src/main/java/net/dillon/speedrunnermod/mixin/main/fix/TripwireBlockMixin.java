@@ -15,7 +15,7 @@ public class TripwireBlockMixin {
      * Fixes {@code speedrunner shears} not working on tripwire hooks.
      */
     @Redirect(method = "onBreak", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean onBreak(ItemStack stack, Item item) {
+    private boolean redirectTripwireBlockOnBreakWithShears(ItemStack stack, Item item) {
         return stack.isIn(ConventionalItemTags.SHEAR_TOOLS);
     }
 }

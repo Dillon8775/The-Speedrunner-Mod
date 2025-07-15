@@ -1,11 +1,13 @@
 package net.dillon.speedrunnermod.entity;
 
+import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.entity.vehicle.BoatEntity;
 import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.Item;
@@ -100,21 +102,21 @@ public class ModEntityTypes {
     }
 
     /**
-     * Determines {@code "fireproof"} boats.
+     * @return {@code fireproof boats.}
      */
-    public static boolean isFireproofBoat(Supplier<Item> itemSupplier) {
-        return itemSupplier.get().getDefaultStack().isIn(ModItemTags.FIREPROOF_BOATS) || itemSupplier.get().getDefaultStack().isIn(ModItemTags.FIREPROOF_CHEST_BOATS);
+    public static boolean isFireproofBoat(AbstractBoatEntity boat) {
+        return ((FireproofBoat)boat).isFireproof() && (boat.itemSupplier.get().getDefaultStack().isIn(ModItemTags.FIREPROOF_BOATS) || boat.itemSupplier.get().getDefaultStack().isIn(ModItemTags.FIREPROOF_CHEST_BOATS));
     }
 
     /**
-     * <p>Determines {@code "faster"} boats, boats that ride slightly faster than normal boats.
+     * @return {@code "faster"} boats, which ride slightly faster than normal boats.
      */
     public static boolean isFastBoat(Supplier<Item> itemSupplier) {
         return itemSupplier.get().getDefaultStack().isIn(ModItemTags.FASTER_BOATS) || itemSupplier.get().getDefaultStack().isIn(ModItemTags.FASTER_CHEST_BOATS);
     }
 
     /**
-     * Initializes all {@code Speedrunner Mod boats.}
+     * Initializes all {@code Speedrunner Mod entity types.}
      */
     public static void initializeEntityTypes() {
         SpeedrunnerMod.debug("Initialized entity types.");

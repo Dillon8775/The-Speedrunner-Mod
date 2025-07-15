@@ -1,6 +1,16 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "speedrunnermod:item/speedrunner_boat"
+    "type": "minecraft:condition",
+    "component": "speedrunnermod:boolean",
+    "ignore_default": true,
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "speedrunnermod:item/speedrunner_boat"
+    },
+    "on_true": {
+      "type": "minecraft:model",
+      "model": "speedrunnermod:item/speedrunner_boat_fireproof"
+    },
+    "property": "minecraft:has_component"
   }
 }

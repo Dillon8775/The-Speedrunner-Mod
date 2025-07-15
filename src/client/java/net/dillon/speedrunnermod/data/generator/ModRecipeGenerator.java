@@ -5,6 +5,12 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
 import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
+import net.dillon.speedrunnermod.recipe.boat.CrimsonBoatRecipe;
+import net.dillon.speedrunnermod.recipe.boat.SpeedrunnerBoatRecipe;
+import net.dillon.speedrunnermod.recipe.boat.WarpedBoatRecipe;
+import net.dillon.speedrunnermod.recipe.boat.chest.CrimsonChestBoatRecipe;
+import net.dillon.speedrunnermod.recipe.boat.chest.SpeedrunnerChestBoatRecipe;
+import net.dillon.speedrunnermod.recipe.boat.chest.WarpedChestBoatRecipe;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -122,7 +128,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK, false);
 
                 helper.createBoatSet(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+                helper.createFireproofBoatSet(CrimsonBoatRecipe::new, CrimsonChestBoatRecipe::new, "crimson");
                 helper.createBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS);
+                helper.createFireproofBoatSet(SpeedrunnerBoatRecipe::new, SpeedrunnerChestBoatRecipe::new, "speedrunner");
+                helper.createBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS);
+                helper.createFireproofBoatSet(WarpedBoatRecipe::new, WarpedChestBoatRecipe::new, "warped");
                 helper.createBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS);
 
                 helper.offerBannerRecipe(Items.BLACK_BANNER, Blocks.BLACK_WOOL);
@@ -904,26 +914,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .pattern("S")
                         .pattern("I")
                         .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
-                        .offerTo(this.exporter);
-
-                this.createShaped(RecipeCategory.TRANSPORTATION, ModItems.SPEEDRUNNER_BOAT)
-                        .input('#', ModItems.SPEEDRUNNER_PLANKS)
-                        .input('P', ModItems.SPEEDRUNNER_PADDLE)
-                        .pattern("#P#")
-                        .pattern("###")
-                        .group("boat")
-                        .criterion("has_speedrunner_paddle", this.conditionsFromItem(ModItems.SPEEDRUNNER_PADDLE))
-                        .offerTo(this.exporter);
-
-                this.createShaped(RecipeCategory.TRANSPORTATION, ModItems.SPEEDRUNNER_CHEST_BOAT)
-                        .input('#', ModItems.SPEEDRUNNER_PLANKS)
-                        .input('P', ModItems.SPEEDRUNNER_PADDLE)
-                        .input('C', Items.CHEST)
-                        .pattern(" P ")
-                        .pattern("#C#")
-                        .pattern("###")
-                        .group("boat")
-                        .criterion("has_speedrunner_paddle", this.conditionsFromItem(ModItems.SPEEDRUNNER_PADDLE))
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.MISC, ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE, 2)

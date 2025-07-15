@@ -15,7 +15,7 @@ public class LavaFogModifierMixin {
      * Increases lava vision distance.
      */
     @Redirect(method = "applyStartEndModifier", at = @At(value = "FIELD", target = "Lnet/minecraft/client/render/fog/FogData;environmentalEnd:F", ordinal = 1))
-    private void modifyFireResistanceFogEnd(FogData instance, float value) {
+    private void applyIncreasedLavaVisionDistance(FogData instance, float value) {
         if (clientOptions().client.increasedLavaVision.getCurrentValue()) {
             instance.environmentalEnd = 35.0F;
         }

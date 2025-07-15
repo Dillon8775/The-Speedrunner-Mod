@@ -18,7 +18,7 @@ public class EndGatewayBlockEntityMixin {
      * Generates {@code doom stone} instead of end stone around the {@code end gateway} world feature if {@code doom mode} is enabled.
      */
     @Redirect(method = "findPortalPosition", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;END_STONE:Lnet/minecraft/block/Block;"))
-    private static Block changeBaseBlock() {
+    private static Block changeEndGatewayBaseBlock() {
         return options().main.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

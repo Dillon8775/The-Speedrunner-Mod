@@ -31,7 +31,7 @@ public abstract class EntityMixin {
      * Decreases time set on fire for from lava.
      */
     @ModifyArg(method = "igniteByLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
-    private float setOnFireFromLavaTime(float x) {
+    private float changeFireFromLavaTime(float x) {
         return ModUtil.getFireDamageFromLavaDuration();
     }
 
@@ -39,7 +39,7 @@ public abstract class EntityMixin {
      * Decreases damage from lava.
      */
     @ModifyArg(method = "setOnFireFromLava", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"))
-    private float setOnFireFromLavaAmount(float x) {
+    private float changeLavaDamageAmount(float x) {
         return ModUtil.getLavaDamageValue();
     }
 
@@ -47,9 +47,9 @@ public abstract class EntityMixin {
      * Allows players to ride in fireproof boats and chest without burning from the lava.
      */
     @Inject(method = {"setOnFireFromLava", "setOnFireFor"}, at = @At("HEAD"), cancellable = true)
-    private void setOnFireFromLava(CallbackInfo ci) {
+    private void cancelOutLavaDamage(CallbackInfo ci) {
         Entity vehicle = getVehicle();
-        if (options().main.lavaBoats.getCurrentValue() && vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat.itemSupplier)) {
+        if (options().main.lavaBoats.getCurrentValue() && vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat)) {
             ci.cancel();
         }
     }

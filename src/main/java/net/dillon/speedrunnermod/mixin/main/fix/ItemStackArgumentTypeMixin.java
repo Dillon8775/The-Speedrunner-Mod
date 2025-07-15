@@ -1,0 +1,83 @@
+package net.dillon.speedrunnermod.mixin.main.fix;
+
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.Suggestions;
+import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import net.dillon.speedrunnermod.util.AI;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.argument.ItemStackArgument;
+import net.minecraft.command.argument.ItemStackArgumentType;
+import net.minecraft.component.ComponentChanges;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.concurrent.CompletableFuture;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+
+@Mixin(ItemStackArgumentType.class)
+public class ItemStackArgumentTypeMixin {
+
+    /**
+     * Fixes suggestions bug when typing in speedrunner mod items.
+     */
+    @AI
+    @Inject(method = "listSuggestions", at = @At("HEAD"), cancellable = true)
+    private void fixCommandArgumentSuggestions(CommandContext<CommandSource> context, SuggestionsBuilder builder, CallbackInfoReturnable<CompletableFuture<Suggestions>> cir) {
+        String input = builder.getRemaining(); // Get user-typed input
+
+        for (Identifier id : Registries.ITEM.getIds()) {
+            if (input.contains(":")) {
+                // If a namespace is typed, suggest only full namespaced versions
+                if (id.toString().contains(input)) {
+                    builder.suggest(id.toString());
+                }
+            } else {
+                // If no namespace is typed, suggest only item paths (shorthand)
+                if (id.getPath().contains(input)) {
+                    builder.suggest(id.getPath());
+                }
+            }
+        }
+
+        cir.setReturnValue(builder.buildFuture());
+    }
+
+    /**
+     * Fixes bug where typing in a speedrunner mod item does without the {@code "speedrunnermod:"} namespace, doesn't work.
+     */
+    @AI
+    @Inject(method = "parse(Lcom/mojang/brigadier/StringReader;)Lnet/minecraft/command/argument/ItemStackArgument;", at = @At("HEAD"), cancellable = true)
+    private void modifyItemParsing(StringReader reader, CallbackInfoReturnable<ItemStackArgument> cir) {
+        int cursor = reader.getCursor();
+        try {
+            Identifier id = Identifier.fromCommandInput(reader); // Read input
+
+            RegistryEntry<Item> entry;
+
+            if (Registries.ITEM.containsId(id)) {
+                entry = Registries.ITEM.getEntry(id).orElseThrow();
+                cir.setReturnValue(new ItemStackArgument(entry, ComponentChanges.EMPTY));
+            }
+
+            for (int i = 0; i < options().advanced.modIds.getCurrentValue().size(); i++) {
+                Identifier modId = Identifier.of(options().advanced.modIds.getCurrentValue().stream().toList().get(i), id.getPath());
+                if (Registries.ITEM.containsId(modId)) {
+                    entry = Registries.ITEM.getEntry(modId).orElseThrow();
+                    cir.setReturnValue(new ItemStackArgument(entry, entry.value().getDefaultStack().getComponentChanges()));
+                }
+            }
+
+        } catch (CommandSyntaxException e) {
+            reader.setCursor(cursor); // Reset cursor if failed
+        }
+    }
+}

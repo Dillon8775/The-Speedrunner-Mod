@@ -176,10 +176,10 @@ public class ModItems {
     public static final Item DEAD_SPEEDRUNNER_STICK = Items.register(of("dead_speedrunner_stick"), Item::new);
 
     public static final Item SPEEDRUNNER_BOAT = Items.register(of("speedrunner_boat"), settings -> new BoatItem(
-            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
 
     public static final Item SPEEDRUNNER_CHEST_BOAT = Items.register(of("speedrunner_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
 
     public static final Item DEAD_SPEEDRUNNER_BOAT = Items.register(of("dead_speedrunner_boat"), settings -> new BoatItem(
             ModEntityTypes.DEAD_SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));
@@ -188,16 +188,16 @@ public class ModItems {
             ModEntityTypes.DEAD_SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item CRIMSON_BOAT = Items.register(of("crimson_boat"), settings -> new BoatItem(
-            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
 
     public static final Item CRIMSON_CHEST_BOAT = Items.register(of("crimson_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
 
     public static final Item WARPED_BOAT = Items.register(of("warped_boat"), settings -> new BoatItem(
-            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
 
     public static final Item WARPED_CHEST_BOAT = Items.register(of("warped_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).fireproof());
+            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BOOLEAN, false).fireproof());
 
     public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new Item(
             settings) {
@@ -217,8 +217,15 @@ public class ModItems {
         }
     }, new Item.Settings().rarity(Rarity.RARE).maxCount(16));
 
-    public static final Item SPEEDRUNNER_PADDLE = Items.register(of("speedrunner_paddle"), Item::new,
-            new Item.Settings().maxCount(16));
+    public static final Item SPEEDRUNNER_PADDLE = Items.register(of("speedrunner_paddle"), settings -> new Item(
+            settings) {
+
+        @Override
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_paddle.tooltip.line1").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_paddle.tooltip.line2").formatted(Formatting.GRAY));
+        }
+    }, new Item.Settings().maxCount(16));
 
     public static final Item WITHER_SWORD = Items.register(of("wither_sword"), WitherSwordItem::new);
     public static final Item ANNUL_EYE = Items.register(of("annul_eye"), AnnulEyeItem::new);

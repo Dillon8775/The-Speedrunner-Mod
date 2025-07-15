@@ -4,14 +4,12 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.data.recipe.SmithingTransformRecipeJsonBuilder;
+import net.minecraft.data.recipe.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
+import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -20,6 +18,7 @@ import net.minecraft.registry.tag.TagKey;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -122,7 +121,15 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     }
 
     /**
-     * Creates a {@code boat} and {@code chest boat} recipe.
+     * Creates a {@code fireproof boat} and {@code chest boat} recipe.
+     */
+    protected void createFireproofBoatSet(Function<CraftingRecipeCategory, Recipe<?>> boat, Function<CraftingRecipeCategory, Recipe<?>> chestBoat, String type) {
+        ComplexRecipeJsonBuilder.create(boat).offerTo(this.exporter, "fireproof_"+type+"_boat");
+        ComplexRecipeJsonBuilder.create(chestBoat).offerTo(this.exporter, "fireproof_"+type+"_chest_boat");
+    }
+
+    /**
+     * Creates a normal {@code boat} and {@code chest boat} recipe.
      */
     protected void createBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible planks) {
         this.offerBoatRecipe(boat, planks);

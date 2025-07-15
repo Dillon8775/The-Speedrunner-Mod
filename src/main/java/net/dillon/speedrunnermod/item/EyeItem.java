@@ -2,6 +2,9 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.text.Text;
@@ -16,6 +19,19 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
  * For all speedrunner mod "eye" items which are used to locate exact distances of structures and print them.
  */
 public interface EyeItem {
+
+    /**
+     * Decrements an item from the player's inventory.
+     */
+    default void decrementItem(PlayerEntity player, Item item) {
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            ItemStack stack = player.getInventory().getStack(i);
+            if (stack.isOf(item)) {
+                stack.decrement(1);
+                break;
+            }
+        }
+    }
 
     /**
      * The text to send when the eye has located a structure.

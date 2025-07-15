@@ -18,7 +18,7 @@ public class EndIslandFeatureMixin {
      * Makes {@code doom stone} generate as the base block of the {@code end islands} (found at the outer end islands) if {@code doom mode} is enabled.
      */
     @Redirect(method = "generate", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;END_STONE:Lnet/minecraft/block/Block;"))
-    private Block changeBaseBlock() {
+    private Block changeEndIslandBaseBlock() {
         return options().main.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

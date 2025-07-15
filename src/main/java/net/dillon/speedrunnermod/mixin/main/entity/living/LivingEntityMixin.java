@@ -64,7 +64,7 @@ public abstract class LivingEntityMixin extends Entity {
      * Adds some features to the players movement speed and abilities, such as the {@code dash enchantment,} and swimming speeds in water and lava.
      */
     @Inject(method = "travel", at = @At("TAIL"))
-    private void travel(Vec3d movementInput, CallbackInfo ci) {
+    private void applyMovementEffects(Vec3d movementInput, CallbackInfo ci) {
         if (this.getEquippedStack(EquipmentSlot.FEET).isIn(ModItemTags.SPEED_BOOTS) || EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((LivingEntity)(Object)this, ModEnchantments.DASH), (LivingEntity)(Object)this) > 0) {
             int i = this.getWorld().getDifficulty() != Difficulty.HARD ? 60 : 20;
             int dashEnchantmentLevel = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((LivingEntity)(Object)this, ModEnchantments.DASH), (LivingEntity)(Object)this);
@@ -106,7 +106,7 @@ public abstract class LivingEntityMixin extends Entity {
     // Gets what totem should be used
     @Author(Authors.YELEEFFF)
     @ModifyVariable(method = "tryUseDeathProtector", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/LivingEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"))
-    private ItemStack setTotemToPop(ItemStack stack, DamageSource source) {
+    private ItemStack allowSpeedrunnersTotemAsDeathProtector(ItemStack stack, DamageSource source) {
         if (this.isPlayer()) {
             PlayerInventory inventory = ((InventoryAccessor) this).getInventory();
             ItemStack totemUndying = Items.TOTEM_OF_UNDYING.getDefaultStack();
@@ -128,7 +128,7 @@ public abstract class LivingEntityMixin extends Entity {
      * Implements the {@code BluePortal} particle entity status.
      */
     @Inject(method = "handleStatus", at = @At("HEAD"))
-    private void handleStatus(byte status, CallbackInfo ci) {
+    private void implementBluePortalParticleEntityStatus(byte status, CallbackInfo ci) {
         switch (status) {
             case ModStatuses.ADD_BLUE_PORTAL_PARTICLES:
                 for (int j = 0; j < 128; j++) {
@@ -149,7 +149,7 @@ public abstract class LivingEntityMixin extends Entity {
      * Makes the player immune to {@code kinetic damage}, if disabled.
      */
     @Inject(method = "checkGlidingCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"), cancellable = true)
-    private void cancelElytraDamage(double oldSpeed, double newSpeed, CallbackInfo ci) {
+    private void cancelOutElytraDamage(double oldSpeed, double newSpeed, CallbackInfo ci) {
         if (!options().main.kineticDamage.getCurrentValue()) {
             ci.cancel();
         }
@@ -159,7 +159,7 @@ public abstract class LivingEntityMixin extends Entity {
      * Disables the sound from playing due to {@code kinetic damage}, if disabled.
      */
     @Inject(method = "checkGlidingCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"), cancellable = true)
-    private void cancelElytraDamageSound(double oldSpeed, double newSpeed, CallbackInfo ci) {
+    private void cancelOutElytraDamageSound(double oldSpeed, double newSpeed, CallbackInfo ci) {
         if (!options().main.kineticDamage.getCurrentValue()) {
             ci.cancel();
         }

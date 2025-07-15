@@ -3,12 +3,14 @@ package net.dillon.speedrunnermod.data.generator;
 import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.client.render.SpeedrunnerShieldModelRenderer;
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.item.property.bool.HasComponentProperty;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
@@ -125,14 +127,19 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.PIGLIN_PORK, Models.GENERATED);
         itemModelGenerator.register(ModItems.COOKED_PIGLIN_PORK, Models.GENERATED);
         itemModelGenerator.register(ModItems.IGNEOUS_ROCK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_CHEST_BOAT, Models.GENERATED);
+
+        this.registerFireproofBoat(itemModelGenerator, ModItems.SPEEDRUNNER_BOAT);
+        this.registerFireproofBoat(itemModelGenerator, ModItems.SPEEDRUNNER_CHEST_BOAT);
+
         itemModelGenerator.register(ModItems.DEAD_SPEEDRUNNER_BOAT, Models.GENERATED);
         itemModelGenerator.register(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.CRIMSON_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.CRIMSON_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WARPED_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WARPED_CHEST_BOAT, Models.GENERATED);
+
+        this.registerFireproofBoat(itemModelGenerator, ModItems.CRIMSON_BOAT);
+        this.registerFireproofBoat(itemModelGenerator, ModItems.CRIMSON_CHEST_BOAT);
+
+        this.registerFireproofBoat(itemModelGenerator, ModItems.WARPED_BOAT);
+        this.registerFireproofBoat(itemModelGenerator, ModItems.WARPED_CHEST_BOAT);
+
         itemModelGenerator.register(ModItems.ANNUL_EYE, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_EYE, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_TOTEM, Models.GENERATED);
@@ -175,5 +182,14 @@ public class ModModelGenerator extends FabricModelProvider {
         ItemModel.Unbaked unbaked = ItemModels.special(ModelIds.getItemModelId(item), new SpeedrunnerShieldModelRenderer.Unbaked());
         ItemModel.Unbaked unbaked2 = ItemModels.special(ModelIds.getItemSubModelId(item, "_blocking"), new SpeedrunnerShieldModelRenderer.Unbaked());
         itemModelGenerator.registerCondition(item, ItemModels.usingItemProperty(), unbaked2, unbaked);
+    }
+
+    /**
+     * Registers a {@code fireproof boat model.}
+     */
+    private void registerFireproofBoat(ItemModelGenerator itemModelGenerator, Item item) {
+        itemModelGenerator.registerCondition(item, new HasComponentProperty(ModDataComponentTypes.BOOLEAN, true),
+                ItemModels.basic(itemModelGenerator.registerSubModel(item, "_fireproof", Models.GENERATED)),
+                ItemModels.basic(itemModelGenerator.upload(item, Models.GENERATED)));
     }
 }

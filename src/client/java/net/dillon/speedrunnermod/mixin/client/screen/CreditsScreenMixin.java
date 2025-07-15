@@ -20,7 +20,7 @@ public class CreditsScreenMixin {
      * Allows the player to be able to close the credits screen in the future after they have read  them.
      */
     @Inject(method = "closeScreen", at = @At("TAIL"))
-    private static void closeScreen(CallbackInfo ci) {
+    private static void allowClosingOfCreditsScreen(CallbackInfo ci) {
         clientOptions().client.canCloseEndCredits.set(true);
         saveClientChanges();
     }
@@ -29,7 +29,7 @@ public class CreditsScreenMixin {
      * Prevents the player from closing the screen if they have not yet read the "credits".
      */
     @Inject(method = "close", at = @At("HEAD"), cancellable = true)
-    private void close(CallbackInfo ci) {
+    private void preventClosingOfCreditsScreen(CallbackInfo ci) {
         if (this.endCredits && !clientOptions().client.canCloseEndCredits.getCurrentValue()) {
             ci.cancel();
         }

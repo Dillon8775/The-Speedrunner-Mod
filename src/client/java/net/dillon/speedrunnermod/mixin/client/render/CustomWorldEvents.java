@@ -36,7 +36,7 @@ public abstract class CustomWorldEvents {
      * <p>See {@link net.dillon.speedrunnermod.mixin.main.entity.EyeOfEnderEntityMixin} for more on this.</p>
      */
     @Inject(method = "processWorldEvent", at = @At("TAIL"))
-    private void moddedWorldEvents(int eventId, BlockPos pos, int data, CallbackInfo ci) {
+    private void implementSpeedrunnerModWorldEvents(int eventId, BlockPos pos, int data, CallbackInfo ci) {
         if (eventId == ModStatuses.ADD_SMOKE_PARTICLES) {
             this.eyeOfEnderBreakEvent(ModItems.INFERNO_EYE, ParticleTypes.SMOKE, pos);
         } else if (eventId == ModStatuses.ADD_BLUE_PORTAL_PARTICLES_FOR_SPEEDRUNNERS_EYE) {

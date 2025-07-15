@@ -191,10 +191,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.OBSIDIAN)
                 .add(Items.CRYING_OBSIDIAN);
 
-        valueLookupBuilder(ModItemTags.Block.SMITHING_TABLES)
-                .add(Items.SMITHING_TABLE)
-                .add(ModItems.SPEEDRUNNERS_WORKBENCH);
-
         valueLookupBuilder(ModItemTags.Block.SPEEDRUNNER_LOGS)
                 .add(ModItems.SPEEDRUNNER_LOG)
                 .add(ModItems.STRIPPED_SPEEDRUNNER_LOG)

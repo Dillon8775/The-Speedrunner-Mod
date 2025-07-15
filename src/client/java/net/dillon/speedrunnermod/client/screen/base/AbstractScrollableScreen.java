@@ -288,7 +288,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             this.scrollOffset = targetScrollOffset;
         }
         super.render(context, mouseX, mouseY, delta);
-        context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 15, Colors.WHITE);
 
         initializeTopAndBottom();
         int scrollbarX = this.width - 10;

@@ -1,4 +1,4 @@
-// 1.21.6	-999999999-01-01T00:00:00	Speedrunner Mod/Tags for minecraft:item
+// 1.21.7	-999999999-01-01T00:00:00	Speedrunner Mod/Tags for minecraft:item
 d4e8fbabce8e118bdc7985820641d86ff907ff7f data/c/tags/item/ingots/iron.json
 55a14f2855efc563470730747a0b80e668282d9e data/c/tags/item/nuggets/iron.json
 e39ac6ffb6af974addd599ea1dfef968053522ad data/c/tags/item/tools/bow.json
@@ -72,7 +72,6 @@ ccac9c96189386e48ab1cb1a3e96a7f5ff7b52be data/speedrunnermod/tags/item/igneous_o
 858b4736f63a64046a40e9dbd025c709c79d7cb2 data/speedrunnermod/tags/item/nether_portal_base_blocks.json
 c6854086952c5c6444cf393ca750b1747cce25e2 data/speedrunnermod/tags/item/piglin_awakener_craftables.json
 3be005000fb6b4ccc4c025d191d9411cb9a2476e data/speedrunnermod/tags/item/sculk_sensor_safe_boots.json
-be89e38c14619d40d4e51dc0413f97f2e5174307 data/speedrunnermod/tags/item/smithing_tables.json
 144a046a30e19c14da560aad676b7ba078355d3c data/speedrunnermod/tags/item/speed_boots.json
 ef005469f5fe0cd1ab52624c8335e616ae031057 data/speedrunnermod/tags/item/speedrunner_armor.json
 2e8b7f847f1f53d0fb5f7cf2e88f5d54cf015c30 data/speedrunnermod/tags/item/speedrunner_fuels.json

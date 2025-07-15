@@ -20,7 +20,7 @@ public class ItemEntityMixin {
      */
     @Author(Authors.UNKNOWN)
     @Inject(method = "isFireImmune", at = @At("RETURN"), cancellable = true)
-    public void isFireImmune(CallbackInfoReturnable<Boolean> cir) {
+    public void implementFireImmuneItemsFunctionality(CallbackInfoReturnable<Boolean> cir) {
         ItemEntity item = (ItemEntity)(Object)this;
         ItemStack stack = item.getStack();
 

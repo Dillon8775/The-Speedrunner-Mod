@@ -15,7 +15,7 @@ public class PumpkinBlockMixin {
      * Fixes {@code speedrunner shears} not working on pumpkin blocks.
      */
     @Redirect(method = "onUseWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean onUse(ItemStack stack, Item item) {
+    private boolean redirectPumpkinBlockOnUseWithItem(ItemStack stack, Item item) {
         return stack.isIn(ConventionalItemTags.SHEAR_TOOLS);
     }
 }

@@ -55,7 +55,7 @@ public abstract class Keybindings {
      * Ensures that the {@code fullbright} option is correctly initialized when launching the game.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void checkGamma(RunArgs args, CallbackInfo ci) {
+    private void setGammaUponStart(RunArgs args, CallbackInfo ci) {
         clientOptions().client.fullBright.set(MinecraftClient.getInstance().options.getGamma().getValue() >= 10.0D);
         saveClientChanges();
     }
@@ -63,8 +63,8 @@ public abstract class Keybindings {
     /**
      * All speedrunner mod {@code keybinding} functions.
      */
-    @Inject(at = @At("TAIL"), method = "handleInputEvents")
-    private void handleInputEvents(CallbackInfo info) {
+    @Inject(method = "handleInputEvents", at = @At("TAIL"))
+    private void implementSpeedrunnerModKeybindFunctions(CallbackInfo info) {
         while (ModKeybindings.resetKey.wasPressed()) {
             if (this.isInSingleplayer() && this.isIntegratedServerRunning() && !this.getServer().isRemote()) {
                 if (clientOptions().client.fastWorldCreation.getCurrentValue()) {

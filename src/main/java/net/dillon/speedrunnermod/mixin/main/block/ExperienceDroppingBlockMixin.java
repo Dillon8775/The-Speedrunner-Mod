@@ -66,7 +66,7 @@ public class ExperienceDroppingBlockMixin extends Block {
      * Makes ores drop more experience when mined, triple that amount if in the {@code Speedrunner's Wasteland} biome.
      */
     @Inject(method = "onStacksDropped", at = @At("TAIL"))
-    public void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
+    public void increaseExperienceDroppedFromOresWithFortune(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
         if (player != null && EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;

@@ -18,7 +18,7 @@ public class EndPortalFeatureMixin {
      * Generates {@code doom stone} around the main end portal (in the end) if {@code doom mode} is enabled.
      */
     @Redirect(method = "generate", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;END_STONE:Lnet/minecraft/block/Block;"))
-    private Block changeBaseBlock() {
+    private Block changeEndPortalFeatureBaseBlock() {
         return options().main.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

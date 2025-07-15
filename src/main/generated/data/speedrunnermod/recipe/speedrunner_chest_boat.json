@@ -1,16 +1,10 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "boat",
-  "key": {
-    "#": "speedrunnermod:speedrunner_planks",
-    "C": "minecraft:chest",
-    "P": "speedrunnermod:speedrunner_paddle"
-  },
-  "pattern": [
-    " P ",
-    "#C#",
-    "###"
+  "group": "chest_boat",
+  "ingredients": [
+    "minecraft:chest",
+    "speedrunnermod:speedrunner_boat"
   ],
   "result": {
     "count": 1,

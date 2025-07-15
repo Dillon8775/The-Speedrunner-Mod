@@ -26,7 +26,7 @@ public abstract class SpawnerBlockMixin extends BlockWithEntity {
      * Makes spawner blocks drop more experience when mined.
      */
     @Inject(method = "onStacksDropped", at = @At("TAIL"))
-    private void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
+    private void increaseExperienceDroppedFromSpawnerBlockWithOrWithoutFortune(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
         int f = player != null ? EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 172 : 1;
         int i = 512 + world.random.nextInt(524) + world.random.nextInt(128) + f;

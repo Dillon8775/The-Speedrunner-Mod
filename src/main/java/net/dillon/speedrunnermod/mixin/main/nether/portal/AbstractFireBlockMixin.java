@@ -19,7 +19,7 @@ public class AbstractFireBlockMixin {
      * Returns {@code nether portal base blocks} (crying obsidian is included in this tag).
      */
     @Redirect(method = "shouldLightPortalAt", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"))
-    private static boolean netherPortalBaseBlocks(BlockState state, Block block) {
+    private static boolean newNetherPortalBaseBlocks(BlockState state, Block block) {
         return state.isIn(ModBlockTags.NETHER_PORTAL_BASE_BLOCKS);
     }
 

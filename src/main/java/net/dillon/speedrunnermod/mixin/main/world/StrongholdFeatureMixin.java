@@ -19,7 +19,7 @@ public abstract class StrongholdFeatureMixin {
      * Changes the {@code minimum} and {@code maximum Y-value} a stronghold can generate at.
      */
     @ModifyArgs(method = "addPieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/structure/StructurePiecesCollector;shiftInto(IILnet/minecraft/util/math/random/Random;I)I"))
-    private static void changeMinAndMaxYValue(Args args) {
+    private static void changeStrongholdMinAndMaxY(Args args) {
         if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdYGeneration.getCurrentValue()) {
             args.set(1, ModUtil.getStrongholdMinY());
             args.set(0, ModUtil.getStrongholdMaxY());

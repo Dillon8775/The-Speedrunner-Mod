@@ -37,7 +37,7 @@ public class RegistryLoaderMixin {
     @Author(Authors.MAXENCEDC)
     @AI
     @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"), method = "parseAndAdd")
-    private static <E> void load(MutableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, RegistryKey<E> resourceKey, Resource resource, RegistryEntryInfo registrationInfo, CallbackInfo ci, @Local JsonElement jsonElement) {
+    private static <E> void customDataGeneration(MutableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, RegistryKey<E> resourceKey, Resource resource, RegistryEntryInfo registrationInfo, CallbackInfo ci, @Local JsonElement jsonElement) {
         String path = registry.getKey().getValue().getPath();
         String fileName = path + "/" + resourceKey.getValue().getPath() + ".json";
 

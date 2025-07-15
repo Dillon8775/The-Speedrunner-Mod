@@ -15,7 +15,7 @@ public class SnowGolemEntityMixin {
      * Fixes {@code speedrunner shears} not working on snow golems.
      */
     @Redirect(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
-    private boolean interactMob(ItemStack stack, Item item) {
+    private boolean redirectSnowGolemEntityUseWithShears(ItemStack stack, Item item) {
         return stack.isIn(ConventionalItemTags.SHEAR_TOOLS);
     }
 }

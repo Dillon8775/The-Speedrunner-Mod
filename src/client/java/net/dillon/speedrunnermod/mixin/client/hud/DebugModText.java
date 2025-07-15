@@ -22,7 +22,7 @@ public class DebugModText {
      * <p>Also adds a small doom mode text (if it's enabled).</p>
      */
     @Inject(method = "getRightText", at = @At("RETURN"))
-    private void getRightText(CallbackInfoReturnable<List<String>> cir) {
+    private void putSpeedrunnerModTextDebugMenu(CallbackInfoReturnable<List<String>> cir) {
         List<String> returnValue = cir.getReturnValue();
         returnValue.add(SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION);
         if (isDoomMode()) {

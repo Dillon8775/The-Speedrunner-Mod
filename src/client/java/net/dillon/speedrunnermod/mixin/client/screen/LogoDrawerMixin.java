@@ -20,7 +20,7 @@ public class LogoDrawerMixin {
     private boolean ignoreAlpha;
 
     @Inject(method = "draw(Lnet/minecraft/client/gui/DrawContext;IFI)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIFFIIIII)V", ordinal = 1), cancellable = true)
-    private void speedrunnerEdition(DrawContext context, int screenWidth, float alpha, int y2, CallbackInfo ci) {
+    private void replaceJavaEditionLogoWithSpeedrunnerEditionLogo(DrawContext context, int screenWidth, float alpha, int y2, CallbackInfo ci) {
         ci.cancel();
         float f = this.ignoreAlpha ? 1.0F : alpha;
         int j = ColorHelper.getWhite(f);

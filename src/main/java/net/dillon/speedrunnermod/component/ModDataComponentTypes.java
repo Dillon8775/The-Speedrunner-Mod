@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.component;
 
+import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.ComponentType;
@@ -30,6 +31,9 @@ public class ModDataComponentTypes {
 
     public static final ComponentType<ItemStack> STORED_ITEMSTACK = Registry.register(
             Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("stored_itemstack"), ComponentType.<ItemStack>builder().codec(ItemStack.OPTIONAL_CODEC).packetCodec(ItemStack.OPTIONAL_PACKET_CODEC).build());
+
+    public static final ComponentType<Boolean> BOOLEAN = Registry.register(
+            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("boolean"), ComponentType.<Boolean>builder().codec(Codec.BOOL).build());
 
     public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
             List.of(

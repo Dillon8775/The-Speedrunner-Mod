@@ -1,4 +1,4 @@
-// 1.21.6	-999999999-01-01T00:00:00	Speedrunner Mod/Tags for minecraft:block
+// 1.21.7	-999999999-01-01T00:00:00	Speedrunner Mod/Tags for minecraft:block
 392128baca0d6125ce1fb0855d3ef5267c5a9648 data/minecraft/tags/block/beacon_base_blocks.json
 9cfd5f89b1a72d6ac40f07ffc4e3a76eb78ec2e3 data/minecraft/tags/block/ceiling_hanging_signs.json
 986504d53c29cdf82d3995494666ca4c18f17799 data/minecraft/tags/block/doors.json
@@ -31,7 +31,6 @@ a1a439e4b7dde8962382d6b643658545ae59e5c5 data/speedrunnermod/tags/block/doom_log
 ccac9c96189386e48ab1cb1a3e96a7f5ff7b52be data/speedrunnermod/tags/block/igneous_ores.json
 673791220c22c286b011a6e244a959a605b3260b data/speedrunnermod/tags/block/iron_blocks.json
 858b4736f63a64046a40e9dbd025c709c79d7cb2 data/speedrunnermod/tags/block/nether_portal_base_blocks.json
-be89e38c14619d40d4e51dc0413f97f2e5174307 data/speedrunnermod/tags/block/smithing_tables.json
 2e8b7f847f1f53d0fb5f7cf2e88f5d54cf015c30 data/speedrunnermod/tags/block/speedrunner_fuels.json
 f835774514532d85f95cc176011fd40ae642771d data/speedrunnermod/tags/block/speedrunner_logs.json
 7c7170cc938f0292a03b08e7bb2d1c94e4f1807f data/speedrunnermod/tags/block/speedrunner_ores.json

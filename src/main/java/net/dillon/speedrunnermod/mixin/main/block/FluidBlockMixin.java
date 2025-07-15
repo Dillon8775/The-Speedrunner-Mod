@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class FluidBlockMixin {
 
     /**
-     * Makes water replace lava with basalt instead of obsidian when any nether biome.
+     * Makes water replace lava with basalt instead of obsidian when in any nether biome.
      */
     @Redirect(method = "receiveNeighborFluids", at = @At(value = "FIELD", target = "Lnet/minecraft/block/Blocks;OBSIDIAN:Lnet/minecraft/block/Block;"))
-    private Block change(World world, BlockPos pos, BlockState state) {
+    private Block replaceLavaWithBasaltFromWaterInNether(World world, BlockPos pos, BlockState state) {
         return world.getBiome(pos).isIn(BiomeTags.IS_NETHER) ? Blocks.BASALT : Blocks.OBSIDIAN;
     }
 }

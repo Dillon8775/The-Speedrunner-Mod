@@ -13,7 +13,6 @@ import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
@@ -22,12 +21,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All Speedrunner Mod {@code blocks.}
  */
 public class ModBlocks {
-    public static final Identifier SPEEDRUNNER_SIGN_TEXTURE = ofSpeedrunnerMod("entity/signs/speedrunner");
-    public static final Identifier SPEEDRUNNER_HANGING_SIGN_TEXTURE = ofSpeedrunnerMod("entity/signs/hanging/speedrunner");
-    public static final Identifier SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE = ofSpeedrunnerMod("textures/gui/hanging_signs/speedrunner");
-    public static final Identifier DEAD_SPEEDRUNNER_SIGN_TEXTURE = ofSpeedrunnerMod("entity/signs/dead_speedrunner");
-    public static final Identifier DEAD_SPEEDRUNNER_HANGING_SIGN_TEXTURE = ofSpeedrunnerMod("entity/signs/hanging/dead_speedrunner");
-    public static final Identifier DEAD_SPEEDRUNNER_HANGING_GUI_SIGN_TEXTURE = ofSpeedrunnerMod("textures/gui/hanging_signs/dead_speedrunner");
 
     public static final Block SPEEDRUNNER_LOG = Blocks.register(of("speedrunner_log"), PillarBlock::new, Block.Settings.create()
             .strength(1.0F)

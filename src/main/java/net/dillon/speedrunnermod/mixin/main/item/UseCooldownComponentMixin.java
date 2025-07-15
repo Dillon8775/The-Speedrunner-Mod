@@ -19,8 +19,11 @@ public abstract class UseCooldownComponentMixin {
     @Shadow
     public abstract int getCooldownTicks();
 
+    /**
+     * Applies the {@code cooldown enchantment} to chorus fruits.
+     */
     @Inject(method = "set", at = @At("TAIL"))
-    private void set(ItemStack stack, LivingEntity user, CallbackInfo ci) {
+    private void implementCooldownEnchantmentChorusFruit(ItemStack stack, LivingEntity user, CallbackInfo ci) {
         if (user instanceof PlayerEntity player && stack.isOf(Items.CHORUS_FRUIT)) {
             int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment(user, ModEnchantments.COOLDOWN), user);
             int cooldown = coolEnchantment > 3 ? 0 : coolEnchantment == 3 ? 5 : coolEnchantment == 2 ? 10 : coolEnchantment == 1 ? 15 : 20;

@@ -29,7 +29,7 @@ public class RedstoneOreBlockMixin extends Block {
      * <p>Done separately because the {@link RedstoneOreBlock} is an entirely separate class from {@link net.minecraft.block.ExperienceDroppingBlock}</p>
      */
     @Inject(method = "onStacksDropped", at = @At("TAIL"))
-    private void onStacksDropped(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
+    private void increasedExperienceDroppedFromRedstoneOreWithFortune(BlockState state, ServerWorld world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
         if (player != null && EnchantmentHelper.getLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;

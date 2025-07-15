@@ -43,10 +43,6 @@ public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.OBSIDIAN)
                 .add(Blocks.CRYING_OBSIDIAN);
 
-        valueLookupBuilder(ModBlockTags.SMITHING_TABLES)
-                .add(Blocks.SMITHING_TABLE)
-                .add(ModBlocks.SPEEDRUNNERS_WORKBENCH);
-
         valueLookupBuilder(ModBlockTags.SPEEDRUNNER_LOGS)
                 .add(ModBlocks.SPEEDRUNNER_LOG)
                 .add(ModBlocks.STRIPPED_SPEEDRUNNER_LOG)

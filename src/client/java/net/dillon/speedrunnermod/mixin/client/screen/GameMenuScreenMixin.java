@@ -41,7 +41,7 @@ public class GameMenuScreenMixin extends Screen {
      * Adds additional buttons to the game menu screen (discord, options button, etc.)
      */
     @Inject(method = "initWidgets", at = @At("TAIL"))
-    private void addButtons(CallbackInfo ci) {
+    private void addSpeedrunnerModButtons(CallbackInfo ci) {
         if (this.showMenu) {
             this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                 this.client.setScreen(new MainScreen(this));
@@ -69,7 +69,7 @@ public class GameMenuScreenMixin extends Screen {
      * Renders additional textures on the game menu screen.
      */
     @Inject(method = "render", at = @At("TAIL"))
-    private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    private void renderSpeedrunnerModButtonTextures(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (this.showMenu) {
             ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton);
 

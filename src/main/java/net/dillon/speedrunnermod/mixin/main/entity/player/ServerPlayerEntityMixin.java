@@ -93,7 +93,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      * Sends the players coordinates to chat upon death.
      */
     @Inject(method = "onDeath", at = @At("TAIL"))
-    private void sendCords(DamageSource source, CallbackInfo ci) {
+    private void sendDeathCords(DamageSource source, CallbackInfo ci) {
         if (options().main.showDeathCords.getCurrentValue() && this.getWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
             this.sendMessage(ModUtil.deathCords(this.getX(), this.getY(), this.getZ()), false);
         }
@@ -103,7 +103,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      * Sends the tutorial mode chat message.
      */
     @Inject(method = "onSpawn", at = @At("TAIL"))
-    private void sendTutorialMessage(CallbackInfo ci) {
+    private void sendBeginningTutorialModeMessage(CallbackInfo ci) {
         ModUtil.completeStepS2C(TutorialStep.ENTER_WORLD, this,
                 "speedrunnermod.tutorial_mode.greeting",
                 "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe");

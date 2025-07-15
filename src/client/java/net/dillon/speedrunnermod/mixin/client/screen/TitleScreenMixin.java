@@ -48,7 +48,7 @@ public class TitleScreenMixin extends Screen {
      * Adds additional buttons to the title screen.
      */
     @Inject(method = "init", at = @At("TAIL"))
-    private void addButtons(CallbackInfo ci) {
+    private void addSpeedrunnerModButtons(CallbackInfo ci) {
         this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
             this.client.setScreen(new MainScreen(this));
         }).dimensions(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
@@ -69,7 +69,7 @@ public class TitleScreenMixin extends Screen {
      * Adds additional textures to the title screen.
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/ColorHelper;withAlpha(FI)I"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci, float f) {
+    private void renderSpeedrunnerModButtonTexturesAndText(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci, float f) {
         ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton, f);
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {

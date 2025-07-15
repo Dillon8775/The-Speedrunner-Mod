@@ -232,19 +232,6 @@ public class AnnulEyeItem extends Item implements EyeItem {
         return world.getBlockState(searchingPos).getBlock().equals(Blocks.END_PORTAL_FRAME);
     }
 
-    /**
-     * Decrements an item from the player's inventory.
-     */
-    private void decrementItem(PlayerEntity player, Item item) {
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            ItemStack stack = player.getInventory().getStack(i);
-            if (stack.isOf(item)) {
-                stack.decrement(1);
-                break;
-            }
-        }
-    }
-
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1")

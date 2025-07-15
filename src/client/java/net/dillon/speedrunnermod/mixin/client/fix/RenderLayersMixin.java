@@ -35,7 +35,7 @@ public class RenderLayersMixin {
      * Allows modded boats to render correctly when in lava.
      */
     @Inject(method = "getFluidLayer", at = @At("RETURN"), cancellable = true)
-    private static void renderLava(FluidState state, CallbackInfoReturnable<BlockRenderLayer> cir) {
+    private static void registerLavaBoatRenderer(FluidState state, CallbackInfoReturnable<BlockRenderLayer> cir) {
         BlockRenderLayer lavaRenderLayer = LAVA.get(state.getFluid());
         if (lavaRenderLayer != null) {
             cir.setReturnValue(lavaRenderLayer);

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.option;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.mixin.main.command.argument.ItemStackArgumentTypeMixin;
+import net.dillon.speedrunnermod.mixin.main.fix.ItemStackArgumentTypeMixin;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
