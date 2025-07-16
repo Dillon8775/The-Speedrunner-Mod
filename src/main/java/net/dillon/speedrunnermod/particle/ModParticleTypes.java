@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.particle;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.registry.Registries;
@@ -20,5 +21,7 @@ public class ModParticleTypes {
     public static void registerParticles() {
         Registry.register(Registries.PARTICLE_TYPE, ofSpeedrunnerMod("speedrunners_totem"), SPEEDRUNNERS_TOTEM);
         Registry.register(Registries.PARTICLE_TYPE, ofSpeedrunnerMod("blue_portal"), BLUE_PORTAL);
+
+        SpeedrunnerMod.debug("Registered speedrunner mod particle types.");
     }
 }

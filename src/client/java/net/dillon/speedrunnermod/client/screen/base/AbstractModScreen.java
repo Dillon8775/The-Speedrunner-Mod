@@ -90,7 +90,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.openLink(ModLinks.MODRINTH, true);
             }).dimensions(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
             this.openOptionsDirectoryButton = this.addDrawableChild(ButtonWidget.builder(Text.literal("D."), (button) -> {
-                this.close();
                 Util.getOperatingSystem().open(this.configDirectory);
             }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
@@ -239,10 +238,8 @@ public abstract class AbstractModScreen extends BaseModScreen {
                         this.getSimpleOption(option).active = bl;
                     } else {
                         this.getSimpleOption(option).active = this.getSimpleOption(option).getMessage().getString().toLowerCase().contains(this.searchField.getText().toLowerCase());
-                        if (this.getSimpleOption(option).isHovered()) {
-                            if (!this.getSimpleOption(option).active) {
-                                this.getSimpleOption(option).active = bl;
-                            }
+                        if (this.getSimpleOption(option).isHovered() && !bl) {
+                            this.getSimpleOption(option).active = false;
                         }
                     }
                     this.getSimpleOption(option).setTooltip(Tooltip.of(bl ? defaultTooltip : disabledTooltip));

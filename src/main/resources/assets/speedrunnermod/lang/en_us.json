@@ -818,7 +818,7 @@
   "speedrunnermod.server_closed_sync_options": "/syncoptions command was used by %s. Server closed.",
 
   "speedrunnermod.menu.open_options_file": "Open File...",
-  "speedrunnermod.menu.open_options_file.tooltip": "Open the main configuration file...",
+  "speedrunnermod.menu.open_options_file.tooltip": "Open the main configuration file...\nHold §lshift§f to open the client-configuration file.",
   "speedrunnermod.menu.open_client_options_file.tooltip": "Open client-side configuration file...",
 
   "speedrunnermod.menu.features": "Features...",
