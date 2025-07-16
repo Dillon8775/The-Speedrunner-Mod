@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -12,7 +11,6 @@ import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
 
 import java.util.Map;
 
@@ -20,10 +18,11 @@ import java.util.Map;
  * An abstract representation of a {@code fireproof boat recipe.}
  */
 public abstract class AbstractFireproofBoatRecipe extends ShapedRecipe {
+    private final boolean chest;
     private final Item result;
 
     public AbstractFireproofBoatRecipe(Item plank, Item result, boolean chest, CraftingRecipeCategory category) {
-        super("",
+        super("boat",
                 category,
                 chest ?
                         RawShapedRecipe.create(
@@ -41,16 +40,8 @@ public abstract class AbstractFireproofBoatRecipe extends ShapedRecipe {
                                 "PPP"
                         ),
                 new ItemStack(result), true);
+        this.chest = chest;
         this.result = result;
-    }
-
-    /**
-     * Allows the recipe to work without the speedrunner paddle.
-     * <p>If the recipe has the planks in the correclt slots, it's good!.</p>
-     */
-    @AI
-    public boolean matches(CraftingRecipeInput input, World world) {
-        return super.matches(input, world);
     }
 
     /**
@@ -60,7 +51,7 @@ public abstract class AbstractFireproofBoatRecipe extends ShapedRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = new ItemStack(this.result);
 
-        ItemStack center = input.getStackInSlot(1); // 1 is "center" slot for this recipe
+        ItemStack center = input.getStackInSlot(this.chest ? 4 : 1); // 1 is "center" slot for normal recipe, if it's a chest then 4 is the center slot
 
         if (center.isOf(ModItems.SPEEDRUNNER_PADDLE)) {
             result.set(ModDataComponentTypes.BOOLEAN, true);

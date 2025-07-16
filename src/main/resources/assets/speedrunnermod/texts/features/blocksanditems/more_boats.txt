@@ -1,13 +1,15 @@
 ### Introducing the §bSpeedrunner Boat, §3Dead Speedrunner Boat, §cCrimson Boat, §fand §9Warped Boat.
 
-#### All three types of boats can be ridden in lava, except the §3dead speedrunner boat,§f which §6burns in lava.
+#### All three types of boats can be ridden in lava if crafted with a §bspeedrunner paddle, except the §3dead speedrunner boat.
 
 #### Additionally, the §bSpeedrunner Boat§f and §3Dead Speedrunner Boat§f ride faster in §9any fluid.
 
 !image:textures/gui/features/other/more_boats.png scale=.15
 !image:textures/gui/features/screenshots/lava_boats.png scale=.14
 
-### The §bSpeedrunner Boat§r is crafted with §b5 speedrunner planks, §r§fa §6lava bucket,§r§f and §b2 speedrunner paddles.
+### The §bSpeedrunner Boat§r is crafted with §b5 speedrunner planks.
+
+### If you want to craft a §6fireproof boat,§f you need to add a §bspeedrunner paddle§f into the recipe.
 
 !image:textures/gui/features/recipes/speedrunner_boat_crafting_recipe.png scale=.3
 !image:textures/gui/features/recipes/speedrunner_chest_boat_crafting_recipe.png scale=.3

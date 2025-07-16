@@ -123,9 +123,10 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * Creates a {@code fireproof boat} and {@code chest boat} recipe.
      */
-    protected void createFireproofBoatSet(Function<CraftingRecipeCategory, Recipe<?>> boat, Function<CraftingRecipeCategory, Recipe<?>> chestBoat, String type) {
+    protected void createFireproofBoatSet(Function<CraftingRecipeCategory, Recipe<?>> boat, Function<CraftingRecipeCategory, Recipe<?>> cbWithPaddle, Function<CraftingRecipeCategory, Recipe<?>> cbWithoutPaddle, String type) {
         ComplexRecipeJsonBuilder.create(boat).offerTo(this.exporter, "fireproof_"+type+"_boat");
-        ComplexRecipeJsonBuilder.create(chestBoat).offerTo(this.exporter, "fireproof_"+type+"_chest_boat");
+        ComplexRecipeJsonBuilder.create(cbWithPaddle).offerTo(this.exporter, "fireproof_"+type+"_chest_boat_with_paddle");
+        ComplexRecipeJsonBuilder.create(cbWithoutPaddle).offerTo(this.exporter, "fireproof_"+type+"_chest_boat_without_paddle");
     }
 
     /**
