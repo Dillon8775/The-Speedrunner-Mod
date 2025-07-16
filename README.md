@@ -14,6 +14,13 @@ To install, place the mod .jar file in your ".mods" folder, and don't forget to 
 
 ### Currently compatible with Minecraft version(s) 1.21.5-1.21.7.
 
+#### Important Note:
+New Speedrunner Mod versions are always released with the *current Minecraft version.* If a new Minecraft version releases, support for any previous Minecraft version for this mod is dropped. I try to make this mod up-to-date with the latest Minecraft version, making it near impossible to keep up support for all previous versions.
+
+With this being said, if you decide to play the Speedrunner Mod on an older Minecraft version, please be aware that *that* version of the mod **may have unknown bugs, outdated features, and/or broken features.** It's recommended to stay on the latest Minecraft version *and* latest speedrunner mod version.
+
+I know newer Minecraft versions are harder to speedrun, but ***not with this mod...***
+
 ---
 
 # Features
@@ -47,22 +54,23 @@ This type of wood can be used as a fuel source, but it does not burn from nearby
 
 ---
 
-### The Speedrunner Boat
-Faster than normal boats, and can be ridden in lava.
-
-<img src="https://i.imgur.com/INHsNHH.png" width="228" height="104" alt="">
-
----
-
 ### Speedrunner Paddle
-A paddle, which is used to craft the speedrunner boats.
+A paddle, which is used to craft **lava boats.**
 
 <img src="https://i.imgur.com/QREEEbN.png" width="228" height="104" alt="">
 
 ---
 
+### The Speedrunner Boat
+Faster than normal boats, and can be ridden in lava (if crafted with a speedrunner paddle).
+
+#### <img src="https://i.imgur.com/iKNdyW8.png" width="228" height="104" alt="">
+<img src="https://i.imgur.com/8x6a6Hh.png" width="228" height="104" alt="">
+
+---
+
 ### Crimson and Warped Boats
-Boats that can be ridden in lava.
+Boats that can be ridden in lava (if crafted with a speedrunner paddle).
 
 ### You can disable boats riding in lava by turning off the "Lava Boats" option.
 
@@ -73,7 +81,7 @@ Boats that can be ridden in lava.
 ---
 
 ### Dead Speedrunner Wood
-Similar to speedrunner wood, however, these blocks do burn from nearby fire and lava, and it's respective boats (the dead speedrunner boat) cannot ride in lava, but still faster than normal boats.
+Similar to speedrunner wood, however, these blocks do burn from nearby fire and lava, and it's respective boats (the dead speedrunner boat) cannot ride in lava, but are still faster than normal boats.
 
 <img src="https://i.imgur.com/XyT6DzL.png" width="73" height="73" alt="">
 

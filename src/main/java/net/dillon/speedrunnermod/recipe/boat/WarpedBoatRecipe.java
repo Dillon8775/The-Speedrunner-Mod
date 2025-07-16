@@ -13,7 +13,7 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 public class WarpedBoatRecipe extends AbstractFireproofBoatRecipe {
 
     public WarpedBoatRecipe(CraftingRecipeCategory category) {
-        super(Items.WARPED_PLANKS, ModItems.WARPED_BOAT, false, category);
+        super(Items.WARPED_PLANKS, ModItems.WARPED_BOAT, category);
     }
 
     @Override

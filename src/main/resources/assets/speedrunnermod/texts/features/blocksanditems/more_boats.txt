@@ -12,4 +12,4 @@
 ### If you want to craft a §6fireproof boat,§f you need to add a §bspeedrunner paddle§f into the recipe.
 
 !image:textures/gui/features/recipes/speedrunner_boat_crafting_recipe.png scale=.3
-!image:textures/gui/features/recipes/speedrunner_chest_boat_crafting_recipe.png scale=.3
+!image:textures/gui/features/recipes/fireproof_speedrunner_boat_crafting_recipe.png scale=.3

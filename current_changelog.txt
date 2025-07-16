@@ -8,6 +8,7 @@ Boat Changes:
 - Created separate animated texture for all fireproof boats, so that the player can easily tell if it's fireproof or not.
 
 Other Changes:
+- Added a search field at the top of speedrunner mod options and feature screens to easily search for different options and features.
 - Increased random chance that the player will get the mining fatigue effect.
 
 Optimizations and bug fixes:

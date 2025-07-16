@@ -27,11 +27,13 @@ import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.OptionListWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.lwjgl.glfw.GLFW;
@@ -105,6 +107,207 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
             }
         }
+        if (this.hasSearchField()) {
+            this.searchField = new TextFieldWidget(this.textRenderer, this.width / 2 + 15, 10, 90, 15, null);
+            this.searchField.setMaxLength(50);
+            this.searchField.setPlaceholder(Text.translatable(isOptionsScreen() ? "speedrunnermod.search_field_options_screen.placeholder" : "speedrunnermod.search_field_features_screen.placeholder").formatted(Formatting.ITALIC).formatted(Formatting.GRAY));
+            this.addSelectableChild(this.searchField);
+        }
+    }
+
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+        this.renderCustomText(context);
+
+        if (this.shouldRenderVersionText()) {
+            int leftSide = this.width / 2 - 155;
+            int rightSide = leftSide + 160;
+            int farRightSide = rightSide + 267;
+            int height = this.height - 24;
+            context.drawCenteredTextWithShadow(this.textRenderer, SpeedrunnerMod.VERSION, farRightSide, height, Colors.WHITE);
+        }
+
+        if (this.searchField != null) {
+            this.searchField.render(context, mouseX, mouseY, delta);
+            this.search(!this.searchField.getText().isEmpty());
+        }
+        this.lockOptionsAndRenderTooltips(context, mouseX, mouseY);
+
+        if (this.shouldRenderTitleText()) {
+            context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.hasSearchField() ? this.width / 2 - 45 : this.width / 2, 13, Colors.WHITE);
+        }
+
+        if (this.isOptionsScreen()) {
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/sync.png"), matchSettingsWithServer.getX() + 2, matchSettingsWithServer.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+        }
+
+        if (this.shouldRenderSpeedrunnerModTitle()) {
+            int middle = this.width / 2 - 69;
+            int height = 10;
+            context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
+        }
+        this.renderCustomObjects(context);
+        if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
+            this.renderTooltips(context, mouseX, mouseY);
+        }
+    }
+
+    /**
+     * Renders tooltips on certain buttons.
+     */
+    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+        if (this.isOptionsScreen()) {
+            if (this.saveButton.isHovered()) {
+                this.renderBasicTooltip(ModTexts.SAVE_TOOLTIP, context, mouseX, mouseY);
+            }
+            if (this.openOptionsFileButton.isHovered()) {
+                if (!hasShiftDown()) {
+                    this.renderBasicTooltip(ModTexts.OPEN_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
+                } else {
+                    this.renderBasicTooltip(ModTexts.OPEN_CLIENT_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
+                }
+            }
+            if (this.helpButton.isHovered()) {
+                this.renderBasicTooltip(ModTexts.HELP_TOOLTIP, context, mouseX, mouseY);
+            }
+            if (this.openOptionsDirectoryButton.isHovered()) {
+                this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
+            }
+            if (this.matchSettingsWithServer.isHovered()) {
+                if (this.matchSettingsWithServer.active) {
+                    this.renderBasicTooltip(Text.translatable("speedrunnermod.match_settings_with_server.tooltip"), context, mouseX, mouseY);
+                } else {
+                    this.renderBasicTooltip(Text.translatable("speedrunnermod.match_settings_with_server.must_be_on_server.tooltip"), context, mouseX, mouseY);
+                }
+            }
+        }
+    }
+
+    /**
+     * Searches buttons and filters them active/inactive.
+     */
+    private void search(boolean lock) {
+        if (this.buttonList != null) {
+            for (CustomButtonListWidget.ModWidgetEntry entry : this.buttonList.children()) {
+                for (ClickableWidget widget : entry.widgets) {
+                    this.filter(widget, lock);
+                }
+            }
+        } else {
+            for (OptionListWidget.WidgetEntry entry : this.optionList.children()) {
+                for (ClickableWidget widget : entry.widgets) {
+                    this.filter(widget, lock);
+                }
+            }
+        }
+    }
+
+    /**
+     * Grays out a button based on a search query.
+     */
+    private void filter(ClickableWidget widget, boolean lock) {
+        String optionText = widget.getMessage().getString().toLowerCase();
+        int colonIndex = optionText.indexOf(":");
+        if (colonIndex > 0) {
+            optionText = optionText.substring(0, optionText.indexOf(":")).toLowerCase();
+        }
+        widget.active = !lock || this.searchField.getText().isEmpty() || optionText.contains(this.searchField.getText().toLowerCase());
+    }
+
+    /**
+     * Deactivates certain buttons based on certain boolean values, and renders the option's default tooltip and disabled tooltip.
+     * <p>Do not call if {@code optionList} is {@code null.}</p>
+     * @param option the boolean expression to determine if the option should be locked.
+     *               <p>if {@code bl} is {@code false}, the specified option is locked.</p>
+     * @param defaultTooltip the tooltip to render when the option is enabled/unlocked.
+     * @param disabledTooltip the tooltip to render when the option is disabled/locked.
+     */
+    protected void lockOptionWithTooltip(
+            SimpleOption<?> option,
+            boolean bl,
+            Text defaultTooltip,
+            Text disabledTooltip
+    ) {
+        try {
+            if (this.optionList != null) {
+                if (this.getSimpleOption(option) == null) {
+                    SpeedrunnerMod.error("No widget found with option: " + option.toString());
+                } else {
+                    if (this.searchField.getText().isEmpty()) {
+                        this.getSimpleOption(option).active = bl;
+                    } else {
+                        this.getSimpleOption(option).active = this.getSimpleOption(option).getMessage().getString().toLowerCase().contains(this.searchField.getText().toLowerCase());
+                        if (this.getSimpleOption(option).isHovered()) {
+                            if (!this.getSimpleOption(option).active) {
+                                this.getSimpleOption(option).active = bl;
+                            }
+                        }
+                    }
+                    this.getSimpleOption(option).setTooltip(Tooltip.of(bl ? defaultTooltip : disabledTooltip));
+                }
+            } else {
+                throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
+            }
+        } catch (NullPointerException n) {
+            this.client.scheduleStop();
+            n.printStackTrace();
+        }
+    }
+
+    /**
+     * @return the widget containing {@link SimpleOption} {@code (option).}
+     */
+    private ClickableWidget getSimpleOption(SimpleOption<?> option) {
+        for (OptionListWidget.WidgetEntry entry : this.optionList.children()) {
+            for (ClickableWidget widget : entry.widgets) {
+                String messageText = widget.getMessage().getString();
+                messageText = messageText.substring(0, messageText.indexOf(":"));
+                if (messageText.equals(option.toString())) {
+                    return widget;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Sets the screen to the {@code parent} screen and resizes it correctly.
+     */
+    protected void setParentAndResize() {
+        if (this.parent != null) {
+            this.parent.resize(this.client, this.width, this.height);
+            this.client.setScreen(this.parent);
+        } else {
+            super.close();
+        }
+    }
+
+    /**
+     * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
+     */
+    @AI
+    protected void addButtonsIteratively(ScreenCategory screenCategory) {
+        this.featureButtons.clear();
+        int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
+                .map(constructor -> constructor.apply(this.parent))
+                .filter(screen -> screen.getScreenCategory() == screenCategory)
+                .mapToInt(AbstractFeatureScreen::getPageNumber)
+                .max()
+                .orElse(0);
+
+        for (int pageNum = 1; pageNum <= maxPageNumber; pageNum++) {
+            for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
+                AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
+                if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
+                    this.featureButtons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
+                        this.client.setScreen(screen);
+                    }).build());
+                }
+            }
+        }
     }
 
     @Override
@@ -155,47 +358,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
         }
     }
 
-    @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
-        this.renderCustomText(context);
-
-        if (this.shouldRenderVersionText()) {
-            int leftSide = this.width / 2 - 155;
-            int rightSide = leftSide + 160;
-            int farRightSide = rightSide + 267;
-            int height = this.height - 24;
-            context.drawCenteredTextWithShadow(this.textRenderer, SpeedrunnerMod.VERSION, farRightSide, height, Colors.WHITE);
-        }
-
-        if (this.shouldRenderTitleText()) {
-            context.drawCenteredTextWithShadow(this.textRenderer, this.title, this.width / 2, 13, Colors.WHITE);
-        }
-
-        if (this.isOptionsScreen()) {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/sync.png"), matchSettingsWithServer.getX() + 2, matchSettingsWithServer.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-        }
-
-        if (this.shouldRenderSpeedrunnerModTitle()) {
-            int middle = this.width / 2 - 69;
-            int height = 10;
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, Identifier.of("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
-        }
-        this.renderCustomObjects(context);
-        this.lockOptionsAndRenderTooltips(context, mouseX, mouseY);
-        if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
-            this.renderTooltips(context, mouseX, mouseY);
-        }
-    }
-
     /**
      * Refreshes the screen to allow the user to modify list options.
      */
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         if (this.isOptionsScreen()) {
-            if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
+            if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && !this.searchField.isFocused() && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
                 double scrollY = advancedOptionsScreen.optionList.getScrollY();
                 this.refreshScreen(this.pageId());
                 AbstractModScreen modScreen = (AdvancedOptionsScreen)MinecraftClient.getInstance().currentScreen;
@@ -213,73 +382,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
         this.buttonList = this.addDrawableChild(new CustomButtonListWidget(this.client, this.width, this));
     }
 
-    /**
-     * Sets the screen to the {@code parent} screen and resizes it correctly.
-     */
-    protected void setParentAndResize() {
-        if (this.parent != null) {
-            this.parent.resize(this.client, this.width, this.height);
-            this.client.setScreen(this.parent);
-        } else {
-            super.close();
-        }
-    }
-
-    /**
-     * Renders tooltips on certain buttons.
-     */
-    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.isOptionsScreen()) {
-            if (this.saveButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.SAVE_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.openOptionsFileButton.isHovered()) {
-                if (!hasShiftDown()) {
-                    this.renderBasicTooltip(ModTexts.OPEN_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
-                } else {
-                    this.renderBasicTooltip(ModTexts.OPEN_CLIENT_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
-                }
-            }
-            if (this.helpButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.HELP_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.openOptionsDirectoryButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.matchSettingsWithServer.isHovered()) {
-                if (this.matchSettingsWithServer.active) {
-                    this.renderBasicTooltip(Text.translatable("speedrunnermod.match_settings_with_server.tooltip"), context, mouseX, mouseY);
-                } else {
-                    this.renderBasicTooltip(Text.translatable("speedrunnermod.match_settings_with_server.must_be_on_server.tooltip"), context, mouseX, mouseY);
-                }
-            }
-        }
-    }
-
-    /**
-     * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
-     */
-    @AI
-    protected void addButtonsIteratively(ScreenCategory screenCategory) {
-        this.featureButtons.clear();
-        int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
-                .map(constructor -> constructor.apply(this.parent))
-                .filter(screen -> screen.getScreenCategory() == screenCategory)
-                .mapToInt(AbstractFeatureScreen::getPageNumber)
-                .max()
-                .orElse(0);
-
-        for (int pageNum = 1; pageNum <= maxPageNumber; pageNum++) {
-            for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-                AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
-                if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
-                    this.featureButtons.add(ButtonWidget.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
-                        this.client.setScreen(screen);
-                    }).build());
-                }
-            }
-        }
-    }
 
     /**
      * The list of buttons to add.
@@ -296,54 +398,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     private static Text featureTitleText(ScreenCategory category, String lang) {
         return Text.translatable("speedrunnermod.title.features." + category.toString().toLowerCase() + "." + lang);
-    }
-
-    /**
-     * Deactivates certain buttons based on certain boolean values, and renders the option's default tooltip and disabled tooltip.
-     * <p>Do not call if {@code optionList} is {@code null.}</p>
-     * @param option the boolean expression to determine if the option should be locked.
-     *               <p>if {@code bl} is {@code false}, the specified option is locked.</p>
-     * @param defaultTooltip the tooltip to render when the option is enabled/unlocked.
-     * @param disabledTooltip the tooltip to render when the option is disabled/locked.
-     */
-    protected void lockOptionWithTooltip(
-            SimpleOption<?> option,
-            boolean bl,
-            Text defaultTooltip,
-            Text disabledTooltip
-    ) {
-        try {
-            if (this.optionList != null) {
-                if (this.getWidget(option) == null) {
-                    SpeedrunnerMod.error("No widget found with option: " + option.toString());
-                } else {
-                    this.getWidget(option).active = bl;
-                    this.getWidget(option).setTooltip(Tooltip.of(bl ? defaultTooltip : disabledTooltip));
-                }
-            } else {
-                throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
-            }
-        } catch (NullPointerException n) {
-            this.client.scheduleStop();
-            n.printStackTrace();
-        }
-    }
-
-    /**
-     * @return the widget containing {@link SimpleOption} {@code (option).}
-     */
-    private ClickableWidget getWidget(SimpleOption<?> option) {
-        for (OptionListWidget.WidgetEntry entry : this.optionList.children()) {
-            for (ClickableWidget widget : entry.widgets) {
-                String messageText = widget.getMessage().getString();
-                messageText = messageText.substring(0, messageText.indexOf(":"));
-                if (messageText.equals(option.toString())) {
-                    return widget;
-                }
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -443,13 +497,20 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * @return {@code true} if the screen should render the speedrunner mod title.
      */
-    protected boolean shouldRenderSpeedrunnerModTitle() {
+    protected boolean shouldRenderSpeedrunnerModTitle(){
         return false;
     }
 
     /**
+     * @return {@code true} if the screen should have a search field to search for features/options.
+     */
+    protected boolean hasSearchField() {
+        return this.isOptionsScreen();
+    }
+
+    /**
      * Render custom text on a mod screen.
-     * <p>NEVER {@link Override} the render basic method, use this method instead.</p>
+     * <p><b>Never</b> {@link Override} the {@code basic render method,} use this method instead.</p>
      */
     protected void renderCustomText(DrawContext context) {
     }

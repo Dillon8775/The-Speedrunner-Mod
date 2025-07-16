@@ -927,9 +927,8 @@
 
   "speedrunnermod.features.tooltip": "View all Speedrunner Mod features...",
 
-  "speedrunnermod.menu.changelogs": "Changelogs...",
-  "speedrunnermod.menu.changelogs.tooltip": "View the changelog for the latest version!",
-  "speedrunnermod.title.changelogs": "Changelogs",
+  "speedrunnermod.search_field_options_screen.placeholder": "Search options...",
+  "speedrunnermod.search_field_features_screen.placeholder": "Search features...",
 
   "speedrunnermod.menu.resources": "Resources...",
   "speedrunnermod.menu.resources.tooltip": "Mods, tutorials, and more!",

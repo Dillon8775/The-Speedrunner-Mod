@@ -35,6 +35,11 @@ public class ToolsAndArmorScreen extends AbstractModScreen {
     }
 
     @Override
+    protected boolean hasSearchField() {
+        return true;
+    }
+
+    @Override
     protected boolean shouldRenderVersionText() {
         return false;
     }

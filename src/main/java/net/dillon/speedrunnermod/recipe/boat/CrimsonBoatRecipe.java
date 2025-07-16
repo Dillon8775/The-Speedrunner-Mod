@@ -13,7 +13,7 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 public class CrimsonBoatRecipe extends AbstractFireproofBoatRecipe {
 
     public CrimsonBoatRecipe(CraftingRecipeCategory category) {
-        super(Items.CRIMSON_PLANKS, ModItems.CRIMSON_BOAT, false, category);
+        super(Items.CRIMSON_PLANKS, ModItems.CRIMSON_BOAT, category);
     }
 
     @Override

@@ -71,8 +71,8 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
     }
 
     @Environment(value= EnvType.CLIENT)
-    protected static class ModWidgetEntry extends ElementListWidget.Entry<ModWidgetEntry> {
-        private final List<ClickableWidget> widgets;
+    public static class ModWidgetEntry extends ElementListWidget.Entry<ModWidgetEntry> {
+        public final List<ClickableWidget> widgets;
 
         private ModWidgetEntry(List<ClickableWidget> widgets) {
             this.widgets = widgets;

@@ -16,7 +16,7 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.recipe.ModRecipes.CENTER_SLOT;
+import static net.dillon.speedrunnermod.recipe.ModRecipes.CENTER_SLOT_3x3;
 
 /**
  * The recipe for the piglin awakener recipe, which makes it drop the correct item if crafted on the wrong mode.
@@ -50,7 +50,7 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = new ItemStack(ModItems.PIGLIN_AWAKENER);
 
-        ItemStack center = input.getStackInSlot(CENTER_SLOT); // 4 is center slot
+        ItemStack center = input.getStackInSlot(CENTER_SLOT_3x3); // 4 is center slot
 
         if (center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             result.set(ModDataComponentTypes.STORED_ITEMSTACK, center.copyWithCount(1));

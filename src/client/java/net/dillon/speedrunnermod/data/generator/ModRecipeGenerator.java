@@ -128,11 +128,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK, false);
 
                 helper.createBoatSet(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
-                helper.createFireproofBoatSet(CrimsonBoatRecipe::new, CrimsonChestBoatRecipe.WithPaddle::new, CrimsonChestBoatRecipe.WithoutPaddle::new, "crimson");
+                helper.createFireproofBoatSet(CrimsonBoatRecipe::new, CrimsonChestBoatRecipe::new, "crimson");
                 helper.createBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS);
-                helper.createFireproofBoatSet(SpeedrunnerBoatRecipe::new, SpeedrunnerChestBoatRecipe.WithPaddle::new, SpeedrunnerChestBoatRecipe.WithoutPaddle::new, "speedrunner");
+                helper.createFireproofBoatSet(SpeedrunnerBoatRecipe::new, SpeedrunnerChestBoatRecipe::new, "speedrunner");
                 helper.createBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS);
-                helper.createFireproofBoatSet(WarpedBoatRecipe::new, WarpedChestBoatRecipe.WithPaddle::new, WarpedChestBoatRecipe.WithoutPaddle::new, "warped");
+                helper.createFireproofBoatSet(WarpedBoatRecipe::new, WarpedChestBoatRecipe::new, "warped");
                 helper.createBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS);
 
                 helper.offerBannerRecipe(Items.BLACK_BANNER, Blocks.BLACK_WOOL);

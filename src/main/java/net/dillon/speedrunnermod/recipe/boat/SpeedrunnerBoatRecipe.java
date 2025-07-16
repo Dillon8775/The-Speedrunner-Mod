@@ -12,7 +12,7 @@ import net.minecraft.recipe.book.CraftingRecipeCategory;
 public class SpeedrunnerBoatRecipe extends AbstractFireproofBoatRecipe {
 
     public SpeedrunnerBoatRecipe(CraftingRecipeCategory category) {
-        super(ModItems.SPEEDRUNNER_PLANKS, ModItems.SPEEDRUNNER_BOAT, false, category);
+        super(ModItems.SPEEDRUNNER_PLANKS, ModItems.SPEEDRUNNER_BOAT, category);
     }
 
     @Override

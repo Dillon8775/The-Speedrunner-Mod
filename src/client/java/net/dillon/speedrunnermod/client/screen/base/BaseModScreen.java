@@ -14,6 +14,7 @@ import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -24,6 +25,7 @@ import java.util.function.Function;
  */
 @Environment(EnvType.CLIENT)
 public class BaseModScreen extends GameOptionsScreen {
+    protected TextFieldWidget searchField;
 
     public BaseModScreen(Screen parent, Text title) {
         super(parent, MinecraftClient.getInstance().options, title);
@@ -46,8 +48,18 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     @Override
     public void resize(MinecraftClient client, int width, int height) {
+        String text = "";
+        boolean refocus = this.searchField != null && this.searchField.isFocused();
+        if (this.searchField != null) {
+            text = this.searchField.getText();
+            refocus = this.searchField.isFocused();
+        }
         super.resize(client, width, height);
         this.clearAndInit();
+        if (this.searchField != null) {
+            this.searchField.setText(text);
+            this.searchField.setFocused(refocus);
+        }
     }
 
     /**
