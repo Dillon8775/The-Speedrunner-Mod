@@ -20,7 +20,7 @@ public class CaveSpiderEntityMixin {
      * A thing for {@code doom mode.} >:)
      */
     @Inject(method = "tryAttack", at = @At(value = "RETURN", ordinal = 0))
-    private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
+    private void caveSpiderInflictsSlowness(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (isDoomMode() && target instanceof PlayerEntity player) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 200, 0));
         }

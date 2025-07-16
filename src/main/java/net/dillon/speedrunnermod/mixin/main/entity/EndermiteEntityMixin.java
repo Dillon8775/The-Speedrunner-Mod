@@ -19,7 +19,7 @@ public class EndermiteEntityMixin {
      * Modifies {@code endermite} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends EndermiteEntity> entityType, World world, CallbackInfo ci) {
+    private void changeEndermiteAttributes(EntityType<? extends EndermiteEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 8.0D : 4.0D);
         ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.25D : 0.15D);

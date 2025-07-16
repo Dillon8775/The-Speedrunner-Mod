@@ -19,7 +19,7 @@ public class PillagerEntityMixin {
      * Modifies {@code pillager} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends PillagerEntity> entityType, World world, CallbackInfo ci) {
+    private void changePillagerAttributes(EntityType<? extends PillagerEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 32.0D : 12.0D);
         ModUtil.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);

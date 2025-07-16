@@ -26,7 +26,7 @@ public class VexEntityMixin extends HostileEntity {
      * Modifies {@code vex} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends VexEntity> entityType, World world, CallbackInfo ci) {
+    private void changeVexAttributes(EntityType<? extends VexEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 7.0D : 14.0D);
         ModUtil.modifyAttackDamage(this, isDoomMode() ? 3.0D : 4.0D);
     }
@@ -36,7 +36,7 @@ public class VexEntityMixin extends HostileEntity {
      * @reason Disables vexes from {@code noClipping} on {@code doom mode.}
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/VexEntity;noClip:Z"))
-    private void setNoClip(VexEntity vex, boolean value) {
+    private void preventNoClippingOnDoomMode(VexEntity vex, boolean value) {
         vex.noClip = !isDoomMode();
     }
 
@@ -44,7 +44,7 @@ public class VexEntityMixin extends HostileEntity {
      * Increases the damage dealt to themselves when decaying.
      */
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/VexEntity;serverDamage(Lnet/minecraft/entity/damage/DamageSource;F)V"), index = 1)
-    private float amount(float amount) {
+    private float increaseVexDecayDamage(float amount) {
         return ModUtil.getVexDecayDamageValue();
     }
 

@@ -19,7 +19,7 @@ public class IronGolemEntityMixin {
      * Modifies {@code golem} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends IronGolemEntity> entityType, World world, CallbackInfo ci) {
+    private void changeIronGolemAttributes(EntityType<? extends IronGolemEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 100.0D : 50.0D);
         ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.3D : 0.25D);

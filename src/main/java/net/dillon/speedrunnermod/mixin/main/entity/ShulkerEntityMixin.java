@@ -34,7 +34,7 @@ public abstract class ShulkerEntityMixin extends GolemEntity {
      * Modifies the {@code maximum health} of a shulker.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void genericMaxHealth(EntityType<? extends ShulkerEntity> entityType, World world, CallbackInfo ci) {
+    private void changeShulkerAttributes(EntityType<? extends ShulkerEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 32.0D : 20.0D);
     }
 

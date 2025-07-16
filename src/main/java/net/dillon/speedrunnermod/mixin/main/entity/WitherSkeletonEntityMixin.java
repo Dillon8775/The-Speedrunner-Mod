@@ -22,7 +22,7 @@ public class WitherSkeletonEntityMixin {
      * Lowers attack damage from wither skeletons.
      */
     @ModifyArg(method = "initialize", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttributeInstance;setBaseValue(D)V"))
-    private double genericAttackDamage(double baseValue) {
+    private double changeWitherSkeletonMaxDamage(double baseValue) {
         return isDoomMode() ? 10.0D : 1.0D;
     }
 
@@ -30,7 +30,7 @@ public class WitherSkeletonEntityMixin {
      * Decreases the amplifier of the wither effect when wither skeleton's attack.
      */
     @ModifyArg(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/registry/entry/RegistryEntry;I)V"), index = 1)
-    private int tryAttack(int x) {
+    private int changeWitherEffectDuration(int x) {
         return ModUtil.getWitherSkeletonWitherEffectDuration();
     }
 
@@ -38,7 +38,7 @@ public class WitherSkeletonEntityMixin {
      * Inflicts players with {@code slowness} if {@code doom mode} is enabled.
      */
     @Inject(method = "tryAttack", at = @At("RETURN"))
-    private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<?> cir) {
+    private void inflictSlowness(ServerWorld world, Entity target, CallbackInfoReturnable<?> cir) {
         if (isDoomMode() && target instanceof PlayerEntity player) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
         }

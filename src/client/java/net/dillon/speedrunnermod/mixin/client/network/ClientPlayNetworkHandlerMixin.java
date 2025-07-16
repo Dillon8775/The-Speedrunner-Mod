@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.network;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
@@ -9,27 +10,20 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientCommonNetworkHandler;
 import net.minecraft.client.network.ClientConnectionState;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.sound.GuardianAttackSoundInstance;
-import net.minecraft.client.sound.SnifferDigSoundInstance;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.GuardianEntity;
-import net.minecraft.entity.passive.SnifferEntity;
-import net.minecraft.item.Items;
 import net.minecraft.network.ClientConnection;
-import net.minecraft.network.NetworkThreadUtils;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.listener.TickablePacketListener;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Author(Authors.YELEEFFF)
 @Mixin(ClientPlayNetworkHandler.class)
-public abstract class ClientPlayNetworkHandlerMixin extends ClientCommonNetworkHandler implements ClientPlayPacketListener, TickablePacketListener {
+public abstract class ClientPlayNetworkHandlerMixin extends ClientCommonNetworkHandler {
     @Shadow
     private ClientWorld world;
 
@@ -38,30 +32,17 @@ public abstract class ClientPlayNetworkHandlerMixin extends ClientCommonNetworkH
     }
 
     /**
-     * @author Dillon8775
-     * @reason Injects {@code speedrunner totem item use rendering.}
+     * Implements correct use and rendering of the {@code speedrunners totem.}
      */
-    @Overwrite
-    public void onEntityStatus(EntityStatusS2CPacket packet) {
-        NetworkThreadUtils.forceMainThread(packet, this, this.client);
-        Entity entity = packet.getEntity(this.world);
-
-        if (entity != null) {
-            switch (packet.getStatus()) {
-                case 63 -> this.client.getSoundManager().play(new SnifferDigSoundInstance((SnifferEntity) entity));
-                case 21 -> this.client.getSoundManager().play(new GuardianAttackSoundInstance((GuardianEntity) entity));
-                case 35, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES -> {
-                    this.client.particleManager.addEmitter(entity, packet.getStatus() == 35 ? ParticleTypes.TOTEM_OF_UNDYING : ModParticleTypes.SPEEDRUNNERS_TOTEM, 30);
-                    this.world.playSoundClient(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
-                    if (entity != this.client.player) break;
-
-                    switch (packet.getStatus()) {
-                        case 35 -> this.client.gameRenderer.showFloatingItem(Items.TOTEM_OF_UNDYING.getDefaultStack());
-                        case ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES -> this.client.gameRenderer.showFloatingItem(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
-                    }
-                }
-                default -> entity.handleStatus(packet.getStatus());
+    @Inject(method = "onEntityStatus", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/packet/s2c/play/EntityStatusS2CPacket;getStatus()B"))
+    private void implementSpeedrunnersTotemStatus(EntityStatusS2CPacket packet, CallbackInfo ci, @Local Entity entity) {
+        if (packet.getStatus() == ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES) {
+            this.client.particleManager.addEmitter(entity, ModParticleTypes.SPEEDRUNNERS_TOTEM, 30);
+            this.world.playSoundClient(entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ITEM_TOTEM_USE, entity.getSoundCategory(), 1.0F, 1.0F, false);
+            if (entity != this.client.player) {
+                return;
             }
+            this.client.gameRenderer.showFloatingItem(ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
         }
     }
 }

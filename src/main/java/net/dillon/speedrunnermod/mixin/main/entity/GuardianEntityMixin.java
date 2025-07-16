@@ -19,7 +19,7 @@ public class GuardianEntityMixin {
      * Modifies {@code guardian} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends GuardianEntity> entityType, World world, CallbackInfo ci) {
+    private void changeGuardianAttributes(EntityType<? extends GuardianEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 3.0D);
         ModUtil.modifyFollowRange(dis, isDoomMode() ? 24.0D : 8.0D);

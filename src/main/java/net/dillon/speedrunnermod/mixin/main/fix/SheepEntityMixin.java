@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.mixin.main.entity;
+package net.dillon.speedrunnermod.mixin.main.fix;
 
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.entity.passive.SheepEntity;

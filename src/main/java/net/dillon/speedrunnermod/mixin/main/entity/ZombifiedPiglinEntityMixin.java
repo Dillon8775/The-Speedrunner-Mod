@@ -17,7 +17,7 @@ public class ZombifiedPiglinEntityMixin {
      * Modifies {@code zombified piglin} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(CallbackInfo ci) {
+    private void changeZombifiedPiglinAttributes(CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.33D : 0.23D);
         ModUtil.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 2.0D);

@@ -28,7 +28,7 @@ public abstract class VindicatorEntityMixin extends IllagerEntity {
      * Modifies {@code vindicator} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends VindicatorEntity> entityType, World world, CallbackInfo ci) {
+    private void changeVindicatorAttributes(EntityType<? extends VindicatorEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyFollowRange(this, isDoomMode() ? 48.0D : 12.0D);
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 20.0D : 24.0D);
     }

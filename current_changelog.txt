@@ -1,13 +1,18 @@
 Important Changes:
 - The Speedrunner Mod now requires Fabric version 0.16.14 in order to run.
 
-BOAT CHANGES:
+Boat Changes:
 - Speedrunner, crimson, and warped boats can now all be crafted like normal boats, however, they will not be fireproof.
 - To make these boats fireproof, you must add a speedrunner paddle in the normal crafting recipe for the boat to make it fireproof.
 - This allows the player to still be able to easily craft boats, but if they want a fireproof one, they will need a speedrunner paddle.
 - Created separate animated texture for all fireproof boats, so that the player can easily tell if it's fireproof or not.
 
+Other Changes:
+- Increased random chance that the player will get the mining fatigue effect.
+
 Optimizations and bug fixes:
+- Fixed bug where lava doesn't do the correct amount of damage.
+- Fixed bug where player can cancel out previous fire damage by entering a fireproof boat.
 - Fixed bug where sheep drop way too much wool.
 - Fixed duplication glitch where the Blaze Spotter drops a lava bucket (duplicating buckets) no matter what. It no longer drops a lava bucket when using on a disabled mode.
 - Fixed bug where title text renders twice on some scrollable screens.

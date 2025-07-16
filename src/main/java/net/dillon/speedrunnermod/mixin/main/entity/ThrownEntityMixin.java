@@ -14,7 +14,7 @@ public class ThrownEntityMixin {
      * Makes the {@code InfiniPearl} faster in water.
      */
     @ModifyArg(method = "applyDrag", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;multiply(D)Lnet/minecraft/util/math/Vec3d;"))
-    private double cancelDrag(double value) {
+    private double cancelPearlDrag(double value) {
         if ((ThrownEntity)(Object)this instanceof ThrownItemEntity thrownItemEntity) {
             if (thrownItemEntity.isTouchingWater() && thrownItemEntity.getStack().getItem().getDefaultStack().isOf(ModItems.INFINI_PEARL)) {
                 return 0.9F;

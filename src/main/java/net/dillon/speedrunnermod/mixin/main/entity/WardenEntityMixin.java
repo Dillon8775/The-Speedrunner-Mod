@@ -32,7 +32,7 @@ public class WardenEntityMixin extends HostileEntity {
 
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends WardenEntity> entityType, World world, CallbackInfo ci) {
+    private void changeWardenAttributes(EntityType<? extends WardenEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 400.0D : 200.0D);
         ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.4D : 0.2D);
         ModUtil.modifyKnockbackResistance(this, isDoomMode() ? 1.0D : 0.65D);

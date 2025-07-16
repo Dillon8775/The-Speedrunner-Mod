@@ -46,7 +46,7 @@
     "main.entity.PillagerEntityMixin",
     "main.entity.ProjectileUtilMixin",
     "main.entity.RavagerEntityMixin",
-    "main.entity.SheepEntityMixin",
+    "main.fix.SheepEntityMixin",
     "main.entity.ShulkerEntityMixin",
     "main.entity.SilverfishEntityCallForHelpGoalMixin",
     "main.entity.SilverfishEntityMixin",

@@ -19,7 +19,7 @@ public class WitchEntityMixin {
      * Modifies {@code witch} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends WitchEntity> entityType, World world, CallbackInfo ci) {
+    private void changeWitchAttributes(EntityType<? extends WitchEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 26.0D : 14.0D);
         ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.35D : 0.25D);

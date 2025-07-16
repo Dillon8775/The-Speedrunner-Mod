@@ -16,7 +16,7 @@ public class SilverfishEntityCallForHelpGoalMixin {
      * Increases the delay for silverfish to spawn more silverfish when being hit, block broken, etc.
      */
     @Redirect(method = "onHurt", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/SilverfishEntity$CallForHelpGoal;delay:I", ordinal = 0))
-    private int onHurt(SilverfishEntity.CallForHelpGoal callForHelpGoal) {
+    private int changeSilverfishCallForHelpDelay(SilverfishEntity.CallForHelpGoal callForHelpGoal) {
         return this.delay = ModUtil.getSilverfishCallForHelpDelay();
     }
 }

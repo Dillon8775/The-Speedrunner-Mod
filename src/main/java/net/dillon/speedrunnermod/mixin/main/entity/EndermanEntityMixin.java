@@ -19,7 +19,7 @@ public class EndermanEntityMixin {
      * Modifies {@code enderman} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends EndermanEntity> entityType, World world, CallbackInfo ci) {
+    private void changeEndermanAttributes(EntityType<? extends EndermanEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
         ModUtil.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);

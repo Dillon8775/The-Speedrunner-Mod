@@ -18,6 +18,8 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundEvent;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -107,11 +109,27 @@ public abstract class AbstractBoatEntityMixin extends Entity implements Fireproo
     }
 
     /**
-     * Stores the {@code fireproof tracker data.}
+     * Creates the {@code fireproof data tracker.}
      */
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     private void writeFireproofTracker(DataTracker.Builder builder, CallbackInfo ci) {
         builder.add(FIREPROOF, false);
+    }
+
+    /**
+     * Writes the {@code fireproof tracker} to NBT.
+     */
+    @Inject(method = "writeCustomData", at = @At("TAIL"))
+    private void writeFireproofToNbt(WriteView view, CallbackInfo ci) {
+        view.putBoolean("Fireproof", this.isFireproof());
+    }
+
+    /**
+     * Reads the {@code fireproof tracker} by NBT and writes it back.
+     */
+    @Inject(method = "readCustomData", at = @At("TAIL"))
+    private void readFireproofFromNbt(ReadView view, CallbackInfo ci) {
+        this.setFireproof(view.getBoolean("Fireproof", false));
     }
 
     /**

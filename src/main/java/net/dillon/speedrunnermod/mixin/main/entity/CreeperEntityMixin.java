@@ -34,15 +34,15 @@ public abstract class CreeperEntityMixin extends HostileEntity {
      * Lowers the creeper's max health.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void genericMaxHealth(EntityType<? extends CreeperEntity> entityType, World world, CallbackInfo ci) {
+    private void changeCreeperMaxHealth(EntityType<? extends CreeperEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
     /**
-     * A thing for doom mode. >:)
+     * Makes creepers explode instantly when right-clicked with a flint and steel on {@code doom mode.}
      */
     @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/Entity;DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"))
-    private void explode(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
+    private void explodeCreeperInstantly(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         float o = this.isCharged() ? 2.0F : 1.0F;
         if (!this.getWorld().isClient && isDoomMode()) {

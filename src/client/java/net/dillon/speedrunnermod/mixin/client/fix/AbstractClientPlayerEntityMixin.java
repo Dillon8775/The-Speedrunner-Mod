@@ -2,17 +2,20 @@ package net.dillon.speedrunnermod.mixin.client.fix;
 
 import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.SpeedrunnerBowItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Environment(EnvType.CLIENT)
 @Mixin(AbstractClientPlayerEntity.class)
@@ -23,33 +26,19 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
     }
 
     /**
-     * @author Dillon8775
-     * @reason Fixes the speedrunner bow not working with the FOV multiplier, and also changes it because it pulls faster.
+     * Fixes speedrunner bows not working with FOV multiplier.
      */
-    @Overwrite
-    public float getFovMultiplier(boolean firstPerson, float fovEffectScale) {
-        float f = 1.0F;
-        if (this.getAbilities().flying) {
-            f *= 1.1F;
-        }
+    @Redirect(method = "getFovMultiplier", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
+    private boolean redirectToConventionalTag(ItemStack heldItem, Item item) {
+        return heldItem.isIn(ConventionalItemTags.BOW_TOOLS);
+    }
 
-        float g = this.getAbilities().getWalkSpeed();
-        if (g != 0.0F) {
-            float h = (float)this.getAttributeValue(EntityAttributes.MOVEMENT_SPEED) / g;
-            f *= (h + 1.0F) / 2.0F;
-        }
-
-        if (this.isUsingItem()) {
-            ItemStack itemStack = this.getActiveItem();
-            if (itemStack.isIn(ConventionalItemTags.BOW_TOOLS)) {
-                float dividedBy = itemStack.isOf(ModItems.SPEEDRUNNER_BOW) ? 15.0F : 20.0F;
-                float h = Math.min((float)this.getItemUseTime() / dividedBy, 1.0F);
-                f *= 1.0F - MathHelper.square(h) * 0.15F;
-            } else if (firstPerson && this.isUsingSpyglass()) {
-                return 0.1F;
-            }
-        }
-
-        return MathHelper.lerp(fovEffectScale, 1.0F, f);
+    /**
+     * Implements faster pullback time for the {@link SpeedrunnerBowItem}.
+     */
+    @ModifyConstant(method = "getFovMultiplier", constant = @Constant(floatValue = 20.0F))
+    private float changePullbackTime(float constant) {
+        ItemStack heldItem = this.getActiveItem();
+        return heldItem.isOf(ModItems.SPEEDRUNNER_BOW) ? 15.0F : constant;
     }
 }

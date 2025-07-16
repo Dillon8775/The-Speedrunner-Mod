@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.boss.WitherEntity;
@@ -10,12 +11,16 @@ import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.UUID;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
@@ -24,33 +29,23 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 public abstract class DragonPerchTime {
     @Shadow @Final
     private ServerWorld world;
-    @Shadow
-    private UUID dragonUuid;
 
     /**
-     * @author Dillon8775
-     * @reason Implements the {@code dragon perch time} feature, and also spawns a giant and wither if {@code doom mode} is enabled.
+     * Implements the {@code dragon perch time feature} and spawns doom mode monsters.
      */
-    @Overwrite
-    private EnderDragonEntity createDragon() {
-        this.world.getWorldChunk(new BlockPos(0, 128, 0));
-        EnderDragonEntity enderDragonEntity = EntityType.ENDER_DRAGON.create(this.world, SpawnReason.EVENT);
-        enderDragonEntity.getPhaseManager().setPhase(PhaseType.HOLDING_PATTERN);
-        enderDragonEntity.refreshPositionAndAngles(0.0D, 128.0D, 0.0D, this.world.random.nextFloat() * 360.0F, 0.0F);
-        this.world.spawnEntity(enderDragonEntity);
-        this.dragonUuid = enderDragonEntity.getUuid();
+    @Inject(method = "createDragon", at = @At("RETURN"))
+    private void createDragonFeatures(CallbackInfoReturnable<EnderDragonEntity> cir, @Local EnderDragonEntity dragon) {
         if (options().isInstantDragonPerchTime()) {
-            enderDragonEntity.getPhaseManager().setPhase(PhaseType.LANDING);
+            dragon.getPhaseManager().setPhase(PhaseType.LANDING);
             playDragonSound();
         } else if (options().isDragonPerchTimeOn()) {
             new Timer().schedule(new TimerTask() {
                 public void run() {
-                    enderDragonEntity.getPhaseManager().setPhase(PhaseType.LANDING);
+                    dragon.getPhaseManager().setPhase(PhaseType.LANDING);
                     playDragonSound();
                 }
             }, options().getDragonPerchTime());
         }
-
         if (isDoomMode()) {
             WitherEntity witherEntity = EntityType.WITHER.create(this.world, SpawnReason.EVENT);
             witherEntity.refreshPositionAndAngles(0.0D, 196.0D, 0.0D, this.world.random.nextFloat() * 360.0F, 0.0F);
@@ -59,7 +54,6 @@ public abstract class DragonPerchTime {
             giantEntity.refreshPositionAndAngles(0.0D, 96.0D, 0.0D, this.world.random.nextFloat() * 240.0F, 0.0F);
             this.world.spawnEntity(giantEntity);
         }
-        return enderDragonEntity;
     }
 
     /**

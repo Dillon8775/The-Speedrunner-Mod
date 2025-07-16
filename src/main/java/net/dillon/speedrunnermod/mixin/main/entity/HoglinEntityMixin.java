@@ -25,7 +25,7 @@ public abstract class HoglinEntityMixin extends AnimalEntity {
      * Modifies {@code hoglin} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends HoglinEntity> entityType, World world, CallbackInfo ci) {
+    private void changeHoglinAttributes(EntityType<? extends HoglinEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 60.0D : 25.0D);
         ModUtil.modifyKnockbackResistance(this, isDoomMode() ? 0.7000000238518589D : 0.6000000238418579D);
         ModUtil.modifyAttackKnockback(this, isDoomMode() ? 1.2D : 0.5D);

@@ -25,7 +25,7 @@ public class RavagerEntityMixin {
      * Modifies {@code ravanger} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends RavagerEntity> entityType, World world, CallbackInfo ci) {
+    private void changeRavagerAttributes(EntityType<? extends RavagerEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 100.0D : 50.0D);
         ModUtil.modifyAttackDamage(dis, isDoomMode() ? 16.0D : 10.0D);
@@ -37,7 +37,7 @@ public class RavagerEntityMixin {
      * Inflicts players with {@code slowness} when attacking.
      */
     @Inject(method = "tryAttack", at = @At("RETURN"))
-    private void tryAttack(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
+    private void ravagerInflictsSlowness(ServerWorld world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (isDoomMode() && target instanceof PlayerEntity) {
             ((PlayerEntity)target).addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
         }

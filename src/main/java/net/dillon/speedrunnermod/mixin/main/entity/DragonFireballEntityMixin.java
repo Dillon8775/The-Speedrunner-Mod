@@ -13,7 +13,7 @@ public class DragonFireballEntityMixin {
      * Decreases the amplifier given to the particle effects that come from the dragon fireball with the {@code instant damage} status effect.
      */
     @ModifyArg(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/registry/entry/RegistryEntry;II)V"), index = 2)
-    private int onCollision(int x) {
+    private int changeInstantDamageAmplifier(int x) {
         return ModUtil.getEnderDragonFireballInstantDamageAmplifier();
     }
 }

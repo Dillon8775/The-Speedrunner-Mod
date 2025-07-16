@@ -19,7 +19,7 @@ public class PiglinBruteEntityMixin {
      * Modifies the {@code maximum health} for the piglin brute.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends PiglinBruteEntity> entityType, World world, CallbackInfo ci) {
+    private void changePiglinBruteAttributes(EntityType<? extends PiglinBruteEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 25.0D : 50.0D);
     }

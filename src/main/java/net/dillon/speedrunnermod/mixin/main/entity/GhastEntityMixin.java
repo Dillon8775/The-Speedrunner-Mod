@@ -19,7 +19,7 @@ public class GhastEntityMixin {
      * Modifies {@code ghast} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends GhastEntity> entityType, World world, CallbackInfo ci) {
+    private void changeGhastAttributes(EntityType<? extends GhastEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 20.0D : 5.0D);
         ModUtil.modifyFollowRange(dis, isDoomMode() ? 100.0D : 50.0D);

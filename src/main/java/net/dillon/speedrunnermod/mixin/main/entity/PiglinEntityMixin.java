@@ -25,7 +25,7 @@ public abstract class PiglinEntityMixin extends AbstractPiglinEntity {
      * Modifies {@code piglin} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends PiglinEntity> entityType, World world, CallbackInfo ci) {
+    private void changePiglinAttributes(EntityType<? extends PiglinEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, isDoomMode() ? 24.0D : 16.0D);
         ModUtil.modifyAttackDamage(this, isDoomMode() ? 6.0D : 2.0D);
     }

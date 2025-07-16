@@ -13,7 +13,7 @@ public class DolphinEntitySwimWithPlayerGoalMixin {
      * Increases the range that a dolphin can detect a player and give them the {@code dolphins grade} status effect.
      */
     @ModifyArg(method = "start", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/effect/StatusEffectInstance;<init>(Lnet/minecraft/registry/entry/RegistryEntry;I)V"), index = 1)
-    private int start(int x) {
+    private int increaseDolphinsRangePlayerDetectionRadius(int x) {
         return ModUtil.DOLPHIN_RANGE;
     }
 }

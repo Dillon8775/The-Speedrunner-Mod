@@ -17,7 +17,7 @@ public class BreezeEntityMixin {
      * Modifies {@code breeze} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(CallbackInfo ci) {
+    private void changeBreezeAttributes(CallbackInfo ci) {
         HostileEntity dis = (HostileEntity)(Object)this;
         ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.65D : 0.50D);
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 35.0D : 25.0D);

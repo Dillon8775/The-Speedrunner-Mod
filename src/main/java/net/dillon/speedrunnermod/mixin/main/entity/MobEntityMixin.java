@@ -26,7 +26,7 @@ public abstract class MobEntityMixin extends LivingEntity {
      * Modifies the {@code experience to drop} when a player has a looting enchantment for each hostile entity.
      */
     @Inject(method = "getExperienceToDrop", at = @At("HEAD"))
-    private void getExperienceToDrop(CallbackInfoReturnable<Integer> cir) {
+    private void increaseDroppedExperience(CallbackInfoReturnable<Integer> cir) {
         MobEntity dis = (MobEntity)(Object)this;
         LivingEntity attacker = this.getAttacker();
         if (attacker != null) {

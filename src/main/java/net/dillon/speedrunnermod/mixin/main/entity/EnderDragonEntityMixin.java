@@ -12,7 +12,6 @@ import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.boss.dragon.phase.PhaseManager;
-import net.minecraft.entity.boss.dragon.phase.PhaseType;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.GiantEntity;
@@ -20,17 +19,17 @@ import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +58,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      * Modifies the ender dragon's maximum health.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(CallbackInfo ci) {
+    private void changeEnderDragonMaxHealth(CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, ModUtil.getEnderDragonMaxHealth());
     }
 
@@ -67,7 +66,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      * Makes the ender dragon heal slower from end crystals.
      */
     @ModifyArg(method = "tickWithEndCrystals", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;setHealth(F)V"))
-    private float tickCrystals(float value) {
+    private float changeTickCrystalHealAmount(float value) {
         return this.getHealth() + ModUtil.getEnderDragonEndCrystalHealingValue();
     }
 
@@ -75,7 +74,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      * Makes the ender dragon do less damage.
      */
     @ModifyArg(method = "damageLivingEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 2)
-    private float damageLivingEntities(float amount) {
+    private float changeEnderDragonDamageValue(float amount) {
         return ModUtil.getEnderDragonDamageValue();
     }
 
@@ -83,8 +82,26 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      * Makes end crystals do more damage to the ender dragon.
      */
     @ModifyArg(method = "crystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/EnderDragonEntity;damagePart(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/boss/dragon/EnderDragonPart;Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 3)
-    private float crystalDestroyed(float amount) {
+    private float changeEnderDragonCrystalDestroyedDamage(float amount) {
         return ModUtil.getEnderDragonDestroyedEndCrystalDamageValue();
+    }
+
+    /**
+     * Cancels out {@code ender dragon damage} when on doom mode and nearby entities are alive.
+     */
+    @Inject(method = "damagePart", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/phase/Phase;modifyDamageTaken(Lnet/minecraft/entity/damage/DamageSource;F)F"), cancellable = true)
+    private void cancelOutDamage(ServerWorld world, EnderDragonPart part, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        if (isDoomMode() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    /**
+     * Increases the ender dragon stay time when it is perched.
+     */
+    @ModifyConstant(method = "damagePart", constant = @Constant(floatValue = 0.25F))
+    private float increaseDragonStayTime(float constant) {
+        return ModUtil.getEnderDragonSittingTime();
     }
 
     /**
@@ -99,7 +116,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
      * Makes all nearby hostile entities die upon the dragon's death, excluding {@code Enderman.}
      */
     @Inject(method = "updatePostDeath", at = @At("TAIL"))
-    public void killAllHostiles(CallbackInfo ci) {
+    public void killNearbyHostiles(CallbackInfo ci) {
         if (options().advanced.dragonKillsNearbyHostileEntities.getCurrentValue() && this.getWorld() instanceof ServerWorld serverWorld) {
             EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
             World world = this.getWorld();
@@ -155,49 +172,6 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                                 "speedrunnermod.tutorial_mode.killed_dragon");
                 super.onDeath(source);
             }
-        }
-    }
-
-    /**
-     * @author Dillon8775
-     * @reason Allows the ender dragon to stay perched for a longer period of time.
-     */
-    @Overwrite
-    public boolean damagePart(ServerWorld serverWorld, EnderDragonPart part, DamageSource source, float amount) {
-        if (this.phaseManager.getCurrent().getType() == PhaseType.DYING) {
-            return false;
-        } else {
-            amount = this.phaseManager.getCurrent().modifyDamageTaken(source, amount);
-            if (part != this.head) {
-                amount = amount / 4.0F + Math.min(amount, 1.0F);
-            }
-
-            if (amount < 0.01F) {
-                return false;
-            }
-
-            if (isDoomMode() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) {
-                return false;
-            } else {
-                if (source.getAttacker() instanceof PlayerEntity || source.isIn(DamageTypeTags.ALWAYS_HURTS_ENDER_DRAGONS)) {
-                    float f = this.getHealth();
-                    this.parentDamage(serverWorld, source, amount);
-                    if (this.isDead() && !this.phaseManager.getCurrent().isSittingOrHovering()) {
-                        this.setHealth(0.0F);
-                        this.phaseManager.setPhase(PhaseType.DYING);
-                    }
-
-                    if (this.phaseManager.getCurrent().isSittingOrHovering()) {
-                        this.damageDuringSitting = (int) ((float) this.damageDuringSitting + (f - this.getHealth()));
-                        if ((float) this.damageDuringSitting > ModUtil.getEnderDragonSittingTime() * this.getMaxHealth()) {
-                            this.damageDuringSitting = 0;
-                            this.phaseManager.setPhase(PhaseType.TAKEOFF);
-                        }
-                    }
-                }
-
-            }
-            return true;
         }
     }
 

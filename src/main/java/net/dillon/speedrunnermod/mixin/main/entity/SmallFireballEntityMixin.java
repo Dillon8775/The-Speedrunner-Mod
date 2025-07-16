@@ -13,7 +13,7 @@ public class SmallFireballEntityMixin {
      * Decreases the fire time from small fireballs (or blaze fireballs).
      */
     @ModifyArg(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;setOnFireFor(F)V"))
-    private float onEntityHitFireTime(float x) {
+    private float changeFireballFireTime(float x) {
         return ModUtil.getFireballFireDamageTime();
     }
 
@@ -21,7 +21,7 @@ public class SmallFireballEntityMixin {
      * Decreases damage dealt from small fireballs (or blaze fireballs).
      */
     @ModifyArg(method = "onEntityHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 2)
-    private float onEntityHitDamage(float x) {
+    private float changeFireballDamageAmount(float x) {
         return ModUtil.getFireballDamageValue();
     }
 }

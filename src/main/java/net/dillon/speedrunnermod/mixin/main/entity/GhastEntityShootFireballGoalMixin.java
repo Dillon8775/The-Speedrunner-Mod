@@ -33,7 +33,7 @@ public abstract class GhastEntityShootFireballGoalMixin extends Goal {
      * Increases the ghast's fireball cooldown, unless it's on {@code doom mode}.
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/GhastEntity$ShootFireballGoal;cooldown:I", ordinal = 1, opcode = Opcodes.PUTFIELD))
-    private void changeFireballCooldown(GhastEntity.ShootFireballGoal ghast, int value) {
+    private void changeGhastFireballCooldown(GhastEntity.ShootFireballGoal ghast, int value) {
         ghast.cooldown = ModUtil.getGhastFireballCooldown();
     }
 }

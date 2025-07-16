@@ -19,7 +19,7 @@ public class ZoglinEntityMixin {
      * Modifies {@code zoglin} attributes.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType<? extends ZoglinEntity> entityType, World world, CallbackInfo ci) {
+    private void changeZoglinAttributes(EntityType<? extends ZoglinEntity> entityType, World world, CallbackInfo ci) {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
         ModUtil.modifyKnockbackResistance(dis, isDoomMode() ? 0.7D : 0.6D);

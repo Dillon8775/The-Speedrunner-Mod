@@ -29,7 +29,7 @@ public class WitherEntityMixin extends HostileEntity {
      * Modifies the {@code maximum health} for the wither.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void genericMaxHealth(EntityType<? extends WitherEntity> entityType, World world, CallbackInfo ci) {
+    private void changeWitherMaxHealth(EntityType<? extends WitherEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, ModUtil.getWitherMaxHealth());
     }
 

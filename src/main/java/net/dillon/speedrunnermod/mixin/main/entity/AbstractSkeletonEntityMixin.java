@@ -25,7 +25,7 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
      * Modifies the {@code generic movement speed} of any skeleton entity.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void genericMovementSpeed(EntityType<? extends AbstractSkeletonEntity> entityType, World world, CallbackInfo ci) {
+    private void changeSkeletonMovementSpeed(EntityType<? extends AbstractSkeletonEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
@@ -33,7 +33,7 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
      * Increases/decreases the speed at which skeleton entities can shoot with their bow, depending on if {@code doom mode} is {@code ON.}
      */
     @ModifyVariable(method = "updateAttackType", at = @At("STORE"), ordinal = 0)
-    private int updateAttackType(int x) {
+    private int increaseSkeletonArrowSpeed(int x) {
         int i = isDoomMode() ? 5 : 20;
         if (this.getWorld().getDifficulty() != Difficulty.HARD) {
             i = isDoomMode() ? 10 : 20;

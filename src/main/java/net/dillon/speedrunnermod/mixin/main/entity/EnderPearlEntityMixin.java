@@ -88,7 +88,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
      * Adds {@code ender} particles around {@code InfiniPearls.}
      */
     @Inject(method = "tick", at = @At("TAIL"))
-    private void addParticles(CallbackInfo ci) {
+    private void addBluePortalParticlesInfiniPearl(CallbackInfo ci) {
         if (super.getStack().isOf(ModItems.INFINI_PEARL)) {
             Vec3d vec3d = this.getVelocity();
             Vec3d vec3d2 = this.getPos();

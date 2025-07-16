@@ -28,7 +28,7 @@ public class ZombieEntityMixin extends HostileEntity {
      * Modifies {@code zombie} attributes.
      */
     @Inject(method = "<init>(Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V", at = @At("TAIL"))
-    private void init(EntityType<? extends ZombieEntity> entityType, World world, CallbackInfo ci) {
+    private void changeZombieAttributes(EntityType<? extends ZombieEntity> entityType, World world, CallbackInfo ci) {
         ModUtil.modifyFollowRange(this, isDoomMode() ? 50.0D : 25.0D);
         ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.33D : 0.23D);
         ModUtil.modifyAttackDamage(this, isDoomMode() ? 7.0D : 2.0D);

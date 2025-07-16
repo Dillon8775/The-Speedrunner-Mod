@@ -16,7 +16,7 @@ public class BlazeEntityShootFireballGoalMixin {
      * Increases the blaze's fireball cooldown, unless it's on {@code doom mode}.
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/mob/BlazeEntity$ShootFireballGoal;fireballCooldown:I", ordinal = 4, opcode = Opcodes.PUTFIELD))
-    private void changeFireballCooldown(BlazeEntity.ShootFireballGoal blaze, int value) {
+    private void changeBlazeFireballCooldown(BlazeEntity.ShootFireballGoal blaze, int value) {
         blaze.fireballCooldown = ModUtil.getBlazeFireballCooldown();
     }
 
@@ -24,7 +24,7 @@ public class BlazeEntityShootFireballGoalMixin {
      * Prevents blazes from melee attacking.
      */
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/BlazeEntity;tryAttack(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/Entity;)Z"))
-    private boolean disableMeleeAttack(BlazeEntity instance, ServerWorld serverWorld, Entity entity) {
+    private boolean disableMeleeAttacking(BlazeEntity instance, ServerWorld serverWorld, Entity entity) {
         return false;
     }
 }

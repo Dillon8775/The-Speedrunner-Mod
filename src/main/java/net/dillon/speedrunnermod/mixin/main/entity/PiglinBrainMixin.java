@@ -25,7 +25,7 @@ public class PiglinBrainMixin {
      * Lowers the distance piglins have to be in order for them to run away from the nearest zombified piglin.
      */
     @ModifyArg(method = "getNearestZombifiedPiglin", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/mob/PiglinEntity;isInRange(Lnet/minecraft/entity/Entity;D)Z"), index = 1)
-    private static double nearestZombifiedPiglin(double radius) {
+    private static double changeNearestPiglinDistance(double radius) {
         return ModUtil.getZombifiedPiglinRunawayDistance();
     }
 }
