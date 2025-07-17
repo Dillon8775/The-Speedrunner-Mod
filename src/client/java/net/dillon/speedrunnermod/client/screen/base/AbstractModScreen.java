@@ -228,18 +228,19 @@ public abstract class AbstractModScreen extends BaseModScreen {
             boolean bl,
             Text defaultTooltip,
             Text disabledTooltip
-    ) {
+    ) throws NullPointerException {
         try {
             if (this.optionList != null) {
                 if (this.getSimpleOption(option) == null) {
                     SpeedrunnerMod.error("No widget found with option: " + option.toString());
                 } else {
+                    ClickableWidget widget = this.getSimpleOption(option);
                     if (this.searchField.getText().isEmpty()) {
-                        this.getSimpleOption(option).active = bl;
+                        widget.active = bl;
                     } else {
-                        this.getSimpleOption(option).active = this.getSimpleOption(option).getMessage().getString().toLowerCase().contains(this.searchField.getText().toLowerCase());
-                        if (this.getSimpleOption(option).isHovered() && !bl) {
-                            this.getSimpleOption(option).active = false;
+                        widget.active = widget.getMessage().getString().toLowerCase().contains(this.searchField.getText().toLowerCase());
+                        if (widget.isHovered() && !bl) {
+                            widget.active = false;
                         }
                     }
                     this.getSimpleOption(option).setTooltip(Tooltip.of(bl ? defaultTooltip : disabledTooltip));
@@ -378,7 +379,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected void initializeCustomButtonListWidget() {
         this.buttonList = this.addDrawableChild(new CustomButtonListWidget(this.client, this.width, this));
     }
-
 
     /**
      * The list of buttons to add.
