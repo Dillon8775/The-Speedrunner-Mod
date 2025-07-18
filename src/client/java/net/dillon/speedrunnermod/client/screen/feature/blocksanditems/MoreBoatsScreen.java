@@ -36,11 +36,6 @@ public class MoreBoatsScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 7;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

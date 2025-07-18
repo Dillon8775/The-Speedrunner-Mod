@@ -234,11 +234,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("blast_furnace"));
 
                 this.createShaped(RecipeCategory.COMBAT, Items.BOW)
-                        .input('#', ModItemTags.STICKS)
+                        .input('#', Items.STICK)
                         .input('X', Items.STRING)
                         .pattern(" #X")
                         .pattern("# X")
                         .pattern(" #X")
+                        .group("bows")
                         .criterion("has_string", this.conditionsFromItem(Items.STRING))
                         .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("bow"));
 
@@ -949,12 +950,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_BOW)
-                        .input('/', ModItemTags.STICKS)
-                        .input('S', ModItems.SPEEDRUNNER_INGOT)
+                        .input('/', ModItemTags.SPEEDRUNNER_STICKS)
+                        .input('S', Items.STRING)
                         .pattern(" /S")
                         .pattern("/ S")
                         .pattern(" /S")
-                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
                         .group("bows")
                         .offerTo(this.exporter);
 

@@ -39,11 +39,6 @@ public class BetterAnvilsScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 27;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }

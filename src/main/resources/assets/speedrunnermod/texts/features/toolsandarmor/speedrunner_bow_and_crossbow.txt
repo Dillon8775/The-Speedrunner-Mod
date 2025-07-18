@@ -1,0 +1,8 @@
+### §aCharges faster §fand §bshoots further §fthan §7regular bows §fand §7crossbows.
+
+#### Additionally, the §bspeedrunner bow§f does §cmore damage §fthan §7regular bows.
+
+!image:textures/gui/features/items/speedrunner_bow.png scale=.15
+!image:textures/gui/features/recipes/speedrunner_bow_crafting_recipe.png scale=.5
+!image:textures/gui/features/items/speedrunner_crossbow.png scale=.15
+!image:textures/gui/features/recipes/speedrunner_crossbow_crafting_recipe.png scale=.5

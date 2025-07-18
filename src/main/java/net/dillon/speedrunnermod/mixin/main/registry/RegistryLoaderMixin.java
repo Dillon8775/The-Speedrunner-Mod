@@ -78,6 +78,10 @@ public class RegistryLoaderMixin {
                 TheEndBiomesLoader.modifyTheEnd(jsonElement);
             }
 
+            if (fileName.equals(JsonIdentifiers.END)) {
+                TheEndBiomesLoader.modifyEnd(jsonElement);
+            }
+
             if (fileName.equals(JsonIdentifiers.WARPED_FOREST)) {
                 NetherBiomesLoader.modifyWarpedForest(jsonElement);
             }

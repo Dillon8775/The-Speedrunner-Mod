@@ -23,11 +23,6 @@ public class IgneousRocksScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 8;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

@@ -36,11 +36,6 @@ public class SpeedrunnersWastelandBiomeScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 1;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.ORES_AND_WORLDGEN;

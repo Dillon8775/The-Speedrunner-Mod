@@ -23,11 +23,6 @@ public class RetiredSpeedrunnerScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 20;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;

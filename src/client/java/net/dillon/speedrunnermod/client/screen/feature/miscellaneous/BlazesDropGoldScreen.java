@@ -22,11 +22,6 @@ public class BlazesDropGoldScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 15;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }

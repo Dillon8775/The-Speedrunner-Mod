@@ -23,11 +23,6 @@ public class NoMorePiglinBrutesScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 10;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;

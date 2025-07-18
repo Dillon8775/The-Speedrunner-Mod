@@ -30,11 +30,6 @@ public class WaterInNetherScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 16;
-    }
-
-    @Override
     public @NotNull String linesKey() {
         return "water_in_nether";
     }

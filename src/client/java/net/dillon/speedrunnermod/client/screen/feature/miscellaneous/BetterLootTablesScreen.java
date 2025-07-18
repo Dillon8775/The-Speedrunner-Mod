@@ -22,11 +22,6 @@ public class BetterLootTablesScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 21;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }

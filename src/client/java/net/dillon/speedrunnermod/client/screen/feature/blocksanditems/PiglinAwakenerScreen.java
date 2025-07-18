@@ -23,11 +23,6 @@ public class PiglinAwakenerScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 17;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

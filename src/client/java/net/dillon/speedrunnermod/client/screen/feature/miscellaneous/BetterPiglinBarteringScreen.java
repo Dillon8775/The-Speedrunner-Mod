@@ -23,11 +23,6 @@ public class BetterPiglinBarteringScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 8;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;

@@ -2,7 +2,13 @@ package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
-import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
+import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.*;
+import net.dillon.speedrunnermod.client.screen.feature.doommode.*;
+import net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying.*;
+import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.*;
+import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.*;
+import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.*;
+import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -18,6 +24,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -126,6 +133,158 @@ public class BaseModScreen extends GameOptionsScreen {
             }
         }
         return new FirstTimePlayingScreen(this.parent);
+    }
+
+    /**
+     * @return all {@code first time playing} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> firstTimePlayingScreens() {
+        return List.of(
+                FirstTimePlayingScreen.class,
+                KeyFeaturesScreen.class,
+                ModeOptionScreen.class,
+                ReadyToPlayScreen.class,
+                FTPRestartRequiredScreen.class
+        );
+    }
+
+    /**
+     * @return all {@code blocks and items} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> blocksAndItemsScreens() {
+        return List.of(
+                SpeedrunnerIngotsScreen.class,
+                SpeedrunnerNuggetsScreen.class,
+                SpeedrunnerBlocksScreen.class,
+                RawSpeedrunnerScreen.class,
+                SpeedrunnerWoodScreen.class,
+                DeadSpeedrunnerWoodScreen.class,
+                SpeedrunnerPaddleScreen.class,
+                MoreBoatsScreen.class,
+                IgneousRocksScreen.class,
+                EyeOfInfernoScreen.class,
+                EyeOfAnnulScreen.class,
+                SpeedrunnersEyeScreen.class,
+                EnderThrusterScreen.class,
+                EnderMatterScreen.class,
+                InfiniPearlScreen.class,
+                SpeedrunnersTotemScreen.class,
+                DragonsPearlScreen.class,
+                PiglinAwakenerScreen.class,
+                BlazeSpotterScreen.class,
+                RaidEradicatorScreen.class,
+                SpeedrunnerBulkScreen.class,
+                SpeedrunnersWorkbenchScreen.class
+        );
+    }
+
+    /**
+     * @return all {@code tools and armor} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> toolsAndArmorScreens() {
+        return List.of(
+                SpeedrunnerArmorScreen.class,
+                GoldenSpeedrunnerArmorScreen.class,
+                GoldenSpeedrunnerSmithingTemplateScreen.class,
+                SpeedrunnerSafeBootsScreen.class,
+                SpeedrunnerShieldScreen.class,
+                SpeedrunnerBowAndCrossbowScreen.class,
+                SpeedrunnerFlintAndSteelScreen.class,
+                SpeedrunnerShearsScreen.class,
+                DashEnchantmentScreen.class,
+                CooldownEnchantmentScreen.class,
+                WitherSwordScreen.class,
+                DragonsSwordScreen.class
+        );
+    }
+
+    /**
+     * @return all {@code ores and worldgen} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> oresAndWorldGenFeatureScreens() {
+        return List.of(
+                SpeedrunnersWastelandBiomeScreen.class,
+                SpeedrunnerOresScreen.class,
+                ExperienceOresScreen.class,
+                IgneousOresScreen.class,
+                CommonOresScreen.class,
+                BetterBiomesScreen.class,
+                StructuresScreen.class,
+                FortressesBastionsAndStrongholdsScreen.class
+        );
+    }
+
+    /**
+     * @return all {@code miscellaneous} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> miscellaneousFeatureScreens() {
+        return List.of(
+                TutorialModeScreen.class,
+                FasterBlockBreakingScreen.class,
+                ICarusModeScreen.class,
+                InfiniPearlModeScreen.class,
+                BetterPiglinBarteringScreen.class,
+                PiglinPorkScreen.class,
+                NoMorePiglinBrutesScreen.class,
+                TripledDropsScreen.class,
+                MoreExperienceScreen.class,
+                BetterNetherPortalsScreen.class,
+                BlazeSpawnersInBastionsScreen.class,
+                BlazesDropGoldScreen.class,
+                WaterInNetherScreen.class,
+                FireproofItemsScreen.class,
+                ThrowableFireballsScreen.class,
+                BetterHotkeysScreen.class,
+                ResetKeyScreen.class,
+                FogKeyScreen.class,
+                FullbrightKeyScreen.class,
+                BetterVillagerTradesScreen.class,
+                RetiredSpeedrunnerScreen.class,
+                BetterLootTablesScreen.class,
+                ReverseCraftingScreen.class,
+                LessFallDamageScreen.class,
+                CookedFleshScreen.class,
+                BetterFoodsScreen.class,
+                BetterDeathScreen.class,
+                BetterAnvilsScreen.class,
+                RightClickToRemoveSilkTouchScreen.class,
+                TotemsWorkInVoidScreen.class,
+                EnderEyesNeverBreak.class,
+                ArrowsExplodeBedsScreen.class,
+                SpeedrunnerEditionScreen.class,
+                CustomPanoramaScreen.class,
+                AndMoreScreen.class
+        );
+    }
+
+    /**
+     * @return all {@code doom mode} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> doomModeFeatureScreens() {
+        return List.of(
+                BasicsScreen.class,
+                BossesScreen.class,
+                GoliathScreen.class,
+                DoomBlocksScreen.class,
+                OtherThingsToKnowScreen.class
+        );
+    }
+
+    /**
+     * @return all {@code secret doom mode} feature screens, in order of their {@code page number.}
+     */
+    public List<Class<? extends AbstractFeatureScreen>> secretDoomModeScreens() {
+        return List.of(
+                YouArentReadyForThisScreen.class,
+                DoYouUnderstandScreen.class,
+                ImReadyScreen.class,
+                ExpectTheUnexpectedScreen.class,
+                UmScreen.class,
+                DotDotDotScreen.class,
+                DotDotDotDotScreen.class,
+                AllSecretsScreen.class,
+                EyeFeaturesScreen.class
+        );
     }
 
     /**

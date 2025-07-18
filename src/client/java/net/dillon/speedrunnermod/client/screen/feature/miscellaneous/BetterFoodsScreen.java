@@ -27,11 +27,6 @@ public class BetterFoodsScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 25;
-    }
-
-    @Override
     public @NotNull String linesKey() {
         return "better_foods";
     }

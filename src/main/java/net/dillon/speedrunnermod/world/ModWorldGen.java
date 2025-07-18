@@ -87,40 +87,9 @@ public class ModWorldGen {
     private static void addVegetalDecoration() {
         if (options().advanced.generateSpeedrunnerWood.getCurrentValue()) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(
-                            BiomeKeys.PLAINS,
-                            BiomeKeys.FOREST,
-                            BiomeKeys.SAVANNA,
-                            BiomeKeys.SWAMP,
-                            BiomeKeys.JUNGLE,
-                            BiomeKeys.WINDSWEPT_HILLS,
-                            BiomeKeys.TAIGA),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEFAULT_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEFAULT_SPEEDRUNNER_PLACED_FOREST);
-
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.VILLAGE_PLAINS_HAS_STRUCTURE),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.FANCY_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                             BiomeKeys.DESERT,
                             BiomeKeys.BADLANDS),
                     GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BIRCH_FOREST, BiomeKeys.OLD_GROWTH_BIRCH_FOREST),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BIRCH_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_SAVANNA),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.SAVANNA_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_TAIGA),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.TAIGA_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.JUNGLE),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.MEGA_JUNGLE_SPEEDRUNNER_PLACED);
-
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.DARK_FOREST),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.BIG_SPEEDRUNNER_PLACED);
 
             BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.SWAMP_HUT_HAS_STRUCTURE),
                     GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_SWAMP);
@@ -132,7 +101,7 @@ public class ModWorldGen {
                     GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_BADLANDS);
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SOUL_SAND_VALLEY),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_FANCY_SPEEDRUNNER_PLACED);
+                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_SPEEDRUNNER_PLACED_NETHER);
         }
 
         if (isDoomMode()) {

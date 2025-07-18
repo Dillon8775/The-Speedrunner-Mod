@@ -36,11 +36,6 @@ public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 5;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;

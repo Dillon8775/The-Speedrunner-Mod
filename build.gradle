@@ -45,10 +45,6 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	// TerraBlender
-	modImplementation "com.github.glitchfiend:TerraBlender-fabric:${project.minecraft_version}-${project.terrablender_version}"
-	include "com.github.glitchfiend:TerraBlender-fabric:${project.minecraft_version}-${project.terrablender_version}"
-
 	modImplementation "org.reflections:reflections:${project.reflections_verison}"
 	include "org.reflections:reflections:${project.reflections_verison}"
 

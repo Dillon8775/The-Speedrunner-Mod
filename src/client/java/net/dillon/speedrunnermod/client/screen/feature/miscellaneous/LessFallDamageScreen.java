@@ -22,11 +22,6 @@ public class LessFallDamageScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 23;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }

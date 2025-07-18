@@ -17,11 +17,6 @@ public class SpeedrunnerPaddleScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 6;
-    }
-
-    @Override
     public @NotNull String linesKey() {
         return "speedrunner_paddle";
     }

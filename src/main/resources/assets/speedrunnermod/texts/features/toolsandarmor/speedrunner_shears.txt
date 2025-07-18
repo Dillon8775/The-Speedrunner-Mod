@@ -1,0 +1,3 @@
+### §aBreaks blocks faster §rthan §lnormal shears §rand has §bmore durability.
+
+!image:textures/gui/features/recipes/speedrunner_shears_crafting_recipe.png scale=.6

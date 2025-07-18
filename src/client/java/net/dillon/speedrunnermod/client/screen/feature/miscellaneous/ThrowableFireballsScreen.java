@@ -35,11 +35,6 @@ public class ThrowableFireballsScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 18;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }

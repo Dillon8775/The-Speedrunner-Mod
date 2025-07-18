@@ -22,17 +22,12 @@ public class BetterHotkeysScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 1;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }
 
     @Override
     protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FIRST_PAGE;
+        return ScreenType.DEFAULT;
     }
 }

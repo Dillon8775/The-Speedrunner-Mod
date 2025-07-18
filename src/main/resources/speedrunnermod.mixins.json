@@ -109,7 +109,7 @@
     "main.world.StrongholdFeatureMixin",
     "main.world.StrongholdGeneratorMixin",
     "main.world.StrongholdPortalRoomMixin",
-    "main.world.TBSurfaceRuleDataMixin",
+    "main.world.VanillaBiomeParametersMixin",
     "main.world.VibrationsCallbackMixin"
   ],
   "server": [

@@ -26,9 +26,6 @@
     "fabric-datagen": [
       "net.dillon.speedrunnermod.data.generator.SpeedrunnerModDataGenerator"
     ],
-    "terrablender": [
-      "net.dillon.speedrunnermod.world.api.ModTerraBlenderAPI"
-    ],
     "modmenu": [
       "net.dillon.speedrunnermod.client.impl.ModMenuImpl"
     ]

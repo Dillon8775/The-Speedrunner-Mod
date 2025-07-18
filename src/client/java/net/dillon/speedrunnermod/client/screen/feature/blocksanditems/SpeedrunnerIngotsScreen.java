@@ -23,11 +23,6 @@ public class SpeedrunnerIngotsScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 1;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

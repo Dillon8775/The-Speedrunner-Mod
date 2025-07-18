@@ -22,11 +22,6 @@ public class EnderEyesNeverBreak extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 30;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.MISCELLANEOUS;
     }

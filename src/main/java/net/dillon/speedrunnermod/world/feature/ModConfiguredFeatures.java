@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.world.feature;
 
-import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKey;
@@ -13,15 +11,11 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
-import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.size.ThreeLayersFeatureSize;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.*;
+import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.treedecorator.LeavesVineTreeDecorator;
-import net.minecraft.world.gen.treedecorator.TrunkVineTreeDecorator;
-import net.minecraft.world.gen.trunk.*;
+import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
 
 import java.util.List;
 import java.util.OptionalInt;
@@ -33,15 +27,7 @@ public class ModConfiguredFeatures {
     protected static final RuleTest STONE_ORE_REPLACEABLES = new TagMatchRuleTest(BlockTags.STONE_ORE_REPLACEABLES);
     protected static final RuleTest DEEPSLATE_ORE_REPLACEABLES = new TagMatchRuleTest(BlockTags.DEEPSLATE_ORE_REPLACEABLES);
     protected static final RuleTest NETHERRACK = new BlockMatchRuleTest(Blocks.NETHERRACK);
-    public static final RegistryKey<ConfiguredFeature<?, ?>> DEFAULT_SPEEDRUNNER = of("speedrunnermod:default_speedrunner");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DEAD_SPEEDRUNNER = of("speedrunnermod:dead_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> FANCY_SPEEDRUNNER = of("speedrunnermod:fancy_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> DEAD_FANCY_SPEEDRUNNER = of("speedrunnermod:dead_fancy_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> BIRCH_SPEEDRUNNER = of("speedrunnermod:birch_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> SAVANNA_SPEEDRUNNER = of("speedrunnermod:savanna_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> TAIGA_SPEEDRUNNER = of("speedrunnermod:taiga_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> MEGA_JUNGLE_SPEEDRUNNER = of("speedrunnermod:mega_jungle_speedrunner");
-    public static final RegistryKey<ConfiguredFeature<?, ?>> BIG_SPEEDRUNNER = of("speedrunnermod:big_speedrunner");
     public static final RegistryKey<ConfiguredFeature<?, ?>> DOOM_TREE = of("speedrunnermod:doom_tree");
     public static final RegistryKey<ConfiguredFeature<?, ?>> PATCH_DEAD_SPEEDRUNNER_BUSH = of("speedrunnermod:patch_dead_speedrunner_bush");
     public static final RegistryKey<ConfiguredFeature<?, ?>> ORE_SPEEDRUNNER = of("speedrunnermod:ore_speedrunner");
@@ -77,24 +63,10 @@ public class ModConfiguredFeatures {
         List<OreFeatureConfig.Target> netherExperienceOres = List.of(
                 OreFeatureConfig.createTarget(NETHERRACK, ModBlocks.NETHER_EXPERIENCE_ORE.getDefaultState()));
 
-        ConfiguredFeatures.register(context, DEFAULT_SPEEDRUNNER, Feature.TREE, defaultSpeedrunner(ModBlocks.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LEAVES).build());
-        ConfiguredFeatures.register(context, DEAD_SPEEDRUNNER, Feature.TREE, defaultSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LEAVES).build());
-        ConfiguredFeatures.register(context, FANCY_SPEEDRUNNER, Feature.TREE, fancySpeedrunner(ModBlocks.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LEAVES).build());
-        ConfiguredFeatures.register(context, DEAD_FANCY_SPEEDRUNNER, Feature.TREE, fancySpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LEAVES).build());
-        ConfiguredFeatures.register(context, BIRCH_SPEEDRUNNER,  Feature.TREE, birchSpeedrunner().build());
-        ConfiguredFeatures.register(context, SAVANNA_SPEEDRUNNER, Feature.TREE, savannaSpeedrunner().build());
-        ConfiguredFeatures.register(context, TAIGA_SPEEDRUNNER, Feature.TREE, taigaSpeedrunner().build());
-        ConfiguredFeatures.register(context, MEGA_JUNGLE_SPEEDRUNNER,  Feature.TREE, jungleSpeedrunner().decorators(ImmutableList.of(TrunkVineTreeDecorator.INSTANCE, new LeavesVineTreeDecorator(0.25f))).build());
-        ConfiguredFeatures.register(context, BIG_SPEEDRUNNER, Feature.TREE,
-                new TreeFeatureConfig.Builder(BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LOG),
-                        new DarkOakTrunkPlacer(6, 2, 1), BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LEAVES),
-                        new DarkOakFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0)),
-                        new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty()))
-                        .ignoreVines()
-                        .build());
+        ConfiguredFeatures.register(context, DEAD_SPEEDRUNNER, Feature.TREE, defaultDeadSpeedrunner().build());
         ConfiguredFeatures.register(context, DOOM_TREE, Feature.TREE, doomTree().build());
         ConfiguredFeatures.register(context, PATCH_DEAD_SPEEDRUNNER_BUSH, Feature.RANDOM_PATCH,
-                VegetationConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.DEAD_SPEEDRUNNER_BUSH), 4));
+                VegetationConfiguredFeatures.createRandomPatchFeatureConfig(BlockStateProvider.of(ModBlocks.DEAD_SPEEDRUNNER_BUSH), 3));
         ConfiguredFeatures.register(context, ORE_SPEEDRUNNER, Feature.ORE, new OreFeatureConfig(speedrunnerOres, 9));
         ConfiguredFeatures.register(context, ORE_SPEEDRUNNER_SMALL,  Feature.ORE, new OreFeatureConfig(speedrunnerOres, 4));
         ConfiguredFeatures.register(context, ORE_NETHER_SPEEDRUNNER, Feature.ORE, new OreFeatureConfig(netherSpeedrunnerOres, 10));
@@ -104,47 +76,10 @@ public class ModConfiguredFeatures {
         ConfiguredFeatures.register(context, ORE_NETHER_EXPERIENCE, Feature.ORE, new OreFeatureConfig(netherExperienceOres, 3));
     }
 
-    private static TreeFeatureConfig.Builder defaultSpeedrunner(Block trunk, Block leave) {
+    private static TreeFeatureConfig.Builder defaultDeadSpeedrunner() {
         return TreeConfiguredFeatures.builder(
-                trunk, leave, 4, 2, 0, 2)
+                        ModBlocks.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LEAVES, 4, 2, 0, 2)
                 .ignoreVines();
-    }
-
-    private static TreeFeatureConfig.Builder fancySpeedrunner(Block trunk, Block leave) {
-        return new TreeFeatureConfig.Builder(BlockStateProvider.of(trunk),
-                new LargeOakTrunkPlacer(3, 11, 0), BlockStateProvider.of(leave),
-                new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 4),
-                new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))
-                .ignoreVines();
-    }
-
-    private static TreeFeatureConfig.Builder birchSpeedrunner() {
-        return TreeConfiguredFeatures.builder(
-                ModBlocks.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LEAVES, 5, 2, 6, 2).ignoreVines();
-    }
-
-    private static TreeFeatureConfig.Builder savannaSpeedrunner() {
-        return new TreeFeatureConfig.Builder(BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LOG),
-                new ForkingTrunkPlacer(5, 2, 2),
-                BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LEAVES),
-                new AcaciaFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0)),
-                new TwoLayersFeatureSize(1, 0, 2))
-                .ignoreVines();
-    }
-
-    private static TreeFeatureConfig.Builder taigaSpeedrunner() {
-        return new TreeFeatureConfig.Builder(BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LOG),
-                new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LEAVES),
-                new SpruceFoliagePlacer(UniformIntProvider.create(2, 3), UniformIntProvider.create(0, 2), UniformIntProvider.create(1, 2)),
-                new TwoLayersFeatureSize(2, 0, 2))
-                .ignoreVines();
-    }
-
-    private static TreeFeatureConfig.Builder jungleSpeedrunner() {
-        return new TreeFeatureConfig.Builder(BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LOG),
-                new MegaJungleTrunkPlacer(10, 2, 19), BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LEAVES),
-                new JungleFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(0), 2),
-                new TwoLayersFeatureSize(1, 1, 2));
     }
 
     private static TreeFeatureConfig.Builder doomTree() {

@@ -43,11 +43,6 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 5;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;
     }

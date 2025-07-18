@@ -17,7 +17,6 @@ public class ModBlockTags {
     public static TagKey<Block> IGNEOUS_ORES = of("igneous_ores");
     public static TagKey<Block> IRON_BLOCKS = of("iron_blocks");
     public static TagKey<Block> NETHER_PORTAL_BASE_BLOCKS = of("nether_portal_base_blocks");
-    public static TagKey<Block> SMITHING_TABLES = of("smithing_tables");
     public static TagKey<Block> SPEEDRUNNER_FUELS = of("speedrunner_fuels");
     public static TagKey<Block> SPEEDRUNNER_LOGS = of("speedrunner_logs");
     public static TagKey<Block> SPEEDRUNNER_ORES = of("speedrunner_ores");

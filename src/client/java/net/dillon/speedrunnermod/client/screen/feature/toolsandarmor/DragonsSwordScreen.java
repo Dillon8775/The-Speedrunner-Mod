@@ -29,11 +29,6 @@ public class DragonsSwordScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return this.getMaxPages();
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.TOOLS_AND_ARMOR;

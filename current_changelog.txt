@@ -1,3 +1,5 @@
+(1.21.6-1.21.8)
+
 Important Changes:
 - The Speedrunner Mod now requires Fabric version 0.16.14 in order to run.
 
@@ -7,7 +9,15 @@ Boat Changes:
 - This allows the player to still be able to easily craft boats, but if they want a fireproof one, they will need a speedrunner paddle.
 - Created separate animated texture for all fireproof boats, so that the player can easily tell if it's fireproof or not.
 
+WorldGen Changes:
+- Brought back the Better Biomes option!
+- Removed Speedrunner's Wasteland Biome Weight option.
+- Speedrunner trees no longer generate in every biome. They now only generate in the Speedrunner's Wasteland biome.
+- Dead speedrunner bushes now generate slightly less in desert biomes.
+- Patches of raw speedrunner blocks in the Speedrunner's Wasteland biome now generate more commonly.
+
 Other Changes:
+- The speedrunner bow is now crafted with 3 speedrunner/dead speedrunner sticks and 3 pieces of string (previously 3 pieces of any stick and 3 speedrunner ingots).
 - Added a search field at the top of speedrunner mod options and feature screens to easily search for different options and features.
 - Increased random chance that the player will get the mining fatigue effect.
 

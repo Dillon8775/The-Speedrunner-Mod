@@ -1,8 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
+  "group": "bows",
   "key": {
-    "#": "#speedrunnermod:sticks",
+    "#": "minecraft:stick",
     "X": "minecraft:string"
   },
   "pattern": [

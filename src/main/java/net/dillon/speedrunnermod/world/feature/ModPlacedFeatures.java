@@ -21,16 +21,8 @@ import static net.minecraft.world.gen.feature.OrePlacedFeatures.modifiersWithCou
  * All Speedrunner Mod {@code placed features.}
  */
 public class ModPlacedFeatures {
-    public static final RegistryKey<PlacedFeature> DEFAULT_SPEEDRUNNER_PLACED = of("speedrunnermod:default_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> DEFAULT_SPEEDRUNNER_PLACED_FOREST = of("speedrunnermod:default_speedrunner_placed_forest");
     public static final RegistryKey<PlacedFeature> DEAD_SPEEDRUNNER_PLACED = of("speedrunnermod:dead_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> FANCY_SPEEDRUNNER_PLACED = of("speedrunnermod:fancy_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> DEAD_FANCY_SPEEDRUNNER_PLACED = of("speedrunnermod:dead_fancy_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> BIRCH_SPEEDRUNNER_PLACED = of("speedrunnermod:birch_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> SAVANNA_SPEEDRUNNER_PLACED = of("speedrunnermod:savanna_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> TAIGA_SPEEDRUNNER_PLACED = of("speedrunnermod:taiga_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> MEGA_JUNGLE_SPEEDRUNNER_PLACED = of("speedrunnermod:mega_jungle_speedrunner_placed");
-    public static final RegistryKey<PlacedFeature> BIG_SPEEDRUNNER_PLACED = of("speedrunnermod:big_speedrunner_placed");
+    public static final RegistryKey<PlacedFeature> DEAD_SPEEDRUNNER_PLACED_NETHER = of("speedrunnermod:dead_speedrunner_placed_nether");
     public static final RegistryKey<PlacedFeature> DOOM_TREE_PLACED = of("speedrunnermod:doom_tree_placed");
     public static final RegistryKey<PlacedFeature> ORE_SPEEDRUNNER_UPPER = of("speedrunnermod:ore_speedrunner_upper");
     public static final RegistryKey<PlacedFeature> ORE_SPEEDRUNNER_MIDDLE = of("speedrunnermod:ore_speedrunner_middle");
@@ -53,64 +45,16 @@ public class ModPlacedFeatures {
     public static void bootstrap(Registerable<PlacedFeature> context) {
         RegistryEntryLookup<ConfiguredFeature<?, ?>> registryEntryLookup = context.getRegistryLookup(RegistryKeys.CONFIGURED_FEATURE);
 
-        PlacedFeatures.register(context, DEFAULT_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.DEFAULT_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(0, 0.10F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, DEFAULT_SPEEDRUNNER_PLACED_FOREST, registryEntryLookup.getOrThrow(ModConfiguredFeatures.FANCY_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(1, 0.20F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
         PlacedFeatures.register(context, DEAD_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.DEAD_SPEEDRUNNER),
                 PlacedFeatures.createCountExtraModifier(0, 0.10F, 1),
                 SquarePlacementModifier.of(),
                 SurfaceWaterDepthFilterPlacementModifier.of(0),
                 PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
                 BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, FANCY_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.FANCY_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(0, 0.05F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, DEAD_FANCY_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.DEAD_FANCY_SPEEDRUNNER),
+        PlacedFeatures.register(context, DEAD_SPEEDRUNNER_PLACED_NETHER, registryEntryLookup.getOrThrow(ModConfiguredFeatures.DEAD_SPEEDRUNNER),
                 CountMultilayerPlacementModifier.of(1),
                 BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)),
                 BiomePlacementModifier.of());
-        PlacedFeatures.register(context, BIRCH_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.BIRCH_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(1, 0.20F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, SAVANNA_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.SAVANNA_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(0, 0.50F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, TAIGA_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.TAIGA_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(1, 0.50F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, MEGA_JUNGLE_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.MEGA_JUNGLE_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(1, 0.50F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
-        PlacedFeatures.register(context, BIG_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.BIG_SPEEDRUNNER),
-                PlacedFeatures.createCountExtraModifier(0, 0.20F, 1),
-                SquarePlacementModifier.of(),
-                SurfaceWaterDepthFilterPlacementModifier.of(0),
-                PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
-                BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
         PlacedFeatures.register(context, DOOM_TREE_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.DOOM_TREE), VegetationPlacedFeatures.modifiers(1));
         PlacedFeatures.register(context, ORE_SPEEDRUNNER_UPPER, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_SPEEDRUNNER),
                 modifiersWithCount(72, HeightRangePlacementModifier.trapezoid(YOffset.fixed(80), YOffset.fixed(384))));

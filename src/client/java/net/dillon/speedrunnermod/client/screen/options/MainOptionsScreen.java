@@ -40,6 +40,7 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.throwableFireballs(),
                 ModListOptions.fallDamage(),
                 ModListOptions.kineticDamage(),
+                ModListOptions.betterBiomes(),
                 ModListOptions.strongholdCount(),
                 ModListOptions.strongholdDistance(),
                 ModListOptions.strongholdSpread(),
@@ -57,6 +58,7 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.fasterSpawners(),
                 ModListOptions.killGhastOnFireball(),
                 ModListOptions.showDeathCords(),
+                ModListOptions.netherPortalDelay(),
                 ModListOptions.customDataGeneration()
         };
     }
@@ -67,7 +69,6 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.mode());
         this.optionList.addSingleOptionEntry(ModListOptions.structureSpawnRate());
         this.optionList.addAll(mainOptions());
-        this.optionList.addSingleOptionEntry(ModListOptions.netherPortalDelay());
         this.optionList.addSingleOptionEntry(ModListOptions.rightClickToRemoveSilkTouch());
         this.optionList.addSingleOptionEntry(ModListOptions.customBiomesAndCustomBiomeFeatures());
 
@@ -114,6 +115,13 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.lockOptionWithTooltip(ModListOptions.strongholdLibraryCount(), options().main.customDataGeneration.getCurrentValue(),
                 Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+        );
+
+        this.lockOptionWithTooltip(ModListOptions.betterBiomes(), options().main.customDataGeneration.getCurrentValue() && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),
+                Text.translatable("speedrunnermod.options.better_biomes.tooltip"),
+                !options().main.customDataGeneration.getCurrentValue() ?
+                        Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.customBiomesAndCustomBiomeFeatures(), options().main.customDataGeneration.getCurrentValue(),

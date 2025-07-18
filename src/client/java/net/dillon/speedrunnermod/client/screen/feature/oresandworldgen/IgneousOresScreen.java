@@ -23,11 +23,6 @@ public class IgneousOresScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 4;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.ORES_AND_WORLDGEN;

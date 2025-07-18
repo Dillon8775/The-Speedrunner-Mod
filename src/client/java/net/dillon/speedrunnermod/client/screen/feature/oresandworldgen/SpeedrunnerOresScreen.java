@@ -23,11 +23,6 @@ public class SpeedrunnerOresScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 2;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.ORES_AND_WORLDGEN;

@@ -30,11 +30,6 @@ public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return this.getMaxPages();
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.BLOCKS_AND_ITEMS;

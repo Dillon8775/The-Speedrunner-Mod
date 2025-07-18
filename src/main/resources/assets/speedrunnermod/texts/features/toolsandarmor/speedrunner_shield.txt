@@ -1,0 +1,6 @@
+### Has §amore durability§f than a §7regular shield,§f and §arecharges faster §fwhen disabled by an §caxe.
+
+#### You can use §lany type of wood§r to craft this shield, as long as you use a §bspeedrunner ingot§f as the base material.
+
+!image:textures/gui/features/items/speedrunner_shield.png scale=.2
+!image:textures/gui/features/recipes/speedrunner_shield_crafting_recipe.png scale=.5

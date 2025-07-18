@@ -172,6 +172,14 @@ public class ModListOptions {
         );
     }
 
+    public static SimpleOption<Boolean> betterBiomes() {
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.better_biomes",
+                SimpleOption.emptyTooltip(),
+                options().main.betterBiomes
+        );
+    }
+
     public static SimpleOption<Boolean> customBiomesAndCustomBiomeFeatures() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.custom_biomes_and_custom_biome_features",
@@ -562,14 +570,6 @@ public class ModListOptions {
                         return GameOptions.getGenericValueText(optionText, Text.literal(value + " levels").formatted(Formatting.AQUA));
                     }
                 }
-        );
-    }
-
-    public static SimpleOption<Integer> speedrunnersWastelandBiomeWeight() {
-        return createSimpleIntegerOption(
-                "speedrunnermod.options.speedrunners_wasteland_biome_weight",
-                SimpleOption.emptyTooltip(),
-                options().advanced.speedrunnersWastelandBiomeWeight
         );
     }
 

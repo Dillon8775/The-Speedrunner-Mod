@@ -23,11 +23,6 @@ public class WitherSwordScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 6;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.TOOLS_AND_ARMOR;

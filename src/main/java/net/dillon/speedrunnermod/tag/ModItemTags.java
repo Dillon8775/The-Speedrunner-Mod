@@ -63,7 +63,6 @@ public class ModItemTags {
         public static TagKey<Item> IGNEOUS_ORES = of("igneous_ores");
         public static TagKey<Item> IRON_BLOCKS = of("iron_blocks");
         public static TagKey<Item> NETHER_PORTAL_BASE_BLOCKS = of("nether_portal_base_blocks");
-        public static TagKey<Item> SMITHING_TABLES = of("smithing_tables");
         public static TagKey<Item> SPEEDRUNNER_FUELS = of("speedrunner_fuels");
         public static TagKey<Item> SPEEDRUNNER_LOGS = of("speedrunner_logs");
         public static TagKey<Item> SPEEDRUNNER_ORES = of("speedrunner_ores");

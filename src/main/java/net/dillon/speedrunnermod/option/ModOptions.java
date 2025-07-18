@@ -149,18 +149,6 @@ public class ModOptions {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
             }
 
-            if (options().advanced.speedrunnersWastelandBiomeWeight.getCurrentValue() < 1) {
-                if (isEnvironmentTypeServer()) {
-                    throw new IllegalStateException("Option \"Speedrunner's Wasteland Biome Weight\" cannot be set below 1. If you do not want the speedrunner's wasteland biome to generate, turn \"Custom Biomes and Custom Biome Features\" OFF. Otherwise, please set speedrunnersWastelandBiomeWeight to a value greater than or equal to 1.");
-                } else {
-                    this.setBroken(options().advanced.speedrunnersWastelandBiomeWeight, "speedrunnersWastelandBiomeWeight");
-                    warn("Speedrunner's Wasteland Biome Weight is below 1. Instead, turn \"Custom Biomes and Custom Biome Features\" OFF.");
-                }
-            } else if (!isIntegerOptionValid(options().advanced.speedrunnersWastelandBiomeWeight)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.speedrunnersWastelandBiomeWeight");
-                warn("The weight for the Speedrunner's Wasteland biome is either too high or too low. Proceed with caution.");
-            }
-
             if (!isIntegerOptionValid(options().main.dragonPerchTime)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.dragonPerchTime");
             }
@@ -231,6 +219,11 @@ public class ModOptions {
          * Allows certain items to be fireproof.
          */
         public OptionValue<Boolean> fireproofItems = new OptionValue<>(true, false);
+
+        /**
+         * Allows certain biomes, such as plains, deserts, savannas, etc. to generate more commonly.
+         */
+        public OptionValue<Boolean> betterBiomes = new OptionValue<>(true, true);
 
         /**
          * Allows the Speedrunner's Wasteland biome to generate, and allows some additional worldgen features to be added to different biomes.
@@ -389,11 +382,6 @@ public class ModOptions {
          * Allow all types/variants of speedrunner wood to generate across the world. This includes the different variants of speedrunner trees, dead speedrunner trees, and dead speedrunner bushes.
          */
         public OptionValue<Boolean> generateSpeedrunnerWood = new OptionValue<>(true, false);
-
-        /**
-         * The weight for the Speedrunner's Wasteland biome (how commonly it can generate).
-         */
-        public IntegerOptionValue speedrunnersWastelandBiomeWeight = new IntegerOptionValue(9, true, 2, 32);
 
         /**
          * In vanilla Minecraft, the ender dragon will fly away after perching when it takes so much damage. However, this option extends that damage amount, to allow the dragon to stay perched for a longer period of time, even after taking a large amount of damage.

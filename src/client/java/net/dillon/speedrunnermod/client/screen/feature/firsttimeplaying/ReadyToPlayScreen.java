@@ -71,11 +71,6 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 4;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;
     }

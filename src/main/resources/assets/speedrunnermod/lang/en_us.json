@@ -605,6 +605,8 @@
   "speedrunnermod.options.lava_boats.enable": "Enable Lava Boats",
   "speedrunnermod.options.nether_water": "Water In Nether",
   "speedrunnermod.options.nether_water.tooltip": "Allows water to be placed in the nether.",
+  "speedrunnermod.options.better_biomes": "Better Biomes",
+  "speedrunnermod.options.better_biomes.tooltip": "Allows certain biomes (suited for speedrunning), such as plains, deserts, savannas, and the speedrunner's wasteland to generate more commonly.",
   "speedrunnermod.options.better_foods": "Better Foods",
   "speedrunnermod.options.better_foods.tooltip": "Makes certain foods fill more hunger and saturation.",
   "speedrunnermod.options.fall_damage": "Fall Damage",
@@ -723,8 +725,6 @@
   "speedrunnermod.options.fireball_explosion_power.tooltip": "Determines the explosion power for fireballs when throwing.",
   "speedrunnermod.options.shift_to_throw_fireball": "Shift to Throw Fireball",
   "speedrunnermod.options.shift_to_throw_fireball.tooltip": "Allows the player to right-click + shift on a block with a fireball to be able to throw it, kind of like in bedwars.",
-  "speedrunnermod.options.speedrunners_wasteland_biome_weight": "Speedrunner's Wasteland Biome Weight",
-  "speedrunnermod.options.speedrunners_wasteland_biome_weight.tooltip": "Changes how often the §bSpeedrunner's Wasteland biome§r generates.\n\nIf you want to disable the biome from generating completely, disable §l\"Custom Biomes and Custom Biome Features\".\n\n§a§lRequires restart.",
   "speedrunnermod.options.dragon_kills_nearby_hostile_entities": "Ender Dragon Kills Nearby Hostile Entities upon Death",
   "speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip": "Makes the ender dragon kill all nearby hostile entities upon death (excluding enderman).",
   "speedrunnermod.options.dragon_immunity_from_goliath_and_wither": "Ender Dragon Immunity from Goliath and Wither",
@@ -853,17 +853,23 @@
   "speedrunnermod.title.features.blocks_and_items.raid_eradicator": "§7Raid Eradicator",
   "speedrunnermod.title.features.blocks_and_items.speedrunner_bulk": "§bSpeedrunner Bulk",
   "speedrunnermod.title.features.blocks_and_items.speedrunners_workbench": "§bSpeedrunner's Workbench",
+  "speedrunnermod.title.features.blocks_and_items.raw_speedrunner": "§bRaw Speedrunner",
 
   "speedrunnermod.menu.features.tools_and_armor": "Tools and Armor...",
   "speedrunnermod.title.features.tools_and_armor": "Tools and Armor",
 
   "speedrunnermod.title.features.tools_and_armor.speedrunner_armor": "§bSpeedrunner Armor",
   "speedrunnermod.title.features.tools_and_armor.golden_speedrunner_armor": "§6Golden Speedrunner Armor",
+  "speedrunnermod.title.features.tools_and_armor.golden_speedrunner_smithing_template": "§6Golden Speedrunner Smithing Template",
   "speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots": "§bSpeedrunner Safe Boots",
   "speedrunnermod.title.features.tools_and_armor.dash_enchantment": "§bDash Enchantment",
   "speedrunnermod.title.features.tools_and_armor.cooldown_enchantment": "§bCooldown Enchantment",
   "speedrunnermod.title.features.tools_and_armor.wither_sword": "§7Wither Sword",
   "speedrunnermod.title.features.tools_and_armor.dragons_sword": "§dDragon's Sword",
+  "speedrunnermod.title.features.tools_and_armor.speedrunner_bow_and_crossbow": "§bSpeedrunner Bow & Crossbow",
+  "speedrunnermod.title.features.tools_and_armor.speedrunner_flint_and_steel": "§bSpeedrunner Flint & Steel",
+  "speedrunnermod.title.features.tools_and_armor.speedrunner_shears": "§bSpeedrunner Shears",
+  "speedrunnermod.title.features.tools_and_armor.speedrunner_shield": "§bSpeedrunner Shield",
 
   "speedrunnermod.menu.features.ores_and_worldgen": "Ores and Worldgen...",
   "speedrunnermod.title.features.ores_and_worldgen": "Ores and Worldgen",
@@ -873,6 +879,7 @@
   "speedrunnermod.title.features.ores_and_worldgen.experience_ores": "§aExperience Ores",
   "speedrunnermod.title.features.ores_and_worldgen.igneous_ores": "§7Igneous Ores",
   "speedrunnermod.title.features.ores_and_worldgen.common_ores": "§bOres are More Common!",
+  "speedrunnermod.title.features.ores_and_worldgen.better_biomes": "§aBetter Biomes",
   "speedrunnermod.title.features.ores_and_worldgen.structures": "§aStructures are More Common!",
   "speedrunnermod.title.features.ores_and_worldgen.fortresses_bastions_and_strongholds": "§cNether Fortresses, §7Bastions§r and §bStrongholds",
 
@@ -924,6 +931,7 @@
   "speedrunnermod.title.features.miscellaneous.speedrunner_edition": "§lSpeedrunner Edition!",
   "speedrunnermod.title.features.miscellaneous.custom_panorama": "§bCustom Panorama!",
   "speedrunnermod.title.features.miscellaneous.and_more": "§bAnd More!",
+  "speedrunnermod.title.features.miscellaneous.tutorial_mode": "§a§lTutorial Mode",
 
   "speedrunnermod.features.tooltip": "View all Speedrunner Mod features...",
 

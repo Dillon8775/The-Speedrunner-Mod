@@ -23,11 +23,6 @@ public class GoldenSpeedrunnerArmorScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 2;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.TOOLS_AND_ARMOR;

@@ -1,4 +1,4 @@
-### A new type of wood, which can be found across §a§lall biomes§r§f in the §aoverworld,§f as well as in the §b§lSpeedrunner's Wasteland's§r §bbiome.
+### A new type of wood, which can be §oonly §rin the §b§lSpeedrunner's Wasteland's§r §bbiome.
 
 #### Acts like any other type of wood; can be used as a §7§lfuel source,§r but §6cannot burn from fire or lava.
 

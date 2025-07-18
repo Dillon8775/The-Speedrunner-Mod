@@ -435,9 +435,16 @@ Generates throughout the overworld, and it's great for speedrunning, because ore
 
 You can disable this biome from generating by turning off the "Custom Biomes and Custom Biome Features" option.
 
-You can also change how often this biome spawns by changing the "Speedrunner's Wasteland Biome Weight" option.
-
 <img src="https://i.imgur.com/K6N5VEJ.png" width="480" height="270" alt="Image description">
+
+---
+
+### Better Biomes
+Biomes suited for speedrunning, like the Speedrunner's Wasteland, plains, deserts, and savannas generate more commonly!
+
+You can disable this feature by turning off the "Better Biomes" option.
+
+<img src="https://i.imgur.com/KklrUJe.png" width="480" height="270" alt="Image description">
 
 ---
 

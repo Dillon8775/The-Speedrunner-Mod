@@ -86,4 +86,17 @@ public class TheEndBiomesLoader {
             theEndEffects.add("particle", particleObject);
         }
     }
+
+    /**
+     * Modifies the {@code end noise settings.}
+     */
+    public static void modifyEnd(JsonElement jsonElement) {
+        String stone = isDoomMode() ? "speedrunnermod:doom_stone" : "minecraft:end_stone";
+        JsonObject defaultBlock = jsonElement.getAsJsonObject().getAsJsonObject("default_block");
+        defaultBlock.addProperty("Name", stone);
+
+        JsonObject surfaceRule = jsonElement.getAsJsonObject().getAsJsonObject("surface_rule");
+        JsonObject resultState = surfaceRule.getAsJsonObject("result_state");
+        resultState.addProperty("Name", stone);
+    }
 }

@@ -42,7 +42,6 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.optionList.addSingleOptionEntry(ModListOptions.modifiedStrongholdYGeneration());
         this.optionList.addSingleOptionEntry(ModListOptions.modifiedNetherFortressGeneration());
         this.optionList.addSingleOptionEntry(ModListOptions.generateSpeedrunnerWood());
-        this.optionList.addSingleOptionEntry(ModListOptions.speedrunnersWastelandBiomeWeight());
         this.optionList.addSingleOptionEntry(ModListOptions.enderEyeBreakingCooldown());
         this.optionList.addSingleOptionEntry(ModListOptions.longerDragonPerchStayTime());
         this.optionList.addSingleOptionEntry(ModListOptions.decreasedZombifiedPiglinScareDistance());
@@ -90,13 +89,6 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                         Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip")
                 );
-
-        this.lockOptionWithTooltip(ModListOptions.speedrunnersWastelandBiomeWeight(), customDataGenAndCustomBiomesAndCustomBiomeFeatures,
-                Text.translatable("speedrunnermod.options.speedrunners_wasteland_biome_weight.tooltip"),
-                !options().main.customDataGeneration.getCurrentValue() ?
-                        Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
-                        Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip")
-        );
 
         this.lockOptionWithTooltip(ModListOptions.piglinAwakenerPiglinCount(), isEasyMode(),
                 Text.translatable("speedrunnermod.options.piglin_awakener_piglin_count.tooltip"),

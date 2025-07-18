@@ -7,7 +7,7 @@ import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.Speedrunne
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
-import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -24,7 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.function.Function;
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
@@ -156,26 +156,19 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
-     * Determine what to do when the user closes a screen.
+     * Determine what to do when the user closes a feature screen.
      */
     @Override
     public void close() {
-        if (this.getScreenCategory() == ScreenCategory.BLOCKS_AND_ITEMS) {
-            this.client.setScreen(new BlocksAndItemsScreen(this.parent));
-        } else if (this.getScreenCategory() == ScreenCategory.TOOLS_AND_ARMOR) {
-            this.client.setScreen(new ToolsAndArmorScreen(this.parent));
-        } else if (this.getScreenCategory() == ScreenCategory.ORES_AND_WORLDGEN) {
-            this.client.setScreen(new OresAndWorldgenScreen(this.parent));
-        } else if (this.getScreenCategory() == ScreenCategory.MISCELLANEOUS) {
-            this.client.setScreen(new MiscellaneousScreen(this.parent));
-        } else if (this.getScreenCategory() == ScreenCategory.DOOM_MODE) {
-            this.client.setScreen(new DoomModeScreen(this.parent));
-        } else if (this.getScreenCategory() == ScreenCategory.SECRET_DOOM_MODE) {
-            this.client.setScreen(new MainScreen(this.parent));
-        } else if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
-            warn("Cannot close this screen!");
-        } else {
-            this.client.setScreen(new FeaturesScreen(this.parent));
+        switch (this.getScreenCategory()) {
+            case BLOCKS_AND_ITEMS -> this.client.setScreen(new BlocksAndItemsScreen(this.parent));
+            case TOOLS_AND_ARMOR -> this.client.setScreen(new ToolsAndArmorScreen(this.parent));
+            case ORES_AND_WORLDGEN -> this.client.setScreen(new OresAndWorldgenScreen(this.parent));
+            case MISCELLANEOUS -> this.client.setScreen(new MiscellaneousScreen(this.parent));
+            case DOOM_MODE -> this.client.setScreen(new DoomModeScreen(this.parent));
+            case SECRET_DOOM_MODE -> this.client.setScreen(new MainScreen(this.parent));
+            case FIRST_TIME_PLAYING -> warn("Cannot close this screen!");
+            default -> this.client.setScreen(new FeaturesScreen(this.parent));
         }
     }
 
@@ -250,39 +243,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
-     * Returns the maximum amount of pages for each category.
+     * @return the maximum amount of pages for each category.
      */
     protected int getMaxPages() {
-        switch (this.getScreenCategory()) {
-            case BLOCKS_AND_ITEMS -> {
-                return calculateMaxPages(ScreenCategory.BLOCKS_AND_ITEMS);
-            }
-            case TOOLS_AND_ARMOR -> {
-                return calculateMaxPages(ScreenCategory.TOOLS_AND_ARMOR);
-            }
-            case ORES_AND_WORLDGEN -> {
-                return calculateMaxPages(ScreenCategory.ORES_AND_WORLDGEN);
-            }
-            case MISCELLANEOUS -> {
-                return calculateMaxPages(ScreenCategory.MISCELLANEOUS);
-            }
-            case DOOM_MODE -> {
-                return calculateMaxPages(ScreenCategory.DOOM_MODE);
-            }
-            case SECRET_DOOM_MODE -> {
-                return calculateMaxPages(ScreenCategory.SECRET_DOOM_MODE);
-            }
-            case FIRST_TIME_PLAYING ->  {
-                return calculateMaxPages(ScreenCategory.FIRST_TIME_PLAYING);
-            }
-            default -> {
-                return 0;
-            }
-        }
+        return this.getCategoryScreenClasses(getScreenCategory()).size();
     }
 
     /**
-     * Returns the page number of feature screens.
+     * @return the page number of feature screens.
      */
     private Screen page(int pageNumber) {
         switch (this.getScreenCategory()) {
@@ -314,31 +282,80 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     }
 
     /**
+     * @return the list of category screens to go by for each screen category.
+     */
+    private List<Class<? extends AbstractFeatureScreen>> getCategoryScreenClasses(ScreenCategory category) {
+        switch (category) {
+            case BLOCKS_AND_ITEMS -> {
+                return this.blocksAndItemsScreens();
+            }
+            case TOOLS_AND_ARMOR -> {
+                return this.toolsAndArmorScreens();
+            }
+            case ORES_AND_WORLDGEN -> {
+                return this.oresAndWorldGenFeatureScreens();
+            }
+            case MISCELLANEOUS -> {
+                return this.miscellaneousFeatureScreens();
+            }
+            case DOOM_MODE -> {
+                return this.doomModeFeatureScreens();
+            }
+            case SECRET_DOOM_MODE -> {
+                return this.secretDoomModeScreens();
+            }
+            default -> {
+                return this.firstTimePlayingScreens();
+            }
+        }
+    }
+
+    /**
      * Determine the screen to go to, based on the page number.
      */
     @AI
     private Screen determineScreen(int pageNumber, ScreenCategory category) {
-        for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
-            if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == category) {
-                return screen;
+        List<Class<? extends AbstractFeatureScreen>> screenClasses = getCategoryScreenClasses(category);
+        if (pageNumber > 0 && pageNumber <= screenClasses.size()) {
+            try {
+                Class<? extends AbstractFeatureScreen> screenClass = screenClasses.get(pageNumber - 1);
+                return screenClass.getDeclaredConstructor(Screen.class).newInstance(this.parent);
+            } catch (Exception e) {
+                SpeedrunnerMod.error("Failed to create screen: " + e.getMessage());
             }
         }
         return new FeaturesScreen(this.parent);
     }
 
     /**
-     * Calculates the total amount of pages that are in a {@link ScreenCategory}.
+     * @return the page number for the screen.
      */
-    protected int calculateMaxPages(ScreenCategory category) {
-        int i = 0;
-        for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
-            if (screen.getScreenCategory() == category) {
-                i++;
+    @AI
+    public int getPageNumber() {
+        List<Class<? extends AbstractFeatureScreen>> screenClasses = getCategoryScreenClasses(getScreenCategory());
+        for (int i = 0; i < screenClasses.size(); i++) {
+            if (screenClasses.get(i) == this.getClass()) {
+                return i + 1;
             }
         }
-        return i;
+        return 1;
+    }
+
+    /**
+     * Gets the {@code next screen} that should be displayed when clicking the {@code "Next"} button.
+     */
+    @Nullable
+    protected Screen getNextScreen() {
+        return this.page(this.getPageNumber() + 1);
+    }
+
+    /**
+     * <p>Gets the {@code previous screen}, which goes back to the screen displayed before.</p>
+     * <p>On {@link ScreenType#FIRST_PAGE} pages, there may not be a previous screen.</p>
+     */
+    @Nullable
+    protected Screen getPreviousScreen() {
+        return this.page(this.getPageNumber() - 1);
     }
 
     /**
@@ -375,23 +392,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected void refreshRestartableFeature() {
         RestartRequiredScreen.getCurrentOptions();
         this.client.setScreen(new MainOptionsScreen(this));
-    }
-
-    /**
-     * Gets the {@code next screen} that should be displayed when clicking the {@code "Next"} button.
-     */
-    @Nullable
-    protected Screen getNextScreen() {
-        return this.page(getPageNumber() + 1);
-    }
-
-    /**
-     * <p>Gets the {@code previous screen}, which goes back to the screen displayed before.</p>
-     * <p>On {@link ScreenType#FIRST_PAGE} pages, there may not be a previous screen.</p>
-     */
-    @Nullable
-    protected Screen getPreviousScreen() {
-        return this.page(getPageNumber() - 1);
     }
 
     /**
@@ -435,11 +435,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected String inToolsAndArmor(String fileName) {
         return "texts/features/toolsandarmor/" + fileName + ".txt";
     }
-
-    /**
-     * Returns the page number of a screen.
-     */
-    public abstract int getPageNumber();
 
     /**
      * Gets the key of the main feature on the feature screen.

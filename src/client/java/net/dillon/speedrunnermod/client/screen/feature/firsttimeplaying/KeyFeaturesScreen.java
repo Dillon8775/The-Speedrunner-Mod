@@ -34,11 +34,6 @@ public class KeyFeaturesScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 2;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;
     }

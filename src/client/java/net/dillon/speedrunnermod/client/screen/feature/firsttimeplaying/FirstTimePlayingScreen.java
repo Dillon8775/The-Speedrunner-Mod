@@ -31,11 +31,6 @@ public class FirstTimePlayingScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 1;
-    }
-
-    @Override
     public @NotNull ScreenCategory getScreenCategory() {
         return ScreenCategory.FIRST_TIME_PLAYING;
     }

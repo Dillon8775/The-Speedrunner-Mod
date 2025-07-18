@@ -130,12 +130,18 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_SPEEDRUNNERS_TOTEM = Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_totem");
     public static final Text TITLE_FEATURE_SPEEDRUNNERS_WORKBENCH = Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunners_workbench");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_WOOD = Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_wood");
+    public static final Text TITLE_FEATURE_SPEEDRUNNER_BOW_AND_CROSSBOW = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_bow_and_crossbow");
+    public static final Text TITLE_FEATURE_SPEEDRUNNER_FLINT_AND_STEEL = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_flint_and_steel");
+    public static final Text TITLE_FEATURE_SPEEDRUNNER_SHEARS = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_shears");
+    public static final Text TITLE_FEATURE_SPEEDRUNNER_SHIELD = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_shield");
+    public static final Text TITLE_FEATURE_RAW_SPEEDRUNNER = Text.translatable("speedrunnermod.title.features.blocks_and_items.raw_speedrunner");
 
     // Tools and armor feature screens
     public static final Text TITLE_FEATURE_COOLDOWN_ENCHANTMENT = Text.translatable("speedrunnermod.title.features.tools_and_armor.cooldown_enchantment");
     public static final Text TITLE_FEATURE_DASH_ENCHANTMENT = Text.translatable("speedrunnermod.title.features.tools_and_armor.dash_enchantment");
     public static final Text TITLE_FEATURE_DRAGONS_SWORD = Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword");
     public static final Text TITLE_FEATURE_GOLDEN_SPEEDRUNNER_ARMOR = Text.translatable("speedrunnermod.title.features.tools_and_armor.golden_speedrunner_armor");
+    public static final Text TITLE_FEATURE_GOLDEN_SPEEDRUNNER_SMITHING_TEMPLATE = Text.translatable("speedrunnermod.title.features.tools_and_armor.golden_speedrunner_smithing_template");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_ARMOR = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_armor");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_SAFE_BOOTS = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots");
     public static final Text TITLE_FEATURE_WITHER_SWORD = Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword");
@@ -147,9 +153,11 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_IGNEOUS_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.igneous_ores");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunner_ores");
     public static final Text TITLE_FEATURE_SPEEDRUNNERS_WASTELAND = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunners_wasteland_biome");
+    public static final Text TITLE_FEATURE_BETTER_BIOMES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.better_biomes");
     public static final Text TITLE_FEATURE_STRUCTURES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.structures");
 
     // Miscellaneous feature screens
+    public static final Text TITLE_FEATURE_TUTORIAL_MODE = Text.translatable("speedrunnermod.title.features.miscellaneous.tutorial_mode");
     public static final Text TITLE_FEATURE_AND_MORE = Text.translatable("speedrunnermod.title.features.miscellaneous.and_more");
     public static final Text TITLE_FEATURE_ARROWS_EXPLODE_BEDS = Text.translatable("speedrunnermod.title.features.miscellaneous.arrows_explode_beds");
     public static final Text TITLE_FEATURE_BETTER_ANVILS = Text.translatable("speedrunnermod.title.features.miscellaneous.better_anvils");

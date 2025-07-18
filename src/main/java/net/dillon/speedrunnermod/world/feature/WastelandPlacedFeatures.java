@@ -49,7 +49,7 @@ public class WastelandPlacedFeatures {
                 PlacedFeatures.OCEAN_FLOOR_HEIGHTMAP,
                 BlockFilterPlacementModifier.of(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.getDefaultState(), BlockPos.ORIGIN)), BiomePlacementModifier.of());
         PlacedFeatures.register(context, PATCH_RAW_SPEEDRUNNER_BLOCK_PLACED, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.PATCH_RAW_SPEEDRUNNER_BLOCK),
-                RarityFilterPlacementModifier.of(200), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
+                RarityFilterPlacementModifier.of(300), SquarePlacementModifier.of(), PlacedFeatures.MOTION_BLOCKING_HEIGHTMAP, BiomePlacementModifier.of());
         PlacedFeatures.register(context, ORE_SPEEDRUNNER_UPPER, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_SPEEDRUNNER),
                 modifiersWithCount(48, HeightRangePlacementModifier.trapezoid(YOffset.fixed(80), YOffset.fixed(384))));
         PlacedFeatures.register(context, ORE_SPEEDRUNNER_MIDDLE, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_SPEEDRUNNER),

@@ -27,11 +27,6 @@ public class RightClickToRemoveSilkTouchScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 28;
-    }
-
-    @Override
     public @NotNull String linesKey() {
         return "right_click_to_remove_silk_touch";
     }

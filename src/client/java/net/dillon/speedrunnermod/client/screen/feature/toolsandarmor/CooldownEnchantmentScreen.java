@@ -23,11 +23,6 @@ public class CooldownEnchantmentScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public int getPageNumber() {
-        return 5;
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.TOOLS_AND_ARMOR;

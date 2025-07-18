@@ -30,11 +30,6 @@ public class FortressesBastionsAndStrongholdsScreen extends AbstractFeatureScree
     }
 
     @Override
-    public int getPageNumber() {
-        return this.getMaxPages();
-    }
-
-    @Override
     @NotNull
     public ScreenCategory getScreenCategory() {
         return ScreenCategory.ORES_AND_WORLDGEN;
