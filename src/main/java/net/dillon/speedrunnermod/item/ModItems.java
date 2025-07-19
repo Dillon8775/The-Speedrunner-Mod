@@ -176,10 +176,10 @@ public class ModItems {
     public static final Item DEAD_SPEEDRUNNER_STICK = Items.register(of("dead_speedrunner_stick"), Item::new);
 
     public static final Item SPEEDRUNNER_BOAT = Items.register(of("speedrunner_boat"), settings -> new BoatItem(
-            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
+            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
 
     public static final Item SPEEDRUNNER_CHEST_BOAT = Items.register(of("speedrunner_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
+            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
 
     public static final Item DEAD_SPEEDRUNNER_BOAT = Items.register(of("dead_speedrunner_boat"), settings -> new BoatItem(
             ModEntityTypes.DEAD_SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));
@@ -188,16 +188,16 @@ public class ModItems {
             ModEntityTypes.DEAD_SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item CRIMSON_BOAT = Items.register(of("crimson_boat"), settings -> new BoatItem(
-            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
+            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
 
     public static final Item CRIMSON_CHEST_BOAT = Items.register(of("crimson_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
+            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
 
     public static final Item WARPED_BOAT = Items.register(of("warped_boat"), settings -> new BoatItem(
-            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1).fireproof());
+            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
 
     public static final Item WARPED_CHEST_BOAT = Items.register(of("warped_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BOOLEAN, false).fireproof());
+            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BOOLEAN, false));
 
     public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new Item(
             settings) {

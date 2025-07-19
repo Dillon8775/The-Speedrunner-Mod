@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
@@ -25,6 +26,11 @@ public class ItemEntityMixin {
         ItemStack stack = item.getStack();
 
         if (options().main.fireproofItems.getCurrentValue()) {
+            if (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS)) {
+                if (stack.getOrDefault(ModDataComponentTypes.BOOLEAN, false)) {
+                    cir.setReturnValue(true);
+                }
+            }
             if (stack.isIn(ModItemTags.FIREPROOF_ITEMS)) {
                 cir.setReturnValue(true);
             }

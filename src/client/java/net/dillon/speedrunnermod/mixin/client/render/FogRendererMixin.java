@@ -9,6 +9,8 @@ import net.minecraft.client.render.fog.FogData;
 import net.minecraft.client.render.fog.FogRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffects;
 import org.joml.Vector4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,7 +29,10 @@ public class FogRendererMixin {
      */
     @Inject(method = "applyFog(Lnet/minecraft/client/render/Camera;IZLnet/minecraft/client/render/RenderTickCounter;FLnet/minecraft/client/world/ClientWorld;)Lorg/joml/Vector4f;", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void removeFog(Camera camera, int viewDistance, boolean thick, RenderTickCounter tickCounter, float skyDarkness, ClientWorld world, CallbackInfoReturnable<Vector4f> cir, float f, Vector4f vector4f, float g, CameraSubmersionType cameraSubmersionType, Entity entity, FogData fogData, float h) {
-        if (!clientOptions().client.fog.getCurrentValue() &&
+        if (entity instanceof LivingEntity livingEntity &&
+                !livingEntity.hasStatusEffect(StatusEffects.BLINDNESS) &&
+                !livingEntity.hasStatusEffect(StatusEffects.DARKNESS) &&
+                !clientOptions().client.fog.getCurrentValue() &&
                 cameraSubmersionType != CameraSubmersionType.WATER &&
                 cameraSubmersionType != CameraSubmersionType.LAVA &&
                 cameraSubmersionType != CameraSubmersionType.POWDER_SNOW) {

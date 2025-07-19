@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.recipe;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
@@ -13,17 +12,23 @@ import net.minecraft.registry.RegistryWrapper;
 import java.util.List;
 
 /**
- * An abstract representation of a {@code fireproof chest boat recipe.}
+ * An abstract representation of a {@code fireproof boat recipe} with either a {@code speedrunner paddle} or a {@code chest.}
  */
-public class AbstractFireproofChestBoatRecipe extends ShapelessRecipe {
+public class AbstractFireproofOneItemBoatRecipe extends ShapelessRecipe {
+    private final Item otherItem;
     private final Item boat;
     private final Item result;
 
-    public AbstractFireproofChestBoatRecipe(Item boat, Item result, CraftingRecipeCategory category) {
+    public AbstractFireproofOneItemBoatRecipe(Item otherItem, Item originalBoat, CraftingRecipeCategory category) {
+        this(otherItem, originalBoat, originalBoat, category);
+    }
+
+    public AbstractFireproofOneItemBoatRecipe(Item otherItem, Item boat, Item result, CraftingRecipeCategory category) {
         super("chest_boat", category, new ItemStack(result), List.of(
                 Ingredient.ofItem(boat),
-                Ingredient.ofItem(Items.CHEST)
+                Ingredient.ofItem(otherItem)
         ));
+        this.otherItem = otherItem;
         this.boat = boat;
         this.result = result;
     }
@@ -35,9 +40,17 @@ public class AbstractFireproofChestBoatRecipe extends ShapelessRecipe {
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = new ItemStack(this.result);
 
+        boolean hasOtherItem = false;
+        for (ItemStack slot : input.getStacks()) {
+            if (slot.isOf(this.otherItem)) {
+                hasOtherItem = true;
+                break;
+            }
+        }
+
         // If crafting a chest boat with just a boat and chest then make sure the chest boat comes with the fireproof component as well
         for (ItemStack slot : input.getStacks()) {
-            if (slot.isOf(this.boat) && slot.getOrDefault(ModDataComponentTypes.BOOLEAN, false)) {
+            if (slot.isOf(this.boat) && (slot.getOrDefault(ModDataComponentTypes.BOOLEAN, false) || hasOtherItem)) {
                 result.set(ModDataComponentTypes.BOOLEAN, true);
                 break;
             }

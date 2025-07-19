@@ -3,22 +3,18 @@ package net.dillon.speedrunnermod.recipe.boat.chest;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.recipe.AbstractFireproofOneItemBoatRecipe;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
-import net.minecraft.item.Items;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.book.CraftingRecipeCategory;
 
-/**
- * Represents the {@code warped chest boat recipe.}
- */
-public class WarpedChestBoatRecipe extends AbstractFireproofOneItemBoatRecipe {
+public class FireproofWarpedChestBoatRecipe extends AbstractFireproofOneItemBoatRecipe {
 
-    public WarpedChestBoatRecipe(CraftingRecipeCategory category) {
-        super(Items.CHEST, ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, category);
+    public FireproofWarpedChestBoatRecipe(CraftingRecipeCategory category) {
+        super(ModItems.SPEEDRUNNER_PADDLE, ModItems.WARPED_CHEST_BOAT, category);
     }
 
     @Override
     public RecipeSerializer<ShapelessRecipe> getSerializer() {
-        return ModRecipes.WARPED_CHEST_BOAT_RECIPE_SERIALIZER;
+        return ModRecipes.FIREPROOF_WARPED_CHEST_BOAT_RECIPE_SERIALIZER;
     }
 }

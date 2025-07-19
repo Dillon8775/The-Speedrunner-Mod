@@ -29,6 +29,7 @@ public abstract class EntityMixin {
     public abstract World getWorld();
     @Shadow
     private int fireTicks;
+
     /**
      * Decreases time set on fire for from lava.
      */
@@ -55,7 +56,7 @@ public abstract class EntityMixin {
         if (options().main.lavaBoats.getCurrentValue()) {
             if (vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat)) {
                 if (this.fireTicks > 0 && this.fireTicks % 20 == 0) {
-                    ((Entity)(Object)this).damage((ServerWorld)this.getWorld(), this.getDamageSources().onFire(), ModUtil.getLavaDamageValue());
+                    ((Entity)(Object)this).damage((ServerWorld)this.getWorld(), this.getDamageSources().onFire(), 1.0F);
                 }
                 ci.cancel();
             }
