@@ -37,6 +37,7 @@ public class ModPackets {
 
         ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
             UUID playerUuid = context.player().getUuid();
+            ServerStorage.setTutorialModeForPlayer(playerUuid, packet.tutorialMode());
             ServerStorage.setActionbarPref(playerUuid, packet.actionbar());
             ServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
             ServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());

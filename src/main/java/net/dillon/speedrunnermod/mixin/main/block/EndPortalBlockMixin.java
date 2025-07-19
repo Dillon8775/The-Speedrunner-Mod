@@ -28,7 +28,7 @@ public class EndPortalBlockMixin {
 
     @Inject(method = "onEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;detachForDimensionChange()V"))
     private void exitEndTutorialMode(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler handler, CallbackInfo ci) {
-        if (entity instanceof ServerPlayerEntity player && ServerStorage.hasCompletedStep(player, TutorialStep.KILL_DRAGON)) {
+        if (entity instanceof ServerPlayerEntity player && ServerStorage.isTutorialModeEnabledForPlayer(player.getUuid()) && ServerStorage.hasCompletedStep(player, TutorialStep.KILL_DRAGON)) {
             if (isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.EXIT_END, player, "speedrunnermod.tutorial_mode.exit_end.doom");
             } else {

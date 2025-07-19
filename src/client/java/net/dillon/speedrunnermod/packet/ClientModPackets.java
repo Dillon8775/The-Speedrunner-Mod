@@ -197,7 +197,7 @@ public class ClientModPackets {
     public static void sendNewC2SOptions() {
         ClientModOptions.Client options = clientOptions().client;
         ClientPlayNetworking.send(new ClientPreferencesC2SPacket(
-                isActionbar(), options.iCarusFireworksInventorySlot.getCurrentValue(), options.infiniPearlInventorySlot.getCurrentValue()
+                options.tutorialMode.getCurrentValue(), isActionbar(), options.iCarusFireworksInventorySlot.getCurrentValue(), options.infiniPearlInventorySlot.getCurrentValue()
         ));
     }
 }

@@ -155,7 +155,7 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         LivingEntity livingEntity = dragon.getAttacker();
         if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
-            boolean bl = !ServerStorage.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
+            boolean bl = ServerStorage.isTutorialModeEnabledForPlayer(serverPlayer.getUuid()) && !ServerStorage.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
             if ((isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) || bl) {
                 this.setHealth(1.0F);
                 if (bl && !this.isGiantOrWitherAlive()) {

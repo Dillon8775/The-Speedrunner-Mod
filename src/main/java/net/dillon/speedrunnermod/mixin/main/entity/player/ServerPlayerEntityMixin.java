@@ -35,8 +35,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow
     public abstract void sendMessage(Text message, boolean actionBar);
-
-    @Shadow public abstract ServerWorld getWorld();
+    @Shadow
+    public abstract ServerWorld getWorld();
 
     public ServerPlayerEntityMixin(World world, GameProfile profile) {
         super(world, profile);
@@ -74,7 +74,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
             this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
 
-            if (!ServerStorage.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
+            if (ServerStorage.isTutorialModeEnabledForPlayer(this.getUuid()) && !ServerStorage.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
                 if (!this.getInventory().contains(totem)) {
                     ModUtil.spawnFloatingItemEntity(this.getWorld(), totem, this);
                 }

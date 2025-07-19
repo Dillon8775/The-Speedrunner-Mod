@@ -143,7 +143,7 @@ public interface TutorialMode {
      */
     @AI
     default void completeStep(TutorialStep step, ClientPlayerEntity player, String... messageKey) {
-        if (canComplete(step) && !this.getStep(step)) {
+        if (this.canComplete(step) && !this.getStep(step)) {
             setStep(step, true);
             List<String> translations = new ArrayList<>();
             for (String s : messageKey) {
