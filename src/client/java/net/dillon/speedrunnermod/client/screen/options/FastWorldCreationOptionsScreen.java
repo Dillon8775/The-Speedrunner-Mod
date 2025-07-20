@@ -45,17 +45,17 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.difficulty.tooltip"),
+                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.difficulty(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
+                Text.translatable("speedrunnermod.options.difficulty.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
+                Text.translatable("speedrunnermod.options.allow_cheats.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
     }

@@ -344,7 +344,7 @@ public class ModOptions {
         /**
          * This allows all world modifications to be applied, which includes making structures more common, modifying mob/creature spawn rates, doom mode features, and more.
          */
-        public OptionValue<Boolean> customDataGeneration = new OptionValue<>(true, false);
+        public OptionValue<Boolean> customDataGeneration = new OptionValue<>(true, true);
 
         /**
          * Enables leaderboard mode, and applies the leaderboard checks and settings to the mod.

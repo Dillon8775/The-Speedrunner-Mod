@@ -1,4 +1,6 @@
 - Fireproof boat items are now only fireproof if they have the fireproof component (so if you crafted it with a speedrunner paddle).
 - You can now craft fireproof boats with just the original boat item and a speedrunner paddle.
 - Fixed bug where player can see clearly when fog is off even if they have the blindness or darkness effect.
+- The "Custom Data Generation" option now requires a restart in order to take full effect due to modifying other options which also require a restart.
 - Fixed bug where player takes more damage then they should when in a fireproot and were previously on fire.
+- Fixed duplicate tooltips on fast world creation options screen.
