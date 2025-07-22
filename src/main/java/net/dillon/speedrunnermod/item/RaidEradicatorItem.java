@@ -79,7 +79,7 @@ public class RaidEradicatorItem extends Item implements EyeItem {
                                         }
                                     }
                                 }
-                                player.damage(serverWorld, player.getDamageSources().generic(), player.getHealth());
+                                player.damage(serverWorld, player.getDamageSources().generic(), Float.MAX_VALUE);
 
                                 ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, ModItems.RAID_ERADICATOR.getDefaultStack());
 
