@@ -1,4 +1,1 @@
-- Fireproof boat items are now only fireproof if they have the fireproof component (so if you crafted it with a speedrunner paddle).
-- You can now craft fireproof boats with just the original boat item and a speedrunner paddle.
-- Fixed bug where player can see clearly when fog is off even if they have the blindness or darkness effect.
-- Fixed bug where player takes more damage then they should when in a fireproot and were previously on fire.
+- Fixed bug where you can still kill the ender dragon on doom mode if a giant and/or wither is still alive without player death source.

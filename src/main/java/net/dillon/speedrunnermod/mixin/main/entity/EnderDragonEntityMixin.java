@@ -11,7 +11,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
-import net.minecraft.entity.boss.dragon.phase.PhaseManager;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.GiantEntity;
@@ -40,15 +39,9 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
-public abstract class EnderDragonEntityMixin extends MobEntity {
-    @Shadow
-    private float damageDuringSitting;
-    @Shadow
-    protected abstract void parentDamage(ServerWorld world, DamageSource source, float amount);
+public class EnderDragonEntityMixin extends MobEntity {
     @Shadow @Final
     public EnderDragonPart head;
-    @Shadow @Final
-    private PhaseManager phaseManager;
 
     public EnderDragonEntityMixin(EntityType<? extends EnderDragonEntity> entityType, World world) {
         super(entityType, world);
@@ -153,10 +146,12 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
     @Override
     public void onDeath(DamageSource source) {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        this.preventDragonFromDying(dragon);
+
         LivingEntity livingEntity = dragon.getAttacker();
         if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
             boolean bl = ServerStorage.isTutorialModeEnabledForPlayer(serverPlayer.getUuid()) && !ServerStorage.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
-            if ((isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) || bl) {
+            if (this.preventDragonFromDying(dragon) || bl) {
                 this.setHealth(1.0F);
                 if (bl && !this.isGiantOrWitherAlive()) {
                     List<String> translations = new ArrayList<>();
@@ -173,6 +168,18 @@ public abstract class EnderDragonEntityMixin extends MobEntity {
                 super.onDeath(source);
             }
         }
+    }
+
+    /**
+     * Prevents the ender dragon from dying based on certain conditions.
+     */
+    @Unique
+    private boolean preventDragonFromDying(EnderDragonEntity dragon) {
+        boolean bl = isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive();
+        if (bl) {
+            dragon.setHealth(1.0F);
+        }
+        return bl;
     }
 
     /**

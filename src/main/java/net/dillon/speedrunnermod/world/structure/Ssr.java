@@ -17,8 +17,8 @@ abstract class Ssr {
      * Configurates the {@code structure spawn rate spacing and separation values}.
      */
     public final void configurate(JsonElement element) {
-        element.getAsJsonObject().getAsJsonObject("placement").addProperty("spacing", getSpacing());
-        element.getAsJsonObject().getAsJsonObject("placement").addProperty("separation", getSeparation());
+        element.getAsJsonObject().getAsJsonObject("placement").addProperty("spacing", this.getSpacing());
+        element.getAsJsonObject().getAsJsonObject("placement").addProperty("separation", this.getSeparation());
     }
 
     /**

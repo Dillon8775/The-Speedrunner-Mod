@@ -24,11 +24,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSsrDefault;
 
 @Mixin(RegistryLoader.class)
 public class RegistryLoaderMixin {
-    /**
-     * This link was used to generate .json files using the code provided in the {@code data.loader} package in this mod.
-     */
-    @Unique
-    private final String CHAT = "https://chatgpt.com/c/501e728a-d6a2-405c-bc2c-b80cfd5b9b18"; // The ChatGPT chat used for generating JSON objects and arrays.
 
     /**
      * Directly modifies {@code ".json" files} to change and modify {@code world generation features,} including structures, mob spawns, and more.
@@ -36,7 +31,7 @@ public class RegistryLoaderMixin {
      */
     @Author(Authors.MAXENCEDC)
     @AI
-    @Inject(at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"), method = "parseAndAdd")
+    @Inject(method = "parseAndAdd", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"))
     private static <E> void customDataGeneration(MutableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, RegistryKey<E> resourceKey, Resource resource, RegistryEntryInfo registrationInfo, CallbackInfo ci, @Local JsonElement jsonElement) {
         String path = registry.getKey().getValue().getPath();
         String fileName = path + "/" + resourceKey.getValue().getPath() + ".json";

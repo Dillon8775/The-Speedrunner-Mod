@@ -91,7 +91,8 @@ public class EntitySpawnsLoader {
      * A list of all biomes that use {@link net.minecraft.world.gen.feature.DefaultBiomeFeatures#addFarmAnimals(SpawnSettings.Builder)}.
      */
     public static List<String> biomesWithFarmAnimals() {
-        return List.of(biomeName("old_growth_pine_taiga"),
+        return List.of(
+                biomeName("old_growth_pine_taiga"),
                 biomeName("old_growth_spruce_taiga"),
                 biomeName("windswept_hills"),
                 biomeName("windswept_gravelly_hills"),
