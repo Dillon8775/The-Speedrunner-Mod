@@ -14,7 +14,6 @@ import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntryInfo;
 import net.minecraft.resource.Resource;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
