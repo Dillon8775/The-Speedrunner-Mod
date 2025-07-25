@@ -39,7 +39,7 @@ public class KnockbackStickItem extends Item {
      * Decrement durability when hitting an entity.
      */
     @Override
-    public void postDamageEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         stack.damage(1, attacker, EquipmentSlot.MAINHAND);
     }
 
