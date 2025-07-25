@@ -21,7 +21,7 @@ public class NetherFortressGeneratorMixin {
     private static  NetherFortressGenerator.PieceData[] ALL_CORRIDOR_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
 
     static {
-        if (options().main.customDataGeneration.getCurrentValue() && (!isBalancedMode() || !options().advanced.modifiedNetherFortressGeneration.getCurrentValue())) {
+        if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedNetherFortressGeneration.getCurrentValue() && !isBalancedMode()) {
             ALL_BRIDGE_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_BRIDGE_PIECES;
             ALL_CORRIDOR_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
         }

@@ -66,21 +66,28 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
         boolean customDataGen = options().main.customDataGeneration.getCurrentValue();
+        boolean customDataGenAndBalancedMode = customDataGen && !isBalancedMode();
         boolean customDataGenAndCustomBiomesAndCustomBiomeFeatures = customDataGen && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue();
 
-        this.lockOptionWithTooltip(ModListOptions.modifiedStrongholdGeneration(), customDataGen,
+        this.lockOptionWithTooltip(ModListOptions.modifiedStrongholdGeneration(), customDataGenAndBalancedMode,
                 Text.translatable("speedrunnermod.options.modified_stronghold_generation.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.modifiedStrongholdYGeneration(), customDataGen,
+        this.lockOptionWithTooltip(ModListOptions.modifiedStrongholdYGeneration(), customDataGenAndBalancedMode,
                 Text.translatable("speedrunnermod.options.modified_stronghold_y_generation.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.modifiedNetherFortressGeneration(), customDataGen,
+        this.lockOptionWithTooltip(ModListOptions.modifiedNetherFortressGeneration(), customDataGenAndBalancedMode,
                 Text.translatable("speedrunnermod.options.modified_nether_fortress_generation.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.generateSpeedrunnerWood(), customDataGenAndCustomBiomesAndCustomBiomeFeatures,

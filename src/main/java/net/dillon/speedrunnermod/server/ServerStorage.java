@@ -92,6 +92,13 @@ public class ServerStorage {
     }
 
     /**
+     * @return {@code true} if tutorial mode is enabled for a player by getting {@code player} UUID.
+     */
+    public static boolean isTutorialModeEnabledForPlayer(ServerPlayerEntity player) {
+        return TUTORIAL_MODE_ENABLED.getOrDefault(player.getUuid(), false);
+    }
+
+    /**
      * @return {@code true} if {@code player} has completed {@code tutorial step.}
      */
     public static boolean hasCompletedStep(ServerPlayerEntity player, TutorialStep step) {

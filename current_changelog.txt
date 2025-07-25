@@ -1,2 +1,1 @@
-- Fixed bug where you can still kill the ender dragon on doom mode if a giant and/or wither is still alive without player death source.
-- Fixed bug where raid eradiactor does not diminish all of the player's health at times.
+- Bug fixes and optimizations.

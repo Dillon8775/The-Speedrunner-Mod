@@ -322,6 +322,8 @@ Easy mode has no limitations and enables *all* speedrunner mod features.
 ### Balanced Mode
 Balanced mode has a few limitations, such as disabling a few overpowered items, such as the *Eye of Annul,* the *Piglin Awakener,* *Blaze Spotter,* etc.
 
+It also disables nether fortresses and strongholds from generating differently.
+
 <img src="https://i.imgur.com/80E1R9J.png" width="300" height="40" alt="Image description">
 
 ---

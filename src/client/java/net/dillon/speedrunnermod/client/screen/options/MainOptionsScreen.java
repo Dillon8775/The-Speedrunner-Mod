@@ -11,6 +11,7 @@ import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * The Speedrunner Mod's {@code main options.}
@@ -92,29 +93,53 @@ public class MainOptionsScreen extends AbstractModScreen {
                 Text.translatable("speedrunnermod.options.block_breaking_multiplier.inactive")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.strongholdCount(), options().main.customDataGeneration.getCurrentValue(),
+        boolean customDataGen = options().main.customDataGeneration.getCurrentValue();
+        boolean customDataGenAndBalancedMode = customDataGen && !isBalancedMode();
+        boolean customDataGenAndBalancedModeAndModifiedStrongholdGeneration = customDataGenAndBalancedMode && options().advanced.modifiedStrongholdGeneration.getCurrentValue();
+
+        this.lockOptionWithTooltip(ModListOptions.strongholdCount(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
                 Text.translatable("speedrunnermod.options.stronghold_count.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        !isBalancedMode() ?
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip") :
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.strongholdDistance(), options().main.customDataGeneration.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.strongholdDistance(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
                 Text.translatable("speedrunnermod.options.stronghold_distance.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        !isBalancedMode() ?
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip") :
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.strongholdSpread(), options().main.customDataGeneration.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.strongholdSpread(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
                 Text.translatable("speedrunnermod.options.stronghold_spread.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        !isBalancedMode() ?
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.strongholdPortalRoomCount(), options().main.customDataGeneration.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.strongholdPortalRoomCount(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
                 Text.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        !isBalancedMode() ?
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.strongholdLibraryCount(), options().main.customDataGeneration.getCurrentValue(),
+        this.lockOptionWithTooltip(ModListOptions.strongholdLibraryCount(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
                 Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                !options().main.customDataGeneration.getCurrentValue() ?
+                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        !isBalancedMode() ?
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.betterBiomes(), options().main.customDataGeneration.getCurrentValue() && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),

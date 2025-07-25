@@ -18,6 +18,7 @@ import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
 
 /**
@@ -319,7 +320,7 @@ public class ModListOptions {
     public static SimpleOption<Boolean> modifiedStrongholdGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_stronghold_generation",
-                SimpleOption.emptyTooltip(),
+                new boolean[]{!isBalancedMode()},
                 options().advanced.modifiedStrongholdGeneration
         );
     }
@@ -327,7 +328,7 @@ public class ModListOptions {
     public static SimpleOption<Boolean> modifiedStrongholdYGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_stronghold_y_generation",
-                SimpleOption.emptyTooltip(),
+                new boolean[]{!isBalancedMode()},
                 options().advanced.modifiedStrongholdYGeneration
         );
     }
@@ -335,7 +336,7 @@ public class ModListOptions {
     public static SimpleOption<Boolean> modifiedNetherFortressGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_nether_fortress_generation",
-                SimpleOption.emptyTooltip(),
+                new boolean[]{!isBalancedMode()},
                 options().advanced.modifiedNetherFortressGeneration
         );
     }
@@ -723,6 +724,25 @@ public class ModListOptions {
     private static SimpleOption<Boolean> createSimpleBooleanOption(String key, SimpleOption.TooltipFactory<Boolean> tooltip, OptionValue<Boolean> option) {
         return new SimpleOption<>(key, tooltip,
                 (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
+                SimpleOption.BOOLEAN,
+                option.getCurrentValue(),
+                option::set);
+    }
+
+    /**
+     * Creates a new {@code simple boolean option.} with different text displayers based on other options.
+     * @param bl the list of booleans to be checked if false, and if one of them are false, return {@code displayer} as the <b>displayer text,</b> and {@code displayerTooltip} as the tooltip.
+     */
+    private static SimpleOption<Boolean> createSimpleBooleanOption(String key, boolean[] bl, OptionValue<Boolean> option) throws IllegalArgumentException {
+        return new SimpleOption<>(key, SimpleOption.emptyTooltip(),
+                (optionText, value) -> {
+                    for (boolean b : bl) {
+                        if (!b) {
+                            return ModTexts.OFF;
+                        }
+                    }
+                    return !value ? ModTexts.OFF : ModTexts.ON;
+                },
                 SimpleOption.BOOLEAN,
                 option.getCurrentValue(),
                 option::set);

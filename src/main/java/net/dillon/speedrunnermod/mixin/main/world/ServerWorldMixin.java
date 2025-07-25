@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.world;
 
+import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
@@ -22,7 +23,7 @@ public class ServerWorldMixin {
      */
     @Inject(method = "onDimensionChanged", at = @At("TAIL"))
     private void tutorialModeDimensionChange(Entity entity, CallbackInfo ci) {
-        if (entity instanceof ServerPlayerEntity player && player.getWorld().getRegistryKey() == World.END) {
+        if (entity instanceof ServerPlayerEntity player && ServerStorage.isTutorialModeEnabledForPlayer(player) && player.getWorld().getRegistryKey() == World.END) {
             if (isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.ENTER_END, player,
                         "speedrunnermod.tutorial_mode.entered_end.doom",
