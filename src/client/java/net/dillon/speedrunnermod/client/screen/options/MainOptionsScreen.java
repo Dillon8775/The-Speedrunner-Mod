@@ -102,8 +102,8 @@ public class MainOptionsScreen extends AbstractModScreen {
                 !options().main.customDataGeneration.getCurrentValue() ?
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip") :
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip")
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.strongholdDistance(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
@@ -111,8 +111,8 @@ public class MainOptionsScreen extends AbstractModScreen {
                 !options().main.customDataGeneration.getCurrentValue() ?
                 Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip") :
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip")
+                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.strongholdSpread(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,

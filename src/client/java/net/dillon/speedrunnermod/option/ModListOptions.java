@@ -578,7 +578,8 @@ public class ModListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.ender_eye_breaking_cooldown",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.ender_eye_breaking_cooldown.tooltip")),
-                options().advanced.enderEyeBreakingCooldown
+                options().advanced.enderEyeBreakingCooldown,
+                (optionText, value) -> GameOptions.getGenericValueText(optionText, Text.literal(value + "s").formatted(Formatting.AQUA))
         );
     }
 
@@ -594,7 +595,16 @@ public class ModListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.icarus_fireworks_inventory_slot",
                 SimpleOption.emptyTooltip(),
-                clientOptions().client.iCarusFireworksInventorySlot
+                clientOptions().client.iCarusFireworksInventorySlot,
+                (optionText, value) -> {
+                    if (value < 10) {
+                        return GameOptions.getGenericValueText(optionText, Text.literal("Hotbar Slot ").formatted(Formatting.AQUA)
+                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                    } else {
+                        return GameOptions.getGenericValueText(optionText, Text.literal("Slot ").formatted(Formatting.AQUA)
+                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                    }
+                }
         );
     }
 
@@ -602,7 +612,16 @@ public class ModListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.infini_pearl_inventory_slot",
                 SimpleOption.emptyTooltip(),
-                clientOptions().client.infiniPearlInventorySlot
+                clientOptions().client.infiniPearlInventorySlot,
+                (optionText, value) -> {
+                    if (value < 10) {
+                        return GameOptions.getGenericValueText(optionText, Text.literal("Hotbar Slot ").formatted(Formatting.AQUA)
+                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                    } else {
+                        return GameOptions.getGenericValueText(optionText, Text.literal("Slot ").formatted(Formatting.AQUA)
+                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                    }
+                }
         );
     }
 

@@ -1,1 +1,2 @@
 - Bug fixes and optimizations.
+- Knockback sticks now have 17 durability points instead of 10.

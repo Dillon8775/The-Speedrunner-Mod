@@ -19,10 +19,10 @@ import java.util.function.Consumer;
 /**
  * A knockback stick item. It does exactly what it says.
  */
-public class KnockbackStickItem extends Item  {
+public class KnockbackStickItem extends Item {
 
     public KnockbackStickItem(Settings settings) {
-        super(settings.maxCount(1).maxDamage(10).rarity(Rarity.EPIC));
+        super(settings.maxCount(1).maxDamage(17).rarity(Rarity.EPIC));
     }
 
     /**
