@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "speedrunnermod",
-  "version": "1.11.7+mc1.21.6x",
+  "version": "1.11.8+mc1.21.6x",
   "name": "Speedrunner Mod",
   "description": "A mod that makes speedrunning, easier.",
   "accessWidener": "speedrunnermod.accessWidener",
@@ -38,6 +38,7 @@
     }
   ],
   "depends": {
+    "dillonlib": ">=1.0",
     "fabricloader": ">=0.16.14",
     "fabric": "*",
     "minecraft": ">=1.21.6",
