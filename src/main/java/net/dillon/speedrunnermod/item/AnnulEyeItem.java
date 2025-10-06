@@ -220,7 +220,11 @@ public class AnnulEyeItem extends Item implements EyeItem {
         }
 
         if (centerPos != portalPos) {
-            world.setBlockState(centerPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
+            BlockPos standingPos = world.getBlockState(centerPos).isOf(Blocks.END_PORTAL)
+                ? centerPos.up()
+                : centerPos;
+            world.setBlockState(standingPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
+            return standingPos;
         }
         return centerPos;
     }

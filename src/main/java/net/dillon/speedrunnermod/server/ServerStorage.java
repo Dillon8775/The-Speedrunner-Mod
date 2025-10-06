@@ -8,7 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import java.util.*;
 
 /**
- * Stores server-synced client options.
+ * Stores server-synced client options and cached values.
  */
 @AI
 public class ServerStorage {

@@ -88,8 +88,8 @@ public class ModItemGroups {
                         if (!balancedMode) {
                             entries.add(ModItems.DRAGONS_PEARL);
                         }
-                        entries.add(ModUtil.createUnbreakableItem(Items.ELYTRA));
-                        entries.add(ModUtil.flightDurationComponentItem(1));
+                        entries.add(ModUtil.ofUnbreakable(Items.ELYTRA));
+                        entries.add(ModUtil.fireworkWithFlightDuration(1));
                         entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
                         entries.add(ModItems.KNOCKBACK_STICK);
