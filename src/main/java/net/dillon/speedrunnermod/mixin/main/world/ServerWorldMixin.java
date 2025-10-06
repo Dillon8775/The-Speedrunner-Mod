@@ -23,7 +23,7 @@ public class ServerWorldMixin {
      */
     @Inject(method = "onDimensionChanged", at = @At("TAIL"))
     private void tutorialModeDimensionChange(Entity entity, CallbackInfo ci) {
-        if (entity instanceof ServerPlayerEntity player && ServerStorage.isTutorialModeEnabledForPlayer(player) && player.getWorld().getRegistryKey() == World.END) {
+        if (entity instanceof ServerPlayerEntity player && ServerStorage.isTutorialModeEnabledForPlayer(player) && player.getEntityWorld().getRegistryKey() == World.END) {
             if (isDoomMode()) {
                 ModUtil.completeStepS2C(TutorialStep.ENTER_END, player,
                         "speedrunnermod.tutorial_mode.entered_end.doom",

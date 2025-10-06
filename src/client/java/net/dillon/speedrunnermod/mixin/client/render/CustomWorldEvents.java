@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.world.WorldEventHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,6 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldEventHandler.class)
 public abstract class CustomWorldEvents {
     @Shadow @Final
-    private World world;
+    private ClientWorld world;
 
     /**
      * Allows for the correct particle breaking animation for different ender eyes.

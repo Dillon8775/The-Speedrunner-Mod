@@ -268,7 +268,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_water_bucket", this.conditionsFromItem(Items.WATER_BUCKET))
                         .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("cauldron"));
 
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.CHAIN)
+                this.createShaped(RecipeCategory.DECORATIONS, Blocks.IRON_CHAIN)
                         .input('I', ConventionalItemTags.IRON_INGOTS)
                         .input('N', ConventionalItemTags.IRON_NUGGETS)
                         .pattern("N")

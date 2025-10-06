@@ -12,6 +12,7 @@ import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -71,7 +72,7 @@ public class MainScreen extends AbstractModScreen {
         }).build();
 
         this.creditsButton = ButtonWidget.builder(ModTexts.MENU_CREDITS, (button) -> {
-            this.client.setScreen(new CreditsScreen(hasShiftDown(), () -> this.client.setScreen(this)));
+            this.client.setScreen(new CreditsScreen(MinecraftClient.getInstance().isShiftPressed(), () -> this.client.setScreen(this)));
         }).build();
 
         this.leaderboardsButton = ButtonWidget.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {

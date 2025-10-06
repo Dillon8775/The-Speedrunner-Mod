@@ -28,6 +28,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.OptionListWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.screen.ScreenTexts;
@@ -78,7 +79,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
             this.openOptionsFileButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MENU_OPEN_OPTIONS_FILE, (button) -> {
                 this.close();
-                this.configFile = !hasShiftDown() ? configHandler().getConfigFile() : clientConfigHandler().getConfigFile();
+                this.configFile = !MinecraftClient.getInstance().isShiftPressed() ? configHandler().getConfigFile() : clientConfigHandler().getConfigFile();
                 Util.getOperatingSystem().open(this.configFile);
             }).dimensions(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
 
@@ -162,7 +163,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.renderBasicTooltip(ModTexts.SAVE_TOOLTIP, context, mouseX, mouseY);
             }
             if (this.openOptionsFileButton.isHovered()) {
-                if (!hasShiftDown()) {
+                if (!MinecraftClient.getInstance().isShiftPressed()) {
                     this.renderBasicTooltip(ModTexts.OPEN_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
                 } else {
                     this.renderBasicTooltip(ModTexts.OPEN_CLIENT_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
@@ -360,7 +361,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Refreshes the screen to allow the user to modify list options.
      */
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
         if (this.isOptionsScreen()) {
             if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && !this.searchField.isFocused() && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
                 double scrollY = advancedOptionsScreen.optionList.getScrollY();
@@ -370,7 +371,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 return true;
             }
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     /**
@@ -467,28 +468,28 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * @return {@code true} if the {@code A} key is being held down.
      */
     protected boolean hasADown() {
-        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_A);
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow(), GLFW.GLFW_KEY_A);
     }
 
     /**
      * @return {@code true} if the {@code X} key is being held down.
      */
     protected boolean hasXDown() {
-        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_X);
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow(), GLFW.GLFW_KEY_X);
     }
 
     /**
      * @return {@code true} if the {@code Y} key is being held down.
      */
     protected boolean hasYDown() {
-        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_Y);
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow(), GLFW.GLFW_KEY_Y);
     }
 
     /**
      * @return {@code true} if the {@code Z} key is being held down.
      */
     protected boolean hasZDown() {
-        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), GLFW.GLFW_KEY_Z);
+        return InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow(), GLFW.GLFW_KEY_Z);
     }
 
     /**

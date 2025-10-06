@@ -4,14 +4,12 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
+import net.minecraft.client.render.command.OrderedRenderCommandQueue;
 import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.LoadedEntityModels;
 import net.minecraft.client.render.entity.model.ShieldEntityModel;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
+import net.minecraft.client.texture.SpriteHolder;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.component.ComponentMap;
@@ -21,6 +19,7 @@ import net.minecraft.item.ItemDisplayContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Unit;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -32,27 +31,30 @@ import java.util.Set;
  */
 @Environment(EnvType.CLIENT)
 public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<ComponentMap> {
-    private final ShieldEntityModel shieldModel;
+    private final SpriteHolder spriteHolder;
+    private final ShieldEntityModel model;
     private static final SpriteIdentifier SPEEDRUNNER_SHIELD_BASE = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/speedrunner_shield_base"));
     private static final SpriteIdentifier SPEEDRUNNER_SHIELD_BASE_NO_PATTERN = new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, Identifier.of("entity/speedrunner_shield_base_no_pattern"));
 
-    public SpeedrunnerShieldModelRenderer(ShieldEntityModel model) {
-        this.shieldModel = model;
+    public SpeedrunnerShieldModelRenderer(SpriteHolder spriteHolder, ShieldEntityModel model) {
+        this.spriteHolder = spriteHolder;
+        this.model = model;
     }
 
-    /**
-     * Copied over from {@link net.minecraft.client.render.item.model.special.ShieldModelRenderer}.
-     * <p>Creates the renderer for the {@code speedrunner shield.}</p>
-     */
-    @Override
+    @Nullable
+    public ComponentMap getData(ItemStack itemStack) {
+        return itemStack.getImmutableComponents();
+    }
+
     public void render(
             @Nullable ComponentMap componentMap,
             ItemDisplayContext itemDisplayContext,
             MatrixStack matrixStack,
-            VertexConsumerProvider vertexConsumerProvider,
+            OrderedRenderCommandQueue orderedRenderCommandQueue,
             int i,
             int j,
-            boolean bl
+            boolean bl,
+            int k
     ) {
         BannerPatternsComponent bannerPatternsComponent = componentMap != null
                 ? (BannerPatternsComponent)componentMap.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT)
@@ -62,44 +64,60 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Comp
         matrixStack.push();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
         SpriteIdentifier spriteIdentifier = bl2 ? SPEEDRUNNER_SHIELD_BASE : SPEEDRUNNER_SHIELD_BASE_NO_PATTERN;
-        VertexConsumer vertexConsumer = spriteIdentifier.getSprite()
-                .getTextureSpecificVertexConsumer(
-                        ItemRenderer.getItemGlintConsumer(
-                                vertexConsumerProvider, this.shieldModel.getLayer(spriteIdentifier.getAtlasId()), itemDisplayContext == ItemDisplayContext.GUI, bl
-                        )
-                );
-        this.shieldModel.getHandle().render(matrixStack, vertexConsumer, i, j);
+        orderedRenderCommandQueue.submitModelPart(
+                this.model.getHandle(),
+                matrixStack,
+                this.model.getLayer(spriteIdentifier.getAtlasId()),
+                i,
+                j,
+                this.spriteHolder.getSprite(spriteIdentifier),
+                false,
+                false,
+                -1,
+                null,
+                k
+        );
         if (bl2) {
             BannerBlockEntityRenderer.renderCanvas(
+                    this.spriteHolder,
                     matrixStack,
-                    vertexConsumerProvider,
+                    orderedRenderCommandQueue,
                     i,
                     j,
-                    this.shieldModel.getPlate(),
+                    this.model,
+                    Unit.INSTANCE,
                     spriteIdentifier,
                     false,
                     (DyeColor)Objects.requireNonNullElse(dyeColor, DyeColor.WHITE),
                     bannerPatternsComponent,
                     bl,
-                    false
+                    null,
+                    k
             );
         } else {
-            this.shieldModel.getPlate().render(matrixStack, vertexConsumer, i, j);
+            orderedRenderCommandQueue.submitModelPart(
+                    this.model.getPlate(),
+                    matrixStack,
+                    this.model.getLayer(spriteIdentifier.getAtlasId()),
+                    i,
+                    j,
+                    this.spriteHolder.getSprite(spriteIdentifier),
+                    false,
+                    bl,
+                    -1,
+                    null,
+                    k
+            );
         }
 
         matrixStack.pop();
     }
 
     @Override
-    public @Nullable ComponentMap getData(ItemStack stack) {
-        return stack.getImmutableComponents();
-    }
-
-    @Override
     public void collectVertices(Set<Vector3f> vertices) {
         MatrixStack matrixStack = new MatrixStack();
         matrixStack.scale(1.0F, -1.0F, -1.0F);
-        this.shieldModel.getRootPart().collectVertices(matrixStack, vertices);
+        this.model.getRootPart().collectVertices(matrixStack, vertices);
     }
 
     @Environment(EnvType.CLIENT)
@@ -113,8 +131,8 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Comp
         }
 
         @Override
-        public SpecialModelRenderer<?> bake(LoadedEntityModels entityModels) {
-            return new SpeedrunnerShieldModelRenderer(new ShieldEntityModel(entityModels.getModelPart(EntityModelLayers.SHIELD)));
+        public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakeContext context) {
+            return new SpeedrunnerShieldModelRenderer(context.spriteHolder(), new ShieldEntityModel(context.entityModelSet().getModelPart(EntityModelLayers.SHIELD)));
         }
     }
 }

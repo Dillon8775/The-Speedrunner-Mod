@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
@@ -84,13 +85,12 @@ public abstract class Keybindings {
         }
 
         while (ModKeybindings.hitboxesKey.wasPressed()) {
-            boolean bl = !MinecraftClient.getInstance().getEntityRenderDispatcher().shouldRenderHitboxes();
-            MinecraftClient.getInstance().getEntityRenderDispatcher().setRenderHitboxes(bl);
+            boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
             debugWarn(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
         }
 
         while (ModKeybindings.chunkBordersKey.wasPressed()) {
-            boolean bl = MinecraftClient.getInstance().debugRenderer.toggleShowChunkBorder();
+            boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
             debugWarn(bl ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
         }
 

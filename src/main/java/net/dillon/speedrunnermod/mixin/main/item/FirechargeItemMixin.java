@@ -70,7 +70,7 @@ public class FirechargeItemMixin extends Item {
     @Unique
     private ActionResult throwFireball(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             Vec3d lookVec = player.getRotationVec(1.0F);
             FireballEntity fireball = new FireballEntity(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower.getCurrentValue());
             fireball.updatePosition(player.getX(), player.getEyeY() - 0.235, player.getZ());

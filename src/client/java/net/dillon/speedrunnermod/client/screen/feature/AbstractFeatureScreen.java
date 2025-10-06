@@ -17,6 +17,7 @@ import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Identifier;
@@ -176,13 +177,13 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      * Allows for navigation between pages by using the left and right arrow keys, and to reload the screen based if the user presses "R" on their keyboard.
      */
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_LEFT || keyCode == GLFW.GLFW_KEY_A) {
+    public boolean keyPressed(KeyInput input) {
+        if (input.key() == GLFW.GLFW_KEY_LEFT || input.key() == GLFW.GLFW_KEY_A) {
             if (this.getPageNumber() != 1) {
                 this.client.setScreen(this.getPreviousScreen());
             }
             return true;
-        } else if (keyCode == GLFW.GLFW_KEY_RIGHT || keyCode == GLFW.GLFW_KEY_D) {
+        } else if (input.key() == GLFW.GLFW_KEY_RIGHT || input.key() == GLFW.GLFW_KEY_D) {
             if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING && !(this.getPageNumber() < 3)) {
                 warn("Please choose an option!");
             } else if (this.getPageNumber() != this.getMaxPages()) {
@@ -190,7 +191,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             }
             return true;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     /**

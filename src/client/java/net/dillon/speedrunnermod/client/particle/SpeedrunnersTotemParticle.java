@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
+import net.minecraft.util.math.random.Random;
 
 /**
  * The particle for the {@code speedrunners totem.}
@@ -21,7 +22,7 @@ public class SpeedrunnersTotemParticle extends AnimatedParticle {
         this.velocityZ = velocityZ;
         this.scale *= 0.75F;
         this.maxAge = 60 + this.random.nextInt(12);
-        this.setSpriteForAge(spriteProvider);
+        this.updateSprite(spriteProvider);
         if (this.random.nextInt(4) == 0) {
             this.setColor(0.0F + this.random.nextFloat() * 0.2F, 0.8F + this.random.nextFloat() * 0.2F, 0.8F + this.random.nextFloat() * 0.2F);
         } else {
@@ -37,7 +38,7 @@ public class SpeedrunnersTotemParticle extends AnimatedParticle {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random) {
             return new SpeedrunnersTotemParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }

@@ -1042,6 +1042,7 @@
   "speedrunnermod.doom_mode_screen.line13": "So... I suggest you get the maximum amount of protection you can get.",
   "speedrunnermod.doom_mode_screen.line14": "Oh yeah, ender eyes always break and ender pearls give blindness.",
 
+  "key.category.speedrunnermod.speedrunnermod.keybinds": "Speedrunner Mod",
   "speedrunnermod.keybinds": "Speedrunner Mod",
   "speedrunnermod.create_new_world": "Create New World",
   "speedrunnermod.toggle_fog": "Toggle Fog",
@@ -1052,6 +1053,8 @@
   "speedrunnermod.toggle_fullbright.off": "Fullbright: off",
   "speedrunnermod.toggle_hitboxes": "Toggle Hitboxes",
   "speedrunnermod.toggle_chunk_borders": "Toggle Chunk Borders",
+
+  "speedrunnermod.speedrunner_mod": "speedrunner mod info",
 
   "speedrunnermod.menu.generating_new_world": "Generating new world...",
 

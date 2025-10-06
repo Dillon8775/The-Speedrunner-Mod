@@ -45,11 +45,11 @@ public abstract class CreeperEntityMixin extends HostileEntity {
     private void explodeCreeperInstantly(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
         float o = this.isCharged() ? 2.0F : 1.0F;
-        if (!this.getEntityWorld().isClient && isDoomMode()) {
+        if (!this.getEntityWorld().isClient() && isDoomMode()) {
             this.discard();
             this.getEntityWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius * o, World.ExplosionSourceType.MOB);
             this.getEntityWorld().playSound(player, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_ITEM_BREAK, this.getSoundCategory(), 1.5F, this.random.nextFloat() * 0.4F + 0.8F);
-            itemStack.damage(1, player, CreeperEntity.getSlotForHand(hand));
+            itemStack.damage(1, player, hand.getEquipmentSlot());
         }
     }
 }

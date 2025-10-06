@@ -151,7 +151,7 @@ public class ModUtil {
     public static RegistryEntry<Enchantment> enchantment(@NotNull Object entityOrWorld, @NotNull RegistryKey<Enchantment> enchantment) {
         try {
             Optional<RegistryEntry.Reference<Enchantment>> optional =
-                    entityOrWorld instanceof Entity entity ? entity.getWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
+                    entityOrWorld instanceof Entity entity ? entity.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
                             entityOrWorld instanceof World world ? world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
                                     Optional.empty();
             return optional.orElseThrow();
@@ -167,7 +167,7 @@ public class ModUtil {
             errorMessagesSent++;
             World world = null;
             if (entityOrWorld instanceof Entity entity) {
-                world = entity.getWorld();
+                world = entity.getEntityWorld();
             } else if (entityOrWorld instanceof World w) {
                 world = w;
             }
@@ -207,8 +207,8 @@ public class ModUtil {
         item.setNoGravity(true);
         item.setNeverDespawn();
 
-        Vec3d itemPos = item.getPos();
-        Vec3d playerPos = player.getPos();
+        Vec3d itemPos = item.getEntityPos();
+        Vec3d playerPos = player.getEntityPos();
         Vec3d motion = playerPos.subtract(itemPos).normalize().multiply(0.1D);
         item.setVelocity(motion.x, motion.y, motion.z);
 

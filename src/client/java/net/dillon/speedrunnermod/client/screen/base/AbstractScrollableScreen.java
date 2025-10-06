@@ -6,10 +6,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.OrderedText;
@@ -402,22 +404,22 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @AI
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    public boolean mouseClicked(Click click, boolean doubled) {
         for (LineObject line : objectsToDisplay) {
-            if (line.isButton() && line.button.visible && line.button.isMouseOver(mouseX, mouseY)) {
+            if (line.isButton() && line.button.visible && line.button.isMouseOver(click.x(), click.y())) {
                 if (line.button instanceof ButtonWidget buttonWidget) {
-                    buttonWidget.onPress();
+                    buttonWidget.onPress(click);
                 } else {
-                    line.button.onClick(mouseX, mouseY);
+                    line.button.onClick(click, doubled);
                 }
                 line.button.playDownSound(MinecraftClient.getInstance().getSoundManager());
                 return true;
             }
         }
 
-        if (button == 0) {
+        if (click.button() == 0) {
             isDraggingAnywhere = true;
-            lastMouseY = (int) mouseY;
+            lastMouseY = (int) click.y();
         }
 
         initializeTopAndBottom();
@@ -426,11 +428,12 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         int scrollbarHeight = bottom - top;
         int contentHeight = getTotalContentHeight();
 
-        if (mouseX >= scrollbarX && mouseX <= scrollbarX + scrollbarWidth && mouseY >= top && mouseY <= bottom && contentHeight > scrollbarHeight) {isDraggingScrollbar = true;lastMouseY = (int) mouseY;
+        if (click.x() >= scrollbarX && click.x() <= scrollbarX + scrollbarWidth && click.y() >= top && click.y() <= bottom && contentHeight > scrollbarHeight) {
+            isDraggingScrollbar = true;lastMouseY = (int) click.y();
             return true;
         }
 
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(click, doubled);
     }
 
     /**
@@ -438,10 +441,10 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @AI
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(Click click) {
         isDraggingScrollbar = false;
         isDraggingAnywhere = false;
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(click);
     }
 
     /**
@@ -461,7 +464,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @AI
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
         initializeTopAndBottom();
         int scrollbarHeight = bottom - top;
         int contentHeight = getTotalContentHeight();
@@ -471,22 +474,22 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             int thumbHeight = Math.max((int)(scrollbarHeight * ((float)scrollbarHeight / contentHeight)), 10);
             int trackHeight = scrollbarHeight - thumbHeight;
 
-            float percent = (float)(mouseY - top - thumbHeight / 2) / (float)trackHeight;
+            float percent = (float)(click.y() - top - thumbHeight / 2) / (float)trackHeight;
             percent = Math.max(0.0F, Math.min(1.0F, percent));
 
             this.targetScrollOffset = percent * maxScroll;
             this.scrollOffset = targetScrollOffset;
             return true;
         } else if (isDraggingAnywhere) {
-            int dy = (int)(mouseY - lastMouseY);
+            int dy = (int)(click.y() - lastMouseY);
             this.targetScrollOffset -= dy;
             this.targetScrollOffset = Math.max(0, Math.min(this.targetScrollOffset, maxScroll));
             this.scrollOffset = targetScrollOffset;
-            lastMouseY = (int) mouseY;
+            lastMouseY = (int) click.y();
             return true;
         }
 
-        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+        return super.mouseDragged(click, offsetX, offsetY);
     }
 
     /**
@@ -494,17 +497,17 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @AI
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+    public boolean keyPressed(KeyInput input) {
         float maxScroll = getAccurateMaxScroll();
 
-        if (keyCode == 264) { // Down arrow
+        if (input.key() == 264) { // Down arrow
             this.targetScrollOffset = Math.min(this.targetScrollOffset + scrollSpeed, maxScroll);
             return true;
-        } else if (keyCode == 265) { // Up arrow
+        } else if (input.key() == 265) { // Up arrow
             this.targetScrollOffset = Math.max(this.targetScrollOffset - scrollSpeed, 0);
             return true;
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 
     /**

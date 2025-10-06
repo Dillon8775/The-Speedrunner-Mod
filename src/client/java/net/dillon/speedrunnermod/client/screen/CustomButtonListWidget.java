@@ -83,10 +83,10 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
         }
 
         @Override
-        public void render(DrawContext context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
             for (ClickableWidget widget : this.widgets) {
-                widget.setY(y);
-                widget.render(context, mouseX, mouseY, tickDelta);
+                widget.setY(this.getY());
+                widget.render(context, mouseX, mouseY, deltaTicks);
             }
         }
 
