@@ -182,16 +182,16 @@ public class ModUtil {
     }
 
     /**
-     * Creates an unbreakable item.
+     * @return an unbreakable item.
      */
-    public static ItemStack createUnbreakableItem(Item item) {
+    public static ItemStack ofUnbreakable(Item item) {
         ItemStack stack = new ItemStack(item);
         stack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
         return stack;
     }
 
     /**
-     * Spawns a {@code floating item entity} from the player's position and follows them.
+     * Spawns a {@code floating item entity} from the player's position.
      */
     public static void spawnFloatingItemEntity(World world, ItemStack stack, PlayerEntity player) {
         spawnFloatingItemEntity(world, player.getBlockPos(), stack, player, false);
@@ -221,7 +221,7 @@ public class ModUtil {
     /**
      * Returns flight duration 3 firework rockets.
      */
-    public static ItemStack flightDurationComponentItem(int count) {
+    public static ItemStack fireworkWithFlightDuration(int count) {
         ItemStack fireworks = new ItemStack(Items.FIREWORK_ROCKET, count);
         fireworks.set(DataComponentTypes.FIREWORKS, new FireworksComponent(3, List.of()));
         return fireworks;

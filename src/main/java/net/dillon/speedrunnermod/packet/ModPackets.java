@@ -118,15 +118,15 @@ public class ModPackets {
 
                             ItemStack item;
                             if (options().main.iCarusMode.getCurrentValue()) {
-                                item = ModUtil.createUnbreakableItem(Items.ELYTRA);
-                                ItemStack fireworks = ModUtil.flightDurationComponentItem(64);
+                                item = ModUtil.ofUnbreakable(Items.ELYTRA);
+                                ItemStack fireworks = ModUtil.fireworkWithFlightDuration(64);
 
                                 player.equipment.put(EquipmentSlot.CHEST, item);
                                 player.getInventory().getMainStacks().set(iCarusFireworksInventorySlot - 1, fireworks);
                             }
 
                             if (options().main.infiniPearlMode.getCurrentValue()) {
-                                ItemStack infiniPearl = ModUtil.createUnbreakableItem(ModItems.INFINI_PEARL);
+                                ItemStack infiniPearl = ModUtil.ofUnbreakable(ModItems.INFINI_PEARL);
                                 int slot = infiniPearlInventorySlot - 1;
 
                                 if (options().main.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
