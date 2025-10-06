@@ -40,10 +40,10 @@ public interface Giant {
         if (!(f <= (double)0.0F)) {
             double g = target.getX() - attacker.getX();
             double h = target.getZ() - attacker.getZ();
-            float i = (float)(attacker.getWorld().random.nextInt(21) - 10);
-            double j = f * (double)(attacker.getWorld().random.nextFloat() * 0.5F + 0.2F);
+            float i = (float)(attacker.getEntityWorld().random.nextInt(21) - 10);
+            double j = f * (double)(attacker.getEntityWorld().random.nextFloat() * 0.5F + 0.2F);
             Vec3d vec3d = (new Vec3d(g, (double)0.0F, h)).normalize().multiply(j).rotateY(i);
-            double k = f * (double)attacker.getWorld().random.nextFloat() * (double)0.5F;
+            double k = f * (double)attacker.getEntityWorld().random.nextFloat() * (double)0.5F;
             target.addVelocity(vec3d.x, k, vec3d.z);
             target.velocityModified = true;
         }

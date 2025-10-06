@@ -48,7 +48,7 @@ public class AnnulEyeItem extends Item implements EyeItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (world.getRegistryKey() == World.OVERWORLD) {
                 if (!isBalancedMode()) {
                     boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));

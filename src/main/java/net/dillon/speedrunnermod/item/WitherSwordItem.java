@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -28,12 +29,12 @@ public class WitherSwordItem extends Item  {
      */
     @Override
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (target instanceof WitherSkeletonEntity witherSkeleton) {
+        if (target instanceof WitherSkeletonEntity witherSkeleton && witherSkeleton.getEntityWorld() instanceof ServerWorld world) {
             if (ModUtil.percentChance(witherSkeleton.getRandom(), 65)) {
-                witherSkeleton.dropItem(witherSkeleton.getServer().getWorld(witherSkeleton.getWorld().getRegistryKey()), Items.WITHER_SKELETON_SKULL);
+                witherSkeleton.dropItem(world, Items.WITHER_SKELETON_SKULL);
                 stack.damage(ModToolMaterials.WITHER_SWORD.durability(), attacker, EquipmentSlot.MAINHAND);
             }
-            witherSkeleton.kill(witherSkeleton.getServer().getWorld(witherSkeleton.getWorld().getRegistryKey()));
+            witherSkeleton.kill(world);
         }
         super.postHit(stack, target, attacker);
     }

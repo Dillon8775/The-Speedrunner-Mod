@@ -61,7 +61,7 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
      */
     @Unique
     public void onPlaced(World world, BlockPos pos, SkullBlockEntity blockEntity) {
-        if (!world.isClient) {
+        if (!world.isClient()) {
             BlockState blockState = blockEntity.getCachedState();
             boolean bl = blockState.isOf(Blocks.ZOMBIE_HEAD) || blockState.isOf(Blocks.ZOMBIE_WALL_HEAD);
             if (bl && pos.getY() >= world.getBottomY() && world.getDifficulty() != Difficulty.PEACEFUL) {
@@ -97,7 +97,7 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
      */
     @Unique
     public boolean canDispense(World world, BlockPos pos, ItemStack stack) {
-        return stack.isOf(Items.ZOMBIE_HEAD) && pos.getY() >= world.getBottomY() + 2 && world.getDifficulty() != Difficulty.PEACEFUL && !world.isClient && getGoliathDispenserPattern().searchAround(world, pos) != null;
+        return stack.isOf(Items.ZOMBIE_HEAD) && pos.getY() >= world.getBottomY() + 2 && world.getDifficulty() != Difficulty.PEACEFUL && !world.isClient() && getGoliathDispenserPattern().searchAround(world, pos) != null;
     }
 
     /**

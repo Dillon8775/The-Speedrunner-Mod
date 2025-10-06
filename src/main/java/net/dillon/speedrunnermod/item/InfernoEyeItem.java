@@ -36,7 +36,7 @@ public class InfernoEyeItem extends Item implements EyeItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack itemStack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (world.getRegistryKey() == World.NETHER) {
                 if (player.isSneaking()) {
                     if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.FORTRESSES)) {

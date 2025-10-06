@@ -66,10 +66,10 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "travel", at = @At("TAIL"))
     private void applyMovementEffects(Vec3d movementInput, CallbackInfo ci) {
         if (this.getEquippedStack(EquipmentSlot.FEET).isIn(ModItemTags.SPEED_BOOTS) || EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((LivingEntity)(Object)this, ModEnchantments.DASH), (LivingEntity)(Object)this) > 0) {
-            int i = this.getWorld().getDifficulty() != Difficulty.HARD ? 60 : 20;
+            int i = this.getEntityWorld().getDifficulty() != Difficulty.HARD ? 60 : 20;
             int dashEnchantmentLevel = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((LivingEntity)(Object)this, ModEnchantments.DASH), (LivingEntity)(Object)this);
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, i, dashEnchantmentLevel, true, false, true));
-            FluidState fluidState = this.getWorld().getFluidState(this.getBlockPos());
+            FluidState fluidState = this.getEntityWorld().getFluidState(this.getBlockPos());
             float lavaVelocity = dashEnchantmentLevel > 8 ? (0.1F * dashEnchantmentLevel) / 6.0F : dashEnchantmentLevel == 8 ? 0.1F : dashEnchantmentLevel == 7 ? 0.090F : dashEnchantmentLevel == 6 ? 0.080F : dashEnchantmentLevel == 5 ? 0.070F : dashEnchantmentLevel == 4 ? 0.060F : dashEnchantmentLevel == 3 ? 0.045F : dashEnchantmentLevel == 2 ? 0.040F : dashEnchantmentLevel == 1 ? 0.035F : 0.025F;
             float waterVelocity = dashEnchantmentLevel > 8 ? (0.020F * dashEnchantmentLevel) / 6.0F : dashEnchantmentLevel == 8 ? 0.020F : dashEnchantmentLevel == 7 ? 0.018F : dashEnchantmentLevel == 6 ? 0.016F : dashEnchantmentLevel == 5 ? 0.014F : dashEnchantmentLevel == 4 ? 0.012F : dashEnchantmentLevel == 3 ? 0.010F : dashEnchantmentLevel == 2 ? 0.008F : dashEnchantmentLevel == 1 ? 0.006F : 0.004F;
             boolean isBuffedItems = this.getEquippedStack(EquipmentSlot.FEET).isIn(ModItemTags.SPEED_BOOTS) && this.getRandom().nextFloat() < 0.01F;
@@ -139,7 +139,7 @@ public abstract class LivingEntityMixin extends Entity {
                     double e = MathHelper.lerp(d, this.lastX, this.getX()) + (this.random.nextDouble() - 0.5) * this.getWidth() * 2.0;
                     double k = MathHelper.lerp(d, this.lastY, this.getY()) + this.random.nextDouble() * this.getHeight();
                     double l = MathHelper.lerp(d, this.lastZ, this.getZ()) + (this.random.nextDouble() - 0.5) * this.getWidth() * 2.0;
-                    this.getWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, e, k, l, f, g, h);
+                    this.getEntityWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, e, k, l, f, g, h);
                 }
                 break;
         }

@@ -35,7 +35,7 @@ public class AbstractSkeletonEntityMixin extends HostileEntity {
     @ModifyVariable(method = "updateAttackType", at = @At("STORE"), ordinal = 0)
     private int increaseSkeletonArrowSpeed(int x) {
         int i = isDoomMode() ? 5 : 20;
-        if (this.getWorld().getDifficulty() != Difficulty.HARD) {
+        if (this.getEntityWorld().getDifficulty() != Difficulty.HARD) {
             i = isDoomMode() ? 10 : 20;
         }
         return i;

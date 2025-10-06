@@ -46,17 +46,17 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
         boolean isInfiniPearl = super.getStack().isOf(ModItems.INFINI_PEARL);
 
         for (int i = 0; i < 32; ++i) {
-            this.getWorld().addParticleClient(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+            this.getEntityWorld().addParticleClient(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
         }
 
-        if (this.getWorld() instanceof ServerWorld serverWorld && !this.isRemoved()) {
+        if (this.getEntityWorld() instanceof ServerWorld serverWorld && !this.isRemoved()) {
             Entity entity = this.getOwner();
             if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-                if (serverPlayerEntity.networkHandler.isConnectionOpen() && serverPlayerEntity.getWorld() == this.getWorld() && !serverPlayerEntity.isSleeping()) {
+                if (serverPlayerEntity.networkHandler.isConnectionOpen() && serverPlayerEntity.getEntityWorld() == this.getEntityWorld() && !serverPlayerEntity.isSleeping()) {
                     if (!isInfiniPearl && this.random.nextFloat() < 0.05F && serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
-                        EndermiteEntity endermiteEntity = EntityType.ENDERMITE.create(this.getWorld(), SpawnReason.TRIGGERED);
+                        EndermiteEntity endermiteEntity = EntityType.ENDERMITE.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
                         endermiteEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), entity.getYaw(), entity.getPitch());
-                        this.getWorld().spawnEntity(endermiteEntity);
+                        this.getEntityWorld().spawnEntity(endermiteEntity);
                     }
 
                     if (entity.hasVehicle()) {
@@ -91,9 +91,9 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
     private void addBluePortalParticlesInfiniPearl(CallbackInfo ci) {
         if (super.getStack().isOf(ModItems.INFINI_PEARL)) {
             Vec3d vec3d = this.getVelocity();
-            Vec3d vec3d2 = this.getPos();
+            Vec3d vec3d2 = this.getEntityPos();
             for (int i = 0; i < 32; ++i) {
-                this.getWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, vec3d2.x - vec3d.x * 0.25, vec3d2.y - vec3d.y * 0.25, vec3d2.z - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
+                this.getEntityWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, vec3d2.x - vec3d.x * 0.25, vec3d2.y - vec3d.y * 0.25, vec3d2.z - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
             }
         }
     }

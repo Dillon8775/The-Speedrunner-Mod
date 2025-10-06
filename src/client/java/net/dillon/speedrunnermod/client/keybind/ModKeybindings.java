@@ -8,6 +8,7 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybindsLoaded;
 
 /**
@@ -15,12 +16,13 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybin
  */
 @Environment(EnvType.CLIENT)
 public class ModKeybindings {
-    public static final String MOD_KEYBINDS = "speedrunnermod.keybinds";
-    public static KeyBinding resetKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.create_new_world", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, MOD_KEYBINDS));
-    public static KeyBinding fogKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fog", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, MOD_KEYBINDS));
-    public static KeyBinding fullbrightKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, MOD_KEYBINDS));
-    public static KeyBinding hitboxesKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_hitboxes", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, MOD_KEYBINDS));
-    public static KeyBinding chunkBordersKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_chunk_borders", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, MOD_KEYBINDS));
+    public static final KeyBinding.Category SPEEDRUNNER_MOD_KEYBINDINGS = KeyBinding.Category.create(ofSpeedrunnerMod("speedrunnermod.keybinds"));
+
+    public static KeyBinding resetKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.create_new_world", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding fogKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fog", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding fullbrightKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding hitboxesKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_hitboxes", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding chunkBordersKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_chunk_borders", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, SPEEDRUNNER_MOD_KEYBINDINGS));
 
     /**
      * Initializes all {@code Speedrunner Mod} keybindings.

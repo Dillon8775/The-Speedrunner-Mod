@@ -36,7 +36,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Shadow
     public abstract void sendMessage(Text message, boolean actionBar);
     @Shadow
-    public abstract ServerWorld getWorld();
+    public abstract ServerWorld getEntityWorld();
 
     public ServerPlayerEntityMixin(World world, GameProfile profile) {
         super(world, profile);
@@ -50,36 +50,36 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
         ItemStack speedrunnersTotem = new ItemStack(ModItems.SPEEDRUNNERS_TOTEM);
         ItemStack enderMatter = new ItemStack(ModItems.ENDER_MATTER);
-        if (this.getY() < (double)(this.getWorld().getBottomY() - 64) &&
+        if (this.getY() < (double)(this.getEntityWorld().getBottomY() - 64) &&
                 (this.getInventory().contains(speedrunnersTotem) ||
                         this.getMainHandStack().isOf(totem.getItem()) ||
                         this.getOffHandStack().isOf(totem.getItem())))
         {
-            int y = this.getWorld().getTopY(Heightmap.Type.MOTION_BLOCKING, 0, 0);
+            int y = this.getEntityWorld().getTopY(Heightmap.Type.MOTION_BLOCKING, 0, 0);
             BlockPos pos = new BlockPos(0, y - 1, 0);
-            if (this.getWorld().getBlockState(pos).isOf(Blocks.WATER)) {
-                this.getWorld().setBlockState(pos, Blocks.FROSTED_ICE.getDefaultState());
-            } else if (this.getWorld().getBlockState(pos).isOf(Blocks.LAVA)) {
-                this.getWorld().setBlockState(pos, Blocks.BASALT.getDefaultState());
+            if (this.getEntityWorld().getBlockState(pos).isOf(Blocks.WATER)) {
+                this.getEntityWorld().setBlockState(pos, Blocks.FROSTED_ICE.getDefaultState());
+            } else if (this.getEntityWorld().getBlockState(pos).isOf(Blocks.LAVA)) {
+                this.getEntityWorld().setBlockState(pos, Blocks.BASALT.getDefaultState());
             }
-            boolean isAir = this.getWorld().getBlockState(pos.up()).isAir() && this.getWorld().getBlockState(pos.up(1)).isAir();
+            boolean isAir = this.getEntityWorld().getBlockState(pos.up()).isAir() && this.getEntityWorld().getBlockState(pos.up(1)).isAir();
             if (!isAir) {
                 for (int i = 1; i < 3; i++) {
-                    this.getWorld().setBlockState(pos.up(i), Blocks.AIR.getDefaultState(), 3);
+                    this.getEntityWorld().setBlockState(pos.up(i), Blocks.AIR.getDefaultState(), 3);
                 }
             }
 
-            this.damage(this.getWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
+            this.damage((ServerWorld)this.getEntityWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
             this.teleport(0.5, y, 0.5, true);
-            this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
+            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
 
             if (ServerStorage.isTutorialModeEnabledForPlayer(this.getUuid()) && !ServerStorage.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
                 if (!this.getInventory().contains(totem)) {
-                    ModUtil.spawnFloatingItemEntity(this.getWorld(), totem, this);
+                    ModUtil.spawnFloatingItemEntity(this.getEntityWorld(), totem, this);
                 }
                 if (!this.getInventory().contains(enderMatter)) {
-                    ModUtil.spawnFloatingItemEntity(this.getWorld(), enderMatter, this);
+                    ModUtil.spawnFloatingItemEntity(this.getEntityWorld(), enderMatter, this);
                 }
                 ModUtil.completeStepS2C(TutorialStep.FREE_FALL_INTO_VOID, (ServerPlayerEntity)(Object)this,
                         "speedrunnermod.tutorial_mode.craft_speedrunners_totem");
@@ -94,7 +94,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      */
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void sendDeathCords(DamageSource source, CallbackInfo ci) {
-        if (options().main.showDeathCords.getCurrentValue() && this.getWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
+        if (options().main.showDeathCords.getCurrentValue() && this.getEntityWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
             this.sendMessage(ModUtil.deathCords(this.getX(), this.getY(), this.getZ()), false);
         }
     }

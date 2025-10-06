@@ -58,7 +58,7 @@ public abstract class EyeOfEnderEntityMixin extends Entity {
      */
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/EyeOfEnderEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"), cancellable = true)
     private void eyeOfEnderFunctions(CallbackInfo ci) {
-        if (this.lifespan > options().getEnderEyeBreakingCooldown() && !this.getWorld().isClient) {
+        if (this.lifespan > options().getEnderEyeBreakingCooldown() && !this.getEntityWorld().isClient()) {
             if (this.getStack().getItem() == Items.ENDER_EYE || this.getStack().getItem() == ModItems.SPEEDRUNNERS_EYE) {
                 this.playSound(SoundEvents.ENTITY_ENDER_EYE_DEATH, 1.0F, 1.0F);
             } else if (this.getStack().getItem() == ModItems.INFERNO_EYE) {
@@ -68,14 +68,14 @@ public abstract class EyeOfEnderEntityMixin extends Entity {
             ci.cancel();
             if (isDoomMode()) {
                 if (this.getStack().getItem() == Items.ENDER_EYE) {
-                    this.getWorld().syncWorldEvent(WorldEvents.EYE_OF_ENDER_BREAKS, this.getBlockPos(), 0);
+                    this.getEntityWorld().syncWorldEvent(WorldEvents.EYE_OF_ENDER_BREAKS, this.getBlockPos(), 0);
                 } else if (this.getStack().getItem() == ModItems.INFERNO_EYE) {
-                    this.getWorld().syncWorldEvent(ModStatuses.ADD_SMOKE_PARTICLES, this.getBlockPos(), 0);
+                    this.getEntityWorld().syncWorldEvent(ModStatuses.ADD_SMOKE_PARTICLES, this.getBlockPos(), 0);
                 } else if (this.getStack().getItem() == ModItems.SPEEDRUNNERS_EYE) {
-                    this.getWorld().syncWorldEvent(ModStatuses.ADD_BLUE_PORTAL_PARTICLES_FOR_SPEEDRUNNERS_EYE, this.getBlockPos(), 0);
+                    this.getEntityWorld().syncWorldEvent(ModStatuses.ADD_BLUE_PORTAL_PARTICLES_FOR_SPEEDRUNNERS_EYE, this.getBlockPos(), 0);
                 }
             } else {
-                this.getWorld().spawnEntity(new ItemEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), this.getStack()));
+                this.getEntityWorld().spawnEntity(new ItemEntity(this.getEntityWorld(), this.getX(), this.getY(), this.getZ(), this.getStack()));
             }
         }
     }

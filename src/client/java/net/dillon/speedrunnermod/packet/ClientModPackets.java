@@ -180,7 +180,7 @@ public class ClientModPackets {
         IntegratedServer integratedServer = client.getServer();
         if (integratedServer != null) {
             integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats.getCurrentValue());
-            int i = integratedServer.getPermissionLevel(client.player.getGameProfile());
+            int i = integratedServer.getPermissionLevel(client.player.getPlayerConfigEntry());
             client.player.setClientPermissionLevel(i);
 
             for (ServerPlayerEntity serverPlayerEntity : integratedServer.getPlayerManager().getPlayerList()) {

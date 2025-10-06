@@ -46,7 +46,7 @@ public class BlazeSpotterItem extends Item implements EyeItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (isEasyMode()) {
                 if (world.getRegistryKey() == World.NETHER) {
                     player.sendMessage(ModTexts.CALCULATING, false);

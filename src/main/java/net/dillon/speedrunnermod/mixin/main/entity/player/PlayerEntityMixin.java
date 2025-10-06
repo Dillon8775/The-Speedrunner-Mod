@@ -47,7 +47,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), shieldCooldown);
                 this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), speedrunnerShieldCooldown);
                 this.clearActiveItem();
-                this.getWorld().sendEntityStatus(this, (byte)30);
+                this.getEntityWorld().sendEntityStatus(this, (byte)30);
             }
         } else {
             int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
@@ -62,7 +62,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Inject(method = "tick", at = @At("TAIL"))
     private void addDragonsSwordParticles(CallbackInfo ci) {
         if (this.getMainHandStack().isOf(ModItems.DRAGONS_SWORD) || this.getOffHandStack().isOf(ModItems.DRAGONS_SWORD)) {
-            this.getWorld().addParticleClient(ParticleTypes.PORTAL, this.getParticleX(0.5D), this.getRandomBodyY() - 0.25D, this.getParticleZ(0.5D), (this.getWorld().random.nextDouble() - 0.5D) * 2.0D, -this.getWorld().random.nextDouble(), (this.getWorld().random.nextDouble() - 0.5D) * 2.0D);
+            this.getEntityWorld().addParticleClient(ParticleTypes.PORTAL, this.getParticleX(0.5D), this.getRandomBodyY() - 0.25D, this.getParticleZ(0.5D), (this.getEntityWorld().random.nextDouble() - 0.5D) * 2.0D, -this.getEntityWorld().random.nextDouble(), (this.getEntityWorld().random.nextDouble() - 0.5D) * 2.0D);
         }
     }
 

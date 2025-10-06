@@ -88,8 +88,8 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
         this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-        this.waterNavigation = new SwimNavigation(this, this.getWorld());
-        this.landNavigation = new MobNavigation(this, this.getWorld());
+        this.waterNavigation = new SwimNavigation(this, this.getEntityWorld());
+        this.landNavigation = new MobNavigation(this, this.getEntityWorld());
         ModUtil.modifyMaxHealth(this, 300.0D);
         ModUtil.modifyMovementSpeed(this, 0.35D);
         ModUtil.modifyAttackDamage(this, 10.0D);
@@ -129,11 +129,11 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public void attemptTickInVoid() {
-        if (this.getWorld() instanceof ServerWorld && this.getWorld().getRegistryKey() == World.END) {
-            if (this.getY() < (double)(this.getWorld().getBottomY() - 64)) {
+        if (this.getEntityWorld() instanceof ServerWorld && this.getEntityWorld().getRegistryKey() == World.END) {
+            if (this.getY() < (double)(this.getEntityWorld().getBottomY() - 64)) {
                 this.teleport(0, 96, 0, true);
                 if (!this.isSilent()) {
-                    this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 10.0F, 1.0F);
+                    this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 10.0F, 1.0F);
                     this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 10.0F, 1.0F);
                 }
             }
@@ -150,7 +150,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         if (this.getAttacker() instanceof PlayerEntity player) {
             ModUtil.completeStepS2C(TutorialStep.KILL_GOLIATH, player, "speedrunnermod.tutorial_mode.kill_wither");
             if (!this.isSilent() && player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.getWorld().getRandom().nextLong()));
+                serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.getEntityWorld().getRandom().nextLong()));
             }
         }
     }
@@ -205,7 +205,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
-        this.getWorld().sendEntityStatus(this, (byte)4);
+        this.getEntityWorld().sendEntityStatus(this, (byte)4);
         return Giant.tryAttack(world, this, (LivingEntity)target);
     }
 
@@ -237,7 +237,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Override
     public void updateSwimming() {
         super.updateSwimming();
-        if (!this.getWorld().isClient) {
+        if (!this.getEntityWorld().isClient()) {
             if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
                 this.navigation = this.waterNavigation;
                 this.setSwimming(true);
@@ -253,7 +253,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public void checkDespawn() {
-        if (this.getWorld().getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
+        if (this.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL && this.getType().isAllowedInPeaceful()) {
             this.discard();
         } else {
             this.despawnCounter = 0;
@@ -435,13 +435,13 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Unique
     private void onGiantDamage() {
         for (int i = 0; i < 4; i++) {
-            TntEntity tnt = EntityType.TNT.create(this.getWorld(), SpawnReason.TRIGGERED);
+            TntEntity tnt = EntityType.TNT.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
             tnt.setFuse(100);
             int x = i == 0 || i == 2 ? 5 : -5;
             int z = i == 0 || i == 1 ? 5 : -5;
             tnt.refreshPositionAndAngles(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
-            this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
-            this.getWorld().spawnEntity(tnt);
+            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
+            this.getEntityWorld().spawnEntity(tnt);
         }
     }
 
@@ -468,7 +468,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         };
 
         for (int[] data : tntData) {
-            TntEntity tnt = EntityType.TNT.create(this.getWorld(), SpawnReason.TRIGGERED);
+            TntEntity tnt = EntityType.TNT.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
             if (tnt != null) {
                 tnt.setFuse(data[3]);
                 if (data[3] == 100) {
@@ -480,10 +480,10 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
                         this.getZ() + data[2],
                         0.0F, 0.0F
                 );
-                this.getWorld().spawnEntity(tnt);
+                this.getEntityWorld().spawnEntity(tnt);
             }
         }
 
-        this.getWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
+        this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
     }
 }

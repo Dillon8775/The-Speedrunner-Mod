@@ -26,7 +26,7 @@ public abstract class EntityMixin {
     @Shadow
     public abstract @Nullable Entity getVehicle();
     @Shadow
-    public abstract World getWorld();
+    public abstract World getEntityWorld();
     @Shadow
     private int fireTicks;
 
@@ -56,7 +56,7 @@ public abstract class EntityMixin {
         if (options().main.lavaBoats.getCurrentValue()) {
             if (vehicle instanceof AbstractBoatEntity abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat)) {
                 if (this.fireTicks > 0 && this.fireTicks % 20 == 0) {
-                    ((Entity)(Object)this).damage((ServerWorld)this.getWorld(), this.getDamageSources().onFire(), 1.0F);
+                    ((Entity)(Object)this).damage((ServerWorld)this.getEntityWorld(), this.getDamageSources().onFire(), 1.0F);
                 }
                 ci.cancel();
             }

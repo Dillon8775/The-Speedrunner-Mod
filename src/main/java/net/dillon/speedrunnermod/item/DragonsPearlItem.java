@@ -42,7 +42,7 @@ public class DragonsPearlItem extends Item implements EyeItem {
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (!isBalancedMode()) {
                 if (world.getRegistryKey() == World.END) {
                     List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlSearchRadius.getCurrentValue().getFirst(), options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(1), options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(2)), entity -> true);

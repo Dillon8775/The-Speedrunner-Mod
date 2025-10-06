@@ -27,8 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldEventHandler.class)
 public abstract class CustomWorldEvents {
     @Shadow @Final
-    private WorldRenderer worldRenderer;
-    @Shadow @Final
     private World world;
 
     /**
@@ -54,11 +52,11 @@ public abstract class CustomWorldEvents {
         double s = pos.getY();
         double d = (double)pos.getZ() + 0.5;
         for (int t = 0; t < 8; ++t) {
-            this.worldRenderer.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(item)), r, s, d, modRandom.nextGaussian() * 0.15, modRandom.nextDouble() * 0.2, modRandom.nextGaussian() * 0.15);
+            this.world.addParticleClient(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(item)), r, s, d, modRandom.nextGaussian() * 0.15, modRandom.nextDouble() * 0.2, modRandom.nextGaussian() * 0.15);
         }
         for (double e = 0.0; e < Math.PI * 2; e += 0.15707963267948966) {
-            this.worldRenderer.addParticle(particleType, r + Math.cos(e) * 5.0, s - 0.4, d + Math.sin(e) * 5.0, Math.cos(e) * -5.0, 0.0, Math.sin(e) * -5.0);
-            this.worldRenderer.addParticle(particleType, r + Math.cos(e) * 5.0, s - 0.4, d + Math.sin(e) * 5.0, Math.cos(e) * -7.0, 0.0, Math.sin(e) * -7.0);
+            this.world.addParticleClient(particleType, r + Math.cos(e) * 5.0, s - 0.4, d + Math.sin(e) * 5.0, Math.cos(e) * -5.0, 0.0, Math.sin(e) * -5.0);
+            this.world.addParticleClient(particleType, r + Math.cos(e) * 5.0, s - 0.4, d + Math.sin(e) * 5.0, Math.cos(e) * -7.0, 0.0, Math.sin(e) * -7.0);
         }
     }
 }

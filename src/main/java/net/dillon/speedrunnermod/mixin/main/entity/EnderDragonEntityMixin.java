@@ -110,9 +110,9 @@ public class EnderDragonEntityMixin extends MobEntity {
      */
     @Inject(method = "updatePostDeath", at = @At("TAIL"))
     public void killNearbyHostiles(CallbackInfo ci) {
-        if (options().advanced.dragonKillsNearbyHostileEntities.getCurrentValue() && this.getWorld() instanceof ServerWorld serverWorld) {
+        if (options().advanced.dragonKillsNearbyHostileEntities.getCurrentValue() && this.getEntityWorld() instanceof ServerWorld serverWorld) {
             EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
-            World world = this.getWorld();
+            World world = this.getEntityWorld();
 
             List<HostileEntity> hostiles = world.getEntitiesByClass(HostileEntity.class,
                     dragon.getBoundingBox().expand(options().advanced.dragonMassKillRadius.getCurrentValue().getFirst(), options().advanced.dragonMassKillRadius.getCurrentValue().get(1), options().advanced.dragonMassKillRadius.getCurrentValue().get(2)), entity -> true);
@@ -132,7 +132,7 @@ public class EnderDragonEntityMixin extends MobEntity {
     public void tick() {
         super.tick();
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
-        PlayerEntity player = dragon.getWorld().getClosestPlayer(dragon, 300.0D);
+        PlayerEntity player = dragon.getEntityWorld().getClosestPlayer(dragon, 300.0D);
         if (!this.isGiantOrWitherAlive()) {
             ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player,
                     "speedrunnermod.tutorial_mode.wither_died",
@@ -161,7 +161,7 @@ public class EnderDragonEntityMixin extends MobEntity {
                     ServerPlayNetworking.send(serverPlayer, new UpdateLastCompletedTutorialStepTranslationsS2CPacket(translations));
                 }
             } else {
-                PlayerEntity player = dragon.getWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
+                PlayerEntity player = dragon.getEntityWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
                 ModUtil.completeStepS2C(TutorialStep.KILL_DRAGON, player,
                         isDoomMode() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
                                 "speedrunnermod.tutorial_mode.killed_dragon");
@@ -189,9 +189,9 @@ public class EnderDragonEntityMixin extends MobEntity {
     @Unique
     private boolean isGiantOrWitherAlive() {
         EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
-        List<GiantEntity> giants = this.getWorld().getEntitiesByClass(GiantEntity.class,
+        List<GiantEntity> giants = this.getEntityWorld().getEntitiesByClass(GiantEntity.class,
                 dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(2)), entity -> true);
-        List<WitherEntity> withers = this.getWorld().getEntitiesByClass(WitherEntity.class,
+        List<WitherEntity> withers = this.getEntityWorld().getEntitiesByClass(WitherEntity.class,
                 dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(2)), entity -> true);
 
         for (GiantEntity giant : giants) {

@@ -25,7 +25,7 @@ public interface SpeedrunnersTotemUsedCallback {
             listener.invoke(entity, stack, source);
 
             entity.setHealth(1.0F);
-            entity.getWorld().sendEntityStatus(entity, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES);
+            entity.getEntityWorld().sendEntityStatus(entity, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES);
         }
     });
 }

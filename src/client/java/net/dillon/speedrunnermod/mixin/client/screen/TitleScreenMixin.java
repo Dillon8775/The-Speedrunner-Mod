@@ -13,6 +13,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.input.KeyInput;
 import net.minecraft.text.Text;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
@@ -59,7 +60,7 @@ public class TitleScreenMixin extends Screen {
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {
             this.createWorldButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                CreateWorldScreen.show(this.client, this);
+                CreateWorldScreen.show(this.client, null);
             }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
             this.createWorldButton.active = clientOptions().client.fastWorldCreation.getCurrentValue();
         }
@@ -104,10 +105,10 @@ public class TitleScreenMixin extends Screen {
      * Allows the user to refresh the title screen.
      */
     @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (keyCode == GLFW.GLFW_KEY_R) {
+    public boolean keyPressed(KeyInput input) {
+        if (input.key() == GLFW.GLFW_KEY_R) {
             this.client.setScreen(new TitleScreen());
         }
-        return super.keyPressed(keyCode, scanCode, modifiers);
+        return super.keyPressed(input);
     }
 }

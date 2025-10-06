@@ -47,7 +47,7 @@ public class RaidEradicatorItem extends Item implements EyeItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient && world instanceof ServerWorld serverWorld) {
+        if (!world.isClient() && world instanceof ServerWorld serverWorld) {
             if (!isBalancedMode()) {
                 List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(options().advanced.raidEradicatorSearchRadius.getCurrentValue().getFirst(), options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(1), options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(2)), entity -> true);
 

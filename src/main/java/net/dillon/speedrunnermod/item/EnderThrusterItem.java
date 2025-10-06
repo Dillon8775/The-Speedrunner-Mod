@@ -44,7 +44,7 @@ public class EnderThrusterItem extends Item implements EyeItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient) {
+        if (!world.isClient()) {
             if (!isBalancedMode()) {
                 if (!(world.getRegistryKey() == World.NETHER)) {
                     int topY = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
@@ -54,8 +54,8 @@ public class EnderThrusterItem extends Item implements EyeItem {
                     boolean validTeleport = topY != playerY && !(playerY > topY);
                     boolean bl = isDoomMode() ?
                             validTeleport && (playerY < 0 ||
-                                    player.getWorld().getBiome(topPos).isIn(BiomeTags.IS_MOUNTAIN) ||
-                                    player.getWorld().getBiome(topPos).isIn(BiomeTags.IS_HILL)) :
+                                    player.getEntityWorld().getBiome(topPos).isIn(BiomeTags.IS_MOUNTAIN) ||
+                                    player.getEntityWorld().getBiome(topPos).isIn(BiomeTags.IS_HILL)) :
                             validTeleport;
 
                     if (bl) {

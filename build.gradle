@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.10-SNAPSHOT'
+	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
@@ -17,9 +17,6 @@ repositories {
 	}
 	maven {
 		url "https://maven.minecraftforge.net/"
-	}
-	maven {
-		url "https://jitpack.io"
 	}
 	mavenCentral()
 }
@@ -59,9 +56,6 @@ dependencies {
 
 	// Fabric API
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	// DillonLib
-	modImplementation "com.github.Dillon8775:Dillon-Lib:${project.dillonlib_version}"
 }
 
 shadowJar {
