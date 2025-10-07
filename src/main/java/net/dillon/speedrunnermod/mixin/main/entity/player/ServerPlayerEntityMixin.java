@@ -69,7 +69,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 }
             }
 
-            this.damage((ServerWorld)this.getEntityWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
+            this.damage(this.getEntityWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
             this.teleport(0.5, y, 0.5, true);
             this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
             ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());

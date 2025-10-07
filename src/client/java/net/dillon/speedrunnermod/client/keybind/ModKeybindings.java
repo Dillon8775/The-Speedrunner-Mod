@@ -18,11 +18,11 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybin
 public class ModKeybindings {
     public static final KeyBinding.Category SPEEDRUNNER_MOD_KEYBINDINGS = KeyBinding.Category.create(ofSpeedrunnerMod("speedrunnermod.keybinds"));
 
-    public static KeyBinding resetKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.create_new_world", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyBinding fogKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fog", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_G, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyBinding fullbrightKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyBinding hitboxesKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_hitboxes", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_H, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyBinding chunkBordersKey = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_chunk_borders", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding RESET = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.create_new_world", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding TOGGLE_FOG = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fog", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_O, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding TOGGLE_FULLBRIGHT = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_fullbright", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_V, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding TOGGLE_HITBOXES = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_hitboxes", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_X, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static KeyBinding TOGGLE_CHUNK_BORDERS = KeyBindingHelper.registerKeyBinding(new KeyBinding("speedrunnermod.toggle_chunk_borders", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_K, SPEEDRUNNER_MOD_KEYBINDINGS));
 
     /**
      * Initializes all {@code Speedrunner Mod} keybindings.

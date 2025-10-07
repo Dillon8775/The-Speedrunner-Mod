@@ -1,20 +1,23 @@
 package net.dillon.speedrunnermod.client.gui.hud.debug;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.client.gui.hud.debug.DebugHudEntry;
 import net.minecraft.client.gui.hud.debug.DebugHudLines;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.WorldChunk;
 import org.jetbrains.annotations.Nullable;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+
 /**
- * The text to render on the right side, indicating that the user is using the Speedrunner Mod.
+ * Indicates if the player is playing on tutorial mode.
  */
-public class SpeedrunnerModHudEntry implements DebugHudEntry {
+public class TutorialModeHudEntry implements DebugHudEntry {
 
     @Override
     public void render(DebugHudLines lines, @Nullable World world, @Nullable WorldChunk clientChunk, @Nullable WorldChunk chunk) {
-        lines.addLine(SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION);
+        if (clientOptions().client.tutorialMode.getCurrentValue()) {
+            lines.addLine("Playing on Tutorial Mode");
+        }
     }
 
     /**

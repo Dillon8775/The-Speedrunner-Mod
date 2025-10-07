@@ -1,3 +1,7 @@
 - Updated to 1.21.9.
 - Teleporting with the eye of annul no longer overwrites end portal blocks when teleporting, if it is already pre-filled.
+- Changed default keybindings:
+Toggle Fog is now O,
+Toggle Fullbright is now V,
+Toggle hitboxes is now X.
 - (1.21.9 exclusive) Added "speedrunner mod info" debug hud entry and doom mode entry, which displays the text "The Speedrunner Mod" and the mod's version and if the mod is on doom mode.

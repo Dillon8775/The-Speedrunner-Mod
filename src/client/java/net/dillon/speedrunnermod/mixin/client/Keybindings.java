@@ -66,7 +66,7 @@ public abstract class Keybindings {
      */
     @Inject(method = "handleInputEvents", at = @At("TAIL"))
     private void implementSpeedrunnerModKeybindFunctions(CallbackInfo info) {
-        while (ModKeybindings.resetKey.wasPressed()) {
+        while (ModKeybindings.RESET.wasPressed()) {
             if (this.isInSingleplayer() && this.isIntegratedServerRunning() && !this.getServer().isRemote()) {
                 if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
                     if (this.inGameHud != null) {
@@ -84,17 +84,17 @@ public abstract class Keybindings {
             }
         }
 
-        while (ModKeybindings.hitboxesKey.wasPressed()) {
+        while (ModKeybindings.TOGGLE_HITBOXES.wasPressed()) {
             boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
             debugWarn(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
         }
 
-        while (ModKeybindings.chunkBordersKey.wasPressed()) {
+        while (ModKeybindings.TOGGLE_CHUNK_BORDERS.wasPressed()) {
             boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
             debugWarn(bl ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
         }
 
-        while (ModKeybindings.fogKey.wasPressed()) {
+        while (ModKeybindings.TOGGLE_FOG.wasPressed()) {
             if (clientOptions().mixins.fogMixins.getCurrentValue()) {
                 clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
                 saveClientChanges();
@@ -105,7 +105,7 @@ public abstract class Keybindings {
             }
         }
 
-        while (ModKeybindings.fullbrightKey.wasPressed()) {
+        while (ModKeybindings.TOGGLE_FULLBRIGHT.wasPressed()) {
             if (clientOptions().mixins.simpleOptionMixin.getCurrentValue()) {
                 clientOptions().client.fullBright.set(!clientOptions().client.fullBright.getCurrentValue());
                 saveClientChanges();

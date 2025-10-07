@@ -1054,7 +1054,9 @@
   "speedrunnermod.toggle_hitboxes": "Toggle Hitboxes",
   "speedrunnermod.toggle_chunk_borders": "Toggle Chunk Borders",
 
-  "speedrunnermod.speedrunner_mod": "speedrunner mod info",
+  "speedrunnermod.version": "speedrunner mod version",
+  "speedrunnermod.mode": "mode",
+  "speedrunnermod.tutorial_mode": "tutorial mode",
 
   "speedrunnermod.menu.generating_new_world": "Generating new world...",
 
