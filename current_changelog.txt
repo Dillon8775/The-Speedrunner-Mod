@@ -1,4 +1,4 @@
-- Updated to 1.21.9.
+- Updated to 1.21.9/1.21.10.
 - Teleporting with the eye of annul no longer overwrites end portal blocks when teleporting, if it is already pre-filled.
 - Changed default keybindings:
 Toggle Fog is now O,
