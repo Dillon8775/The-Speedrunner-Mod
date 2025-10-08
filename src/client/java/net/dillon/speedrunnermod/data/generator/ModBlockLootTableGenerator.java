@@ -38,8 +38,8 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         addDrop(ModBlocks.DEAD_SPEEDRUNNER_BUSH, (Block block) -> dropsWithShears(block, applyExplosionDecay(block, ItemEntry.builder(ModItems.DEAD_SPEEDRUNNER_STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3, 9))))));
-        addDrop(ModBlocks.SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.SPEEDRUNNER_STICK, ModBlocks.SPEEDRUNNER_SAPLING, NEW_SAPLING_DROP_CHANCE));
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.DEAD_SPEEDRUNNER_STICK, ModBlocks.DEAD_SPEEDRUNNER_SAPLING, NEW_SAPLING_DROP_CHANCE));
+        addDrop(ModBlocks.SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.SPEEDRUNNER_STICK, ModBlocks.SPEEDRUNNER_SAPLING, false, NEW_SAPLING_DROP_CHANCE));
+        addDrop(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.DEAD_SPEEDRUNNER_STICK, ModBlocks.DEAD_SPEEDRUNNER_SAPLING, false, NEW_SAPLING_DROP_CHANCE));
 
         addPottedPlantDrops(ModBlocks.POTTED_DEAD_SPEEDRUNNER_BUSH);
         addPottedPlantDrops(ModBlocks.POTTED_SPEEDRUNNER_SAPLING);
@@ -75,6 +75,7 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
         addOreDrops();
         addWoodDrops();
         addSignDrops();
+        addDoomDrops();
     }
 
     private void addOreDrops() {
@@ -115,11 +116,17 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
     }
 
+    private void addDoomDrops() {
+        addDropWithSilkTouch(ModBlocks.DOOM_STONE);
+        addDropWithSilkTouch(ModBlocks.DOOM_LOG);
+        addDropWithSilkTouch(ModBlocks.STRIPPED_DOOM_LOG);
+    }
+
     private LootTable.Builder igneousOreDrops(Block dropWithSilkTouch, int min) {
         return dropsWithSilkTouch(dropWithSilkTouch, applyExplosionDecay(dropWithSilkTouch, ItemEntry.builder(ModItems.IGNEOUS_ROCK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(min, 6))).apply(ApplyBonusLootFunction.oreDrops(impl.getOrThrow(Enchantments.FORTUNE)))));
     }
 
-    private LootTable.Builder speedrunnerLeavesDrops(Block leaves, Item item, Block drop, float ... chance) {
-        return dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), chance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).conditionally(createWithoutShearsOrSilkTouchCondition()).with(addSurvivesExplosionCondition(leaves, ItemEntry.builder(Items.APPLE))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)).with(applyExplosionDecay(leaves, ItemEntry.builder(item).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
+    private LootTable.Builder speedrunnerLeavesDrops(Block leaves, Item item, Block drop, boolean goldenApple, float ... chance) {
+        return dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), chance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).conditionally(createWithoutShearsOrSilkTouchCondition()).with(addSurvivesExplosionCondition(leaves, ItemEntry.builder(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)).with(applyExplosionDecay(leaves, ItemEntry.builder(item).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
     }
 }
