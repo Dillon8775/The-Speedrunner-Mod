@@ -12,7 +12,7 @@ Next, download and run the [Fabric Installer](https://fabricmc.net/use/installer
 
 To install, place the mod .jar file in your ".mods" folder, and don't forget to also download [Fabric API.](https://modrinth.com/mod/fabric-api) Without it, the mod will not run.
 
-### Currently compatible with Minecraft version(s) ***1.21.6-1.21.8.***
+### Currently compatible with Minecraft version(s) ***1.21.6-1.21.10.***
 
 #### Important Note:
 New Speedrunner Mod versions are always released with the *current Minecraft version.* If a new Minecraft version releases, support for any previous Minecraft version for this mod is dropped. I try to make this mod up-to-date with the latest Minecraft version, making it near impossible to keep up support for all previous versions.
