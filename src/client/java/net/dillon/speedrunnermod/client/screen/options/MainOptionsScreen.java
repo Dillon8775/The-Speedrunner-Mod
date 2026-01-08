@@ -7,8 +7,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
@@ -27,53 +29,54 @@ public class MainOptionsScreen extends AbstractModScreen {
      * All of the {@code main options.}
      * <p>These are displayed in order.</p>
      */
-    private SimpleOption<?>[] mainOptions() {
-        return new SimpleOption[]{
-                ModListOptions.tutorialMode(),
-                ModListOptions.fasterBlockBreaking(),
-                ModListOptions.blockBreakingMultiplier(),
-                ModListOptions.dragonPerchTime(),
-                ModListOptions.icarusMode(),
-                ModListOptions.infiniPearlMode(),
-                ModListOptions.betterVillagerTrades(),
-                ModListOptions.betterFoods(),
-                ModListOptions.fireproofItems(),
-                ModListOptions.throwableFireballs(),
-                ModListOptions.fallDamage(),
-                ModListOptions.kineticDamage(),
-                ModListOptions.betterBiomes(),
-                ModListOptions.strongholdCount(),
-                ModListOptions.strongholdDistance(),
-                ModListOptions.strongholdSpread(),
-                ModListOptions.strongholdPortalRoomCount(),
-                ModListOptions.strongholdLibraryCount(),
-                ModListOptions.globalNetherPortals(),
-                ModListOptions.lavaBoats(),
-                ModListOptions.netherWater(),
-                ModListOptions.commonOres(),
-                ModListOptions.betterAnvil(),
-                ModListOptions.anvilCostLimit(),
-                ModListOptions.higherEnchantmentLevels(),
-                ModListOptions.arrowsDestroyBeds(),
-                ModListOptions.mobSpawningRate(),
-                ModListOptions.fasterSpawners(),
-                ModListOptions.killGhastOnFireball(),
-                ModListOptions.showDeathCords(),
-                ModListOptions.netherPortalDelay(),
-                ModListOptions.customDataGeneration()
-        };
+    private List<ClickableWidget> mainOptions() {
+        return List.of(
+                ModListOptions.tutorialMode().createWidget(this.gameOptions),
+                ModListOptions.fasterBlockBreaking().createWidget(this.gameOptions),
+                ModListOptions.blockBreakingMultiplier().createWidget(this.gameOptions),
+                ModListOptions.dragonPerchTime().createWidget(this.gameOptions),
+                ModListOptions.icarusMode().createWidget(this.gameOptions),
+                ModListOptions.infiniPearlMode().createWidget(this.gameOptions),
+                ModListOptions.betterVillagerTrades().createWidget(this.gameOptions),
+                ModListOptions.betterFoods().createWidget(this.gameOptions),
+                ModListOptions.fireproofItems().createWidget(this.gameOptions),
+                ModListOptions.throwableFireballs().createWidget(this.gameOptions),
+                ModListOptions.fallDamage().createWidget(this.gameOptions),
+                ModListOptions.kineticDamage().createWidget(this.gameOptions),
+                ModListOptions.betterBiomes().createWidget(this.gameOptions),
+                ModListOptions.strongholdCount().createWidget(this.gameOptions),
+                ModListOptions.strongholdDistance().createWidget(this.gameOptions),
+                ModListOptions.strongholdSpread().createWidget(this.gameOptions),
+                ModListOptions.strongholdPortalRoomCount().createWidget(this.gameOptions),
+                ModListOptions.strongholdLibraryCount().createWidget(this.gameOptions),
+                ModListOptions.globalNetherPortals().createWidget(this.gameOptions),
+                ModListOptions.lavaBoats().createWidget(this.gameOptions),
+                ModListOptions.netherWater().createWidget(this.gameOptions),
+                ModListOptions.commonOres().createWidget(this.gameOptions),
+                ModListOptions.betterAnvil().createWidget(this.gameOptions),
+                ModListOptions.anvilCostLimit().createWidget(this.gameOptions),
+                ModListOptions.higherEnchantmentLevels().createWidget(this.gameOptions),
+                ModListOptions.arrowsDestroyBeds().createWidget(this.gameOptions),
+                ModListOptions.creatureSpawningRate().createWidget(this.gameOptions),
+                ModListOptions.fasterSpawners().createWidget(this.gameOptions),
+                ModListOptions.killGhastOnFireball().createWidget(this.gameOptions),
+                ModListOptions.showDeathCords().createWidget(this.gameOptions),
+                ModListOptions.netherPortalDelay().createWidget(this.gameOptions),
+                ModListOptions.customDataGeneration().createWidget(this.gameOptions)
+        );
     }
 
     @Override
     protected void init() {
-        super.init();
-        this.optionList.addSingleOptionEntry(ModListOptions.mode());
-        this.optionList.addSingleOptionEntry(ModListOptions.structureSpawnRate());
-        this.optionList.addAll(mainOptions());
-        this.optionList.addSingleOptionEntry(ModListOptions.rightClickToRemoveSilkTouch());
-        this.optionList.addSingleOptionEntry(ModListOptions.customBiomesAndCustomBiomeFeatures());
+        this.initializeCustomButtonListWidget();
 
-        this.addSelectableChild(this.optionList);
+        this.buttonList.addSingleOptionEntry(ModListOptions.mode());
+        this.buttonList.addSingleOptionEntry(ModListOptions.structureSpawnRate());
+        this.buttonList.addAll(mainOptions());
+        this.buttonList.addSingleOptionEntry(ModListOptions.rightClickToRemoveSilkTouch());
+        this.buttonList.addSingleOptionEntry(ModListOptions.customBiomesAndCustomBiomeFeatures());
+
+        super.init();
     }
 
     @Override

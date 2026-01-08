@@ -14,7 +14,7 @@ public class SyncOptionsCommand {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(
                 CommandManager.literal("syncoptions")
-                        .requires(source -> source.hasPermissionLevel(4))
+                        .requires(CommandManager.requirePermissionLevel(CommandManager.OWNERS_CHECK))
                         .executes(context -> {
                             ServerPlayNetworking.send(context.getSource().getPlayer(), new RequestClientSideOptionsS2CPacket());
                             return 1;

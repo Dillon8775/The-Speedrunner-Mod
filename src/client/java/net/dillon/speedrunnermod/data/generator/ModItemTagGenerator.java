@@ -379,9 +379,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.WOODEN_SPEEDRUNNER_TRAPDOOR)
                 .add(ModItems.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
 
-        valueLookupBuilder(ItemTags.SWORD_ENCHANTABLE)
-                .forceAddTag(ItemTags.AXES);
-
         valueLookupBuilder(ItemTags.MINING_ENCHANTABLE)
                 .add(ModItems.SPEEDRUNNER_SHEARS);
 

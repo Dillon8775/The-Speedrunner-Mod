@@ -46,7 +46,7 @@ public class DeathScreenMixin extends Screen {
                     this.client.inGameHud.getChatHud().clear(false);
                 }
                 this.client.world.disconnect(Text.translatable("menu.savingLevel"));
-                this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false);
+                this.client.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false, false);
                 CreateWorldScreen.show(this.client, null);
             }).dimensions(this.width / 2 - 100, this.height / 4 + 120, 200, 20).build()));
         }

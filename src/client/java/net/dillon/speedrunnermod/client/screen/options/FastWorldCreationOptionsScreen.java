@@ -7,8 +7,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
@@ -25,21 +27,22 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     /**
      * All of the {@code fast world creation options.}
      */
-    private SimpleOption<?>[] fwcOptions() {
-        return new SimpleOption[]{
-                ModListOptions.fastWorldCreation(),
-                ModListOptions.difficulty(),
-                ModListOptions.gameMode(),
-                ModListOptions.allowCheats()
-        };
+    private List<ClickableWidget> fwcOptions() {
+        return List.of(
+                ModListOptions.fastWorldCreation().createWidget(this.gameOptions),
+                ModListOptions.difficulty().createWidget(this.gameOptions),
+                ModListOptions.gameMode().createWidget(this.gameOptions),
+                ModListOptions.allowCheats().createWidget(this.gameOptions)
+        );
     }
 
     @Override
     protected void init() {
-        super.init();
-        this.optionList.addAll(fwcOptions());
+        this.initializeCustomButtonListWidget();
 
-        this.addSelectableChild(this.optionList);
+        this.buttonList.addAll(fwcOptions());
+
+        super.init();
     }
 
     @Override
@@ -55,7 +58,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
         );
 
         this.lockOptionWithTooltip(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
+                Text.translatable("speedrunnermod.options.allow_cheats.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
     }

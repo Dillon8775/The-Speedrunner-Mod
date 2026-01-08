@@ -44,9 +44,9 @@ public class BaseModScreen extends GameOptionsScreen {
     protected void quitWorld() {
         if (this.client.isInSingleplayer()) {
             this.client.world.disconnect(Text.translatable("menu.savingLevel"));
-            this.client.disconnect(new MessageScreen(Text.translatable("menu.savingLevel")), false);
+            this.client.disconnect(new MessageScreen(Text.translatable("menu.savingLevel")), false, false);
         } else {
-            this.client.disconnect(new TitleScreen(), false);
+            this.client.disconnect(new TitleScreen(), false, false);
         }
     }
 
@@ -54,14 +54,14 @@ public class BaseModScreen extends GameOptionsScreen {
      * Fixes resizing issues.
      */
     @Override
-    public void resize(MinecraftClient client, int width, int height) {
+    public void resize(int width, int height) {
         String text = "";
         boolean refocus = this.searchField != null && this.searchField.isFocused();
         if (this.searchField != null) {
             text = this.searchField.getText();
             refocus = this.searchField.isFocused();
         }
-        super.resize(client, width, height);
+        super.resize(width, height);
         this.clearAndInit();
         if (this.searchField != null) {
             this.searchField.setText(text);
@@ -78,7 +78,7 @@ public class BaseModScreen extends GameOptionsScreen {
                 Util.getOperatingSystem().open(link);
             }
             this.client.setScreen(this);
-            this.resize(this.client, this.width, this.height);
+            this.resize(this.width, this.height);
         }, link, trusted));
     }
 

@@ -7,8 +7,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.*;
@@ -26,41 +28,42 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
     /**
      * Some of the {@code advanced options.} The rest are called in the init method.
      */
-    private SimpleOption<?>[] advancedOptions() {
-        return new SimpleOption[]{
-                ModListOptions.showResetButton(),
-                ModListOptions.higherBreathTime(),
-                ModListOptions.fireballExplosionPower(),
-                ModListOptions.shiftToThrowFireball()
-        };
+    private List<ClickableWidget> advancedOptions() {
+        return List.of(
+                ModListOptions.showResetButton().createWidget(this.gameOptions),
+                ModListOptions.higherBreathTime().createWidget(this.gameOptions),
+                ModListOptions.fireballExplosionPower().createWidget(this.gameOptions),
+                ModListOptions.shiftToThrowFireball().createWidget(this.gameOptions)
+        );
     }
 
     @Override
     protected void init() {
-        super.init();
-        this.optionList.addSingleOptionEntry(ModListOptions.modifiedStrongholdGeneration());
-        this.optionList.addSingleOptionEntry(ModListOptions.modifiedStrongholdYGeneration());
-        this.optionList.addSingleOptionEntry(ModListOptions.modifiedNetherFortressGeneration());
-        this.optionList.addSingleOptionEntry(ModListOptions.generateSpeedrunnerWood());
-        this.optionList.addSingleOptionEntry(ModListOptions.enderEyeBreakingCooldown());
-        this.optionList.addSingleOptionEntry(ModListOptions.longerDragonPerchStayTime());
-        this.optionList.addSingleOptionEntry(ModListOptions.decreasedZombifiedPiglinScareDistance());
-        this.optionList.addSingleOptionEntry(ModListOptions.piglinAwakenerPiglinCount());
-        this.optionList.addSingleOptionEntry(ModListOptions.icarusFireworksInventorySlot());
-        this.optionList.addSingleOptionEntry(ModListOptions.infiniPearlInventorySlot());
-        this.optionList.addSingleOptionEntry(ModListOptions.dragonKillsNearbyHostileEntities());
-        this.optionList.addSingleOptionEntry(ModListOptions.dragonImmunityFromGoliathAndWither());
-        this.optionList.addAll(advancedOptions());
-        this.optionList.addSingleOptionEntry(ModListOptions.annulEyeSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.piglinAwakenerSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.blazeSpotterSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.raidEradicatorSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.dragonsPearlSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.dragonMassKillRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.dragonImmunityDetectionRadiusForGoliath(this.hasXDown(), this.hasYDown(), this.hasZDown()));
-        this.optionList.addSingleOptionEntry(ModListOptions.dragonImmunityDetectionRadiusForWither(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.initializeCustomButtonListWidget();
 
-        this.addSelectableChild(this.optionList);
+        this.buttonList.addSingleOptionEntry(ModListOptions.modifiedStrongholdGeneration());
+        this.buttonList.addSingleOptionEntry(ModListOptions.modifiedStrongholdYGeneration());
+        this.buttonList.addSingleOptionEntry(ModListOptions.modifiedNetherFortressGeneration());
+        this.buttonList.addSingleOptionEntry(ModListOptions.generateSpeedrunnerWood());
+        this.buttonList.addSingleOptionEntry(ModListOptions.enderEyeBreakingCooldown());
+        this.buttonList.addSingleOptionEntry(ModListOptions.longerDragonPerchStayTime());
+        this.buttonList.addSingleOptionEntry(ModListOptions.decreasedZombifiedPiglinScareDistance());
+        this.buttonList.addSingleOptionEntry(ModListOptions.piglinAwakenerPiglinCount());
+        this.buttonList.addSingleOptionEntry(ModListOptions.icarusFireworksInventorySlot());
+        this.buttonList.addSingleOptionEntry(ModListOptions.infiniPearlInventorySlot());
+        this.buttonList.addSingleOptionEntry(ModListOptions.dragonKillsNearbyHostileEntities());
+        this.buttonList.addSingleOptionEntry(ModListOptions.dragonImmunityFromGoliathAndWither());
+        this.buttonList.addAll(advancedOptions());
+        this.buttonList.addSingleOptionEntry(ModListOptions.annulEyeSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.piglinAwakenerSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.blazeSpotterSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.raidEradicatorSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.dragonsPearlSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.dragonMassKillRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.dragonImmunityDetectionRadiusForGoliath(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+        this.buttonList.addSingleOptionEntry(ModListOptions.dragonImmunityDetectionRadiusForWither(this.hasXDown(), this.hasYDown(), this.hasZDown()));
+
+        super.init();
     }
 
     @Override

@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen;
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
@@ -117,7 +116,7 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     }
 
     @Override
-    public void resize(MinecraftClient client, int width, int height) {
-        this.init(client, width, height);
+    public void resize(int width, int height) {
+        this.init(width, height);
     }
 }

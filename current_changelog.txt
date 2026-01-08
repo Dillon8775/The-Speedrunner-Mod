@@ -1,3 +1,6 @@
 Version 1.11.9:
 - Updated to Minecraft 1.21.11!
+- Renamed "Mob Spawning Rate" option to "Creature Spawning Rate", as it only affects passive animals, like pigs and cows, not hostile mobs.
 - The Speedrunner Mod biome no longer has "mood" sounds, and currently does not have any background music attached to it.
+
+- A few bug fixes and optimizations.

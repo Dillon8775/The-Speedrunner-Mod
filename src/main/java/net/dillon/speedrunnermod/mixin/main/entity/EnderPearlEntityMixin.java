@@ -18,8 +18,8 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.rule.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
@@ -53,7 +53,7 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
             Entity entity = this.getOwner();
             if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (serverPlayerEntity.networkHandler.isConnectionOpen() && serverPlayerEntity.getEntityWorld() == this.getEntityWorld() && !serverPlayerEntity.isSleeping()) {
-                    if (!isInfiniPearl && this.random.nextFloat() < 0.05F && serverWorld.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
+                    if (!isInfiniPearl && this.random.nextFloat() < 0.05F && serverWorld.getGameRules().getValue(GameRules.DO_MOB_SPAWNING)) {
                         EndermiteEntity endermiteEntity = EntityType.ENDERMITE.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
                         endermiteEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), entity.getYaw(), entity.getPitch());
                         this.getEntityWorld().spawnEntity(endermiteEntity);

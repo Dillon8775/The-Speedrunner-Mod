@@ -17,9 +17,9 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
+import net.minecraft.world.rule.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -94,7 +94,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
      */
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void sendDeathCords(DamageSource source, CallbackInfo ci) {
-        if (options().main.showDeathCords.getCurrentValue() && this.getEntityWorld().getGameRules().getBoolean(GameRules.SHOW_DEATH_MESSAGES)) {
+        if (options().main.showDeathCords.getCurrentValue() && this.getEntityWorld().getGameRules().getValue(GameRules.SHOW_DEATH_MESSAGES)) {
             this.sendMessage(ModUtil.deathCords(this.getX(), this.getY(), this.getZ()), false);
         }
     }

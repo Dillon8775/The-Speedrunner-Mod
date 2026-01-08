@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.option;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.main.fix.ItemStackArgumentTypeMixin;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.text.Text;
 import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.*;
@@ -62,11 +62,11 @@ public class ModOptions {
                 }
             }
 
-            if (options().main.mobSpawningRate.getCurrentValue() == null) {
+            if (options().main.creatureSpawnRate.getCurrentValue() == null) {
                 if (isEnvironmentTypeServer()) {
-                    this.throwNullPointerException("Mob Spawning Rate", MobSpawningRate.values());
+                    this.throwNullPointerException("Mob Spawning Rate", CreatureSpawnRate.values());
                 } else {
-                    this.setBroken(options().main.mobSpawningRate, "mobSpawningRate");
+                    this.setBroken(options().main.creatureSpawnRate, "mobSpawningRate");
                 }
             }
 
@@ -289,7 +289,7 @@ public class ModOptions {
         /**
          * Determines how big of packs mobs can spawn in.
          */
-        public OptionValue<MobSpawningRate> mobSpawningRate = new OptionValue<>(MobSpawningRate.HIGH, false);
+        public OptionValue<CreatureSpawnRate> creatureSpawnRate = new OptionValue<>(CreatureSpawnRate.HIGH, false);
 
         /**
          * Sets the delay when entering/exiting the nether via a nether portal block.
@@ -562,12 +562,12 @@ public class ModOptions {
         private static final Mode[] VALUES = Arrays.stream(Mode.values()).sorted(Comparator.comparingInt(Mode::getId)).toArray(Mode[]::new);
         private final int id;
         private final String name;
-        private final String translateKey;
+        private final Text translateKey;
 
         Mode(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+            this.translateKey = Text.translatable(translationKey);
         }
 
         /**
@@ -580,7 +580,7 @@ public class ModOptions {
         /**
          * Returns the {@code translation key} of the {@code Mode} option.
          */
-        public String getText() {
+        public Text getText() {
             return this.translateKey;
         }
 
@@ -600,39 +600,42 @@ public class ModOptions {
      * All the different {@code Structure Spawn Rate} options, from extremely common to extremely rare.
      */
     public enum StructureSpawnRate implements StringIdentifiable {
-        EVERYWHERE(0, "speedrunnermod.options.structure_spawn_rates.everywhere"),
-        VERY_COMMON(1, "speedrunnermod.options.structure_spawn_rates.very_common"),
-        COMMON(2, "speedrunnermod.options.structure_spawn_rates.common"),
-        NORMAL(3, "speedrunnermod.options.structure_spawn_rates.normal"),
-        DEFAULT(4, "speedrunnermod.options.structure_spawn_rates.default"),
-        RARE(5, "speedrunnermod.options.structure_spawn_rates.rare"),
-        VERY_RARE(6, "speedrunnermod.options.structure_spawn_rates.very_rare"),
-        CUSTOM(7, "speedrunnermod.options.structure_spawn_rates.custom");
+        EVERYWHERE(0, "everywhere", "speedrunnermod.options.structure_spawn_rates.everywhere"),
+        VERY_COMMON(1, "very_common","speedrunnermod.options.structure_spawn_rates.very_common"),
+        COMMON(2, "common", "speedrunnermod.options.structure_spawn_rates.common"),
+        NORMAL(3, "normal", "speedrunnermod.options.structure_spawn_rates.normal"),
+        DEFAULT(4, "default", "speedrunnermod.options.structure_spawn_rates.default"),
+        RARE(5, "rare", "speedrunnermod.options.structure_spawn_rates.rare"),
+        VERY_RARE(6, "very_rare", "speedrunnermod.options.structure_spawn_rates.very_rare"),
+        CUSTOM(7, "custom", "speedrunnermod.options.structure_spawn_rates.custom");
 
-        private static final StructureSpawnRate[] VALUES = Arrays.stream(StructureSpawnRate.values()).sorted(Comparator.comparingInt(StructureSpawnRate::getOrdinal)).toArray(StructureSpawnRate[]::new);
+        private static final StructureSpawnRate[] VALUES = Arrays.stream(StructureSpawnRate.values()).sorted(Comparator.comparingInt(StructureSpawnRate::getId)).toArray(StructureSpawnRate[]::new);
         private final int id;
         private final String name;
-        private final String translateKey;
+        private final Text translateKey;
 
         StructureSpawnRate(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+            this.translateKey = Text.translatable(translationKey);
         }
 
         /**
          * Returns the {@code id value} of the {@code Structure Spawn Rate} option.
          */
-        public int getOrdinal() {
+        public int getId() {
             return this.id;
         }
 
         /**
-         * Returns the {@code translation key} of the {@code Structure Spawn Rate} option.
+         * Returns the {@code translation key} of the {@code Mode} option.
          */
-        @Override
-        public String getTranslationKey() {
+        public Text getText() {
             return this.translateKey;
+        }
+
+        public String asString() {
+            return this.name;
         }
 
         /**
@@ -646,40 +649,44 @@ public class ModOptions {
     /**
      * All the different {@code Mob Spawning Rate} options.
      */
-    public enum MobSpawningRate implements TranslatableOption {
-        LOW(0, "speedrunnermod.options.mob_spawning_rate.low"),
-        NORMAL(1, "speedrunnermod.options.mob_spawning_rate.normal"),
-        HIGH(2, "speedrunnermod.options.mob_spawning_rate.high");
+    public enum CreatureSpawnRate implements StringIdentifiable {
+        LOW(0, "low", "speedrunnermod.options.creature_spawn_rate.low"),
+        NORMAL(1, "normal", "speedrunnermod.options.creature_spawn_rate.normal"),
+        HIGH(2, "high", "speedrunnermod.options.creature_spawn_rate.high");
 
-        private static final MobSpawningRate[] VALUES = Arrays.stream(MobSpawningRate.values()).sorted(Comparator.comparingInt(MobSpawningRate::getId)).toArray(MobSpawningRate[]::new);
+        private static final CreatureSpawnRate[] VALUES = Arrays.stream(CreatureSpawnRate.values()).sorted(Comparator.comparingInt(CreatureSpawnRate::getId)).toArray(CreatureSpawnRate[]::new);
         private final int id;
-        private final String translateKey;
+        private final String name;
+        private final Text translateKey;
 
-        MobSpawningRate(int id, String translationKey) {
+        CreatureSpawnRate(int id, final String name, String translationKey) {
             this.id = id;
-            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+            this.name = name;
+            this.translateKey = Text.translatable(translationKey);
         }
 
         /**
-         * Returns the {@code id value} of the {@code Mob Spawning Rate} option.
+         * Returns the {@code id value} of the {@code Creature Spawning Rate} option.
          */
-        @Override
         public int getId() {
             return this.id;
         }
 
         /**
-         * Returns the {@code translation key} of the {@code Mob Spawning Rate} option.
+         * Returns the {@code translation key} of the {@code Creature Spawning Rate} option.
          */
-        @Override
-        public String getTranslationKey() {
+        public Text getText() {
             return this.translateKey;
+        }
+
+        public String asString() {
+            return this.name;
         }
 
         /**
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
-        public static MobSpawningRate byId(int id) {
+        public static CreatureSpawnRate byId(int id) {
             return VALUES[MathHelper.floorMod(id, VALUES.length)];
         }
     }

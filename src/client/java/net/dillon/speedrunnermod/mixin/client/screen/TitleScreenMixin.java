@@ -69,7 +69,7 @@ public class TitleScreenMixin extends Screen {
     /**
      * Adds additional textures to the title screen.
      */
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/ColorHelper;withAlpha(FI)I"), locals = LocalCapture.CAPTURE_FAILHARD)
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"), locals = LocalCapture.CAPTURE_FAILHARD)
     private void renderSpeedrunnerModButtonTexturesAndText(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci, float f) {
         ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton, f);
 

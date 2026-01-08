@@ -8,9 +8,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
+
+import java.util.List;
 
 /**
  * The Speedrunner Mod's {@code client options screen.}
@@ -25,20 +27,22 @@ public class ClientOptionsScreen extends AbstractModScreen {
     /**
      * All of the {@code client-side speedrunner mod options.}
      */
-    private SimpleOption<?>[] clientOptions(GameOptions gameOptions) {
-        return new SimpleOption[]{
-                ModListOptions.fog(),
-                gameOptions.getGamma(),
-                ModListOptions.itemMessages(),
-                ModListOptions.increasedLavaVision()
-        };
+    private List<ClickableWidget> clientOptions(GameOptions gameOptions) {
+        return List.of(
+                ModListOptions.fog().createWidget(this.gameOptions),
+                gameOptions.getGamma().createWidget(this.gameOptions),
+                ModListOptions.itemMessages().createWidget(this.gameOptions),
+                ModListOptions.increasedLavaVision().createWidget(this.gameOptions)
+        );
     }
 
     @Override
     protected void init() {
+        this.initializeCustomButtonListWidget();
+
+        this.buttonList.addAll(clientOptions(this.gameOptions));
+
         super.init();
-        this.optionList.addAll(clientOptions(this.gameOptions));
-        this.addSelectableChild(this.optionList);
     }
 
     @Override

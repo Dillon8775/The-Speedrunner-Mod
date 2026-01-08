@@ -7,7 +7,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;

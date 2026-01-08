@@ -59,7 +59,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected final Screen parent;
     protected ButtonWidget helpButton, saveButton, openOptionsFileButton, openOptionsDirectoryButton, doneButton, matchSettingsWithServer;
     public ButtonWidget resetOptionsButton;
-    public OptionListWidget optionList; // The list of all the options for a speedrunner mod screen, returns null if the screen is not an options screen
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> featureButtons = new ArrayList<>();
 
@@ -70,9 +69,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
     @Override
     protected void init() {
+        if (!this.isOptionsScreen()) {
+            this.initializeCustomButtonListWidget();
+            this.buttonList.addAll(this.buttons());
+        }
+        this.addSelectableChild(this.buttonList);
         if (isOptionsScreen()) {
-            this.optionList = this.addDrawableChild(new OptionListWidget(this.client, this.width, this));
-
             this.saveButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.SAVE, (button) -> {
                 this.close();
             }).dimensions(this.getButtonsLeftSide(), this.getDoneButtonHeight(), 100, 20).build());
@@ -98,11 +100,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).dimensions(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer.active = this.isOnServer();
         } else {
-            if (!this.buttons().isEmpty()) {
-                this.initializeCustomButtonListWidget();
-                this.buttonList.addAll(this.buttons());
-                this.addSelectableChild(this.buttonList);
-            }
             if ((this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING && featureScreen.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) || !(this instanceof AbstractFeatureScreen)) {
                 this.doneButton = this.addDrawableChild(ButtonWidget.builder(this.getDoneText(), (button) -> this.close()).dimensions(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
             }
@@ -195,12 +192,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
                     this.filter(widget, lock);
                 }
             }
-        } else {
-            for (OptionListWidget.WidgetEntry entry : this.optionList.children()) {
-                for (ClickableWidget widget : entry.widgets) {
-                    this.filter(widget, lock);
-                }
-            }
         }
     }
 
@@ -231,7 +222,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             Text disabledTooltip
     ) throws NullPointerException {
         try {
-            if (this.optionList != null) {
+            if (this.buttonList != null) {
                 if (this.getSimpleOption(option) == null) {
                     SpeedrunnerMod.error("No widget found with option: " + option.toString());
                 } else {
@@ -259,7 +250,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * @return the widget containing {@link SimpleOption} {@code (option).}
      */
     private ClickableWidget getSimpleOption(SimpleOption<?> option) {
-        for (OptionListWidget.WidgetEntry entry : this.optionList.children()) {
+        for (CustomButtonListWidget.ModWidgetEntry entry : this.buttonList.children()) {
             for (ClickableWidget widget : entry.widgets) {
                 String messageText = widget.getMessage().getString();
                 messageText = messageText.substring(0, messageText.indexOf(":"));
@@ -277,7 +268,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected void setParentAndResize() {
         if (this.parent != null) {
-            this.parent.resize(this.client, this.width, this.height);
+            this.parent.resize(this.width, this.height);
             this.client.setScreen(this.parent);
         } else {
             super.close();
@@ -364,10 +355,10 @@ public abstract class AbstractModScreen extends BaseModScreen {
     public boolean keyPressed(KeyInput input) {
         if (this.isOptionsScreen()) {
             if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && !this.searchField.isFocused() && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
-                double scrollY = advancedOptionsScreen.optionList.getScrollY();
+                double scrollY = advancedOptionsScreen.buttonList.getScrollY();
                 this.refreshScreen(this.pageId());
                 AbstractModScreen modScreen = (AdvancedOptionsScreen)MinecraftClient.getInstance().currentScreen;
-                modScreen.optionList.setScrollY(scrollY);
+                modScreen.buttonList.setScrollY(scrollY);
                 return true;
             }
         }

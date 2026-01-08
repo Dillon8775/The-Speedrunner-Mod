@@ -6,11 +6,12 @@
   "client": [
     "client.IncreasedBrightness",
     "client.Keybindings",
+    "client.MinecraftClientMixin",
     "client.enchantment.RemoveTooExpensiveText",
     "client.fix.AbstractClientPlayerEntityMixin",
+    "client.fix.BlockRenderLayersMixin",
     "client.fix.HeldItemRendererMixin",
     "client.fix.PlayerEntityRendererMixin",
-    "client.fix.RenderLayersMixin",
     "client.network.ClientPlayNetworkHandlerMixin",
     "client.render.CustomWorldEvents",
     "client.render.FogRendererMixin",
@@ -21,7 +22,6 @@
     "client.screen.DeathScreenMixin",
     "client.screen.GameMenuScreenMixin",
     "client.screen.LogoDrawerMixin",
-    "client.MinecraftClientMixin",
     "client.screen.TitleScreenMixin"
   ],
   "injectors": {

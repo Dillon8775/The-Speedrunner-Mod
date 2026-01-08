@@ -56,7 +56,6 @@ accessible method net/minecraft/screen/ScreenHandlerType register (Ljava/lang/St
 accessible field net/minecraft/structure/StrongholdGenerator ALL_PIECES [Lnet/minecraft/structure/StrongholdGenerator$PieceData;
 accessible field net/minecraft/structure/NetherFortressGenerator ALL_BRIDGE_PIECES [Lnet/minecraft/structure/NetherFortressGenerator$PieceData;
 accessible field net/minecraft/structure/NetherFortressGenerator ALL_CORRIDOR_PIECES [Lnet/minecraft/structure/NetherFortressGenerator$PieceData;
-accessible field net/minecraft/world/biome/OverworldBiomeCreator DEFAULT_MUSIC Lnet/minecraft/sound/MusicSound;
 accessible field net/minecraft/entity/LivingEntity equipment Lnet/minecraft/entity/EntityEquipment;
 accessible field net/minecraft/entity/vehicle/AbstractBoatEntity itemSupplier Ljava/util/function/Supplier;
 accessible field net/minecraft/entity/mob/BlazeEntity$ShootFireballGoal fireballCooldown I

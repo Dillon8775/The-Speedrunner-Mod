@@ -6,7 +6,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 
 import java.util.ArrayList;
@@ -154,7 +153,7 @@ public interface TutorialMode {
                 translations = List.of(); // blank list if tutorial mode is completed
             }
             ClientPlayNetworking.send(new TutorialStepCompleteC2SPacket(step, translations));
-            player.playSoundToPlayer(SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+            player.playSound(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0F, 1.0F);
             saveClientChanges();
         }
     }

@@ -28,41 +28,41 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
 public class ModListOptions {
 
     public static SimpleOption<ModOptions.Mode> mode() {
-        return new SimpleOption<>("speedrunnermod.options.mode", SimpleOption.emptyTooltip(), SimpleOption.enumValueText(),
+        return new SimpleOption<>("speedrunnermod.options.mode", SimpleOption.emptyTooltip(), (optionText, value) -> value.getText(),
                 new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.Mode.values()), Codec.INT.xmap(ModOptions.Mode::byId, ModOptions.Mode::getId)),
                 options().main.mode.getCurrentValue(), value -> options().main.mode.set(value));
     }
 
     public static SimpleOption<ModOptions.StructureSpawnRate> structureSpawnRate() {
-        return new SimpleOption<>("speedrunnermod.options.structure_spawn_rates", SimpleOption.emptyTooltip(), SimpleOption.enumValueText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getOrdinal)),
+        return new SimpleOption<>("speedrunnermod.options.structure_spawn_rates", SimpleOption.emptyTooltip(), (optionText, value) -> value.getText(),
+                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
                 options().main.structureSpawnRates.getCurrentValue(), value -> options().main.structureSpawnRates.set(value));
     }
 
     public static SimpleOption<ClientModOptions.ItemMessages> itemMessages() {
         return new SimpleOption<>("speedrunnermod.options.item_messages",
                 SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.item_messages.tooltip")),
-                SimpleOption.enumValueText(),
+                (optionText, value) -> value.getText(),
                 new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.ItemMessages.values()),
                         Codec.INT.xmap(ClientModOptions.ItemMessages::byId, ClientModOptions.ItemMessages::getId)),
                 clientOptions().client.itemMessages.getCurrentValue(),
                 value -> clientOptions().client.itemMessages.set(value));
     }
 
-    public static SimpleOption<ModOptions.MobSpawningRate> mobSpawningRate() {
-        return new SimpleOption<>("speedrunnermod.options.mob_spawning_rate",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.mob_spawning_rate.tooltip")),
-                SimpleOption.enumValueText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.MobSpawningRate.values()),
-                        Codec.INT.xmap(ModOptions.MobSpawningRate::byId, ModOptions.MobSpawningRate::getId)),
-                options().main.mobSpawningRate.getCurrentValue(),
-                value -> options().main.mobSpawningRate.set(value));
+    public static SimpleOption<ModOptions.CreatureSpawnRate> creatureSpawningRate() {
+        return new SimpleOption<>("speedrunnermod.options.creature_spawn_rate",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.creature_spawn_rate.tooltip")),
+                (optionText, value) -> value.getText(),
+                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.CreatureSpawnRate.values()),
+                        Codec.INT.xmap(ModOptions.CreatureSpawnRate::byId, ModOptions.CreatureSpawnRate::getId)),
+                options().main.creatureSpawnRate.getCurrentValue(),
+                value -> options().main.creatureSpawnRate.set(value));
     }
 
     public static SimpleOption<ClientModOptions.GameMode> gameMode() {
         return new SimpleOption<>("speedrunnermod.options.gamemode",
                 SimpleOption.emptyTooltip(),
-                SimpleOption.enumValueText(),
+                (optionText, value) -> value.getText(),
                 new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.GameMode.values()),
                         Codec.INT.xmap(ClientModOptions.GameMode::byId, ClientModOptions.GameMode::getId)),
                 clientOptions().client.gameMode.getCurrentValue(),
@@ -72,7 +72,7 @@ public class ModListOptions {
     public static SimpleOption<ClientModOptions.Difficulty> difficulty() {
         return new SimpleOption<>("speedrunnermod.options.difficulty",
                 SimpleOption.emptyTooltip(),
-                SimpleOption.enumValueText(),
+                (optionText, value) -> value.getText(),
                 new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.Difficulty.values()),
                         Codec.INT.xmap(ClientModOptions.Difficulty::byId, ClientModOptions.Difficulty::getId)),
                 clientOptions().client.difficulty.getCurrentValue(),

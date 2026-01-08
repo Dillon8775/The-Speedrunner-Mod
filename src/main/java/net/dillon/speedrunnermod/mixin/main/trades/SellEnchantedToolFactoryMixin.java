@@ -9,6 +9,7 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.EnchantmentTags;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
@@ -38,7 +39,7 @@ public class SellEnchantedToolFactoryMixin {
      * @reason Lowers the cost of {@code enchanted tools} sold from villagers.
      */
     @Overwrite
-    public TradeOffer create(Entity entity, Random random) {
+    public TradeOffer create(ServerWorld world, Entity entity, Random random) {
         int i = random.nextInt(4) + 30;
         DynamicRegistryManager dynamicRegistryManager = entity.getEntityWorld().getRegistryManager();
         Optional<RegistryEntryList.Named<Enchantment>> optional = dynamicRegistryManager.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentTags.ON_TRADED_EQUIPMENT);

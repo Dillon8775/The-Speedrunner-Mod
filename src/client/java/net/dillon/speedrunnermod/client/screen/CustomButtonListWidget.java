@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.ElementListWidget;
+import net.minecraft.client.option.SimpleOption;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -48,12 +49,13 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
      * <p>Adds a single button to the list of buttons.</p>
      * This button will take up a whole "row" space.
      */
-    public int addSingleButton(ClickableWidget button) {
+    public void addSingleOptionEntry(SimpleOption<?> option) {
+        ClickableWidget button = option.createWidget(MinecraftClient.getInstance().options);
         button.setX(this.width / 2 - 155);
         button.setWidth(310);
         List<ClickableWidget> buttons = new ArrayList<>();
         buttons.add(button);
-        return this.addEntry(ModWidgetEntry.create(buttons));
+        this.addEntry(ModWidgetEntry.create(buttons));
     }
 
     /**

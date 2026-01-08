@@ -63,7 +63,7 @@ public class TimedScreen extends AbstractModScreen {
      * Default resize method.
      */
     @Override
-    public void resize(MinecraftClient client, int width, int height) {
+    public void resize(int width, int height) {
         this.width = width;
         this.height = height;
         this.refreshWidgetPositions();

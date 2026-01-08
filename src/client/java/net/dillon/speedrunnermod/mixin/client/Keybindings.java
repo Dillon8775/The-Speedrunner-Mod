@@ -40,7 +40,7 @@ public abstract class Keybindings {
     @Shadow
     public ClientWorld world;
     @Shadow
-    public abstract void disconnect(Screen disconnectionScreen, boolean transferring);
+    public abstract void disconnect(Screen disconnectionScreen, boolean transferring, boolean bl);
     @Shadow
     public abstract void setScreen(@Nullable Screen screen);
     @Shadow
@@ -74,7 +74,7 @@ public abstract class Keybindings {
                     }
                     assert this.world != null;
                     this.world.disconnect(Text.translatable("menu.savingLevel"));
-                    this.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false);
+                    this.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false, false);
                     CreateWorldScreen.show(MinecraftClient.getInstance(), null);
                 } else {
                     debugWarn("\"Fast World Creation\" is OFF, please enable to use this feature.");

@@ -31,13 +31,13 @@ public class LoaderMain {
             if (creatureValues.containsKey(mobType)) {
                 Integer[] values = creatureValues.get(mobType);
                 spawner.addProperty("weight", values[0]);
-                if (options().main.mobSpawningRate.getCurrentValue().equals(ModOptions.MobSpawningRate.LOW)) {
+                if (options().main.creatureSpawnRate.getCurrentValue().equals(ModOptions.CreatureSpawnRate.LOW)) {
                     spawner.addProperty("minCount", values[1]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().main.mobSpawningRate.getCurrentValue().equals(ModOptions.MobSpawningRate.NORMAL)) {
+                } else if (options().main.creatureSpawnRate.getCurrentValue().equals(ModOptions.CreatureSpawnRate.NORMAL)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().main.mobSpawningRate.getCurrentValue().equals(ModOptions.MobSpawningRate.HIGH)) {
+                } else if (options().main.creatureSpawnRate.getCurrentValue().equals(ModOptions.CreatureSpawnRate.HIGH)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[3]);
                 }

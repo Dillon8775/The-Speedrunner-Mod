@@ -45,7 +45,7 @@ public interface Giant {
             Vec3d vec3d = (new Vec3d(g, (double)0.0F, h)).normalize().multiply(j).rotateY(i);
             double k = f * (double)attacker.getEntityWorld().random.nextFloat() * (double)0.5F;
             target.addVelocity(vec3d.x, k, vec3d.z);
-            target.velocityModified = true;
+            target.knockedBack = true;
         }
     }
 }

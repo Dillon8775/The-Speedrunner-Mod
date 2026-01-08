@@ -6,10 +6,14 @@ import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.util.TranslatableOption;
+import net.minecraft.text.Text;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
@@ -343,25 +347,26 @@ public class ClientModOptions {
     /**
      * All the different {@code GameMode} options.
      */
-    public enum GameMode implements TranslatableOption {
-        SURVIVAL(0, "speedrunnermod.options.gamemode.survival"),
-        CREATIVE(1, "speedrunnermod.options.gamemode.creative"),
-        HARDCORE(2, "speedrunnermod.options.gamemode.hardcore"),
-        SPECTATOR(3, "speedrunnermod.options.gamemode.spectator");
+    public enum GameMode implements StringIdentifiable {
+        SURVIVAL(0, "survival", "speedrunnermod.options.gamemode.survival"),
+        CREATIVE(1, "creative", "speedrunnermod.options.gamemode.creative"),
+        HARDCORE(2, "hardcore", "speedrunnermod.options.gamemode.hardcore"),
+        SPECTATOR(3, "spectator", "speedrunnermod.options.gamemode.spectator");
 
         private static final GameMode[] VALUES = Arrays.stream(GameMode.values()).sorted(Comparator.comparingInt(GameMode::getId)).toArray(GameMode[]::new);
         private final int id;
-        private final String translateKey;
+        private final String name;
+        private final Text translateKey;
 
-        GameMode(int id, String translationKey) {
+        GameMode(int id, final String name, String translationKey) {
             this.id = id;
-            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+            this.name = name;
+            this.translateKey = Text.translatable(translationKey);
         }
 
         /**
-         * Returns the {@code id value} of the fast world creation {@code GameMode} option.
+         * Returns the {@code id value} of the {@code GameMode} option.
          */
-        @Override
         public int getId() {
             return this.id;
         }
@@ -369,9 +374,12 @@ public class ClientModOptions {
         /**
          * Returns the {@code translation key} of the {@code GameMode} option.
          */
-        @Override
-        public String getTranslationKey() {
+        public Text getText() {
             return this.translateKey;
+        }
+
+        public String asString() {
+            return this.name;
         }
 
         /**
@@ -385,25 +393,26 @@ public class ClientModOptions {
     /**
      * All the different {@code Difficulty} options.
      */
-    public enum Difficulty implements TranslatableOption {
-        PEACEFUL(0, "speedrunnermod.options.difficulty.peaceful"),
-        EASY(1, "speedrunnermod.options.difficulty.easy"),
-        NORMAL(2, "speedrunnermod.options.difficulty.normal"),
-        HARD(3, "speedrunnermod.options.difficulty.hard");
+    public enum Difficulty implements StringIdentifiable {
+        PEACEFUL(0, "peaceful", "speedrunnermod.options.difficulty.peaceful"),
+        EASY(1, "easy", "speedrunnermod.options.difficulty.easy"),
+        NORMAL(2, "normal", "speedrunnermod.options.difficulty.normal"),
+        HARD(3, "hard", "speedrunnermod.options.difficulty.hard");
 
         private static final Difficulty[] VALUES = Arrays.stream(Difficulty.values()).sorted(Comparator.comparingInt(Difficulty::getId)).toArray(Difficulty[]::new);
         private final int id;
-        private final String translateKey;
+        private final String name;
+        private final Text translateKey;
 
-        Difficulty(int id, String translationKey) {
+        Difficulty(int id, final String name, String translationKey) {
             this.id = id;
-            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+            this.name = name;
+            this.translateKey = Text.translatable(translationKey);
         }
 
         /**
-         * Returns the {@code id value} of the fast world creation {@code Difficulty} option.
+         * Returns the {@code id value} of the {@code Difficulty} option.
          */
-        @Override
         public int getId() {
             return this.id;
         }
@@ -411,9 +420,12 @@ public class ClientModOptions {
         /**
          * Returns the {@code translation key} of the {@code Difficulty} option.
          */
-        @Override
-        public String getTranslationKey() {
+        public Text getText() {
             return this.translateKey;
+        }
+
+        public String asString() {
+            return this.name;
         }
 
         /**
@@ -424,23 +436,24 @@ public class ClientModOptions {
         }
     }
 
-    public enum ItemMessages implements TranslatableOption {
-        CHAT(0, "speedrunnermod.options.item_messages.chat"),
-        ACTIONBAR(1, "speedrunnermod.options.item_messages.actionbar");
+    public enum ItemMessages implements StringIdentifiable {
+        CHAT(0, "chat", "speedrunnermod.options.item_messages.chat"),
+        ACTIONBAR(1, "actionbar", "speedrunnermod.options.item_messages.actionbar");
 
         private static final ItemMessages[] VALUES = Arrays.stream(ItemMessages.values()).sorted(Comparator.comparingInt(ItemMessages::getId)).toArray(ItemMessages[]::new);
         private final int id;
-        private final String translateKey;
+        private final String name;
+        private final Text translateKey;
 
-        ItemMessages(int id, String translationKey) {
+        ItemMessages(int id, final String name, String translationKey) {
             this.id = id;
-            this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
+            this.name = name;
+            this.translateKey = Text.translatable(translationKey);
         }
 
         /**
          * Returns the {@code id value} of the {@code Item Messages} option.
          */
-        @Override
         public int getId() {
             return this.id;
         }
@@ -448,9 +461,12 @@ public class ClientModOptions {
         /**
          * Returns the {@code translation key} of the {@code Item Messages} option.
          */
-        @Override
-        public String getTranslationKey() {
+        public Text getText() {
             return this.translateKey;
+        }
+
+        public String asString() {
+            return this.name;
         }
 
         /**

@@ -14,7 +14,7 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class ModsScreen extends AbstractModScreen {
-    private ButtonWidget sodiumButton, lithiumButton, speedrunIGTButton, kryptonButton, simpleKeybindsButton, optiFineButton;
+    private ButtonWidget sodiumButton, lithiumButton, speedrunIGTButton, kryptonButton, simpleKeybindsButton, qualityOfQuesoButton, optiFineButton;
 
     public ModsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_MODS);
@@ -28,6 +28,7 @@ public class ModsScreen extends AbstractModScreen {
                 this.speedrunIGTButton,
                 this.kryptonButton,
                 this.simpleKeybindsButton,
+                this.qualityOfQuesoButton,
                 this.optiFineButton
         );
     }
@@ -52,6 +53,10 @@ public class ModsScreen extends AbstractModScreen {
 
         this.simpleKeybindsButton = ButtonWidget.builder(ModTexts.SIMPLE_KEYBINDS, (buttonWidget) -> {
             this.openLink(ModLinks.SIMPLE_KEYBINDS, false);
+        }).build();
+
+        this.qualityOfQuesoButton = ButtonWidget.builder(ModTexts.QUALITY_OF_QUESO, (buttonWidget) -> {
+            this.openLink(ModLinks.QUALITY_OF_QUESO, false);
         }).build();
 
         this.optiFineButton = ButtonWidget.builder(ModTexts.OPTIFINE, (buttonWidget) -> {}).build();
@@ -81,6 +86,9 @@ public class ModsScreen extends AbstractModScreen {
         }
         if (this.simpleKeybindsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.SIMPLE_KEYBINDS_TOOLTIP, context, mouseX, mouseY);
+        }
+        if (this.qualityOfQuesoButton.isHovered()) {
+            this.renderBasicTooltip(ModTexts.QUALITY_OF_QUESO_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.optiFineButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.OPTIFINE_TOOLTIP, context, mouseX, mouseY);

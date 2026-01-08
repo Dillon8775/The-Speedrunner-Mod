@@ -19,6 +19,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.command.permission.PermissionPredicate;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -43,7 +44,7 @@ public class ClientModPackets {
         ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
             if (options().main.mode.getCurrentValue() != packet.serverSideMode()) {
                 context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MODE_DOESNT_MATCH_SERVER_SETTING);
-                context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()), false);
+                context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()), false, false);
             }
         });
     }
@@ -69,7 +70,7 @@ public class ClientModPackets {
             ModOptions serverOptions = packet.toOptions();
             configHandler().match(serverOptions);
             context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MATCHED_SETTINGS_WITH_SERVER);
-            context.client().disconnect(new TimedScreen(null, 5), false);
+            context.client().disconnect(new TimedScreen(null, 5), false, false);
         });
     }
 
@@ -180,8 +181,8 @@ public class ClientModPackets {
         IntegratedServer integratedServer = client.getServer();
         if (integratedServer != null) {
             integratedServer.getPlayerManager().setCheatsAllowed(clientOptions().client.allowCheats.getCurrentValue());
-            int i = integratedServer.getPermissionLevel(client.player.getPlayerConfigEntry());
-            client.player.setClientPermissionLevel(i);
+            PermissionPredicate permissionPredicate = integratedServer.getPermissionLevel(client.player.getPlayerConfigEntry());
+            client.player.setPermissions(permissionPredicate);
 
             for (ServerPlayerEntity serverPlayerEntity : integratedServer.getPlayerManager().getPlayerList()) {
                 integratedServer.getCommandManager().sendCommandTree(serverPlayerEntity);
