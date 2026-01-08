@@ -19,6 +19,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
@@ -105,7 +106,7 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(Entity entity, Random random) {
+        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
             return new TradeOffer(new TradedItem(ModItems.SPEEDRUNNER_INGOT, this.price), new ItemStack(this.sell.getItem(), this.count), this.maxUses, this.experience, this.multiplier);
         }
     }
@@ -136,7 +137,7 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(Entity entity, Random random) {
+        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
             return new TradeOffer(new TradedItem(Items.IRON_INGOT, this.price), new ItemStack(this.sell.getItem(), this.count), this.maxUses, this.experience, this.multiplier);
         }
     }
@@ -156,7 +157,8 @@ public class ModTradeOffers {
             this.possibleEnchantments = possibleEnchantments;
         }
 
-        public TradeOffer create(Entity entity, Random random) {
+        @Override
+        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
             int l;
             ItemStack itemStack;
             Optional<RegistryEntry<Enchantment>> optional = entity.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getRandomEntry(this.possibleEnchantments, random);
@@ -199,7 +201,7 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(Entity entity, Random random) {
+        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
             int i = random.nextInt(4) + 30;
             DynamicRegistryManager dynamicRegistryManager = entity.getEntityWorld().getRegistryManager();
             Optional<RegistryEntryList.Named<Enchantment>> optional = dynamicRegistryManager.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(this.possibleEnchantments);
@@ -222,7 +224,7 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(Entity entity, Random random) {
+        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
             int i = random.nextInt(4) + 1;
             ItemStack itemStack = new ItemStack(i == 1 ? Items.NETHERITE_HELMET : i == 2 ? Items.NETHERITE_CHESTPLATE : i == 3 ? Items.NETHERITE_LEGGINGS : Items.NETHERITE_BOOTS);
             itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.PROTECTION), random.nextInt(3) + 3);

@@ -35,7 +35,7 @@ public class ModListOptions {
 
     public static SimpleOption<ModOptions.StructureSpawnRate> structureSpawnRate() {
         return new SimpleOption<>("speedrunnermod.options.structure_spawn_rates", SimpleOption.emptyTooltip(), SimpleOption.enumValueText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
+                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getOrdinal)),
                 options().main.structureSpawnRates.getCurrentValue(), value -> options().main.structureSpawnRates.set(value));
     }
 

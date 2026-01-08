@@ -8,6 +8,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registerable;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BiomeMoodSound;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
@@ -62,12 +63,12 @@ public class ModBiomes {
                 .downfall(0.7F)
                 .effects(new BiomeEffects.Builder()
                         .waterColor(ModUtil.SPEEDRUNNER_WATER_COLOR)
-                        .waterFogColor(ModUtil.SPEEDRUNNER_WATER_FOG_COLOR)
-                        .fogColor(0xEBF5FB)
-                        .skyColor(OverworldBiomeCreator.getSkyColor(0.5F))
                         .foliageColor(0xAED6F1)
                         .grassColor(0xAED6F1)
-                        .moodSound(BiomeMoodSound.CAVE).build())
+                        .build())
+                .setEnvironmentAttribute(EnvironmentAttributes.WATER_FOG_COLOR_VISUAL, ModUtil.SPEEDRUNNER_WATER_FOG_COLOR)
+                .setEnvironmentAttribute(EnvironmentAttributes.FOG_COLOR_VISUAL, 0xEBF5FB)
+                .setEnvironmentAttribute(EnvironmentAttributes.SKY_COLOR_VISUAL, OverworldBiomeCreator.getSkyColor(0.5F))
                 .spawnSettings(spawnBuilder.build())
                 .generationSettings(lookupBackedBuilder.build()).build();
     }

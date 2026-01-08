@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.option;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.main.fix.ItemStackArgumentTypeMixin;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.TranslatableOption;
 import net.minecraft.util.math.MathHelper;
 
@@ -553,24 +554,25 @@ public class ModOptions {
         return option >= min && option <= max;
     }
 
-    public enum Mode implements TranslatableOption {
-        EASY(0, "speedrunnermod.options.mode.easy"),
-        BALANCED(1, "speedrunnermod.options.mode.balanced"),
-        DOOM(2, "speedrunnermod.options.mode.doom");
+    public enum Mode implements StringIdentifiable {
+        EASY(0, "easy", "speedrunnermod.options.mode.easy"),
+        BALANCED(1, "balanced", "speedrunnermod.options.mode.balanced"),
+        DOOM(2, "doom", "speedrunnermod.options.mode.doom");
 
         private static final Mode[] VALUES = Arrays.stream(Mode.values()).sorted(Comparator.comparingInt(Mode::getId)).toArray(Mode[]::new);
         private final int id;
+        private final String name;
         private final String translateKey;
 
-        Mode(int id, String translationKey) {
+        Mode(int id, final String name, String translationKey) {
             this.id = id;
+            this.name = name;
             this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
         }
 
         /**
          * Returns the {@code id value} of the {@code Mode} option.
          */
-        @Override
         public int getId() {
             return this.id;
         }
@@ -578,9 +580,12 @@ public class ModOptions {
         /**
          * Returns the {@code translation key} of the {@code Mode} option.
          */
-        @Override
-        public String getTranslationKey() {
+        public String getText() {
             return this.translateKey;
+        }
+
+        public String asString() {
+            return this.name;
         }
 
         /**
@@ -594,7 +599,7 @@ public class ModOptions {
     /**
      * All the different {@code Structure Spawn Rate} options, from extremely common to extremely rare.
      */
-    public enum StructureSpawnRate implements TranslatableOption {
+    public enum StructureSpawnRate implements StringIdentifiable {
         EVERYWHERE(0, "speedrunnermod.options.structure_spawn_rates.everywhere"),
         VERY_COMMON(1, "speedrunnermod.options.structure_spawn_rates.very_common"),
         COMMON(2, "speedrunnermod.options.structure_spawn_rates.common"),
@@ -604,20 +609,21 @@ public class ModOptions {
         VERY_RARE(6, "speedrunnermod.options.structure_spawn_rates.very_rare"),
         CUSTOM(7, "speedrunnermod.options.structure_spawn_rates.custom");
 
-        private static final StructureSpawnRate[] VALUES = Arrays.stream(StructureSpawnRate.values()).sorted(Comparator.comparingInt(StructureSpawnRate::getId)).toArray(StructureSpawnRate[]::new);
+        private static final StructureSpawnRate[] VALUES = Arrays.stream(StructureSpawnRate.values()).sorted(Comparator.comparingInt(StructureSpawnRate::getOrdinal)).toArray(StructureSpawnRate[]::new);
         private final int id;
+        private final String name;
         private final String translateKey;
 
-        StructureSpawnRate(int id, String translationKey) {
+        StructureSpawnRate(int id, final String name, String translationKey) {
             this.id = id;
+            this.name = name;
             this.translateKey = Objects.requireNonNull(translationKey, "translateKey");
         }
 
         /**
          * Returns the {@code id value} of the {@code Structure Spawn Rate} option.
          */
-        @Override
-        public int getId() {
+        public int getOrdinal() {
             return this.id;
         }
 
