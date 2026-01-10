@@ -38,7 +38,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    public static final String MOD_VERSION = "v1.11.9";
+    public static final String MOD_VERSION = "v1.12";
     public static final String MC_VERSION = "1.21.11";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
