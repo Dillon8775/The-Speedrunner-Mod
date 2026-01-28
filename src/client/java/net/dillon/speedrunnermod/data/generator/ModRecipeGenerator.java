@@ -7,6 +7,7 @@ import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
 import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
 import net.dillon.speedrunnermod.recipe.boat.*;
 import net.dillon.speedrunnermod.recipe.boat.chest.*;
+import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;

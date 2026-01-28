@@ -26,6 +26,9 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
      */
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (FabricLoader.getInstance().isModLoaded("qualityofqueso")) {
+            return !mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.FogRendererMixin");
+        }
         boolean bl = shouldNotApply(mixinClassName);
         if (bl) {
             SpeedrunnerMod.warn("Skipping mixin " + mixinClassName + " for target " + targetClassName + " because it should not be applied.");

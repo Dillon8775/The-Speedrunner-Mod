@@ -85,7 +85,7 @@ public class TheEndBiomesLoader {
         JsonObject particleObject = new JsonObject();
         particleObject.addProperty("type", "minecraft:crimson_spore");
         particleEntry.add("particle", particleObject);
-        particleEntry.addProperty("probability", 0.030);
+        particleEntry.addProperty("probability", 0.050D);
 
         if (isDoomMode()) {
             ambientParticles.add(particleEntry);

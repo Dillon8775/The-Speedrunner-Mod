@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.BetterHotkeysScreen;
+import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.TutorialModeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -17,7 +18,7 @@ public class FortressesBastionsAndStrongholdsScreen extends AbstractFeatureScree
 
     public FortressesBastionsAndStrongholdsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_FEATURE_FORTRESSES_BASTIONS_AND_STRONGHOLDS,
-                new BetterHotkeysScreen(parent), ModTexts.MENU_MISCELLANEOUS,
+                new TutorialModeScreen(parent), ModTexts.MENU_MISCELLANEOUS,
                 new SpeedrunnerIngotsScreen(parent), ModTexts.MENU_BLOCKS_AND_ITEMS,
                 new SpeedrunnerArmorScreen(parent), ModTexts.MENU_TOOLS_AND_ARMOR,
                 false, null, null);

@@ -1,4 +1,4 @@
-// 1.21.9	-999999999-01-01T00:00:00	Speedrunner Mod/Tags for minecraft:item
+// 1.21.11	-999999999-01-01T00:00:00	Speedrunner Mod/Tags for minecraft:item
 d4e8fbabce8e118bdc7985820641d86ff907ff7f data/c/tags/item/ingots/iron.json
 55a14f2855efc563470730747a0b80e668282d9e data/c/tags/item/nuggets/iron.json
 e39ac6ffb6af974addd599ea1dfef968053522ad data/c/tags/item/tools/bow.json
@@ -16,7 +16,6 @@ e39ac6ffb6af974addd599ea1dfef968053522ad data/minecraft/tags/item/enchantable/bo
 362b26547b99707c8fde2e335bfd18110e4f7fc2 data/minecraft/tags/item/enchantable/crossbow.json
 5a9b7731f1e6b334d9b878de3dc890b1ac920fc2 data/minecraft/tags/item/enchantable/durability.json
 0294870efdba5d14283ef50ef105a69f9cd23a84 data/minecraft/tags/item/enchantable/mining.json
-ba9125aa546790a0582445879c658b228dbb763c data/minecraft/tags/item/enchantable/sword.json
 29e9b4051601ff7423239232d99802f3fe71597f data/minecraft/tags/item/fence_gates.json
 3be005000fb6b4ccc4c025d191d9411cb9a2476e data/minecraft/tags/item/foot_armor.json
 6474924b7fda310dae7af0c9f3fbffaef31cb49d data/minecraft/tags/item/head_armor.json
