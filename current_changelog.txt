@@ -1,1 +1,3 @@
-Version 1.12:
+Version 1.12 (Fabric 1.21.11):
+- Fixed bug where doom mode monsters do not spawn in the end.
+- Fixed bug where crimson spore particles are not visible in the end.

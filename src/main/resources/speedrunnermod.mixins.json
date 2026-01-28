@@ -40,6 +40,7 @@
     "main.entity.IronGolemEntityMixin",
     "main.entity.MagmaCubeEntityMixin",
     "main.entity.MobEntityMixin",
+    "main.entity.PathAwareEntityMixin",
     "main.entity.PiglinBrainMixin",
     "main.entity.PiglinBruteEntityMixin",
     "main.entity.PiglinEntityMixin",

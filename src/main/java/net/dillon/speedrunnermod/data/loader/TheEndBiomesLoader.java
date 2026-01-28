@@ -74,16 +74,22 @@ public class TheEndBiomesLoader {
 
         theEndSpawners.getAsJsonArray("monster").addAll(theEndMonsters);
 
-        JsonObject theEndEffects = jsonElement.getAsJsonObject().getAsJsonObject("effects");
+        JsonObject endBiome = jsonElement.getAsJsonObject();
+        JsonObject attributes = new JsonObject();
 
+        JsonArray ambientParticles;
+        ambientParticles = new JsonArray();
+        attributes.add("minecraft:visual/ambient_particles", ambientParticles);
+
+        JsonObject particleEntry = new JsonObject();
         JsonObject particleObject = new JsonObject();
-        JsonObject optionsObject = new JsonObject();
-        optionsObject.addProperty("type", "minecraft:crimson_spore");
-        particleObject.add("options", optionsObject);
-        particleObject.addProperty("probability", 0.030);
+        particleObject.addProperty("type", "minecraft:crimson_spore");
+        particleEntry.add("particle", particleObject);
+        particleEntry.addProperty("probability", 0.030);
 
         if (isDoomMode()) {
-            theEndEffects.add("particle", particleObject);
+            ambientParticles.add(particleEntry);
+            endBiome.add("attributes", attributes);
         }
     }
 
