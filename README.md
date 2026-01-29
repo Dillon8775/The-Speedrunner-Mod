@@ -27,7 +27,9 @@ I know newer Minecraft versions are harder to speedrun, but ***not with this mod
 ### Speedrunner Tools, armor, and weapons
 Better than iron, but worse than diamond. However, they're faster than both **diamond** and **iron.**
 
-<img src="https://i.imgur.com/mOhSYbd.png" width="83" height="151" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20armor.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20armor.png?raw=true" width="83" height="151" alt="Speedrunner armor.">
+</a>
 
 ---
 
@@ -39,7 +41,9 @@ Allow the player to **move faster** in lava and water. They also prevent **skulk
 ### Speedrunner Ingots, blocks, nuggets, and ores
 The material used to craft the majority of all speedrunner tools, armor, and weapons. They're all just about as common (if not more common) as iron.
 
-<img src="https://i.imgur.com/Zw0iTCU.png" width="68 " height="51" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20ingot.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20ingot.png?raw=true" width="68" height="51" alt="Speedrunner ingot.">
+</a>
 
 ---
 
@@ -48,22 +52,33 @@ Better than normal wood and breaks faster.
 
 This type of wood can be used as a fuel source, but it does not burn from nearby lava or fire.
 
-<img src="https://i.imgur.com/O9eC7wx.png" width="73" height="73" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20wood.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20wood.png?raw=true" width="73" height="73" alt="Speedrunner wood.">
+</a>
 
 ---
 
 ### Speedrunner Paddle
 A paddle, which is used to craft **lava boats.**
 
-<img src="https://i.imgur.com/QREEEbN.png" width="228" height="104" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/paddle%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/paddle%20recipe.png?raw=true" width="228" height="104" alt="Speedrunner paddle recipe.">
+</a>
 
 ---
 
 ### The Speedrunner Boat
 Faster than normal boats, and can be ridden in lava (if crafted with a speedrunner paddle).
 
-#### <img src="https://i.imgur.com/iKNdyW8.png" width="228" height="104" alt="">
-<img src="https://i.imgur.com/8x6a6Hh.png" width="228" height="104" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/normal%20speedrunner%20boat%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/normal%20speedrunner%20boat%20recipe.png?raw=true" width="228" height="104" alt="Speedrunner boat recipe.">
+</a>
+
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20recipe.png?raw=true" width="228" height="104" alt="Fireproof speedrunner boat recipe.">
+</a>
 
 ---
 
@@ -72,37 +87,58 @@ Boats that can be ridden in lava (if crafted with a speedrunner paddle).
 
 ### You can disable boats riding in lava by turning off the "Lava Boats" option.
 
-### <img src="https://i.imgur.com/KjDrfM7.png" width="233" height="84" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" width="233" height="84" alt="Speedrunner, warped and crimson boats.">
+</a>
 
-### <img src="https://i.imgur.com/WRU2FsL.png" width="320" height="180" alt="">
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20in%20lava.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20in%20lava.png?raw=true" width="320" height="180" alt="Fireproof boat in lava.">
+</a>
 
 ---
 
 ### Dead Speedrunner Wood
 Similar to speedrunner wood, however, these blocks do burn from nearby fire and lava, and it's respective boats (the dead speedrunner boat) cannot ride in lava, but are still faster than normal boats.
 
-<img src="https://i.imgur.com/XyT6DzL.png" width="73" height="73" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead%20speedrunner%20wood.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead%20speedrunner%20wood.png?raw=true" width="73" height="73" alt="Dead speedrunner wood.">
+</a>
 
 ---
 
 ### The Speedrunner Bow and Crossbow
 Shoots further and charges faster, and has more durability.
 
-<img src="https://i.imgur.com/YqA91SW.png" width="64" height="64" alt=""> <img src="https://i.imgur.com/Dej0NhV.png" width="68" height="68" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/YqA91SW.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/YqA91SW.png?raw=true" width="64" height="64" alt="Speedrunner bow.">
+</a>
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20crossbow.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20crossbow.png?raw=true" width="68" height="68" alt="Speedrunner crossbow.">
+</a>
 
 ---
 
 ### Speedrunner Flint and Steel and Shears
 Better than the vanilla items, with more durability.
 
-<img src="https://i.imgur.com/d89Ehsd.png" width="70" height="75" alt=""> ‎ ‎ ‎<img src="https://i.imgur.com/q1pv1ih.png" width="68" height="68" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/d89Ehsd%20-%20Imgur.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/d89Ehsd%20-%20Imgur.png?raw=true" width="70" height="75" alt="Speedrunner flint and steel.">
+</a>
+‎ ‎ ‎
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/q1pv1ih%20-%20Imgur.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/q1pv1ih%20-%20Imgur.png?raw=true" width="68" height="68" alt="Speedrunner shears.">
+</a>
 
 ---
 
 ### The Speedrunner Shield
 Comes with more durability than a normal shield, and has a faster cooldown when being disabled by an axe.
 
-<img src="https://i.imgur.com/R5uojmY.png" width="35" height="64" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20shield.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20shield.png?raw=true" width="35" height="64" alt="Speedrunner shield.">
+</a>
 
 ---
 
@@ -111,14 +147,18 @@ Stacks to 3, works anywhere in the player's inventory, and gives better effects 
 
 This totem also immitts a special particle, similar to the vanilla totem particle, but blue.
 
-<img src="https://i.imgur.com/jtmh3nP.png" width="228" height="104" alt="">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunners%20totem%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunners%20totem%20recipe.png?raw=true" width="228" height="104" alt="Speedrunner's totem recipe.">
+</a>
 
 ---
 
 ### Golden Speedrunner Tools, armor, and weapons
 Better *and* faster than golden tools, and protects you from piglin, just as gold does.
 
-<img src="https://i.imgur.com/zZMxMtI.png" width="83" height="151" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/golden%20speedrunner%20armor.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/golden%20speedrunner%20armor.png?raw=true" width="83" height="151" alt="Golden speedrunner armor.">
+</a>
 
 ---
 
@@ -127,14 +167,18 @@ A smithing template upgrade item, which can be used to craft the golden speedrun
 
 You can also right-click it to view all features in the mod!
 
-<img src="https://i.imgur.com/1UWWUAw.png" width="62" height="79" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/golden%20speedrunner%20smithing%20template.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/golden%20speedrunner%20smithing%20template.png?raw=true" width="62" height="79" alt="Golden speedrunner smithing template upgrade.">
+</a>
 
 ---
 
 ### Raw Speedrunner
 Kind of like raw iron, but it can only be found randomly in the Speedrunner's Wasteland biome. Smelting the raw speedrunner will give you speedrunner ingots.
 
-<img src="https://i.imgur.com/qPojFsZ.png" width="68" height="60" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/raw%20speedrunner.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/raw%20speedrunner.png?raw=true" width="68" height="60" alt="Raw speedrunner.">
+</a>
 
 ---
 
@@ -149,9 +193,15 @@ In the second slot, place the item that you want the enchantments transferred *t
 
 The resulting item will come with the transferred enchantments, but will take some durability away from it.
 
-#### <img src="https://i.imgur.com/aQqOCwD.png" width="342" height="156" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Workbench/workbench%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Workbench/workbench%20recipe.png?raw=true" width="342" height="156" alt="Speedrunner's workbench recipe.">
+</a>
 
-<img src="https://i.imgur.com/05IulBK.png" width="480" height="270" alt="Image description">
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Workbench/workbench%20gui.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Workbench/workbench%20gui.png?raw=true" width="480" height="270" alt="Speedrunner's workbench GUI.">
+</a>
 
 ---
 
@@ -160,56 +210,72 @@ A new villager profession, which sells extremely overpowered items, such as ench
 
 To give a villager this job, place down a speedrunner's workbench.
 
-<img src="https://i.imgur.com/mlc7q7y.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Workbench/retired%20speedrunner%20with%20workbench.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Workbench/retired%20speedrunner%20with%20workbench.png?raw=true" width="480" height="270" alt="Retired Speedrunner.">
+</a>
 
 ---
 
 ### Speedrunner Bulk
 Found in various loot table chests, this food item fills **6 hunger bars,** and gives a bunch of positive effects upon use.
 
-<img src="https://i.imgur.com/1AbHRLv.png" width="85" height="80" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20bulk.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20bulk.png?raw=true" width="85" height="80" alt="Speedrunner bulk.">
+</a>
 
 ---
 
 ### Rotten Speedrunner Bulk
 Found in various loot table chests, but it gives a bunch of negative effects upon use. Don't eat it!
 
-<img src="https://i.imgur.com/70Zvpca.png" width="85" height="80" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/rotten%20speedrunner%20bulk.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/rotten%20speedrunner%20bulk.png?raw=true" width="85" height="80" alt="Rotten speedrunner bulk.">
+</a>
 
 ---
 
 ### Eye of Inferno
 Points to the nearest nether fortress or bastion.
 
-<img src="https://i.imgur.com/aZs609T.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/inferno%20eye%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/inferno%20eye%20recipe.png?raw=true" width="228" height="104" alt="Eye of Inferno recipe.">
+</a>
 
 ---
 
 ### Eye of Annul
 Teleports the player *directly* to the nearest stronghold portal room.
 
-<img src="https://i.imgur.com/Srj5Yk9.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/annul%20eye%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/annul%20eye%20recipe.png?raw=true" width="228" height="104" alt="Eye of annul recipe.">
+</a>
 
 ---
 
 ### The Speedrunner's Eye
 Locates and gives the exact distance of all overworld structures.
 
-<img src="https://i.imgur.com/PgHoA4q.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunners%20eye%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunners%20eye%20recipe.png?raw=true" width="228" height="104" alt="Speedrunner's Eye recipe.">
+</a>
 
 ---
 
 ### The Dragon's Pearl
 Makes the ender dragon perch instantly.
 
-<img src="https://i.imgur.com/USLesIz.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20pearl%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20pearl%20recipe.png?raw=true" width="228" height="104" alt="Dragon's pearl recipe.">
+</a>
 
 ---
 
 ### The Dragon's Sword
 One-shots the ender dragon.
 
-<img src="https://i.imgur.com/MBbiXP4.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20sword%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20sword%20recipe.png?raw=true" width="228" height="104" alt="Dragon's sword recipe.">
+</a>
 
 ---
 
@@ -223,28 +289,36 @@ It can be crafted with 8 golden ingots, and any of the following items:
 - Golden apple
 - Enchanted golden apple
 
-<img src="https://i.imgur.com/HDr88uG.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/piglin%20awakener%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/piglin%20awakener%20recipe.png?raw=true" width="228" height="104" alt="Piglin awakener recipe.">
+</a>
 
 ---
 
 ### Blaze Spotter
 Teleports the player to the nearest blaze spawner.
 
-<img src="https://i.imgur.com/PbBWs2Y.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/blaze%20spotter%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/blaze%20spotter%20recipe.png?raw=true" width="228" height="104" alt="Blaze spotter recipe.">
+</a>
 
 ---
 
 ### Ender Thruster
 Teleports the player to the surface, or the highest available air block.
 
-<img src="https://i.imgur.com/1AzYitO.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/ender%20thruster%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/ender%20thruster%20recipe.png?raw=true" width="228" height="104" alt="Ender thruster recipe.">
+</a>
 
 ---
 
 ### Ender Matter
 A rare substance, which can be obtained by killing enderman, or via shipwreck or end city treasure chests.
 
-<img src="https://i.imgur.com/pqZ0pq7.png" width="68" height="68" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/ender%20matter.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/ender%20matter.png?raw=true" width="68" height="68" alt="Ender matter recipe.">
+</a>
 
 ---
 
@@ -253,7 +327,9 @@ An ender pearl with 571 durability points, and it doesn't do damage upon use.
 
 It also shoots further and faster than regular ender pearls.
 
-<img src="https://i.imgur.com/YmYli8t.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/infini%20pearl%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/infini%20pearl%20recipe.png?raw=true" width="228" height="104" alt="InfiniPearl recipe.">
+</a>
 
 ---
 
@@ -263,7 +339,9 @@ Kills all nearby raider entities.
 
 The player must be wearing a totem to use the item, as it will try to instantly kill the player upon use.
 
-<img src="https://i.imgur.com/nj6sKci.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/raid%20eradicator%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/raid%20eradicator%20recipe.png?raw=true" width="228" height="104" alt="Raid eradicator recipe.">
+</a>
 
 ---
 
@@ -273,14 +351,18 @@ Crafted with **2 normal bones** and **2 pieces of coal.**
 ### The Wither Sword
 One-shots wither skeletons, with a 45% chance to drop a **wither skeleton skull.** If it drops, the sword instantly breaks.
 
-<img src="https://i.imgur.com/shb5McU.png" width="228" height="104" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wither%20sword.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wither%20sword.png?raw=true" width="228" height="104" alt="Wither sword.">
+</a>
 
 ---
 
 ### Igneous Rocks
 An ore that can be found underground, which can be used to craft obsidian.
 
-<img src="https://i.imgur.com/whCIWw0.png" width="74" height="74" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/igneous%20rock.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/igneous%20rock.png?raw=true" width="74" height="74" alt="Igneous rock.">
+</a>
 
 ---
 
@@ -289,16 +371,24 @@ Rotten flesh can be cooked into cooked flesh. Zombies, drowned, husks, etc., wil
 
 You can use rotten flesh and/or cooked flesh to craft a flesh block.
 
-#### <img src="https://i.imgur.com/PSxCZtN.png" width="254" height="101" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/cooked%20flesh%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/cooked%20flesh%20recipe.png?raw=true" width="254" height="101" alt="Cooked flesh from rotten flesh.">
+</a>
 
-<img src="https://i.imgur.com/TE97UrM.png" width="228" height="104" alt="Image description">
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/flesh%20block.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/flesh%20block.png?raw=true" width="228" height="104" alt="Flesh block.">
+</a>
 
 ---
 
 ### Piglin Pork
 Piglins now drop food, similar to porkchop.
 
-<img src="https://i.imgur.com/gjGhTkc.png" width="74" height="68" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/cooked%20piglin%20pork.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/cooked%20piglin%20pork.png?raw=true" width="74" height="64" alt="Cooked piglin pork.">
+</a>
 
 ---
 
@@ -313,7 +403,9 @@ There are 3 different types of modes:
 ### Easy Mode
 Easy mode has no limitations and enables *all* speedrunner mod features.
 
-<img src="https://i.imgur.com/bv3Xrsu.png" width="300" height="40" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/easy%20mode.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/easy%20mode.png?raw=true" width="300" height="40" alt="Easy mode.">
+</a>
 
 ---
 
@@ -322,13 +414,17 @@ Balanced mode has a few limitations, such as disabling a few overpowered items, 
 
 It also disables nether fortresses and strongholds from generating differently.
 
-<img src="https://i.imgur.com/80E1R9J.png" width="300" height="40" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/balanced%20mode.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/balanced%20mode.png?raw=true" width="300" height="40" alt="Balanced mode.">
+</a>
 
 ---
 
 ## Doom Mode
 
-<img src="https://i.imgur.com/7OO7jYH.png" width="300" height="40" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode.png?raw=true" width="300" height="40" alt="Doom mode.">
+</a>
 
 Doom Mode takes this mod's purpose and flips it upside-down, and makes the game *extremely difficult* to beat.
 
@@ -346,7 +442,9 @@ And finally, a Giant will spawn. In vanilla Minecraft, the giant does not have a
 
 The Ender Dragon *cannot die* if Goliath and the wither are still alive.
 
-<img src="https://i.imgur.com/VSSj3Cn.png" width="252" height="187" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode%20bosses.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode%20bosses.png?raw=true" width="252" height="187" alt="Doom mode bosses (wither, giant and ender dragon).">
+</a>
 
 Another small feature, beds are dragon immune on this mode.
 
@@ -354,7 +452,9 @@ Another small feature, beds are dragon immune on this mode.
 
 ### Goliath
 
-<img src="https://i.imgur.com/lKj9gge.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/goliath%20in%20action.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/goliath%20in%20action.png?raw=true" width="480" height="270" alt="Goliath in action.">
+</a>
 
 The Giant (also known as Goliath) will target everything in it's path, while slowly regenerating health.
 
@@ -368,7 +468,9 @@ Goliath is completely immune to explosives, fall damage, fire, and lava.
 
 Goliath can also be summoned with *2 flesh blocks* and a zombie head.
 
-<img src="https://i.imgur.com/enuwwhB.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/summon%20goliath.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/summon%20goliath.png?raw=true" width="480" height="270" alt="To summon goliath.">
+</a>
 
 This feature works on all modes!
 
@@ -381,7 +483,9 @@ If broken, they will spawn various hostile mobs, along with some lava.
 
 You can avoid these things if you break these blocks with a speedrunner or golden speedrunner tool, and they will also drop a variety of helpful items to make the end fight a little bit easier, including armor, crossbows, etc.
 
-<img src="https://i.imgur.com/EWm3BYk.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode%20chaos.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode%20chaos.png?raw=true" width="480" height="270" alt="Doom blocks.">
+</a>
 
 ---
 
@@ -435,7 +539,9 @@ Generates throughout the overworld, and it's great for speedrunning, because ore
 
 You can disable this biome from generating by turning off the "Custom Biomes and Custom Biome Features" option.
 
-<img src="https://i.imgur.com/K6N5VEJ.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/speedrunner%20wasteland.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/speedrunner%20wasteland.png?raw=true" width="480" height="270" alt="Speedrunner's Wasteland biome.">
+</a>
 
 ---
 
@@ -444,7 +550,9 @@ Biomes suited for speedrunning, like the Speedrunner's Wasteland, plains, desert
 
 You can disable this feature by turning off the "Better Biomes" option.
 
-<img src="https://i.imgur.com/KklrUJe.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/better%20biomes.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/better%20biomes.png?raw=true" width="480" height="270" alt="Better biomes.">
+</a>
 
 ---
 
@@ -453,9 +561,15 @@ A new ore, which drops a bunch of XP when mined. It drops even more experience i
 
 For all ores, if you mine it with fortune, it will drop triple the experience.
 
-#### <img src="https://i.imgur.com/PwaR1iI.png" width="240" height="135" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/experience%20ores.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/experience%20ores.png?raw=true" width="240" height="135" alt="Experience ores.">
+</a>
 
-<img src="https://i.imgur.com/NBGhPHF.png" width="240" height="135" alt="Image description">
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/more%20xp%20with%20fortune.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/more%20xp%20with%20fortune.png?raw=true" width="240" height="135" alt="More XP with fortune.">
+</a>
 
 ---
 
@@ -469,18 +583,32 @@ You can disable these from generating by turning off the "Custom Biomes and Cust
 ### Better Loot Tables
 Almost *all loot tables*, including chests and entities, have been buffed. You won't find a loot chest that you are disappointed in.
 
-<img src="https://i.imgur.com/QTOea4J.png" width="254" height="107" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/bastion%20treasure%20chest.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/bastion%20treasure%20chest.png?raw=true" width="254" height="107" alt="Bastion treasure chest loot.">
+</a>
 
-<img src="https://i.imgur.com/uDn56hT.png" width="254" height="107" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/desert%20pyramid%20chest.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/desert%20pyramid%20chest.png?raw=true" width="254" height="107" alt="Desert pyramid chest loot.">
+</a>
 
-#### <img src="https://i.imgur.com/CbEwUV2.png" width="254" height="107" alt="Image description"> <img src="https://i.imgur.com/Anm9Tds.png" width="254" height="107" alt="Image description">
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/ruined%20portal%20chest.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/ruined%20portal%20chest.png?raw=true" width="254" height="107" alt="Ruined portal chest loot.">
+</a>
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/shipwreck%20treasure%20chest.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/shipwreck%20treasure%20chest.png?raw=true" width="254" height="107" alt="Shipwreck chest loot.">
+</a>
 
 ---
 
 ### Diamonds, lapis and ancient debris generate more commonly!
 You can disable this by turning off the "Common Ores" option.
 
-<img src="https://i.imgur.com/LBLQDfs.png" width="320" height="180" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/common%20ores.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/common%20ores.png?raw=true" width="320" height="180" alt="More common ores.">
+</a>
 
 ---
 
@@ -501,8 +629,13 @@ You can disable this by turning off the "Common Ores" option.
 
 - You can change how far apart strongholds can generate from each other (via the "Stronghold Spread" option).
 
-<img src="https://i.imgur.com/nCLZxXw.png" width="320" height="180" alt="Image description">
-<img src="https://i.imgur.com/iAD3HfQ.png" width="320" height="180" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/better%20strongholds.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/better%20strongholds.png?raw=true" width="320" height="180" alt="Better strongholds.">
+</a>
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/better%20nether%20fortresses.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/better%20nether%20fortresses.png?raw=true" width="320" height="180" alt="Better nether fortresses.">
+</a>
 
 ---
 
@@ -536,7 +669,9 @@ This option is configurable, and you can change the settings for world creation 
 ## Piglin bartering is *extremely overpowered.*
 This is what I got from piglin bartering for a minute or two.
 
-<img src="https://i.imgur.com/PzTla69.png" width="255" height="122" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/piglin%20bartering.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Loot%20Tables/piglin%20bartering.png?raw=true" width="255" height="122" alt="Piglin bartering loot tables.">
+</a>
 
 ---
 
@@ -563,7 +698,9 @@ Additionally, the text on the death screen has been changed to fit the theme of 
 
 You can disable the death cord messages by turning off the "Show Death Cords" option.
 
-<img src="https://i.imgur.com/APbdzdf.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/better%20death%20screen.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/better%20death%20screen.png?raw=true" width="480" height="270" alt="Better death screen.">
+</a>
 
 ---
 
@@ -572,14 +709,18 @@ All villager trades have been buffed, with lower prices and better items, for ev
 
 You can disable this feature by turning off the "Better Villager Trades" option.
 
-<img src="https://i.imgur.com/D1nttuI.png" width="132" height="120" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/better%20villager%20trades.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/better%20villager%20trades.png?raw=true" width="132" height="120" alt="Better villager trades.">
+</a>
 
 ---
 
 ### Better Nether Portals
 Nether portals can be built with both **crying obsidian** *and* **obsidian!**
 
-<img src="https://i.imgur.com/bohXSCt.png" width="320" height="180" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/better%20nether%20portals.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/better%20nether%20portals.png?raw=true" width="320" height="180" alt="Better nether portals.">
+</a>
 
 ---
 
@@ -599,7 +740,9 @@ They shoot slower (unless on doom mode, then they shoot faster).
 ### Nether Water
 Water can be placed in the nether. You can disable this feature by turning off the **"Nether Water"** option.
 
-<img src="https://i.imgur.com/9MXJ2Zq.png" width="320" height="180" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/water%20in%20nether.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/water%20in%20nether.png?raw=true" width="320" height="180" alt="Water in nether.">
+</a>
 
 ---
 
@@ -608,7 +751,9 @@ Certain items are fireproof, which include blaze rods, blaze powder, and fire ch
 
 You can disable this feature by turning off the "Fireproof Items" option.
 
-<img src="https://i.imgur.com/RzDiEEM.png" width="320" height="180" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/fireproof%20items.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/fireproof%20items.png?raw=true" width="320" height="180" alt="Fireproof items.">
+</a>
 
 ---
 
@@ -620,7 +765,9 @@ You can throw fireballs! (just like in bedwars...)
 ### Reverse Crafting
 You can "reverse craft" certain things, including turning wool back into string, and sticks back into planks.
 
-<img src="https://i.imgur.com/KuX5qp2.png" width="194" height="116" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wool%20to%20string.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wool%20to%20string.png?raw=true" width="194" height="116" alt="Reverse crafting.">
+</a>
 
 ---
 
@@ -633,11 +780,21 @@ Finally, you can go *over* the maximum enchantment level for *any enchantment* T
 
 These features can be disabled by turning off the "Higher Enchant Levels" option, and the "Better Anvils" option.
 
-#### <img src="https://i.imgur.com/Y2MyXhz.png" width="254" height="118" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/no%20more%20too%20expensive.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/no%20more%20too%20expensive.png?raw=true" width="254" height="118" alt="No more too expensive.">
+</a>
 
-#### <img src="https://i.imgur.com/cW0gzhH.png" width="425" height="123" alt="Image description">
+####
 
-<img src="https://i.imgur.com/gIaZfdD.png" width="326" height="90" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/over%20max%20enchant%20level.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/over%20max%20enchant%20level.png?raw=true" width="425" height="123" alt="Over max enchant level.">
+</a>
+
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/anvil%20cost%20limit.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/anvil%20cost%20limit.png?raw=true" width="326" height="90" alt="Anvil cost limit.">
+</a>
 
 ---
 
@@ -664,8 +821,15 @@ You can even disable fall damage entirely by turning off the "Fall Damage" optio
 
 Additionally, you can turn off the kinectic damage taken when flying into walls with an elytra by turning off the "Kinetic Damage" option.
 
-#### <img src="https://i.imgur.com/CUhQNCt.png" width="209" height="84" alt="Image description">
-<img src="https://i.imgur.com/AfDEhF5.png" width="209" height="84" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/shifting.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/shifting.png?raw=true" width="209" height="84" alt="Shifting damage.">
+</a>
+
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/not%20shifting.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/not%20shifting.png?raw=true" width="209" height="84" alt="Not shifting damage.">
+</a>
 
 ---
 
@@ -704,14 +868,18 @@ The "Java Edition" text on the main title menu has been replaced with "Speedrunn
 
 Thanks to *MannyQUESO* for the texture.
 
-### <img src="https://i.imgur.com/LxKGvdp.png" width="383" height="76" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/speedrunner%20edition.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/speedrunner%20edition.png?raw=true" width="383" height="76" alt="Speedrunner edition.">
+</a>
 
 ---
 
 ### Speedrunner's Panorama
 The mod comes with a new built-in panorama for speedrunning!
 
-### <img src="https://i.imgur.com/wIZDwh7.png" width="480" height="270" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/title%20screen,%20speedrunner%20edition.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/GUI/title%20screen,%20speedrunner%20edition.png?raw=true" width="480" height="270" alt="Speedrunner edition on title screen.">
+</a>
 
 ---
 
@@ -749,7 +917,9 @@ This can be configured by changing the "Mob Spawning Rate" option.
 
 ## Tutorial Mode
 
-<img src="https://i.imgur.com/0hUxUPf.png" width="300" height="40" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/tutorial%20mode.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/tutorial%20mode.png?raw=true" width="300" height="40" alt="Tutorial mode.">
+</a>
 
 ### This mod comes with a built-in tutorial mode to help you better understand the mod's features!
 ### The tutorial mode is setup to work with all modes (easy, balanced and doom) accordingly so that it will point you in the right direction!
@@ -763,163 +933,217 @@ You can also reset your tutorial mode progression in the speedrunner mod options
 
 ---
 
-<img src="https://i.imgur.com/XKLnbBl.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedrunning%20time.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedrunning%20time.png?raw=true" width="240" height="48" alt="Speedrunning time advancement.">
+</a>
 
 Obtain a speedrunner ingot.
 
 ---
 
-<img src="https://i.imgur.com/ujVXb6o.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/quicker%20quick.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/quicker%20quick.png?raw=true" width="240" height="48" alt="Quicker pick advancement.">
+</a>
 
 Obtain a speedrunner pickaxe.
 
 ---
 
-<img src="https://i.imgur.com/BNJHqyC.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/suited%20for%20speedrunning.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/suited%20for%20speedrunning.png?raw=true" width="240" height="48" alt="Suited for speedrunning advancement.">
+</a>
 
 Obtain a piece of speedrunner armor.
 
 ---
 
-<img src="https://i.imgur.com/e1UbYvc.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/better%20safe%20than%20sorry.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/better%20safe%20than%20sorry.png?raw=true" width="240" height="48" alt="Better safe than sorry advancement.">
+</a>
 
 Obtain a piece of golden speedrunner armor.
 
 ---
 
-<img src="https://i.imgur.com/iCPr5Kw.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/ranged%20speedrunning.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/ranged%20speedrunning.png?raw=true" width="240" height="48" alt="Ranged speedrunning advancement.">
+</a>
 
 Obtaining a speedrunner bow.
 
 ---
 
-<img src="https://i.imgur.com/scK75sE.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy%20betsy.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy%20betsy.png?raw=true" width="240" height="48" alt="Speedy betsy advancement.">
+</a>
 
 Obtaining a speedrunner crossbow.
 
 ---
 
-<img src="https://i.imgur.com/AKx4ogu.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/eye%20of%20the%20structures.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/eye%20of%20the%20structures.png?raw=true" width="240" height="48" alt="Eye of the structures advancement.">
+</a>
 
 Obtain a speedrunner's eye.
 
 ---
 
-<img src="https://i.imgur.com/qqzX1Fx.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/infernal%20gaze.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/infernal%20gaze.png?raw=true" width="240" height="48" alt="Infernal gaze advancement.">
+</a>
 
 Obtain an eye of inferno.
 
 ---
 
-<img src="https://i.imgur.com/UI8dBOg.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20end%20is%20near.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20end%20is%20near.png?raw=true" width="240" height="48" alt="The end is near advancement.">
+</a>
 
 Use an eye of annul.
 
 ---
 
-<img src="https://i.imgur.com/QkX2XEB.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/back%20to%20the%20surface.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/back%20to%20the%20surface.png?raw=true" width="240" height="48" alt="Back to the surface advancement.">
+</a>
 
 Use an ender thruster.
 
 ---
 
-<img src="https://i.imgur.com/VBc88Pl.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/bulked.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/bulked.png?raw=true" width="240" height="48" alt="Bulked advancement.">
+</a>
 
 Obtain a piece of speedrunner bulk.
 
 ---
 
-<img src="https://i.imgur.com/uTYstNS.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/hardest%20rock.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/hardest%20rock.png?raw=true" width="240" height="48" alt="Hardest rock advancement.">
+</a>
 
 Obtain an igneous rock.
 
 ---
 
-<img src="https://i.imgur.com/0WXB9oQ.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/what%20a%20wasteland.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/what%20a%20wasteland.png?raw=true" width="240" height="48" alt="What a wasteland advancement.">
+</a>
 
 Set afoot in the Speedrunner's Wasteland biome.
 
 ---
 
-<img src="https://i.imgur.com/B1hxh7m.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/piglin%20rally.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/piglin%20rally.png?raw=true" width="240" height="48" alt="Piglin rally advancement.">
+</a>
 
 Use a piglin awakener.
 
 ---
 
-<img src="https://i.imgur.com/n5Q999I.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20blazez%20awaitz.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20blazez%20awaitz.png?raw=true" width="240" height="48" alt="The blazez awaitz advancement.">
+</a>
 
 Use a blaze spotter.
 
 ---
 
-<img src="https://i.imgur.com/macMdH7.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/perch%20already.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/perch%20already.png?raw=true" width="240" height="48" alt="Perch already advancement.">
+</a>
 
 Obtain a dragon's pearl.
 
 ---
 
-<img src="https://i.imgur.com/5wWwwUj.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20hit%20one%20kill.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20hit%20one%20kill.png?raw=true" width="240" height="48" alt="One hit one kill advancement.">
+</a>
 
 Use a dragon's sword.
 
 ---
 
-<img src="https://i.imgur.com/mKhiAUC.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/goliath.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/goliath.png?raw=true" width="240" height="48" alt="Goliath advancement.">
+</a>
 
 Kill Goliath.
 
 ---
 
-<img src="https://i.imgur.com/RRdwPxW.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20purge.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20purge.png?raw=true" width="240" height="48" alt="The purge advancement.">
+</a>
 
 Use a raid eradiactor.
 
 ---
 
-<img src="https://i.imgur.com/bwEdZ9L.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/yes%20the%20end.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/yes%20the%20end.png?raw=true" width="240" height="48" alt="Yes the end advancement.">
+</a>
 
 Complete a speedrun.
 
 ---
 
-<img src="https://i.imgur.com/4W0nsI5.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/The%20ends%20matter.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/The%20ends%20matter.png?raw=true" width="240" height="48" alt="The ends matter advancement.">
+</a>
 
 Obtain ender matter.
 
 ---
 
-<img src="https://i.imgur.com/AzBCLz5.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/to%20infini%20and%20beyond.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/to%20infini%20and%20beyond.png?raw=true" width="240" height="48" alt="To Infini and beyond advancement.">
+</a>
 
 Obtain an InfiniPearl™.
 
 ---
 
-<img src="https://i.imgur.com/YarRKP2.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/immortal.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/immortal.png?raw=true" width="240" height="48" alt="Immortal advancement.">
+</a>
 
 Free fall into the void with a totem of undying (or a speedrunner's totem).
 
 ---
 
-<img src="https://i.imgur.com/8sL6Zhn.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dominion.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dominion.png?raw=true" width="240" height="48" alt="Dominion advancement.">
+</a>
 
 Kill all of Minecraft's bosses (these include the warden, the ender dragon, the elder guardian, and the wither).
 
 ---
 
-<img src="https://i.imgur.com/fnSC2XN.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/lumberjack.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/lumberjack.png?raw=true" width="240" height="48" alt="Lumberjack advancement.">
+</a>
 
 Obtain all log blocks (these include oak log, birch log, acacia log, cherry log, jungle log, dark oak log, mangrove log, pale oak log, spruce log, speedrunner log, and dead speedrunner log).
 
 ---
 
-<img src="https://i.imgur.com/ioSSBdV.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/shepherd.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/shepherd.png?raw=true" width="240" height="48" alt="Shepherd advancement.">
+</a>
 
 Obtain all wool colors.
 
 ---
 
-<img src="https://i.imgur.com/abgwvMn.png" width="240" height="48" alt="Image description">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/expert%20shepherd.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/expert%20shepherd.png?raw=true" width="240" height="48" alt="Expert shepherd advancement.">
+</a>
 
 Obtain a stack of lime wool.
 
