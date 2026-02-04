@@ -32,10 +32,9 @@ public class SpeedrunnerSwordItem extends Item  {
     @Override
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof PlayerEntity) {
-            if (target instanceof WitherEntity) {
-                target.serverDamage(attacker.getDamageSources().playerAttack((PlayerEntity)attacker), getAttackDamage() * 4.45F);
-            } else if (target instanceof GiantEntity) {
-                target.serverDamage(attacker.getDamageSources().playerAttack((PlayerEntity)attacker), getAttackDamage() * 3.25F);
+            boolean targetWither = target instanceof WitherEntity;
+            if (targetWither || target instanceof GiantEntity) {
+                target.serverDamage(attacker.getDamageSources().playerAttack((PlayerEntity)attacker), getAttackDamage() * (targetWither ? 4.45F : 3.75F));
             }
         }
         super.postHit(stack, target, attacker);

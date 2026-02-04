@@ -112,6 +112,8 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_BLAZE_SPOTTER = Text.translatable("speedrunnermod.title.features.blocks_and_items.blaze_spotter");
     public static final Text TITLE_FEATURE_DEAD_SPEEDRUNNER_WOOD = Text.translatable("speedrunnermod.title.features.blocks_and_items.dead_speedrunner_wood");
     public static final Text TITLE_FEATURE_DRAGONS_PEARL = Text.translatable("speedrunnermod.title.features.blocks_and_items.dragons_pearl");
+    public static final Text TITLE_FEATURE_DRAGONS_AURA = Text.translatable("speedrunnermod.title.features.blocks_and_items.dragons_aura");
+    public static final Text TITLE_FEATURE_DRAGONS_FIREBALL = Text.translatable("speedrunnermod.title.features.blocks_and_items.dragons_fireball");
     public static final Text TITLE_FEATURE_ENDER_MATTER = Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_matter");
     public static final Text TITLE_FEATURE_ENDER_THRUSTER = Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_thruster");
     public static final Text TITLE_FEATURE_EYE_OF_ANNUL = Text.translatable("speedrunnermod.title.features.blocks_and_items.eye_of_annul");
@@ -149,6 +151,7 @@ public class ModTexts {
     // Ores and worldgen feature screens
     public static final Text TITLE_FEATURE_COMMON_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores");
     public static final Text TITLE_FEATURE_EXPERIENCE_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.experience_ores");
+    public static final Text TITLE_FEATURE_EXPERIENCE_FRAGMENT = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.experience_fragment");
     public static final Text TITLE_FEATURE_FORTRESSES_BASTIONS_AND_STRONGHOLDS = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.fortresses_bastions_and_strongholds");
     public static final Text TITLE_FEATURE_IGNEOUS_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.igneous_ores");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.speedrunner_ores");
@@ -186,10 +189,12 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_RESET_KEY = Text.translatable("speedrunnermod.title.features.miscellaneous.reset_key");
     public static final Text TITLE_FEATURE_RETIRED_SPEEDRUNNER = Text.translatable("speedrunnermod.title.features.miscellaneous.retired_speedrunner");
     public static final Text TITLE_FEATURE_REVERSE_CRAFTING = Text.translatable("speedrunnermod.title.features.miscellaneous.reverse_crafting");
+    public static final Text TITLE_FEATURE_FASTER_SMELTING = Text.translatable("speedrunnermod.title.features.miscellaneous.faster_smelting");
     public static final Text TITLE_FEATURE_RIGHT_CLICK_TO_REMOVE_SILK_TOUCH = Text.translatable("speedrunnermod.title.features.miscellaneous.right_click_to_remove_silk_touch");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_EDITION = Text.translatable("speedrunnermod.title.features.miscellaneous.speedrunner_edition");
     public static final Text TITLE_FEATURE_THROWABLE_FIREBALLS = Text.translatable("speedrunnermod.title.features.miscellaneous.throwable_fireballs");
-    public static final Text TITLE_FEATURE_TOTEMS_WORK_IN_VOID = Text.translatable("speedrunnermod.title.features.miscellaneous.totems_work_in_void");
+    public static final Text TITLE_FEATURE_CRAFTABLE_TOTEMS = Text.translatable("speedrunnermod.title.features.miscellaneous.craftable_totems");
+    public static final Text TITLE_FEATURE_CRAFTABLE_GOD_APPLES = Text.translatable("speedrunnermod.title.features.miscellaneous.craftable_god_apples");
     public static final Text TITLE_FEATURE_TRIPLED_DROPS = Text.translatable("speedrunnermod.title.features.miscellaneous.tripled_drops");
     public static final Text TITLE_FEATURE_WATER_IN_NETHER = Text.translatable("speedrunnermod.title.features.miscellaneous.water_in_nether");
 
@@ -197,6 +202,7 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_DOOM_MODE_BASICS = Text.translatable("speedrunnermod.title.features.doom_mode.basics");
     public static final Text TITLE_FEATURE_DOOM_MODE_BOSSES = Text.translatable("speedrunnermod.title.features.doom_mode.bosses");
     public static final Text TITLE_FEATURE_DOOM_MODE_DOOM_BLOCKS = Text.translatable("speedrunnermod.title.features.doom_mode.doom_blocks");
+    public static final Text TITLE_FEATURE_DOOM_MODE_KNOCKBACK_STICK = Text.translatable("speedrunnermod.title.features.doom_mode.knockback_stick");
     public static final Text TITLE_FEATURE_DOOM_MODE_GOLIATH = Text.translatable("speedrunnermod.title.features.doom_mode.goliath");
     public static final Text TITLE_FEATURE_DOOM_MODE_OTHER_THINGS_TO_KNOW = Text.translatable("speedrunnermod.title.features.doom_mode.other_things_to_know");
 

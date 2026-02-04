@@ -78,12 +78,8 @@ public class ModItems {
                     .maxDamage(EquipmentType.LEGGINGS.getMaxDamage(30))
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item SPEEDRUNNER_BOOTS = Items.register(of("speedrunner_boots"), Item::new,
-            new Item.Settings()
-                    .maxCount(1)
-                    .armor(ModArmorMaterials.SPEEDRUNNER, EquipmentType.BOOTS)
-                    .maxDamage(EquipmentType.BOOTS.getMaxDamage(30))
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item SPEEDRUNNER_BOOTS = Items.register(of("speedrunner_boots"), settings -> new SpeedrunnerBootsItem(
+            ModArmorMaterials.SPEEDRUNNER, 30, settings));
 
     public static final Item SPEEDRUNNER_BOW = Items.register(of("speedrunner_bow"), SpeedrunnerBowItem::new);
 
@@ -131,12 +127,8 @@ public class ModItems {
                     .maxDamage(EquipmentType.LEGGINGS.getMaxDamage(11))
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
 
-    public static final Item GOLDEN_SPEEDRUNNER_BOOTS = Items.register(of("golden_speedrunner_boots"), Item::new,
-            new Item.Settings()
-                    .maxCount(1)
-                    .armor(ModArmorMaterials.GOLDEN_SPEEDRUNNER, EquipmentType.BOOTS)
-                    .maxDamage(EquipmentType.BOOTS.getMaxDamage(11))
-                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, GOLDEN_SPEEDRUNNER_ARMOR_PATH)));
+    public static final Item GOLDEN_SPEEDRUNNER_BOOTS = Items.register(of("golden_speedrunner_boots"), settings -> new SpeedrunnerBootsItem(
+            ModArmorMaterials.GOLDEN_SPEEDRUNNER, 11, settings));
 
     public static final Item GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE = Items.register(of("golden_speedrunner_upgrade_smithing_template"), GoldenSpeedrunnerUpgradeSmithingTemplateItem::new);
 
@@ -213,7 +205,9 @@ public class ModItems {
 
         @Override
         public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip.line1").formatted(Formatting.DARK_PURPLE));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip.line2").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.ender_matter.tooltip.line3").formatted(Formatting.GRAY));
         }
     }, new Item.Settings().rarity(Rarity.RARE).maxCount(16));
 
@@ -226,6 +220,15 @@ public class ModItems {
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_paddle.tooltip.line2").formatted(Formatting.GRAY));
         }
     }, new Item.Settings().maxCount(16));
+
+    public static final Item EXPERIENCE_FRAGMENT = Items.register(of("experience_fragment"), settings -> new Item(
+            settings) {
+
+        @Override
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.experience_fragment.tooltip").formatted(Formatting.GRAY));
+        }
+    });
 
     public static final Item WITHER_SWORD = Items.register(of("wither_sword"), WitherSwordItem::new);
     public static final Item ANNUL_EYE = Items.register(of("annul_eye"), AnnulEyeItem::new);
@@ -240,6 +243,7 @@ public class ModItems {
     public static final Item INFINI_PEARL = Items.register(of("infini_pearl"), InfiniPearlItem::new);
     public static final Item KNOCKBACK_STICK = Items.register(of("knockback_stick"), KnockbackStickItem::new);
     public static final Item SPEEDRUNNERS_TOTEM = Items.register(of("speedrunners_totem"), SpeedrunnersTotemItem::new);
+    public static final Item DRAGONS_FIREBALL = Items.register(of("dragon_fireball"), DragonFireballItem::new);
 
     public static final Item SPEEDRUNNER_LOG = Items.register(ModBlocks.SPEEDRUNNER_LOG);
     public static final Item STRIPPED_SPEEDRUNNER_LOG = Items.register(ModBlocks.STRIPPED_SPEEDRUNNER_LOG);

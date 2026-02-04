@@ -97,6 +97,7 @@
       "translate": "advancements.speedrunnermod.sword_collector.description"
     },
     "frame": "challenge",
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "minecraft:diamond_sword"

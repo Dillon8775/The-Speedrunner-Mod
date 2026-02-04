@@ -14,6 +14,7 @@
     "description": {
       "translate": "advancements.speedrunnermod.expert_shepherd.description"
     },
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "minecraft:lime_wool"

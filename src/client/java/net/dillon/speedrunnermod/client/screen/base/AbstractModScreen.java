@@ -18,7 +18,6 @@ import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -55,9 +54,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
 public abstract class AbstractModScreen extends BaseModScreen {
     protected boolean alreadySettingToIneligibleScreen = false;
     protected File configFile; // This returns null unless the screen is an options screen
-    protected final File configDirectory = new File(FabricLoader.getInstance().getConfigDir().toUri()); // The directory for the speedrunner mod's configuration file
     protected final Screen parent;
-    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, openOptionsDirectoryButton, doneButton, matchSettingsWithServer;
+    protected ButtonWidget helpButton, saveButton, openOptionsFileButton, doneButton, matchSettingsWithServer;
     public ButtonWidget resetOptionsButton;
     protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> featureButtons = new ArrayList<>();
@@ -92,9 +90,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
             this.helpButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 this.openLink(ModLinks.MODRINTH, true);
             }).dimensions(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
-            this.openOptionsDirectoryButton = this.addDrawableChild(ButtonWidget.builder(Text.literal("D."), (button) -> {
-                Util.getOperatingSystem().open(this.configDirectory);
-            }).dimensions(this.getButtonsRightSide() + 128, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {
                 this.client.setScreen(new MatchSettingsWithServerScreen(this.parent));
             }).dimensions(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
@@ -168,9 +163,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }
             if (this.helpButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.HELP_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.openOptionsDirectoryButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.DIRECTORY_TOOLTIP, context, mouseX, mouseY);
             }
             if (this.matchSettingsWithServer.isHovered()) {
                 if (this.matchSettingsWithServer.active) {

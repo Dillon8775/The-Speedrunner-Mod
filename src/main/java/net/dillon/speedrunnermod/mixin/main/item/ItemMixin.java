@@ -207,7 +207,7 @@ public abstract class ItemMixin {
      */
     @Inject(method = "appendTooltip", at = @At("HEAD"))
     private void appendTooltipsToOtherItems(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type, CallbackInfo ci) {
-        if (stack.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
+        if (isEasyMode() && stack.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener_craftable").formatted(Formatting.GOLD));
         }
         if (stack.isOf(Items.ENCHANTED_BOOK)) {
@@ -221,8 +221,8 @@ public abstract class ItemMixin {
                 }
             }
         }
-        if (stack.isOf(Items.TOTEM_OF_UNDYING)) {
-            textConsumer.accept(Text.translatable("item.totem_of_undying.tooltip"));
+        if (stack.isOf(Items.FIRE_CHARGE) || stack.isOf(ModItems.DRAGONS_FIREBALL)) {
+            textConsumer.accept(Text.translatable("item.minecraft.fire_charge.throw").formatted(Formatting.GRAY));
         }
         if (options().main.lavaBoats.getCurrentValue() && stack.getOrDefault(ModDataComponentTypes.BOOLEAN, false) && (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS))) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip").formatted(Formatting.GOLD));

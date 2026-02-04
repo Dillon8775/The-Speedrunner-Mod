@@ -3,11 +3,11 @@ package net.dillon.speedrunnermod.data.generator;
 import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.recipe.DragonFireballRecipe;
 import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
 import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
 import net.dillon.speedrunnermod.recipe.boat.*;
 import net.dillon.speedrunnermod.recipe.boat.chest.*;
-import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -37,6 +37,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
     private static final ImmutableList<ItemConvertible> LAPIS_ORES = ImmutableList.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE);
     private static final ImmutableList<ItemConvertible> REDSTONE_ORES = ImmutableList.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE);
     private static final ImmutableList<ItemConvertible> IGNEOUS_ORES = ImmutableList.of(ModBlocks.IGNEOUS_ORE, ModBlocks.DEEPSLATE_IGNEOUS_ORE, ModBlocks.NETHER_IGNEOUS_ORE);
+    private static final ImmutableList<ItemConvertible> EXPERIENCE_ORES = ImmutableList.of(ModBlocks.EXPERIENCE_ORE, ModBlocks.DEEPSLATE_EXPERIENCE_ORE, ModBlocks.NETHER_EXPERIENCE_ORE);
     private static final ImmutableList<ItemConvertible> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE, ModItems.RAW_SPEEDRUNNER);
 
     public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -103,13 +104,14 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(Items.GOLDEN_LEGGINGS, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(Items.GOLDEN_BOOTS, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-                helper.offerBurnableMaterial(DIAMOND_ORES, Items.DIAMOND, 30, "diamond", true);
-                helper.offerBurnableMaterial(EMERALD_ORES, Items.EMERALD, 300, "emerald", true);
+                helper.offerBurnableMaterial(DIAMOND_ORES, Items.DIAMOND, 150, "diamond", true);
+                helper.offerBurnableMaterial(EMERALD_ORES, Items.EMERALD, 200, "emerald", true);
                 helper.offerBurnableMaterial(GOLD_ORES, Items.GOLD_INGOT, 150, "gold_ingot", true);
                 helper.offerBurnableMaterial(IRON_ORES, Items.IRON_INGOT, 100, "iron_ingot", true);
                 helper.offerBurnableMaterial(LAPIS_ORES, Items.LAPIS_LAZULI, 100, "lapis_lazuli", true);
                 helper.offerBurnableMaterial(REDSTONE_ORES, Items.REDSTONE, 100, "redstone", true);
-                helper.offerBurnableMaterial(IGNEOUS_ORES, ModItems.IGNEOUS_ROCK, 0.65F, "igneous_rock", false);
+                helper.offerBurnableMaterial(IGNEOUS_ORES, ModItems.IGNEOUS_ROCK, 25, "igneous_rock", false);
+                helper.offerBurnableMaterial(EXPERIENCE_ORES, ModItems.EXPERIENCE_FRAGMENT, 5, "experience_fragment", false);
                 helper.offerBurnableMaterial(SPEEDRUNNER_ORES_AND_BLOCKS, ModItems.SPEEDRUNNER_INGOT, 200, "speedrunner_ingot", false);
 
                 helper.createCookableFood(Items.POTATO, Items.BAKED_POTATO, true);
@@ -847,7 +849,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.ANNUL_EYE)
                         .input(Items.ENDER_PEARL)
-                        .input(Items.FIRE_CHARGE)
                         .input(Items.BLAZE_POWDER)
                         .input(Items.ENDER_EYE)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL))
@@ -862,7 +863,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.DRAGONS_PEARL)
                         .input(Items.ENDER_PEARL)
-                        .input(Items.FIRE_CHARGE)
                         .input(Items.BLAZE_POWDER)
                         .input(ModItems.SPEEDRUNNERS_EYE)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.DRAGONS_PEARL))
@@ -889,7 +889,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.RAID_ERADICATOR)
                         .input(Items.ENDER_PEARL)
-                        .input(Items.FIRE_CHARGE)
                         .input(Items.ENCHANTED_GOLDEN_APPLE)
                         .input(ModItems.SPEEDRUNNERS_EYE)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.RAID_ERADICATOR))
@@ -991,6 +990,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 ComplexRecipeJsonBuilder.create(SpeedrunnerShieldDecorationRecipe::new).offerTo(this.exporter, "speedrunner_shield_decoration");
                 ComplexRecipeJsonBuilder.create(PiglinAwakenerRecipe::new).offerTo(this.exporter, "piglin_awakener");
+                ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_aura");
 
                 helper.createStickRecipe(true);
                 helper.createStickRecipe(false);
@@ -1039,6 +1039,33 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_igneous_rock", this.conditionsFromItem(ModItems.IGNEOUS_ROCK))
                         .offerTo(this.exporter, helper.speedrunnerModRecipe("obsidian_from_igneous_rocks"));
 
+                this.createShaped(RecipeCategory.FOOD, Items.ENCHANTED_GOLDEN_APPLE)
+                        .input('a', Items.GOLDEN_APPLE)
+                        .input('B', Items.GOLD_BLOCK)
+                        .pattern("BBB")
+                        .pattern("BaB")
+                        .pattern("BBB")
+                        .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_BLOCK))
+                        .offerTo(this.exporter, helper.speedrunnerModRecipe("enchanted_golden_apple"));
+
+                this.createShaped(RecipeCategory.COMBAT, Items.TOTEM_OF_UNDYING)
+                        .input('e', Items.ENCHANTED_GOLDEN_APPLE)
+                        .input('B', Items.GOLD_BLOCK)
+                        .pattern("BBB")
+                        .pattern("BeB")
+                        .pattern("BBB")
+                        .criterion("has_enchanted_golden_apple", this.conditionsFromItem(Items.ENCHANTED_GOLDEN_APPLE))
+                        .offerTo(this.exporter, helper.speedrunnerModRecipe("totem_of_undying"));
+
+                this.createShaped(RecipeCategory.BREWING, Items.BLAZE_ROD)
+                        .input('P', Items.BLAZE_POWDER)
+                        .input('/', ModItemTags.SPEEDRUNNER_STICKS)
+                        .pattern("P")
+                        .pattern("P")
+                        .pattern("/")
+                        .criterion("has_blaze_powder", this.conditionsFromItem(Items.BLAZE_POWDER))
+                        .offerTo(this.exporter, helper.speedrunnerModRecipe("blaze_rod"));
+
                 this.createShapeless(RecipeCategory.MISC, Items.STRING, 4)
                         .input(ItemTags.WOOL)
                         .criterion("has_string", this.conditionsFromItem(Items.STRING))
@@ -1050,6 +1077,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .input(ModItems.ENDER_THRUSTER)
                         .input(ModItems.ENDER_MATTER)
                         .criterion("has_ender_matter", this.conditionsFromItem(ModItems.ENDER_MATTER))
+                        .offerTo(this.exporter);
+
+                this.createShapeless(RecipeCategory.TOOLS, Items.EXPERIENCE_BOTTLE, 2)
+                        .input(Items.GLASS_BOTTLE)
+                        .input(ModItems.EXPERIENCE_FRAGMENT)
+                        .criterion("has_item", this.conditionsFromTag(ModItemTags.EXPERIENCE_BOTTLE_CRAFTABLES))
                         .offerTo(this.exporter);
 
                 this.createShapeless(RecipeCategory.COMBAT, ModItems.SPEEDRUNNERS_TOTEM)

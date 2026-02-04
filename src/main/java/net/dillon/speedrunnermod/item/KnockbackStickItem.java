@@ -1,20 +1,16 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
 import net.minecraft.util.Rarity;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.function.Consumer;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * A knockback stick item. It does exactly what it says.
@@ -22,17 +18,18 @@ import java.util.function.Consumer;
 public class KnockbackStickItem extends Item {
 
     public KnockbackStickItem(Settings settings) {
-        super(settings.maxCount(1).maxDamage(17).rarity(Rarity.EPIC));
-    }
-
-    /**
-     * Makes it so that the knockback stick actually has the knockback enchantment.
-     */
-    @Override
-    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
-        if (!stack.hasEnchantments()) {
-            stack.addEnchantment(ModUtil.enchantment(world, Enchantments.KNOCKBACK), 5);
-        }
+        super(settings
+                .attributeModifiers(
+                        AttributeModifiersComponent.builder()
+                                .add(
+                                        EntityAttributes.ATTACK_KNOCKBACK,
+                                        new EntityAttributeModifier(ofSpeedrunnerMod("speedrunner_knockback_stick"), 5.0F, EntityAttributeModifier.Operation.ADD_VALUE),
+                                        AttributeModifierSlot.MAINHAND)
+                                .build()
+                )
+                .maxCount(1)
+                .maxDamage(17)
+                .rarity(Rarity.EPIC));
     }
 
     /**
@@ -49,10 +46,5 @@ public class KnockbackStickItem extends Item {
     @Override
     public boolean hasGlint(ItemStack stack) {
         return true;
-    }
-
-    @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.knockback_stick.tooltip"));
     }
 }

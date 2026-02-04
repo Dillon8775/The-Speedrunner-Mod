@@ -173,6 +173,22 @@ public class ModListOptions {
         );
     }
 
+    public static SimpleOption<Boolean> fasterSmelting() {
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.faster_smelting",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_smelting.tooltip")),
+                options().main.fasterSmelting
+        );
+    }
+
+    public static SimpleOption<Boolean> fasterBrewing() {
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.faster_brewing",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_brewing.tooltip")),
+                options().main.fasterBrewing
+        );
+    }
+
     public static SimpleOption<Boolean> betterBiomes() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_biomes",

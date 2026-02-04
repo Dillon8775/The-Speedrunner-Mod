@@ -166,6 +166,7 @@
     "description": {
       "translate": "advancements.speedrunnermod.shepherd.description"
     },
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "minecraft:white_wool"

@@ -14,6 +14,7 @@ public class ModItemTags {
     public static TagKey<Item> COOLDOWN_ENCHANTMENT_ITEMS = of("cooldown_enchantment_items");
     public static TagKey<Item> DOOM_STONE_SAFE_TOOLS = of("doom_stone_safe_tools");
     public static TagKey<Item> DRAGON_TOOL_MATERIALS = of("dragon_tool_materials");
+    public static TagKey<Item> EXPERIENCE_BOTTLE_CRAFTABLES = of("experience_bottle_craftables");
     public static TagKey<Item> FASTER_BOATS = of("faster_boats");
     public static TagKey<Item> FASTER_CHEST_BOATS = of("faster_chest_boats");
     public static TagKey<Item> FLESH = of("flesh");

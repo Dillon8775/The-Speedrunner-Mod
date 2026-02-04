@@ -111,6 +111,17 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 7,
+          "name": "speedrunnermod:ender_matter",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "weight": 1,
           "name": "minecraft:experience_bottle"
         }
@@ -196,23 +207,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 7,
-          "name": "speedrunnermod:ender_matter",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "weight": 7,
+          "weight": 6,
           "name": "speedrunnermod:ender_matter",
           "functions": [
             {

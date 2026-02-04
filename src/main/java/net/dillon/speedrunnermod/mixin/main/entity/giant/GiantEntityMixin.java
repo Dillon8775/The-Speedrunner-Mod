@@ -26,6 +26,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.WitherSkullEntity;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -180,16 +181,16 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         if (this.getHealth() <= 150 && entity instanceof ProjectileEntity projectile) {
             if (projectile.getOwner() != null) {
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 1.0F);
-                projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloat(1.0F, 3.0F));
+                projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
             }
             return false;
         }
 
         if (this.getHealth() <= 100 && entity instanceof PlayerEntity) {
-            this.heal(ModUtil.randomFloat(1.15F, 2.95F));
+            this.heal(ModUtil.randomFloatInclusive(1.15F, 2.95F));
         }
 
-        if (this.random.nextFloat() < 0.10F) {
+        if (this.random.nextFloat() < 0.10F && !source.isIn(DamageTypeTags.IS_FIRE)) {
             this.onGiantDamage();
         }
 

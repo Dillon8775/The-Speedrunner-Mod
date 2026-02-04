@@ -1,11 +1,15 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import com.llamalad7.mixinextras.sugar.Local;
+import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
 import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
@@ -21,6 +25,8 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,6 +59,7 @@ public class EnderDragonEntityMixin extends MobEntity {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeEnderDragonMaxHealth(CallbackInfo ci) {
         ModUtil.modifyMaxHealth(this, ModUtil.getEnderDragonMaxHealth());
+        ModUtil.modifyFollowRange(this, ModUtil.getEnderDragonFollowRange());
     }
 
     /**
@@ -66,9 +73,13 @@ public class EnderDragonEntityMixin extends MobEntity {
     /**
      * Makes the ender dragon do less damage.
      */
-    @ModifyArg(method = "damageLivingEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"), index = 2)
-    private float changeEnderDragonDamageValue(float amount) {
-        return ModUtil.getEnderDragonDamageValue();
+    @Inject(method = "damageLivingEntities", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSources;mobAttack(Lnet/minecraft/entity/LivingEntity;)Lnet/minecraft/entity/damage/DamageSource;"), cancellable = true)
+    private void changeEnderDragonDamageValue(ServerWorld world, List<Entity> entities, CallbackInfo ci, @Local Entity entity) {
+        boolean bl = entity instanceof PlayerEntity playerEntity && playerEntity.hasStatusEffect(ModStatusEffects.DRAGONS_AURA);
+        DamageSource damageSource = this.getDamageSources().mobAttack(this);
+        entity.damage(world, damageSource, ModUtil.getEnderDragonDamageValue() / (bl ? 2 : 1));
+        EnchantmentHelper.onTargetDamaged(world, entity, damageSource);
+        ci.cancel();
     }
 
     /**
@@ -153,6 +164,8 @@ public class EnderDragonEntityMixin extends MobEntity {
             boolean bl = ServerStorage.isTutorialModeEnabledForPlayer(serverPlayer.getUuid()) && !ServerStorage.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
             if (this.preventDragonFromDying(dragon) || bl) {
                 this.setHealth(1.0F);
+                this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 0.65F);
+                serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.cannot_kill_dragon"), false);
                 if (bl && !this.isGiantOrWitherAlive()) {
                     List<String> translations = new ArrayList<>();
                     String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";

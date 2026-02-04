@@ -1,3 +1,3 @@
-### Biomes §bsuited for speedrunning,§f like the §b§lSpeedrunner's Wasteland,§r §aplains, §6deserts, §fand §6savannas §fgenerate §amore commonly!
+### Biomes §bsuited for speedrunning,§f like the §b§lSpeedrunner's Wasteland,§r §aplains, §6deserts, §fand §6savannas §fgenerate §amore commonly §fthan §bother biomes!
 
 !image:textures/gui/features/screenshots/better_biomes.png scale=.14

@@ -1,26 +1,28 @@
-#### §7§lVindicators §r§fwill spawn across the §aoverworld§r§f and §lthe end.
+### The §cdifficulty §r§fis §b§olocked §r§fon §c§lHard.
 
-#### §6§lPiglin Brutes§r§f will spawn §oall§r§f across §cthe nether.
+#### §7§lVindicators §r§fspawn all across the §aoverworld§r§f and §dthe end.
 
-#### §e§lEvokers,§r§f §9§lBreezes,§r§f and §7§lRavagers§r§f will spawn in §lthe end.
+#### §e§lEvokers,§r§f §9§lBreezes,§r§f and §7§lRavagers§r§f spawn in §dthe end.
+
+#### §6§lPiglin Brutes§r§f spawn all across §cthe nether.
 
 #### §cHostile mobs§r inflict the player with §7slowness§r when attacking.
 
-#### §lSkeletons§r§f shoot §9slowness arrows,§r§f and shoot §lquicker.
+#### §lSkeletons§r§f shoot §9slowness arrows,§r§f and shoot §cquicker.
 
-#### §lGhasts§r§f shoot §6fireballs§r at an extremely fast rate.
+#### §lGhasts§r§f shoot §6fireballs§r §6§oextremely fast.
 
-#### Right-clicking a §acreeper§r with a flint and steel makes it §linstantly explode.
+#### §9Ender pearls§r give the player §lblindness§r when landing §o(unless you have the §d§oDragon's Aura §r§oeffect).
 
-#### §dEnd crystals§r§f do more damage when exploding.
+#### §dEnd crystal explosions§r§f do more damage.
 
-#### §lBeds§r§f do more damage when exploding in §lthe end.
-
-#### §9Ender pearls§r give the player §lblindness§r when landing.
+#### §lBed explosions§r§f do more damage in §dthe end.
 
 #### §aEnder eyes§f always break.
 
-#### §lStrongholds§r§f are extremely large,§f and generate close to the bottom of the world, making them §cdifficult §r§fto §afind§r§f and §7navigate.
+#### §7§lStrongholds§r§f are extremely large,§f and generate close to the bottom of the world, making them §cdifficult §r§fto §afind§r§f and §7navigate.
+
+#### Right-clicking a §acreeper§r with a flint and steel makes it §linstantly explode.
 
 ## §c§oIf you're up for the challenge, I wish you luck.
 

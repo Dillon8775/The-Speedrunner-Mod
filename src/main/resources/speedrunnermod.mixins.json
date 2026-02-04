@@ -16,8 +16,29 @@
     "main.block.SkullBlockMixin",
     "main.block.SpawnerBlockMixin",
     "main.block.dispenser.DispenserBehaviorMixin",
+
+    "main.component.DeathProtectionComponentMixin",
+
     "main.enchantment.AnvilScreenHandlerMixin",
+
+    "main.entity.basic.EntityMixin",
+
+    "main.entity.block.AbstractFurnaceBlockEntityMixin",
+    "main.entity.block.BrewingStandBlockEntityMixin",
+
+    "main.entity.boat.AbstractBoatEntityMixin",
+    "main.entity.boat.VehicleEntityMixin",
+
+    "main.entity.giant.GiantEntityMixin",
+
+    "main.entity.living.LivingEntityMixin",
+
+    "main.entity.player.InventoryAccessor",
+    "main.entity.player.PlayerEntityMixin",
+    "main.entity.player.ServerPlayerEntityMixin",
+
     "main.entity.AbstractSkeletonEntityMixin",
+    "main.entity.AreaEffectCloudEntityMixin",
     "main.entity.ArrowEntitiesMixin",
     "main.entity.BlazeEntityShootFireballGoalMixin",
     "main.entity.BreezeEntityMixin",
@@ -64,14 +85,7 @@
     "main.entity.ZoglinEntityMixin",
     "main.entity.ZombieEntityMixin",
     "main.entity.ZombifiedPiglinEntityMixin",
-    "main.entity.basic.EntityMixin",
-    "main.entity.boat.AbstractBoatEntityMixin",
-    "main.entity.boat.VehicleEntityMixin",
-    "main.entity.giant.GiantEntityMixin",
-    "main.entity.living.LivingEntityMixin",
-    "main.entity.player.InventoryAccessor",
-    "main.entity.player.PlayerEntityMixin",
-    "main.entity.player.ServerPlayerEntityMixin",
+
     "main.fix.BeehiveBlockMixin",
     "main.fix.BlockEntityTypeMixin",
     "main.fix.ItemStackArgumentTypeMixin",
@@ -83,6 +97,7 @@
     "main.fix.SpawnRestrictionMixin",
     "main.fix.TntBlockMixin",
     "main.fix.TripwireBlockMixin",
+
     "main.item.BoatItemMixin",
     "main.item.BucketItemMixin",
     "main.item.ConsumableComponentsMixin",
@@ -93,13 +108,20 @@
     "main.item.FoodComponentsMixin",
     "main.item.ItemEntityMixin",
     "main.item.ItemMixin",
+    "main.item.PotionItemMixin",
     "main.item.UseCooldownComponentMixin",
+
     "main.nether.portal.AbstractFireBlockMixin",
     "main.nether.portal.NetherPortalBlockMixin",
     "main.nether.portal.NetherPortalMixin",
+
     "main.registry.RegistryLoaderMixin",
+
+    "main.screen.BrewingStandScreenHandlerMixin",
+
     "main.trades.SellEnchantedToolFactoryMixin",
     "main.trades.TradeOffersMixin",
+
     "main.world.EndGatewayBlockEntityMixin",
     "main.world.EndIslandFeatureMixin",
     "main.world.EndPortalFeatureMixin",

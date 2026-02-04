@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/the_ends_matter",
+  "parent": "speedrunnermod:items/the_end_of_the_matter",
   "criteria": {
     "has_item": {
       "conditions": {

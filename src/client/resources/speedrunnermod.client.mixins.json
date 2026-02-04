@@ -7,21 +7,31 @@
     "client.IncreasedBrightness",
     "client.Keybindings",
     "client.MinecraftClientMixin",
+
     "client.enchantment.RemoveTooExpensiveText",
+
     "client.fix.AbstractClientPlayerEntityMixin",
     "client.fix.BlockRenderLayersMixin",
     "client.fix.HeldItemRendererMixin",
     "client.fix.PlayerEntityRendererMixin",
+
     "client.network.ClientPlayNetworkHandlerMixin",
+
+    "client.render.item.model.special.SpecialModelTypesMixin",
+
     "client.render.CustomWorldEvents",
     "client.render.FogRendererMixin",
+    "client.render.InGameHudMixin",
     "client.render.LavaFogModifierMixin",
-    "client.render.item.model.special.SpecialModelTypesMixin",
+
+    "client.screen.BrewingStandScreenMixin",
     "client.screen.CreateWorldScreenMixin",
     "client.screen.CreditsScreenMixin",
     "client.screen.DeathScreenMixin",
     "client.screen.GameMenuScreenMixin",
+    "client.screen.HandledScreenMixin",
     "client.screen.LogoDrawerMixin",
+    "client.screen.OptionsScreenMixin",
     "client.screen.TitleScreenMixin"
   ],
   "injectors": {

@@ -16,8 +16,12 @@ import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.DragonFireballEntity;
+import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
+import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -34,6 +38,7 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -44,6 +49,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
@@ -187,6 +193,9 @@ public class ModUtil {
     public static ItemStack ofUnbreakable(Item item) {
         ItemStack stack = new ItemStack(item);
         stack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
+        if (item == Items.ELYTRA) {
+            stack.set(DataComponentTypes.ITEM_NAME, Text.translatable("item.speedrunnermod.icarus_wings"));
+        }
         return stack;
     }
 
@@ -225,6 +234,46 @@ public class ModUtil {
         ItemStack fireworks = new ItemStack(Items.FIREWORK_ROCKET, count);
         fireworks.set(DataComponentTypes.FIREWORKS, new FireworksComponent(3, List.of()));
         return fireworks;
+    }
+
+    /**
+     * Creates a fireball entity.
+     */
+    public static boolean createFireball(Item item, World world, PlayerEntity player, Hand hand, boolean dragon) {
+        ItemStack stack = player.getStackInHand(hand);
+        if (!world.isClient()) {
+            Vec3d lookVec = player.getRotationVec(1.0F);
+            ExplosiveProjectileEntity fireball = new FireballEntity(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower.getCurrentValue());
+            if (dragon) {
+                fireball = new DragonFireballEntity(world, player, lookVec.normalize());
+            }
+            fireball.updatePosition(player.getX(), player.getEyeY() - 0.235, player.getZ());
+            fireball.setOwner(player);
+            world.spawnEntity(fireball);
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+
+            player.getItemCooldownManager().set(item.getDefaultStack(), ModUtil.secondsAsTicks(dragon ? 5 : 1));
+            if (!player.getAbilities().creativeMode) {
+                stack.decrement(1);
+            }
+            player.swingHand(hand);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return true if dragon aura is found on potion contents.
+     */
+    public static boolean hasDragonsAura(ItemStack stack) {
+        for (StatusEffectInstance slotEffect : stack.get(DataComponentTypes.POTION_CONTENTS).getEffects()) {
+            if (slotEffect.getEffectType().matchesId(ofSpeedrunnerMod("dragons_aura"))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -320,9 +369,17 @@ public class ModUtil {
     /**
      * Returns a random float, with a minimum and maximum value.
      */
-    public static float randomFloat(float min, float max) {
+    public static float randomFloatInclusive(float min, float max) {
         Random random = new Random();
         return min + random.nextFloat() * (max - min);
+    }
+
+    /**
+     * @return a random int, with a minimum and maximum value.
+     */
+    public static int randomIntInclusive(int min, int max) {
+        Random random = new Random();
+        return random.nextInt(max - min + 1) + min;
     }
 
     /**
@@ -518,6 +575,13 @@ public class ModUtil {
      */
     public static double getEnderDragonMaxHealth() {
         return isDoomMode() ? 500.0D : 100.0D;
+    }
+
+    /**
+     * @return the follow range for the ender dragon.
+     */
+    public static double getEnderDragonFollowRange() {
+        return isDoomMode() ? 64.0D : 16.0D;
     }
 
     /**

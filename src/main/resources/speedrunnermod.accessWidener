@@ -63,3 +63,5 @@ accessible field net/minecraft/item/CrossbowItem charged Z
 accessible field net/minecraft/item/CrossbowItem loaded Z
 accessible field net/minecraft/recipe/ShapedRecipe raw Lnet/minecraft/recipe/RawShapedRecipe;
 accessible field net/minecraft/client/gui/widget/OptionListWidget$WidgetEntry widgets Ljava/util/List;
+accessible class net/minecraft/client/gui/hud/InGameHud$HeartType
+accessible class net/minecraft/screen/BrewingStandScreenHandler$PotionSlot

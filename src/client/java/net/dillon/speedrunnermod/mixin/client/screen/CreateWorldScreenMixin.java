@@ -10,9 +10,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Environment(EnvType.CLIENT)
 @Mixin(CreateWorldScreen.class)
@@ -21,6 +23,14 @@ public abstract class CreateWorldScreenMixin {
     WorldCreator worldCreator;
     @Shadow
     protected abstract void createLevel();
+
+    /**
+     * Hard-locks the difficulty to hard on doom mode.
+     */
+    @Redirect(method = "createLevelInfo", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/world/WorldCreator;getDifficulty()Lnet/minecraft/world/Difficulty;"))
+    private Difficulty lockDifficultyDoomMode(WorldCreator original) {
+        return isDoomMode() ? Difficulty.HARD : original.getDifficulty();
+    }
 
     /**
      * Reworks how the create world button works, and allows the {@code fast world creation} feature to work accordingly.

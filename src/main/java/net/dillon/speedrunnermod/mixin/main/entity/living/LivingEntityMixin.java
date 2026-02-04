@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity.living;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.event.SpeedrunnersTotemUsedCallback;
 import net.dillon.speedrunnermod.item.ModItems;
@@ -18,18 +19,23 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -40,6 +46,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.Collection;
+import java.util.function.Predicate;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
@@ -55,6 +64,28 @@ public abstract class LivingEntityMixin extends Entity {
     public abstract boolean canWalkOnFluid(FluidState fluidState);
     @Shadow
     public abstract void stopRiding();
+    @Shadow
+    public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
+    @Shadow
+    public abstract Collection<StatusEffectInstance> getStatusEffects();
+    @Shadow
+    public static final Predicate<LivingEntity> NOT_WEARING_GAZE_DISGUISE_PREDICATE = entity -> {
+        if (entity instanceof PlayerEntity playerEntity) {
+            if (playerEntity.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
+                return false;
+            }
+            ItemStack itemStack = playerEntity.getEquippedStack(EquipmentSlot.HEAD);
+            return !itemStack.isIn(ItemTags.GAZE_DISGUISE_EQUIPMENT);
+        } else {
+            return true;
+        }
+    };
+
+    @Shadow
+    public abstract boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source);
+
+    @Shadow
+    public abstract void setHealth(float health);
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -66,12 +97,9 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "travel", at = @At("TAIL"))
     private void applyMovementEffects(Vec3d movementInput, CallbackInfo ci) {
         if (this.getEquippedStack(EquipmentSlot.FEET).isIn(ModItemTags.SPEED_BOOTS) || EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((LivingEntity)(Object)this, ModEnchantments.DASH), (LivingEntity)(Object)this) > 0) {
-            int i = this.getEntityWorld().getDifficulty() != Difficulty.HARD ? 60 : 20;
             int dashEnchantmentLevel = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((LivingEntity)(Object)this, ModEnchantments.DASH), (LivingEntity)(Object)this);
-            this.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, i, dashEnchantmentLevel, true, false, true));
             FluidState fluidState = this.getEntityWorld().getFluidState(this.getBlockPos());
             float lavaVelocity = dashEnchantmentLevel > 8 ? (0.1F * dashEnchantmentLevel) / 6.0F : dashEnchantmentLevel == 8 ? 0.1F : dashEnchantmentLevel == 7 ? 0.090F : dashEnchantmentLevel == 6 ? 0.080F : dashEnchantmentLevel == 5 ? 0.070F : dashEnchantmentLevel == 4 ? 0.060F : dashEnchantmentLevel == 3 ? 0.045F : dashEnchantmentLevel == 2 ? 0.040F : dashEnchantmentLevel == 1 ? 0.035F : 0.025F;
-            float waterVelocity = dashEnchantmentLevel > 8 ? (0.020F * dashEnchantmentLevel) / 6.0F : dashEnchantmentLevel == 8 ? 0.020F : dashEnchantmentLevel == 7 ? 0.018F : dashEnchantmentLevel == 6 ? 0.016F : dashEnchantmentLevel == 5 ? 0.014F : dashEnchantmentLevel == 4 ? 0.012F : dashEnchantmentLevel == 3 ? 0.010F : dashEnchantmentLevel == 2 ? 0.008F : dashEnchantmentLevel == 1 ? 0.006F : 0.004F;
             boolean isBuffedItems = this.getEquippedStack(EquipmentSlot.FEET).isIn(ModItemTags.SPEED_BOOTS) && this.getRandom().nextFloat() < 0.01F;
             if (this.isInLava() && this.shouldSwimInFluids() && !this.canWalkOnFluid(fluidState)) {
                 this.updateVelocity(lavaVelocity, movementInput);
@@ -79,11 +107,6 @@ public abstract class LivingEntityMixin extends Entity {
                     this.setVelocity(this.getVelocity().add(0.0D, -0.02D, 0.0D));
                 }
 
-                if (isBuffedItems) {
-                    this.getEquippedStack(EquipmentSlot.FEET).damage(1, (LivingEntity)(Object)this, EquipmentSlot.FEET);
-                }
-            } else if (this.isTouchingWater() && this.shouldSwimInFluids() && !this.canWalkOnFluid(fluidState)) {
-                this.updateVelocity(waterVelocity, movementInput);
                 if (isBuffedItems) {
                     this.getEquippedStack(EquipmentSlot.FEET).damage(1, (LivingEntity)(Object)this, EquipmentSlot.FEET);
                 }
@@ -123,6 +146,29 @@ public abstract class LivingEntityMixin extends Entity {
 
         return stack;
     }
+//
+//    @Inject(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;emitUseGameEvent(Lnet/minecraft/entity/Entity;Lnet/minecraft/registry/entry/RegistryEntry$Reference;)V"), cancellable = true)
+//    private void keepPositiveEffects(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+//        List<StatusEffectInstance> effectsToAdd = new ArrayList<>();
+//        System.out.println("literally running at all");
+//        for (StatusEffectInstance statusEffectInstance : this.getStatusEffects()) {
+//            StatusEffect effect = statusEffectInstance.getEffectType().value();
+//            if (effect.isBeneficial()) {
+//                System.out.println("YAY!");
+//                effectsToAdd.add(statusEffectInstance);
+//            } else {
+//                System.out.println("nope");
+//            }
+//        }
+//
+//        for (StatusEffectInstance effect : effectsToAdd) {
+//            this.addStatusEffect(effect);
+//            System.out.println("OK");
+//        }
+//
+//        this.setHealth(1.0F);
+//        cir.setReturnValue(true);
+//    }
 
     /**
      * Implements the {@code BluePortal} particle entity status.
@@ -142,6 +188,49 @@ public abstract class LivingEntityMixin extends Entity {
                     this.getEntityWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, e, k, l, f, g, h);
                 }
                 break;
+        }
+    }
+
+    /**
+     * Cancels out all fall damage when an entity has the {@code Dragon's Aura effect.}
+     */
+    @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
+    private void cancelFallDamageDragonsAura(double fallDistance, float damagePerDistance, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+        if (this.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    /**
+     * Applies a {@code 45% chance} to ignore armor damage when the entity has the {@code dragon's aura} effect.
+     */
+    @Inject(method = "damageEquipment", at = @At("HEAD"), cancellable = true)
+    private void cancelOutDamageDragonsAura(DamageSource source, float amount, EquipmentSlot[] slots, CallbackInfo ci) {
+        if (this.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
+            if (this.random.nextFloat() < 0.45F) {
+                ci.cancel();
+            }
+        }
+    }
+
+    /**
+     * Applies particles around the entity when they have the dragon's aura effect.
+     */
+    @Inject(method = "tickMovement", at = @At("HEAD"))
+    private void applyAuraParticles(CallbackInfo ci) {
+        if (this.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
+            for (int i = 0; i < 2; i++) {
+                this.getEntityWorld()
+                        .addParticleClient(
+                                ParticleTypes.PORTAL,
+                                this.getParticleX(0.5),
+                                this.getRandomBodyY() - 0.25,
+                                this.getParticleZ(0.5),
+                                (this.random.nextDouble() - 0.5) * 5.0,
+                                -this.random.nextDouble(),
+                                (this.random.nextDouble() - 0.5) * 5.0
+                        );
+            }
         }
     }
 

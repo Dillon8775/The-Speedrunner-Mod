@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
+import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.dillon.speedrunnermod.util.Author;
@@ -66,8 +67,9 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
                     }
 
                     entity.fallDistance = 0.0F;
+                    boolean bl = entity instanceof ServerPlayerEntity && serverPlayerEntity.hasStatusEffect(ModStatusEffects.DRAGONS_AURA);
                     if (!isInfiniPearl) {
-                        if (isDoomMode()) {
+                        if (isDoomMode() && !bl) {
                             if (!serverPlayerEntity.isCreative() || !serverPlayerEntity.isSpectator()) {
                                 ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsAsTicks(3), 0));
                             }

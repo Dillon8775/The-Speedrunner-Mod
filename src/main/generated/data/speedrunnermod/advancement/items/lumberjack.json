@@ -116,6 +116,7 @@
     "description": {
       "translate": "advancements.speedrunnermod.lumberjack.description"
     },
+    "hidden": true,
     "icon": {
       "count": 1,
       "id": "minecraft:oak_log"

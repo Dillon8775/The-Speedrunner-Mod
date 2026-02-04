@@ -2,7 +2,7 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 20,
-  "experience": 0.65,
+  "experience": 25.0,
   "group": "igneous_rock",
   "ingredient": "speedrunnermod:igneous_ore",
   "result": {

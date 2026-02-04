@@ -45,6 +45,8 @@ public class ModRecipes {
     public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_WARPED_CHEST_BOAT_RECIPE_SERIALIZER =
             Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_warped_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofWarpedChestBoatRecipe::new));
 
+    protected static final RecipeSerializer<DragonFireballRecipe> DRAGON_FIREBALL_RECIPE_RECIPE_SERIALIZER =
+            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_dragon_fireball"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(DragonFireballRecipe::new));
     protected static final RecipeSerializer<PiglinAwakenerRecipe> PIGLIN_AWAKENER_RECIPE_SERIALIZER =
             Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_piglin_awakener"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(PiglinAwakenerRecipe::new));
     protected static final SpecialCraftingRecipe.SpecialRecipeSerializer<SpeedrunnerShieldDecorationRecipe> SPEEDRUNNER_SHIELD_DECORATION_RECIPE =

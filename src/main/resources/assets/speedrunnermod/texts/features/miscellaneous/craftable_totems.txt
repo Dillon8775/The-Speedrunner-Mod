@@ -1,0 +1,4 @@
+## §e§lTotems §r§ecan be crafted!
+
+!image:textures/gui/features/recipes/totem_of_undying_crafting_recipe.png scale=.5
+### §a§oIn addition to this, §r§fwhenever you §epop a totem, §r§fyou §ddo not lose any beneficial effects!

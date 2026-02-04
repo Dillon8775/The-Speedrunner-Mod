@@ -1,0 +1,41 @@
+## §dA very, §5powerful potion, §dwhich buffs the player in many different ways.
+
+!image:textures/gui/features/items/dragons_aura.png scale=.2
+!image:textures/gui/features/recipes/dragons_aura.png scale=.2
+### Upon drinking this potion, the §bplayer §r§fwill receive §d+5 extra hearts, §5deal x2 more damage, §aextra armor protection §r§fand §aarmor toughness, §r§fand §done-block increased reach.
+
+## The §dEnder Dragon §r§fdeals §l§550% less damage §r§fwith this effect applied.
+
+## You also take §ano fall damage.
+
+## Your §chearts §r§fwill also appear §l§5purple.
+
+!image:textures/gui/features/screenshots/dragons_aura_hearts.png scale=.17
+### That annoying, §dDragon's Breath? §r§bYeah... §o§dthat doesn't do anything with this effect.
+
+!image:textures/gui/features/screenshots/dragons_aura_dragons_breath.png scale=.14
+### In addition to the §aextra armor protection, all armor durability damage has a §l§a45% chance§r§f to be §l§o§acompletely ignored!
+
+!image:textures/gui/features/screenshots/dragons_aura_armor_protection.png scale=.2
+### If you §efall into the void §dwith this effect, §byou will be §5levitated up §dand saved! But it only works §d§lonce... §r§dunless you §c§odie again.
+
+!image:textures/gui/features/screenshots/dragons_aura_saved_from_void.png scale=.14
+## §dThis potion is §a§odesigned §r§dto help you on §c§lDoom Mode, §r§bso make sure you get it before entering the end!
+
+#### If you are unsure on how to obtain the §9Ender Matter §r§fin order to make it, go back a couple pages!
+
+### You can also §bextend the §dpotion duration §r§fwith §credstone, §r§fand §aextend it even more §r§fif you add a §bspeedrunner ingot!
+
+!image:textures/gui/features/recipes/dragons_aura_extended.png scale=.15
+
+## §dSome other small features:
+
+### §dBecause you have so much aura, enderman won't get angry at you when you look at them.
+
+!image:textures/gui/features/screenshots/dragons_aura_looking_at_enderman.png scale=.13
+#### These potions can also be found §anaturally §r§fin §dEnd city chests.
+
+!image:textures/gui/features/screenshots/dragons_aura_end_city.png scale=.15
+#### §9Ender pearls §r§cdon't do damage §dwith this effect.
+
+#### When you drink this potion, you will receive an §dextra buff of §cRegeneration II for 7 seconds, §dand §7Resistance I for 30 seconds.

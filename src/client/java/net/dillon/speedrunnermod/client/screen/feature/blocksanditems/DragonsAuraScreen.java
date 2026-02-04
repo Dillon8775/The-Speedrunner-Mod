@@ -1,29 +1,27 @@
-package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
+package net.dillon.speedrunnermod.client.screen.feature.blocksanditems;
 
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
-@Environment(EnvType.CLIENT)
-public class TotemsWorkInVoidScreen extends AbstractFeatureScreen {
+public class DragonsAuraScreen extends AbstractFeatureScreen {
 
-    public TotemsWorkInVoidScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_TOTEMS_WORK_IN_VOID);
+    public DragonsAuraScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_FEATURE_DRAGONS_AURA);
     }
 
     @Override
     public @NotNull String linesKey() {
-        return "totems_work_in_void";
+        return "dragons_aura";
     }
 
     @Override
     public @NotNull ScreenCategory getScreenCategory() {
-        return ScreenCategory.MISCELLANEOUS;
+        return ScreenCategory.BLOCKS_AND_ITEMS;
     }
 
     @Override

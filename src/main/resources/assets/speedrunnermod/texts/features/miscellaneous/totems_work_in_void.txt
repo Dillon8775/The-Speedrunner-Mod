@@ -1,5 +1,0 @@
-### §bFree-fall §finto the §7void with a §etotem of undying§f (if equipped), and you will be §dteleported§f to the §acenter of the end island.
-
-#### If you have a §bspeedrunner's totem, §fit will work §a§oanywhere §r§fin your inventory.
-
-!image:textures/gui/features/screenshots/totems_work_in_void.png scale=.14

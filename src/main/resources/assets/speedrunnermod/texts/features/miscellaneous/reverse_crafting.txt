@@ -2,3 +2,4 @@
 
 !image:textures/gui/features/recipes/wool_to_string.png scale=.4
 !image:textures/gui/features/recipes/sticks_to_planks.png scale=.4
+!image:textures/gui/features/recipes/blaze_rod_crafting_recipe.png scale=.4

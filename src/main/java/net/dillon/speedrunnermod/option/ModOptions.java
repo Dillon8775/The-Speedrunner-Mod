@@ -338,6 +338,16 @@ public class ModOptions {
         public OptionValue<Boolean> fasterSpawners = new OptionValue<>(true, false);
 
         /**
+         * Makes everything smelt faster.
+         */
+        public OptionValue<Boolean> fasterSmelting = new OptionValue<>(true, false);
+
+        /**
+         * Makes everything brew faster.
+         */
+        public OptionValue<Boolean> fasterBrewing = new OptionValue<>(true, false);
+
+        /**
          * Sends the players coordinates to chat upon death, and displays them on the death screen.
          */
         public OptionValue<Boolean> showDeathCords = new OptionValue<>(true, false);

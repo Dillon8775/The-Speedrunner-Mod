@@ -12,6 +12,7 @@ import net.minecraft.client.gui.hud.debug.DebugHudEntries;
 import net.minecraft.client.gui.screen.MessageScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
+import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.server.integrated.IntegratedServer;
@@ -46,9 +47,7 @@ public abstract class Keybindings {
     @Shadow
     public abstract boolean isInSingleplayer();
     @Shadow
-    public abstract boolean isIntegratedServerRunning();
-    @Shadow @Nullable
-    public abstract IntegratedServer getServer();
+    public abstract @Nullable ServerInfo getCurrentServerEntry();
     @Shadow @Final
     public GameOptions options;
 
@@ -67,7 +66,7 @@ public abstract class Keybindings {
     @Inject(method = "handleInputEvents", at = @At("TAIL"))
     private void implementSpeedrunnerModKeybindFunctions(CallbackInfo info) {
         while (ModKeybindings.RESET.wasPressed()) {
-            if (this.isInSingleplayer() && this.isIntegratedServerRunning() && !this.getServer().isRemote()) {
+            if (this.isInSingleplayer() && this.getCurrentServerEntry() == null) {
                 if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
                     if (this.inGameHud != null) {
                         this.inGameHud.getChatHud().clear(false);

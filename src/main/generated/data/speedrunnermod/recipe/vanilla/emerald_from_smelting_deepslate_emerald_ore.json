@@ -2,7 +2,7 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 20,
-  "experience": 300.0,
+  "experience": 200.0,
   "group": "emerald",
   "ingredient": "minecraft:deepslate_emerald_ore",
   "result": {

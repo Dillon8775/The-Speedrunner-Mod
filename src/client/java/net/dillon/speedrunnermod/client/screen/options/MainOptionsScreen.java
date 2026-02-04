@@ -32,35 +32,53 @@ public class MainOptionsScreen extends AbstractModScreen {
     private List<ClickableWidget> mainOptions() {
         return List.of(
                 ModListOptions.tutorialMode().createWidget(this.gameOptions),
+                ModListOptions.dragonPerchTime().createWidget(this.gameOptions),
+
                 ModListOptions.fasterBlockBreaking().createWidget(this.gameOptions),
                 ModListOptions.blockBreakingMultiplier().createWidget(this.gameOptions),
-                ModListOptions.dragonPerchTime().createWidget(this.gameOptions),
+
                 ModListOptions.icarusMode().createWidget(this.gameOptions),
                 ModListOptions.infiniPearlMode().createWidget(this.gameOptions),
+
                 ModListOptions.betterVillagerTrades().createWidget(this.gameOptions),
                 ModListOptions.betterFoods().createWidget(this.gameOptions),
+
                 ModListOptions.fireproofItems().createWidget(this.gameOptions),
                 ModListOptions.throwableFireballs().createWidget(this.gameOptions),
+
                 ModListOptions.fallDamage().createWidget(this.gameOptions),
                 ModListOptions.kineticDamage().createWidget(this.gameOptions),
+
                 ModListOptions.betterBiomes().createWidget(this.gameOptions),
                 ModListOptions.strongholdCount().createWidget(this.gameOptions),
+
                 ModListOptions.strongholdDistance().createWidget(this.gameOptions),
                 ModListOptions.strongholdSpread().createWidget(this.gameOptions),
+
                 ModListOptions.strongholdPortalRoomCount().createWidget(this.gameOptions),
                 ModListOptions.strongholdLibraryCount().createWidget(this.gameOptions),
+
                 ModListOptions.globalNetherPortals().createWidget(this.gameOptions),
                 ModListOptions.lavaBoats().createWidget(this.gameOptions),
+
                 ModListOptions.netherWater().createWidget(this.gameOptions),
                 ModListOptions.commonOres().createWidget(this.gameOptions),
+
                 ModListOptions.betterAnvil().createWidget(this.gameOptions),
                 ModListOptions.anvilCostLimit().createWidget(this.gameOptions),
+
                 ModListOptions.higherEnchantmentLevels().createWidget(this.gameOptions),
                 ModListOptions.arrowsDestroyBeds().createWidget(this.gameOptions),
+
                 ModListOptions.creatureSpawningRate().createWidget(this.gameOptions),
                 ModListOptions.fasterSpawners().createWidget(this.gameOptions),
+
+                ModListOptions.fasterSmelting().createWidget(this.gameOptions),
+                ModListOptions.fasterBrewing().createWidget(this.gameOptions),
+
                 ModListOptions.killGhastOnFireball().createWidget(this.gameOptions),
                 ModListOptions.showDeathCords().createWidget(this.gameOptions),
+
                 ModListOptions.netherPortalDelay().createWidget(this.gameOptions),
                 ModListOptions.customDataGeneration().createWidget(this.gameOptions)
         );

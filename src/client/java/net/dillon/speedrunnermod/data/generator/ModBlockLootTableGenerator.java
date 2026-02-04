@@ -87,6 +87,7 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
         addDrop(ModBlocks.DEEPSLATE_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
         addDrop(ModBlocks.NETHER_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 4));
 
+        addDropWithSilkTouch(ModBlocks.THRUSTED_BLOCK);
         addDropWithSilkTouch(ModBlocks.EXPERIENCE_ORE);
         addDropWithSilkTouch(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
         addDropWithSilkTouch(ModBlocks.NETHER_EXPERIENCE_ORE);

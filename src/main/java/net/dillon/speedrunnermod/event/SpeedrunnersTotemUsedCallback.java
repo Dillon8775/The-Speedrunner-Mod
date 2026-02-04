@@ -6,9 +6,12 @@ import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 @Author(Authors.YELEEFFF)
 @FunctionalInterface
@@ -26,6 +29,9 @@ public interface SpeedrunnersTotemUsedCallback {
 
             entity.setHealth(1.0F);
             entity.getEntityWorld().sendEntityStatus(entity, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES);
+            if (entity instanceof ServerPlayerEntity player) {
+                Criteria.USED_TOTEM.trigger(player, new ItemStack(Items.TOTEM_OF_UNDYING));
+            }
         }
     });
 }

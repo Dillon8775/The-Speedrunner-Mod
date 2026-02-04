@@ -151,6 +151,8 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.RAID_ERADICATOR, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDER_THRUSTER, Models.GENERATED);
         itemModelGenerator.register(ModItems.DRAGONS_PEARL, Models.GENERATED);
+        itemModelGenerator.register(ModItems.DRAGONS_FIREBALL, Models.GENERATED);
+        itemModelGenerator.register(ModItems.EXPERIENCE_FRAGMENT, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_SHOVEL, Models.HANDHELD);

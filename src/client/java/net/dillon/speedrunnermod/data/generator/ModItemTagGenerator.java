@@ -71,6 +71,10 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModItemTags.DRAGON_TOOL_MATERIALS)
                 .add(ModItems.DRAGONS_PEARL);
 
+        valueLookupBuilder(ModItemTags.EXPERIENCE_BOTTLE_CRAFTABLES)
+                .add(Items.GLASS_BOTTLE)
+                .add(ModItems.EXPERIENCE_FRAGMENT);
+
         valueLookupBuilder(ModItemTags.FASTER_BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_BOAT);
@@ -238,7 +242,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL)
                 .add(Items.ENDER_PEARL)
-                .add(Items.FIRE_CHARGE)
                 .add(Items.BLAZE_POWDER)
                 .add(Items.ENDER_EYE);
 
@@ -250,7 +253,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
                 .add(Items.ENDER_PEARL)
                 .add(Items.BLAZE_POWDER)
-                .add(Items.FIRE_CHARGE)
                 .add(ModItems.SPEEDRUNNERS_EYE);
 
         valueLookupBuilder(ModItemTags.AdvancementCriterions.DRAGONS_SWORD)
@@ -387,7 +389,8 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL)
                 .add(ModItems.SPEEDRUNNER_BOW)
                 .add(ModItems.SPEEDRUNNER_CROSSBOW)
-                .add(ModItems.SPEEDRUNNER_SHIELD);
+                .add(ModItems.SPEEDRUNNER_SHIELD)
+                .add(ModItems.INFINI_PEARL);
 
         valueLookupBuilder(ItemTags.BOW_ENCHANTABLE)
                 .add(ModItems.SPEEDRUNNER_BOW);

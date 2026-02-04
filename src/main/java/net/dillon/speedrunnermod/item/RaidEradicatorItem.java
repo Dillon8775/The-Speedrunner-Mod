@@ -27,6 +27,7 @@ import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Consumer;
@@ -40,7 +41,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 public class RaidEradicatorItem extends Item implements EyeItem {
 
     public RaidEradicatorItem(Settings settings) {
-        super(settings.rarity(Rarity.EPIC).maxCount(1));
+        super(settings.rarity(Rarity.EPIC).maxCount(16));
     }
 
     @Override
@@ -72,10 +73,11 @@ public class RaidEradicatorItem extends Item implements EyeItem {
                                         if (!(raider instanceof WitchEntity)) {
                                             raider.kill(serverWorld);
                                         } else {
+                                            Random random = new Random();
                                             raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(30), 2, false, true, false));
                                             raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsAsTicks(30), 1, false, true, false));
                                             raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesAsTicks(2), 0, false, true, false));
-                                            raider.teleport(player.getX() + world.random.nextInt(7) - 3, player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + world.random.nextInt(7) - 3, false);
+                                            raider.teleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false);
                                         }
                                     }
                                 }

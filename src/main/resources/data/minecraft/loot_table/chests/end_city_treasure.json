@@ -269,6 +269,17 @@
               "treasure": false
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "speedrunnermod:dragons_aura"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 9
         }
       ]
     },

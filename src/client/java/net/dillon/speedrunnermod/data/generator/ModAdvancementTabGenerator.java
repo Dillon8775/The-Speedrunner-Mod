@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.advancement.TriggeredByItemCriterion;
+import net.dillon.speedrunnermod.entity.ModPotions;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -10,8 +11,11 @@ import net.minecraft.advancement.criterion.ChangedDimensionCriterion;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.advancement.criterion.OnKilledCriterion;
 import net.minecraft.advancement.criterion.TickCriterion;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.entity.LocationPredicate;
@@ -115,8 +119,8 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .parent(eyeOfTheStructures)
                 .display(
                         ModItems.SPEEDRUNNER_BULK,
-                        Text.translatable("advancements.speedrunnermod.bulked.title"),
-                        Text.translatable("advancements.speedrunnermod.bulked.description"),
+                        Text.translatable("advancements.speedrunnermod.bulky.title"),
+                        Text.translatable("advancements.speedrunnermod.bulky.description"),
                         null,
                         AdvancementFrame.TASK,
                         true,
@@ -224,6 +228,21 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.ANNUL_EYE))
                 .build(exporter, "speedrunnermod:items/the_end_is_near");
 
+        AdvancementEntry theEndOfTheMatter = Advancement.Builder.create()
+                .parent(eyeOfTheStructures)
+                .display(
+                        ModItems.ENDER_MATTER,
+                        Text.translatable("advancements.speedrunnermod.the_end_of_the_matter.title"),
+                        Text.translatable("advancements.speedrunnermod.the_end_of_the_matter.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.ENDER_MATTER))
+                .build(exporter, "speedrunnermod:items/the_end_of_the_matter");
+
         Advancement.Builder.create()
                 .parent(eyeOfTheStructures)
                 .display(
@@ -268,6 +287,39 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 )
                 .criterion("used_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.DRAGONS_PEARL))
                 .build(exporter, "speedrunnermod:items/perch_already");
+
+        PotionContentsComponent dragonsAuraEffect = new PotionContentsComponent(ModPotions.DRAGONS_AURA);
+        ItemStack stack =  new ItemStack(Items.POTION);
+        stack.set(DataComponentTypes.POTION_CONTENTS, dragonsAuraEffect);
+        AdvancementEntry dragonsAura = Advancement.Builder.create()
+                .parent(theEndOfTheMatter)
+                .display(
+                        stack,
+                        Text.translatable("advancements.speedrunnermod.dragons_aura.title"),
+                        Text.translatable("advancements.speedrunnermod.dragons_aura.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("obtain_item", TriggeredByItemCriterion.Conditions.item(itemLookup, Items.POTION))
+                .build(exporter, "speedrunnermod:items/dragons_aura");
+
+        Advancement.Builder.create()
+                .parent(dragonsAura)
+                .display(
+                        ModItems.DRAGONS_FIREBALL,
+                        Text.translatable("advancements.speedrunnermod.dragons_breath.title"),
+                        Text.translatable("advancements.speedrunnermod.dragons_breath.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.DRAGONS_FIREBALL))
+                .build(exporter, "speedrunnermod:items/dragons_breath");
 
         AdvancementEntry piglinRally = Advancement.Builder.create()
                 .parent(infernalGaze)
@@ -366,23 +418,8 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("exited_end", ChangedDimensionCriterion.Conditions.create(World.END, World.OVERWORLD))
                 .build(exporter, "speedrunnermod:adventure/exited_end");
 
-        AdvancementEntry theEndsMatter = Advancement.Builder.create()
-                .parent(yesTheEnd)
-                .display(
-                        ModItems.ENDER_MATTER,
-                        Text.translatable("advancements.speedrunnermod.the_ends_matter.title"),
-                        Text.translatable("advancements.speedrunnermod.the_ends_matter.description"),
-                        null,
-                        AdvancementFrame.TASK,
-                        true,
-                        true,
-                        false
-                )
-                .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.ENDER_MATTER))
-                .build(exporter, "speedrunnermod:items/the_ends_matter");
-
-        AdvancementEntry toInfiniAndBeyond = Advancement.Builder.create()
-                .parent(theEndsMatter)
+        Advancement.Builder.create()
+                .parent(theEndOfTheMatter)
                 .display(
                         ModItems.INFINI_PEARL,
                         Text.translatable("advancements.speedrunnermod.to_infini_and_beyond.title"),
@@ -398,7 +435,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .build(exporter, "speedrunnermod:items/to_infini_and_beyond");
 
         Advancement.Builder.create()
-                .parent(toInfiniAndBeyond)
+                .parent(theEndOfTheMatter)
                 .display(
                         ModItems.SPEEDRUNNERS_TOTEM,
                         Text.translatable("advancements.speedrunnermod.immortal.title"),
@@ -451,7 +488,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         AdvancementFrame.CHALLENGE,
                         true,
                         true,
-                        false
+                        true
                 )
                 .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
                 .criterion("has_wood_sword", InventoryChangedCriterion.Conditions.items(Items.WOODEN_SWORD))
@@ -476,7 +513,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         AdvancementFrame.TASK,
                         true,
                         true,
-                        false
+                        true
                 )
                 .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
                 .criterion("has_oak_log", InventoryChangedCriterion.Conditions.items(Items.OAK_LOG))
@@ -503,7 +540,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         AdvancementFrame.TASK,
                         true,
                         true,
-                        false
+                        true
                 )
                 .criteriaMerger(AdvancementRequirements.CriterionMerger.AND)
                 .criterion("has_white_wool", InventoryChangedCriterion.Conditions.items(Items.WHITE_WOOL))
@@ -535,7 +572,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         AdvancementFrame.TASK,
                         true,
                         true,
-                        false
+                        true
                 )
                 .criterion("has_stack_of_lime_wool", TriggeredByItemCriterion.Conditions.item(itemLookup, Items.LIME_WOOL))
                 .rewards(AdvancementRewards.Builder.experience(25))

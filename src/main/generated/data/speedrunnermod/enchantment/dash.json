@@ -3,6 +3,30 @@
   "description": {
     "translate": "enchantment.speedrunnermod.dash"
   },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.1,
+          "per_level_above_first": 0.1
+        },
+        "attribute": "minecraft:movement_speed",
+        "id": "speedrunnermod:dash_increased_speed",
+        "operation": "add_multiplied_total"
+      },
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.05,
+          "per_level_above_first": 0.05
+        },
+        "attribute": "minecraft:water_movement_efficiency",
+        "id": "speedrunnermod:dash_increased_water_movement",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
     "base": 1,
     "per_level_above_first": 3

@@ -7,8 +7,13 @@ import net.dillon.speedrunnermod.util.Authors;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
+import net.minecraft.component.EnchantmentEffectComponentTypes;
 import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentLevelBasedValue;
+import net.minecraft.enchantment.effect.AttributeEnchantmentEffect;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -16,6 +21,8 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
 
 import java.util.concurrent.CompletableFuture;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * Used to create the JSON files for the Speedrunner Mod enchantments.
@@ -38,7 +45,26 @@ public class ModEnchantmentGenerator extends FabricDynamicRegistryProvider {
                         Enchantment.leveledCost(1, 1), // Cost per level (base)
                         Enchantment.leveledCost(1, 3), // Cost per level (maximum)
                         7, // Anvil applying cost
-                        AttributeModifierSlot.FEET)));
+                        AttributeModifierSlot.FEET))
+                .addEffect(
+                        EnchantmentEffectComponentTypes.ATTRIBUTES,
+                        new AttributeEnchantmentEffect(
+                                ofSpeedrunnerMod("dash_increased_speed"),
+                                EntityAttributes.MOVEMENT_SPEED,
+                                EnchantmentLevelBasedValue.linear(0.1F),
+                                EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+                        )
+                )
+                .addEffect(
+                        EnchantmentEffectComponentTypes.ATTRIBUTES,
+                        new AttributeEnchantmentEffect(
+                                ofSpeedrunnerMod("dash_increased_water_movement"),
+                                EntityAttributes.WATER_MOVEMENT_EFFICIENCY,
+                                EnchantmentLevelBasedValue.linear(0.05F),
+                                EntityAttributeModifier.Operation.ADD_VALUE
+                        )
+                )
+        );
 
         register(entries, ModEnchantments.COOLDOWN, Enchantment.builder(
                         Enchantment.definition(

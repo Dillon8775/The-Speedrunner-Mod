@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.BetterHotkeysScreen;
 import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.TutorialModeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.util.ModTexts;

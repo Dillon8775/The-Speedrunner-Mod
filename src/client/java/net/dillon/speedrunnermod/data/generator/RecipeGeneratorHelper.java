@@ -90,22 +90,22 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
      * Creates a smeltable and blastable material.
      */
     public void offerBurnableMaterial(List<ItemConvertible> inputs, ItemConvertible output, float exp, String group, boolean vanilla) {
-        offerNewSmelting(inputs, RecipeCategory.MISC, output, exp, 20, group, vanilla);
-        offerNewBlasting(inputs, RecipeCategory.MISC, output, exp, 20, group, vanilla);
+        offerNewSmelting(inputs, RecipeCategory.MISC, output, exp, group, vanilla);
+        offerNewBlasting(inputs, RecipeCategory.MISC, output, exp, group, vanilla);
     }
 
     /**
      * A helper method for creating a new smelting recipe.
      */
-    protected void offerNewSmelting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group, boolean vanilla) {
-        this.offerMultipleOptionsH(RecipeSerializer.SMELTING, SmeltingRecipe::new, inputs, category, output, experience, cookingTime, group, "_from_smelting", vanilla);
+    protected void offerNewSmelting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group, boolean vanilla) {
+        this.offerMultipleOptionsH(RecipeSerializer.SMELTING, SmeltingRecipe::new, inputs, category, output, experience, 20, group, "_from_smelting", vanilla);
     }
 
     /**
      * A helper method for creating a new blasting recipe.
      */
-    protected void offerNewBlasting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group, boolean vanilla) {
-        this.offerMultipleOptionsH(RecipeSerializer.BLASTING, BlastingRecipe::new, inputs, category, output, experience, cookingTime, group, "_from_blasting", vanilla);
+    protected void offerNewBlasting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group, boolean vanilla) {
+        this.offerMultipleOptionsH(RecipeSerializer.BLASTING, BlastingRecipe::new, inputs, category, output, experience, 20, group, "_from_blasting", vanilla);
     }
 
     /**

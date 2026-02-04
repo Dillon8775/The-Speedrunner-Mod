@@ -1,4 +1,4 @@
-### A new weapon that §cone-shots §7wither skeletons,§f with a §a100% chance §fto drop a §7wither skeleton skull§f upon §cdeath.§r
+### A weapon that §cone-shots §7wither skeletons,§f with a §a65% chance §fto drop a §7wither skeleton skull§f upon §cdeath.§r
 
 #### To craft §7wither bones,§r you need §atwo §lnormal bones§r§f and §atwo §fpieces of §7coal.
 

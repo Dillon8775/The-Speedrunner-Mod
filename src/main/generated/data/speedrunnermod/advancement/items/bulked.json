@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.speedrunnermod.bulked.description"
+      "translate": "advancements.speedrunnermod.bulky.description"
     },
     "icon": {
       "count": 1,
       "id": "speedrunnermod:speedrunner_bulk"
     },
     "title": {
-      "translate": "advancements.speedrunnermod.bulked.title"
+      "translate": "advancements.speedrunnermod.bulky.title"
     }
   },
   "requirements": [

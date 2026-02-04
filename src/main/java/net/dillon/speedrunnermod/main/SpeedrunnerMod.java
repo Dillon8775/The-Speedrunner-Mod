@@ -7,6 +7,8 @@ import net.dillon.speedrunnermod.command.ModCommands;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.entity.ModPotions;
+import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
 import net.dillon.speedrunnermod.item.ModFuels;
 import net.dillon.speedrunnermod.item.ModItemGroups;
@@ -38,7 +40,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    public static final String MOD_VERSION = "v1.11.10";
+    public static final String MOD_VERSION = "v1.12";
     public static final String MC_VERSION = "1.21.11";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
@@ -63,6 +65,9 @@ public class SpeedrunnerMod implements ModInitializer {
         ModWorldGen.initializeWorldGenFeatures();
 
         ModEntityTypes.initializeEntityTypes();
+
+        ModStatusEffects.registerStatusEffects();
+        ModPotions.registerPotions();
 
         ModPointOfInterestTypes.initializePois();
         ModVillagers.registerVillagerProfessions();

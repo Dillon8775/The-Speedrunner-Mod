@@ -59,7 +59,7 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
      */
     @Inject(method = "updateResult", at = @At("TAIL"))
     private void setLevelCostIfTooHigh(CallbackInfo ci) {
-        if (options().main.anvilCostLimit.getCurrentValue() != 50) {
+        if (options().main.anvilCostLimit.getCurrentValue() != 50 && this.levelCost.get() > options().main.anvilCostLimit.getCurrentValue()) {
             this.levelCost.set(options().main.anvilCostLimit.getCurrentValue());
         }
     }

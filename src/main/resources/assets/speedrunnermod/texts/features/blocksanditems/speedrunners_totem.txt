@@ -2,5 +2,7 @@
 
 #### Stacks to §d3,§f gives §bbetter effects upon use,§f and can be used §aanywhere in the player's inventory.
 
+### It also works if you fall into §7the void!
+
 !image:textures/gui/features/items/speedrunners_totem.png scale=.15
 !image:textures/gui/features/recipes/speedrunners_totem_crafting_recipe.png scale=.4

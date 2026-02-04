@@ -1,7 +1,92 @@
-Version 1.11.10 (Fabric 1.21.11):
-- Fixed bug where doom mode monsters do not spawn in the end (Doom mode).
-- Fixed bug where crimson spore particles are not visible in the end (Doom mode).
-- Increased intensity of crimson spore particles in the end (Doom mode).
+Version 1.12 (Fabric 1.21.11):
+DRAGON'S AURA POTION:
+- Added a new status effect, called "Dragons Aura", which gives the player +5 hearts, deals x2 more damage, added armor points and toughness, and increased block and entity interaction distance.
+- Any entity that has the Dragon's Aura effect takes 50% less damage from the ender dragon, and will also admit portal particles around themselves.
+- Players are immune to dragon breath attacks with this effect, and also immune to fall damage.
 
-- Fixed incompatibility with new Quality of Queso version, this mod now uses QoQ's fog setting.
-- Fixed bug where clicking the "Miscellaneous..." category feature screen goes to page 16 instead of page 1.
+- Players are also immune to ender pearl damage with this effect.
+- Players will not receive blindness on doom mode when throwing an ender pearl with this effect.
+- All players' armor will have a 45% chance to ignore all durability damage per hit with this effect applied.
+
+- Upon drinking, players will receive Regeneration II for 7 seconds, and Resistance I for 30 seconds.
+
+- Enderman do not get angry at players if they look at them if they have this effect.
+
+- To craft the Dragon's Aura potion, you will need water bottles and ender matter.
+- When brewed, the potion's duration is 4 minutes. You can extend it to 8 minutes with redstone, and even up to 10 minutes if you add a speedrunner ingot.
+- You cannot increase this potion's amplifier.
+
+- Dragon's Aura potions can also be found in end city chests.
+
+- If the player dies with this effect, their death sound effect is changed to the ender dragon hurting.
+- If the player falls into the void with this effect, they will be levitated up extremely fast to have a chance at surviving the void. This only happens once, and the player can only do it again if they died and re-applied the effect.
+- You can also obtain the "Immortal" advancement by doing this.
+
+- Breaking doom blocks with this effect will not spawn the bad mobs.
+
+- Credit to MannyQUESO for creating the texture for the effect icon.
+
+- Yes, there is an advancement for obtaining this potion, called "Dragon's Aura."
+
+- This potion has been specifically designed for doom mode (it works on all modes), to make the end fight actually possible.
+
+DRAGON'S FIREBALL:
+- Yup, you guessed it. The dragon's fireball, as a throwable item.
+- When thrown, it does exactly what the ender dragon's fireball does. Except, it's effect last longer, and it creates an explosion upon impact.
+
+- To craft it, you will need 8 fireballs and a dragon's aura potion. You will receive 8 dragon's fireballs when crafting it.
+
+- Renamed Minecraft's "Fire Charge" to "Fireball".
+
+EXPERIENCE FRAGMENT:
+- A new item, which can be obtained from smelting experience ores (you can get the actual experience ore blocks by mining it with silk touch).
+- With this item, you can craft Bottles of Enchanting.
+- To craft Bottles of Enchanting, you will need 1 experience fragment and 1 glass bottle. You will then receive 2 bottles of enchanting.
+
+OTHER CHANGES:
+- All smeltable recipes now only take 2 seconds to cook (this includes food, ores, blocks, everything).
+- Blast furnace and smoker recipes take only 1 second to cook.
+- All potions now only take 5 seconds to brew.
+- Potions are stackable to 16!
+- Enchanted golden apples are now craftable (again), with a golden apple in the center and 8 gold blocks surrounding it.
+
+- Ender matter now has a 25% chance to drop from enderman, with looting increasing its chance, all the way up to 38% with looting 3.
+- Lowered the chance of ender matter generating from shipwreck chests.
+- You can now add unbreaking and mending to InfiniPearls.
+
+- Normal totems of undying no longer work in the void. Only speedrunner totems can save you from the void now.
+- Using a totem no longer removes any currently applied positive effects (with both normal totems and speedrunner totems).
+- Totems of Undying are now craftable with an enchanted golden apple in the center and 8 gold blocks surrounding it.
+- Speedrunner totems can also trigger the "Postmortal" advancement, when used.
+
+- You can now craft blaze rods with 2 blaze powder and a speedrunner stick.
+- Mining gilded blackstone now drops 3-7 gold ingots (unless mined with silk touch).
+- Thrusted blocks can now be obtained with silk touch.
+
+- Speedrunner armor now gives +1 armor toughness.
+- Golden speedrunner armor now gives +0.5 armor toughness.
+- Using a speedrunner's totem can now give the "Postmortal" advancement.
+- Changed speedrunner boots and dash functionalities. They now both have the "water movement efficiency" attribute modifier attached to them, and with this change:
+
+- Speedrunner boots and golden speedrunner boots give 20% extra speed, with +0.15 extra (multiplied) speed when in water.
+- The dash enchantment gives an extra 10% speed, with +0.05 extra (multiplied) speed when in water.
+- Lava effects remain the same.
+
+- The game's difficulty is now hardlocked on Hard if you are playing on doom mode. You can't change it.
+- The ender dragon can now detect a player from up to 64 blocks away on doom mode.
+
+- Renamed "Immortal" advancement to "I am... Immortal."
+- Renamed "Bulked" advancement to "Bulky".
+
+- You can now craft knockback sticks, by adding a knockback V book and any type of stick, and the durability is much higher (1071).
+
+- Optimizations, bug fixes, and tweaks.
+- Fire charges are no longer required in order to craft Eyes of Annul, Dragon's Pearls, and Raid Eradicators.
+- Raid Eradicators now stack to 16.
+- Moved speedrunner mod advancement parents around.
+- Removed "Open config directory" button.
+- When breaking doom blocks, all mobs have an equal chance of spawning. You can also only get good items if you use speedrunner tools or have the Dragon's Aura effect. This goes the same for getting good items, they all have the same chance of spawning.
+- Breaking doom blocks in creative mode no longer spawns bad mobs.
+- Fixed bug where the cost in an anvil is always set to the cost limit, regardless of whether or not the cost ever went over the limit.
+- Fixed bug where patches of raw speedrunner blocks would almost never generate in the Speedrunner's Wasteland biome, due to the chance being incredibly low.
+- Fixed bug where Goliath infinitely spawns TNT when "in fire".
