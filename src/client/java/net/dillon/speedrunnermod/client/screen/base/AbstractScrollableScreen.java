@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -54,7 +53,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Loads and parses lines from the specified resource text file.
      */
-    @AI
     private void loadAndPrintText(Identifier path) {
         try (BufferedReader reader = new BufferedReader(this.client.getResourceManager().openAsReader(path))) {
             String line;
@@ -78,7 +76,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Parses a line, detecting headers ("#") and applying scaled formatting.
      */
-    @AI
     private LineObject parseLine(String line) {
         // Handle image line with optional scale
         if (line.startsWith("!image:")) {
@@ -147,7 +144,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Parses legacy Minecraft formatting codes (e.g., §a, §l) into styled text.
      */
-    @AI
     private Text parseLegacyFormattedText(String input) {
         Style currentStyle = Style.EMPTY;
         MutableText result = Text.literal("");
@@ -169,7 +165,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Applies a single Minecraft formatting code to the current style.
      */
-    @AI
     private Style applyFormatCode(Style style, char code) {
         return switch (code) {
             case '0' -> style.withColor(Formatting.BLACK);
@@ -220,7 +215,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Computes total height of all lines (scaled).
      */
-    @AI
     private int getTotalContentHeight() {
         int totalHeight = 0;
 
@@ -250,7 +244,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Calculates maximum scroll offset needed to fit all content.
      */
-    @AI
     private int getAccurateMaxScroll() {
         int visibleHeight = bottom - top;
         int totalHeight = getTotalContentHeight();
@@ -279,7 +272,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Renders scrollable formatted text.
      */
-    @AI
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (!isDraggingScrollbar && !isDraggingAnywhere) {
@@ -402,7 +394,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Enables scrollbar dragging when clicked.
      */
-    @AI
     @Override
     public boolean mouseClicked(Click click, boolean doubled) {
         for (LineObject line : objectsToDisplay) {
@@ -439,7 +430,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Releases dragging state.
      */
-    @AI
     @Override
     public boolean mouseReleased(Click click) {
         isDraggingScrollbar = false;
@@ -450,7 +440,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Handles mouse wheel scrolling.
      */
-    @AI
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
         this.targetScrollOffset -= verticalAmount * scrollSpeed;
@@ -462,7 +451,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Scrolls content when dragging the scrollbar.
      */
-    @AI
     @Override
     public boolean mouseDragged(Click click, double offsetX, double offsetY) {
         initializeTopAndBottom();
@@ -495,7 +483,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Handles keyboard arrow key scrolling.
      */
-    @AI
     @Override
     public boolean keyPressed(KeyInput input) {
         float maxScroll = getAccurateMaxScroll();
@@ -577,7 +564,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Data structure representing a line of text with a scale factor.
      */
-    @AI
     public record LineObject(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ClickableWidget button) {
         public boolean isImage() {
             return imageId != null;

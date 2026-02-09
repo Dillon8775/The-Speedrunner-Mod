@@ -33,7 +33,7 @@ public class ModItemGroups {
     public static ItemGroup SPEEDRUNNER_MOD = Registry.register(Registries.ITEM_GROUP, ofSpeedrunnerMod("speedrunner_mod_item_group"),
             FabricItemGroup.builder()
                     .displayName(Text.translatable("speedrunnermod.item_group"))
-                    .icon(() -> new ItemStack(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE)).entries((displayContext, entries) -> {
+                    .icon(() -> new ItemStack(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE)).entries((displayContext, entries) -> {
                         entries.add(ModItems.SPEEDRUNNER_INGOT);
                         entries.add(ModItems.SPEEDRUNNER_NUGGET);
                         entries.add(ModItems.SPEEDRUNNER_BLOCK);
@@ -60,7 +60,7 @@ public class ModItemGroups {
                         entries.add(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE);
                         entries.add(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
                         entries.add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
-                        entries.add(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE);
+                        entries.add(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE);
                         entries.add(ModItems.SPEEDRUNNER_BOW);
                         entries.add(ModItems.SPEEDRUNNER_CROSSBOW);
                         entries.add(ModItems.SPEEDRUNNER_SHEARS);
@@ -83,17 +83,15 @@ public class ModItemGroups {
                         entries.add(Items.FIRE_CHARGE);
                         entries.add(ModItems.INFINI_PEARL);
                         entries.add(ModItems.ENDER_MATTER);
+                        entries.add(ModItems.INVENTORY_PRESERVER);
                         displayContext.lookup().getOptional(RegistryKeys.POTION).ifPresent(registryWrapper -> {
                             addAllPotions(entries, registryWrapper, ModPotions.DRAGONS_AURA);
                             addAllPotions(entries, registryWrapper, ModPotions.LONG_DRAGONS_AURA);
-                            addAllPotions(entries, registryWrapper, ModPotions.EXTRA_LONG_DRAGONS_AURA);
                         });
                         entries.add(ModUtil.ofUnbreakable(Items.ELYTRA));
                         entries.add(ModUtil.fireworkWithFlightDuration(1));
                         entries.add(ModItems.KNOCKBACK_STICK);
                         entries.add(ModItems.DRAGONS_SWORD);
-                        entries.add(ModItems.WITHER_SWORD);
-                        entries.add(ModItems.WITHER_BONE);
                         entries.add(ModItems.SPEEDRUNNER_PADDLE);
                         ItemStack[] fireproofBoats = new ItemStack[]{
                                 new ItemStack(ModItems.SPEEDRUNNER_BOAT),
@@ -120,6 +118,7 @@ public class ModItemGroups {
                         displayContext.lookup().getOptional(RegistryKeys.ENCHANTMENT).ifPresent(registryWrapper -> {
                             addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.DASH);
                             addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.COOLDOWN);
+                            addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.WITHERED);
                         });
                         entries.add(ModItems.PIGLIN_PORK);
                         entries.add(ModItems.COOKED_PIGLIN_PORK);
@@ -227,10 +226,9 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.RAW_SPEEDRUNNER);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.SPEEDRUNNER_BLOCK);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.RAW_SPEEDRUNNER_BLOCK);
-        addToItemGroup(ItemGroups.INGREDIENTS, ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE);
+        addToItemGroup(ItemGroups.INGREDIENTS, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.IGNEOUS_ROCK);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.SPEEDRUNNER_STICK);
-        addToItemGroup(ItemGroups.INGREDIENTS, ModItems.WITHER_BONE);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.ENDER_MATTER);
         addToItemGroup(ItemGroups.INGREDIENTS, ModItems.EXPERIENCE_FRAGMENT);
 
@@ -247,7 +245,6 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE);
         addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
         addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
-        addToItemGroup(ItemGroups.COMBAT, ModItems.WITHER_SWORD);
         addToItemGroup(ItemGroups.COMBAT, ModItems.DRAGONS_SWORD);
         addToItemGroup(ItemGroups.COMBAT, ModItems.DRAGONS_FIREBALL);
         if (options().main.throwableFireballs.getCurrentValue()) {
@@ -267,7 +264,7 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.TOOLS, ModItems.GOLDEN_SPEEDRUNNER_PICKAXE);
         addToItemGroup(ItemGroups.TOOLS, ModItems.GOLDEN_SPEEDRUNNER_AXE);
         addToItemGroup(ItemGroups.TOOLS, ModItems.GOLDEN_SPEEDRUNNER_HOE);
-        addToItemGroup(ItemGroups.TOOLS, ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE);
         addToItemGroup(ItemGroups.TOOLS, ModItems.SPEEDRUNNER_BOAT);
         addToItemGroup(ItemGroups.TOOLS, ModItems.SPEEDRUNNER_CHEST_BOAT);
         addToItemGroup(ItemGroups.TOOLS, ModItems.DEAD_SPEEDRUNNER_BOAT);
@@ -284,6 +281,7 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.TOOLS, ModItems.ENDER_THRUSTER);
         addToItemGroup(ItemGroups.TOOLS, ModItems.DRAGONS_PEARL);
         addToItemGroup(ItemGroups.TOOLS, ModItems.INFINI_PEARL);
+        addToItemGroup(ItemGroups.TOOLS, ModItems.INVENTORY_PRESERVER);
 
         addToItemGroup(ItemGroups.FOOD_AND_DRINK, ModItems.SPEEDRUNNER_BULK);
         addToItemGroup(ItemGroups.FOOD_AND_DRINK, ModItems.ROTTEN_SPEEDRUNNER_BULK);

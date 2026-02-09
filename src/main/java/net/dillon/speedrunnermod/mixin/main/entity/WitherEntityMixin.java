@@ -42,12 +42,4 @@ public class WitherEntityMixin extends HostileEntity {
             cir.setReturnValue(false);
         }
     }
-
-    @Override
-    public void onDeath(DamageSource source) {
-        super.onDeath(source);
-        if (this.getAttacker() instanceof PlayerEntity player && isDoomMode()) {
-            ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player, "speedrunnermod.tutorial_mode.kill_dragon");
-        }
-    }
 }

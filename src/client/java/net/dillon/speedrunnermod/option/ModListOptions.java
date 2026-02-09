@@ -18,8 +18,7 @@ import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
+import static net.dillon.speedrunnermod.option.ModOptions.*;
 
 /**
  * All {@code "list"} options, which are used on the actual options screens to allow changing of these options.
@@ -75,7 +74,7 @@ public class ModListOptions {
                 (optionText, value) -> value.getText(),
                 new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.Difficulty.values()),
                         Codec.INT.xmap(ClientModOptions.Difficulty::byId, ClientModOptions.Difficulty::getId)),
-                clientOptions().client.difficulty.getCurrentValue(),
+                isDoomMode() ? ClientModOptions.Difficulty.HARD : clientOptions().client.difficulty.getCurrentValue(),
                 value -> clientOptions().client.difficulty.set(value));
     }
 

@@ -26,6 +26,8 @@ public class BetterAnvilsScreen extends AbstractFeatureScreen {
 
         this.addButtonObject(ButtonWidget.builder(ModTexts.CONFIGURE_OPTION, button -> {
             this.client.setScreen(new MainOptionsScreen(this));
+            ((MainOptionsScreen)this.client.currentScreen).buttonList.setScrollY(220);
+            ((MainOptionsScreen)this.client.currentScreen).searchField.setText("an");
         }).build());
         this.addButtonObject(ButtonWidget.builder(options().main.higherEnchantmentLevels.getCurrentValue() ? ModTexts.DISABLE_HIGHER_ENCHANT_LEVELS : ModTexts.ENABLE_HIGHER_ENCHANT_LEVELS, button -> {
             options().main.higherEnchantmentLevels.set(!options().main.higherEnchantmentLevels.getCurrentValue());

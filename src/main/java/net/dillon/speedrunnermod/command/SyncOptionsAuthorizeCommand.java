@@ -4,7 +4,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.server.ServerStorage;
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -17,7 +16,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
  */
 public class SyncOptionsAuthorizeCommand {
 
-    @AI
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         dispatcher.register(CommandManager.literal("syncoptionsauthorize")
                 .requires(source -> !source.isExecutedByPlayer())

@@ -1,6 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.boss.WitherEntity;
@@ -19,9 +21,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -39,12 +38,10 @@ public abstract class DragonPerchTime {
             dragon.getPhaseManager().setPhase(PhaseType.LANDING);
             playDragonSound();
         } else if (options().isDragonPerchTimeOn()) {
-            new Timer().schedule(new TimerTask() {
-                public void run() {
-                    dragon.getPhaseManager().setPhase(PhaseType.LANDING);
-                    playDragonSound();
-                }
-            }, options().getDragonPerchTime());
+            TaskScheduler.schedule(ModUtil.secondsAsTicks(options().getDragonPerchTime()), () -> {
+                dragon.getPhaseManager().setPhase(PhaseType.LANDING);
+                playDragonSound();
+            });
         }
         if (isDoomMode()) {
             WitherEntity witherEntity = EntityType.WITHER.create(this.world, SpawnReason.EVENT);

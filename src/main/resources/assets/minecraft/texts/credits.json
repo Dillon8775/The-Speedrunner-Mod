@@ -12,7 +12,7 @@
             ]
           },
           {
-            "title": "Textures Assistant",
+            "title": "Textures",
             "names": [
               "MannyQUESO"
             ]
@@ -47,9 +47,33 @@
             ]
           },
           {
-            "title": "InfiniPearl™ Creator",
+            "title": "Original Creator InfiniPearl™ and iCarus Mod",
             "names": [
               "DuncanRuns"
+            ]
+          },
+          {
+            "title": "InfiniPearl™ Texture",
+            "names": [
+              "MannyQUESO"
+            ]
+          },
+          {
+            "title": "Speedrunner's Workbench Texture",
+            "names": [
+              "MannyQUESO"
+            ]
+          },
+          {
+            "title": "Thrusted Block Texture",
+            "names": [
+              "MannyQUESO"
+            ]
+          },
+          {
+            "title": "All Other Textures",
+            "names": [
+              "from Minecraft / Dillon8775"
             ]
           },
           {
@@ -59,7 +83,7 @@
             ]
           },
           {
-            "title": "Lava Boat Functionality and Paddle Sound",
+            "title": "Lava Boat Functionality and Lava Paddle Sound",
             "names": [
               "Anxietie"
             ]

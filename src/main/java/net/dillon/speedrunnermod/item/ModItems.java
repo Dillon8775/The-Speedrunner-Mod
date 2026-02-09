@@ -130,7 +130,7 @@ public class ModItems {
     public static final Item GOLDEN_SPEEDRUNNER_BOOTS = Items.register(of("golden_speedrunner_boots"), settings -> new SpeedrunnerBootsItem(
             ModArmorMaterials.GOLDEN_SPEEDRUNNER, 11, settings));
 
-    public static final Item GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE = Items.register(of("golden_speedrunner_upgrade_smithing_template"), GoldenSpeedrunnerUpgradeSmithingTemplateItem::new);
+    public static final Item GOLDEN_UPGRADE_SMITHING_TEMPLATE = Items.register(of("golden_upgrade_smithing_template"), GoldenUpgradeSmithingTemplateItem::new);
 
     public static final Item SPEEDRUNNER_BULK = Items.register(of("speedrunner_bulk"), settings -> new Item(
             settings) {
@@ -191,15 +191,6 @@ public class ModItems {
     public static final Item WARPED_CHEST_BOAT = Items.register(of("warped_chest_boat"), settings -> new BoatItem(
             ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BOOLEAN, false));
 
-    public static final Item WITHER_BONE = Items.register(of("wither_bone"), settings -> new Item(
-            settings) {
-
-        @Override
-        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.wither_bone.tooltip").formatted(Formatting.GRAY));
-        }
-    });
-
     public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new Item(
             settings) {
 
@@ -230,7 +221,15 @@ public class ModItems {
         }
     });
 
-    public static final Item WITHER_SWORD = Items.register(of("wither_sword"), WitherSwordItem::new);
+    public static final Item INVENTORY_PRESERVER = Items.register(of("inventory_preserver"), settings -> new Item(
+            settings) {
+
+        @Override
+        public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.inventory_preserver.tooltip").formatted(Formatting.GRAY));
+        }
+    }, new Item.Settings().rarity(Rarity.RARE).maxDamage(1));
+
     public static final Item ANNUL_EYE = Items.register(of("annul_eye"), AnnulEyeItem::new);
     public static final Item SPEEDRUNNERS_EYE = Items.register(of("speedrunners_eye"), SpeedrunnersEyeItem::new);
     public static final Item INFERNO_EYE = Items.register(of("inferno_eye"), InfernoEyeItem::new);

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.data.loader;
 
 import com.google.gson.JsonElement;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.world.structure.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -9,7 +8,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 /**
  * Contains all of the {@code structure modifications,} making them generate more commonly.
  */
-@AI
 public class StructuresLoader {
 
     /**

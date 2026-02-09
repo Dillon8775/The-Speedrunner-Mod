@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/dragons_aura",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:dragon_fireball"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.dragons_breath.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:dragon_fireball"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.dragons_breath.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

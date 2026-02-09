@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.server;
 
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.util.*;
@@ -10,7 +9,6 @@ import java.util.*;
 /**
  * Stores server-synced client options and cached values.
  */
-@AI
 public class ServerStorage {
     private static final Map<UUID, Boolean> ACTIONBAR_PREFS = new HashMap<>();
     private static final Map<UUID, Integer> ICARUS_FIREWORK_SLOT = new HashMap<>();

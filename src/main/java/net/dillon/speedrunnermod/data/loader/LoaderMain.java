@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.util.AI;
 
 import java.util.Map;
 
@@ -14,13 +13,11 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 /**
  * Contains helper methods used to create certain objects and arrays in JSON files.
  */
-@AI
 public class LoaderMain {
 
     /**
      * Modifies the creature spawn parameters in a given biome.
      */
-    @AI
     protected static void modifyCreatureSpawns(JsonElement jsonElement, Map<String, Integer[]> creatureValues, boolean waterCreature) {
         JsonArray spawnersArray = jsonElement.getAsJsonObject().getAsJsonObject("spawners").getAsJsonArray(waterCreature ? "water_creature" : "creature");
 
@@ -48,7 +45,6 @@ public class LoaderMain {
     /**
      * Modifies the monster spawn parameters in a given biome.
      */
-    @AI
     protected static void modifyMonsterSpawns(JsonElement jsonElement, Map<String, Integer[]> monsterValues, boolean customWeight) {
         JsonArray spawnersArray = jsonElement.getAsJsonObject().getAsJsonObject("spawners").getAsJsonArray("monster");
 

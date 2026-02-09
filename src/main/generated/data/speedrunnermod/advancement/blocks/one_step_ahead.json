@@ -1,0 +1,31 @@
+{
+  "parent": "speedrunnermod:items/suited_for_speedrunning",
+  "criteria": {
+    "used_workbench": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:speedrunners_workbench"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.one_step_ahead.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:speedrunners_workbench"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.one_step_ahead.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_workbench"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

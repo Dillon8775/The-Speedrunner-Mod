@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "cookingtime": 20,
+  "experience": 5.0,
+  "group": "experience_fragment",
+  "ingredient": "speedrunnermod:deepslate_experience_ore",
+  "result": {
+    "id": "speedrunnermod:experience_fragment"
+  }
+}

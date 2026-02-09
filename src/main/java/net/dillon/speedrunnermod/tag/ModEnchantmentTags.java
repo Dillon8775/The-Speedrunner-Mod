@@ -9,6 +9,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 public class ModEnchantmentTags {
     public static TagKey<Enchantment> RETIRED_SPEEDRUNNER_TRADES = of("retired_speedrunner_trades");
+    public static TagKey<Enchantment> WITHERED_ENCHANTMENTS = of("withered_enchantments");
 
     /**
      * Registers an {@code enchantment tag.}

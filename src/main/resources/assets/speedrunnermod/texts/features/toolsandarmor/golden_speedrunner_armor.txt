@@ -1,5 +1,7 @@
-### An upgrade to normal §6golden armor.
+### An upgrade to §6gold armor.
 
-#### Has more durability than §6normal gold, §ffaster than §6normal gold, §fand §6keeps you safe from piglin.
+#### Has more durability than §enormal gold, §ffaster than §enormal gold, §fand §6keeps you §a§l100% §r§fsafe from piglin.
+
+### This means you can §ebreak gold blocks §r§fand §6open containers §r§fwithout those §eannoying piglin §r§cattacking you! §r§c§o(unless you hit them...)
 
 !image:textures/gui/features/other/golden_speedrunner_armor.png scale=.15

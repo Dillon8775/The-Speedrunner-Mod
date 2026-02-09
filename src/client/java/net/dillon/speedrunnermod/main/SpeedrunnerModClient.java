@@ -12,7 +12,6 @@ import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
-import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -41,7 +40,6 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     /**
      * Initializes all the client-side {@code speedrunner mod} renderers, configurations, etc.
      */
-    @AI
     @Override
     public void onInitializeClient() {
         ClientModPackets.registerClientPackets();

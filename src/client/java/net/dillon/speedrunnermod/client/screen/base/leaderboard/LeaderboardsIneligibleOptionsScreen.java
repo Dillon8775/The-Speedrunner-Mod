@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.client.screen.base.leaderboard;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,7 +29,7 @@ public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
         }
     }
 
-    @Override @AI
+    @Override
     public void renderCustomText(DrawContext context) {
         boolean longList = Leaderboards.ineligibleOptions.size() > 12;
         int textHeight = longList ? 35 : 50;

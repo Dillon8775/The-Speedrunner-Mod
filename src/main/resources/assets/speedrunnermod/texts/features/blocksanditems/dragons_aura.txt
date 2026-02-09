@@ -16,7 +16,7 @@
 !image:textures/gui/features/screenshots/dragons_aura_dragons_breath.png scale=.14
 ### In addition to the §aextra armor protection, all armor durability damage has a §l§a45% chance§r§f to be §l§o§acompletely ignored!
 
-!image:textures/gui/features/screenshots/dragons_aura_armor_protection.png scale=.2
+!image:textures/gui/features/gui/dragons_aura_armor_protection.png scale=.2
 ### If you §efall into the void §dwith this effect, §byou will be §5levitated up §dand saved! But it only works §d§lonce... §r§dunless you §c§odie again.
 
 !image:textures/gui/features/screenshots/dragons_aura_saved_from_void.png scale=.14
@@ -24,9 +24,6 @@
 
 #### If you are unsure on how to obtain the §9Ender Matter §r§fin order to make it, go back a couple pages!
 
-### You can also §bextend the §dpotion duration §r§fwith §credstone, §r§fand §aextend it even more §r§fif you add a §bspeedrunner ingot!
-
-!image:textures/gui/features/recipes/dragons_aura_extended.png scale=.15
 
 ## §dSome other small features:
 
@@ -37,5 +34,3 @@
 
 !image:textures/gui/features/screenshots/dragons_aura_end_city.png scale=.15
 #### §9Ender pearls §r§cdon't do damage §dwith this effect.
-
-#### When you drink this potion, you will receive an §dextra buff of §cRegeneration II for 7 seconds, §dand §7Resistance I for 30 seconds.

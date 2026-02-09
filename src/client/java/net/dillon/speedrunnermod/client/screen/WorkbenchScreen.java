@@ -1,38 +1,69 @@
 package net.dillon.speedrunnermod.client.screen;
 
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
+import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
 import net.minecraft.client.gui.screen.ingame.ForgingScreen;
 import net.minecraft.client.input.KeyInput;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.screen.AnvilScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.List;
 import java.util.Optional;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.minecraft.util.Identifier.ofVanilla;
 
 /**
  * The base screen for the {@code Speedrunner's Workbench.}
  */
 @Environment(EnvType.CLIENT)
 public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
-    private static final Identifier ERROR_TEXTURE = Identifier.ofVanilla("container/anvil/error");
+    private static final Identifier ERROR_TEXTURE = ofVanilla("container/anvil/error");
     private static final Identifier TEXTURE = ofSpeedrunnerMod("textures/gui/container/workbench.png");
+    private static final Identifier SMITHING_TEMPLATE = ofVanilla("container/slot/smithing_template_netherite_upgrade");
     private final PlayerEntity player;
+    private static final List<Identifier> SLOT_TEXTURES = List.of(
+            slotTexture("axe"),
+            slotTexture("boots"),
+            slotTexture("chestplate"),
+            slotTexture("sword"),
+            slotTexture("hoe"),
+            slotTexture("pickaxe"),
+            slotTexture("leggings"),
+            slotTexture("shovel"),
+            slotTexture("spear")
+    );
+    private static final List<Identifier> TRANSFER_SLOT_TEXTURES = List.of(
+            ofSpeedrunnerMod("container/slot/book"),
+            slotTexture("axe"),
+            slotTexture("boots"),
+            slotTexture("sword"),
+            slotTexture("pickaxe")
+    );
+    private static final List<Identifier> OUTPUT_SLOT_TEXTURES = List.of(
+            ofSpeedrunnerMod("container/slot/enchanted_book")
+    );
+    private final CyclingSlotIcon inputSlotIcon = new CyclingSlotIcon(this.handler.getInputSlot().id);
+    private final CyclingSlotIcon transferToSlotIcon = new CyclingSlotIcon(this.handler.getTransferToSlot().id);
+    private final CyclingSlotIcon outputSlotTextures = new CyclingSlotIcon(this.handler.getOutputSlot().id);
 
     public WorkbenchScreen(WorkbenchScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title, TEXTURE);
         this.titleX = 40;
-        this.titleY = 20;
+        this.titleY = 15;
         this.player = inventory.player;
     }
 
@@ -47,8 +78,15 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
             if (focusedSlotStack.isEmpty()) {
                 switch (this.focusedSlot.id) {
                     case 0 -> optional = Optional.of(Text.translatable("block.speedrunnermod.speedrunners_workbench.enchanted_tool").formatted(Formatting.BLUE));
-                    case 1 -> optional = Optional.of(Text.translatable("block.speedrunnermod.speedrunners_workbench.unenchanted_tool").formatted(Formatting.LIGHT_PURPLE));
-                    case 2 -> optional = Optional.of(Text.translatable("block.speedrunnermod.speedrunners_workbench.output").formatted(Formatting.AQUA));
+                    case 1 -> optional = Optional.of(
+                            this.handler.getCursorStack().isEmpty()
+                                    ? Text.translatable("block.speedrunnermod.speedrunners_workbench.unenchanted_tool").formatted(Formatting.LIGHT_PURPLE)
+                                    : Text.translatable("block.speedrunnermod.speedrunners_workbench.enchantments_to").formatted(Formatting.AQUA));
+                    case 2 -> optional = Optional.of(
+                            !this.handler.getTransferToSlot().getStack().isOf(Items.BOOK)
+                                    ? Text.translatable("block.speedrunnermod.speedrunners_workbench.smithing_template").formatted(Formatting.YELLOW)
+                                    : ModTexts.BLANK);
+                    case 3 -> optional = Optional.of(Text.translatable("block.speedrunnermod.speedrunners_workbench.output").formatted(Formatting.AQUA));
                 }
             }
         }
@@ -57,10 +95,33 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     }
 
     /**
+     * @return the Identifier pointing to a slot texture.
+     */
+    private static Identifier slotTexture(String name) {
+        return ofVanilla("container/slot/" + name);
+    }
+
+    /**
+     * Handles animations on slots.
+     */
+    @Override
+    public void handledScreenTick() {
+        this.inputSlotIcon.updateTexture(SLOT_TEXTURES);
+        this.transferToSlotIcon.updateTexture(TRANSFER_SLOT_TEXTURES);
+        this.outputSlotTextures.updateTexture(OUTPUT_SLOT_TEXTURES);
+        super.handledScreenTick();
+    }
+
+    /**
      * Call {@link WorkbenchScreen#renderSlotTooltip(DrawContext, int, int)}.
      */
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.inputSlotIcon.render(this.handler, context, delta, this.x, this.y);
+        this.outputSlotTextures.render(this.handler, context, delta, this.x, this.y);
+        if (this.handler.getInputSlot().hasStack()) {
+            this.transferToSlotIcon.render(this.handler, context, delta, this.x, this.y);
+        }
         super.render(context, mouseX, mouseY, delta);
         this.renderSlotTooltip(context, mouseX, mouseY);
     }
@@ -84,15 +145,21 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         super.drawForeground(context, mouseX, mouseY);
+        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SMITHING_TEMPLATE, this.handler.getSmithingTemplateSlot().x, this.handler.getSmithingTemplateSlot().y, 16, 16);
+        if (this.handler.getTransferToSlot().getStack().isOf(Items.BOOK)) {
+            int color = -1275068416;
+            Slot slot = this.handler.getSmithingTemplateSlot();
+            context.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, color, color);
+        }
         int i = this.handler.getLevelCost();
         if (i > 0) {
             int j = -8323296; // green
             Text text;
-            if (!this.handler.getSlot(2).hasStack()) {
+            if (!this.handler.getSlot(this.handler.getOutputSlot().id).hasStack()) {
                 text = null;
             } else {
                 text = Text.translatable("block.speedrunnermod.speedrunners_workbench.cost", i);
-                if (!this.handler.getSlot(2).canTakeItems(this.player)) {
+                if (!this.handler.getSlot(this.handler.getOutputSlot().id).canTakeItems(this.player)) {
                     j = -40864; // red
                 }
             }
@@ -110,8 +177,8 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
      */
     @Override
     protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
-        if ((this.handler.getSlot(0).hasStack() || this.handler.getSlot(1).hasStack()) && !this.handler.getSlot(this.handler.getResultSlotIndex()).hasStack()) {
-            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 45, 28, 21);
+        if ((this.handler.getSlot(this.handler.getInputSlot().id).hasStack() && this.handler.getSlot(this.handler.getTransferToSlot().id).hasStack()) && !this.handler.getSlot(this.handler.getResultSlotIndex()).hasStack()) {
+            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 35, 28, 21);
         }
     }
 

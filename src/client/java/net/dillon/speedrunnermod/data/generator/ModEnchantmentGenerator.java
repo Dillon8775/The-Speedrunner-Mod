@@ -75,6 +75,17 @@ public class ModEnchantmentGenerator extends FabricDynamicRegistryProvider {
                                 Enchantment.leveledCost(1, 3),
                                 5,
                                 AttributeModifierSlot.HAND)));
+
+        register(entries, ModEnchantments.WITHERED, Enchantment.builder(
+                        Enchantment.definition(
+                                itemLookup.getOrThrow(ItemTags.SWORDS),
+                                9,
+                                5,
+                                Enchantment.leveledCost(1, 2),
+                                Enchantment.leveledCost(2, 5),
+                                6,
+                                AttributeModifierSlot.MAINHAND))
+        );
     }
 
     @Author(Authors.TURTYWURTY)

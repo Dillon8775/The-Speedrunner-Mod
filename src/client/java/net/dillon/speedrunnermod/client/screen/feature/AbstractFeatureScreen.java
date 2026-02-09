@@ -8,7 +8,6 @@ import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.Speedrunn
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -314,7 +313,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     /**
      * Determine the screen to go to, based on the page number.
      */
-    @AI
     private Screen determineScreen(int pageNumber, ScreenCategory category) {
         List<Class<? extends AbstractFeatureScreen>> screenClasses = getCategoryScreenClasses(category);
         if (pageNumber > 0 && pageNumber <= screenClasses.size()) {
@@ -331,7 +329,6 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     /**
      * @return the page number for the screen.
      */
-    @AI
     public int getPageNumber() {
         List<Class<? extends AbstractFeatureScreen>> screenClasses = getCategoryScreenClasses(getScreenCategory());
         for (int i = 0; i < screenClasses.size(); i++) {

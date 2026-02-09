@@ -1,31 +1,30 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
+import net.dillon.speedrunnermod.entity.ModStatuses;
+import net.dillon.speedrunnermod.item.InfiniPearlItem;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.particle.ModParticleTypes;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.EndermiteEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.rule.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -37,52 +36,43 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
     }
 
     /**
-     * @author Dillon8775
-     * @reason Makes ender pearls do less damage, and implements the {@code Infinit Pearl Mode} feature to work correctly.
+     * Stops the default portal particles from spawning.
      */
-    @Author(Authors.DUNCANRUNS)
-    @Overwrite
-    public void onCollision(HitResult hitResult) {
-        super.onCollision(hitResult);
-        boolean isInfiniPearl = super.getStack().isOf(ModItems.INFINI_PEARL);
+    @Redirect(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticleClient(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V"))
+    private void stopParticles(World instance, ParticleEffect parameters, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+        return;
+    }
 
-        for (int i = 0; i < 32; ++i) {
-            this.getEntityWorld().addParticleClient(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+    /**
+     * Prevents {@code endermite} from spawning if the thrown item was an {@code InfiniPearl.}
+     */
+    @Redirect(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;spawnEntity(Lnet/minecraft/entity/Entity;)Z"))
+    private boolean preventEndermiteFromSpawning(ServerWorld instance, Entity entity) {
+        return !this.isInfiniPearl() && instance.spawnEntity(entity);
+    }
+
+    /**
+     * Prevents the player from taking damage if using an {@code InfiniPearl,} and also adds other side-effects to the ender pearl.
+     */
+    @Redirect(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;damage(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/damage/DamageSource;F)Z"))
+    private boolean cancelOutDamageAndAddEffects(ServerPlayerEntity player, ServerWorld world, DamageSource source, float amount) {
+        if (this.isInfiniPearl()) {
+            return false;
         }
 
-        if (this.getEntityWorld() instanceof ServerWorld serverWorld && !this.isRemoved()) {
-            Entity entity = this.getOwner();
-            if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
-                if (serverPlayerEntity.networkHandler.isConnectionOpen() && serverPlayerEntity.getEntityWorld() == this.getEntityWorld() && !serverPlayerEntity.isSleeping()) {
-                    if (!isInfiniPearl && this.random.nextFloat() < 0.05F && serverWorld.getGameRules().getValue(GameRules.DO_MOB_SPAWNING)) {
-                        EndermiteEntity endermiteEntity = EntityType.ENDERMITE.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
-                        endermiteEntity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), entity.getYaw(), entity.getPitch());
-                        this.getEntityWorld().spawnEntity(endermiteEntity);
-                    }
+        if (isDoomMode() && !player.hasStatusEffect(ModStatusEffects.DRAGONS_AURA) && !(player.isCreative() || player.isSpectator())) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsAsTicks(3), 0));
+        }
+        return player.damage(player.getEntityWorld(), this.getDamageSources().enderPearl(), ModUtil.getEnderPearlDamageValue());
+    }
 
-                    if (entity.hasVehicle()) {
-                        serverPlayerEntity.requestTeleportAndDismount(this.getX(), this.getY(), this.getZ());
-                    } else {
-                        entity.requestTeleport(this.getX(), this.getY(), this.getZ());
-                    }
-
-                    entity.fallDistance = 0.0F;
-                    boolean bl = entity instanceof ServerPlayerEntity && serverPlayerEntity.hasStatusEffect(ModStatusEffects.DRAGONS_AURA);
-                    if (!isInfiniPearl) {
-                        if (isDoomMode() && !bl) {
-                            if (!serverPlayerEntity.isCreative() || !serverPlayerEntity.isSpectator()) {
-                                ((ServerPlayerEntity)entity).addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsAsTicks(3), 0));
-                            }
-                        }
-                        entity.damage(serverWorld, entity.getDamageSources().fall(), ModUtil.getEnderPearlDamageValue());
-                    }
-                }
-            } else if (entity != null) {
-                entity.requestTeleport(this.getX(), this.getY(), this.getZ());
-                entity.fallDistance = 0.0F;
-            }
-
-            this.discard();
+    /**
+     * Spawns particles around the player when landing.
+     */
+    @Inject(method = "onCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/thrown/EnderPearlEntity;playTeleportSound(Lnet/minecraft/world/World;Lnet/minecraft/util/math/Vec3d;)V", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void sendParticleStatus(HitResult hitResult, CallbackInfo ci, ServerWorld serverWorld, Entity entity, Vec3d vec3d) {
+        if (entity instanceof ServerPlayerEntity player) {
+            this.getEntityWorld().sendEntityStatus(player, this.isInfiniPearl() ? ModStatuses.ADD_INFINI_PEARL_LANDING_PARTICLES : ModStatuses.ADD_PEARL_LANDING_PARTICLES);
         }
     }
 
@@ -92,11 +82,18 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
     @Inject(method = "tick", at = @At("TAIL"))
     private void addBluePortalParticlesInfiniPearl(CallbackInfo ci) {
         if (super.getStack().isOf(ModItems.INFINI_PEARL)) {
-            Vec3d vec3d = this.getVelocity();
-            Vec3d vec3d2 = this.getEntityPos();
-            for (int i = 0; i < 32; ++i) {
-                this.getEntityWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, vec3d2.x - vec3d.x * 0.25, vec3d2.y - vec3d.y * 0.25, vec3d2.z - vec3d.z * 0.25, vec3d.x, vec3d.y, vec3d.z);
+            if (!this.isGlowing()) {
+                this.setGlowing(true);
             }
+            this.getEntityWorld().sendEntityStatus(this, ModStatuses.ADD_TRAIL_BLUE_PORTAL_PARTICLES);
         }
+    }
+
+    /**
+     * @return if the stack thrown is a {@link InfiniPearlItem}.
+     */
+    @Unique
+    private boolean isInfiniPearl() {
+        return super.getStack().isOf(ModItems.INFINI_PEARL);
     }
 }

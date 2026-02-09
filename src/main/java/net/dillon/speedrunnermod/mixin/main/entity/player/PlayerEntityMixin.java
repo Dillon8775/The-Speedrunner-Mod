@@ -1,16 +1,17 @@
 package net.dillon.speedrunnermod.mixin.main.entity.player;
 
-import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.SpeedrunnerShieldItem;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.ItemCooldownManager;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -33,30 +34,24 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     public abstract ItemCooldownManager getItemCooldownManager();
     @Shadow
     public abstract boolean damage(ServerWorld world, DamageSource source, float amount);
+    @Shadow
+    public abstract PlayerInventory getInventory();
 
     public PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
 
     /**
-     * Makes the Giant disable players' shields and shield cooldowns work correctly.
+     * Makes the Giant disable player's shields.
      */
     @Inject(method = "takeShieldHit", at = @At("TAIL"))
     private void allowSpeedrunnerShieldToTakeHit(ServerWorld world, LivingEntity attacker, CallbackInfo ci) {
-        if (isDoomMode()) {
-            if (attacker instanceof GiantEntity) {
-                int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
-                int shieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 10 : coolEnchantment == 4 ? 25 : coolEnchantment == 3 ? 50 : coolEnchantment == 2 ? 100 : coolEnchantment == 1 ? 150 : 200;
-                int speedrunnerShieldCooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 15 : coolEnchantment == 3 ? 25 : coolEnchantment == 2 ? 75 : coolEnchantment == 1 ? 150 : 180;
-                this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), shieldCooldown);
-                this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), speedrunnerShieldCooldown);
-                this.clearActiveItem();
-                this.getEntityWorld().sendEntityStatus(this, (byte)30);
-            }
-        } else {
-            int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((PlayerEntity)(Object)this, ModEnchantments.COOLDOWN), (PlayerEntity)(Object)this);
-            int cooldown = coolEnchantment > 5 ? 0 : coolEnchantment == 5 ? 5 : coolEnchantment == 4 ? 10 : coolEnchantment == 3 ? 20 : coolEnchantment == 2 ? 40 : coolEnchantment == 1 ? 60 : 80;
-            this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), cooldown);
+        if (isDoomMode() && attacker instanceof GiantEntity) {
+            int cooldownLevel = (ModUtil.getItemCooldown((PlayerEntity)(Object)this) * 5) * 2 /* Doubled cooldown because it's Giant >:) */;
+            this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), cooldownLevel);
+            this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), (int)(cooldownLevel / SpeedrunnerShieldItem.COOLDOWN_DIVIDER));
+            this.clearActiveItem();
+            this.getEntityWorld().sendEntityStatus(this, (byte)30);
         }
     }
 

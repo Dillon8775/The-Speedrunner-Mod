@@ -1,14 +1,11 @@
 package net.dillon.speedrunnermod.option;
 
-import net.dillon.speedrunnermod.util.AI;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An {@code option value} for any speedrunner mod option, which stores the {@code default value} and {@code current value.}
  */
-@AI
 public class OptionValue<T> {
     private final boolean requiresRestart; // Determines if the option requires a restart upon changing
     private final T defaultValue; // The default value for the option (never changed, only used to reset the currentValue)

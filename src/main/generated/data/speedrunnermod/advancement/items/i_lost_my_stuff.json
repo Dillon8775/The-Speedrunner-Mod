@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:inventory_preserver"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.i_lost_my_stuff.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:inventory_preserver"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.i_lost_my_stuff.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

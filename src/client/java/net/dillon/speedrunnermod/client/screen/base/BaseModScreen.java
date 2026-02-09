@@ -32,7 +32,7 @@ import java.util.function.Function;
  */
 @Environment(EnvType.CLIENT)
 public class BaseModScreen extends GameOptionsScreen {
-    protected TextFieldWidget searchField;
+    public TextFieldWidget searchField;
 
     public BaseModScreen(Screen parent, Text title) {
         super(parent, MinecraftClient.getInstance().options, title);
@@ -175,6 +175,7 @@ public class BaseModScreen extends GameOptionsScreen {
                 PiglinAwakenerScreen.class,
                 BlazeSpotterScreen.class,
                 RaidEradicatorScreen.class,
+                InventoryPreserverScreen.class,
                 SpeedrunnerBulkScreen.class,
                 SpeedrunnersWorkbenchScreen.class
         );
@@ -187,7 +188,7 @@ public class BaseModScreen extends GameOptionsScreen {
         return List.of(
                 SpeedrunnerArmorScreen.class,
                 GoldenSpeedrunnerArmorScreen.class,
-                GoldenSpeedrunnerSmithingTemplateScreen.class,
+                GoldenSmithingTemplateScreen.class,
                 SpeedrunnerSafeBootsScreen.class,
                 SpeedrunnerShieldScreen.class,
                 SpeedrunnerBowAndCrossbowScreen.class,
@@ -195,7 +196,7 @@ public class BaseModScreen extends GameOptionsScreen {
                 SpeedrunnerShearsScreen.class,
                 DashEnchantmentScreen.class,
                 CooldownEnchantmentScreen.class,
-                WitherSwordScreen.class,
+                WitheredEnchantmentScreen.class,
                 DragonsSwordScreen.class
         );
     }

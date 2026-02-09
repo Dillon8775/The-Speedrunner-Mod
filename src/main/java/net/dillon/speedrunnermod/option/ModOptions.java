@@ -540,7 +540,7 @@ public class ModOptions {
      * Returns the current {@code Dragon Perch Time} option in milliseconds.
      */
     public int getDragonPerchTime() {
-        return ModUtil.millisecondsAsSeconds(options().main.dragonPerchTime.getCurrentValue());
+        return options().main.dragonPerchTime.getCurrentValue();
     }
 
     /**

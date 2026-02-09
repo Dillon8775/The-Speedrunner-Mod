@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:ender_matter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.the_end_of_the_matter.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "speedrunnermod:ender_matter"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.the_end_of_the_matter.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

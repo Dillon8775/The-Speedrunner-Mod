@@ -1,124 +1,206 @@
-§3 Wait, these aren't the normal Minecraft end credits...
+§3Uh...
 
-§2 No. This is the beginning of a different story.
+§3These aren't the normal Minecraft end credits...
 
-§2 A new story.
+§2No. They aren't.
 
-§3 What do you mean?
+§2This is something different.
 
-§2 You found the solution.
+§3What do you mean?
 
-§3 What? What do you mean?
+§2You found the solution.
 
-§2 You downloaded this mod to make speedrunning the game easier, right?
+§3What? What do you mean?
 
-§2 You decided that instead of trying to get better at speedrunning the vanilla game, you would download a mod inorder to help you.
+§2You downloaded this mod to make speedrunning the game easier, right?
 
-§3 Well... yeah, that was the point. I'm not that great at speedrunning, so I need to get better.
+§2You decided that instead of trying to get better at speedrunning the vanilla game, you would download a mod inorder to help you.
 
-§2 Ah.
+§3Well... yeah, that was the point.
 
-§2 I see.
+§3I'm not that great at speedrunning, and I wanted to get better.
 
-§3 Who are you?
+§2I see.
 
-§2 I'm just a guy.
+§3Who are you?
 
-§3 A guy? Well, hello, guy...
+§2I'm just a guy.
 
-§3 ...
+§3A guy?
 
-§3 Ok but seriously, what are you doing here?
+§3...
 
-§2 Are you ready?
+§3Seriously, what are you doing here?
 
-§3 Ready for what?
+§2Are you ready?
 
-§2 Are you ready for the challenges that are going to come your way?
+§3Ready for what?
 
-§3 Um... what challenges?
+§2Are you ready for the challenges that are going to come your way?
 
-§2 C'mon, man. Get real. Look around you. Away from the computer. Look at your life. Where are you headed? What is your plan?
+§3Um...
 
-§2 How do you feel about where you are right now?
+§3What challenges?
 
-§3 ...
+§2C'mon, man.
 
-§3 I don't know.
+§2Look around you. Away from the computer.
 
-§2 It's okay.
+§2Look at your §c§olife.
 
-§2 I once didn't know either.
+§2What's your plan?
 
-§2 But then I found someone, someone who got me through it all, in the same way that this mod helped you reach the end.
+§2How do you feel about where you are right now?
 
-§3 Who?
+§3...
 
-§2 His name is Jesus Christ. The creator of all.
+§3I don't know.
 
-§3 Oh.
+§2...
 
-§3 Yeah, I've heard about him. I just don't know though.
+§2It's okay.
 
-§2 Don't know what?
+§2I once didn't know either.
 
-§3 I don't believe in him.
+§2But then I found something...
 
-§2 John 3:36
-§2 "Whoever believes in the Son has eternal life; whoever does not obey the Son shall not see life, but the wrath of God remains on him."
+§2Someone...
 
-§3 I don't know if I can trust him.
+§2Someone who got me through it all.
 
-§2 Proverbs 3:5-6
-§2 "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."
+§2Just like this mod helped you reach §2§othe end.
 
-§3 I've let him down too many times. He doesn't love me.
+§3Who?
 
-§2 John 3:16
-§2 "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."
+§2His name is Jesus Christ.
 
-§2 Romans 5:8
-§2 "but God shows his love for us in that while we were still sinners, Christ died for us."
+§2The creator of all.
 
-§3 I've lost my way. I'm too far gone.
+§3Oh...
 
-§2 Jeramiah 29:11
-§2 "For I know the plans I have for you, plans to prosper you and not to harm you, plans to give you hope and a future."
+§2...
 
-§3 Why should I believe in him?
+§3Yeah... I've heard of him.
 
-§2 Joshua 1:9
-§2 "Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the Lord your God is with you wherever you go."
+§3I just don't know.
 
-§3 It's too much.
+§2Don't know what?
 
-§3 I can't do it.
+§3I don't believe in him.
 
-§2 James 1:12
-§2 "Blessed is the one who remains steadfast under trial because, having stood the test, that person will receive the crown of life that the Lord has promised to those who love him."
+§2John 3:36
+§2"Whoever believes in the Son has eternal life; whoever does not obey the Son shall not see life, but the wrath of God remains on him."
 
-§2 My friend...
+§3But I don't know if I can trust him...
 
-§2 You are not too far gone.
+§2Proverbs 3:5-6
+§2"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."
 
-§2 You may have fallen, but the righteous let the Lord lift them back up (Proverbs 24:16).
+§3I've let him down too many times.
 
-§2 You are not worthy of his love, but you are loved by him regardless. Praise him for it and accept it.
+§3How could he ever love me after the things I've done in my life?
 
-§2 He has a plan for you. Follow it. Pray to Him to guide you.
+§2Romans 5:8
+§2"but God shows his love for us in that while we were still sinners, Christ died for us."
 
-§2 Do not lean on your own understanding, but trust in Him, and cast all of your worries and anxiety to him (1 Peter 5:7).
+§2John 3:16
+§2"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life."
 
-§2 Endure to the end, my friend, and you will be saved (Matthew 10:22, Matthew 24:13).
+§3...
 
-§2 In the same way that this mod helped you speedrun...
+§3I feel like I've lost my way though.
 
-§2 Let Jesus help you through your life.
+§3I've done too many horrible things.
 
-§2 No matter what you have done in your life, my friend...
+§3I've strayed away too many times.
 
-§2 It's never too late to turn to Jesus.
+§3I've been hurt, and heartbroken, too many times...
 
-§2 Turn to Him before it's too late (Isaiah 55:6).
+§3I just...
 
-§2 Amen.
+§3I can't see a future with him...
+
+§3or anyone.
+
+§2PLAYERNAME...
+
+§2Jeramiah 29:11
+§2"For I know the plans I have for you, plans to prosper you and not to harm you, plans to give you hope and a future."
+
+§3...
+
+§3It's too much.
+
+§3I can't do it.
+
+§3Too much has happened...
+
+§3I just want the suffering to end.
+
+§2Joshua 1:9
+§2"Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the Lord your God is with you wherever you go."
+
+§2James 1:12
+§2"Blessed is the one who remains steadfast under trial because, having stood the test, that person will receive the crown of life that the Lord has promised to those who love him."
+
+§2My friend...
+
+§2Listen to me.
+
+§2You are not too far gone.
+
+§2You may have fallen...
+
+§2But the righteous one will let the Lord lift them back up (Proverbs 24:16).
+
+§2Jesus loves you.
+
+§2He always has, and he always will.
+
+§2It doesn't matter what you've done.
+
+§2It doesn't matter what you've been through.
+
+§2It doesn't matter what you §2§owill §r§2go through.
+
+§2He loves you.
+
+§2Not only that...
+
+§2But he understands you.
+
+§2He sees your heart.
+
+§2He knows what you're going through...
+
+§2...better than anyone else ever could.
+
+§2He has a plan for you.
+
+§2Follow it. Follow him.
+
+§2Pray to Him, to guide you.
+
+§2Do not lean on your own understanding, but trust in Him, and cast all of your worries and anxiety to him. (1 Peter 5:7)
+
+§2Endure to the end, my friend... and you will be saved. (Matthew 24)
+
+§2In the same way that this mod helped you reach the end...
+
+§2Jesus will help you each the §2§oreal §r§2end.
+
+§2Let Jesus help you. Through everything.
+
+§2No matter what you have done in your life, my friend...
+
+§2It's never too late to turn to Jesus.
+
+§2Turn to Him before it's too late (Isaiah 55:6).
+
+§2It's in Christ's name I pray this to you...
+
+§2Amen.
+
+
+§2- Dillon8775
+§2(creator of the Speedrunner Mod)

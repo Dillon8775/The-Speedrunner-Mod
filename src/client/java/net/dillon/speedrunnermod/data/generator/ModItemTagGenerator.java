@@ -107,6 +107,12 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.ENCHANTED_GOLDEN_APPLE)
                 .add(Items.GOLDEN_CARROT);
 
+        valueLookupBuilder(ModItemTags.GOLDEN_SPEEDRUNNER_ARMOR)
+                .add(ModItems.GOLDEN_SPEEDRUNNER_HELMET)
+                .add(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE)
+                .add(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS)
+                .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
+
         valueLookupBuilder(ModItemTags.GOLDEN_SPEEDRUNNER_TOOL_MATERIALS)
                 .add(Items.GOLD_INGOT);
 
@@ -169,9 +175,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ModItemTags.TOTEMS)
                 .add(Items.TOTEM_OF_UNDYING)
                 .add(ModItems.SPEEDRUNNERS_TOTEM);
-
-        valueLookupBuilder(ModItemTags.WITHER_TOOL_MATERIALS)
-                .add(ModItems.WITHER_BONE);
 
         valueLookupBuilder(ModItemTags.Block.DOOM_LOGS)
                 .add(ModItems.DOOM_LOG)
@@ -337,7 +340,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_BOOTS)
-                .add(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE);
+                .add(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE);
 
         valueLookupBuilder(ItemTags.PLANKS)
                 .add(ModItems.SPEEDRUNNER_PLANKS)
@@ -401,8 +404,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         valueLookupBuilder(ItemTags.SWORDS)
                 .add(ModItems.SPEEDRUNNER_SWORD)
                 .add(ModItems.GOLDEN_SPEEDRUNNER_SWORD)
-                .add(ModItems.DRAGONS_SWORD)
-                .add(ModItems.WITHER_SWORD);
+                .add(ModItems.DRAGONS_SWORD);
 
         valueLookupBuilder(ItemTags.SHOVELS)
                 .add(ModItems.SPEEDRUNNER_SHOVEL)

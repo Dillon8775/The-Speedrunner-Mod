@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.client;
 
-import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -15,7 +14,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChan
 /**
  * Stores client-synced server options.
  */
-@AI
 @Environment(EnvType.CLIENT)
 public class ClientSyncedServerOptions {
     private static final Map<UUID, List<String>> TRANSLATIONS = new HashMap<>();

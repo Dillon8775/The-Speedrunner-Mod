@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:gold_block",
+    "a": "minecraft:golden_apple"
+  },
+  "pattern": [
+    "BBB",
+    "BaB",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:enchanted_golden_apple"
+  }
+}

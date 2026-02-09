@@ -13,6 +13,7 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * The Speedrunner Mod's {@code "fast world creation"} options, which set the settings of each new world created.
@@ -48,13 +49,15 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     @Override
     protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.difficulty.tooltip"),
+                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.difficulty(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
-                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
+        this.lockOptionWithTooltip(ModListOptions.difficulty(), !isDoomMode(),
+                Text.translatable("speedrunnermod.options.difficulty.tooltip"),
+                clientOptions().client.fastWorldCreation.getCurrentValue() ?
+                        Text.translatable("speedrunnermod.options.difficulty_locked.tooltip") :
+                        Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue(),

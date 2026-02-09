@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -26,6 +25,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.WitherSkullEntity;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -91,10 +91,10 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
         this.waterNavigation = new SwimNavigation(this, this.getEntityWorld());
         this.landNavigation = new MobNavigation(this, this.getEntityWorld());
-        ModUtil.modifyMaxHealth(this, 300.0D);
+        ModUtil.modifyMaxHealth(this, 400.0D);
         ModUtil.modifyMovementSpeed(this, 0.35D);
         ModUtil.modifyAttackDamage(this, 10.0D);
-        ModUtil.modifyAttackKnockback(this, 1.0D);
+        ModUtil.modifyAttackKnockback(this, 1.5D);
     }
 
     /**
@@ -119,7 +119,16 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     public void tick() {
         super.tick();
         if (this.age % 10 == 0) {
-            this.heal(0.6F);
+            this.heal(0.65F);
+        }
+
+        if (this.getHealth() <= this.getMaxHealth() / 3) {
+            for (int i = 0; i < 5; i++) {
+                double d = this.random.nextGaussian() * 0.02;
+                double e = this.random.nextGaussian() * 0.02;
+                double f = this.random.nextGaussian() * 0.02;
+                this.getEntityWorld().addParticleClient(ParticleTypes.ANGRY_VILLAGER, this.getParticleX(1.0), this.getRandomBodyY() + 1.0, this.getParticleZ(1.0), d, e, f);
+            }
         }
 
         this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
@@ -178,7 +187,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
             return false;
         }
 
-        if (this.getHealth() <= 150 && entity instanceof ProjectileEntity projectile) {
+        if (this.getHealth() <= this.getMaxHealth() / 2 && entity instanceof ProjectileEntity projectile) {
             if (projectile.getOwner() != null) {
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 1.0F);
                 projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
@@ -186,11 +195,11 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
             return false;
         }
 
-        if (this.getHealth() <= 100 && entity instanceof PlayerEntity) {
+        if (this.getHealth() <= this.getMaxHealth() / 3 && entity instanceof PlayerEntity) {
             this.heal(ModUtil.randomFloatInclusive(1.15F, 2.95F));
         }
 
-        if (this.random.nextFloat() < 0.10F && !source.isIn(DamageTypeTags.IS_FIRE)) {
+        if ((this.random.nextFloat() < 0.15F || this.getHealth() <= this.getMaxHealth() / 3) && !source.isIn(DamageTypeTags.IS_FIRE)) {
             this.onGiantDamage();
         }
 
@@ -450,7 +459,6 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      * Spawns TNT (13 exactly) entities around Goliath upon dying.
      */
     @Unique
-    @AI
     private void onGiantDeath() {
         int[][] tntData = {
                 { 5,  25,  5, 100},

@@ -2,15 +2,14 @@ package net.dillon.speedrunnermod.mixin.main.entity.living;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
-import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.event.SpeedrunnersTotemUsedCallback;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnersTotemItem;
 import net.dillon.speedrunnermod.mixin.main.entity.player.InventoryAccessor;
-import net.dillon.speedrunnermod.particle.ModParticleTypes;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.util.InventoryPreserver;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.DeathProtectionComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -32,14 +31,14 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.storage.ReadView;
+import net.minecraft.storage.WriteView;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jspecify.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -47,13 +46,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.Collection;
 import java.util.function.Predicate;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity {
+public abstract class LivingEntityMixin extends Entity implements InventoryPreserver {
     @Shadow @Final
     public abstract boolean addStatusEffect(StatusEffectInstance effect);
     @Shadow
@@ -67,7 +65,11 @@ public abstract class LivingEntityMixin extends Entity {
     @Shadow
     public abstract boolean hasStatusEffect(RegistryEntry<StatusEffect> effect);
     @Shadow
-    public abstract Collection<StatusEffectInstance> getStatusEffects();
+    public abstract boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source);
+    @Shadow
+    public abstract void setHealth(float health);
+    @Shadow
+    public abstract ItemStack getActiveOrMainHandStack();
     @Shadow
     public static final Predicate<LivingEntity> NOT_WEARING_GAZE_DISGUISE_PREDICATE = entity -> {
         if (entity instanceof PlayerEntity playerEntity) {
@@ -80,12 +82,8 @@ public abstract class LivingEntityMixin extends Entity {
             return true;
         }
     };
-
-    @Shadow
-    public abstract boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source);
-
-    @Shadow
-    public abstract void setHealth(float health);
+    @Unique
+    private boolean hadInventoryPreserver = false;
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -112,6 +110,60 @@ public abstract class LivingEntityMixin extends Entity {
                 }
             }
         }
+    }
+
+    /**
+     * Prevents the player from losing their inventory upon death.
+     */
+    @Inject(method = "drop", at = @At("HEAD"), cancellable = true)
+    private void preventDrop(ServerWorld world, DamageSource damageSource, CallbackInfo ci) {
+        if ((LivingEntity)(Object)this instanceof PlayerEntity player) {
+            for (int i = 0; i < player.getInventory().size(); i++) {
+                ItemStack stack = player.getInventory().getStack(i);
+                if (stack.isOf(ModItems.INVENTORY_PRESERVER)) {
+                    if (stack.getDamage() + 1 == stack.getMaxDamage()) {
+                        player.getInventory().removeStack(i);
+                    } else {
+                        stack.damage(1, player);
+                    }
+                    this.hadInventoryPreserver = true;
+                    ci.cancel();
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * @return if the player had an inventory preserver upon death.
+     */
+    @Override
+    public boolean hadInventoryPreserver() {
+        return this.hadInventoryPreserver;
+    }
+
+    /**
+     * Removes the inventory preserver from the player.
+     */
+    @Override
+    public void removeInventoryPreserver() {
+        this.hadInventoryPreserver = false;
+    }
+
+    /**
+     * Writes the {@code inventory preserver boolean} to NBT.
+     */
+    @Inject(method = "writeCustomData", at = @At("TAIL"))
+    private void writeInventoryPreserver(WriteView view, CallbackInfo ci) {
+        view.putBoolean("HadInventoryPreserver", this.hadInventoryPreserver);
+    }
+
+    /**
+     * Reads the {@code inventory preserver boolean} from NBT.
+     */
+    @Inject(method = "readCustomData", at = @At("TAIL"))
+    private void readInventoryPreserver(ReadView view, CallbackInfo ci) {
+        this.hadInventoryPreserver = view.getBoolean("HadInventoryPreserver", false);
     }
 
     // Calls the totemUse event if supposed to and not totem of undying, skipping vanilla setHealth stuff
@@ -146,50 +198,6 @@ public abstract class LivingEntityMixin extends Entity {
 
         return stack;
     }
-//
-//    @Inject(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;emitUseGameEvent(Lnet/minecraft/entity/Entity;Lnet/minecraft/registry/entry/RegistryEntry$Reference;)V"), cancellable = true)
-//    private void keepPositiveEffects(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-//        List<StatusEffectInstance> effectsToAdd = new ArrayList<>();
-//        System.out.println("literally running at all");
-//        for (StatusEffectInstance statusEffectInstance : this.getStatusEffects()) {
-//            StatusEffect effect = statusEffectInstance.getEffectType().value();
-//            if (effect.isBeneficial()) {
-//                System.out.println("YAY!");
-//                effectsToAdd.add(statusEffectInstance);
-//            } else {
-//                System.out.println("nope");
-//            }
-//        }
-//
-//        for (StatusEffectInstance effect : effectsToAdd) {
-//            this.addStatusEffect(effect);
-//            System.out.println("OK");
-//        }
-//
-//        this.setHealth(1.0F);
-//        cir.setReturnValue(true);
-//    }
-
-    /**
-     * Implements the {@code BluePortal} particle entity status.
-     */
-    @Inject(method = "handleStatus", at = @At("HEAD"))
-    private void implementBluePortalParticleEntityStatus(byte status, CallbackInfo ci) {
-        switch (status) {
-            case ModStatuses.ADD_BLUE_PORTAL_PARTICLES:
-                for (int j = 0; j < 128; j++) {
-                    double d = j / 127.0;
-                    float f = (this.random.nextFloat() - 0.5F) * 0.2F;
-                    float g = (this.random.nextFloat() - 0.5F) * 0.2F;
-                    float h = (this.random.nextFloat() - 0.5F) * 0.2F;
-                    double e = MathHelper.lerp(d, this.lastX, this.getX()) + (this.random.nextDouble() - 0.5) * this.getWidth() * 2.0;
-                    double k = MathHelper.lerp(d, this.lastY, this.getY()) + this.random.nextDouble() * this.getHeight();
-                    double l = MathHelper.lerp(d, this.lastZ, this.getZ()) + (this.random.nextDouble() - 0.5) * this.getWidth() * 2.0;
-                    this.getEntityWorld().addParticleClient(ModParticleTypes.BLUE_PORTAL, e, k, l, f, g, h);
-                }
-                break;
-        }
-    }
 
     /**
      * Cancels out all fall damage when an entity has the {@code Dragon's Aura effect.}
@@ -209,6 +217,23 @@ public abstract class LivingEntityMixin extends Entity {
         if (this.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
             if (this.random.nextFloat() < 0.45F) {
                 ci.cancel();
+            }
+        }
+    }
+
+    /**
+     * Inflicts the {@code withered} enchantment effects.
+     */
+    @Inject(method = "onAttacking", at = @At("TAIL"))
+    private void witheredEffect(Entity target, CallbackInfo ci) {
+        if (EnchantmentHelper.getLevel(ModUtil.enchantment(this, ModEnchantments.WITHERED), this.getActiveOrMainHandStack()) > 0) {
+            int level = EnchantmentHelper.getLevel(ModUtil.enchantment(this, ModEnchantments.WITHERED), this.getActiveOrMainHandStack());
+            int amplifier = -3 + level;
+            if (amplifier < 0) {
+                amplifier = 0;
+            }
+            if (target instanceof LivingEntity living) {
+                living.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, ModUtil.secondsAsTicks(3 + level), amplifier));
             }
         }
     }

@@ -214,19 +214,19 @@ public class TradeOffersMixin {
                 ImmutableMap.of(
                         1, new TradeOffers.Factory[]{
                                 new TradeOffers.BuyItemFactory(Items.PAPER, 3, 32, 2),
-                                new ModTradeOffers.MaxedEnchantBookFactory(2, 3, 0.01F, 12, EnchantmentTags.TRADEABLE),
+                                new ModTradeOffers.EnchantedBookFactory(2, 3, 0.01F, 12, EnchantmentTags.TRADEABLE),
                                 new TradeOffers.SellItemFactory(Blocks.BOOKSHELF, 3, 1, 24, 2)},
                         2, new TradeOffers.Factory[]{
                                 new TradeOffers.BuyItemFactory(Items.BOOK, 4, 32, 10),
-                                new ModTradeOffers.MaxedEnchantBookFactory(1, 12, 0.01F, 12, EnchantmentTags.TRADEABLE),
+                                new ModTradeOffers.EnchantedBookFactory(1, 12, 0.01F, 12, EnchantmentTags.TRADEABLE),
                                 new TradeOffers.SellItemFactory(Items.LANTERN, 1, 4, 24, 5)},
                         3, new TradeOffers.Factory[]{
                                 new TradeOffers.BuyItemFactory(Items.INK_SAC, 6, 24, 20),
-                                new ModTradeOffers.MaxedEnchantBookFactory(1, 20, 0.01F, 12, EnchantmentTags.TRADEABLE),
+                                new ModTradeOffers.EnchantedBookFactory(1, 20, 0.01F, 12, EnchantmentTags.TRADEABLE),
                                 new TradeOffers.SellItemFactory(Items.GLASS, 1, 4, 64,10)},
                         4, new TradeOffers.Factory[]{
                                 new TradeOffers.BuyItemFactory(Items.WRITABLE_BOOK, 1, 32, 30),
-                                new ModTradeOffers.MaxedEnchantBookFactory(1, 32, 0.01F, 12, EnchantmentTags.TRADEABLE),
+                                new ModTradeOffers.EnchantedBookFactory(1, 32, 0.01F, 12, EnchantmentTags.TRADEABLE),
                                 new TradeOffers.SellItemFactory(Items.CLOCK, 5, 1, 15),
                                 new TradeOffers.SellItemFactory(Items.COMPASS, 4, 1, 15)},
                         5, new TradeOffers.Factory[]{

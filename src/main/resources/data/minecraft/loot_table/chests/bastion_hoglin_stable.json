@@ -440,7 +440,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "speedrunnermod:golden_speedrunner_upgrade_smithing_template"
+          "name": "speedrunnermod:golden_upgrade_smithing_template"
         }
       ],
       "rolls": 1.0

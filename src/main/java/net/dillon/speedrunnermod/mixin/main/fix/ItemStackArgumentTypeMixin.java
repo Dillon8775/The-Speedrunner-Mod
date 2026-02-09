@@ -5,7 +5,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
@@ -29,7 +28,6 @@ public class ItemStackArgumentTypeMixin {
     /**
      * Fixes suggestions bug when typing in speedrunner mod items.
      */
-    @AI
     @Inject(method = "listSuggestions", at = @At("HEAD"), cancellable = true)
     private void fixCommandArgumentSuggestions(CommandContext<CommandSource> context, SuggestionsBuilder builder, CallbackInfoReturnable<CompletableFuture<Suggestions>> cir) {
         String input = builder.getRemaining(); // Get user-typed input
@@ -54,7 +52,6 @@ public class ItemStackArgumentTypeMixin {
     /**
      * Fixes bug where typing in a speedrunner mod item does without the {@code "speedrunnermod:"} namespace, doesn't work.
      */
-    @AI
     @Inject(method = "parse(Lcom/mojang/brigadier/StringReader;)Lnet/minecraft/command/argument/ItemStackArgument;", at = @At("HEAD"), cancellable = true)
     private void modifyItemParsing(StringReader reader, CallbackInfoReturnable<ItemStackArgument> cir) {
         int cursor = reader.getCursor();

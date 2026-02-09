@@ -1,8 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.phase.PhaseType;
@@ -13,8 +15,8 @@ import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -23,12 +25,9 @@ import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
@@ -42,66 +41,66 @@ public class DragonsPearlItem extends Item implements EyeItem {
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (!world.isClient()) {
-            if (!isBalancedMode()) {
-                if (world.getRegistryKey() == World.END) {
-                    List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(options().advanced.dragonsPearlSearchRadius.getCurrentValue().getFirst(), options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(1), options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(2)), entity -> true);
+        if (world.isClient()) {
+            return ActionResult.CONSUME;
+        } else if (this.isDisabled()) {
+            this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_DEATH, world, player);
+            stack.decrement(1);
+            player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
+            player.swingHand(hand, true);
+            player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
+            player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);
+            player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
+            player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
+        } else if (world.getRegistryKey() != World.END) {
+            this.playPitchedLaunchSound(5.0F, world, player);
+            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").formatted(Formatting.LIGHT_PURPLE));
+        } else {
+            List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(
+                    options().advanced.dragonsPearlSearchRadius.getCurrentValue().getFirst(),
+                    options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(1),
+                    options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(2)),
+                    entity -> true);
 
-                    if (!dragons.isEmpty()) {
-                        EnderDragonEntity enderDragon = dragons.get(0);
-                        if (!isDragonAlreadyPerchingOrPerched(enderDragon) && !isDragonDead(enderDragon)) {
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 2.0F, 0.3F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(30));
+            if (dragons.isEmpty()) {
+                this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, 3.0F, world, player);
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.cannot_find_dragon").formatted(Formatting.LIGHT_PURPLE));
+            } else {
+                EnderDragonEntity enderDragon = dragons.get(0);
+                if (!isDragonAlreadyPerchingOrPerched(enderDragon) && !isDragonDead(enderDragon)) {
+                    this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, 2.0F, 0.3F, world, player);
+                    player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(30));
 
-                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+                    ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
 
-                            if (!player.getAbilities().creativeMode) {
-                                stack.decrement(1);
-                            }
+                    this.decrementIfPossible(player, stack);
 
-                            new Timer().schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
-                                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
-                                    ModUtil.completeStepS2C(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
-                                }
-                            }, ModUtil.millisecondsAsSeconds(2));
-                            return ActionResult.SUCCESS;
+                    TaskScheduler.schedule(ModUtil.secondsAsTicks(2), () -> {
+                        enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
+                        this.playWorldSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 3.0F, 0.65F, world, player);
+                        ModUtil.completeStepS2C(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
+                    });
+
+                    player.incrementStat(Stats.USED.getOrCreateStat(this));
+                    player.swingHand(hand, true);
+                    return ActionResult.SUCCESS;
+                } else {
+                    if (!isDragonDead(enderDragon)) {
+                        if (isDragonSitting(enderDragon)) {
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.already_perched").formatted(Formatting.LIGHT_PURPLE));
                         } else {
-                            if (!isDragonDead(enderDragon)) {
-                                if (isDragonSitting(enderDragon)) {
-                                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.already_perched").formatted(Formatting.LIGHT_PURPLE));
-                                } else {
-                                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.already_perching").formatted(Formatting.LIGHT_PURPLE));
-                                }
-                            } else {
-                                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.dragon_dead").formatted(Formatting.LIGHT_PURPLE));
-                            }
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
+                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.already_perching").formatted(Formatting.LIGHT_PURPLE));
                         }
                     } else {
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 3.0F);
-                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.cannot_find_dragon").formatted(Formatting.LIGHT_PURPLE));
+                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.dragon_dead").formatted(Formatting.LIGHT_PURPLE));
                     }
-                } else {
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").formatted(Formatting.LIGHT_PURPLE));
+                    this.playPitchedLaunchSound(5.0F, world, player);
+                    player.swingHand(hand, true);
                 }
-                player.swingHand(hand, true);
-            } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
-                player.swingHand(hand, true);
-                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_DEATH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                stack.decrement(1);
-                player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
-                player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);
-                player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
-                player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
             }
         }
 
-        return ActionResult.SUCCESS;
+        return ActionResult.CONSUME;
     }
 
     /**
@@ -129,9 +128,15 @@ public class DragonsPearlItem extends Item implements EyeItem {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip"));
-        if (isBalancedMode()) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
-        }
+        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_pearl.tooltip")
+                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
+        this.addStateOfTheArtItemTooltip(textConsumer);
+    }
+
+    @Override
+    public ModOptions.Mode[] disabledModes() {
+        return new ModOptions.Mode[]{
+                ModOptions.Mode.BALANCED
+        };
     }
 }

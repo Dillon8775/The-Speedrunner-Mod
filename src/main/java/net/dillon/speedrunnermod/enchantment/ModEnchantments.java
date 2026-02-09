@@ -15,6 +15,8 @@ public class ModEnchantments {
     public static final RegistryKey<Enchantment> DASH = register("dash");
     // For items that have a "cooldown" (shields, ender pearls, chorus fruit, etc.), this lowers the cooldown on those items
     public static final RegistryKey<Enchantment> COOLDOWN = register("cooldown");
+    // Inflicts target with wither effect for 3-7 seconds (based on level), and gives increased chance of wither skeleton skulls
+    public static final RegistryKey<Enchantment> WITHERED = register("withered");
 
     /**
      * Registers a {@code enchantment}

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
@@ -13,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
@@ -28,7 +30,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 public class DragonsSwordItem extends Item implements EyeItem {
 
     public DragonsSwordItem(Item.Settings settings) {
-        super(settings.sword(ModToolMaterials.DRAGONS_SWORD, 9, -2.4F).rarity(Rarity.EPIC));
+        super(settings.sword(ModToolMaterials.DRAGONS_SWORD, 6, -2.4F).rarity(Rarity.EPIC));
     }
 
     /**
@@ -38,7 +40,10 @@ public class DragonsSwordItem extends Item implements EyeItem {
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
             if (isEasyMode()) {
-                dragon.setHealth(0.0F);
+                if (dragon.getEntityWorld() instanceof ServerWorld serverWorld) {
+                    dragon.setHealth(1.0F);
+                    dragon.damage(serverWorld, dragon.getDamageSources().generic(), 100.0F); // Enough damage to kill the dragon
+                }
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
             } else {
                 if (isDoomMode()) {
@@ -65,10 +70,18 @@ public class DragonsSwordItem extends Item implements EyeItem {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.tooltip").formatted(isDoomMode() ? Formatting.STRIKETHROUGH : Formatting.WHITE));
-        if (isDoomMode()) {
+        textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.tooltip")
+                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.WHITE).formatted(Formatting.GRAY));
+        if (this.isDisabled()) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.dragons_sword.doom_mode").formatted(Formatting.RED));
         }
         this.addStateOfTheArtItemTooltip(textConsumer);
+    }
+
+    @Override
+    public ModOptions.Mode[] disabledModes() {
+        return new ModOptions.Mode[]{
+                ModOptions.Mode.DOOM
+        };
     }
 }

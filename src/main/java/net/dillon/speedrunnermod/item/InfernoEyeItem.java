@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -10,7 +11,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -34,42 +34,40 @@ public class InfernoEyeItem extends Item implements EyeItem {
 
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
+        ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient()) {
-            if (world.getRegistryKey() == World.NETHER) {
-                if (player.isSneaking()) {
-                    if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.FORTRESSES)) {
-                        itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.BASTIONS);
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.HOSTILE, 2.0F, 1.0F);
-                    } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.BASTIONS)) {
-                        itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.FORTRESSES);
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, SoundCategory.HOSTILE, 2.0F, 1.0F);
-                    }
-
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
-                } else {
-                    player.sendMessage(ModTexts.CALCULATING, false);
-                    ModUtil.findStructureAndShoot(world, player, itemStack, itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 0.8F));
-
-                    ModUtil.completeStepS2C(TutorialStep.USE_INFERNO_EYE, player,
-                            "speedrunnermod.tutorial_mode.used_inferno_eye",
-                            isEasyMode() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
-                                    "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
-
-                    if (!player.getAbilities().creativeMode) {
-                        itemStack.decrement(1);
-                    }
+        if (world.isClient()) {
+            return ActionResult.CONSUME;
+        } else if (world.getRegistryKey() != World.NETHER) {
+            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.wrong_dimension"), Formatting.RED, Formatting.WHITE);
+        } else {
+            if (player.isSneaking()) {
+                if (stack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.FORTRESSES)) {
+                    stack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.BASTIONS);
+                    this.playWorldSound(SoundEvents.ENTITY_PIGLIN_AMBIENT, 2.0F, 1.0F, world, player);
+                } else if (stack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.BASTIONS)) {
+                    stack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.FORTRESSES);
+                    this.playWorldSound(SoundEvents.ENTITY_BLAZE_AMBIENT, 2.0F, 1.0F, world, player);
                 }
 
-                player.incrementStat(Stats.USED.getOrCreateStat(this));
-                player.swingHand(hand, true);
-                return ActionResult.SUCCESS;
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye.looking_for", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
             } else {
-                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.wrong_dimension"), Formatting.RED, Formatting.WHITE);
+                player.sendMessage(ModTexts.CALCULATING, false);
+                ModUtil.findStructureAndShoot(world, player, stack, stack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
+                this.playWorldSound(SoundEvents.ITEM_FIRECHARGE_USE, 0.5F, 1.0F, world, player);
+
+                ModUtil.completeStepS2C(TutorialStep.USE_INFERNO_EYE, player,
+                        "speedrunnermod.tutorial_mode.used_inferno_eye",
+                        isEasyMode() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
+                                "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
+
+                this.decrementIfPossible(player, stack);
             }
+
+            player.incrementStat(Stats.USED.getOrCreateStat(this));
+            player.swingHand(hand, true);
+            return ActionResult.SUCCESS;
         }
 
         return ActionResult.CONSUME;
@@ -77,7 +75,12 @@ public class InfernoEyeItem extends Item implements EyeItem {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_inferno.tooltip"));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_inferno.tooltip").formatted(Formatting.GRAY));
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))).formatted(Formatting.BOLD));
+    }
+
+    @Override
+    public ModOptions.Mode[] disabledModes() {
+        return new ModOptions.Mode[]{};
     }
 }

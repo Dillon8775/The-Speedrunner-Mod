@@ -1,9 +1,13 @@
 package net.dillon.speedrunnermod.util;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
 import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
@@ -16,7 +20,10 @@ import net.minecraft.entity.EyeOfEnderEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.DragonFireballEntity;
@@ -98,7 +105,41 @@ public class ModUtil {
     }
 
     /**
-     * Returns the player's death coordinates as a clickable text to teleport right to it.
+     * Registers the {@code Inventory Preservers} function.
+     */
+    public static void registerInventoryPreserver() {
+        ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> {
+            if (alive) {
+                return; // Not a death
+            }
+
+            if (hasInventoryPreserver(oldPlayer)) {
+                copyInventory(oldPlayer, newPlayer);
+                ((InventoryPreserver)newPlayer).removeInventoryPreserver();
+                TaskScheduler.schedule(1, () -> {
+                    newPlayer.getEntityWorld().playSound(null, newPlayer.getX(), newPlayer.getY(), newPlayer.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.PLAYERS, 3.0F, 1.0F);
+                    ModCriterions.TRIGGERED_BY_ITEM.trigger(newPlayer, new ItemStack(ModItems.INVENTORY_PRESERVER));
+                });
+            }
+        });
+    }
+
+    /**
+     * Copies inventory from {@code oldPlayer} to {@code newPlayer.}
+     */
+    private static void copyInventory(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer) {
+        newPlayer.getInventory().clone(oldPlayer.getInventory());
+    }
+
+    /**
+     * @return true if the oldPlayer's inventory contains a {@code Inventory Preserver.}
+     */
+    private static boolean hasInventoryPreserver(PlayerEntity oldPlayer) {
+        return ((InventoryPreserver)(oldPlayer)).hadInventoryPreserver();
+    }
+
+    /**
+     * Returns the oldPlayer's death coordinates as a clickable text to teleport right to it.
      */
     public static Text deathCords(double x, double y, double z) {
         return Text.translatable("speedrunnermod.player_death_cords",
@@ -111,7 +152,7 @@ public class ModUtil {
     }
 
     /**
-     * Sends a message to the player with the mod prefix.
+     * Sends a message to the oldPlayer with the mod prefix.
      */
     public static void sendWithPrefix(String string, PlayerEntity player) {
         player.sendMessage((ModTexts.BLANK).copy().append((Text.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Text.translatable(string)), false);
@@ -125,14 +166,14 @@ public class ModUtil {
     }
 
     /**
-     * Sends a player message with the actionbar preference and formatting.
+     * Sends a oldPlayer message with the actionbar preference and formatting.
      */
     public static void sendMessageWithActionbarPref(PlayerEntity player, Text text) {
         player.sendMessage(text, ServerStorage.shouldShowInActionbar(player.getUuid()));
     }
 
     /**
-     * Sends a player message with the actionbar preference and formatting with formatting for actionbar on/off.
+     * Sends a oldPlayer message with the actionbar preference and formatting with formatting for actionbar on/off.
      */
     public static void sendMessageWithActionbarPref(PlayerEntity player, Text text, Formatting actionbar, Formatting chat) {
         player.sendMessage(text.copy().formatted(ModUtil.toFormatting(player.getUuid(), actionbar, chat)), ServerStorage.shouldShowInActionbar(player.getUuid()));
@@ -146,6 +187,54 @@ public class ModUtil {
             List<String> messageKeysList = new ArrayList<>(Arrays.asList(messageKeys));
             ServerPlayNetworking.send(serverPlayer, new CompleteTutorialStepS2CPacket(step, messageKeysList));
         }
+    }
+
+    /**
+     * @return true if a dragon is alive, near the ender dragon.
+     */
+    public static boolean isGiantAlive(EnderDragonEntity dragon) {
+        List<GiantEntity> giants = dragon.getEntityWorld().getEntitiesByClass(GiantEntity.class,
+                dragon.getBoundingBox().expand(
+                        options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().getFirst(),
+                        options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(1),
+                        options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(2)),
+                entity -> true);
+
+        for (GiantEntity giant : giants) {
+            if (giant.isAlive()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return true if a wither is alive, near the ender dragon.
+     */
+    public static boolean isWitherAlive(EnderDragonEntity dragon) {
+        List<WitherEntity> withers = dragon.getEntityWorld().getEntitiesByClass(WitherEntity.class,
+                dragon.getBoundingBox().expand(
+                        options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().getFirst(),
+                        options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(1),
+                        options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(2)),
+                entity -> true);
+
+        for (WitherEntity wither : withers) {
+            if (wither.isAlive()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if a giant and/or a wither are alive.
+     * <p>If either are present, the ender dragon {@code cannot die.}</p>
+     */
+    public static boolean isGiantOrWitherAlive(EnderDragonEntity dragon) {
+        return isGiantAlive(dragon) || isWitherAlive(dragon);
     }
 
     /**
@@ -200,7 +289,7 @@ public class ModUtil {
     }
 
     /**
-     * Spawns a {@code floating item entity} from the player's position.
+     * Spawns a {@code floating item entity} from the oldPlayer's position.
      */
     public static void spawnFloatingItemEntity(World world, ItemStack stack, PlayerEntity player) {
         spawnFloatingItemEntity(world, player.getBlockPos(), stack, player, false);
@@ -274,6 +363,21 @@ public class ModUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * @return the item cooldown with the cooldown enchantment.
+     */
+    public static int getItemCooldown(PlayerEntity playerEntity) {
+        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment(playerEntity, ModEnchantments.COOLDOWN), playerEntity);
+        return coolEnchantment > 3 ? 0 : coolEnchantment == 3 ? 5 : coolEnchantment == 2 ? 10 : coolEnchantment == 1 ? 15 : 20;
+    }
+
+    /**
+     * Applies the correct shield cooldown.
+     */
+    public static void applyItemCooldown(PlayerEntity playerEntity, ItemStack shield) {
+        playerEntity.getItemCooldownManager().set(shield, getItemCooldown(playerEntity));
     }
 
     /**
@@ -390,13 +494,6 @@ public class ModUtil {
     }
 
     /**
-     * Converts seconds to milliseconds.
-     */
-    public static int millisecondsAsSeconds(int seconds) {
-        return seconds * 1000;
-    }
-
-    /**
      * Converts seconds to ticks.
      */
     public static int secondsAsTicks(int seconds) {
@@ -492,7 +589,7 @@ public class ModUtil {
     }
 
     /**
-     * @return how long it takes for a player to lose an air bubble (in seconds).
+     * @return how long it takes for a oldPlayer to lose an air bubble (in seconds).
      */
     public static int getPlayerBreathTime() {
         return options().advanced.higherBreathTime.getCurrentValue() ? 8 : 4;

@@ -3,14 +3,12 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.util.AI;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * Contains all of the {@code end biome modifications.}
  */
-@AI
 public class TheEndBiomesLoader {
 
     /**
@@ -36,7 +34,7 @@ public class TheEndBiomesLoader {
         vindicator.addProperty("type", "minecraft:vindicator");
         vindicator.addProperty("maxCount", 2);
         vindicator.addProperty("minCount", 1);
-        vindicator.addProperty("weight", 65);
+        vindicator.addProperty("weight", 60);
 
         JsonObject zombie = new JsonObject();
         zombie.addProperty("type", "minecraft:zombie");
@@ -50,6 +48,12 @@ public class TheEndBiomesLoader {
         ravager.addProperty("minCount", 1);
         ravager.addProperty("weight", 40);
 
+        JsonObject phantom = new JsonObject();
+        phantom.addProperty("type", "minecraft:phantom");
+        phantom.addProperty("maxCount", 1);
+        phantom.addProperty("minCount", 1);
+        phantom.addProperty("weight", 40);
+
         JsonObject evoker = new JsonObject();
         evoker.addProperty("type", "minecraft:evoker");
         evoker.addProperty("maxCount", 1);
@@ -62,14 +66,22 @@ public class TheEndBiomesLoader {
         breeze.addProperty("minCount", 1);
         breeze.addProperty("weight", 25);
 
+        JsonObject witch = new JsonObject();
+        witch.addProperty("type", "minecraft:witch");
+        witch.addProperty("maxCount", 1);
+        witch.addProperty("minCount", 1);
+        witch.addProperty("weight", 5);
+
         theEndMonsters.add(enderman);
         if (isDoomMode()) {
             theEndMonsters.add(skeleton);
             theEndMonsters.add(vindicator);
             theEndMonsters.add(ravager);
+            theEndMonsters.add(phantom);
             theEndMonsters.add(evoker);
             theEndMonsters.add(zombie);
             theEndMonsters.add(breeze);
+            theEndMonsters.add(witch);
         }
 
         theEndSpawners.getAsJsonArray("monster").addAll(theEndMonsters);

@@ -20,12 +20,15 @@ import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.screen.ModScreenHandlerTypes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.*;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.dillon.speedrunnermod.village.ModPointOfInterestTypes;
 import net.dillon.speedrunnermod.village.ModTradeOffers;
 import net.dillon.speedrunnermod.village.ModVillagers;
 import net.dillon.speedrunnermod.world.ModWorldGen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.util.Identifier;
@@ -96,6 +99,9 @@ public class SpeedrunnerMod implements ModInitializer {
         ModFuels.registerFuels();
 
         ModScreenHandlerTypes.initializeScreenHandlers();
+
+        ServerTickEvents.END_SERVER_TICK.register(TaskScheduler::tick);
+        ModUtil.registerInventoryPreserver();
 
         // Get all mod ids, add and sort
         options().advanced.modIds.getCurrentValue().clear();

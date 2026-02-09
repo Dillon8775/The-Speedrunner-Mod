@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -105,7 +104,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * Gets the current options when opening the screen.
      */
-    @AI
     public static void getCurrentOptions() {
         restartTrackedValues.clear();
         initialValues.clear();
@@ -118,7 +116,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * Scans each option in the {@code options class} to determine if it requires a restart.
      */
-    @AI
     private static void scanOptions(Object optionsClass) {
         if (optionsClass == null) {
             SpeedrunnerMod.error("Options class is null");
@@ -159,7 +156,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * @return {@code true} if the game needs a restart due to a {@code restart required} option.
      */
-    @AI
     public static boolean needsRestart() {
         for (int i = 0; i < restartTrackedValues.size(); i++) {
             OptionValue<?> option = restartTrackedValues.get(i);
@@ -175,7 +171,6 @@ public class RestartRequiredScreen extends AbstractModScreen {
     /**
      * Revert the changes back to it's original value before the screen was opened.
      */
-    @AI
     private static void revertChanges() {
         for (int i = 0; i < restartTrackedValues.size(); i++) {
             @SuppressWarnings("unchecked")

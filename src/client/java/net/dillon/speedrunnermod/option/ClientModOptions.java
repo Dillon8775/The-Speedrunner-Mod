@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.option;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -205,7 +204,6 @@ public class ClientModOptions {
     /**
      * All booleans for doing certain things in the tutorial mode.
      */
-    @AI
     public static class TutorialMode implements net.dillon.speedrunnermod.tutorial.TutorialMode {
         public OptionValue<Boolean> enterWorld = new OptionValue<>(false, false);
         public OptionValue<Boolean> obtainedSpeedrunnerPickaxe = new OptionValue<>(false, false);
@@ -244,14 +242,12 @@ public class ClientModOptions {
         public OptionValue<Boolean> obtainedEnderThruster = new OptionValue<>(false, false);
         public OptionValue<Boolean> usedEnderThruster = new OptionValue<>(false, false);
         public OptionValue<Boolean> obtainedDragonsSword = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedWitherBone = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedWitherSword = new OptionValue<>(false, false);
         public OptionValue<Boolean> obtainedEnderMatter = new OptionValue<>(false, false);
         public OptionValue<Boolean> obtainedInfiniPearl = new OptionValue<>(false, false);
 
         @Override
         public boolean getStep(TutorialStep step) {
-            return switch (step) {
+            /*return switch (step) {
                 case ENTER_WORLD -> enterWorld.getCurrentValue();
                 case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe.getCurrentValue();
                 case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle.getCurrentValue();
@@ -289,11 +285,10 @@ public class ClientModOptions {
                 case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster.getCurrentValue();
                 case USE_ENTER_THRUSTER -> usedEnderThruster.getCurrentValue();
                 case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword.getCurrentValue();
-                case OBTAIN_WITHER_BONE -> obtainedWitherBone.getCurrentValue();
-                case OBTAIN_WITHER_SWORD -> obtainedWitherSword.getCurrentValue();
                 case OBTAIN_ENDER_MATTER -> obtainedEnderMatter.getCurrentValue();
                 case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl.getCurrentValue();
-            };
+            };*/
+            return true;
         }
 
         @Override
@@ -336,8 +331,6 @@ public class ClientModOptions {
                 case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster.set(value);
                 case USE_ENTER_THRUSTER -> usedEnderThruster.set(value);
                 case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword.set(value);
-                case OBTAIN_WITHER_BONE -> obtainedWitherBone.set(value);
-                case OBTAIN_WITHER_SWORD -> obtainedWitherSword.set(value);
                 case OBTAIN_ENDER_MATTER -> obtainedEnderMatter.set(value);
                 case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl.set(value);
             }
@@ -487,7 +480,6 @@ public class ClientModOptions {
     /**
      * Resets all of the {@code speedrunner mod options} back to factory default.
      */
-    @AI
     public static void resetAllOptions() {
         configHandler().resetToDefault();
         resetTutorialModeProgression();
@@ -496,7 +488,6 @@ public class ClientModOptions {
     /**
      * Resets all of the {@code speedrunner mod client-side options} back to factory default.
      */
-    @AI
     public static void resetAllClientOptions() {
         clientConfigHandler().resetToDefault();
     }

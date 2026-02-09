@@ -2,7 +2,7 @@
 
 #### §7§lVindicators §r§fspawn all across the §aoverworld§r§f and §dthe end.
 
-#### §e§lEvokers,§r§f §9§lBreezes,§r§f and §7§lRavagers§r§f spawn in §dthe end.
+#### §e§lEvokers,§r§f §9§lBreezes,§r§b§l Phantoms §r§fand §7§lRavagers§r§f spawn in §dthe end.
 
 #### §6§lPiglin Brutes§r§f spawn all across §cthe nether.
 

@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.packet.server;
 
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.packet.CustomPayload;
@@ -11,7 +10,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * Requests mod options from client-to-server.
  */
-@AI
 public record RequestServerSideOptionsC2SPacket() implements CustomPayload {
     public static final Identifier ID = ofSpeedrunnerMod("request_server_side_options_c2s");
     public static final CustomPayload.Id<RequestServerSideOptionsC2SPacket> PACKET = new CustomPayload.Id<>(ID);

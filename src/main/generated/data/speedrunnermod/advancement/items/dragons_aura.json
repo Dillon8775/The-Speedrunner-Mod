@@ -1,0 +1,37 @@
+{
+  "parent": "speedrunnermod:items/the_end_of_the_matter",
+  "criteria": {
+    "obtain_item": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:potion"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.dragons_aura.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "speedrunnermod:dragons_aura"
+        }
+      },
+      "count": 1,
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.dragons_aura.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "speedrunnermod:experience_fragment"
+  ],
+  "result": {
+    "count": 2,
+    "id": "minecraft:experience_bottle"
+  }
+}

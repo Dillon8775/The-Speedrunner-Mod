@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": "#speedrunnermod:speedrunner_sticks",
+    "P": "minecraft:blaze_powder"
+  },
+  "pattern": [
+    "P",
+    "P",
+    "/"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:blaze_rod"
+  }
+}

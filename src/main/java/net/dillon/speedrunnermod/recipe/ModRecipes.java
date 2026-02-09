@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.recipe;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.recipe.boat.*;
 import net.dillon.speedrunnermod.recipe.boat.chest.*;
+import net.dillon.speedrunnermod.util.InventoryPreserver;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -44,6 +45,9 @@ public class ModRecipes {
             Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_warped_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(WarpedChestBoatRecipe::new));
     public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_WARPED_CHEST_BOAT_RECIPE_SERIALIZER =
             Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_warped_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofWarpedChestBoatRecipe::new));
+
+    public static final RecipeSerializer<InventoryPreserverRecipe> INVENTORY_PRESERVER_RECIPE_SERIALIZER =
+            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_inventory_preserver"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(InventoryPreserverRecipe::new));
 
     protected static final RecipeSerializer<DragonFireballRecipe> DRAGON_FIREBALL_RECIPE_RECIPE_SERIALIZER =
             Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_dragon_fireball"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(DragonFireballRecipe::new));

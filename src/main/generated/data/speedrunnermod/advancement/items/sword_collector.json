@@ -71,16 +71,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_wither_sword": {
-      "conditions": {
-        "items": [
-          {
-            "items": "speedrunnermod:wither_sword"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "has_wood_sword": {
       "conditions": {
         "items": [
@@ -127,9 +117,6 @@
     ],
     [
       "has_golden_speedrunner_sword"
-    ],
-    [
-      "has_wither_sword"
     ],
     [
       "has_dragons_sword"

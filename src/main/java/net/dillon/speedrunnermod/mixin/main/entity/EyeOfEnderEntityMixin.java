@@ -62,9 +62,9 @@ public abstract class EyeOfEnderEntityMixin extends Entity {
             if (this.getStack().getItem() == Items.ENDER_EYE || this.getStack().getItem() == ModItems.SPEEDRUNNERS_EYE) {
                 this.playSound(SoundEvents.ENTITY_ENDER_EYE_DEATH, 1.0F, 1.0F);
             } else if (this.getStack().getItem() == ModItems.INFERNO_EYE) {
-                this.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0F, 1.0F);
+                this.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0F, 0.4F);
             }
-            this.discard(); // cancel out vanilla code
+            this.discard();
             ci.cancel();
             if (isDoomMode()) {
                 if (this.getStack().getItem() == Items.ENDER_EYE) {

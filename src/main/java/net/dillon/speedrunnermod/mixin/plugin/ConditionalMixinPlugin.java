@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.BaseOptions;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
@@ -19,7 +18,6 @@ import java.util.Set;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.isEnvironmentTypeServer;
 import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 
-@AI
 public class ConditionalMixinPlugin implements IMixinConfigPlugin {
 
     /**
@@ -72,7 +70,6 @@ public class ConditionalMixinPlugin implements IMixinConfigPlugin {
      * Reads a boolean from the options file.
      * <p>Used with conditional mixin plugins to prevent crashing.</p>
      */
-    @AI
     private static boolean readOptionAsBoolean() {
         File configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), ModUtil.CONFIG_FILE_NAME);
 

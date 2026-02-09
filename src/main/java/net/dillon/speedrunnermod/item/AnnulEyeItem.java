@@ -2,10 +2,12 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.entity.ModStatuses;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -17,7 +19,6 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
@@ -48,76 +49,71 @@ public class AnnulEyeItem extends Item implements EyeItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient()) {
-            if (world.getRegistryKey() == World.OVERWORLD) {
-                if (!isBalancedMode()) {
-                    boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));
-                    boolean hasEnderPearl = player.getInventory().contains(new ItemStack(Items.ENDER_PEARL));
-                    boolean hasRequiredItems = hasEnderEye && hasEnderPearl;
+        if (world.isClient()) {
+            return ActionResult.CONSUME;
+        } else if (isBalancedMode()) {
+            this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, world, player);
+            player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
+            player.swingHand(hand, true);
+            stack.decrement(1);
+            player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
+            player.dropItem((ServerWorld)world, Items.ENDER_EYE);
+            player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);
+        } else if (world.getRegistryKey() != World.OVERWORLD) {
+            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.wrong_dimension"), Formatting.GREEN, Formatting.WHITE);
+        } else {
+            boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));
+            boolean hasEnderPearl = player.getInventory().contains(new ItemStack(Items.ENDER_PEARL));
+            boolean hasRequiredItems = (hasEnderEye && hasEnderPearl) || player.getAbilities().creativeMode;
 
-                    if (player.getAbilities().creativeMode) {
-                        hasRequiredItems = true;
-                    }
-
-                    if (hasRequiredItems) {
-                        player.sendMessage(ModTexts.CALCULATING, false);
-                        BlockPos endPortalFrameBlock = findPortalRoom(world, player.getBlockPos());
-
-                        if (endPortalFrameBlock != null) {
-                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
-                            player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, true);
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 1.0F, 1.0F);
-                            player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
-
-                            ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
-
-                            ModUtil.completeStepS2C(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
-
-                            if (!player.getAbilities().creativeMode) {
-                                stack.decrement(1);
-                                this.decrementItem(player, Items.ENDER_EYE);
-                                this.decrementItem(player, Items.ENDER_PEARL);
-                            }
-
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
-                            player.incrementStat(Stats.USED.getOrCreateStat(this));
-                            player.swingHand(hand, true);
-                            return ActionResult.SUCCESS;
-                        } else {
-                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED));
-                        }
-                    } else {
-                        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 5.0F);
-                        player.swingHand(hand, true);
-                        if (!hasEnderEye && !hasEnderPearl) {
-                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.has_none").formatted(Formatting.DARK_GREEN));
-                        } else if (!hasEnderEye) {
-                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_eye").formatted(Formatting.GREEN));
-                        } else {
-                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_pearl").formatted(Formatting.BLUE));
-                        }
-                    }
+            if (!hasRequiredItems) {
+                if (!hasEnderEye && !hasEnderPearl) {
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.has_none").formatted(Formatting.DARK_GREEN));
+                } else if (!hasEnderEye) {
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_eye").formatted(Formatting.GREEN));
                 } else {
-                    player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.LIGHT_PURPLE), false);
-                    player.swingHand(hand, true);
-                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDER_EYE_LAUNCH, SoundCategory.NEUTRAL, 1.0F, 0.5F);
-                    stack.decrement(1);
-                    player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
-                    player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
-                    player.dropItem((ServerWorld)world, Items.BLAZE_POWDER);
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_pearl").formatted(Formatting.BLUE));
                 }
+                player.swingHand(hand, true);
+                this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, 5.0F, world, player);
             } else {
-                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.wrong_dimension"), Formatting.GREEN, Formatting.WHITE);
+                player.sendMessage(ModTexts.CALCULATING, false);
+                BlockPos endPortalFrameBlock = findPortalRoom(world, player.getBlockPos());
+
+                if (endPortalFrameBlock == null) {
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED));
+                } else {
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
+                    player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
+                    this.playThrowSound(world, player);
+
+                    TaskScheduler.schedule(ModUtil.secondsAsTicks(3), () -> {
+                        player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, false);
+                        world.sendEntityStatus(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
+                        this.playWorldSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, world, player);
+                        this.playTeleportSound(world, player);
+                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+                        ModUtil.completeStepS2C(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
+                    });
+
+                    player.incrementStat(Stats.USED.getOrCreateStat(this));
+                    player.swingHand(hand, true);
+                    this.playThrowSound(world, player);
+
+                    this.decrementIfPossible(player, stack);
+                    this.decrementIfPossible(player, Items.ENDER_EYE);
+                    this.decrementIfPossible(player, Items.ENDER_PEARL);
+
+                    return ActionResult.SUCCESS;
+                }
             }
         }
-
         return ActionResult.CONSUME;
     }
 
     /**
      * Finds the nearest stronghold, to then find the closest end portal frame block inside of it.
      */
-    @AI
     private BlockPos findPortalRoom(World world, BlockPos startPos) {
         BlockPos strongholdPos = ((ServerWorld)world).locateStructure(StructureTags.EYE_OF_ENDER_LOCATED, startPos, 100, false);
 
@@ -135,7 +131,6 @@ public class AnnulEyeItem extends Item implements EyeItem {
     /**
      * Finds the nearest end portal frame block inside the stronghold.
      */
-    @AI
     private BlockPos findEndPortalFrame(World world, BlockPos strongholdPos) {
         for (BlockPos pos : BlockPos.iterateOutwards(strongholdPos,
                 options().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
@@ -239,12 +234,16 @@ public class AnnulEyeItem extends Item implements EyeItem {
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1")
-                .formatted(isBalancedMode() ? Formatting.STRIKETHROUGH : Formatting.RESET));
+                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
         textConsumer.accept(Text.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2")
-                .formatted(isBalancedMode() ? Formatting.STRIKETHROUGH : Formatting.RESET));
-        if (isBalancedMode()) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled")
-                    .formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC));
-        }
+                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
+        this.addStateOfTheArtItemTooltip(textConsumer);
+    }
+
+    @Override
+    public ModOptions.Mode[] disabledModes() {
+        return new ModOptions.Mode[]{
+                ModOptions.Mode.BALANCED
+        };
     }
 }

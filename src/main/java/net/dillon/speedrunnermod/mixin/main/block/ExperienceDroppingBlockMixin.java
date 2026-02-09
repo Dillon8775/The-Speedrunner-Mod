@@ -251,9 +251,5 @@ public class ExperienceDroppingBlockMixin extends Block {
                 }
             }
         }
-        if (state.isIn(ModBlockTags.EXPERIENCE_ORES) && player != null) {
-            ModUtil.completeStepS2C(TutorialStep.MINE_EXPERIENCE_ORE, player,
-                    "speedrunnermod.tutorial_mode.craft_speedrunners_workbench");
-        }
     }
 }

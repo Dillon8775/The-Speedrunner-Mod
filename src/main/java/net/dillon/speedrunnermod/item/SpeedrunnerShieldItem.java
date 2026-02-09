@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.mixin.main.component.BlocksAttacksComponentMixin;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
@@ -21,9 +22,11 @@ import java.util.function.Consumer;
 
 /**
  * <p>A shield which has a faster cooldown, and more durability.</p>
- * <p>See {@link net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe}, SpeedrunnerShieldModelRenderer and {@link net.dillon.speedrunnermod.mixin.main.entity.player.PlayerEntityMixin} for more.</p>
+ * <p>See {@link net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe}, SpeedrunnerShieldModelRenderer and {@link net.dillon.speedrunnermod.mixin.main.entity.player.PlayerEntityMixin} for more.
+ * <p>Shield cooldown function located in {@link BlocksAttacksComponentMixin}</p></p>
  */
-public class SpeedrunnerShieldItem extends ShieldItem  {
+public class SpeedrunnerShieldItem extends ShieldItem {
+    public static final float COOLDOWN_DIVIDER = 1.6F;
 
     public SpeedrunnerShieldItem(Settings settings) {
         super(settings
@@ -35,7 +38,7 @@ public class SpeedrunnerShieldItem extends ShieldItem  {
                         DataComponentTypes.BLOCKS_ATTACKS,
                         new BlocksAttacksComponent(
                                 0.25F,
-                                1.0F,
+                                0.6F,
                                 List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
                                 new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F),
                                 Optional.of(DamageTypeTags.BYPASSES_SHIELD),

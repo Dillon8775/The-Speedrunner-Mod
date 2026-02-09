@@ -1,11 +1,14 @@
 package net.dillon.speedrunnermod.village;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.entity.ModPotions;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.PotionContentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
@@ -20,6 +23,7 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.entry.RegistryEntryList;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradeOffers;
@@ -40,22 +44,25 @@ public class ModTradeOffers {
             factories.add(new TradeOffers.SellItemFactory(Items.BOOK, 1, 3, 12, 4));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
-            factories.add(new MaxedEnchantBookFactory(3, 4, 0.2F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            factories.add(new EnchantedBookFactory(3, 4, 0.2F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
             factories.add(new TradeOffers.BuyItemFactory(ModItems.SPEEDRUNNER_BLOCK, 2, 12, 12));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 2, factories -> {
-            factories.add(new MaxedEnchantBookFactory(3, 6, 0.0F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            factories.add(new EnchantedBookFactory(3, 6, 0.0F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 2, factories -> {
-            factories.add(new SellItemFactorySpeedrunnerIngot(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE, 2, 1, 12, 5));
+            factories.add(new SellItemFactorySpeedrunnerIngot(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2, 1, 12, 5));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
             factories.add(new TradeOffers.SellPotionHoldingItemFactory(Items.WATER_BUCKET, 1, Items.SPLASH_POTION, 1, 1, 12, 9));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
-            factories.add(new MaxedEnchantBookFactory(3, 10, 0.0F, 16, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            factories.add(new EnchantedBookFactory(3, 10, 0.0F, 16, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+        });
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
+            factories.add(new EnchantedBookFactory(7, 15, 0.2F, 8, 1, 4, ModEnchantmentTags.WITHERED_ENCHANTMENTS));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 4, factories -> {
             factories.add(new TradeOffers.SellItemFactory(Items.GOLDEN_APPLE, 4, 3, 16, 12));
@@ -67,7 +74,12 @@ public class ModTradeOffers {
             factories.add(new TradeOffers.SellItemFactory(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 15));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
-            factories.add(new MaxedEnchantBookFactory(3, 20, 0.0F, 24, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            ItemStack dragonsAura = new ItemStack(Items.POTION);
+            dragonsAura.set(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(ModPotions.DRAGONS_AURA));
+            factories.add(new TradeOffers.SellItemFactory(dragonsAura, 16, 1, 1, 15));
+        });
+        TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
+            factories.add(new EnchantedBookFactory(3, 20, 0.0F, 24, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
             factories.add(new SellMaxedEnchantedNetheriteChestplateFactory(12, 3, 25, 1.35F));
@@ -142,19 +154,31 @@ public class ModTradeOffers {
         }
     }
 
-    public static class MaxedEnchantBookFactory implements TradeOffers.Factory {
+    public static class EnchantedBookFactory implements TradeOffers.Factory {
         private final int basePrice;
         private final int experience;
         private final float priceMultiplier;
         private final int maxUses;
         private final TagKey<Enchantment> possibleEnchantments;
+        private int minLevel = -1;
+        private int maxLevel = -1;
 
-        public MaxedEnchantBookFactory(int basePrice, int experience, float priceMultiplier, int maxUses, TagKey<Enchantment> possibleEnchantments) {
+        public EnchantedBookFactory(int basePrice, int experience, float priceMultiplier, int maxUses, TagKey<Enchantment> possibleEnchantments) {
             this.basePrice = basePrice;
             this.experience = experience;
             this.priceMultiplier = priceMultiplier;
             this.maxUses = maxUses;
             this.possibleEnchantments = possibleEnchantments;
+        }
+
+        public EnchantedBookFactory(int basePrice, int experience, float priceMultiplier, int maxUses, int minLevel, int maxLevel, TagKey<Enchantment> possibleEnchantments) {
+            this.basePrice = basePrice;
+            this.experience = experience;
+            this.priceMultiplier = priceMultiplier;
+            this.maxUses = maxUses;
+            this.possibleEnchantments = possibleEnchantments;
+            this.minLevel = minLevel;
+            this.maxLevel = maxLevel;
         }
 
         @Override
@@ -165,7 +189,14 @@ public class ModTradeOffers {
             if (!optional.isEmpty()) {
                 RegistryEntry<Enchantment> registryEntry = optional.get();
                 Enchantment enchantment = registryEntry.value();
-                itemStack = EnchantmentHelper.getEnchantedBookWith(new EnchantmentLevelEntry(registryEntry, enchantment.getMaxLevel()));
+                boolean bl = this.minLevel == -1 && this.maxLevel == -1;
+                int k = enchantment.getMaxLevel();
+                if (!bl) {
+                    int i = Math.max(enchantment.getMinLevel(), this.minLevel);
+                    int j = Math.min(enchantment.getMaxLevel(), this.maxLevel);
+                    k = MathHelper.nextInt(random, i, j);
+                }
+                itemStack = EnchantmentHelper.getEnchantedBookWith(new EnchantmentLevelEntry(registryEntry, k));
                 l = this.basePrice;
 
                 if (l > 10) {

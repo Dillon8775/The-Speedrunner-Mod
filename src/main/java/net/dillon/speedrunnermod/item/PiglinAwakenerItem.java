@@ -2,8 +2,10 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -17,8 +19,8 @@ import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -26,12 +28,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * An item that teleports {@code nearby piglin} to the player.
@@ -39,96 +39,88 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 public class PiglinAwakenerItem extends Item implements EyeItem {
 
     public PiglinAwakenerItem(Settings settings) {
-        super(settings.component(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY).maxCount(16));
+        super(settings
+                .component(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY)
+                .maxCount(16));
     }
 
     @Override
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
         player.setCurrentHand(hand);
-        if (!world.isClient()) {
-            if (isEasyMode()) {
-                if (world.getRegistryKey() == World.NETHER) {
-                    List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(
+        if (world.isClient()) {
+            return ActionResult.CONSUME;
+        } else if (this.isDisabled()) {
+            this.playWorldSound(SoundEvents.ENTITY_PIGLIN_AMBIENT, 1.0F, world, player);
+            player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.GOLD), false);
+            player.swingHand(hand, true);
+            for (int i = 0; i < 8; i++) {
+                player.dropItem((ServerWorld)world, Items.GOLD_INGOT);
+            }
+            player.dropItem((ServerWorld)world, stack.getOrDefault(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY).getItem());
+            stack.decrement(1);
+        } else if (world.getRegistryKey() != World.NETHER) {
+            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), Formatting.RED, Formatting.WHITE);
+        } else {
+            List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(
                             options().advanced.piglinAwakenerSearchRadius.getCurrentValue().getFirst(),
                             options().advanced.piglinAwakenerSearchRadius.getCurrentValue().get(1),
                             options().advanced.piglinAwakenerSearchRadius.getCurrentValue().get(2)),
-                            entity -> true);
+                    entity -> true);
 
-                    if (!piglins.isEmpty()) {
-                        boolean isSafe = player.getAbilities().creativeMode;
-                        boolean hasGold = player.getInventory().contains(new ItemStack(Items.GOLD_INGOT));
-                        if (player.getAbilities().creativeMode) {
-                            hasGold = true;
-                        }
-                        for (EquipmentSlot armorItem : EquipmentSlot.VALUES) {
-                            ItemStack itemStack = player.getEquippedStack(armorItem);
-                            if (itemStack.isIn(ItemTags.PIGLIN_SAFE_ARMOR)) {
-                                isSafe = true;
-                            }
-                        }
-
-                        if (isSafe) {
-                            if (hasGold) {
-                                boolean sneakingWhenClicked = player.isSneaking();
-                                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_ANGRY, SoundCategory.HOSTILE, 3.0F, 1.0F);
-                                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
-
-                                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
-
-                                if (!player.getAbilities().creativeMode) {
-                                    stack.decrement(1);
-                                }
-
-                                new Timer().schedule(new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        int maxNumberOfPiglin = 0;
-                                        for (PiglinEntity piglin : piglins) {
-                                            if (!piglin.isBaby() && !piglin.hasCustomName()) {
-                                                if (world.random.nextFloat() < 0.50F) {
-                                                    piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(1), 0, false, true, false));
-                                                }
-                                                double x = !sneakingWhenClicked ? player.getX() + world.random.nextInt(7) - 3 : player.getX();
-                                                double y = !sneakingWhenClicked ? player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
-                                                double z = !sneakingWhenClicked ? player.getZ() + world.random.nextInt(7) - 3 : player.getZ();
-                                                piglin.teleport(x, y, z, false);
-                                                maxNumberOfPiglin++;
-                                            }
-                                            if (maxNumberOfPiglin >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue()) {
-                                                break;
-                                            }
-                                        }
-                                        ModUtil.completeStepS2C(TutorialStep.USE_PIGLIN_AWAKENER, player,
-                                                "speedrunnermod.tutorial_mode.used_piglin_awakener",
-                                                "speedrunnermod.tutorial_mode.craft_blaze_spotter");
-                                    }
-                                }, ModUtil.millisecondsAsSeconds(2));
-                                player.swingHand(hand, true);
-                                return ActionResult.SUCCESS;
-                            } else {
-                                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 3.0F, 1.0F);
-                                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot"), Formatting.RED, Formatting.WHITE);
-                            }
-                        } else {
-                            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.5F, 1.0F);
-                            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.unsafe"), Formatting.RED, Formatting.WHITE);
-                        }
-                    } else {
-                        ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins"), Formatting.RED, Formatting.WHITE);
-                    }
-                } else {
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), Formatting.RED, Formatting.WHITE);
-                }
+            if (piglins.isEmpty()) {
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins"), Formatting.RED, Formatting.WHITE);
             } else {
-                player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GOLD), false);
-                player.swingHand(hand, true);
-                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PIGLIN_AMBIENT, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                for (int i = 0; i < 8; i++) {
-                    player.dropItem((ServerWorld)world, Items.GOLD_INGOT);
+                boolean isSafe = player.getAbilities().creativeMode;
+                boolean hasGold = player.getInventory().contains(new ItemStack(Items.GOLD_INGOT)) || player.getAbilities().creativeMode;
+                for (EquipmentSlot armorItem : EquipmentSlot.VALUES) {
+                    ItemStack itemStack = player.getEquippedStack(armorItem);
+                    if (itemStack.isIn(ItemTags.PIGLIN_SAFE_ARMOR)) {
+                        isSafe = true;
+                    }
                 }
-                player.dropItem((ServerWorld)world, stack.getOrDefault(ModDataComponentTypes.STORED_ITEMSTACK, ItemStack.EMPTY).getItem());
-                stack.decrement(1);
+
+                if (!isSafe) {
+                    this.playWorldSound(SoundEvents.ENTITY_PIGLIN_AMBIENT, 3.0F, 1.0F, world, player);
+                    this.playWorldSound(SoundEvents.ENTITY_PIGLIN_AMBIENT, world, player);
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.unsafe"), Formatting.RED, Formatting.WHITE);
+                } else if (!hasGold) {
+                    this.playWorldSound(SoundEvents.ENTITY_PIGLIN_AMBIENT, 3.0F, 1.0F, world, player);
+                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot"), Formatting.RED, Formatting.WHITE);
+                } else {
+                    this.playWorldSound(SoundEvents.ENTITY_PIGLIN_ANGRY, 3.0F, 1.0F, world, player);
+                    player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
+                    boolean sneakingWhenClicked = player.isSneaking();
+
+                    ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+
+                    this.decrementIfPossible(player, stack);
+
+                    TaskScheduler.schedule(ModUtil.secondsAsTicks(2), () -> {
+                        int piglinTeleported = 0;
+                        for (PiglinEntity piglin : piglins) {
+                            if (!piglin.isBaby() && !piglin.hasCustomName()) {
+                                if (world.random.nextFloat() < 0.50F) {
+                                    piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(1), 0, false, true, false));
+                                }
+                                double x = !sneakingWhenClicked ? player.getX() + world.random.nextInt(7) - 3 : player.getX();
+                                double y = !sneakingWhenClicked ? player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
+                                double z = !sneakingWhenClicked ? player.getZ() + world.random.nextInt(7) - 3 : player.getZ();
+                                piglin.teleport(x, y, z, false);
+                                piglinTeleported++;
+                            }
+                            if (piglinTeleported >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
+                                break;
+                            }
+                        }
+                        ModUtil.completeStepS2C(TutorialStep.USE_PIGLIN_AWAKENER, player,
+                                "speedrunnermod.tutorial_mode.used_piglin_awakener",
+                                "speedrunnermod.tutorial_mode.craft_blaze_spotter");
+                    });
+                    player.incrementStat(Stats.USED.getOrCreateStat(this));
+                    player.swingHand(hand, true);
+                    return ActionResult.SUCCESS;
+                }
             }
         }
 
@@ -137,7 +129,20 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
 
     @Override
     public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener.tooltip"));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener.tooltip")
+                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
+        textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener.shift.tooltip")
+                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
+        if (isDoomMode()) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener.doom_mode").formatted(Formatting.RED));
+        }
         this.addStateOfTheArtItemTooltip(textConsumer);
+    }
+
+    @Override
+    public ModOptions.Mode[] disabledModes() {
+        return new ModOptions.Mode[]{
+                ModOptions.Mode.BALANCED
+        };
     }
 }

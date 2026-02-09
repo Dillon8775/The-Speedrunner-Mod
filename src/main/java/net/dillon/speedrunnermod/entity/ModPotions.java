@@ -21,7 +21,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 public class ModPotions {
     public static final RegistryEntry<Potion> DRAGONS_AURA = registerPotion("dragons_aura", ModStatusEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(4), 0);
     public static final RegistryEntry<Potion> LONG_DRAGONS_AURA = registerPotion("long_dragons_aura", ModStatusEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(8), 0);
-    public static final RegistryEntry<Potion> EXTRA_LONG_DRAGONS_AURA = registerPotion("extra_long_dragons_aura", ModStatusEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(10), 0);
 
     /**
      * Registers a potion.
@@ -38,7 +37,6 @@ public class ModPotions {
         FabricBrewingRecipeRegistryBuilder.BUILD.register(builder -> {
             builder.registerPotionRecipe(Potions.WATER, ModItems.ENDER_MATTER, DRAGONS_AURA);
             builder.registerPotionRecipe(DRAGONS_AURA, Items.REDSTONE, LONG_DRAGONS_AURA);
-            builder.registerPotionRecipe(LONG_DRAGONS_AURA, ModItems.SPEEDRUNNER_INGOT, EXTRA_LONG_DRAGONS_AURA);
         });
 
         SpeedrunnerMod.debug("Registered potions.");

@@ -3,14 +3,12 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.util.AI;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * Contains all of the {@code nether biomes modifications.}
  */
-@AI
 public class NetherBiomesLoader {
 
     /**

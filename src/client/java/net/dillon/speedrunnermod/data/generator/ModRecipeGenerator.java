@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.recipe.DragonFireballRecipe;
+import net.dillon.speedrunnermod.recipe.InventoryPreserverRecipe;
 import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
 import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
 import net.dillon.speedrunnermod.recipe.boat.*;
@@ -916,10 +917,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
                         .offerTo(this.exporter);
 
-                this.createShaped(RecipeCategory.MISC, ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE, 2)
+                this.createShaped(RecipeCategory.MISC, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2)
                         .input('#', Items.GOLD_INGOT)
                         .input('C', Items.GOLD_BLOCK)
-                        .input('S', ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE)
+                        .input('S', ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE)
                         .pattern("#S#")
                         .pattern("#C#")
                         .pattern("###")
@@ -991,29 +992,13 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 ComplexRecipeJsonBuilder.create(SpeedrunnerShieldDecorationRecipe::new).offerTo(this.exporter, "speedrunner_shield_decoration");
                 ComplexRecipeJsonBuilder.create(PiglinAwakenerRecipe::new).offerTo(this.exporter, "piglin_awakener");
                 ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_aura");
+                ComplexRecipeJsonBuilder.create(InventoryPreserverRecipe::new).offerTo(this.exporter, "inventory_preserver");
 
                 helper.createStickRecipe(true);
                 helper.createStickRecipe(false);
 
                 helper.createReversePlankRecipe(true);
                 helper.createReversePlankRecipe(false);
-
-                this.createShaped(RecipeCategory.MISC, ModItems.WITHER_BONE)
-                        .input('B', Items.BONE)
-                        .input('C', Items.COAL)
-                        .pattern("BC")
-                        .pattern("CB")
-                        .criterion("has_bone", this.conditionsFromItem(Items.BONE))
-                        .offerTo(this.exporter);
-
-                this.createShaped(RecipeCategory.COMBAT, ModItems.WITHER_SWORD)
-                        .input('#', ModItemTags.SPEEDRUNNER_STICKS)
-                        .input('X', ModItems.WITHER_BONE)
-                        .pattern("X")
-                        .pattern("X")
-                        .pattern("#")
-                        .criterion("has_wither_bone", this.conditionsFromItem(ModItems.WITHER_BONE))
-                        .offerTo(this.exporter);
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModItems.FLESH_BLOCK)
                         .input('#', ModItemTags.FLESH)
@@ -1074,7 +1059,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 this.createShapeless(RecipeCategory.MISC, ModItems.INFINI_PEARL)
                         .input(Items.ENDER_PEARL)
                         .input(ModItems.SPEEDRUNNERS_EYE)
-                        .input(ModItems.ENDER_THRUSTER)
                         .input(ModItems.ENDER_MATTER)
                         .criterion("has_ender_matter", this.conditionsFromItem(ModItems.ENDER_MATTER))
                         .offerTo(this.exporter);

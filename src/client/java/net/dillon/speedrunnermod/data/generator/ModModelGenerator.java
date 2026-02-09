@@ -100,7 +100,8 @@ public class ModModelGenerator extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         itemModelGenerator.register(ModItems.SPEEDRUNNER_INGOT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
+        itemModelGenerator.register(ModItems.INVENTORY_PRESERVER, Models.GENERATED);
         itemModelGenerator.register(ModItems.RAW_SPEEDRUNNER, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_NUGGET, Models.GENERATED);
 
@@ -144,7 +145,7 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_EYE, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNERS_TOTEM, Models.GENERATED);
         itemModelGenerator.register(ModItems.INFERNO_EYE, Models.GENERATED);
-        itemModelGenerator.registerWithTextureSource(ModItems.INFINI_PEARL, Items.ENDER_PEARL, Models.GENERATED);
+        itemModelGenerator.register(ModItems.INFINI_PEARL, Models.GENERATED);
         itemModelGenerator.register(ModItems.ENDER_MATTER, Models.GENERATED);
         itemModelGenerator.register(ModItems.PIGLIN_AWAKENER, Models.GENERATED);
         itemModelGenerator.register(ModItems.BLAZE_SPOTTER, Models.GENERATED);
@@ -166,13 +167,11 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_AXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_HOE, Models.HANDHELD);
 
-        itemModelGenerator.register(ModItems.WITHER_BONE);
-        itemModelGenerator.register(ModItems.WITHER_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.DRAGONS_SWORD, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_STICK, Models.HANDHELD);
         itemModelGenerator.register(ModItems.DEAD_SPEEDRUNNER_STICK, Models.HANDHELD);
-        itemModelGenerator.registerWithTextureSource(ModItems.KNOCKBACK_STICK, Items.STICK, Models.GENERATED);
+        itemModelGenerator.registerWithTextureSource(ModItems.KNOCKBACK_STICK, Items.STICK, Models.HANDHELD);
 
         // Speedrunner Bow, Crossbow, shield, and wither bone are done separately.
     }

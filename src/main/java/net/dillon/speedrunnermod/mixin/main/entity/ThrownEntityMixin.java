@@ -17,7 +17,7 @@ public class ThrownEntityMixin {
     private double cancelPearlDrag(double value) {
         if ((ThrownEntity)(Object)this instanceof ThrownItemEntity thrownItemEntity) {
             if (thrownItemEntity.isTouchingWater() && thrownItemEntity.getStack().getItem().getDefaultStack().isOf(ModItems.INFINI_PEARL)) {
-                return 0.9F;
+                return 0.93F;
             }
         }
         return value;

@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.recipe;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
@@ -45,7 +44,6 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
     /**
      * Copies the item over as a placeholder for what item to drop if used on the wrong mode.
      */
-    @AI
     @Override
     public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
         ItemStack result = new ItemStack(ModItems.PIGLIN_AWAKENER);

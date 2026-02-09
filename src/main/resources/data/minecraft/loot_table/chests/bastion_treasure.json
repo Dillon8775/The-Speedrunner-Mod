@@ -263,6 +263,11 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 12,
+          "name": "speedrunnermod:inventory_preserver"
+        },
+        {
+          "type": "minecraft:item",
           "weight": 8,
           "name": "minecraft:enchanted_golden_apple",
           "functions": [
@@ -444,6 +449,11 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "name": "speedrunnermod:inventory_preserver"
         }
       ]
     },
@@ -466,7 +476,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "speedrunnermod:golden_speedrunner_upgrade_smithing_template"
+          "name": "speedrunnermod:golden_upgrade_smithing_template"
         }
       ],
       "rolls": 1.0

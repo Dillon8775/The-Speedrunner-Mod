@@ -13,7 +13,6 @@ import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.api.EnvType;
@@ -57,7 +56,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected final Screen parent;
     protected ButtonWidget helpButton, saveButton, openOptionsFileButton, doneButton, matchSettingsWithServer;
     public ButtonWidget resetOptionsButton;
-    protected CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
+    public CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<ClickableWidget> featureButtons = new ArrayList<>();
 
     public AbstractModScreen(Screen parent, Text title) {
@@ -270,7 +269,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
      */
-    @AI
     protected void addButtonsIteratively(ScreenCategory screenCategory) {
         this.featureButtons.clear();
         int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()

@@ -1,0 +1,9 @@
+## §bKeep your inventory when you die!
+
+!image:textures/gui/features/items/inventory_preserver.png scale=.2
+#### It only works §b§lonce, §r§fbut you can increase the §amax durability §r§fby §bcombining §r§fit with §9ender matter §r§b(max §b§l3).
+
+!image:textures/gui/features/recipes/inventory_preserver_crafting_recipe.png scale=.3
+#### It §ccannot §r§fbe repaired in an §lanvil.§r§f You can only increase the §a§lmax durability.
+
+### §bInventory Preservers §r§fcan be found in §6bastion treasure chests, §bancient city chests, and §c§overy rarely §r§fin §7§lstronghold chests.

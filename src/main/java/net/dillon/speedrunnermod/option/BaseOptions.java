@@ -7,7 +7,6 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.AI;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
@@ -72,7 +71,6 @@ public abstract class BaseOptions<T> {
     /**
      * Creates the {@code GSON reader,} which reads options correctly.
      */
-    @AI
     public Gson createGson() {
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

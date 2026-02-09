@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
 
 import static net.dillon.speedrunnermod.option.ModOptions.*;
@@ -11,7 +10,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.*;
 /**
  * Contains all of the {@code placed feature modifications.}
  */
-@AI
 public class PlacedFeaturesLoader {
 
     /**

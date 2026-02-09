@@ -22,6 +22,7 @@ public class ModItemTags {
     public static TagKey<Item> FIREPROOF_CHEST_BOATS = of("fireproof_chest_boats");
     public static TagKey<Item> FIREPROOF_ITEMS = of("fireproof_items");
     public static TagKey<Item> GOLDEN_FOOD_ITEMS = of("golden_food_items");
+    public static TagKey<Item> GOLDEN_SPEEDRUNNER_ARMOR = of("golden_speedrunner_armor");
     public static TagKey<Item> GOLDEN_SPEEDRUNNER_TOOL_MATERIALS = of("golden_speedrunner_tool_materials");
     public static TagKey<Item> IGNITABLES = of("ignitables");
     public static TagKey<Item> PIGLIN_AWAKENER_CRAFTABLES = of("piglin_awakener_craftables");

@@ -1,10 +1,12 @@
 package net.dillon.speedrunnermod.screen;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
@@ -19,6 +21,8 @@ import net.minecraft.screen.ForgingScreenHandler;
 import net.minecraft.screen.Property;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.ForgingSlotsManager;
+import net.minecraft.screen.slot.Slot;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 
@@ -52,7 +56,11 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
      * Copied over from {@link AnvilScreenHandler}. Sets the slot's position on the screen.
      */
     private static ForgingSlotsManager getForgingSlotsManager() {
-        return ForgingSlotsManager.builder().input(0, 27, 47, stack -> true).input(1, 76, 47, stack -> true).output(2, 134, 47).build();
+        return ForgingSlotsManager.builder()
+                .input(0, 27, 37, stack -> stack.isIn(ConventionalItemTags.ENCHANTABLES))
+                .input(1, 76, 37, stack -> stack.isIn(ConventionalItemTags.ENCHANTABLES) || stack.isOf(Items.BOOK))
+                .input(2, 76, 60, stack -> stack.isOf(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE))
+                .output(3, 134, 37).build();
     }
 
     /**
@@ -75,20 +83,26 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
     /**
      * Refresh the slots and give the player the item.
      */
-    @AI
     @Override
     public void onTakeOutput(PlayerEntity player, ItemStack stack) {
         if (!player.getAbilities().creativeMode) {
             player.addExperienceLevels(-this.levelCost.get());
         }
 
-        ItemStack newSlot1 = this.input.getStack(0);
+        ItemStack newSlot1 = this.input.getStack(this.getInputSlot().id);
         // Remove the enchantment from the main hand item if it was transferred/upgraded to the offhand
         for (RegistryEntry registryEntry : enchantmentsToRemove.keySet()) {
             EnchantmentHelper.apply(newSlot1, builder -> builder.remove(enchantmentRegistryEntry -> enchantmentRegistryEntry.equals(registryEntry)));
         }
-        this.input.setStack(0, newSlot1);
-        this.input.setStack(1, ItemStack.EMPTY);
+        this.input.setStack(this.getInputSlot().id, newSlot1);
+        if (this.input.getStack(this.getTransferToSlot().id).isOf(Items.BOOK)) {
+            ItemStack decrementedBook = this.input.getStack(this.getTransferToSlot().id).copy();
+            decrementedBook.decrement(1);
+            this.input.setStack(this.getTransferToSlot().id, decrementedBook);
+        } else {
+            this.input.setStack(this.getTransferToSlot().id, ItemStack.EMPTY);
+            this.input.setStack(this.getSmithingTemplateSlot().id, ItemStack.EMPTY);
+        }
         this.success(player);
     }
 
@@ -96,11 +110,10 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
      * Handles transferring enchantments.
      * <p>See additional comments inside of this method for more documentation.</p>
      */
-    @AI
     @Override
     public void updateResult() {
-        ItemStack firstSlot = this.input.getStack(0); // Get the stack in the first slot
-        ItemStack secondSlot = this.input.getStack(1); // Get the stack in the second slot
+        ItemStack firstSlot = this.input.getStack(this.getInputSlot().id); // Get the stack in the first slot
+        ItemStack secondSlot = this.input.getStack(this.getTransferToSlot().id); // Get the stack in the second slot
         ItemEnchantmentsComponent slot1Enchantments = EnchantmentHelper.getEnchantments(firstSlot); // Enchantments on first slot stack
         ItemEnchantmentsComponent slot2Enchantments = EnchantmentHelper.getEnchantments(secondSlot); // Enchantments on second slot stack
         ItemEnchantmentsComponent.Builder firstSlotBuilder = new ItemEnchantmentsComponent.Builder(slot1Enchantments); // Build enchantments component on first slot
@@ -111,8 +124,8 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
         this.enchantmentsToTransfer.clear(); // Reset enchantments to transfer
         this.enchantmentsToRemove.clear(); // Reset enchantments to remove
 
-        // If slot 1 or 2 is empty, OR is of enchanted book, make sure nothing is returned
-        if (firstSlot.isEmpty() || secondSlot.isEmpty() || firstSlot.isOf(Items.ENCHANTED_BOOK) || secondSlot.isOf(Items.ENCHANTED_BOOK)) {
+        // If slot 1 or 2 is empty, make sure nothing is returned
+        if (firstSlot.isEmpty() || secondSlot.isEmpty()) {
             return;
         }
 
@@ -122,7 +135,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
             Enchantment enchantment = (Enchantment)registryEntry.value();
 
             // If second slot has no enchantments, and the enchantment wanting to be transferred is acceptable, transfer the enchantment
-            if (!secondSlot.hasEnchantments() && enchantment.isAcceptableItem(secondSlot)) {
+            if (!secondSlot.hasEnchantments() && enchantment.isAcceptableItem(secondSlot) || secondSlot.isOf(Items.BOOK)) {
                 enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
                 enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
                 this.sendContentUpdates();
@@ -158,6 +171,9 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
 
         // Applies the transferred enchantments to the output item.
         ItemStack output = secondSlot.copy(); // Copy second slot stack
+        if (secondSlot.isOf(Items.BOOK)) { // Make output enchanted book if transferring enchantments to a book
+            output = new ItemStack(Items.ENCHANTED_BOOK);
+        }
         // Run through all enchantments to transfer
         for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : enchantmentsToTransfer.keySet()) {
             int firstSlotLevel = firstSlotBuilder.getLevel(entry.getKey());
@@ -189,7 +205,11 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
             }
             // Set damage to output durability
             int newOutputDamage = output.getMaxDamage() - (int)outputDurability;
-            output.setDamage(MathHelper.clamp(newOutputDamage, 0, output.getMaxDamage()));
+            if (!this.getSmithingTemplateSlot().hasStack()) {
+                output.setDamage(MathHelper.clamp(newOutputDamage, 0, output.getMaxDamage()));
+            } else if (!this.getTransferToSlot().getStack().isOf(Items.BOOK)) {
+                cost += totalTransferredEnchantments * 2;
+            }
             this.output.setStack(0, output); // Set the output
             this.levelCost.set(cost); // Set the cost
         }
@@ -201,11 +221,42 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
     private void success(PlayerEntity player) {
         player.playSound(SoundEvents.BLOCK_SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.addExperienceLevels(this.levelCost.get());
+        if (player instanceof ServerPlayerEntity serverPlayer) {
+            ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH));
+        }
         ModUtil.completeStepS2C(TutorialStep.TRANSFER_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.find_retired_speedrunner");
     }
 
     /**
-     * Returns the current level cost.
+     * @return the input slot.
+     */
+    public Slot getInputSlot() {
+        return this.getSlot(0);
+    }
+
+    /**
+     * @return the slot with the item that you want to transfer enchantments to.
+     */
+    public Slot getTransferToSlot() {
+        return this.getSlot(1);
+    }
+
+    /**
+     * @return the smithing template slot.
+     */
+    public Slot getSmithingTemplateSlot() {
+        return this.getSlot(2);
+    }
+
+    /**
+     * @return the output slot.
+     */
+    public Slot getOutputSlot() {
+        return this.getSlot(3);
+    }
+
+    /**
+     * @return the current level cost.
      */
     public int getLevelCost() {
         return this.levelCost.get();

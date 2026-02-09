@@ -1,6 +1,7 @@
 {
   "values": [
     "minecraft:protection",
+    "minecraft:blast_protection",
     "minecraft:feather_falling",
     "minecraft:thorns",
     "minecraft:sharpness",
@@ -9,6 +10,10 @@
     "minecraft:fortune",
     "minecraft:power",
     "minecraft:infinity",
-    "minecraft:mending"
+    "minecraft:mending",
+    {
+      "id": "speedrunnermod:cooldown",
+      "required": false
+    }
   ]
 }

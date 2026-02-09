@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.util;
 
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -19,7 +20,6 @@ public class ModTexts {
     public static final Text PREVIOUS_TOOLTIP = Text.translatable("speedrunnermod.previous.tooltip");
     public static final Text BACK = Text.translatable("speedrunnermod.back");
     public static final Text HELP_TOOLTIP = Text.translatable("speedrunnermod.help_button.tooltip");
-    public static final Text DIRECTORY_TOOLTIP = Text.translatable("speedrunnermod.directory_button.tooltip");
     public static final Text ON = Text.literal("ON").formatted(Formatting.GREEN);
     public static final Text OFF = Text.literal("OFF").formatted(Formatting.RED);
     public static final Text YES = Text.literal("YES").formatted(Formatting.GREEN);
@@ -113,6 +113,7 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_DEAD_SPEEDRUNNER_WOOD = Text.translatable("speedrunnermod.title.features.blocks_and_items.dead_speedrunner_wood");
     public static final Text TITLE_FEATURE_DRAGONS_PEARL = Text.translatable("speedrunnermod.title.features.blocks_and_items.dragons_pearl");
     public static final Text TITLE_FEATURE_DRAGONS_AURA = Text.translatable("speedrunnermod.title.features.blocks_and_items.dragons_aura");
+    public static final Text TITLE_FEATURE_INVENTORY_PRESERVER = Text.translatable("speedrunnermod.title.features.blocks_and_items.inventory_preserver");
     public static final Text TITLE_FEATURE_DRAGONS_FIREBALL = Text.translatable("speedrunnermod.title.features.blocks_and_items.dragons_fireball");
     public static final Text TITLE_FEATURE_ENDER_MATTER = Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_matter");
     public static final Text TITLE_FEATURE_ENDER_THRUSTER = Text.translatable("speedrunnermod.title.features.blocks_and_items.ender_thruster");
@@ -141,12 +142,12 @@ public class ModTexts {
     // Tools and armor feature screens
     public static final Text TITLE_FEATURE_COOLDOWN_ENCHANTMENT = Text.translatable("speedrunnermod.title.features.tools_and_armor.cooldown_enchantment");
     public static final Text TITLE_FEATURE_DASH_ENCHANTMENT = Text.translatable("speedrunnermod.title.features.tools_and_armor.dash_enchantment");
+    public static final Text TITLE_FEATURE_WITHERED_ENCHANTMENT = Text.translatable("speedrunnermod.title.features.tools_and_armor.withered_enchantment");
     public static final Text TITLE_FEATURE_DRAGONS_SWORD = Text.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword");
     public static final Text TITLE_FEATURE_GOLDEN_SPEEDRUNNER_ARMOR = Text.translatable("speedrunnermod.title.features.tools_and_armor.golden_speedrunner_armor");
-    public static final Text TITLE_FEATURE_GOLDEN_SPEEDRUNNER_SMITHING_TEMPLATE = Text.translatable("speedrunnermod.title.features.tools_and_armor.golden_speedrunner_smithing_template");
+    public static final Text TITLE_FEATURE_GOLDEN_SMITHING_TEMPLATE = Text.translatable("speedrunnermod.title.features.tools_and_armor.golden_smithing_template");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_ARMOR = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_armor");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_SAFE_BOOTS = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots");
-    public static final Text TITLE_FEATURE_WITHER_SWORD = Text.translatable("speedrunnermod.title.features.tools_and_armor.wither_sword");
 
     // Ores and worldgen feature screens
     public static final Text TITLE_FEATURE_COMMON_ORES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores");
@@ -267,7 +268,6 @@ public class ModTexts {
     public static final Text DOOM_MODE_TOOLTIP = Text.translatable("speedrunnermod.mode.doom.tooltip");
 
     // State-of-the-art item tooltips/messages
-    public static final Text STATE_OF_THE_ART_ITEM_DISABLED = Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled").formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC);
     public static final Text CALCULATING = Text.translatable("item.speedrunnermod.eye.calculating").formatted(Formatting.RED);
 
     // Match client-settings to server
@@ -296,4 +296,17 @@ public class ModTexts {
     public static final Text QUESTIONS_AND_ISSUES_TOOLTIP = Text.translatable("speedrunnermod.questions_and_issues.tooltip");
     public static final Text SUGGESTIONS_AND_FEEDBACK = Text.translatable("speedrunnermod.suggestions_and_feedback").formatted(Formatting.GOLD);
     public static final Text SUGGESTIONS_AND_FEEDBACK_TOOLTIP = Text.translatable("speedrunnermod.suggestions_and_feedback.tooltip");
+
+    /**
+     * @return the text for disabled items.
+     */
+    public static Text stateOfTheArtItemDisabledTooltip(ModOptions.Mode mode) {
+        Text modeText;
+        switch (mode) {
+            case DOOM -> modeText = Text.literal("doom").formatted(Formatting.RED);
+            case BALANCED -> modeText = Text.literal("balanced").formatted(Formatting.YELLOW);
+            default -> modeText = Text.literal("easy").formatted(Formatting.AQUA);
+        }
+        return Text.translatable("item.speedrunnermod.state_of_the_art_item.disabled", modeText).formatted(Formatting.RED).formatted(Formatting.BOLD).formatted(Formatting.ITALIC);
+    }
 }

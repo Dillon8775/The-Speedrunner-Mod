@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.data.loader;
 
 import com.google.gson.JsonElement;
-import net.dillon.speedrunnermod.util.AI;
 import net.minecraft.world.biome.SpawnSettings;
 
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import java.util.Map;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
-@AI
 public class EntitySpawnsLoader {
 
     public static void modifyBiomesWithDefaultMonsters(JsonElement jsonElement) {

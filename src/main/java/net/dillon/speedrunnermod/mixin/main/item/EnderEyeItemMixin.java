@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
 import net.dillon.speedrunnermod.item.EyeItem;
+import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -32,8 +33,10 @@ public class EnderEyeItemMixin implements EyeItem {
         BlockPos playerpos = player.getBlockPos();
         int structureDistance = MathHelper.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
         ModUtil.sendMessageWithActionbarPref(player, this.locationText(structureDistance, this.structureTexts(ModStructureTags.STRONGHOLDS)));
-        if (isBalancedMode()) {
-            ModUtil.completeStepS2C(TutorialStep.USE_ENDER_EYE, player, "speedrunnermod.tutorial_mode.enter_end.balanced");
-        }
+    }
+
+    @Override
+    public ModOptions.Mode[] disabledModes() {
+        return new ModOptions.Mode[]{};
     }
 }

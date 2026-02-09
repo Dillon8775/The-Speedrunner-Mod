@@ -35,7 +35,7 @@ public abstract class CreeperEntityMixin extends HostileEntity {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeCreeperMaxHealth(EntityType<? extends CreeperEntity> entityType, World world, CallbackInfo ci) {
-        ModUtil.modifyMaxHealth(this, isDoomMode() ? 0.3D : 0.25D);
+        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
     /**

@@ -85,6 +85,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         false
                 )
                 .build(exporter, "speedrunnermod:adventure/what_a_wasteland");
+
         Advancement.Builder.create()
                 .parent(speedrunningTime)
                 .display(
@@ -114,6 +115,21 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 )
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNERS_EYE))
                 .build(exporter, "speedrunnermod:items/eye_of_the_structures");
+
+        Advancement.Builder.create()
+                .parent(eyeOfTheStructures)
+                .display(
+                        ModItems.INVENTORY_PRESERVER,
+                        Text.translatable("advancements.speedrunnermod.i_lost_my_stuff.title"),
+                        Text.translatable("advancements.speedrunnermod.i_lost_my_stuff.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        true
+                )
+                .criterion("has_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.INVENTORY_PRESERVER))
+                .build(exporter, "speedrunnermod:items/i_lost_my_stuff");
 
         Advancement.Builder.create()
                 .parent(eyeOfTheStructures)
@@ -163,6 +179,22 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("has_speedrunner_leggings", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_LEGGINGS))
                 .criterion("has_speedrunner_boots", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_BOOTS))
                 .build(exporter, "speedrunnermod:items/suited_for_speedrunning");
+
+        Advancement.Builder.create()
+                .parent(suitedForSpeedrunning)
+                .display(
+                        ModItems.SPEEDRUNNERS_WORKBENCH,
+                        Text.translatable("advancements.speedrunnermod.one_step_ahead.title"),
+                        Text.translatable("advancements.speedrunnermod.one_step_ahead.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criteriaMerger(AdvancementRequirements.CriterionMerger.OR)
+                .criterion("used_workbench", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.SPEEDRUNNERS_WORKBENCH))
+                .build(exporter, "speedrunnermod:blocks/one_step_ahead");
 
         Advancement.Builder.create()
                 .parent(suitedForSpeedrunning)
@@ -498,7 +530,6 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("has_netherite_sword", InventoryChangedCriterion.Conditions.items(Items.NETHERITE_SWORD))
                 .criterion("has_speedrunner_sword", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_SWORD))
                 .criterion("has_golden_speedrunner_sword", InventoryChangedCriterion.Conditions.items(ModItems.GOLDEN_SPEEDRUNNER_SWORD))
-                .criterion("has_wither_sword", InventoryChangedCriterion.Conditions.items(ModItems.WITHER_SWORD))
                 .criterion("has_dragons_sword", InventoryChangedCriterion.Conditions.items(ModItems.DRAGONS_SWORD))
                 .rewards(AdvancementRewards.Builder.experience(50))
                 .build(exporter, "speedrunnermod:items/sword_collector");

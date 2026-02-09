@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
+import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.tag.EnchantmentTagProvider;
@@ -21,6 +22,7 @@ public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         this.builder(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
                 .add(Enchantments.PROTECTION)
+                .add(Enchantments.BLAST_PROTECTION)
                 .add(Enchantments.FEATHER_FALLING)
                 .add(Enchantments.THORNS)
                 .add(Enchantments.SHARPNESS)
@@ -29,6 +31,9 @@ public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
                 .add(Enchantments.FORTUNE)
                 .add(Enchantments.POWER)
                 .add(Enchantments.INFINITY)
-                .add(Enchantments.MENDING);
+                .add(Enchantments.MENDING)
+                .addOptional(ModEnchantments.COOLDOWN);
+        this.builder(ModEnchantmentTags.WITHERED_ENCHANTMENTS)
+                .addOptional(ModEnchantments.WITHERED);
     }
 }

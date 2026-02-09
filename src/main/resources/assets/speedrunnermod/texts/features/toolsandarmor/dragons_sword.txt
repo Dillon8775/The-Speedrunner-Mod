@@ -1,6 +1,6 @@
 # §aOne-shots §fthe §dender dragon.
 
-Don't try it on §cDoom Mode, though...
+§c§oUnless you're on §c§l§oDoom Mode...
 
 !image:textures/gui/features/items/dragons_sword.png scale=.2
 !image:textures/gui/features/recipes/dragons_sword_crafting_recipe.png scale=.3

@@ -57,7 +57,7 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
      */
     public void offerGoldenSpeedrunnerUpgradeRecipe(Item input, RecipeCategory category, Item result) {
         SmithingTransformRecipeJsonBuilder.create(
-                        Ingredient.ofItem(ModItems.GOLDEN_SPEEDRUNNER_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.ofItem(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE),
                         Ingredient.ofItem(input),
                         this.ingredientFromTag(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS),
                         category,

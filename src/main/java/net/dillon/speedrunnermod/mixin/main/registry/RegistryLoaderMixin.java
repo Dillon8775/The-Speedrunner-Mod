@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.serialization.Decoder;
 import net.dillon.speedrunnermod.data.loader.*;
-import net.dillon.speedrunnermod.util.AI;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.minecraft.registry.MutableRegistry;
@@ -29,7 +28,6 @@ public class RegistryLoaderMixin {
      * <p>See package {@link net.dillon.speedrunnermod.data.loader} fore more on this.</p>
      */
     @Author(Authors.MAXENCEDC)
-    @AI
     @Inject(method = "parseAndAdd", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"))
     private static <E> void customDataGeneration(MutableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, RegistryKey<E> resourceKey, Resource resource, RegistryEntryInfo registrationInfo, CallbackInfo ci, @Local JsonElement jsonElement) {
         String path = registry.getKey().getValue().getPath();

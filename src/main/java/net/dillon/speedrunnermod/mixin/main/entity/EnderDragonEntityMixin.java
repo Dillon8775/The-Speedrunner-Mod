@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
 import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.tutorial.TutorialStep;
@@ -12,12 +13,10 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.EndermanEntity;
-import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,7 +41,7 @@ import java.util.List;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
-import static net.dillon.speedrunnermod.util.ModUtil.sendWithPrefix;
+import static net.dillon.speedrunnermod.util.ModUtil.*;
 
 @Mixin(value = EnderDragonEntity.class, priority = 999)
 public class EnderDragonEntityMixin extends MobEntity {
@@ -95,7 +94,8 @@ public class EnderDragonEntityMixin extends MobEntity {
      */
     @Inject(method = "damagePart", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/phase/Phase;modifyDamageTaken(Lnet/minecraft/entity/damage/DamageSource;F)F"), cancellable = true)
     private void cancelOutDamage(ServerWorld world, EnderDragonPart part, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        if (isDoomMode() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive()) {
+        EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        if (isDoomMode() && this.getHealth() <= 1.0F && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && isGiantOrWitherAlive(dragon)) {
             cir.setReturnValue(false);
         }
     }
@@ -144,7 +144,7 @@ public class EnderDragonEntityMixin extends MobEntity {
         super.tick();
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
         PlayerEntity player = dragon.getEntityWorld().getClosestPlayer(dragon, 300.0D);
-        if (!this.isGiantOrWitherAlive()) {
+        if (!isGiantOrWitherAlive(dragon)) {
             ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player,
                     "speedrunnermod.tutorial_mode.wither_died",
                     "speedrunnermod.tutorial_mode.kill_dragon");
@@ -157,6 +157,7 @@ public class EnderDragonEntityMixin extends MobEntity {
     @Override
     public void onDeath(DamageSource source) {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        SpeedrunnerMod.error("WTF");
         this.preventDragonFromDying(dragon);
 
         LivingEntity livingEntity = dragon.getAttacker();
@@ -165,15 +166,23 @@ public class EnderDragonEntityMixin extends MobEntity {
             if (this.preventDragonFromDying(dragon) || bl) {
                 this.setHealth(1.0F);
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 0.65F);
-                serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.cannot_kill_dragon"), false);
-                if (bl && !this.isGiantOrWitherAlive()) {
+                if (isGiantAlive(dragon) && isWitherAlive(dragon)) {
+                    serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.cannot_kill_dragon"), false);
+                } else if (isGiantAlive(dragon)) {
+                    serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.giant_still_alive"), false);
+                } else if (isWitherAlive(dragon)) {
+                    serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.wither_still_alive"), false);
+                }
+                if (bl && !isGiantOrWitherAlive(dragon)) {
                     List<String> translations = new ArrayList<>();
                     String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";
                     translations.add(s);
                     sendWithPrefix(s, serverPlayer);
                     ServerPlayNetworking.send(serverPlayer, new UpdateLastCompletedTutorialStepTranslationsS2CPacket(translations));
                 }
+                SpeedrunnerMod.error("what");
             } else {
+                SpeedrunnerMod.error("uh");
                 PlayerEntity player = dragon.getEntityWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
                 ModUtil.completeStepS2C(TutorialStep.KILL_DRAGON, player,
                         isDoomMode() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
@@ -188,37 +197,10 @@ public class EnderDragonEntityMixin extends MobEntity {
      */
     @Unique
     private boolean preventDragonFromDying(EnderDragonEntity dragon) {
-        boolean bl = isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && this.isGiantOrWitherAlive();
+        boolean bl = isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && isGiantOrWitherAlive(dragon);
         if (bl) {
             dragon.setHealth(1.0F);
         }
         return bl;
-    }
-
-    /**
-     * Checks if a giant and/or a wither are alive.
-     * <p>If either are present, the ender dragon {@code cannot die.}</p>
-     */
-    @Unique
-    private boolean isGiantOrWitherAlive() {
-        EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
-        List<GiantEntity> giants = this.getEntityWorld().getEntitiesByClass(GiantEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(2)), entity -> true);
-        List<WitherEntity> withers = this.getEntityWorld().getEntitiesByClass(WitherEntity.class,
-                dragon.getBoundingBox().expand(options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().getFirst(), options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(1), options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(2)), entity -> true);
-
-        for (GiantEntity giant : giants) {
-            if (giant.isAlive()) {
-                return true;
-            }
-        }
-
-        for (WitherEntity wither : withers) {
-            if (wither.isAlive()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
