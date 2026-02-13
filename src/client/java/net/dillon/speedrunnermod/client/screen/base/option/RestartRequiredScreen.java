@@ -5,8 +5,6 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -24,7 +22,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
-@Environment(EnvType.CLIENT)
 public class RestartRequiredScreen extends AbstractModScreen {
     private static final List<OptionValue<?>> restartTrackedValues = new ArrayList<>();
     private static final List<Object> initialValues = new ArrayList<>();

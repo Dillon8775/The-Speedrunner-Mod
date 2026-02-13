@@ -11,8 +11,6 @@ import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.*;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
@@ -30,7 +28,6 @@ import java.util.function.Function;
 /**
  * The base screen for any {@code Speedrunner Mod} screen.
  */
-@Environment(EnvType.CLIENT)
 public class BaseModScreen extends GameOptionsScreen {
     public TextFieldWidget searchField;
 
@@ -223,7 +220,6 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     public List<Class<? extends AbstractFeatureScreen>> miscellaneousFeatureScreens() {
         return List.of(
-                TutorialModeScreen.class,
                 FasterBlockBreakingScreen.class,
                 ICarusModeScreen.class,
                 InfiniPearlModeScreen.class,

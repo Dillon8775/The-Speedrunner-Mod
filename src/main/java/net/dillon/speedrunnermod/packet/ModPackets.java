@@ -3,11 +3,13 @@ package net.dillon.speedrunnermod.packet;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.packet.client.*;
+import net.dillon.speedrunnermod.packet.client.CheckModeS2CPacket;
+import net.dillon.speedrunnermod.packet.client.MatchClientOptionsWithServerS2CPacket;
+import net.dillon.speedrunnermod.packet.client.OpenFeaturesScreenS2CPacket;
+import net.dillon.speedrunnermod.packet.client.RequestClientSideOptionsS2CPacket;
 import net.dillon.speedrunnermod.packet.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.packet.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
-import net.dillon.speedrunnermod.packet.server.TutorialStepCompleteC2SPacket;
 import net.dillon.speedrunnermod.server.ServerStorage;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -37,7 +39,6 @@ public class ModPackets {
 
         ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
             UUID playerUuid = context.player().getUuid();
-            ServerStorage.setTutorialModeForPlayer(playerUuid, packet.tutorialMode());
             ServerStorage.setActionbarPref(playerUuid, packet.actionbar());
             ServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
             ServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
@@ -72,29 +73,15 @@ public class ModPackets {
     }
 
     /**
-     * Registers the receiver for completing tutorial steps.
-     */
-    private static void registerC2STutorialStepComplete() {
-        PayloadTypeRegistry.playC2S().register(TutorialStepCompleteC2SPacket.PACKET, TutorialStepCompleteC2SPacket.CODEC);
-
-        ServerPlayNetworking.registerGlobalReceiver(TutorialStepCompleteC2SPacket.PACKET, (packet, context) -> {
-            ServerStorage.completeTutorialStepC2S(context.player(), packet.step());
-            ServerPlayNetworking.send(context.player(), new UpdateLastCompletedTutorialStepTranslationsS2CPacket(packet.messageKeys()));
-        });
-    }
-
-    /**
      * Registers {@code server-to-client} packets on server.
      */
     private static void registerS2COnServer() {
         // Only register on server
         if (isEnvironmentTypeServer()) {
             PayloadTypeRegistry.playS2C().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
-            PayloadTypeRegistry.playS2C().register(CompleteTutorialStepS2CPacket.PACKET, CompleteTutorialStepS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
             PayloadTypeRegistry.playS2C().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
-            PayloadTypeRegistry.playS2C().register(UpdateLastCompletedTutorialStepTranslationsS2CPacket.PACKET, UpdateLastCompletedTutorialStepTranslationsS2CPacket.CODEC);
         }
     }
 
@@ -166,7 +153,6 @@ public class ModPackets {
         registerC2SClientPreferences();
         registerC2SMatchServerOptionsWithClient();
         registerC2SRequestServerSideOptions();
-        registerC2STutorialStepComplete();
 
         registerS2COnServer(); // register server-to-client ONLY on EnvType.SERVER
 

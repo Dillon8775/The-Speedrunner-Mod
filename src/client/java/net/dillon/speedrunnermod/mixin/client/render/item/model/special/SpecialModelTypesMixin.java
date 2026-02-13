@@ -2,8 +2,6 @@ package net.dillon.speedrunnermod.mixin.client.render.item.model.special;
 
 import com.mojang.serialization.MapCodec;
 import net.dillon.speedrunnermod.client.render.SpeedrunnerShieldModelRenderer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.client.render.item.model.special.SpecialModelTypes;
 import net.minecraft.util.Identifier;
@@ -17,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
-@Environment(EnvType.CLIENT)
 @Mixin(SpecialModelTypes.class)
 public class SpecialModelTypesMixin {
     @Shadow @Final

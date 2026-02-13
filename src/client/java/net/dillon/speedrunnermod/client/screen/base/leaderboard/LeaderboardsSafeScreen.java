@@ -4,8 +4,6 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -20,7 +18,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 @Deprecated
-@Environment(EnvType.CLIENT)
+
 public class LeaderboardsSafeScreen extends AbstractModScreen {
     protected ButtonWidget leftButton, middleButton, rightButton, viewIneligibleOptionsButton, viewSubmissionPageButton;
 

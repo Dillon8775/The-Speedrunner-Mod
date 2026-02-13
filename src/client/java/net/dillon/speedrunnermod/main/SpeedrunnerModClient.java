@@ -13,8 +13,6 @@ import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import org.reflections.Reflections;
@@ -31,7 +29,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 /**
  * The home initializer for the client-side of the Speedrunner Mod.
  */
-@Environment(EnvType.CLIENT)
 public class SpeedrunnerModClient implements ClientModInitializer {
     public static final List<Function<Screen, AbstractModScreen>> ALL_MOD_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractModScreen
     public static final List<Function<Screen, AbstractFeatureScreen>> ALL_FEATURE_SCREENS = new ArrayList<>(); // A list of all subclasses of AbstractFeatureScreen
@@ -114,7 +111,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Returns the {@code client} Speedrunner Mod {@code options.}
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
-    @Environment(EnvType.CLIENT)
+
     public static ClientModOptions clientOptions() {
         return ClientModOptions.CLIENT_OPTIONS.getInstance();
     }
@@ -123,7 +120,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Returns the {@code client} Speedrunner Mod {@code options handler} (for saving/loading config).
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
-    @Environment(EnvType.CLIENT)
+
     public static ClientModOptions.Handler clientConfigHandler() {
         return ClientModOptions.CLIENT_OPTIONS;
     }
@@ -132,7 +129,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Saves all speedrunner mod option changes on the {@code client-side.}
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
-    @Environment(EnvType.CLIENT)
+
     public static void saveClientChanges() {
         clientConfigHandler().save();
     }
@@ -141,7 +138,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Saves all speedrunner mod option changes (both client and server-side).
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
-    @Environment(EnvType.CLIENT)
+
     public static void saveAllChanges() {
         saveDedicatedServerChanges();
         saveClientChanges();

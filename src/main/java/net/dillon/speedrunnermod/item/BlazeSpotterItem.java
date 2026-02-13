@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
@@ -32,7 +31,7 @@ import net.minecraft.world.World;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.ModOptions.Mode;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
@@ -66,7 +65,7 @@ public class BlazeSpotterItem extends Item implements EyeItem {
                 this.playPitchedLaunchSound(3.0F, world, player);
                 ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner"), Formatting.GOLD, Formatting.WHITE);
             } else {
-                player.teleport(blazeSpawnerPos.getX() + 0.5F, blazeSpawnerPos.getY() + 1.0F, blazeSpawnerPos.getZ() + 0.5F, false);
+                this.correctlyTeleport(world, blazeSpawnerPos, player, 1.0F);
                 player.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.secondsAsTicks(world.random.nextInt(4) + 7), 0, false, true, true));
                 player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(30));
                 world.sendEntityStatus(player, ModStatuses.ADD_BLAZE_SMOKE_PARTICLES);
@@ -75,9 +74,6 @@ public class BlazeSpotterItem extends Item implements EyeItem {
                 this.playThrowSound(world, player);
 
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
-                ModUtil.completeStepS2C(TutorialStep.USE_BLAZE_SPOTTER, player,
-                        "speedrunnermod.tutorial_mode.used_blaze_spotter",
-                        "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
 
                 player.incrementStat(Stats.USED.getOrCreateStat(this));
                 player.swingHand(hand, true);
@@ -101,11 +97,7 @@ public class BlazeSpotterItem extends Item implements EyeItem {
                 if (blockEntity instanceof MobSpawnerBlockEntity) {
                     MobSpawnerBlockEntity spawnerBlockEntity = (MobSpawnerBlockEntity) blockEntity;
                     if (spawnerBlockEntity.getLogic().getRenderedEntity(world, pos).getType() == EntityType.BLAZE) {
-                        if (!world.getBlockState(pos.up()).isAir() || !world.getBlockState(pos.up(1)).isAir()) {
-                            for (int i = 1; i < 3; i++) {
-                                world.setBlockState(pos.up(i), Blocks.AIR.getDefaultState(), 3);
-                            }
-                        }
+                        this.removeObstructions(world, pos);
                         return pos.toImmutable();
                     }
                 }

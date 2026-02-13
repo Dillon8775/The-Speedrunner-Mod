@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -113,9 +112,6 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
                                 break;
                             }
                         }
-                        ModUtil.completeStepS2C(TutorialStep.USE_PIGLIN_AWAKENER, player,
-                                "speedrunnermod.tutorial_mode.used_piglin_awakener",
-                                "speedrunnermod.tutorial_mode.craft_blaze_spotter");
                     });
                     player.incrementStat(Stats.USED.getOrCreateStat(this));
                     player.swingHand(hand, true);

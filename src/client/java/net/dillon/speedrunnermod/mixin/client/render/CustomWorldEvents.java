@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.mixin.client.render;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.world.WorldEventHandler;
 import net.minecraft.item.Item;
@@ -22,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
 @Mixin(WorldEventHandler.class)
 public abstract class CustomWorldEvents {
     @Shadow @Final

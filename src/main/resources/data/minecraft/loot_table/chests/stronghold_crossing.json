@@ -101,7 +101,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "minecraft:apple",
+          "name": "minecraft:golden_apple",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -112,6 +112,11 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 1,
+          "name": "speedrunnermod:inventory_preserver"
         },
         {
           "type": "minecraft:item",
@@ -126,7 +131,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         }

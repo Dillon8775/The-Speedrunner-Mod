@@ -10,8 +10,6 @@ import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.UmScreen;
 import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.YouArentReadyForThisScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.CreditsScreen;
@@ -29,7 +27,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 /**
  * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, external links, other mods, and more.
  */
-@Environment(EnvType.CLIENT)
 public class MainScreen extends AbstractModScreen {
     private ButtonWidget optionsButton, featuresButton, resourcesButton, externalButton, creditsButton, leaderboardsButton, doomModeButton;
 

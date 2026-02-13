@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
@@ -78,9 +77,9 @@ public class AnnulEyeItem extends Item implements EyeItem {
                 this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, 5.0F, world, player);
             } else {
                 player.sendMessage(ModTexts.CALCULATING, false);
-                BlockPos endPortalFrameBlock = findPortalRoom(world, player.getBlockPos());
+                BlockPos centerBlock = this.findPortalRoom(world, player.getBlockPos());
 
-                if (endPortalFrameBlock == null) {
+                if (centerBlock == null) {
                     ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED));
                 } else {
                     ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
@@ -88,12 +87,11 @@ public class AnnulEyeItem extends Item implements EyeItem {
                     this.playThrowSound(world, player);
 
                     TaskScheduler.schedule(ModUtil.secondsAsTicks(3), () -> {
-                        player.teleport(endPortalFrameBlock.getX() + 0.5F, endPortalFrameBlock.getY() + 1.0F, endPortalFrameBlock.getZ() + 0.5F, false);
+                        this.correctlyTeleport(world, centerBlock, player, 0.0F);
                         world.sendEntityStatus(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
                         this.playWorldSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, world, player);
                         this.playTeleportSound(world, player);
                         ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
-                        ModUtil.completeStepS2C(TutorialStep.USE_ANNUL_EYE, player, "speedrunnermod.tutorial_mode.enter_end");
                     });
 
                     player.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -216,12 +214,15 @@ public class AnnulEyeItem extends Item implements EyeItem {
 
         if (centerPos != portalPos) {
             BlockPos standingPos = world.getBlockState(centerPos).isOf(Blocks.END_PORTAL)
-                ? centerPos.up()
-                : centerPos;
+                    ? centerPos.up()
+                    : centerPos;
             world.setBlockState(standingPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
-            return standingPos;
+            this.removeObstructions(world, standingPos);
+            return standingPos.up();
         }
-        return centerPos;
+        world.setBlockState(centerPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
+        this.removeObstructions(world, centerPos);
+        return centerPos.up();
     }
 
     /**

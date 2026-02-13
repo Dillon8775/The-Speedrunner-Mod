@@ -49,6 +49,7 @@ SPEEDRUNNERS WORKBENCH CHANGES:
 - You can now add a Golden Upgrade Smithing Template to the workbench to remove all durability damage. Doing this will result in double the cost.
 - You can now transfer enchantments directly to books.
 - Renamed "Golden Speedrunner Upgrade Smithing Template" to "Golden Upgrade Smithing Template", as the name was way too long, and rendered off the screen.
+- You can now upgrade golden tools to golden speedrunner tools in the speedrunner's workbench.
 
 DRAGON'S FIREBALL:
 - Yup, you guessed it. The dragon's fireball, as a throwable item.
@@ -63,13 +64,16 @@ EXPERIENCE FRAGMENT:
 - With this item, you can craft Bottles of Enchanting.
 - To craft Bottles of Enchanting, you will need 1 experience fragment and 1 glass bottle. You will then receive 2 bottles of enchanting.
 
-NEW TEXTURES:
+NEW TEXTURES / TEXTURE CHANGES:
 - New animated texture for the InfiniPearl! (credit to MannyQUESO)
-- New textures for Raw Speedrunner and the Raw Speedrunner Block.
-- New textures for the Golden Speedrunner Armor items.
-- Fixed knockback stick held item model.
+- New textures for the Golden Speedrunner armor and tools.
+- Fixed inconsistency with other textures, as well as removed extremely strong blue from most speedrunner items.
+    - This includes revamped textures for: Speedrunner Ingot, Raw Speedrunner, Raw Speedrunner Block, Speedrunner's Eye, Speedrunner Shield, Speedrunner Boat, Speedrunner logs, speedrunner sapling, doors, signs, and trapdoors (this includes all DEAD variants as well)
+- Fixed knockback stick item model.
 
 OTHER CHANGES:
+- Removed tutorial mode.
+
 - The InfiniPearl now glows when thrown.
 - Increased speed of InfiniPearl when in water.
 - You no longer need an ender thruster in order to craft an InfiniPearl.
@@ -91,6 +95,11 @@ OTHER CHANGES:
 - Blast furnace and smoker recipes take only 1 second to cook.
 - All potions now only take 5 seconds to brew.
 - Enchanted golden apples are now craftable (again), with a golden apple in the center and 8 gold blocks surrounding it.
+- Increased hardness of the thrusted block.
+
+- The warden now actually drops good loot when killed.
+- Buffed ancient city chests and trail chamber chests.
+- Modified other loot tables (nothing major).
 
 - Normal totems of undying no longer work in the void. Only speedrunner totems can save you from the void now.
 - Using a totem no longer removes any currently applied positive effects (with both normal totems and speedrunner totems).
@@ -101,6 +110,7 @@ OTHER CHANGES:
 - Goliath now has a 15% chance to summon TNT around himself when taking damage (previously 10%).
 - Goliath will now always spawn TNT when damaged if his health is 1/3 of his max health.
 - Goliath now appears as angry when at 1/3 of health.
+- Speedrunner swords no longer do more damage to Goliath (or withers).
 
 - Speedrunner armor now gives +1 armor toughness.
 - Golden speedrunner armor now gives +0.5 armor toughness.
@@ -120,6 +130,7 @@ OTHER CHANGES:
 
 - Renamed "Immortal" advancement to "I am... Immortal."
 - Renamed "Bulked" advancement to "Bulky".
+- Other advancement modifications.
 
 TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Fire charges are no longer required in order to craft Eyes of Annul, Dragon's Pearls, and Raid Eradicators.
@@ -134,14 +145,18 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 
 - Removed "Open config directory" button.
 
+- Normal totems of undying are now attempted to be used first before checking for speedrunners totems.
 - Fixed crash with timed-set items (items that execute something after a set amount of seconds).
 - Fixed critical bug with Raid Eradicator where the player glitches into death but can never get out.
-- Fixed bug with Ender Thruster where it doesn't work sometimes.
+- Fixed bug with Ender Thruster, Blaze Spotter and Eye of Annul where they don't work sometimes due to chunk loading issues.
+- Fixed chest boat rendering issues.
+- Fixed bug where structures don't generate according to doom mode.
 - Fixed bug where certain particles don't render sometimes.
 - Fixed bug where:
     - Speedrunner shield does not have a faster cooldown than normal shields.
     - Cooldown enchantment does not work on any items at all.
 - Fixed bug where creepers are one-shots.
 - Fixed bug where the cost in an anvil is always set to the cost limit, regardless of whether or not the cost ever went over the limit.
+- Fixed duplicate recipes displaying in recipe book.
 - Fixed bug where patches of raw speedrunner blocks would almost never generate in the Speedrunner's Wasteland biome, due to the chance being incredibly low.
 - Fixed bug where Goliath infinitely spawns TNT when "in fire".

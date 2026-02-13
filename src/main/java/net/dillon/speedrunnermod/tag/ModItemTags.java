@@ -37,6 +37,7 @@ public class ModItemTags {
     public static TagKey<Item> STICKS = of("sticks");
     public static TagKey<Item> SPEEDRUNNER_STICKS = of("speedrunner_sticks");
     public static TagKey<Item> TOTEMS = of("totems");
+    public static TagKey<Item> UPGRADEABLE_GOLD = of("upgradable_gold");
     public static TagKey<Item> WITHER_TOOL_MATERIALS = of("wither_tool_materials");
 
     /**

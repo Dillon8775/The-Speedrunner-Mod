@@ -4,8 +4,6 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -15,7 +13,7 @@ import net.minecraft.util.Formatting;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Deprecated
-@Environment(EnvType.CLIENT)
+
 public class LeaderboardsScreen extends AbstractModScreen {
     protected ButtonWidget submitSpeedrunButton;
 

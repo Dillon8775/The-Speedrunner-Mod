@@ -3,14 +3,12 @@ package net.dillon.speedrunnermod.client.screen.base.leaderboard;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Colors;
 
 @Deprecated
-@Environment(EnvType.CLIENT)
+
 public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     private final Screen parent;
     public static boolean fromInitialBoot = true;

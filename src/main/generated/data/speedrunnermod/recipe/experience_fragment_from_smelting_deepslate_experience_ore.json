@@ -2,7 +2,7 @@
   "type": "minecraft:smelting",
   "category": "misc",
   "cookingtime": 20,
-  "experience": 5.0,
+  "experience": 3.0,
   "group": "experience_fragment",
   "ingredient": "speedrunnermod:deepslate_experience_ore",
   "result": {

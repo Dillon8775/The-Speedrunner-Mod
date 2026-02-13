@@ -3,16 +3,22 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.tag.StructureTags;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ChunkTicket;
+import net.minecraft.server.world.ChunkTicketType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 
@@ -95,6 +101,33 @@ public interface EyeItem {
         }
 
         return structure;
+    }
+
+    /**
+     * Removes obstruction blocks, preventing the player from teleporting.
+     */
+    default void removeObstructions(World world, BlockPos pos) {
+        boolean isAir = world.getBlockState(pos.up()).isAir() && world.getBlockState(pos.up(1)).isAir();
+        if (!isAir) {
+            for (int i = 1; i < 3; i++) {
+                world.setBlockState(pos.up(i), Blocks.AIR.getDefaultState(), 3);
+            }
+        }
+    }
+
+    /**
+     * Loads the chunk before teleporting, to ensure no prevent teleportation bugs.
+     */
+    default void correctlyTeleport(World world, BlockPos pos, PlayerEntity player, float additionalY) {
+        if (!(world instanceof ServerWorld serverWorld)) {
+            return;
+        }
+
+        ChunkPos chunkPos = new ChunkPos(pos);
+        serverWorld.getChunkManager().addTicket(new ChunkTicket(ChunkTicketType.PLAYER_LOADING, 1), chunkPos);
+        serverWorld.getChunk(chunkPos.x, chunkPos.z);
+
+        player.teleport(pos.getX() + 0.5F, pos.getY() + additionalY, pos.getZ() + 0.5F, false);
     }
 
     /**

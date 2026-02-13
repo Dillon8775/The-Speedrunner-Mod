@@ -1,18 +1,12 @@
 package net.dillon.speedrunnermod.option;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.StringIdentifiable;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
@@ -22,12 +16,10 @@ import static net.dillon.speedrunnermod.option.ModOptions.isIntegerOptionValid;
 /**
  * All {@code Client-side Speedrunner Mod options.}
  */
-@Environment(EnvType.CLIENT)
 public class ClientModOptions {
     public final Client client = new Client();
     public final Mixins mixins = new Mixins();
     public final StoredValues storedValues = new StoredValues();
-    public final TutorialMode tutorialMode = new TutorialMode();
 
     public static final ClientModOptions.Handler CLIENT_OPTIONS = new Handler();
 
@@ -75,11 +67,6 @@ public class ClientModOptions {
     }
 
     public static class Client {
-
-        /**
-         * Takes the player through various different features in the mod.
-         */
-        public OptionValue<Boolean> tutorialMode = new OptionValue<>(false, true);
 
         /**
          * Enable/disable Minecraft's default fog.
@@ -191,150 +178,9 @@ public class ClientModOptions {
         public OptionValue<Boolean> firstTimePlaying = new OptionValue<>(true, false);
 
         /**
-         * Returns the last completed tutorial step message translation key(s). These messages are sent when the player rejoins the world.
-         */
-        public OptionValue<List<String>> lastCompletedTutorialStepMessageTranslations = new OptionValue<>(new ArrayList<>(), false);
-
-        /**
          * Tells the game whether to boot into the {@code feature screens} or not.
          */
-        public OptionValue<Boolean> enterFeaturesScreen = new OptionValue<>(false, false);
-    }
-
-    /**
-     * All booleans for doing certain things in the tutorial mode.
-     */
-    public static class TutorialMode implements net.dillon.speedrunnermod.tutorial.TutorialMode {
-        public OptionValue<Boolean> enterWorld = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnerPickaxe = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnerPaddle = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnerBoat = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnerArmorSet = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnerShield = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedInfernoEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedInfernoEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedPiglinAwakener = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedPiglinAwakener = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedBlazeSpotter = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedBlazeSpotter = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnersEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> changedSpeedrunnersEyeLocator = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedSpeedrunnersEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedEnderEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedEnderEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedDragonsPearl = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedAnnulEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedAnnulEye = new OptionValue<>(false, false);
-        public OptionValue<Boolean> enteredEnd = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedTotem = new OptionValue<>(false, false);
-        public OptionValue<Boolean> freeFalledIntoVoid = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnersTotem = new OptionValue<>(false, false);
-        public OptionValue<Boolean> brokenDoomBlock = new OptionValue<>(false, false);
-        public OptionValue<Boolean> killedGoliath = new OptionValue<>(false, false);
-        public OptionValue<Boolean> killedWither = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedDragonsPearl = new OptionValue<>(false, false);
-        public OptionValue<Boolean> killedDragon = new OptionValue<>(false, false);
-        public OptionValue<Boolean> exitEnd = new OptionValue<>(false, false);
-        public OptionValue<Boolean> brokenExperienceOre = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedSpeedrunnersWorkbench = new OptionValue<>(false, false);
-        public OptionValue<Boolean> transferedEnchantments = new OptionValue<>(false, false);
-        public OptionValue<Boolean> interactedWithRetiredSpeedrunner = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedEnderThruster = new OptionValue<>(false, false);
-        public OptionValue<Boolean> usedEnderThruster = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedDragonsSword = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedEnderMatter = new OptionValue<>(false, false);
-        public OptionValue<Boolean> obtainedInfiniPearl = new OptionValue<>(false, false);
-
-        @Override
-        public boolean getStep(TutorialStep step) {
-            /*return switch (step) {
-                case ENTER_WORLD -> enterWorld.getCurrentValue();
-                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe.getCurrentValue();
-                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle.getCurrentValue();
-                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat.getCurrentValue();
-                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet.getCurrentValue();
-                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield.getCurrentValue();
-                case CRAFT_INFERNO_EYE -> obtainedInfernoEye.getCurrentValue();
-                case USE_INFERNO_EYE -> usedInfernoEye.getCurrentValue();
-                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener.getCurrentValue();
-                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener.getCurrentValue();
-                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter.getCurrentValue();
-                case USE_BLAZE_SPOTTER -> usedBlazeSpotter.getCurrentValue();
-                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye.getCurrentValue();
-                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator.getCurrentValue();
-                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye.getCurrentValue();
-                case USE_ENDER_EYE -> usedEnderEye.getCurrentValue();
-                case CRAFT_ANNUL_EYE -> obtainedAnnulEye.getCurrentValue();
-                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl.getCurrentValue();
-                case CRAFT_ENDER_EYE -> obtainedEnderEye.getCurrentValue();
-                case USE_ANNUL_EYE -> usedAnnulEye.getCurrentValue();
-                case ENTER_END -> enteredEnd.getCurrentValue();
-                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem.getCurrentValue();
-                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid.getCurrentValue();
-                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem.getCurrentValue();
-                case BREAK_DOOM_BLOCK -> brokenDoomBlock.getCurrentValue();
-                case KILL_GOLIATH -> killedGoliath.getCurrentValue();
-                case KILL_WITHER -> killedWither.getCurrentValue();
-                case USE_DRAGONS_PEARL -> usedDragonsPearl.getCurrentValue();
-                case KILL_DRAGON -> killedDragon.getCurrentValue();
-                case EXIT_END -> exitEnd.getCurrentValue();
-                case MINE_EXPERIENCE_ORE -> brokenExperienceOre.getCurrentValue();
-                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench.getCurrentValue();
-                case TRANSFER_ENCHANTMENTS -> transferedEnchantments.getCurrentValue();
-                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner.getCurrentValue();
-                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster.getCurrentValue();
-                case USE_ENTER_THRUSTER -> usedEnderThruster.getCurrentValue();
-                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword.getCurrentValue();
-                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter.getCurrentValue();
-                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl.getCurrentValue();
-            };*/
-            return true;
-        }
-
-        @Override
-        public void setStep(TutorialStep step, boolean value) {
-            switch (step) {
-                case ENTER_WORLD -> enterWorld.set(value);
-                case CRAFT_SPEEDRUNNER_PICKAXE -> obtainedSpeedrunnerPickaxe.set(value);
-                case CRAFT_SPEEDRUNNER_PADDLE -> obtainedSpeedrunnerPaddle.set(value);
-                case CRAFT_SPEEDRUNNER_BOAT -> obtainedSpeedrunnerBoat.set(value);
-                case CRAFT_SPEEDRUNNER_ARMOR -> obtainedSpeedrunnerArmorSet.set(value);
-                case CRAFT_SPEEDRUNNER_SHIELD -> obtainedSpeedrunnerShield.set(value);
-                case CRAFT_INFERNO_EYE -> obtainedInfernoEye.set(value);
-                case USE_INFERNO_EYE -> usedInfernoEye.set(value);
-                case CRAFT_PIGLIN_AWAKENER -> obtainedPiglinAwakener.set(value);
-                case USE_PIGLIN_AWAKENER -> usedPiglinAwakener.set(value);
-                case CRAFT_BLAZE_SPOTTER -> obtainedBlazeSpotter.set(value);
-                case USE_BLAZE_SPOTTER -> usedBlazeSpotter.set(value);
-                case CRAFT_SPEEDRUNNERS_EYE -> obtainedSpeedrunnersEye.set(value);
-                case CHANGE_SPEEDRUNNERS_EYE_LOCATOR -> changedSpeedrunnersEyeLocator.set(value);
-                case USE_SPEEDRUNNERS_EYE -> usedSpeedrunnersEye.set(value);
-                case CRAFT_ENDER_EYE -> obtainedEnderEye.set(value);
-                case USE_ENDER_EYE -> usedEnderEye.set(value);
-                case CRAFT_DRAGONS_PEARL -> obtainedDragonsPearl.set(value);
-                case CRAFT_ANNUL_EYE -> obtainedAnnulEye.set(value);
-                case USE_ANNUL_EYE -> usedAnnulEye.set(value);
-                case ENTER_END -> enteredEnd.set(value);
-                case OBTAIN_TOTEM_OF_UNDYING -> obtainedTotem.set(value);
-                case FREE_FALL_INTO_VOID -> freeFalledIntoVoid.set(value);
-                case OBTAIN_SPEEDRUNNERS_TOTEM -> obtainedSpeedrunnersTotem.set(value);
-                case BREAK_DOOM_BLOCK -> brokenDoomBlock.set(value);
-                case KILL_GOLIATH -> killedGoliath.set(value);
-                case KILL_WITHER -> killedWither.set(value);
-                case USE_DRAGONS_PEARL -> usedDragonsPearl.set(value);
-                case KILL_DRAGON -> killedDragon.set(value);
-                case EXIT_END -> exitEnd.set(value);
-                case MINE_EXPERIENCE_ORE -> brokenExperienceOre.set(value);
-                case CRAFT_SPEEDRUNNERS_WORKBENCH -> obtainedSpeedrunnersWorkbench.set(value);
-                case TRANSFER_ENCHANTMENTS -> transferedEnchantments.set(value);
-                case INTERACT_WITH_RETIRED_SPEEDRUNNER -> interactedWithRetiredSpeedrunner.set(value);
-                case OBTAIN_ENDER_THRUSTER -> obtainedEnderThruster.set(value);
-                case USE_ENTER_THRUSTER -> usedEnderThruster.set(value);
-                case OBTAIN_DRAGONS_SWORD -> obtainedDragonsSword.set(value);
-                case OBTAIN_ENDER_MATTER -> obtainedEnderMatter.set(value);
-                case OBTAIN_INFINI_PEARL -> obtainedInfiniPearl.set(value);
-            }
-        }
+        public OptionValue<Boolean> enterFeaturesScreen = new OptionValue<>(true, false);
     }
 
     /**
@@ -482,7 +328,6 @@ public class ClientModOptions {
      */
     public static void resetAllOptions() {
         configHandler().resetToDefault();
-        resetTutorialModeProgression();
     }
 
     /**
@@ -490,20 +335,5 @@ public class ClientModOptions {
      */
     public static void resetAllClientOptions() {
         clientConfigHandler().resetToDefault();
-    }
-
-    /**
-     * Resets all tutorial mode options.
-     */
-    public static void resetTutorialModeProgression() {
-        for (TutorialStep step : TutorialStep.values()) {
-            try {
-                clientOptions().tutorialMode.setStep(step, false);
-                clientOptions().storedValues.lastCompletedTutorialStepMessageTranslations.getCurrentValue().clear();
-            } catch (Exception e) {
-                SpeedrunnerMod.error("Error resetting tutorial mode option: " + step.name());
-                e.printStackTrace();
-            }
-        }
     }
 }

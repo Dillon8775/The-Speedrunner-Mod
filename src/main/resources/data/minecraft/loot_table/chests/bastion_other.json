@@ -20,7 +20,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -76,7 +76,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -87,7 +87,8 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 33
+              "levels": 33,
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             },
             {
               "function": "minecraft:set_count",
@@ -110,7 +111,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -211,7 +212,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         }
@@ -281,7 +282,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -308,7 +309,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -324,7 +325,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -391,7 +392,8 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 33
+              "levels": 33,
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             },
             {
               "function": "minecraft:set_count",
@@ -408,7 +410,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             },
             {
               "function": "minecraft:set_count",
@@ -424,7 +426,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             },
             {
               "function": "minecraft:set_count",
@@ -440,7 +442,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             },
             {
               "function": "minecraft:set_count",
@@ -456,7 +458,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 33,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             },
             {
               "function": "minecraft:set_count",

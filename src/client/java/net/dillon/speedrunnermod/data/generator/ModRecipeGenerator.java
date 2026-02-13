@@ -12,7 +12,6 @@ import net.dillon.speedrunnermod.recipe.boat.chest.*;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.recipe.ComplexRecipeJsonBuilder;
 import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
@@ -31,12 +30,6 @@ import java.util.concurrent.CompletableFuture;
  * Used to modify {@code vanilla recipes} and create {@code Speedrunner Mod} recipes.
  */
 public class ModRecipeGenerator extends FabricRecipeProvider {
-    private static final ImmutableList<ItemConvertible> DIAMOND_ORES = ImmutableList.of(Items.DIAMOND_ORE, Items.DEEPSLATE_DIAMOND_ORE);
-    private static final ImmutableList<ItemConvertible> EMERALD_ORES = ImmutableList.of(Items.EMERALD_ORE, Items.DEEPSLATE_EMERALD_ORE);
-    private static final ImmutableList<ItemConvertible> GOLD_ORES = ImmutableList.of(Items.GOLD_ORE, Items.DEEPSLATE_GOLD_ORE, Items.NETHER_GOLD_ORE, Items.RAW_GOLD);
-    private static final ImmutableList<ItemConvertible> IRON_ORES = ImmutableList.of(Items.IRON_ORE, Items.DEEPSLATE_IRON_ORE, Items.RAW_IRON);
-    private static final ImmutableList<ItemConvertible> LAPIS_ORES = ImmutableList.of(Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE);
-    private static final ImmutableList<ItemConvertible> REDSTONE_ORES = ImmutableList.of(Items.REDSTONE_ORE, Items.DEEPSLATE_REDSTONE_ORE);
     private static final ImmutableList<ItemConvertible> IGNEOUS_ORES = ImmutableList.of(ModBlocks.IGNEOUS_ORE, ModBlocks.DEEPSLATE_IGNEOUS_ORE, ModBlocks.NETHER_IGNEOUS_ORE);
     private static final ImmutableList<ItemConvertible> EXPERIENCE_ORES = ImmutableList.of(ModBlocks.EXPERIENCE_ORE, ModBlocks.DEEPSLATE_EXPERIENCE_ORE, ModBlocks.NETHER_EXPERIENCE_ORE);
     private static final ImmutableList<ItemConvertible> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE, ModItems.RAW_SPEEDRUNNER);
@@ -53,41 +46,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
             public void generate() {
                 RecipeGeneratorHelper helper = new RecipeGeneratorHelper(wrapperLookup, exporter);
 
-                // VANILLA/MODDED
-                helper.createAxe(ItemTags.DIAMOND_TOOL_MATERIALS, Items.DIAMOND_AXE, true);
-                helper.createAxe(ItemTags.GOLD_TOOL_MATERIALS, Items.GOLDEN_AXE, true);
-                helper.createAxe(ItemTags.IRON_TOOL_MATERIALS, Items.IRON_AXE, true);
-                helper.createAxe(ItemTags.STONE_TOOL_MATERIALS, Items.STONE_AXE, true);
-                helper.createAxe(ItemTags.WOODEN_TOOL_MATERIALS, Items.WOODEN_AXE, true);
-                helper.createAxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_AXE, false);
-
-                helper.createHoe(ItemTags.DIAMOND_TOOL_MATERIALS, Items.DIAMOND_HOE, true);
-                helper.createHoe(ItemTags.GOLD_TOOL_MATERIALS, Items.GOLDEN_HOE, true);
-                helper.createHoe(ItemTags.IRON_TOOL_MATERIALS, Items.IRON_HOE, true);
-                helper.createHoe(ItemTags.STONE_TOOL_MATERIALS, Items.STONE_HOE, true);
-                helper.createHoe(ItemTags.WOODEN_TOOL_MATERIALS, Items.WOODEN_HOE, true);
-                helper.createHoe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_HOE, false);
-
-                helper.createPickaxe(ItemTags.DIAMOND_TOOL_MATERIALS, Items.DIAMOND_PICKAXE, true);
-                helper.createPickaxe(ItemTags.GOLD_TOOL_MATERIALS, Items.GOLDEN_PICKAXE, true);
-                helper.createPickaxe(ItemTags.IRON_TOOL_MATERIALS, Items.IRON_PICKAXE, true);
-                helper.createPickaxe(ItemTags.STONE_TOOL_MATERIALS, Items.STONE_PICKAXE, true);
-                helper.createPickaxe(ItemTags.WOODEN_TOOL_MATERIALS, Items.WOODEN_PICKAXE, true);
-                helper.createPickaxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_PICKAXE, false);
-
-                helper.createShovel(ItemTags.DIAMOND_TOOL_MATERIALS, Items.DIAMOND_SHOVEL, true);
-                helper.createShovel(ItemTags.GOLD_TOOL_MATERIALS, Items.GOLDEN_SHOVEL, true);
-                helper.createShovel(ItemTags.IRON_TOOL_MATERIALS, Items.IRON_SHOVEL, true);
-                helper.createShovel(ItemTags.STONE_TOOL_MATERIALS, Items.STONE_SHOVEL, true);
-                helper.createShovel(ItemTags.WOODEN_TOOL_MATERIALS, Items.WOODEN_SHOVEL, true);
-                helper.createShovel(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_SHOVEL, false);
-
-                helper.createSword(ItemTags.DIAMOND_TOOL_MATERIALS, Items.DIAMOND_SWORD, true);
-                helper.createSword(ItemTags.GOLD_TOOL_MATERIALS, Items.GOLDEN_SWORD, true);
-                helper.createSword(ItemTags.IRON_TOOL_MATERIALS, Items.IRON_SWORD, true);
-                helper.createSword(ItemTags.STONE_TOOL_MATERIALS, Items.STONE_SWORD, true);
-                helper.createSword(ItemTags.WOODEN_TOOL_MATERIALS, Items.WOODEN_SWORD, true);
-                helper.createSword(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_SWORD, false);
+                helper.createAxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_AXE);
+                helper.createHoe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_HOE);
+                helper.createPickaxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_PICKAXE);
+                helper.createShovel(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_SHOVEL);
+                helper.createSword(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_SWORD);
 
                 helper.createHelmet(ModItems.SPEEDRUNNER_INGOT, ModItems.SPEEDRUNNER_HELMET);
                 helper.createChestplate(ModItems.SPEEDRUNNER_INGOT, ModItems.SPEEDRUNNER_CHESTPLATE);
@@ -105,27 +68,13 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(Items.GOLDEN_LEGGINGS, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(Items.GOLDEN_BOOTS, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
 
-                helper.offerBurnableMaterial(DIAMOND_ORES, Items.DIAMOND, 150, "diamond", true);
-                helper.offerBurnableMaterial(EMERALD_ORES, Items.EMERALD, 200, "emerald", true);
-                helper.offerBurnableMaterial(GOLD_ORES, Items.GOLD_INGOT, 150, "gold_ingot", true);
-                helper.offerBurnableMaterial(IRON_ORES, Items.IRON_INGOT, 100, "iron_ingot", true);
-                helper.offerBurnableMaterial(LAPIS_ORES, Items.LAPIS_LAZULI, 100, "lapis_lazuli", true);
-                helper.offerBurnableMaterial(REDSTONE_ORES, Items.REDSTONE, 100, "redstone", true);
-                helper.offerBurnableMaterial(IGNEOUS_ORES, ModItems.IGNEOUS_ROCK, 25, "igneous_rock", false);
-                helper.offerBurnableMaterial(EXPERIENCE_ORES, ModItems.EXPERIENCE_FRAGMENT, 5, "experience_fragment", false);
-                helper.offerBurnableMaterial(SPEEDRUNNER_ORES_AND_BLOCKS, ModItems.SPEEDRUNNER_INGOT, 200, "speedrunner_ingot", false);
+                helper.offerBurnableMaterial(IGNEOUS_ORES, ModItems.IGNEOUS_ROCK, 0.6F, "igneous_rock");
+                helper.offerBurnableMaterial(EXPERIENCE_ORES, ModItems.EXPERIENCE_FRAGMENT, 3.0F, "experience_fragment");
+                helper.offerBurnableMaterial(SPEEDRUNNER_ORES_AND_BLOCKS, ModItems.SPEEDRUNNER_INGOT, 0.85F, "speedrunner_ingot");
 
-                helper.createCookableFood(Items.POTATO, Items.BAKED_POTATO, true);
-                helper.createCookableFood(Items.BEEF, Items.COOKED_BEEF, true);
-                helper.createCookableFood(Items.CHICKEN, Items.COOKED_CHICKEN, true);
-                helper.createCookableFood(Items.COD, Items.COOKED_COD, true);
-                helper.createCookableFood(Items.MUTTON, Items.COOKED_MUTTON, true);
-                helper.createCookableFood(Items.PORKCHOP, Items.COOKED_PORKCHOP, true);
-                helper.createCookableFood(Items.RABBIT, Items.COOKED_RABBIT, true);
-                helper.createCookableFood(Items.SALMON, Items.COOKED_SALMON, true);
-                helper.createCookableFood(ModItems.ROTTEN_SPEEDRUNNER_BULK, Items.ROTTEN_FLESH, true);
-                helper.createCookableFood(Items.ROTTEN_FLESH, ModItems.COOKED_FLESH, false);
-                helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK, false);
+                helper.createCookableFood(Items.ROTTEN_FLESH, ModItems.COOKED_FLESH);
+                helper.createCookableFood(ModItems.ROTTEN_SPEEDRUNNER_BULK, Items.ROTTEN_FLESH);
+                helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK);
 
                 helper.createBoatSet(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
                 helper.createFireproofBoatSet(CrimsonBoatRecipe::new, CrimsonChestBoatRecipe::new, "crimson");
@@ -161,9 +110,9 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         RecipeCategory.BUILDING_BLOCKS,
                         ModBlocks.SPEEDRUNNER_BLOCK,
                         "speedrunner_block_from_speedrunner_ingot",
-                        null,
+                        "speedrunner_block",
                         "speedrunner_ingot_from_speedrunner_block",
-                        null
+                        "speedrunner_ingot"
                 );
                 helper.offerModdedReversibleCompactingRecipes(
                         RecipeCategory.MISC,
@@ -171,9 +120,9 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         RecipeCategory.MISC,
                         ModItems.RAW_SPEEDRUNNER_BLOCK,
                         "raw_speedrunner_block_from_raw_speedrunner_ingot",
-                        null,
-                        "raw_speedrunner_ingot_from_raw_speedrunner_block",
-                        null
+                        "raw_speedrunner_block",
+                        "raw_speedrunner_from_raw_speedrunner_block",
+                        "raw_speedrunner"
                 );
                 helper.offerModdedReversibleCompactingRecipes(
                         RecipeCategory.MISC,
@@ -181,540 +130,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         RecipeCategory.MISC,
                         ModItems.SPEEDRUNNER_INGOT,
                         "speedrunner_ingot_from_speedrunner_nuggets",
-                        null,
+                        "speedrunner_ingot",
                         "speedrunner_nuggets_from_speedrunner_ingot",
-                        null
+                        "speedrunner_nugget"
                 );
 
-                // VANILLA
-                this.createShaped(RecipeCategory.TRANSPORTATION, Blocks.ACTIVATOR_RAIL, 6)
-                        .input('#', Blocks.REDSTONE_TORCH)
-                        .input('S', Items.STICK)
-                        .input('X', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("XSX")
-                        .pattern("X#X")
-                        .pattern("XSX")
-                        .criterion("has_rail", this.conditionsFromItem(Blocks.RAIL))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("activator_rail"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.ANVIL)
-                        .input('I', ModItemTags.Block.IRON_BLOCKS)
-                        .input('i', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("III")
-                        .pattern(" i ")
-                        .pattern("iii")
-                        .criterion("has_iron_block", this.conditionsFromTag(ModItemTags.Block.IRON_BLOCKS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("anvil"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Items.ARMOR_STAND)
-                        .input('/', ModItemTags.STICKS)
-                        .input('_', Blocks.SMOOTH_STONE_SLAB)
-                        .pattern("///")
-                        .pattern(" / ")
-                        .pattern("/_/")
-                        .criterion("has_stone_slab", this.conditionsFromItem(Blocks.SMOOTH_STONE_SLAB))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("armor_stand"));
-
-                this.createShaped(RecipeCategory.COMBAT, Items.ARROW, 4)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', Items.FLINT)
-                        .input('Y', Items.FEATHER)
-                        .pattern("X")
-                        .pattern("#")
-                        .pattern("Y")
-                        .criterion("has_feather", this.conditionsFromItem(Items.FEATHER))
-                        .criterion("has_flint", this.conditionsFromItem(Items.FLINT))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("arrow"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.BLAST_FURNACE)
-                        .input('#', Blocks.SMOOTH_STONE)
-                        .input('X', Blocks.FURNACE)
-                        .input('I', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("III")
-                        .pattern("IXI")
-                        .pattern("###")
-                        .criterion("has_smooth_stone", this.conditionsFromItem(Blocks.SMOOTH_STONE))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("blast_furnace"));
-
-                this.createShaped(RecipeCategory.COMBAT, Items.BOW)
-                        .input('#', Items.STICK)
-                        .input('X', Items.STRING)
-                        .pattern(" #X")
-                        .pattern("# X")
-                        .pattern(" #X")
-                        .group("bows")
-                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("bow"));
-
-                this.createShaped(RecipeCategory.MISC, Items.BUCKET)
-                        .input('#', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("# #")
-                        .pattern(" # ")
-                        .criterion("has_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("bucket"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.CAMPFIRE)
-                        .input('L', ItemTags.LOGS)
-                        .input('S', ModItemTags.STICKS)
-                        .input('C', ItemTags.COALS)
-                        .pattern(" S ")
-                        .pattern("SCS")
-                        .pattern("LLL")
-                        .criterion("has_stick", this.conditionsFromTag(ModItemTags.STICKS))
-                        .criterion("has_coal", this.conditionsFromTag(ItemTags.COALS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("campfire"));
-
-                this.createShaped(RecipeCategory.BREWING, Blocks.CAULDRON)
-                        .input('#', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("# #")
-                        .pattern("# #")
-                        .pattern("###")
-                        .criterion("has_water_bucket", this.conditionsFromItem(Items.WATER_BUCKET))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("cauldron"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.IRON_CHAIN)
-                        .input('I', ConventionalItemTags.IRON_INGOTS)
-                        .input('N', ConventionalItemTags.IRON_NUGGETS)
-                        .pattern("N")
-                        .pattern("I")
-                        .pattern("N")
-                        .criterion("has_iron_nugget", this.conditionsFromTag(ConventionalItemTags.IRON_NUGGETS))
-                        .criterion("has_iron_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("chain"));
-
-                this.createShaped(RecipeCategory.TOOLS, Items.COMPASS)
-                        .input('#', ConventionalItemTags.IRON_INGOTS)
-                        .input('X', Items.REDSTONE)
-                        .pattern(" # ")
-                        .pattern("#X#")
-                        .pattern(" # ")
-                        .criterion("has_redstone", this.conditionsFromItem(Items.REDSTONE))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("compass"));
-
-                this.createShaped(RecipeCategory.COMBAT, Items.CROSSBOW)
-                        .input('~', Items.STRING)
-                        .input('#', Items.STICK)
-                        .input('&', Items.IRON_INGOT)
-                        .input('$', Blocks.TRIPWIRE_HOOK)
-                        .pattern("#&#")
-                        .pattern("~$~")
-                        .pattern(" # ")
-                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
-                        .criterion("has_iron_ingot", this.conditionsFromItem(Items.IRON_INGOT))
-                        .criterion("has_tripwire_hook", this.conditionsFromItem(Blocks.TRIPWIRE_HOOK))
-                        .group("crossbows")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("crossbow"));
-
-                this.createShaped(RecipeCategory.TRANSPORTATION, Blocks.DETECTOR_RAIL, 6)
-                        .input('R', Items.REDSTONE)
-                        .input('#', Blocks.STONE_PRESSURE_PLATE)
-                        .input('X', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("X X")
-                        .pattern("X#X")
-                        .pattern("XRX")
-                        .criterion("has_rail", this.conditionsFromItem(Blocks.RAIL))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("detector_rail"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.DISPENSER)
-                        .input('R', Items.REDSTONE)
-                        .input('#', ItemTags.STONE_CRAFTING_MATERIALS)
-                        .input('X', Items.BOW)
-                        .pattern("###")
-                        .pattern("#X#")
-                        .pattern("#R#")
-                        .criterion("has_bow", this.conditionsFromItem(Items.BOW))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("dispenser"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.DROPPER)
-                        .input('R', Items.REDSTONE)
-                        .input('#', ItemTags.STONE_CRAFTING_MATERIALS)
-                        .pattern("###")
-                        .pattern("# #")
-                        .pattern("#R#")
-                        .criterion("has_redstone", this.conditionsFromItem(Items.REDSTONE))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("dropper"));
-
-                this.createShaped(RecipeCategory.TOOLS, Items.FISHING_ROD)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', Items.STRING)
-                        .pattern("  #")
-                        .pattern(" #X")
-                        .pattern("# X")
-                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("fishing_rod"));
-
-                this.createShapeless(RecipeCategory.TOOLS, Items.FLINT_AND_STEEL)
-                        .input(Items.IRON_INGOT)
-                        .input(Items.FLINT)
-                        .criterion("has_flint", this.conditionsFromItem(Items.FLINT))
-                        .criterion("has_obsidian", this.conditionsFromItem(Blocks.OBSIDIAN))
-                        .group("flint_and_steels")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("flint_and_steel"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.GRINDSTONE)
-                        .input('I', ModItemTags.STICKS)
-                        .input('-', Blocks.STONE_SLAB)
-                        .input('#', ItemTags.PLANKS)
-                        .pattern("I-I")
-                        .pattern("# #")
-                        .criterion("has_stone_slab", this.conditionsFromItem(Blocks.STONE_SLAB))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("grindstone"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.HOPPER)
-                        .input('C', Blocks.CHEST)
-                        .input('I', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("I I")
-                        .pattern("ICI")
-                        .pattern(" I ")
-                        .criterion("has_iron_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("hopper"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.IRON_BARS, 16)
-                        .input('#', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("###")
-                        .pattern("###")
-                        .criterion("has_iron_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("iron_bars"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Items.ITEM_FRAME)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', Items.LEATHER)
-                        .pattern("###")
-                        .pattern("#X#")
-                        .pattern("###")
-                        .criterion("has_leather", this.conditionsFromItem(Items.LEATHER))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("item_frame"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.LADDER, 3)
-                        .input('#', ModItemTags.STICKS)
-                        .pattern("# #")
-                        .pattern("###")
-                        .pattern("# #")
-                        .criterion("has_stick", this.conditionsFromItem(Items.STICK))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("ladder"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.LANTERN)
-                        .input('#', Items.TORCH)
-                        .input('X', ConventionalItemTags.IRON_NUGGETS)
-                        .pattern("XXX")
-                        .pattern("X#X")
-                        .pattern("XXX")
-                        .criterion("has_nugget", this.conditionsFromTag(ConventionalItemTags.IRON_NUGGETS))
-                        .criterion("has_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("lantern"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.LEVER)
-                        .input('#', ItemTags.STONE_CRAFTING_MATERIALS)
-                        .input('X', Items.STICK)
-                        .pattern("X")
-                        .pattern("#")
-                        .criterion("has_cobblestone", this.conditionsFromTag(ItemTags.STONE_CRAFTING_MATERIALS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("lever"));
-
-                this.createShaped(RecipeCategory.TRANSPORTATION, Items.MINECART)
-                        .input('#', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("# #")
-                        .pattern("###")
-                        .criterion("has_iron_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("minecart"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.OBSERVER)
-                        .input('Q', Items.QUARTZ)
-                        .input('R', Items.REDSTONE)
-                        .input('#', ItemTags.STONE_CRAFTING_MATERIALS)
-                        .pattern("###")
-                        .pattern("RRQ")
-                        .pattern("###")
-                        .criterion("has_quartz", this.conditionsFromItem(Items.QUARTZ))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("observer"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Items.PAINTING)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', ItemTags.WOOL)
-                        .pattern("###")
-                        .pattern("#X#")
-                        .pattern("###")
-                        .criterion("has_wool", this.conditionsFromTag(ItemTags.WOOL))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("painting"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.PISTON)
-                        .input('R', Items.REDSTONE)
-                        .input('#', ItemTags.STONE_CRAFTING_MATERIALS)
-                        .input('T', ItemTags.PLANKS)
-                        .input('X', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("TTT")
-                        .pattern("#X#")
-                        .pattern("#R#")
-                        .criterion("has_redstone", this.conditionsFromItem(Items.REDSTONE))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("piston"));
-
-                this.createShaped(RecipeCategory.TRANSPORTATION, Blocks.POWERED_RAIL, 6)
-                        .input('R', Items.REDSTONE)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', Items.GOLD_INGOT)
-                        .pattern("X X")
-                        .pattern("X#X")
-                        .pattern("XRX")
-                        .criterion("has_rail", this.conditionsFromItem(Blocks.RAIL))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("powered_rail"));
-
-                this.createShaped(RecipeCategory.TRANSPORTATION, Blocks.RAIL, 16)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("X X")
-                        .pattern("X#X")
-                        .pattern("X X")
-                        .criterion("has_minecart", this.conditionsFromItem(Items.MINECART))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("rail"));
-
-                this.createShaped(RecipeCategory.BUILDING_BLOCKS, Blocks.RAW_IRON_BLOCK)
-                        .input('#', Items.RAW_IRON)
-                        .pattern("###")
-                        .pattern("###")
-                        .pattern("###")
-                        .criterion("has_raw_iron", this.conditionsFromItem(Items.RAW_IRON))
-                        .group("raw_iron_blocks")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("raw_iron_block"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.REDSTONE_TORCH)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', Items.REDSTONE)
-                        .pattern("X")
-                        .pattern("#")
-                        .criterion("has_redstone", this.conditionsFromItem(Items.REDSTONE))
-                        .group("torches")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("redstone_torch"));
-
-                this.createShaped(RecipeCategory.TOOLS, Items.SHEARS)
-                        .input('#', Items.IRON_INGOT)
-                        .pattern(" #")
-                        .pattern("# ")
-                        .criterion("has_iron_ingot", this.conditionsFromItem(Items.IRON_INGOT))
-                        .group("shears")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("shears"));
-
-                this.createShaped(RecipeCategory.COMBAT, Items.SHIELD)
-                        .input('W', ItemTags.PLANKS)
-                        .input('o', Items.IRON_INGOT)
-                        .pattern("WoW")
-                        .pattern("WWW")
-                        .pattern(" W ")
-                        .criterion("has_iron_ingot", this.conditionsFromItem(Items.IRON_INGOT))
-                        .group("shields")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("shield"));
-
-                this.createShaped(RecipeCategory.MISC, Items.STICK, 4)
-                        .input('#', ItemTags.PLANKS)
-                        .pattern("#")
-                        .pattern("#")
-                        .group("sticks")
-                        .criterion("has_planks", this.conditionsFromTag(ItemTags.PLANKS))
-                        .group("sticks")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("stick"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.SOUL_CAMPFIRE)
-                        .input('L', ItemTags.LOGS)
-                        .input('S', ModItemTags.STICKS)
-                        .input('#', ItemTags.SOUL_FIRE_BASE_BLOCKS)
-                        .pattern(" S ")
-                        .pattern("S#S")
-                        .pattern("LLL")
-                        .criterion("has_soul_sand", this.conditionsFromTag(ItemTags.SOUL_FIRE_BASE_BLOCKS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("soul_campfire"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.SOUL_LANTERN)
-                        .input('#', Items.SOUL_TORCH)
-                        .input('X', ConventionalItemTags.IRON_NUGGETS)
-                        .pattern("XXX")
-                        .pattern("X#X")
-                        .pattern("XXX")
-                        .criterion("has_soul_torch", this.conditionsFromItem(Items.SOUL_TORCH))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("soul_lantern"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.SOUL_TORCH, 4)
-                        .input('X', Ingredient.ofItems(Items.COAL, Items.CHARCOAL))
-                        .input('#', ModItemTags.STICKS)
-                        .input('S', ItemTags.SOUL_FIRE_BASE_BLOCKS)
-                        .pattern("X")
-                        .pattern("#")
-                        .pattern("S")
-                        .criterion("has_soul_sand", this.conditionsFromTag(ItemTags.SOUL_FIRE_BASE_BLOCKS))
-                        .group("torches")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("soul_torch"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.STONECUTTER)
-                        .input('I', ConventionalItemTags.IRON_INGOTS)
-                        .input('#', Blocks.STONE)
-                        .pattern(" I ")
-                        .pattern("###")
-                        .criterion("has_stone", this.conditionsFromItem(Blocks.STONE))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("stonecutter"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.TORCH, 4)
-                        .input('#', ModItemTags.STICKS)
-                        .input('X', Ingredient.ofItems(Items.COAL, Items.CHARCOAL))
-                        .pattern("X")
-                        .pattern("#")
-                        .criterion("has_stone_pickaxe", this.conditionsFromItem(Items.STONE_PICKAXE))
-                        .group("torches")
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("torch"));
-
-                this.createShaped(RecipeCategory.REDSTONE, Blocks.TRIPWIRE_HOOK, 2)
-                        .input('#', ItemTags.PLANKS)
-                        .input('S', ModItemTags.STICKS)
-                        .input('I', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("I")
-                        .pattern("S")
-                        .pattern("#")
-                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("tripwire_hook"));
-
-                this.createShaped(RecipeCategory.DECORATIONS, Blocks.SMITHING_TABLE)
-                        .input('#', ItemTags.PLANKS)
-                        .input('@', ConventionalItemTags.IRON_INGOTS)
-                        .pattern("@@")
-                        .pattern("##")
-                        .pattern("##")
-                        .criterion("has_iron_ingot", this.conditionsFromTag(ConventionalItemTags.IRON_INGOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe("smithing_table"));
-
-                CookingRecipeJsonBuilder.createSmelting(
-                                Ingredient.ofItems(
-                                        Items.IRON_PICKAXE,
-                                        Items.IRON_SHOVEL,
-                                        Items.IRON_AXE,
-                                        Items.IRON_HOE,
-                                        Items.IRON_SWORD,
-                                        Items.IRON_HELMET,
-                                        Items.IRON_CHESTPLATE,
-                                        Items.IRON_LEGGINGS,
-                                        Items.IRON_BOOTS,
-                                        Items.IRON_HORSE_ARMOR,
-                                        Items.CHAINMAIL_HELMET,
-                                        Items.CHAINMAIL_CHESTPLATE,
-                                        Items.CHAINMAIL_LEGGINGS,
-                                        Items.CHAINMAIL_BOOTS
-                                ),
-                                RecipeCategory.MISC,
-                                Items.IRON_NUGGET,
-                                100F,
-                                20
-                        )
-                        .criterion("has_iron_pickaxe", this.conditionsFromItem(Items.IRON_PICKAXE))
-                        .criterion("has_iron_shovel", this.conditionsFromItem(Items.IRON_SHOVEL))
-                        .criterion("has_iron_axe", this.conditionsFromItem(Items.IRON_AXE))
-                        .criterion("has_iron_hoe", this.conditionsFromItem(Items.IRON_HOE))
-                        .criterion("has_iron_sword", this.conditionsFromItem(Items.IRON_SWORD))
-                        .criterion("has_iron_helmet", this.conditionsFromItem(Items.IRON_HELMET))
-                        .criterion("has_iron_chestplate", this.conditionsFromItem(Items.IRON_CHESTPLATE))
-                        .criterion("has_iron_leggings", this.conditionsFromItem(Items.IRON_LEGGINGS))
-                        .criterion("has_iron_boots", this.conditionsFromItem(Items.IRON_BOOTS))
-                        .criterion("has_iron_horse_armor", this.conditionsFromItem(Items.IRON_HORSE_ARMOR))
-                        .criterion("has_chainmail_helmet", this.conditionsFromItem(Items.CHAINMAIL_HELMET))
-                        .criterion("has_chainmail_chestplate", this.conditionsFromItem(Items.CHAINMAIL_CHESTPLATE))
-                        .criterion("has_chainmail_leggings", this.conditionsFromItem(Items.CHAINMAIL_LEGGINGS))
-                        .criterion("has_chainmail_boots", this.conditionsFromItem(Items.CHAINMAIL_BOOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe(getSmeltingItemPath(Items.IRON_NUGGET)));
-
-                CookingRecipeJsonBuilder.createBlasting(
-                                Ingredient.ofItems(
-                                        Items.IRON_PICKAXE,
-                                        Items.IRON_SHOVEL,
-                                        Items.IRON_AXE,
-                                        Items.IRON_HOE,
-                                        Items.IRON_SWORD,
-                                        Items.IRON_HELMET,
-                                        Items.IRON_CHESTPLATE,
-                                        Items.IRON_LEGGINGS,
-                                        Items.IRON_BOOTS,
-                                        Items.IRON_HORSE_ARMOR,
-                                        Items.CHAINMAIL_HELMET,
-                                        Items.CHAINMAIL_CHESTPLATE,
-                                        Items.CHAINMAIL_LEGGINGS,
-                                        Items.CHAINMAIL_BOOTS
-                                ),
-                                RecipeCategory.MISC,
-                                Items.IRON_NUGGET,
-                                100F,
-                                20
-                        )
-                        .criterion("has_iron_pickaxe", this.conditionsFromItem(Items.IRON_PICKAXE))
-                        .criterion("has_iron_shovel", this.conditionsFromItem(Items.IRON_SHOVEL))
-                        .criterion("has_iron_axe", this.conditionsFromItem(Items.IRON_AXE))
-                        .criterion("has_iron_hoe", this.conditionsFromItem(Items.IRON_HOE))
-                        .criterion("has_iron_sword", this.conditionsFromItem(Items.IRON_SWORD))
-                        .criterion("has_iron_helmet", this.conditionsFromItem(Items.IRON_HELMET))
-                        .criterion("has_iron_chestplate", this.conditionsFromItem(Items.IRON_CHESTPLATE))
-                        .criterion("has_iron_leggings", this.conditionsFromItem(Items.IRON_LEGGINGS))
-                        .criterion("has_iron_boots", this.conditionsFromItem(Items.IRON_BOOTS))
-                        .criterion("has_iron_horse_armor", this.conditionsFromItem(Items.IRON_HORSE_ARMOR))
-                        .criterion("has_chainmail_helmet", this.conditionsFromItem(Items.CHAINMAIL_HELMET))
-                        .criterion("has_chainmail_chestplate", this.conditionsFromItem(Items.CHAINMAIL_CHESTPLATE))
-                        .criterion("has_chainmail_leggings", this.conditionsFromItem(Items.CHAINMAIL_LEGGINGS))
-                        .criterion("has_chainmail_boots", this.conditionsFromItem(Items.CHAINMAIL_BOOTS))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe(getBlastingItemPath(Items.IRON_NUGGET)));
-
-                CookingRecipeJsonBuilder.createSmelting(
-                                Ingredient.ofItems(
-                                        Items.GOLDEN_PICKAXE,
-                                        Items.GOLDEN_SHOVEL,
-                                        Items.GOLDEN_AXE,
-                                        Items.GOLDEN_HOE,
-                                        Items.GOLDEN_SWORD,
-                                        Items.GOLDEN_HELMET,
-                                        Items.GOLDEN_CHESTPLATE,
-                                        Items.GOLDEN_LEGGINGS,
-                                        Items.GOLDEN_BOOTS,
-                                        Items.GOLDEN_HORSE_ARMOR
-                                ),
-                                RecipeCategory.MISC,
-                                Items.GOLD_NUGGET,
-                                100.0F,
-                                20
-                        )
-                        .criterion("has_golden_pickaxe", this.conditionsFromItem(Items.GOLDEN_PICKAXE))
-                        .criterion("has_golden_shovel", this.conditionsFromItem(Items.GOLDEN_SHOVEL))
-                        .criterion("has_golden_axe", this.conditionsFromItem(Items.GOLDEN_AXE))
-                        .criterion("has_golden_hoe", this.conditionsFromItem(Items.GOLDEN_HOE))
-                        .criterion("has_golden_sword", this.conditionsFromItem(Items.GOLDEN_SWORD))
-                        .criterion("has_golden_helmet", this.conditionsFromItem(Items.GOLDEN_HELMET))
-                        .criterion("has_golden_chestplate", this.conditionsFromItem(Items.GOLDEN_CHESTPLATE))
-                        .criterion("has_golden_leggings", this.conditionsFromItem(Items.GOLDEN_LEGGINGS))
-                        .criterion("has_golden_boots", this.conditionsFromItem(Items.GOLDEN_BOOTS))
-                        .criterion("has_golden_horse_armor", this.conditionsFromItem(Items.GOLDEN_HORSE_ARMOR))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe(getSmeltingItemPath(Items.GOLD_NUGGET)));
-
-                CookingRecipeJsonBuilder.createSmelting(
-                                Ingredient.ofItems(
-                                        Items.GOLDEN_PICKAXE,
-                                        Items.GOLDEN_SHOVEL,
-                                        Items.GOLDEN_AXE,
-                                        Items.GOLDEN_HOE,
-                                        Items.GOLDEN_SWORD,
-                                        Items.GOLDEN_HELMET,
-                                        Items.GOLDEN_CHESTPLATE,
-                                        Items.GOLDEN_LEGGINGS,
-                                        Items.GOLDEN_BOOTS,
-                                        Items.GOLDEN_HORSE_ARMOR
-                                ),
-                                RecipeCategory.MISC,
-                                Items.GOLD_NUGGET,
-                                100.0F,
-                                20
-                        )
-                        .criterion("has_golden_pickaxe", this.conditionsFromItem(Items.GOLDEN_PICKAXE))
-                        .criterion("has_golden_shovel", this.conditionsFromItem(Items.GOLDEN_SHOVEL))
-                        .criterion("has_golden_axe", this.conditionsFromItem(Items.GOLDEN_AXE))
-                        .criterion("has_golden_hoe", this.conditionsFromItem(Items.GOLDEN_HOE))
-                        .criterion("has_golden_sword", this.conditionsFromItem(Items.GOLDEN_SWORD))
-                        .criterion("has_golden_helmet", this.conditionsFromItem(Items.GOLDEN_HELMET))
-                        .criterion("has_golden_chestplate", this.conditionsFromItem(Items.GOLDEN_CHESTPLATE))
-                        .criterion("has_golden_leggings", this.conditionsFromItem(Items.GOLDEN_LEGGINGS))
-                        .criterion("has_golden_boots", this.conditionsFromItem(Items.GOLDEN_BOOTS))
-                        .criterion("has_golden_horse_armor", this.conditionsFromItem(Items.GOLDEN_HORSE_ARMOR))
-                        .offerTo(this.exporter, helper.speedrunnerModOfVanillaRecipe(getBlastingItemPath(Items.GOLD_NUGGET)));
-
-                // MODDED
                 helper.createModdedFenceRecipe(ModBlocks.DEAD_SPEEDRUNNER_FENCE, ModBlocks.DEAD_SPEEDRUNNER_PLANKS, true);
                 helper.createModdedFenceRecipe(ModBlocks.SPEEDRUNNER_FENCE, ModBlocks.SPEEDRUNNER_PLANKS, false);
 
@@ -806,8 +226,8 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                 ),
                                 RecipeCategory.MISC,
                                 ModItems.SPEEDRUNNER_NUGGET,
-                                100.0F,
-                                20
+                                0.2F,
+                                200
                         )
                         .criterion("has_speedrunner_pickaxe", this.conditionsFromItem(ModItems.SPEEDRUNNER_PICKAXE))
                         .criterion("has_speedrunner_shovel", this.conditionsFromItem(ModItems.SPEEDRUNNER_SHOVEL))
@@ -834,8 +254,8 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                 ),
                                 RecipeCategory.MISC,
                                 ModItems.SPEEDRUNNER_NUGGET,
-                                100.0F,
-                                20
+                                0.2F,
+                                200
                         )
                         .criterion("has_speedrunner_pickaxe", this.conditionsFromItem(ModItems.SPEEDRUNNER_PICKAXE))
                         .criterion("has_speedrunner_shovel", this.conditionsFromItem(ModItems.SPEEDRUNNER_SHOVEL))
@@ -928,15 +348,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_INGOT))
                         .offerTo(this.exporter);
 
-                this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.RAW_SPEEDRUNNER_BLOCK)
-                        .input('#', ModItems.RAW_SPEEDRUNNER)
-                        .pattern("###")
-                        .pattern("###")
-                        .pattern("###")
-                        .criterion("has_raw_speedrunner", this.conditionsFromItem(ModItems.RAW_SPEEDRUNNER))
-                        .group("raw_iron_blocks")
-                        .offerTo(this.exporter);
-
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
                         .input('I', ModItems.SPEEDRUNNER_INGOT)
                         .input('A', ModItems.SPEEDRUNNER_PADDLE)
@@ -991,7 +402,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 ComplexRecipeJsonBuilder.create(SpeedrunnerShieldDecorationRecipe::new).offerTo(this.exporter, "speedrunner_shield_decoration");
                 ComplexRecipeJsonBuilder.create(PiglinAwakenerRecipe::new).offerTo(this.exporter, "piglin_awakener");
-                ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_aura");
+                ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_fireball");
                 ComplexRecipeJsonBuilder.create(InventoryPreserverRecipe::new).offerTo(this.exporter, "inventory_preserver");
 
                 helper.createStickRecipe(true);

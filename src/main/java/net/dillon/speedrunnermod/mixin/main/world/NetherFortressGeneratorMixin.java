@@ -16,14 +16,27 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 @Mixin(NetherFortressGenerator.class)
 public class NetherFortressGeneratorMixin {
     @Shadow @Final @Mutable
-    private static NetherFortressGenerator.PieceData[] ALL_BRIDGE_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_BRIDGE_PIECES;
+    private static NetherFortressGenerator.PieceData[] ALL_BRIDGE_PIECES;
     @Shadow @Final @Mutable
-    private static  NetherFortressGenerator.PieceData[] ALL_CORRIDOR_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
+    private static  NetherFortressGenerator.PieceData[] ALL_CORRIDOR_PIECES;
 
     static {
         if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedNetherFortressGeneration.getCurrentValue() && !isBalancedMode()) {
-            ALL_BRIDGE_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_BRIDGE_PIECES;
-            ALL_CORRIDOR_PIECES = ModWorldGen.MODIFIED_NETHER_FORTRESS_CORRIDOR_PIECES;
+            ALL_BRIDGE_PIECES = new NetherFortressGenerator.PieceData[]{
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.Bridge.class, 10, 1),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeCrossing.class, 10, 2),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeSmallCrossing.class, 10, 2),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgeStairs.class, 10, 1),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.BridgePlatform.class, 50, 3),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorExit.class, 10, 1)};
+            ALL_CORRIDOR_PIECES = new NetherFortressGenerator.PieceData[]{
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.SmallCorridor.class, 10, 2),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorCrossing.class, 10, 2),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorRightTurn.class, 25, 3),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorLeftTurn.class, 25, 3),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorStairs.class, 10, 2, true),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorBalcony.class, 7, 2),
+                    new NetherFortressGenerator.PieceData(NetherFortressGenerator.CorridorNetherWartsRoom.class, 20, 2)};
         }
     }
 }

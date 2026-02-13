@@ -3,15 +3,12 @@ package net.dillon.speedrunnermod.client.screen.base.synced;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.util.Colors;
 
-@Environment(EnvType.CLIENT)
 public class MatchSettingsWithServerScreen extends AbstractModScreen {
     private ButtonWidget matchAndRestartButton;
 

@@ -34,7 +34,6 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jspecify.annotations.Nullable;
@@ -182,17 +181,17 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
     @Author(Authors.YELEEFFF)
     @ModifyVariable(method = "tryUseDeathProtector", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/LivingEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack allowSpeedrunnersTotemAsDeathProtector(ItemStack stack, DamageSource source) {
-        if (this.isPlayer()) {
+        if ((LivingEntity)(Object)this instanceof PlayerEntity player) {
             PlayerInventory inventory = ((InventoryAccessor) this).getInventory();
             ItemStack totemUndying = Items.TOTEM_OF_UNDYING.getDefaultStack();
             ItemStack speedrunnersTotem = ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack();
 
-            if (inventory.contains(speedrunnersTotem)) { // works anywhere in the players inventory
-                return inventory.getSlotWithStack(speedrunnersTotem) != -1 ? inventory.getStack(inventory.getSlotWithStack(speedrunnersTotem)) : inventory.getStack(40);
+            if (player.getMainHandStack().isOf(Items.TOTEM_OF_UNDYING) || player.getOffHandStack().isOf(Items.TOTEM_OF_UNDYING)) { // only works in mainhand/offhand
+                return inventory.getSlotWithStack(totemUndying) != -1 ? inventory.getStack(inventory.getSlotWithStack(totemUndying)) : inventory.getStack(40);
             }
 
-            if (inventory.getStack(40).isOf(totemUndying.getItem())) { // only works in mainhand/offhand
-                return inventory.getSlotWithStack(totemUndying) != -1 ? inventory.getStack(inventory.getSlotWithStack(totemUndying)) : inventory.getStack(40);
+            if (inventory.contains(speedrunnersTotem)) { // works anywhere in the players inventory
+                return inventory.getSlotWithStack(speedrunnersTotem) != -1 ? inventory.getStack(inventory.getSlotWithStack(speedrunnersTotem)) : inventory.getStack(40);
             }
         }
 

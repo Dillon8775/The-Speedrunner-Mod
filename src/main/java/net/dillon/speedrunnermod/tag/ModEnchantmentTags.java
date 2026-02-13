@@ -8,6 +8,7 @@ import net.minecraft.registry.tag.TagKey;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 public class ModEnchantmentTags {
+    public static TagKey<Enchantment> ON_RANDOM_SPEEDRUNNER_LOOT = of("on_random_speedrunner_loot");
     public static TagKey<Enchantment> RETIRED_SPEEDRUNNER_TRADES = of("retired_speedrunner_trades");
     public static TagKey<Enchantment> WITHERED_ENCHANTMENTS = of("withered_enchantments");
 

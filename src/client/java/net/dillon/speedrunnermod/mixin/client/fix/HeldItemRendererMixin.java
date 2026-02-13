@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.fix;
 
 import net.dillon.speedrunnermod.item.SpeedrunnerCrossbowItem;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.HeldItemRenderer;
@@ -16,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 /**
  * Fixes some incorrect rendering with speedrunner bows and crossbows.
  */
-@Environment(EnvType.CLIENT)
 @Mixin(HeldItemRenderer.class)
 public class HeldItemRendererMixin {
 

@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.client.render;
 
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.block.entity.BannerBlockEntityRenderer;
 import net.minecraft.client.render.command.OrderedRenderCommandQueue;
@@ -29,7 +27,6 @@ import java.util.function.Consumer;
 /**
  * The renderer class for the {@code speedrunner shield.}
  */
-@Environment(EnvType.CLIENT)
 public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<ComponentMap> {
     private final SpriteHolder spriteHolder;
     private final ShieldEntityModel model;
@@ -121,7 +118,7 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Comp
         this.model.getRootPart().collectVertices(matrixStack, consumer);
     }
 
-    @Environment(EnvType.CLIENT)
+
     public record Unbaked() implements SpecialModelRenderer.Unbaked {
         public static final SpeedrunnerShieldModelRenderer.Unbaked INSTANCE = new SpeedrunnerShieldModelRenderer.Unbaked();
         public static final MapCodec<SpeedrunnerShieldModelRenderer.Unbaked> CODEC = MapCodec.unit(INSTANCE);

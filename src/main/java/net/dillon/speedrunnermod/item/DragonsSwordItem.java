@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -13,8 +12,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
@@ -38,19 +37,17 @@ public class DragonsSwordItem extends Item implements EyeItem {
      */
     @Override
     public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
-            if (isEasyMode()) {
-                if (dragon.getEntityWorld() instanceof ServerWorld serverWorld) {
-                    dragon.setHealth(1.0F);
-                    dragon.damage(serverWorld, dragon.getDamageSources().generic(), 100.0F); // Enough damage to kill the dragon
-                }
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+        if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity) {
+            if (isEasyMode() && dragon.getEntityWorld() instanceof ServerWorld serverWorld) {
+                dragon.setHealth(1.0F);
+                dragon.damage(serverWorld, dragon.getDamageSources().generic(), 100.0F); // Enough damage to kill the dragon
             } else {
                 if (isDoomMode()) {
                     attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloatInclusive(2.0F, 3.0F));
                     attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(5), 0, false, true, true));
                     attacker.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, ModUtil.secondsAsTicks(2), 0, false, true, true));
-                    if (attacker instanceof PlayerEntity) {
+                    if (attacker instanceof PlayerEntity player) {
+                        this.playWorldSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), player.getEntityWorld(), player);
                         ((PlayerEntity)attacker).sendMessage(Text.translatable("item.speedrunnermod.dragons_sword.failed").formatted(Formatting.LIGHT_PURPLE), false);
                     }
                 }

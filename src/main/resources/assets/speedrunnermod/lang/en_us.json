@@ -8,113 +8,11 @@
   "speedrunnermod.mode.easy.tooltip": "Enables all features, results in the quickest speedrunning times.",
   "speedrunnermod.mode.balanced.tooltip": "Limits some features, making the game more balanced, resulting in quick speedrunning times.",
   "speedrunnermod.mode.doom.tooltip": "Flips the mod's description upside-down, and makes the game extremely difficult in various different ways, resulting in 30-40 minute runs. It's a good challenge, but only if you're up for it!",
-  "speedrunnermod.ready_to_play": "Alright! Now that you have selected the mode that you want to play on, you are ready to play!\n\n§aDo you want to enter tutorial mode?",
-  "speedrunnermod.enter_tutorial_mode": "§aEnter Tutorial Mode",
+  "speedrunnermod.ready_to_play": "Alright! Now that you have selected the mode that you want to play on, you are ready to play!",
   "speedrunnermod.begin_playing": "§bBegin Playing",
-  "speedrunnermod.begin_playing.tooltip": "If you are a first-time player, I highly recommend the tutorial mode.",
-  "speedrunnermod.enter_feature_screens": "Enter Feature Screens",
-  "speedrunnermod.enter_feature_screens.tooltip": "When finished, load into the §a§lfeature screens,§r§f where you can learn more about each feature in this mod!\n\nIf you don't want to view them now, you can always look at them via the §b§oSpeedrunner Mod options menu.",
+  "speedrunnermod.enter_feature_screens": "View Features",
+  "speedrunnermod.enter_feature_screens.tooltip": "When finished, load into the §a§lfeature screens,§r§f where you can learn more about each feature in this mod!\n\nIf you don't want to view them now, you can always view them via the §b§oSpeedrunner Mod options menu.",
   "speedrunnermod.restart_required": "To fully apply the mode, you will need to restart your game. Then, you will be booted into the title screen, where you can create a new world. You will see some §blight-blue boots,§f press that to §aautomatically create a new world.",
-
-  "speedrunnermod.tutorial_mode.prefix": "§b§l[Speedrunner Mod]: ",
-
-  "speedrunnermod.tutorial_mode.greeting": "§bWelcome to the Speedrunner Mod tutorial mode!",
-  "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe": "§aYour first task is to obtain a §bspeedrunner pickaxe! §aTo do this, you will need to either find some §bspeedrunner ingots §a(found in almost every loot table chest), or look for a §blight-blue colored ore§a underground.",
-  "speedrunnermod.tutorial_mode.speedrunner_pickaxe_description": "§aGreat job! The §bspeedrunner pickaxe (and all other speedrunner tools and armor)§a are faster than diamond, but has less durability.",
-
-  "speedrunnermod.tutorial_mode.speedrunner_paddle_description": "§aNow, your next task is to obtain a §bspeedrunner paddle. §aThis item can be used to craft various different items in the mod, including the §bspeedrunner boat §aand the §bspeedrunner's workbench.",
-  "speedrunnermod.tutorial_mode.craft_speedrunner_paddle": "§aTo craft a §bspeedrunner paddle, §ayou will need to get §b§l2 §r§bspeedrunner ingots§r and §b§l1 §r§bspeedrunner stick.",
-
-  "speedrunnermod.tutorial_mode.craft_speedrunner_boat": "§aYour next task to obtain a §bspeedrunner boat.§a You will need a §b1 speedrunner paddle, §aand §b5 speedrunner planks.",
-  "speedrunnermod.tutorial_mode.speedrunner_boat_description": "§aAwesome! Now, what's so special about the speedrunner boat? Well, it's faster than normal boats, and can also be ridden in §6lava!",
-
-  "speedrunnermod.tutorial_mode.craft_speedrunner_armor": "§aNow that you can ride in §6lava,§a your next task is to craft a §bfull set of speedrunner armor. §aTo do this, you will need to get §b27 speedrunner ingots, §afor each armor piece.",
-  "speedrunnermod.tutorial_mode.craft_speedrunner_shield": "§aAwesome! Now, craft yourself a §bspeedrunner shield, §ausing another §bspeedrunner ingot!",
-
-  "speedrunnermod.tutorial_mode.craft_inferno_eye": "§aNow that you can ride in §6lava,§a your next task is to craft an §6§lEye of Inferno.§r§a To do this, go to §cthe nether§a and use an §9ender pearl§a and a §6fire charge§a to craft it.",
-  "speedrunnermod.tutorial_mode.inferno_eye_description": "§cGood job. The §6§lEye of Inferno§c can be used to locate nearby nether fortresses§c and §7bastions.§c Right-click it to see!",
-  "speedrunnermod.tutorial_mode.used_inferno_eye": "§cNice! You can also §bshift + right-click§c to swap between locating fortresses and §7bastions.",
-
-  "speedrunnermod.tutorial_mode.craft_piglin_awakener": "§cNow that you are in the nether, it's time to craft a §e§lPiglin Awakener.§r§c To do this, get §68 gold ingots §cand §6any sort of golden food item,§b§l OR, §cyou can use an §9ender pearl§c or §6blaze powder. §cPlace the golden food item / ender pearl / blaze powder in the center of the crafting table, surrounded with the §68 gold ingots.",
-  "speedrunnermod.tutorial_mode.use_piglin_awakener": "§cNow that you have a §e§lPiglin Awakener, §r§cdig yourself into a §b2-block deep hole§c, make sure you are wearing some sort of §6gold armor,§c and then §6shift + right click§c with the §e§lPiglin Awakener, §r§cand see what happens!",
-  "speedrunnermod.tutorial_mode.used_piglin_awakener": "§6§lBOOM!§r§6 Now throw the piglin your gold!",
-
-  "speedrunnermod.tutorial_mode.craft_blaze_spotter": "§cAfter you have traded with the piglin, your next task is to craft a §6§lBlaze Spotter. §r§cTo do this, use an §9ender pearl, §6fire charge§c and a §6lava bucket§c to craft it.",
-  "speedrunnermod.tutorial_mode.use_blaze_spotter": "§cNice job! Now, §c§lright-click §r§cthe §6Blaze Spotter.",
-  "speedrunnermod.tutorial_mode.used_blaze_spotter": "§6§lBAM!§r§c Now kill the blazes and get your blaze rods!",
-
-  "speedrunnermod.tutorial_mode.craft_speedrunners_eye": "§aYour next task is to craft a §bSpeedrunner's Eye,§a which can be used to locate §boverworld structures.§a To craft it, you only need an §9ender pearl§a and a §bspeedrunner ingot.",
-  "speedrunnermod.tutorial_mode.change_speedrunners_eye_locator": "§bAwesome! Now, §b§lshift + right click§r§b to change the structure locator to a §eDesert Pyramid.",
-  "speedrunnermod.tutorial_mode.use_speedrunners_eye": "§bNow, right-click to locate the exact distance of the nearest §eDesert Pyramid.",
-
-  "speedrunnermod.tutorial_mode.craft_dragons_pearl": "§bNice! Now, you can either go to the §edesert pyramid§b to get the loot, §b§lor,§r§b craft another Speedrunner's Eye to craft the next item on the list, the §d§lDragon's Pearl.",
-  "speedrunnermod.tutorial_mode.dragons_pearl_recipe": "§dTo craft the §d§lDragon's Pearl,§r§d you will need an §9ender pearl, §da §6fire charge, §eblaze powder, §dand a §bspeedrunner's eye.",
-  "speedrunnermod.tutorial_mode.obtained_dragons_pearl": "§dI would recommend crafting 2-3 of these pearls, as they will be very helpful in the end fight.",
-
-  "speedrunnermod.tutorial_mode.craft_annul_eye": "§dNow, let's craft an §d§lEye of Annul,§r§d which teleports you right into the nearest stronghold's portal room! To do this, you will need an §9ender pearl, §eblaze powder, §dan §aender eye, §dand a §6fire charge.",
-  "speedrunnermod.tutorial_mode.use_annul_eye": "§dAwesome! Now, right click the §d§lEye of Annul §r§dto teleport! (make sure you have an §9ender pearl§d and a piece of §6blaze powder,§d in your inventory, because the §agatekeeper §drequires it...)",
-
-  "speedrunnermod.tutorial_mode.craft_ender_eye": "§aNice! Now, craft yourself an eye of ender.",
-  "speedrunnermod.tutorial_mode.use_ender_eye": "§aWhen using the eye of ender, it will tell you the exact distance of where the nearest stronghold is. Right-click to see!",
-
-  "speedrunnermod.tutorial_mode.enter_end.balanced": "§dNow find the portal room and enter the end!",
-  "speedrunnermod.tutorial_mode.enter_end": "§d§lBAM!!!§r§d Now place the eyes of ender in the portal, §dthe end!",
-
-  "speedrunnermod.tutorial_mode.entered_end.easy": "§dYou've made it to the dragon! Now, if you have beds, you can use those. If you want to do the old-style way with a bow and sword, you can do that as well. But remember, you got the §d§lDragon's Pearl,§r§d which means you can command the dragon to perch whenever you want! Craft more if you need to, good luck!",
-  "speedrunnermod.tutorial_mode.entered_end.normal": "§dYou made it to the end! If you have beds, use 'em! If you want to do the old-styled method by using a bow and a sword, do it!",
-  "speedrunnermod.tutorial_mode.entered_end.doom": "§dYou made it to the final boss(es)... Watch our for §a§lGoliath,§r§f §7the §7§lwither §r§fand the §d§ldragon §r§f§dall at once.",
-
-  "speedrunnermod.tutorial_mode.obtain_totem": "§dTo make your life a bit easier here, find yourself an §eevoker §dand kill it to get a §etotem of undying!",
-
-  "speedrunnermod.tutorial_mode.free_fall_into_void": "§dOk, you're making progress! Now, with the totem in your hand, §ejump into the void! §d(I'm not kidding, just do it, but make sure the totem is equipped...)",
-
-  "speedrunnermod.tutorial_mode.craft_speedrunners_totem": "§d§lBAM!!! §r§dJumping into the void with a §etotem §dsaves you! Now, go get another totem and let's craft a §bspeedrunner's totem. §dYou will need a §bspeedrunner's eye, §da §enormal totem, §dand an §9infini pearl §dto craft it. If you do not already have those items, you should have just been provided them.",
-  "speedrunnermod.tutorial_mode.speedrunners_totem_description": "§bThe §b§lSpeedrunner's Totem §r§bstacks to §b§l3, §r§bworks §aanywhere in the players inventory §e(including free-falling into the void), §band gives better effects upon use.",
-
-  "speedrunnermod.tutorial_mode.break_doom_block": "§cWhat's all this red end stone? Break it with a §bspeedrunner tool §cuntil it drops something useful! (Whatever you do, do NOT break it unless you use a §bspeedrunner tool...).",
-
-  "speedrunnermod.tutorial_mode.kill_goliath": "§dNow let's get to boss killing. You should know, you §d§lcannot §r§dkill the dragon until §a§lGoliath §r§dand the §7wither §dare §cdead. §dSo, §ago kill §a§lGoliath §r§f§afirst!",
-  "speedrunnermod.tutorial_mode.goliath_description": "§aGoliath has special abilities, such as §csummoning TNT upon taking damage, §aappling §6extreme knockback §ato it's enemies, and immune to §cseveral types of damage. §aYou can use a bow against Goliath, but have you know, once he reaches §chalf health, §a§lit's immune to arrows!",
-
-  "speedrunnermod.tutorial_mode.kill_wither": "§a§lNICE JOB! §aNow, §7§lKILL THE WITHER!!!",
-  "speedrunnermod.tutorial_mode.wither_died": "§aOh... it looks like the wither is already dead.",
-
-  "speedrunnermod.tutorial_mode.kill_dragon": "§dYou've made it this far, don't give up now! §d§lKILL THE DRAGON!! §r§d(use your Dragon's Pearl!)",
-
-  "speedrunnermod.tutorial_mode.use_dragons_pearl": "§dUse the dragon's pearl and complete all previous tutorial mode steps before proceeding!",
-  "speedrunnermod.tutorial_mode.used_dragons_pearl": "§dThe dragon is perching §d§lNOW!§r§d Get it!",
-
-  "speedrunnermod.tutorial_mode.killed_dragon": "§dCongratulations!!!§b You've completed your first speedrun with the §b§lSpeedrunner Mod,§r§b but there's still much to explore in this mod. So, let's go back to the overworld and uncover a few more features.",
-  "speedrunnermod.tutorial_mode.killed_dragon.doom": "§dYou did it.",
-
-  "speedrunnermod.tutorial_mode.exit_end.doom": "§c§lGG §r§con Doom Mode.",
-
-  "speedrunnermod.tutorial_mode.find_experience_ore": "§bAlright, now, go and find some §aexperience ore§r§f (can be found in overworld or the nether). Mine it!",
-
-  "speedrunnermod.tutorial_mode.craft_speedrunners_workbench": "§a§lBOOM!§r§a Now that we have some levels, craft a §bSpeedrunner's Workbench, §ausing §b3 speedrunner ingots, 3 speedrunner planks, 1 speedrunner block, §r§f§aa §bspeedrunner paddle, §r§fand a §bspeedrunner tool.",
-  "speedrunnermod.tutorial_mode.speedrunners_workbench_description": "§bThe Speedrunner's Workbench acts just like a smithing table, however, it also allows you to transfer enchantments from one item to another. Let's try it out!",
-
-  "speedrunnermod.tutorial_mode.transfer_enchantments": "§aNice! Now, grab an enchanted tool, likely a §6golden one§a that you found in a §cruined portal §a(or elsewhere), and then grab a more powerful §ounenchanted §r§atool, like a §bspeedrunner pickaxe §aor a §bdiamond pickaxe. §aPut the §ounenchanted tool§r§a in the §dfirst slot, §aand then put the better tool in the §dsecond slot. §aThen, watch the magic happen!",
-  "speedrunnermod.tutorial_mode.find_retired_speedrunner": "§aNice! Now, go and find a villager and place the §bSpeedrunner's Workbench§a next to it.",
-
-  "speedrunnermod.tutorial_mode.retired_speedrunner_description": "§bThe §b§lRetired Speedrunner§r§b sells very overpowered items with good enchantments, for very cheap prices. You won't have to worry about getting stacked or losing resources!",
-
-  "speedrunnermod.tutorial_mode.craft_ender_thruster": "§bAfter you've looked through those trades, it's time to craft an §9§lEnder Thruster.§r§b It can be crafted with an ender pearl and a §b§lspeedrunner's eye.",
-  "speedrunnermod.tutorial_mode.use_ender_thruster": "§bNice! Ok, now this is going to seem weird, but this item will be very useful for future speedruns when you are stuck underground. Dig yourself few blocks underground and box yourself in. Then, right-click the §9§lEnder Thruster §r§band see what happens!",
-  "speedrunnermod.tutorial_mode.ender_thruster_description": "§bAwesome! You can easily get out of caves, dark holes, or other small underground spaces with this item, without having to dig yourself out! Remember that for future speedruns...",
-
-  "speedrunnermod.tutorial_mode.almost_done": "§bYou're almost done with §atutorial mode! §bJust a couple of more things to cover...",
-  "speedrunnermod.tutorial_mode.obtain_ender_matter": "§bYou need an item called §9§lEnder Matter, §r§bwhich can mainly be obtained from killing §denderman. §r§bThey also have a small chance of generating in §dend city chests §9and §bshipwreck chests. You can use this to craft §d§overy powerful §r§b§ospeedrunner mod §d§oitems, §r§bso make sure you get at least a §a§lcouple §r§bof these.",
-
-  "speedrunnermod.tutorial_mode.obtain_dragons_aura": "§dOur next item is a §d§lpotion, §r§dcalled §b§l§oDragon's Aura. §r§dTo make it, you will need §dwater bottles, §r§dand the §9§lEnder Matter §r§bthat you just got.",
-  "speedrunnermod.tutorial_mode.dragons_aura_description": "§dThe §d§lDragon's Aura §r§deffect §dgives the player §c+5 extra hearts, §r§bx2 the damage, §r§aincreased block reach, §r§fand §bincreased armor protection and toughness. §dYou are also immune to §d§lfall damage, §r§dand §d§ldragon's breath!",
-
-  "speedrunnermod.tutorial_mode.craft_dragons_sword": "§dNow it's time to craft a really §d§obroken §r§dand §r§d§ooverpowered §r§ditem, the §d§lDragon's Sword.§r§d To craft it, you will need a §bspeedrunner sword §dand a dragon's pearl.",
-  "speedrunnermod.tutorial_mode.dragons_sword_description": "§aNote this for future speedruns: this item will one-shot the ender dragon. Not a joke...",
-
-  "speedrunnermod.tutorial_mode.craft_infini_pearl": "§bNice! Now, for the §a§ofinal step, §r§bit's time to craft an §9§oInfiniPearl, §ba form of an §9ender pearl §r§bthat does §anot get consumed §r§b§onor §r§cdo damage §r§bupon use. To craft it, you will need a §9regular ender pearl, §9§lender matter, §r§band a §bspeedrunner's eye. Craft away!",
-
-  "speedrunnermod.tutorial_mode.completed": "§9§lCONGRATULATIONS! §aYou have successfully completed the §a§lTutorial Mode! §bI would also recommend trying out §c§lDoom Mode, §r§aas that mode is a lot more challenging and fun for already experienced speedrunner's, and will open the door for you to explore a couple of other crazy features that this mod has to offer. But, otherwise, YOU DID IT! §bNow, enjoy speedrunning, and try to go as fast as you can with all of these features in mind! ;)",
 
   "item.speedrunnermod.speedrunner_ingot": "Speedrunner Ingot",
   "item.speedrunnermod.speedrunner_ingot.tooltip.line1": "Faster than iron, used to create",
@@ -123,16 +21,16 @@
   "item.speedrunnermod.raw_speedrunner": "Raw Speedrunner",
   "item.speedrunnermod.speedrunner_nugget": "Speedrunner Nugget",
   "item.speedrunnermod.speedrunner_sword": "Speedrunner Sword",
-  "item.speedrunnermod.speedrunner_sword.tooltip.line1": "Deals more damage to withers.",
-  "item.speedrunnermod.speedrunner_sword.tooltip.line2": "...and Goliath!",
   "item.speedrunnermod.speedrunner_shovel": "Speedrunner Shovel",
   "item.speedrunnermod.speedrunner_pickaxe": "Speedrunner Pickaxe",
   "item.speedrunnermod.speedrunner_axe": "Speedrunner Axe",
   "item.speedrunnermod.speedrunner_hoe": "Speedrunner Hoe",
+  "item.speedrunnermod.doom_mode_safe_tools.tooltip": "Breaks doom blocks safely!",
   "item.speedrunnermod.speedrunner_helmet": "Speedrunner Helmet",
   "item.speedrunnermod.speedrunner_chestplate": "Speedrunner Chestplate",
   "item.speedrunnermod.speedrunner_leggings": "Speedrunner Leggings",
   "item.speedrunnermod.speedrunner_boots": "Speedrunner Boots",
+  "item.speedrunnermod.speedrunner_boots.tooltip": "Keeps safe from sculk shriekers.",
   "item.speedrunnermod.speedrunner_bow": "Speedrunner Bow",
   "item.speedrunnermod.speedrunner_bow.tooltip.line1": "Charges faster, shoots farther,",
   "item.speedrunnermod.speedrunner_bow.tooltip.line2": "and does more damage.",
@@ -176,9 +74,8 @@
   "item.speedrunnermod.smithing_template.golden_pgrade.base_slot_description": "Add golden armor, weapon, or tool",
   "item.speedrunnermod.smithing_template.golden_upgrade.ingredients": "Speedrunner Ingot",
   "item.speedrunnermod.speedrunner_bulk": "Speedrunner Bulk",
-  "item.speedrunnermod.speedrunner_bulk.tooltip.line1": "Gives the player fire resistance and",
-  "item.speedrunnermod.speedrunner_bulk.tooltip.line2": "water breathing, with a chance to give",
-  "item.speedrunnermod.speedrunner_bulk.tooltip.line3": "speed, haste, and regeneration.",
+  "item.speedrunnermod.speedrunner_bulk.tooltip.line1": "Buffs the player with various",
+  "item.speedrunnermod.speedrunner_bulk.tooltip.line2": "positive potion effects.",
   "item.speedrunnermod.rotten_speedrunner_bulk": "Rotten Speedrunner Bulk",
   "item.speedrunnermod.cooked_flesh": "Cooked Flesh",
   "item.speedrunnermod.piglin_pork": "Piglin Pork",
@@ -204,10 +101,8 @@
   "item.speedrunnermod.speedrunners_eye": "Speedrunner's Eye",
   "item.speedrunnermod.speedrunners_eye.tooltip": "Locates overworld structures.",
   "item.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line1": "A block used to",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line2": "transfer enchantments.",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line3": "Also used as the",
-  "item.speedrunnermod.speedrunners_workbench.tooltip.line4": "Retired Speedrunner's job site block.",
+  "item.speedrunnermod.speedrunners_workbench.tooltip.line1": "Transfer enchantments from one",
+  "item.speedrunnermod.speedrunners_workbench.tooltip.line2": "item to another, or to a book.",
   "item.speedrunnermod.speedrunner_stick": "Speedrunner Stick",
   "item.speedrunnermod.dead_speedrunner_stick": "Dead Speedrunner Stick",
   "item.speedrunnermod.knockback_stick": "Knockback Stick",
@@ -232,8 +127,7 @@
   "item.speedrunnermod.speedrunners_totem.tooltip.line1": "Stacks to 3, works anywhere in",
   "item.speedrunnermod.speedrunners_totem.tooltip.line2": "the player's inventory, and has",
   "item.speedrunnermod.speedrunners_totem.tooltip.line3": "better effects upon use.",
-  "item.speedrunnermod.speedrunners_totem.tooltip.line4": "Works anywhere in your inventory.",
-  "item.speedrunnermod.speedrunners_totem.tooltip.line5": "Also works in the void.",
+  "item.speedrunnermod.speedrunners_totem.tooltip.line4": "Also works in the void.",
   "item.speedrunnermod.wither_bone": "Wither Bone",
   "item.speedrunnermod.wither_bone.tooltip": "Used to craft a Wither Sword.",
   "item.speedrunnermod.wither_sword": "Wither Sword",
@@ -319,11 +213,6 @@
 
   "block.speedrunnermod.speedrunners_workbench": "Speedrunner's Workbench",
   "block.speedrunnermod.speedrunners_workbench.cost": "Cost: %s",
-  "block.speedrunnermod.speedrunners_workbench.enchanted_tool": "Add item with enchantments that you want to transfer ->",
-  "block.speedrunnermod.speedrunners_workbench.unenchanted_tool": "Add item/book that you want to transfer enchantments §oto.",
-  "block.speedrunnermod.speedrunners_workbench.enchantments_to": "Enchantments will be transferred to §othis §r§bitem.",
-  "block.speedrunnermod.speedrunners_workbench.smithing_template": "Add a golden smithing template to remove durability damage (not required).",
-  "block.speedrunnermod.speedrunners_workbench.output": "The resulted item/book with the transferred enchantments.",
   "block.speedrunnermod.speedrunner_log": "Speedrunner Log",
   "block.speedrunnermod.stripped_speedrunner_log": "Stripped Speedrunner Log",
   "block.speedrunnermod.speedrunner_wood": "Speedrunner Wood",
@@ -598,8 +487,6 @@
   "speedrunnermod.options.structure_spawn_rates.custom": "§e§lCustom Probability",
   "speedrunnermod.options.structure_spawn_rates.custom.tooltip": "Configure your own structure spawn rates in §oSpeedrunner Mod Options -> Options -> Structure Spawn Rates.",
   "speedrunnermod.options.structure_spawn_rates.tooltip": "Change how often structures spawn.\n\n§c§lWarning:§r Higher spawn rates may cause lag and drastically increase world load time.\n\n§e§lRequires world reload.",
-  "speedrunnermod.options.tutorial_mode": "Tutorial Mode",
-  "speedrunnermod.options.tutorial_mode.tooltip": "A helper mode for new players to guide them through the mod.",
   "speedrunnermod.options.icarus_mode": "iCarus Mode",
   "speedrunnermod.options.icarus_mode.tooltip": "Grants the player with an §lElytra§r and §lfirework rockets§r upon world creation.",
   "speedrunnermod.options.icarus_mode_must_be_enabled.tooltip": "§l\"iCarus Mode\"§r must be §aenabled§r to modify this option.",
@@ -821,17 +708,13 @@
 
   "speedrunnermod.menu.options.reset": "Reset...",
   "speedrunnermod.menu.options.reset.tooltip": "Reset the Speedrunner Mod options back to default.",
-  "speedrunnermod.menu.options.tutorial_mode.reset": "Reset Tutorial Mode...",
-  "speedrunnermod.menu.options.tutorial_mode.reset.tooltip": "Reset tutorial mode progression back to default.",
   "speedrunnermod.title.options.reset": "Reset Options",
-  "speedrunnermod.title.options.tutorial_mode.reset": "Reset Tutorial Mode",
   "speedrunnermod.reset": "Reset",
   "speedrunnermod.reset_confirm": "Yes, Reset Options",
   "speedrunnermod.not_now": "Not Now",
   "speedrunnermod.reset_options_confirm": "Are you sure you want to reset the Speedrunner Mod settings back to default?",
   "speedrunnermod.reset_options_successful.line1": "§aReset Options Successfully!",
   "speedrunnermod.reset_options_successful.line2": "You may need to restart your game for changes to take full effect. Continue?",
-  "speedrunnermod.reset_tutorial_mode_options_confirm": "Are you sure you want to reset all of the tutorial mode progression settings back to default?",
 
   "speedrunnermod.title.restart_required": "Restart Required",
   "speedrunnermod.restart_required.line1": "Changes you made will require a restart to take full effect.",
@@ -948,7 +831,9 @@
   "speedrunnermod.title.features.doom_mode.other_things_to_know": "Other Things To Know",
   "speedrunnermod.doom_mode.enable": "Enable Doom Mode",
   "speedrunnermod.doom_mode.already_enabled": "Doom mode is already enabled!",
-  "speedrunnermod.doom_mode.cannot_kill_dragon": "§dHaha... you can't kill me! I still have the §r§f§7§lWither§r§f§d and §r§f§a§lGoliath §r§f§dby my side!",
+  "speedrunnermod.doom_mode.giant_and_wither_still_alive": "§dHaha... you can't kill me! I still have the §r§f§7§lWither§r§f§d and §r§f§a§lGoliath §r§f§dby my side!",
+  "speedrunnermod.doom_mode.giant_still_alive": "§dHaha... you can't kill me! I still have §r§f§a§lGoliath §r§f§dby my side!",
+  "speedrunnermod.doom_mode.wither_still_alive": "§dHaha... you can't kill me! I still the §r§f§7§lWither§r§f§d §r§f§dby my side!",
 
   "speedrunnermod.menu.features.miscellaneous": "Miscellaneous...",
   "speedrunnermod.title.features.miscellaneous": "Miscellaneous",
@@ -989,7 +874,6 @@
   "speedrunnermod.title.features.miscellaneous.speedrunner_edition": "§lSpeedrunner Edition!",
   "speedrunnermod.title.features.miscellaneous.custom_panorama": "§bCustom Panorama!",
   "speedrunnermod.title.features.miscellaneous.and_more": "§bAnd More!",
-  "speedrunnermod.title.features.miscellaneous.tutorial_mode": "§a§lTutorial Mode",
 
   "speedrunnermod.features.tooltip": "View all Speedrunner Mod features...",
 
@@ -1114,7 +998,6 @@
 
   "speedrunnermod:version": "speedrunner mod version",
   "speedrunnermod:mode": "mode",
-  "speedrunnermod:tutorial_mode": "tutorial mode",
 
   "speedrunnermod.menu.generating_new_world": "Generating new world...",
 

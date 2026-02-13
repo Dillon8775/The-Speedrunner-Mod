@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.options.*;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -13,15 +11,13 @@ import net.minecraft.text.Text;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
 
 /**
  * The {@code options} screen for the Speedrunner Mod, consisting of all the option categories.
  */
-@Environment(EnvType.CLIENT)
 public class ModOptionsScreen extends AbstractModScreen {
-    private ButtonWidget mainOptionsButton, fwcOptionsButton, clientOptionsButton, ssrOptionsButton, advancedOptionsButton, mixinOptionsButton, resetOptionsButton, resetTutorialModeButton;
+    private ButtonWidget mainOptionsButton, fwcOptionsButton, clientOptionsButton, ssrOptionsButton, advancedOptionsButton, mixinOptionsButton, resetOptionsButton;
 
     public ModOptionsScreen(Screen parent) {
         super(parent, Text.translatable("speedrunnermod.title.options"));
@@ -50,9 +46,6 @@ public class ModOptionsScreen extends AbstractModScreen {
         }
         if (this.resetOptionsButton != null) {
             widgets.add(this.resetOptionsButton);
-        }
-        if (this.resetTutorialModeButton != null && clientOptions().client.tutorialMode.getCurrentValue()) {
-            widgets.add(this.resetTutorialModeButton);
         }
         return widgets;
     }
@@ -84,14 +77,8 @@ public class ModOptionsScreen extends AbstractModScreen {
         }).build();
 
         this.resetOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
-            this.client.setScreen(new ResetOptionsConfirmScreen(this, false));
+            this.client.setScreen(new ResetOptionsConfirmScreen(this));
         }).build();
-
-        if (clientOptions().client.tutorialMode.getCurrentValue()) {
-            this.resetTutorialModeButton = ButtonWidget.builder(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET, (button) -> {
-                this.client.setScreen(new ResetOptionsConfirmScreen(this, true));
-            }).build();
-        }
 
         super.init();
     }
@@ -138,11 +125,6 @@ public class ModOptionsScreen extends AbstractModScreen {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
         }
 
-        if (clientOptions().client.tutorialMode.getCurrentValue()) {
-            if (this.resetTutorialModeButton != null && this.resetTutorialModeButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.MENU_TUTORIAL_MODE_OPTIONS_RESET_TOOLTIP, context, mouseX, mouseY);
-            }
-        }
         super.renderTooltips(context, mouseX, mouseY);
     }
 

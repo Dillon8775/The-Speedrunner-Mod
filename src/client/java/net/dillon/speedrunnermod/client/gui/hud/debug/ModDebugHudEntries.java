@@ -11,7 +11,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 public class ModDebugHudEntries {
     public static final Identifier VERSION = DebugHudEntries.register(ofSpeedrunnerMod("version"), new SpeedrunnerModHudEntry());
     public static final Identifier MODE = DebugHudEntries.register(ofSpeedrunnerMod("mode"), new ModeHudEntry());
-    public static final Identifier TUTORIAL_MODE = DebugHudEntries.register(ofSpeedrunnerMod("tutorial_mode"), new TutorialModeHudEntry());
 
     /**
      * Initializes all mod debug hud entries.

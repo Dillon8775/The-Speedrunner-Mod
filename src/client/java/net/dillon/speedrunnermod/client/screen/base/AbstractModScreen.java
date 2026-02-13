@@ -15,8 +15,6 @@ import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -49,7 +47,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
 /**
  * Used to create any {@code Speedrunner Mod} screens.
  */
-@Environment(EnvType.CLIENT)
 public abstract class AbstractModScreen extends BaseModScreen {
     protected boolean alreadySettingToIneligibleScreen = false;
     protected File configFile; // This returns null unless the screen is an options screen
@@ -83,7 +80,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).dimensions(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.resetOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET, (button) -> {
-                this.client.setScreen(new ResetOptionsConfirmScreen(this.parent, false));
+                this.client.setScreen(new ResetOptionsConfirmScreen(this.parent));
             }).dimensions(this.getButtonsRightSide(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.helpButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (button) -> {

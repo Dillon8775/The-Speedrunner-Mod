@@ -82,7 +82,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 30,
-              "treasure": false
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ]
         },
@@ -93,8 +93,8 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 33,
-              "treasure": false
+              "levels": 35,
+              "treasure": true
             }
           ]
         }

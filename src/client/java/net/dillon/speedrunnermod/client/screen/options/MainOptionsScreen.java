@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -18,7 +16,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 /**
  * The Speedrunner Mod's {@code main options.}
  */
-@Environment(EnvType.CLIENT)
 public class MainOptionsScreen extends AbstractModScreen {
 
     public MainOptionsScreen(Screen parent) {
@@ -31,9 +28,6 @@ public class MainOptionsScreen extends AbstractModScreen {
      */
     private List<ClickableWidget> mainOptions() {
         return List.of(
-                ModListOptions.tutorialMode().createWidget(this.gameOptions),
-                ModListOptions.dragonPerchTime().createWidget(this.gameOptions),
-
                 ModListOptions.fasterBlockBreaking().createWidget(this.gameOptions),
                 ModListOptions.blockBreakingMultiplier().createWidget(this.gameOptions),
 
@@ -43,44 +37,44 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.betterVillagerTrades().createWidget(this.gameOptions),
                 ModListOptions.betterFoods().createWidget(this.gameOptions),
 
+                ModListOptions.betterBiomes().createWidget(this.gameOptions),
+                ModListOptions.dragonPerchTime().createWidget(this.gameOptions),
+
                 ModListOptions.fireproofItems().createWidget(this.gameOptions),
                 ModListOptions.throwableFireballs().createWidget(this.gameOptions),
 
                 ModListOptions.fallDamage().createWidget(this.gameOptions),
                 ModListOptions.kineticDamage().createWidget(this.gameOptions),
 
-                ModListOptions.betterBiomes().createWidget(this.gameOptions),
                 ModListOptions.strongholdCount().createWidget(this.gameOptions),
-
                 ModListOptions.strongholdDistance().createWidget(this.gameOptions),
+
                 ModListOptions.strongholdSpread().createWidget(this.gameOptions),
-
                 ModListOptions.strongholdPortalRoomCount().createWidget(this.gameOptions),
+
                 ModListOptions.strongholdLibraryCount().createWidget(this.gameOptions),
-
                 ModListOptions.globalNetherPortals().createWidget(this.gameOptions),
+
                 ModListOptions.lavaBoats().createWidget(this.gameOptions),
-
                 ModListOptions.netherWater().createWidget(this.gameOptions),
+
                 ModListOptions.commonOres().createWidget(this.gameOptions),
-
                 ModListOptions.betterAnvil().createWidget(this.gameOptions),
+
                 ModListOptions.anvilCostLimit().createWidget(this.gameOptions),
-
                 ModListOptions.higherEnchantmentLevels().createWidget(this.gameOptions),
+
                 ModListOptions.arrowsDestroyBeds().createWidget(this.gameOptions),
-
                 ModListOptions.creatureSpawningRate().createWidget(this.gameOptions),
-                ModListOptions.fasterSpawners().createWidget(this.gameOptions),
 
-                ModListOptions.fasterSmelting().createWidget(this.gameOptions),
+                ModListOptions.fasterSpawners().createWidget(this.gameOptions),
                 ModListOptions.fasterBrewing().createWidget(this.gameOptions),
 
-                ModListOptions.killGhastOnFireball().createWidget(this.gameOptions),
-                ModListOptions.showDeathCords().createWidget(this.gameOptions),
-
+                ModListOptions.fasterSmelting().createWidget(this.gameOptions),
                 ModListOptions.netherPortalDelay().createWidget(this.gameOptions),
-                ModListOptions.customDataGeneration().createWidget(this.gameOptions)
+
+                ModListOptions.showDeathCords().createWidget(this.gameOptions),
+                ModListOptions.killGhastOnFireball().createWidget(this.gameOptions)
         );
     }
 
@@ -91,6 +85,7 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.buttonList.addSingleOptionEntry(ModListOptions.mode());
         this.buttonList.addSingleOptionEntry(ModListOptions.structureSpawnRate());
         this.buttonList.addAll(mainOptions());
+        this.buttonList.addSingleOptionEntry(ModListOptions.customDataGeneration());
         this.buttonList.addSingleOptionEntry(ModListOptions.rightClickToRemoveSilkTouch());
         this.buttonList.addSingleOptionEntry(ModListOptions.customBiomesAndCustomBiomeFeatures());
 

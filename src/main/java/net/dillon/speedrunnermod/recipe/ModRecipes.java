@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.recipe;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.recipe.boat.*;
 import net.dillon.speedrunnermod.recipe.boat.chest.*;
-import net.dillon.speedrunnermod.util.InventoryPreserver;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.SpecialCraftingRecipe;

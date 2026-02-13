@@ -38,9 +38,6 @@ public class ModTexts {
     public static final Text TITLE_OPTIONS_CLIENT = Text.translatable("speedrunnermod.title.options.client");
     public static final Text MENU_OPTIONS_RESET = Text.translatable("speedrunnermod.menu.options.reset");
     public static final Text TITLE_OPTIONS_RESET = Text.translatable("speedrunnermod.title.options.reset");
-    public static final Text MENU_TUTORIAL_MODE_OPTIONS_RESET = Text.translatable("speedrunnermod.menu.options.tutorial_mode.reset");
-    public static final Text TITLE_TUTORIAL_MODE_OPTIONS_RESET = Text.translatable("speedrunnermod.title.options.tutorial_mode.reset");
-    public static final Text MENU_TUTORIAL_MODE_OPTIONS_RESET_TOOLTIP = Text.translatable("speedrunnermod.menu.options.tutorial_mode.reset.tooltip");
     public static final Text MENU_OPTIONS_TOOLTIP = Text.translatable("speedrunnermod.menu.options.tooltip");
     public static final Text MENU_OPTIONS_MAIN = Text.translatable("speedrunnermod.menu.options.main");
     public static final Text MENU_OPTIONS_MAIN_TOOLTIP = Text.translatable("speedrunnermod.menu.options.main.tooltip");
@@ -255,9 +252,7 @@ public class ModTexts {
     public static final Text IGNORE = Text.translatable("speedrunnermod.ignore").formatted(Formatting.RED);
     public static final Text VIEW_INELIGIBLE_OPTIONS = Text.translatable("speedrunnermod.view_ineligible_options");
     public static final Text VISIT_SUBMISSION_PAGE = Text.translatable("speedrunnermod.visit_submission_page");
-    public static final Text ENTER_TUTORIAL_MODE = Text.translatable("speedrunnermod.enter_tutorial_mode");
     public static final Text BEGIN_PLAYING = Text.translatable("speedrunnermod.begin_playing");
-    public static final Text BEGIN_PLAYING_TOOLTIP = Text.translatable("speedrunnermod.begin_playing.tooltip");
 
     // Modes
     public static final Text EASY_MODE = Text.translatable("speedrunnermod.options.mode.easy");

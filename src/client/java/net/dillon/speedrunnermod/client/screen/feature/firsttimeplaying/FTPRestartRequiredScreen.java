@@ -4,8 +4,6 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +12,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
-@Environment(EnvType.CLIENT)
+
 public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
 
     public FTPRestartRequiredScreen(Screen parent) {

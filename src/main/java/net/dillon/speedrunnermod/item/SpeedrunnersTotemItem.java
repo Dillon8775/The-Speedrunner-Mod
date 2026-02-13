@@ -35,6 +35,5 @@ public class SpeedrunnersTotemItem extends Item  {
         textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").formatted(Formatting.GRAY));
         textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3").formatted(Formatting.GRAY));
         textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line4"));
-        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line5"));
     }
 }

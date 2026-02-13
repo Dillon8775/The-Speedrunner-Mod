@@ -67,8 +67,11 @@ public abstract class ItemMixin {
             textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener_craftable.line1").formatted(Formatting.GOLD));
             textConsumer.accept(Text.translatable("item.speedrunnermod.piglin_awakener_craftable.line2").formatted(Formatting.GOLD));
         }
+        if (isDoomMode() && stack.isIn(ModItemTags.DOOM_STONE_SAFE_TOOLS)) {
+            textConsumer.accept(Text.translatable("item.speedrunnermod.doom_mode_safe_tools.tooltip").formatted(Formatting.RED));
+        }
         if (stack.isIn(ModItemTags.GOLDEN_SPEEDRUNNER_ARMOR)) {
-            textConsumer.accept(Text.translatable("item.speedrunnermod.golden_speedrunner_armor.tooltip").formatted(Formatting.GRAY));
+            textConsumer.accept(Text.translatable("item.speedrunnermod.golden_speedrunner_armor.tooltip").formatted(Formatting.YELLOW));
         }
         if (stack.isOf(Items.ENCHANTED_BOOK)) {
             ItemEnchantmentsComponent itemEnchantmentsComponent = EnchantmentHelper.getEnchantments(stack);

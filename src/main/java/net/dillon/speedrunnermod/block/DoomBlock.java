@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.entity.ModPotions;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.*;
 import net.minecraft.component.DataComponentTypes;
@@ -39,7 +38,6 @@ public class DoomBlock {
      * Does... stuff.
      */
     private static void whenBroken(World world, BlockPos pos, PlayerEntity player) {
-        boolean generatedItem = false;
         if (!player.getAbilities().creativeMode && !player.getMainHandStack().isIn(ModItemTags.DOOM_STONE_SAFE_TOOLS) && !player.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
             if (world.random.nextFloat() < 0.50F) {
                 world.setBlockState(pos, Blocks.LAVA.getDefaultState());
@@ -109,17 +107,19 @@ public class DoomBlock {
                     }
                 } else if (item == Items.NETHERITE_CHESTPLATE) {
                     stack.addEnchantment(ModUtil.enchantment(player, Enchantments.PROTECTION), ModUtil.randomIntInclusive(3, 4));
-                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.THORNS), ModUtil.randomIntInclusive(1, 3));
+                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.THORNS), ModUtil.randomIntInclusive(2, 3));
                 } else if (item == Items.BOW || item == ModItems.SPEEDRUNNER_BOW) {
-                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.POWER), ModUtil.randomIntInclusive(4, 6));
+                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.POWER), ModUtil.randomIntInclusive(3, 5));
                     stack.addEnchantment(ModUtil.enchantment(player, Enchantments.FLAME), 1);
                 } else if (item == ModItems.SPEEDRUNNER_CROSSBOW) {
-                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.QUICK_CHARGE), 3);
-                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.MULTISHOT), 1);
-                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.UNBREAKING), ModUtil.randomIntInclusive(2, 3));
+                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.QUICK_CHARGE), ModUtil.randomIntInclusive(2, 3));
+                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.UNBREAKING), ModUtil.randomIntInclusive(1, 3));
+                    if (world.getRandom().nextFloat() < 0.65F) {
+                        stack.addEnchantment(ModUtil.enchantment(player, Enchantments.MULTISHOT), 1);
+                    }
                 } else if (item == Items.IRON_CHESTPLATE) {
                     stack.addEnchantment(ModUtil.enchantment(player, Enchantments.PROTECTION), ModUtil.randomIntInclusive(3, 4));
-                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.UNBREAKING), 3);
+                    stack.addEnchantment(ModUtil.enchantment(player, Enchantments.UNBREAKING), ModUtil.randomIntInclusive(1, 3));
                     stack.setDamage(world.random.nextInt(50));
                 } else if (item == Items.GOLDEN_APPLE) {
                     stack = new ItemStack(item, ModUtil.randomIntInclusive(1, 3));
@@ -134,14 +134,7 @@ public class DoomBlock {
                 }
 
                 ModUtil.spawnFloatingItemEntity(world, pos, stack, player, true);
-                generatedItem = true;
             }
-        }
-
-        if (generatedItem) {
-            ModUtil.completeStepS2C(TutorialStep.BREAK_DOOM_BLOCK, player,
-                    "speedrunnermod.tutorial_mode.kill_goliath",
-                    "speedrunnermod.tutorial_mode.goliath_description");
         }
     }
 

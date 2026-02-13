@@ -4,8 +4,6 @@ import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.server.ServerStorage;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.damage.DamageSource;
@@ -80,14 +78,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                 this.teleport(0.5, y, 0.5, true);
                 this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
-
-                if (ServerStorage.isTutorialModeEnabledForPlayer(this.getUuid()) && !ServerStorage.hasCompletedStep((ServerPlayerEntity)(Object)this, TutorialStep.FREE_FALL_INTO_VOID)) {
-                    if (!this.getInventory().contains(enderMatter)) {
-                        ModUtil.spawnFloatingItemEntity(this.getEntityWorld(), enderMatter, this);
-                    }
-                    ModUtil.completeStepS2C(TutorialStep.FREE_FALL_INTO_VOID, (ServerPlayerEntity)(Object)this,
-                            "speedrunnermod.tutorial_mode.craft_speedrunners_totem");
-                }
             } else if (this.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
                 if (!this.effectsAdded && this.canAddEffects) {
                     this.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.secondsAsTicks(10)));
@@ -140,15 +130,5 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         this.canAddEffects = false;
         this.effectsAdded = false;
         this.effectsTimer = ModUtil.secondsAsTicks(10);
-    }
-
-    /**
-     * Sends the tutorial mode chat message.
-     */
-    @Inject(method = "onSpawn", at = @At("TAIL"))
-    private void sendBeginningTutorialModeMessage(CallbackInfo ci) {
-        ModUtil.completeStepS2C(TutorialStep.ENTER_WORLD, this,
-                "speedrunnermod.tutorial_mode.greeting",
-                "speedrunnermod.tutorial_mode.craft_speedrunner_pickaxe");
     }
 }

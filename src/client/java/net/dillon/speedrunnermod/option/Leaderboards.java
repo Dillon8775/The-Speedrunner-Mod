@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.option;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -17,7 +15,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.*;
  * The main class for the leaderboards in the Speedrunner Mod.
  */
 @Deprecated // deprecated because it's not used anymore
-@Environment(EnvType.CLIENT)
 public class Leaderboards {
     public static List<Text> ineligibleOptions = new ArrayList<>();
     private static final ModOptions.Main options = options().main;

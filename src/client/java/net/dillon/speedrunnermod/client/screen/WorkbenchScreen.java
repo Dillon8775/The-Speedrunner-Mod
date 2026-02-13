@@ -1,9 +1,7 @@
 package net.dillon.speedrunnermod.client.screen;
 
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
-import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
@@ -11,17 +9,14 @@ import net.minecraft.client.gui.screen.ingame.ForgingScreen;
 import net.minecraft.client.input.KeyInput;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.AnvilScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
-import java.util.Optional;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.minecraft.util.Identifier.ofVanilla;
@@ -29,7 +24,6 @@ import static net.minecraft.util.Identifier.ofVanilla;
 /**
  * The base screen for the {@code Speedrunner's Workbench.}
  */
-@Environment(EnvType.CLIENT)
 public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     private static final Identifier ERROR_TEXTURE = ofVanilla("container/anvil/error");
     private static final Identifier TEXTURE = ofSpeedrunnerMod("textures/gui/container/workbench.png");
@@ -53,6 +47,11 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
             slotTexture("sword"),
             slotTexture("pickaxe")
     );
+    private static final List<Identifier> GOLD_UPGRADE_SLOT_TEXTURES = List.of(
+            slotTexture("ingot"),
+            ofSpeedrunnerMod("container/slot/book"),
+            slotTexture("axe")
+    );
     private static final List<Identifier> OUTPUT_SLOT_TEXTURES = List.of(
             ofSpeedrunnerMod("container/slot/enchanted_book")
     );
@@ -68,33 +67,6 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     }
 
     /**
-     * Renders tooltips in {@code Speedrunner's Workbench's slots} to help the player.
-     */
-    private void renderSlotTooltip(DrawContext context, int mouseX, int mouseY) {
-        Optional<Text> optional = Optional.empty();
-
-        if (this.focusedSlot != null) {
-            ItemStack focusedSlotStack = this.focusedSlot.getStack();
-            if (focusedSlotStack.isEmpty()) {
-                switch (this.focusedSlot.id) {
-                    case 0 -> optional = Optional.of(Text.translatable("block.speedrunnermod.speedrunners_workbench.enchanted_tool").formatted(Formatting.BLUE));
-                    case 1 -> optional = Optional.of(
-                            this.handler.getCursorStack().isEmpty()
-                                    ? Text.translatable("block.speedrunnermod.speedrunners_workbench.unenchanted_tool").formatted(Formatting.LIGHT_PURPLE)
-                                    : Text.translatable("block.speedrunnermod.speedrunners_workbench.enchantments_to").formatted(Formatting.AQUA));
-                    case 2 -> optional = Optional.of(
-                            !this.handler.getTransferToSlot().getStack().isOf(Items.BOOK)
-                                    ? Text.translatable("block.speedrunnermod.speedrunners_workbench.smithing_template").formatted(Formatting.YELLOW)
-                                    : ModTexts.BLANK);
-                    case 3 -> optional = Optional.of(Text.translatable("block.speedrunnermod.speedrunners_workbench.output").formatted(Formatting.AQUA));
-                }
-            }
-        }
-
-        optional.ifPresent(text -> context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(text, 115), mouseX, mouseY));
-    }
-
-    /**
      * @return the Identifier pointing to a slot texture.
      */
     private static Identifier slotTexture(String name) {
@@ -107,14 +79,15 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     @Override
     public void handledScreenTick() {
         this.inputSlotIcon.updateTexture(SLOT_TEXTURES);
-        this.transferToSlotIcon.updateTexture(TRANSFER_SLOT_TEXTURES);
+        this.transferToSlotIcon.updateTexture(
+                this.handler.getInputSlot().getStack().isIn(ModItemTags.UPGRADEABLE_GOLD)
+                        ? GOLD_UPGRADE_SLOT_TEXTURES
+                        : TRANSFER_SLOT_TEXTURES
+        );
         this.outputSlotTextures.updateTexture(OUTPUT_SLOT_TEXTURES);
         super.handledScreenTick();
     }
 
-    /**
-     * Call {@link WorkbenchScreen#renderSlotTooltip(DrawContext, int, int)}.
-     */
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         this.inputSlotIcon.render(this.handler, context, delta, this.x, this.y);
@@ -123,7 +96,6 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
             this.transferToSlotIcon.render(this.handler, context, delta, this.x, this.y);
         }
         super.render(context, mouseX, mouseY, delta);
-        this.renderSlotTooltip(context, mouseX, mouseY);
     }
 
     /**

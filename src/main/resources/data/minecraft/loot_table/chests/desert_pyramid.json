@@ -175,8 +175,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 33,
-              "treasure": false
+              "levels": 24
             }
           ]
         },

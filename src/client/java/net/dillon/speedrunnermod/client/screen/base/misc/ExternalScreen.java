@@ -3,15 +3,12 @@ package net.dillon.speedrunnermod.client.screen.base.misc;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public class ExternalScreen extends AbstractModScreen {
     private ButtonWidget curseForgeButton, modrinthButton, githubButton;
 

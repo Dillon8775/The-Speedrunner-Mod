@@ -14,7 +14,6 @@
     "description": {
       "translate": "advancements.speedrunnermod.dragons_aura.description"
     },
-    "frame": "challenge",
     "icon": {
       "components": {
         "minecraft:potion_contents": {

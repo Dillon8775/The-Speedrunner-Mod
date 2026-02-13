@@ -1,8 +1,8 @@
 {
   "type": "minecraft:blasting",
   "category": "misc",
-  "cookingtime": 20,
-  "experience": 100.0,
+  "cookingtime": 200,
+  "experience": 0.2,
   "ingredient": [
     "speedrunnermod:speedrunner_pickaxe",
     "speedrunnermod:speedrunner_shovel",

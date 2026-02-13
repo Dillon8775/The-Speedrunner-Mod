@@ -1,13 +1,10 @@
 package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 /**
  * All Speedrunner Mod {@code external links.}
  */
-@Environment(EnvType.CLIENT)
 public class ModLinks {
     public static final String CURSEFORGE = "https://www.curseforge.com/minecraft/mc-mods/speedrunner-mod";
     public static final String MODRINTH = "https://modrinth.com/mod/speedrunner-mod";

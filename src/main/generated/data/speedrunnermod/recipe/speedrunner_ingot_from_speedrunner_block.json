@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
+  "group": "speedrunner_ingot",
   "ingredients": [
     "speedrunnermod:speedrunner_block"
   ],

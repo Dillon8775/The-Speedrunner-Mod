@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.Click;
@@ -32,7 +30,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * A scrollable text screen.
  */
-@Environment(EnvType.CLIENT)
 public abstract class AbstractScrollableScreen extends AbstractModScreen {
     protected final Screen parent;
     public final List<LineObject> objectsToDisplay = new ArrayList<>();

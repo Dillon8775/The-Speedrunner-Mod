@@ -4,8 +4,6 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -17,7 +15,6 @@ import java.util.List;
 /**
  * The Speedrunner Mod's {@code client options screen.}
  */
-@Environment(EnvType.CLIENT)
 public class ClientOptionsScreen extends AbstractModScreen {
 
     public ClientOptionsScreen(Screen parent) {

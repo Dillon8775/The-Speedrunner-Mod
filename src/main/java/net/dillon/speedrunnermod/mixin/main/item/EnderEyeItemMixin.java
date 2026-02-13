@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.mixin.main.item;
 import net.dillon.speedrunnermod.item.EyeItem;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnderEyeItem;
@@ -18,8 +17,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 @Mixin(EnderEyeItem.class)
 public class EnderEyeItemMixin implements EyeItem {

@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -25,8 +24,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.function.Consumer;
-
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
@@ -62,7 +59,6 @@ public class SpeedrunnersEyeItem extends Item implements EyeItem {
                 } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
                     itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.DESERT_PYRAMIDS);
                     this.playWorldSound(SoundEvents.BLOCK_SAND_PLACE, 3.0F, 1.0F, world, player);
-                    ModUtil.completeStepS2C(TutorialStep.CHANGE_SPEEDRUNNERS_EYE_LOCATOR, player, "speedrunnermod.tutorial_mode.use_speedrunners_eye");
                 } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.DESERT_PYRAMIDS)) {
                     itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.ANCIENT_CITIES);
                     this.playWorldSound(SoundEvents.ENTITY_WARDEN_HEARTBEAT, world, player);
@@ -85,15 +81,7 @@ public class SpeedrunnersEyeItem extends Item implements EyeItem {
                 this.playPitchedLaunchSound(0.4F, world, player);
                 ModUtil.sendMessageWithActionbarPref(player, this.locationText(structureDistance, this.structureTexts(itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
 
-                String[] messages = !isBalancedMode() ?
-                        new String[]{"speedrunnermod.tutorial_mode.craft_dragons_pearl",
-                                "speedrunnermod.tutorial_mode.dragons_pearl_recipe"} :
-                        new String[]{"speedrunnermod.tutorial_mode.craft_ender_eye"};
-                ModUtil.completeStepS2C(TutorialStep.USE_SPEEDRUNNERS_EYE, player, messages);
-
-                if (!player.getAbilities().creativeMode) {
-                    itemStack.decrement(1);
-                }
+                this.decrementIfPossible(player, itemStack);
             }
 
             player.incrementStat(Stats.USED.getOrCreateStat(this));

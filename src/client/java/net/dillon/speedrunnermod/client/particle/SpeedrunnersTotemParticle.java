@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.client.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
@@ -11,7 +9,6 @@ import net.minecraft.util.math.random.Random;
  * The particle for the {@code speedrunners totem.}
  * <p>Copied over from {@link TotemParticle}.</p>
  */
-@Environment(EnvType.CLIENT)
 public class SpeedrunnersTotemParticle extends AnimatedParticle {
 
     SpeedrunnersTotemParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
@@ -30,7 +27,7 @@ public class SpeedrunnersTotemParticle extends AnimatedParticle {
         }
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class Factory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider spriteProvider;
 

@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.client.particle;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.PortalParticle;
@@ -24,7 +22,7 @@ public class BluePortalParticle extends PortalParticle {
         this.blue = j + 0.8F;
     }
 
-    @Environment(EnvType.CLIENT)
+    
     public static class Factory implements ParticleFactory<SimpleParticleType> {
         private final SpriteProvider spriteProvider;
 

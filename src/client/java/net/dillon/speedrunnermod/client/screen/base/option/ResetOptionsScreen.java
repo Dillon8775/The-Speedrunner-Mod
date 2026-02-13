@@ -2,8 +2,6 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -12,7 +10,6 @@ import net.minecraft.util.Colors;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 
-@Environment(EnvType.CLIENT)
 public class ResetOptionsScreen extends AbstractModScreen {
 
     public ResetOptionsScreen(Screen parent) {

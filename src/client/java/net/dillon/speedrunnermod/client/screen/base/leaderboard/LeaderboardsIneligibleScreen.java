@@ -6,8 +6,6 @@ import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -21,7 +19,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 @Deprecated
-@Environment(EnvType.CLIENT)
+
 public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     public static boolean needsRestart = false;
     public static boolean needsRestartFromEnablingLeaderboardsMode = false;

@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.mixin.client;
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -32,7 +30,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChan
 /**
  * Implements all keybindings functions into the game.
  */
-@Environment(EnvType.CLIENT)
 @Mixin(MinecraftClient.class)
 public abstract class Keybindings {
     @Shadow @Final

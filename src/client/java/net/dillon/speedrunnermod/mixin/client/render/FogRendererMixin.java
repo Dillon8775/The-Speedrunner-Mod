@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.enums.CameraSubmersionType;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderTickCounter;
@@ -20,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
-@Environment(EnvType.CLIENT)
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
 

@@ -17,11 +17,13 @@
     },
     "used_dragons_sword": {
       "conditions": {
-        "item": {
-          "items": "speedrunnermod:dragons_sword"
-        }
+        "items": [
+          {
+            "items": "speedrunnermod:dragons_sword"
+          }
+        ]
       },
-      "trigger": "minecraft:triggered_by_item_criterion"
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {

@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.mixin.client.fix;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.item.Item;
@@ -13,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 /**
  * Fixes some incorrect rendering with speedrunner crossbows.
  */
-@Environment(EnvType.CLIENT)
 @Mixin(PlayerEntityRenderer.class)
 public class PlayerEntityRendererMixin {
 

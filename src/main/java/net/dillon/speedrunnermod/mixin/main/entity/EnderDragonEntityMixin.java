@@ -2,17 +2,11 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.packet.client.UpdateLastCompletedTutorialStepTranslationsS2CPacket;
-import net.dillon.speedrunnermod.server.ServerStorage;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPart;
 import net.minecraft.entity.damage.DamageSource;
@@ -35,11 +29,9 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.util.ModUtil.*;
 
@@ -137,70 +129,38 @@ public class EnderDragonEntityMixin extends MobEntity {
     }
 
     /**
-     * Checks if a wither and/or giant are alive every tick, for tutorial mode on doom mode.
-     */
-    @Override
-    public void tick() {
-        super.tick();
-        EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
-        PlayerEntity player = dragon.getEntityWorld().getClosestPlayer(dragon, 300.0D);
-        if (!isGiantOrWitherAlive(dragon)) {
-            ModUtil.completeStepS2C(TutorialStep.KILL_WITHER, player,
-                    "speedrunnermod.tutorial_mode.wither_died",
-                    "speedrunnermod.tutorial_mode.kill_dragon");
-        }
-    }
-
-    /**
      * Stops the dragon from dying if there is a nearby wither and/or giant, only on doom mode.
      */
     @Override
     public void onDeath(DamageSource source) {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
-        SpeedrunnerMod.error("WTF");
-        this.preventDragonFromDying(dragon);
 
-        LivingEntity livingEntity = dragon.getAttacker();
-        if (livingEntity instanceof ServerPlayerEntity serverPlayer) {
-            boolean bl = ServerStorage.isTutorialModeEnabledForPlayer(serverPlayer.getUuid()) && !ServerStorage.hasCompletedStep(serverPlayer, TutorialStep.USE_DRAGONS_PEARL) && !isBalancedMode();
-            if (this.preventDragonFromDying(dragon) || bl) {
-                this.setHealth(1.0F);
-                this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 0.65F);
-                if (isGiantAlive(dragon) && isWitherAlive(dragon)) {
-                    serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.cannot_kill_dragon"), false);
-                } else if (isGiantAlive(dragon)) {
-                    serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.giant_still_alive"), false);
-                } else if (isWitherAlive(dragon)) {
-                    serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.wither_still_alive"), false);
+        if (this.isDragonInvincible(dragon)) {
+            this.setHealth(1.0F);
+            this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 0.65F);
+            this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 5.0F, 0.65F);
+        }
+
+        for (PlayerEntity player : dragon.getEntityWorld().getPlayers()) {
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                if (this.isDragonInvincible(dragon)) {
+                    if (isGiantAlive(dragon) && isWitherAlive(dragon)) {
+                        serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.giant_and_wither_still_alive"), false);
+                    } else if (isGiantAlive(dragon)) {
+                        serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.giant_still_alive"), false);
+                    } else if (isWitherAlive(dragon)) {
+                        serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.wither_still_alive"), false);
+                    }
                 }
-                if (bl && !isGiantOrWitherAlive(dragon)) {
-                    List<String> translations = new ArrayList<>();
-                    String s = "speedrunnermod.tutorial_mode.use_dragons_pearl";
-                    translations.add(s);
-                    sendWithPrefix(s, serverPlayer);
-                    ServerPlayNetworking.send(serverPlayer, new UpdateLastCompletedTutorialStepTranslationsS2CPacket(translations));
-                }
-                SpeedrunnerMod.error("what");
-            } else {
-                SpeedrunnerMod.error("uh");
-                PlayerEntity player = dragon.getEntityWorld().getClosestPlayer((EnderDragonEntity)(Object)this, 300.0D);
-                ModUtil.completeStepS2C(TutorialStep.KILL_DRAGON, player,
-                        isDoomMode() ? "speedrunnermod.tutorial_mode.killed_dragon.doom" :
-                                "speedrunnermod.tutorial_mode.killed_dragon");
-                super.onDeath(source);
             }
         }
     }
 
     /**
-     * Prevents the ender dragon from dying based on certain conditions.
+     * @return true if the dragon can be {@code invincible.}
      */
     @Unique
-    private boolean preventDragonFromDying(EnderDragonEntity dragon) {
-        boolean bl = isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && isGiantOrWitherAlive(dragon);
-        if (bl) {
-            dragon.setHealth(1.0F);
-        }
-        return bl;
+    private boolean isDragonInvincible(EnderDragonEntity dragon) {
+        return isDoomMode() && options().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && isGiantOrWitherAlive(dragon);
     }
 }

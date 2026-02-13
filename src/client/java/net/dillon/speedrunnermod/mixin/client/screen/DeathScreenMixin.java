@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.MessageScreen;
@@ -23,7 +21,6 @@ import java.util.List;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
-@Environment(EnvType.CLIENT)
 @Mixin(DeathScreen.class)
 public class DeathScreenMixin extends Screen {
     @Shadow @Final

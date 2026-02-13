@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.fix;
 
 import com.google.common.collect.Maps;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.client.render.BlockRenderLayers;
 import net.minecraft.fluid.Fluid;
@@ -17,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Map;
 
-@Environment(EnvType.CLIENT)
 @Mixin(BlockRenderLayers.class)
 public class BlockRenderLayersMixin {
 

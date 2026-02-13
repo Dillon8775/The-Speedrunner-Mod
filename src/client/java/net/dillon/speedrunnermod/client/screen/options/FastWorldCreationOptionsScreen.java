@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -18,7 +16,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 /**
  * The Speedrunner Mod's {@code "fast world creation"} options, which set the settings of each new world created.
  */
-@Environment(EnvType.CLIENT)
 public class FastWorldCreationOptionsScreen extends AbstractModScreen {
 
     public FastWorldCreationOptionsScreen(Screen parent) {

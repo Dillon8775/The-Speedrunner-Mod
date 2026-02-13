@@ -1,27 +1,22 @@
 package net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying;
 
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
+import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
-@Environment(EnvType.CLIENT)
+
 public class ReadyToPlayScreen extends AbstractFeatureScreen {
-    private ClickableWidget beginPlayingButton;
 
     public ReadyToPlayScreen(Screen parent) {
         super(parent, ModTexts.BLANK);
@@ -30,19 +25,13 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(ModTexts.ENTER_TUTORIAL_MODE, button -> {
-            clientOptions().client.tutorialMode.set(true);
-            saveClientChanges();
-            restartRequired = true;
-            this.client.setScreen(this.getNextScreen());
-        }).build());
-        this.beginPlayingButton = this.addButtonObject(ButtonWidget.builder(ModTexts.BEGIN_PLAYING, button -> {
+        this.addButtonObject(ButtonWidget.builder(ModTexts.BEGIN_PLAYING, button -> {
             if (restartRequired) {
                 this.client.setScreen(this.getNextScreen());
             } else {
                 clientOptions().storedValues.firstTimePlaying.set(false);
                 if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
-                    this.client.setScreen(new SpeedrunnerIngotsScreen(null));
+                    this.client.setScreen(new FeaturesScreen(null));
                     clientOptions().storedValues.enterFeaturesScreen.set(false);
                 } else {
                     this.client.setScreen(new TitleScreen());
@@ -55,14 +44,6 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
             this.client.setScreen(this.getPreviousScreen());
             restartRequired = false;
         }).build());
-    }
-
-    @Override
-    protected void renderTooltips(DrawContext context, int x, int y) {
-        if (this.beginPlayingButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.BEGIN_PLAYING_TOOLTIP, context, x, y);
-        }
-        super.renderTooltips(context, x, y);
     }
 
     @Override

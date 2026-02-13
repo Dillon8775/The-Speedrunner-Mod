@@ -211,7 +211,7 @@ public class ModBlocks {
             .sounds(BlockSoundGroup.STONE));
 
     public static final Block THRUSTED_BLOCK = Blocks.register(of("thrusted_block"), Block::new, Block.Settings.create()
-            .strength(0.5F)
+            .strength(1.5F)
             .allowsSpawning(Blocks::never)
             .sounds(BlockSoundGroup.GRASS));
 

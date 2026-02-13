@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:adventure/exited_end",
+  "parent": "speedrunnermod:adventure/deep_dark",
   "criteria": {
     "killed_dragon": {
       "conditions": {
@@ -22,7 +22,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "minecraft:elder_guardian"
+              "type": "minecraft:giant"
             }
           }
         ]
@@ -86,7 +86,7 @@
     ]
   ],
   "rewards": {
-    "experience": 250
+    "experience": 1000
   },
   "sends_telemetry_event": true
 }

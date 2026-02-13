@@ -176,6 +176,17 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.TOTEM_OF_UNDYING)
                 .add(ModItems.SPEEDRUNNERS_TOTEM);
 
+        valueLookupBuilder(ModItemTags.UPGRADEABLE_GOLD)
+                .add(Items.GOLDEN_SWORD)
+                .add(Items.GOLDEN_PICKAXE)
+                .add(Items.GOLDEN_SHOVEL)
+                .add(Items.GOLDEN_AXE)
+                .add(Items.GOLDEN_HOE)
+                .add(Items.GOLDEN_HELMET)
+                .add(Items.GOLDEN_CHESTPLATE)
+                .add(Items.GOLDEN_LEGGINGS)
+                .add(Items.GOLDEN_BOOTS);
+
         valueLookupBuilder(ModItemTags.Block.DOOM_LOGS)
                 .add(ModItems.DOOM_LOG)
                 .add(ModItems.STRIPPED_DOOM_LOG);

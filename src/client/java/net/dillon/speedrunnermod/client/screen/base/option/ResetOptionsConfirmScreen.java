@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -14,25 +12,18 @@ import net.minecraft.util.Colors;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
-@Environment(EnvType.CLIENT)
 public class ResetOptionsConfirmScreen extends AbstractModScreen {
-    private final boolean tutorial;
 
-    public ResetOptionsConfirmScreen(Screen parent, boolean tutorial) {
-        super(parent,tutorial ? ModTexts.TITLE_TUTORIAL_MODE_OPTIONS_RESET : ModTexts.TITLE_OPTIONS_RESET);
-        this.tutorial = tutorial;
+    public ResetOptionsConfirmScreen(Screen parent) {
+        super(parent, ModTexts.TITLE_OPTIONS_RESET);
     }
 
     @Override
     protected void init() {
         int height = this.height / 6 + 126;
         this.addDrawableChild(ButtonWidget.builder(ModTexts.RESET_CONFIRM, (buttonWidget) -> {
-            if (tutorial) {
-                ClientModOptions.resetTutorialModeProgression();
-            } else {
-                ClientModOptions.resetAllOptions();
-                ClientModOptions.resetAllClientOptions();
-            }
+            ClientModOptions.resetAllOptions();
+            ClientModOptions.resetAllClientOptions();
             saveAllChanges();
             info("Successfully reset all options. Restart the game to take full effect.");
             this.client.setScreen(new ResetOptionsScreen(this.parent));
@@ -49,9 +40,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable(
-                tutorial ? "speedrunnermod.reset_tutorial_mode_options_confirm" : "speedrunnermod.reset_options_confirm"),
-                this.width / 2, 110, Colors.WHITE);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.reset_options_confirm"), this.width / 2, 110, Colors.WHITE);
     }
 
     @Override

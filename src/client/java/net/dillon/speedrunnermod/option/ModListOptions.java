@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.option;
 import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.SimpleOption;
@@ -23,7 +21,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.*;
 /**
  * All {@code "list"} options, which are used on the actual options screens to allow changing of these options.
  */
-@Environment(EnvType.CLIENT)
 public class ModListOptions {
 
     public static SimpleOption<ModOptions.Mode> mode() {
@@ -76,14 +73,6 @@ public class ModListOptions {
                         Codec.INT.xmap(ClientModOptions.Difficulty::byId, ClientModOptions.Difficulty::getId)),
                 isDoomMode() ? ClientModOptions.Difficulty.HARD : clientOptions().client.difficulty.getCurrentValue(),
                 value -> clientOptions().client.difficulty.set(value));
-    }
-
-    public static SimpleOption<Boolean> tutorialMode() {
-        return createSimpleBooleanOption(
-                "speedrunnermod.options.tutorial_mode",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.tutorial_mode.tooltip")),
-                clientOptions().client.tutorialMode
-        );
     }
 
     public static SimpleOption<Boolean> fasterBlockBreaking() {

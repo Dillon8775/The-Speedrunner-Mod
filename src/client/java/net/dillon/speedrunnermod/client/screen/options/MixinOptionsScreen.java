@@ -3,14 +3,11 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 
 /**
  * Switches to enable/disable certain mixins from loading into the game.
  */
-@Environment(EnvType.CLIENT)
 public class MixinOptionsScreen extends AbstractModScreen {
 
     public MixinOptionsScreen(Screen parent) {

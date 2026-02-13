@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -78,7 +77,6 @@ public class DragonsPearlItem extends Item implements EyeItem {
                     TaskScheduler.schedule(ModUtil.secondsAsTicks(2), () -> {
                         enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
                         this.playWorldSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 3.0F, 0.65F, world, player);
-                        ModUtil.completeStepS2C(TutorialStep.USE_DRAGONS_PEARL, player, "speedrunnermod.tutorial_mode.used_dragons_pearl");
                     });
 
                     player.incrementStat(Stats.USED.getOrCreateStat(this));

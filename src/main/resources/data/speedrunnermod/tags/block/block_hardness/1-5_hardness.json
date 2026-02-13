@@ -44,6 +44,7 @@
     "minecraft:warped_door",
     "minecraft:chiseled_nether_bricks",
     "minecraft:cracked_nether_bricks",
-    "speedrunnermod:doom_stone"
+    "speedrunnermod:doom_stone",
+    "speedrunnermod:thrusted_block"
   ]
 }

@@ -2,8 +2,6 @@ package net.dillon.speedrunnermod.mixin.client.enchantment;
 
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.ingame.AnvilScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -12,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Author(Authors.KURAION)
-@Environment(EnvType.CLIENT)
 @Mixin(AnvilScreen.class)
 public class RemoveTooExpensiveText {
 

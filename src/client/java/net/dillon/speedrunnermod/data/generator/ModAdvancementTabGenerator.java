@@ -330,7 +330,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         Text.translatable("advancements.speedrunnermod.dragons_aura.title"),
                         Text.translatable("advancements.speedrunnermod.dragons_aura.description"),
                         null,
-                        AdvancementFrame.CHALLENGE,
+                        AdvancementFrame.TASK,
                         true,
                         true,
                         false
@@ -431,7 +431,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("killed_dragon", OnKilledCriterion.Conditions.createPlayerKilledEntity(
                         EntityPredicate.Builder.create()
                         .type(entityLookup, EntityType.ENDER_DRAGON)))
-                .criterion("used_dragons_sword", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.DRAGONS_SWORD))
+                .criterion("used_dragons_sword", InventoryChangedCriterion.Conditions.items(ModItems.DRAGONS_SWORD))
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .build(exporter, "speedrunnermod:items/one_hit_one_kill");
 
@@ -457,7 +457,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         Text.translatable("advancements.speedrunnermod.to_infini_and_beyond.title"),
                         Text.translatable("advancements.speedrunnermod.to_infini_and_beyond.description"),
                         null,
-                        AdvancementFrame.CHALLENGE,
+                        AdvancementFrame.TASK,
                         true,
                         true,
                         false
@@ -482,8 +482,26 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .rewards(AdvancementRewards.Builder.experience(500))
                 .build(exporter, "speedrunnermod:adventure/immortal");
 
-        Advancement.Builder.create()
+        AdvancementEntry killWarden = Advancement.Builder.create()
                 .parent(yesTheEnd)
+                .display(
+                        Items.SCULK_SHRIEKER,
+                        Text.translatable("advancements.speedrunnermod.deep_dark.title"),
+                        Text.translatable("advancements.speedrunnermod.deep_dark.description"),
+                        null,
+                        AdvancementFrame.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("killed_warden", OnKilledCriterion.Conditions.createPlayerKilledEntity(
+                        EntityPredicate.Builder.create()
+                                .type(entityLookup, EntityType.WARDEN)))
+                .rewards(AdvancementRewards.Builder.experience(250))
+                .build(exporter, "speedrunnermod:adventure/deep_dark");
+
+        Advancement.Builder.create()
+                .parent(killWarden)
                 .display(
                         Items.PLAYER_HEAD,
                         Text.translatable("advancements.speedrunnermod.dominion.title"),
@@ -500,14 +518,14 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                                 .type(entityLookup, EntityType.ENDER_DRAGON)))
                 .criterion("killed_elder_guardian", OnKilledCriterion.Conditions.createPlayerKilledEntity(
                         EntityPredicate.Builder.create()
-                                .type(entityLookup, EntityType.ELDER_GUARDIAN)))
+                                .type(entityLookup, EntityType.GIANT)))
                 .criterion("killed_wither", OnKilledCriterion.Conditions.createPlayerKilledEntity(
                         EntityPredicate.Builder.create()
                                 .type(entityLookup, EntityType.WITHER)))
                 .criterion("killed_warden", OnKilledCriterion.Conditions.createPlayerKilledEntity(
                         EntityPredicate.Builder.create()
                                 .type(entityLookup, EntityType.WARDEN)))
-                .rewards(AdvancementRewards.Builder.experience(250))
+                .rewards(AdvancementRewards.Builder.experience(1000))
                 .build(exporter, "speedrunnermod:adventure/dominion");
 
         Advancement.Builder.create()

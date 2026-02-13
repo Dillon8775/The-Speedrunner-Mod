@@ -1,9 +1,12 @@
 package net.dillon.speedrunnermod.entity;
 
+import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 
@@ -25,6 +28,11 @@ public interface Giant {
         boolean bl = target.damage(world, damageSource, g);
         if (bl) {
             EnchantmentHelper.onTargetDamaged(world, target, damageSource);
+            if (!(attacker.getHealth() < attacker.getMaxHealth() / 3)) {
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(3)));
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsAsTicks(3)));
+                target.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, ModUtil.secondsAsTicks(7)));
+            }
             if (!attacker.isBaby()) {
                 knockback(attacker, target);
             }

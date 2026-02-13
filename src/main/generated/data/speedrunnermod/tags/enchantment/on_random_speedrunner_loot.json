@@ -1,0 +1,36 @@
+{
+  "values": [
+    "minecraft:protection",
+    "minecraft:fire_protection",
+    "minecraft:blast_protection",
+    "minecraft:projectile_protection",
+    "minecraft:respiration",
+    "minecraft:aqua_affinity",
+    "minecraft:thorns",
+    "minecraft:depth_strider",
+    "minecraft:sharpness",
+    "minecraft:looting",
+    "minecraft:sweeping_edge",
+    "minecraft:efficiency",
+    "minecraft:fortune",
+    "minecraft:unbreaking",
+    "minecraft:power",
+    "minecraft:punch",
+    "minecraft:flame",
+    "minecraft:infinity",
+    "minecraft:mending",
+    "minecraft:frost_walker",
+    {
+      "id": "speedrunnermod:cooldown",
+      "required": false
+    },
+    {
+      "id": "speedrunnermod:dash",
+      "required": false
+    },
+    {
+      "id": "speedrunnermod:withered",
+      "required": false
+    }
+  ]
+}

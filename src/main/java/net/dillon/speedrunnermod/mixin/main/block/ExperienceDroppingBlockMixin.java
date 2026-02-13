@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.tag.ModBlockTags;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.minecraft.block.Block;

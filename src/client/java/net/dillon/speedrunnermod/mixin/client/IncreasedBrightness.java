@@ -4,8 +4,6 @@ import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.util.IncreasedBrightnessSliderCallbacks;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
@@ -23,7 +21,6 @@ import java.util.function.Function;
  * Increases the maximum brightness for the speedrunner mod, allowing for fullbright.
  */
 @Author(Authors.ADAMVIOLA)
-@Environment(EnvType.CLIENT)
 @Mixin(SimpleOption.class)
 public class IncreasedBrightness {
     @Shadow @Final

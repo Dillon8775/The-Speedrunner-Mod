@@ -4,8 +4,6 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
 
@@ -16,7 +14,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 /**
  * Configure structure spawn rates individually by each structure.
  */
-@Environment(EnvType.CLIENT)
 public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
 
     public StructureSpawnRateOptionsScreen(Screen parent) {

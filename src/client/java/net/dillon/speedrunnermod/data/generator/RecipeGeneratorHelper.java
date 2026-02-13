@@ -34,22 +34,13 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * Creates a smelting, campfire cooking, and smoker recipe.
      */
-    protected void createCookableFood(ItemConvertible input, ItemConvertible output, boolean vanilla) {
-        CookingRecipeJsonBuilder defaultFood = CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 20)
-                .criterion("has_item", this.conditionsFromItem(input));
-
-        if (vanilla) {
-            defaultFood.offerTo(this.exporter, vanilla(getItemPath(output)));
-        } else {
-            defaultFood.offerTo(this.exporter);
-        }
-
-        CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 60)
+    protected void createCookableFood(ItemConvertible input, ItemConvertible output) {
+        CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 100)
                 .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter, vanilla ? vanilla(getItemPath(output)+"_from_campfire_cooking") : output+"_from_campfire_cooking");
-        CookingRecipeJsonBuilder.createSmoking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 20)
+                .offerTo(this.exporter, output+"_from_campfire_cooking");
+        CookingRecipeJsonBuilder.createSmoking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 200)
                 .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter, vanilla ? vanilla(getItemPath(output)+"_from_smoking") : output+"_from_smoking");
+                .offerTo(this.exporter, output+"_from_smoking");
     }
 
     /**
@@ -89,34 +80,34 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * Creates a smeltable and blastable material.
      */
-    public void offerBurnableMaterial(List<ItemConvertible> inputs, ItemConvertible output, float exp, String group, boolean vanilla) {
-        offerNewSmelting(inputs, RecipeCategory.MISC, output, exp, group, vanilla);
-        offerNewBlasting(inputs, RecipeCategory.MISC, output, exp, group, vanilla);
+    public void offerBurnableMaterial(List<ItemConvertible> inputs, ItemConvertible output, float exp, String group) {
+        offerNewSmelting(inputs, RecipeCategory.MISC, output, exp, group);
+        offerNewBlasting(inputs, RecipeCategory.MISC, output, exp, group);
     }
 
     /**
      * A helper method for creating a new smelting recipe.
      */
-    protected void offerNewSmelting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group, boolean vanilla) {
-        this.offerMultipleOptionsH(RecipeSerializer.SMELTING, SmeltingRecipe::new, inputs, category, output, experience, 20, group, "_from_smelting", vanilla);
+    protected void offerNewSmelting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group) {
+        this.offerMultipleOptionsH(RecipeSerializer.SMELTING, SmeltingRecipe::new, inputs, category, output, experience, 20, group, "_from_smelting");
     }
 
     /**
      * A helper method for creating a new blasting recipe.
      */
-    protected void offerNewBlasting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group, boolean vanilla) {
-        this.offerMultipleOptionsH(RecipeSerializer.BLASTING, BlastingRecipe::new, inputs, category, output, experience, 20, group, "_from_blasting", vanilla);
+    protected void offerNewBlasting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group) {
+        this.offerMultipleOptionsH(RecipeSerializer.BLASTING, BlastingRecipe::new, inputs, category, output, experience, 20, group, "_from_blasting");
     }
 
     /**
      * A helper method for creating a new cooking recipe.
      */
-    protected final <T extends AbstractCookingRecipe> void offerMultipleOptionsH(RecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group, String suffix, boolean vanilla) {
+    protected final <T extends AbstractCookingRecipe> void offerMultipleOptionsH(RecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group, String suffix) {
         for (ItemConvertible itemConvertible : inputs) {
             CookingRecipeJsonBuilder.create(Ingredient.ofItem(itemConvertible), category, output, experience, cookingTime, serializer, recipeFactory)
                     .group(group)
                     .criterion(hasItem(itemConvertible), this.conditionsFromItem(itemConvertible))
-                    .offerTo(this.exporter, vanilla ? vanilla(getItemPath(output) + suffix + "_" + getItemPath(itemConvertible)) : output + suffix + "_" + this.removeSpeedrunnerModNamespace(itemConvertible.asItem().toString()));
+                    .offerTo(this.exporter, output + suffix + "_" + this.removeSpeedrunnerModNamespace(itemConvertible.asItem().toString()));
         }
     }
 
@@ -211,7 +202,7 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * Creates a {@code sword} recipe.
      */
-    protected void createSword(TagKey<Item> material, ItemConvertible output, boolean vanilla) {
+    protected void createSword(TagKey<Item> material, ItemConvertible output) {
         var recipe = this.createShaped(RecipeCategory.COMBAT, output)
                 .input('#', ModItemTags.STICKS)
                 .input('X', material)
@@ -220,18 +211,14 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern("#")
                 .criterion("has_material", this.conditionsFromTag(material));
 
-        if (vanilla) {
-            recipe.offerTo(this.exporter, vanilla(getItemPath(output)));
-        } else {
-            recipe.offerTo(this.exporter);
-        }
+        recipe.offerTo(this.exporter);
     }
 
 
     /**
      * Creates a {@code shovel} recipe.
      */
-    protected void createShovel(TagKey<Item> material, ItemConvertible output, boolean vanilla) {
+    protected void createShovel(TagKey<Item> material, ItemConvertible output) {
         var recipe = this.createShaped(RecipeCategory.TOOLS, output)
                 .input('#', ModItemTags.STICKS)
                 .input('X', material)
@@ -240,17 +227,13 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern("#")
                 .criterion("has_material", this.conditionsFromTag(material));
 
-        if (vanilla) {
-            recipe.offerTo(this.exporter, vanilla(getItemPath(output)));
-        } else {
-            recipe.offerTo(this.exporter);
-        }
+        recipe.offerTo(this.exporter);
     }
 
     /**
      * Creates a {@code pickaxe} recipe.
      */
-    protected void createPickaxe(TagKey<Item> material, ItemConvertible output, boolean vanilla) {
+    protected void createPickaxe(TagKey<Item> material, ItemConvertible output) {
         var recipe = this.createShaped(RecipeCategory.TOOLS, output)
                 .input('#', ModItemTags.STICKS)
                 .input('X', material)
@@ -259,17 +242,13 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern(" # ")
                 .criterion("has_material", this.conditionsFromTag(material));
 
-        if (vanilla) {
-            recipe.offerTo(this.exporter, vanilla(getItemPath(output)));
-        } else {
-            recipe.offerTo(this.exporter);
-        }
+        recipe.offerTo(this.exporter);
     }
 
     /**
      * Creates an {@code axe} recipe.
      */
-    protected void createAxe(TagKey<Item> material, ItemConvertible output, boolean vanilla) {
+    protected void createAxe(TagKey<Item> material, ItemConvertible output) {
         var recipe = this.createShaped(RecipeCategory.TOOLS, output)
                 .input('#', ModItemTags.STICKS)
                 .input('X', material)
@@ -278,17 +257,13 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern(" #")
                 .criterion("has_material", this.conditionsFromTag(material));
 
-        if (vanilla) {
-            recipe.offerTo(this.exporter, vanilla(getItemPath(output)));
-        } else {
-            recipe.offerTo(this.exporter);
-        }
+        recipe.offerTo(this.exporter);
     }
 
     /**
      * Creates a {@code hoe} recipe.
      */
-    protected void createHoe(TagKey<Item> material, ItemConvertible output, boolean vanilla) {
+    protected void createHoe(TagKey<Item> material, ItemConvertible output) {
         var recipe = this.createShaped(RecipeCategory.TOOLS, output)
                 .input('#', ModItemTags.STICKS)
                 .input('X', material)
@@ -297,11 +272,7 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern(" #")
                 .criterion("has_material", this.conditionsFromTag(material));
 
-        if (vanilla) {
-            recipe.offerTo(this.exporter, vanilla(getItemPath(output)));
-        } else {
-            recipe.offerTo(this.exporter);
-        }
+        recipe.offerTo(this.exporter);
     }
 
     /**
@@ -362,31 +333,10 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     }
 
     /**
-     * Returns an overwritten vanilla recipe, with the speedrunner mod identifier.
-     */
-    protected RegistryKey<Recipe<?>> speedrunnerModOfVanillaRecipe(String path) {
-        return RegistryKey.of(RegistryKeys.RECIPE, ofSpeedrunnerMod(vanilla(path)));
-    }
-
-    /**
-     * Removes the {@code "minecraft:"} when returning a string.
-     */
-    protected String removeMinecraftNamespace(String str) {
-        return str.substring(10);
-    }
-
-    /**
      * Removes a specific set of characters (for an identifier) when returning a string.
      */
     protected String removeSpeedrunnerModNamespace(String str) {
         return str.substring(15);
-    }
-
-    /**
-     * Returns the path for a recipe, in the {@code vanilla} folder.
-     */
-    protected String vanilla(String name) {
-        return "vanilla/"+name;
     }
 
     /**
@@ -402,7 +352,7 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern(" | ")
                 .group("banner")
                 .criterion(hasItem(inputWool), this.conditionsFromItem(inputWool))
-                .offerTo(this.exporter, vanilla(this.removeMinecraftNamespace(output.toString())));
+                .offerTo(this.exporter);
     }
 
     /**

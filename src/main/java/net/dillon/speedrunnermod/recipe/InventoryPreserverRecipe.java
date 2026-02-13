@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeSerializer;

@@ -7,12 +7,10 @@ import net.dillon.speedrunnermod.client.screen.feature.doommode.BasicsScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import org.jetbrains.annotations.NotNull;
 
-@Environment(EnvType.CLIENT)
+
 public class SpeedrunnersWorkbenchScreen extends AbstractFeatureScreen {
 
     public SpeedrunnersWorkbenchScreen(Screen parent) {

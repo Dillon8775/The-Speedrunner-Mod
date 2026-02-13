@@ -42,8 +42,8 @@ public class ModItems {
 
     public static final Item RAW_SPEEDRUNNER = Items.register(of("raw_speedrunner"), Item::new);
 
-    public static final Item SPEEDRUNNER_SWORD = Items.register(of("speedrunner_sword"), settings -> new SpeedrunnerSwordItem(
-            5, false, settings));
+    public static final Item SPEEDRUNNER_SWORD = Items.register(of("speedrunner_sword"), Item::new,
+            new Item.Settings().sword(ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE, 5, -2.4F));
 
     public static final Item SPEEDRUNNER_SHOVEL = Items.register(of("speedrunner_shovel"), settings -> new ShovelItem(
             ModToolMaterials.SPEEDRUNNER_SHOVEL_AXE_HOE, 4, -3.0F, settings));
@@ -91,8 +91,8 @@ public class ModItems {
 
     public static final Item SPEEDRUNNER_SHIELD = Items.register(of("speedrunner_shield"), SpeedrunnerShieldItem::new);
 
-    public static final Item GOLDEN_SPEEDRUNNER_SWORD = Items.register(of("golden_speedrunner_sword"), settings -> new SpeedrunnerSwordItem(
-            4, true, settings));
+    public static final Item GOLDEN_SPEEDRUNNER_SWORD = Items.register(of("golden_speedrunner_sword"), Item::new,
+            new Item.Settings().sword(ModToolMaterials.GOLDEN_SPEEDRUNNER, 4, -2.4F));
 
     public static final Item GOLDEN_SPEEDRUNNER_SHOVEL = Items.register(of("golden_speedrunner_shovel"), settings -> new ShovelItem(
             ModToolMaterials.GOLDEN_SPEEDRUNNER, 2.5F, -3.0F, settings));
@@ -139,7 +139,6 @@ public class ModItems {
         public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line1"));
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line2"));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line3"));
         }
     }, new Item.Settings().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModDataComponentTypes.SPEEDRUNNER_BULK));
 
@@ -299,8 +298,6 @@ public class ModItems {
         public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").formatted(Formatting.GRAY));
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line3").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line4").formatted(Formatting.GRAY));
         }
     });
 

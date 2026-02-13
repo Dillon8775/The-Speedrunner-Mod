@@ -4,7 +4,6 @@ import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -76,16 +75,7 @@ public class EnderThrusterItem extends Item implements EyeItem {
                     world.setBlockState(topPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
                 }
 
-                boolean isAir = world.getBlockState(topPos.up()).isAir() && world.getBlockState(topPos.up(1)).isAir();
-                if (!isAir) {
-                    for (int i = 1; i < 3; i++) {
-                        world.setBlockState(topPos.up(i), Blocks.AIR.getDefaultState(), 3);
-                    }
-                }
-
-                ModUtil.completeStepS2C(TutorialStep.USE_ENTER_THRUSTER, player,
-                        "speedrunnermod.tutorial_mode.ender_thruster_description",
-                        "speedrunnermod.tutorial_mode.obtain_ender_matter");
+                this.removeObstructions(world, topPos);
 
                 player.teleport(topPos.getX() + 0.5F, topY, topPos.getZ() + 0.5F, false);
                 player.incrementStat(Stats.USED.getOrCreateStat(this));

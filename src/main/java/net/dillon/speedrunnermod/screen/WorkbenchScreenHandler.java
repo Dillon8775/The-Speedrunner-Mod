@@ -4,8 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
@@ -13,6 +12,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -58,7 +58,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
     private static ForgingSlotsManager getForgingSlotsManager() {
         return ForgingSlotsManager.builder()
                 .input(0, 27, 37, stack -> stack.isIn(ConventionalItemTags.ENCHANTABLES))
-                .input(1, 76, 37, stack -> stack.isIn(ConventionalItemTags.ENCHANTABLES) || stack.isOf(Items.BOOK))
+                .input(1, 76, 37, stack -> stack.isIn(ConventionalItemTags.ENCHANTABLES) || stack.isOf(Items.BOOK) || stack.isOf(ModItems.SPEEDRUNNER_INGOT))
                 .input(2, 76, 60, stack -> stack.isOf(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE))
                 .output(3, 134, 37).build();
     }
@@ -77,7 +77,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
      */
     @Override
     protected boolean canTakeOutput(PlayerEntity player, boolean present) {
-        return (player.isInCreativeMode() || player.experienceLevel >= this.levelCost.get()) && this.levelCost.get() > 0;
+        return (player.isInCreativeMode() || player.experienceLevel >= this.levelCost.get());
     }
 
     /**
@@ -91,17 +91,20 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
 
         ItemStack newSlot1 = this.input.getStack(this.getInputSlot().id);
         // Remove the enchantment from the main hand item if it was transferred/upgraded to the offhand
-        for (RegistryEntry registryEntry : enchantmentsToRemove.keySet()) {
+        for (RegistryEntry registryEntry : this.enchantmentsToRemove.keySet()) {
             EnchantmentHelper.apply(newSlot1, builder -> builder.remove(enchantmentRegistryEntry -> enchantmentRegistryEntry.equals(registryEntry)));
         }
         this.input.setStack(this.getInputSlot().id, newSlot1);
-        if (this.input.getStack(this.getTransferToSlot().id).isOf(Items.BOOK)) {
-            ItemStack decrementedBook = this.input.getStack(this.getTransferToSlot().id).copy();
-            decrementedBook.decrement(1);
-            this.input.setStack(this.getTransferToSlot().id, decrementedBook);
+        boolean ingot = this.input.getStack(this.getTransferToSlot().id).isOf(ModItems.SPEEDRUNNER_INGOT) && this.input.getStack(this.getInputSlot().id).isIn(ModItemTags.UPGRADEABLE_GOLD);
+        if (this.input.getStack(this.getTransferToSlot().id).isOf(Items.BOOK) || ingot) {
+            this.input.setStack(this.getInputSlot().id, ItemStack.EMPTY);
+            this.input.setStack(this.getTransferToSlot().id, this.decrementedStack(this.input.getStack(this.getTransferToSlot().id).copy()));
+            if (ingot) {
+                this.input.setStack(this.getSmithingTemplateSlot().id, this.decrementedStack(this.input.getStack(this.getSmithingTemplateSlot().id).copy()));
+            }
         } else {
             this.input.setStack(this.getTransferToSlot().id, ItemStack.EMPTY);
-            this.input.setStack(this.getSmithingTemplateSlot().id, ItemStack.EMPTY);
+            this.input.setStack(this.getSmithingTemplateSlot().id, this.decrementedStack(this.input.getStack(this.getSmithingTemplateSlot().id).copy()));
         }
         this.success(player);
     }
@@ -212,6 +215,9 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
             }
             this.output.setStack(0, output); // Set the output
             this.levelCost.set(cost); // Set the cost
+        } else if (firstSlot.isIn(ModItemTags.UPGRADEABLE_GOLD) && secondSlot.isOf(ModItems.SPEEDRUNNER_INGOT) && this.getSmithingTemplateSlot().hasStack()) {
+            this.output.setStack(0, firstSlot.copyComponentsToNewStack(this.toGoldenSpeedrunner(firstSlot), 1));
+            this.levelCost.set(0);
         }
     }
 
@@ -224,7 +230,41 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
         if (player instanceof ServerPlayerEntity serverPlayer) {
             ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH));
         }
-        ModUtil.completeStepS2C(TutorialStep.TRANSFER_ENCHANTMENTS, player, "speedrunnermod.tutorial_mode.find_retired_speedrunner");
+    }
+
+    /**
+     * @return the {@link ItemStack} decremented by 1.
+     */
+    private ItemStack decrementedStack(ItemStack s) {
+        ItemStack decrementedStack = s.copy();
+        decrementedStack.decrement(1);
+        return decrementedStack;
+    }
+
+    /**
+     * @return the golden speedrunner converted item.
+     */
+    private Item toGoldenSpeedrunner(ItemStack s) {
+        if (s.isOf(Items.GOLDEN_SWORD)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_SWORD;
+        } else if (s.isOf(Items.GOLDEN_PICKAXE)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_PICKAXE;
+        } else if (s.isOf(Items.GOLDEN_SHOVEL)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_SHOVEL;
+        } else if (s.isOf(Items.GOLDEN_AXE)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_AXE;
+        } else if (s.isOf(Items.GOLDEN_HOE)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_HOE;
+        } else if (s.isOf(Items.GOLDEN_HELMET)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_HELMET;
+        } else if (s.isOf(Items.GOLDEN_CHESTPLATE)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE;
+        } else if (s.isOf(Items.GOLDEN_LEGGINGS)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS;
+        } else if  (s.isOf(Items.GOLDEN_BOOTS)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_BOOTS;
+        }
+        return null;
     }
 
     /**

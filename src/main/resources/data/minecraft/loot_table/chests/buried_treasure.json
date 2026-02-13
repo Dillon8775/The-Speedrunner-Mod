@@ -24,11 +24,9 @@
           "name": "minecraft:book",
           "functions": [
             {
-              "function": "minecraft:enchant_randomly",
-              "options": [
-                "speedrunnermod:dash",
-                "speedrunnermod:cooldown"
-              ]
+              "function": "minecraft:enchant_with_levels",
+              "levels": 37,
+              "treasure": true
             }
           ]
         }

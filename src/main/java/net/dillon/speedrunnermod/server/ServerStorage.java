@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.server;
 
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
-import net.minecraft.server.network.ServerPlayerEntity;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Stores server-synced client options and cached values.
@@ -13,8 +13,6 @@ public class ServerStorage {
     private static final Map<UUID, Boolean> ACTIONBAR_PREFS = new HashMap<>();
     private static final Map<UUID, Integer> ICARUS_FIREWORK_SLOT = new HashMap<>();
     private static final Map<UUID, Integer> INFINI_PEARL_SLOT = new HashMap<>();
-    private static final Map<UUID, Set<TutorialStep>> COMPLETED_STEPS = new HashMap<>();
-    private static final Map<UUID, Boolean> TUTORIAL_MODE_ENABLED = new HashMap<>();
     private static final Map<String, ModOptions> pendingRequests = new HashMap<>();
 
     /**
@@ -66,44 +64,6 @@ public class ServerStorage {
      */
     public static int getInfiniPearlSlot(UUID playerUuid) {
         return INFINI_PEARL_SLOT.getOrDefault(playerUuid, 1);
-    }
-
-    /**
-     * Completes a tutorial step for {@code player.}
-     */
-    public static void completeTutorialStepC2S(ServerPlayerEntity player, TutorialStep step) {
-        COMPLETED_STEPS.computeIfAbsent(player.getUuid(), k -> new HashSet<>()).add(step);
-    }
-
-    /**
-     * Sets tutorial mode to be enabled for a player.
-     */
-    public static void setTutorialModeForPlayer(UUID uuid, boolean tutorialMode) {
-        TUTORIAL_MODE_ENABLED.put(uuid, tutorialMode);
-    }
-
-    /**
-     * @return {@code true} if tutorial mode is enabled for a player.
-     */
-    public static boolean isTutorialModeEnabledForPlayer(UUID uuid) {
-        return TUTORIAL_MODE_ENABLED.getOrDefault(uuid, false);
-    }
-
-    /**
-     * @return {@code true} if tutorial mode is enabled for a player by getting {@code player} UUID.
-     */
-    public static boolean isTutorialModeEnabledForPlayer(ServerPlayerEntity player) {
-        return TUTORIAL_MODE_ENABLED.getOrDefault(player.getUuid(), false);
-    }
-
-    /**
-     * @return {@code true} if {@code player} has completed {@code tutorial step.}
-     */
-    public static boolean hasCompletedStep(ServerPlayerEntity player, TutorialStep step) {
-        if (!isTutorialModeEnabledForPlayer(player.getUuid())) {
-            return false;
-        }
-        return COMPLETED_STEPS.getOrDefault(player.getUuid(), Set.of()).contains(step);
     }
 
     /**

@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -20,8 +19,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 import java.util.function.Consumer;
-
-import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
@@ -56,12 +53,6 @@ public class InfernoEyeItem extends Item implements EyeItem {
                 ModUtil.findStructureAndShoot(world, player, stack, stack.get(ModDataComponentTypes.LOCATING_STRUCTURE));
                 ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_inferno.located", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
                 this.playWorldSound(SoundEvents.ITEM_FIRECHARGE_USE, 0.5F, 1.0F, world, player);
-
-                ModUtil.completeStepS2C(TutorialStep.USE_INFERNO_EYE, player,
-                        "speedrunnermod.tutorial_mode.used_inferno_eye",
-                        isEasyMode() ? "speedrunnermod.tutorial_mode.craft_piglin_awakener" :
-                                "speedrunnermod.tutorial_mode.craft_speedrunners_eye");
-
                 this.decrementIfPossible(player, stack);
             }
 

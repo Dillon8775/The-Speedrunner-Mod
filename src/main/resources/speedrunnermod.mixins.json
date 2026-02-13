@@ -121,14 +121,6 @@
     "main.trades.SellEnchantedToolFactoryMixin",
     "main.trades.TradeOffersMixin",
 
-    "main.tutorial.TutorialModeImpl$ItemMixin",
-    "main.tutorial.TutorialModeImpl$EnderEyeItemMixin",
-    "main.tutorial.TutorialModeImpl$ServerWorldMixin",
-    "main.tutorial.TutorialModeImpl$EndPortalBlockMixin",
-    "main.tutorial.TutorialModeImpl$ExperienceDroppingBlockMixin",
-    "main.tutorial.TutorialModeImpl$VillagerEntityMixin",
-    "main.tutorial.TutorialModeImpl$WitherEntityMixin",
-
     "main.world.EndGatewayBlockEntityMixin",
     "main.world.EndIslandFeatureMixin",
     "main.world.EndPortalFeatureMixin",

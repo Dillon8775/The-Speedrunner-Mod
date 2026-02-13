@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.mixin.main.entity.giant;
 import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -119,7 +118,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     public void tick() {
         super.tick();
         if (this.age % 10 == 0) {
-            this.heal(0.65F);
+            this.heal(0.8F);
         }
 
         if (this.getHealth() <= this.getMaxHealth() / 3) {
@@ -158,7 +157,6 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         super.onDeath(source);
         this.onGiantDeath();
         if (this.getAttacker() instanceof PlayerEntity player) {
-            ModUtil.completeStepS2C(TutorialStep.KILL_GOLIATH, player, "speedrunnermod.tutorial_mode.kill_wither");
             if (!this.isSilent() && player instanceof ServerPlayerEntity serverPlayer) {
                 serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.getEntityWorld().getRandom().nextLong()));
             }
@@ -196,7 +194,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         }
 
         if (this.getHealth() <= this.getMaxHealth() / 3 && entity instanceof PlayerEntity) {
-            this.heal(ModUtil.randomFloatInclusive(1.15F, 2.95F));
+            this.heal(ModUtil.randomFloatInclusive(1.35F, 3.45F));
         }
 
         if ((this.random.nextFloat() < 0.15F || this.getHealth() <= this.getMaxHealth() / 3) && !source.isIn(DamageTypeTags.IS_FIRE)) {

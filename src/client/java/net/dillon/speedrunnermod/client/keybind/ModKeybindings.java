@@ -1,8 +1,6 @@
 package net.dillon.speedrunnermod.client.keybind;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -14,7 +12,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybin
 /**
  * All {@code Speedrunner Mod} keybindings.
  */
-@Environment(EnvType.CLIENT)
 public class ModKeybindings {
     public static final KeyBinding.Category SPEEDRUNNER_MOD_KEYBINDINGS = KeyBinding.Category.create(ofSpeedrunnerMod("speedrunnermod.keybinds"));
 

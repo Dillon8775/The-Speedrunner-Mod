@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.client.screen.base.synced;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -14,7 +12,6 @@ import net.minecraft.util.Colors;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
-@Environment(EnvType.CLIENT)
 public class ModeDoesntMatchScreen extends AbstractModScreen {
     private ButtonWidget matchModeToServerButton;
     private final ModOptions.Mode serverSideMode;

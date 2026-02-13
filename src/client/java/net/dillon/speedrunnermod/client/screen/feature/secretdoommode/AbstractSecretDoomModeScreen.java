@@ -3,8 +3,6 @@ package net.dillon.speedrunnermod.client.screen.feature.secretdoommode;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.input.KeyInput;
@@ -12,7 +10,7 @@ import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
-@Environment(EnvType.CLIENT)
+
 public abstract class AbstractSecretDoomModeScreen extends AbstractFeatureScreen {
     public static int doomModeButtonAlreadyClicked = 0;
 

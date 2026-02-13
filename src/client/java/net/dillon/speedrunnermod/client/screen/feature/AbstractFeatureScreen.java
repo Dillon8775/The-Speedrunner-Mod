@@ -10,8 +10,6 @@ import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -32,7 +30,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
 /**
  * Used to create {@code feature screens}, for the soul purpose of displaying some of Speedrunner Mod's features.
  */
-@Environment(EnvType.CLIENT)
 public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     protected final Screen parent;
     private Screen category1Screen;

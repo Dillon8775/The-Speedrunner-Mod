@@ -16,7 +16,6 @@
     "description": {
       "translate": "advancements.speedrunnermod.to_infini_and_beyond.description"
     },
-    "frame": "challenge",
     "icon": {
       "count": 1,
       "id": "speedrunnermod:infini_pearl"

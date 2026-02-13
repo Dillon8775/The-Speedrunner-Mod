@@ -4,11 +4,8 @@ import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.packet.client.CompleteTutorialStepS2CPacket;
 import net.dillon.speedrunnermod.server.ServerStorage;
-import net.dillon.speedrunnermod.tutorial.TutorialStep;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FireworksComponent;
@@ -54,7 +51,10 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.Structure;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
+import java.util.UUID;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -177,16 +177,6 @@ public class ModUtil {
      */
     public static void sendMessageWithActionbarPref(PlayerEntity player, Text text, Formatting actionbar, Formatting chat) {
         player.sendMessage(text.copy().formatted(ModUtil.toFormatting(player.getUuid(), actionbar, chat)), ServerStorage.shouldShowInActionbar(player.getUuid()));
-    }
-
-    /**
-     * Sends the new {@link TutorialStep} boolean over to the client-side.
-     */
-    public static void completeStepS2C(TutorialStep step, PlayerEntity player, String... messageKeys) {
-        if (player instanceof ServerPlayerEntity serverPlayer) {
-            List<String> messageKeysList = new ArrayList<>(Arrays.asList(messageKeys));
-            ServerPlayNetworking.send(serverPlayer, new CompleteTutorialStepS2CPacket(step, messageKeysList));
-        }
     }
 
     /**
@@ -484,13 +474,6 @@ public class ModUtil {
     public static int randomIntInclusive(int min, int max) {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
-    }
-
-    /**
-     * Returns a {@code percent percentChance.}
-     */
-    public static boolean percentChance(net.minecraft.util.math.random.Random random, int percentChance) {
-        return random.nextInt(100) < percentChance;
     }
 
     /**
