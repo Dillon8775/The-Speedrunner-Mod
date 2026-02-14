@@ -1,6 +1,6 @@
 ### An upgrade to §6gold armor.
 
-#### Has more durability than §enormal gold, §ffaster than §enormal gold, §fand §6keeps you §a§l100% §r§fsafe from piglin.
+#### It's §efaster §r§fand has §amore durability, §r§fand §6keeps you §a§l100% §r§fsafe from §epiglin.
 
 ### This means you can §ebreak gold blocks §r§fand §6open containers §r§fwithout those §eannoying piglin §r§cattacking you! §r§c§o(unless you hit them...)
 

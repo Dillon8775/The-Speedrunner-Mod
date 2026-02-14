@@ -211,6 +211,8 @@ public abstract class BaseOptions<T> {
      */
     private List<File> oldConfigFiles() {
         return List.of(
+                this.ofFile("speedrunnermod-client_config_1.11.1.json"),
+                this.ofFile("speedrunnermod-config_1.11.1.json"),
                 this.ofFile("speedrunnermod-config.json"),
                 this.ofFile("speedrunnermod-client_config.json"),
                 this.ofFile("speedrunnermod-options.json")

@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.mixin.main.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
@@ -91,7 +90,7 @@ public abstract class ItemMixin {
         if (stack.isOf(Items.FIRE_CHARGE) || stack.isOf(ModItems.DRAGONS_FIREBALL)) {
             textConsumer.accept(Text.translatable("item.minecraft.fire_charge.throw").formatted(Formatting.GRAY));
         }
-        if (options().main.lavaBoats.getCurrentValue() && stack.getOrDefault(ModDataComponentTypes.BOOLEAN, false) && (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS))) {
+        if (options().main.lavaBoats.getCurrentValue() && (stack.isIn(ModItemTags.FIREPROOF_BOATS) || stack.isIn(ModItemTags.FIREPROOF_CHEST_BOATS))) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.boat.tooltip").formatted(Formatting.GOLD));
         }
         if (stack.isIn(ModItemTags.FASTER_BOATS) || stack.isIn(ModItemTags.FASTER_CHEST_BOATS)) {

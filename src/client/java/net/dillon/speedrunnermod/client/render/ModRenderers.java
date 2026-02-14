@@ -48,16 +48,22 @@ public class ModRenderers {
      */
     private static void initializeOtherRenderers() {
         registerBoatRenderer(ModEntityTypes.SPEEDRUNNER_BOAT, boatModelLayer("speedrunner"), false);
+        registerBoatRenderer(ModEntityTypes.FIREPROOF_SPEEDRUNNER_BOAT, boatModelLayer("fireproof/speedrunner"), false);
         registerBoatRenderer(ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, chestBoatModelLayer("speedrunner"), true);
+        registerBoatRenderer(ModEntityTypes.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, chestBoatModelLayer("fireproof/speedrunner"), true);
 
         registerBoatRenderer(ModEntityTypes.DEAD_SPEEDRUNNER_BOAT, boatModelLayer("dead_speedrunner"), false);
         registerBoatRenderer(ModEntityTypes.DEAD_SPEEDRUNNER_CHEST_BOAT, chestBoatModelLayer("dead_speedrunner"), true);
 
         registerBoatRenderer(ModEntityTypes.CRIMSON_BOAT, boatModelLayer("crimson"), false);
+        registerBoatRenderer(ModEntityTypes.FIREPROOF_CRIMSON_BOAT, boatModelLayer("fireproof/crimson"), false);
         registerBoatRenderer(ModEntityTypes.CRIMSON_CHEST_BOAT, chestBoatModelLayer("crimson"), true);
+        registerBoatRenderer(ModEntityTypes.FIREPROOF_CRIMSON_CHEST_BOAT, chestBoatModelLayer("fireproof/crimson"), true);
 
         registerBoatRenderer(ModEntityTypes.WARPED_BOAT, boatModelLayer("warped"), false);
+        registerBoatRenderer(ModEntityTypes.FIREPROOF_WARPED_BOAT, boatModelLayer("fireproof/warped"), false);
         registerBoatRenderer(ModEntityTypes.WARPED_CHEST_BOAT, chestBoatModelLayer("warped"), true);
+        registerBoatRenderer(ModEntityTypes.FIREPROOF_WARPED_CHEST_BOAT, chestBoatModelLayer("fireproof/warped"), true);
 
         TerraformSignBlockHelper.registerDefaultWoodType(ofSpeedrunnerMod("speedrunner"));
 

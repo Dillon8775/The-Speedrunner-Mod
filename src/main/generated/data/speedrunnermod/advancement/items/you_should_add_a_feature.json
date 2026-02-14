@@ -1,0 +1,31 @@
+{
+  "parent": "speedrunnermod:items/infernal_gaze",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:fire_charge"
+        }
+      },
+      "trigger": "minecraft:triggered_by_item_criterion"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.you_should_add_a_feature.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:fire_charge"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.you_should_add_a_feature.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

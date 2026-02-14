@@ -5,3 +5,4 @@
 !image:textures/gui/features/screenshots/less_fall_damage.png scale=.45
 !image:textures/gui/features/screenshots/less_fall_damage_shifting.png scale=.45
 ##### You can also disable fall damage §lentirely§r in the §bspeedrunner mod options§f §bmenu§r (followed by §7kenetic damage,§r§f the damage taken when flying into walls with an §7elytra§f).
+

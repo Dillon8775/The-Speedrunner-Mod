@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.packet.client.OpenFeaturesScreenS2CPacket;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -45,6 +46,7 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
     public ActionResult use(World world, PlayerEntity player, Hand hand) {
         if (player instanceof ServerPlayerEntity serverPlayer) {
             ServerPlayNetworking.send(serverPlayer, new OpenFeaturesScreenS2CPacket());
+            ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, this.getDefaultStack());
         }
         return super.use(world, player, hand);
     }

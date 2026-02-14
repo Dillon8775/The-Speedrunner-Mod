@@ -1,10 +1,7 @@
 package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.recipe.boat.*;
-import net.dillon.speedrunnermod.recipe.boat.chest.*;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapelessRecipe;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -15,35 +12,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All Speedrunner Mod {@code custom recipes.}
  */
 public class ModRecipes {
-    protected static final int CENTER_SLOT_3x2 = 1;
     protected static final int CENTER_SLOT_3x3 = 4;
-
-    public static final RecipeSerializer<CrimsonBoatRecipe> CRIMSON_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_crimson_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(CrimsonBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_CRIMSON_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_crimson_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofCrimsonBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> CRIMSON_CHEST_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_crimson_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(CrimsonChestBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_CRIMSON_CHEST_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_crimson_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofCrimsonChestBoatRecipe::new));
-
-    public static final RecipeSerializer<SpeedrunnerBoatRecipe> SPEEDRUNNER_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_speedrunner_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(SpeedrunnerBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_SPEEDRUNNER_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_speedrunner_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofSpeedrunnerBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> SPEEDRUNNER_CHEST_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_speedrunner_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(SpeedrunnerChestBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_SPEEDRUNNER_CHEST_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_speedrunner_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofSpeedrunnerChestBoatRecipe::new));
-
-    public static final RecipeSerializer<WarpedBoatRecipe> WARPED_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_warped_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(WarpedBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_WARPED_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_warped_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofWarpedBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> WARPED_CHEST_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_warped_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(WarpedChestBoatRecipe::new));
-    public static final RecipeSerializer<ShapelessRecipe> FIREPROOF_WARPED_CHEST_BOAT_RECIPE_SERIALIZER =
-            Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_fireproof_warped_chest_boat"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(FireproofWarpedChestBoatRecipe::new));
 
     public static final RecipeSerializer<InventoryPreserverRecipe> INVENTORY_PRESERVER_RECIPE_SERIALIZER =
             Registry.register(Registries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_inventory_preserver"), new SpecialCraftingRecipe.SpecialRecipeSerializer<>(InventoryPreserverRecipe::new));

@@ -9,9 +9,13 @@
     },
     "in_water": {
       "conditions": {
-        "block": "minecraft:water"
+        "items": [
+          {
+            "items": "speedrunnermod:dead_speedrunner_planks"
+          }
+        ]
       },
-      "trigger": "minecraft:enter_block"
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [

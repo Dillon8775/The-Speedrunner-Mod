@@ -66,8 +66,8 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
  */
 public class ModUtil {
     public static int errorMessagesSent = 0;
-    public static final String CONFIG_FILE_NAME = "speedrunnermod-config_1.11.1.json";
-    public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod-client_config_1.11.1.json";
+    public static final String CONFIG_FILE_NAME = "speedrunnermod.json";
+    public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod_client.json";
 
     public static final int SPEEDRUNNER_WATER_COLOR = 0x85C1E9;
     public static final int SPEEDRUNNER_WATER_FOG_COLOR = 0x85C1E9;
@@ -325,6 +325,8 @@ public class ModUtil {
             ExplosiveProjectileEntity fireball = new FireballEntity(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower.getCurrentValue());
             if (dragon) {
                 fireball = new DragonFireballEntity(world, player, lookVec.normalize());
+            } else {
+                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity) player, stack);
             }
             fireball.updatePosition(player.getX(), player.getEyeY() - 0.235, player.getZ());
             fireball.setOwner(player);

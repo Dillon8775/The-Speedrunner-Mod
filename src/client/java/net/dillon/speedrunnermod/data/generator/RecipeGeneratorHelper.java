@@ -4,12 +4,14 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.recipe.*;
+import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
+import net.minecraft.data.recipe.RecipeExporter;
+import net.minecraft.data.recipe.RecipeGenerator;
+import net.minecraft.data.recipe.SmithingTransformRecipeJsonBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
@@ -18,7 +20,6 @@ import net.minecraft.registry.tag.TagKey;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -35,9 +36,12 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
      * Creates a smelting, campfire cooking, and smoker recipe.
      */
     protected void createCookableFood(ItemConvertible input, ItemConvertible output) {
-        CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 100)
+        CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 60)
                 .criterion("has_item", this.conditionsFromItem(input))
                 .offerTo(this.exporter, output+"_from_campfire_cooking");
+        CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 200)
+                .criterion("has_item", this.conditionsFromItem(input))
+                .offerTo(this.exporter, output+"_from_smelting");
         CookingRecipeJsonBuilder.createSmoking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 200)
                 .criterion("has_item", this.conditionsFromItem(input))
                 .offerTo(this.exporter, output+"_from_smoking");
@@ -112,19 +116,32 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     }
 
     /**
-     * Creates a {@code fireproof boat} and {@code chest boat} recipe.
-     */
-    protected void createFireproofBoatSet(Function<CraftingRecipeCategory, Recipe<?>> boat, Function<CraftingRecipeCategory, Recipe<?>> chestBoat, String type) {
-        ComplexRecipeJsonBuilder.create(boat).offerTo(this.exporter, "fireproof_"+type+"_boat");
-        ComplexRecipeJsonBuilder.create(chestBoat).offerTo(this.exporter, "fireproof_"+type+"_chest_boat");
-    }
-
-    /**
      * Creates a normal {@code boat} and {@code chest boat} recipe.
      */
     protected void createBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible planks) {
-        this.offerBoatRecipe(boat, planks);
+        this.offerFireproofBoatRecipe(boat, planks);
         this.offerChestBoatRecipe(chestBoat, boat);
+    }
+
+    /**
+     * Creates a fireproof {@code boat} and {@code chest boat} recipe.
+     */
+    protected void createFireproofBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible fireproofBoat, ItemConvertible fireproofChestBoat, ItemConvertible planks) {
+        this.offerBoatRecipe(boat, planks);
+        this.offerFireproofBoatRecipe(fireproofBoat, fireproofChestBoat);
+        this.offerChestBoatRecipe(chestBoat, boat);
+        this.offerChestBoatRecipe(fireproofChestBoat, fireproofBoat);
+    }
+
+    public void offerFireproofBoatRecipe(ItemConvertible output, ItemConvertible input) {
+        this.createShaped(RecipeCategory.TRANSPORTATION, output)
+                .input('#', input)
+                .input('P', ModItems.SPEEDRUNNER_PADDLE)
+                .pattern("#P#")
+                .pattern("###")
+                .group("boat")
+                .criterion("in_water", this.conditionsFromItem(input))
+                .offerTo(this.exporter);
     }
 
     /**

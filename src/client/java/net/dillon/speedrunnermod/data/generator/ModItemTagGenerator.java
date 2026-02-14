@@ -77,10 +77,12 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModItemTags.FASTER_BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
+                .add(ModItems.FIREPROOF_SPEEDRUNNER_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_BOAT);
 
         valueLookupBuilder(ModItemTags.FASTER_CHEST_BOATS)
                 .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
+                .add(ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT);
 
         valueLookupBuilder(ModItemTags.FLESH)
@@ -88,14 +90,14 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.ROTTEN_FLESH);
 
         valueLookupBuilder(ModItemTags.FIREPROOF_BOATS)
-                .add(ModItems.SPEEDRUNNER_BOAT)
-                .add(ModItems.CRIMSON_BOAT)
-                .add(ModItems.WARPED_BOAT);
+                .add(ModItems.FIREPROOF_SPEEDRUNNER_BOAT)
+                .add(ModItems.FIREPROOF_CRIMSON_BOAT)
+                .add(ModItems.FIREPROOF_WARPED_BOAT);
 
         valueLookupBuilder(ModItemTags.FIREPROOF_CHEST_BOATS)
-                .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
-                .add(ModItems.CRIMSON_CHEST_BOAT)
-                .add(ModItems.WARPED_CHEST_BOAT);
+                .add(ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT)
+                .add(ModItems.FIREPROOF_CRIMSON_CHEST_BOAT)
+                .add(ModItems.FIREPROOF_WARPED_CHEST_BOAT);
 
         valueLookupBuilder(ModItemTags.FIREPROOF_ITEMS)
                 .add(Items.BLAZE_ROD)
@@ -300,15 +302,21 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ItemTags.BOATS)
                 .add(ModItems.SPEEDRUNNER_BOAT)
+                .add(ModItems.FIREPROOF_SPEEDRUNNER_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_BOAT)
                 .add(ModItems.CRIMSON_BOAT)
-                .add(ModItems.WARPED_BOAT);
+                .add(ModItems.FIREPROOF_CRIMSON_BOAT)
+                .add(ModItems.WARPED_BOAT)
+                .add(ModItems.FIREPROOF_WARPED_BOAT);
 
         valueLookupBuilder(ItemTags.CHEST_BOATS)
                 .add(ModItems.SPEEDRUNNER_CHEST_BOAT)
+                .add(ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT)
                 .add(ModItems.CRIMSON_CHEST_BOAT)
-                .add(ModItems.WARPED_CHEST_BOAT);
+                .add(ModItems.FIREPROOF_CRIMSON_CHEST_BOAT)
+                .add(ModItems.WARPED_CHEST_BOAT)
+                .add(ModItems.FIREPROOF_WARPED_CHEST_BOAT);
 
         valueLookupBuilder(ItemTags.CREEPER_IGNITERS)
                 .add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);

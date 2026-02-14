@@ -72,6 +72,21 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.SPEEDRUNNER_INGOT))
                 .build(exporter, "speedrunnermod:items/speedrunning_time");
 
+        Advancement.Builder.create()
+                .parent(speedrunningTime)
+                .display(
+                        ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE,
+                        Text.translatable("advancements.speedrunnermod.speedrunning_pro.title"),
+                        Text.translatable("advancements.speedrunnermod.speedrunning_pro.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_item", TriggeredByItemCriterion.Conditions.item(itemLookup, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE))
+                .build(exporter, "speedrunnermod:items/speedrunning_pro");
+
         AdvancementEntry whatAWasteland = requireSpeedrunnersWasteland(Advancement.Builder.create(), wrapperLookup)
                 .parent(speedrunningTime)
                 .display(
@@ -304,6 +319,21 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                 )
                 .criterion("has_item", InventoryChangedCriterion.Conditions.items(ModItems.INFERNO_EYE))
                 .build(exporter, "speedrunnermod:items/infernal_gaze");
+
+        Advancement.Builder.create()
+                .parent(infernalGaze)
+                .display(
+                        Items.FIRE_CHARGE,
+                        Text.translatable("advancements.speedrunnermod.you_should_add_a_feature.title"),
+                        Text.translatable("advancements.speedrunnermod.you_should_add_a_feature.description"),
+                        null,
+                        AdvancementFrame.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .criterion("has_item", TriggeredByItemCriterion.Conditions.item(itemLookup, Items.FIRE_CHARGE))
+                .build(exporter, "speedrunnermod:items/you_should_add_a_feature");
 
         AdvancementEntry perchAlready = Advancement.Builder.create()
                 .parent(theEndIsNear)

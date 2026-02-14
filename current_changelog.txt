@@ -48,6 +48,7 @@ WITHERED ENCHANTMENT:
 SPEEDRUNNERS WORKBENCH CHANGES:
 - You can now add a Golden Upgrade Smithing Template to the workbench to remove all durability damage. Doing this will result in double the cost.
 - You can now transfer enchantments directly to books.
+- The workbench is now crafted with 5 speedrunner planks, a speedrunner block, and 3 speedrunner ingots.
 - Renamed "Golden Speedrunner Upgrade Smithing Template" to "Golden Upgrade Smithing Template", as the name was way too long, and rendered off the screen.
 - You can now upgrade golden tools to golden speedrunner tools in the speedrunner's workbench.
 
@@ -67,6 +68,8 @@ EXPERIENCE FRAGMENT:
 NEW TEXTURES / TEXTURE CHANGES:
 - New animated texture for the InfiniPearl! (credit to MannyQUESO)
 - New textures for the Golden Speedrunner armor and tools.
+- Individual textures for fireproof boats (you can easily tell that they are fireproof).
+- New texture for the piglin awakener, blaze spotter, and raid eradicator (credit to MannyQUESO for these).
 - Fixed inconsistency with other textures, as well as removed extremely strong blue from most speedrunner items.
     - This includes revamped textures for: Speedrunner Ingot, Raw Speedrunner, Raw Speedrunner Block, Speedrunner's Eye, Speedrunner Shield, Speedrunner Boat, Speedrunner logs, speedrunner sapling, doors, signs, and trapdoors (this includes all DEAD variants as well)
 - Fixed knockback stick item model.
@@ -133,6 +136,8 @@ OTHER CHANGES:
 - Other advancement modifications.
 
 TWEAKS, OPTIMIZATIONS, & BUG FIXES:
+- Tons, I mean TONS, of tweaks, optimizations, and bug fixes.
+
 - Fire charges are no longer required in order to craft Eyes of Annul, Dragon's Pearls, and Raid Eradicators.
 - The Dragon's sword now does 9 attack damage.
 - Raid Eradicators now stack to 16.
@@ -144,6 +149,7 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Breaking doom blocks in creative mode no longer spawns bad mobs.
 
 - Removed "Open config directory" button.
+- Renamed config files to "speedrunnermod.json" and "speedrunnermod_client.json".
 
 - Normal totems of undying are now attempted to be used first before checking for speedrunners totems.
 - Fixed crash with timed-set items (items that execute something after a set amount of seconds).
@@ -160,3 +166,4 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Fixed duplicate recipes displaying in recipe book.
 - Fixed bug where patches of raw speedrunner blocks would almost never generate in the Speedrunner's Wasteland biome, due to the chance being incredibly low.
 - Fixed bug where Goliath infinitely spawns TNT when "in fire".
+- Fixed other bugs and other random inconveniences.

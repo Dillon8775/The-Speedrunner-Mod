@@ -2,15 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "A": "speedrunnermod:speedrunner_paddle",
     "B": "speedrunnermod:speedrunner_block",
     "I": "speedrunnermod:speedrunner_ingot",
-    "P": "#speedrunnermod:speedrunner_planks",
-    "T": "#speedrunnermod:speedrunner_tools"
+    "P": "#speedrunnermod:speedrunner_planks"
   },
   "pattern": [
     "III",
-    "ABT",
+    "PBP",
     "PPP"
   ],
   "result": {

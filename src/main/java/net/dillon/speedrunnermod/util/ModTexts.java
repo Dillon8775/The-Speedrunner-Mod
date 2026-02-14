@@ -118,7 +118,7 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_EYE_OF_INFERNO = Text.translatable("speedrunnermod.title.features.blocks_and_items.eye_of_inferno");
     public static final Text TITLE_FEATURE_IGNEOUS_ROCKS = Text.translatable("speedrunnermod.title.features.blocks_and_items.igneous_rocks");
     public static final Text TITLE_FEATURE_INFINI_PEARL = Text.translatable("speedrunnermod.title.features.blocks_and_items.infini_pearl");
-    public static final Text TITLE_FEATURE_MORE_BOATS = Text.translatable("speedrunnermod.title.features.blocks_and_items.more_boats");
+    public static final Text TITLE_FEATURE_FIREPROOF_BOATS = Text.translatable("speedrunnermod.title.features.blocks_and_items.fireproof_boats");
     public static final Text TITLE_FEATURE_PIGLIN_AWAKENER = Text.translatable("speedrunnermod.title.features.blocks_and_items.piglin_awakener");
     public static final Text TITLE_FEATURE_RAID_ERADICATOR = Text.translatable("speedrunnermod.title.features.blocks_and_items.raid_eradicator");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_BLOCKS = Text.translatable("speedrunnermod.title.features.blocks_and_items.speedrunner_blocks");

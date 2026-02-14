@@ -1,4 +1,4 @@
-### §bAutomatically create a §anew world, §fon the §aeasiest §cdifficulty, within the §apress of a button!
+### §bAutomatically create §r§fa §anew world §r§fwith the §apress of a button!
 
 # Default key = §lR.§r
 

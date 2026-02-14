@@ -31,8 +31,22 @@ public class ModEntityTypes {
                     .eyeHeight(0.5625F)
                     .maxTrackingRange(10));
 
+    public static final EntityType<BoatEntity> FIREPROOF_SPEEDRUNNER_BOAT = register("fireproof_speedrunner_boat",
+            EntityType.Builder.create(EntityType.getBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10));
+
     public static final EntityType<ChestBoatEntity> SPEEDRUNNER_CHEST_BOAT = register("speedrunner_chest_boat",
             EntityType.Builder.create(EntityType.getChestBoatFactory(() -> ModItems.SPEEDRUNNER_CHEST_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10));
+
+    public static final EntityType<ChestBoatEntity> FIREPROOF_SPEEDRUNNER_CHEST_BOAT = register("fireproof_speedrunner_chest_boat",
+            EntityType.Builder.create(EntityType.getChestBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT), SpawnGroup.MISC)
                     .dropsNothing()
                     .dimensions(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
@@ -59,8 +73,22 @@ public class ModEntityTypes {
                     .eyeHeight(0.5625F)
                     .maxTrackingRange(10));
 
+    public static final EntityType<BoatEntity> FIREPROOF_CRIMSON_BOAT = register("fireproof_crimson_boat",
+            EntityType.Builder.create(EntityType.getBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10));
+
     public static final EntityType<ChestBoatEntity> CRIMSON_CHEST_BOAT = register("crimson_chest_boat",
             EntityType.Builder.create(EntityType.getChestBoatFactory(() -> ModItems.CRIMSON_CHEST_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10));
+
+    public static final EntityType<ChestBoatEntity> FIREPROOF_CRIMSON_CHEST_BOAT = register("fireproof_crimson_chest_boat",
+            EntityType.Builder.create(EntityType.getChestBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_CHEST_BOAT), SpawnGroup.MISC)
                     .dropsNothing()
                     .dimensions(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
@@ -73,8 +101,22 @@ public class ModEntityTypes {
                     .eyeHeight(0.5625F)
                     .maxTrackingRange(10));
 
+    public static final EntityType<BoatEntity> FIREPROOF_WARPED_BOAT = register("fireproof_warped_boat",
+            EntityType.Builder.create(EntityType.getBoatFactory(() -> ModItems.FIREPROOF_WARPED_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10));
+
     public static final EntityType<ChestBoatEntity> WARPED_CHEST_BOAT = register("warped_chest_boat",
             EntityType.Builder.create(EntityType.getChestBoatFactory(() -> ModItems.WARPED_CHEST_BOAT), SpawnGroup.MISC)
+                    .dropsNothing()
+                    .dimensions(1.375F, 0.5625F)
+                    .eyeHeight(0.5625F)
+                    .maxTrackingRange(10));
+
+    public static final EntityType<ChestBoatEntity> FIREPROOF_WARPED_CHEST_BOAT = register("fireproof_warped_chest_boat",
+            EntityType.Builder.create(EntityType.getChestBoatFactory(() -> ModItems.FIREPROOF_WARPED_CHEST_BOAT), SpawnGroup.MISC)
                     .dropsNothing()
                     .dimensions(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)

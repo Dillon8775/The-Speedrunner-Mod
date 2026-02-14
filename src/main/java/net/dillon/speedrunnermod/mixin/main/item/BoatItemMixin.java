@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
-import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.FireproofBoat;
+import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.vehicle.AbstractBoatEntity;
 import net.minecraft.item.BoatItem;
@@ -26,7 +26,7 @@ public class BoatItemMixin extends Item {
     @ModifyVariable(method = "use", at = @At(value = "STORE", ordinal = 0))
     private AbstractBoatEntity makeBoatFireproof(AbstractBoatEntity abstractBoat, World world, PlayerEntity user, Hand hand) {
         ItemStack heldBoat = user.getStackInHand(hand);
-        if (heldBoat.getComponents().getOrDefault(ModDataComponentTypes.BOOLEAN, false)) {
+        if (heldBoat.isIn(ModItemTags.FIREPROOF_BOATS) || heldBoat.isIn(ModItemTags.FIREPROOF_CHEST_BOATS)) {
             ((FireproofBoat)abstractBoat).setFireproof(true);
         }
         return abstractBoat;

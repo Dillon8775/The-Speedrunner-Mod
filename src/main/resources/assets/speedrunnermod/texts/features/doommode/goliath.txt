@@ -4,6 +4,8 @@
 
 Once §a§lGoliath§r§f reaches half health, §branged weapons §r§fare §cno good.
 
+Every time §a§lGoliath §r§chits you, §r§fyou will receive §r§7slowness, weakness, §r§fand §enausea. §r§fOnce he reaches §c1/3 health, §r§fhe can't do this anymore.
+
 §a§lGoliath§r§f will randomly spawn §c§lTNT§r around itself when §ctaking damage, §r§fand also drop §6rotten§r§f and §ecooked§r§f flesh randomly.
 
 If §a§lGoliath§r§f reaches §c1/3 health, §r§fhe will appear §cangry, §r§fand §oalways §r§fspawn §c§lTNT §r§fwhen taking damage.

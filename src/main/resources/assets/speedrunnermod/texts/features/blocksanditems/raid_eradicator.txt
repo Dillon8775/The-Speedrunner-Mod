@@ -1,8 +1,10 @@
-### §cKills §fall nearby §7raider entities within a §a300 block radius.
+### §cKills §fall nearby §7raiders §r§fwithin a §a300 block radius.
 
-§9Witches are §eexcluded §ffrom the kill list, instead they §dteleport §b§odirectly §r§ftowards the player.
+§9Witches are §eexcluded §ffrom the kill list, instead, they §dteleport §b§odirectly §r§ftowards the player.
 
-### To use this item, you must be holding a §etotem of undying, §b§lor, §rhave a §bspeedrunner's totem §a§osomewhere §r§fin your inventory.
+### To use this item, you must be holding a §etotem of undying, §b§lor, §rhave a §bspeedrunner's totem §a§oanywhere §r§fin your inventory.
+
+#### All nearby §6villagers §r§fwill §eglow, §r§fand be given §dregeneration §r§fand §7resistance§r§f for §a§l30 §r§aseconds.
 
 #### The player will §close §c§l100%§r of their health.
 

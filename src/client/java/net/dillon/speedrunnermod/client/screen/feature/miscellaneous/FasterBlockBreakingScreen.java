@@ -3,13 +3,11 @@ package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
+import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import org.jetbrains.annotations.NotNull;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-
 
 public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
 
@@ -21,9 +19,9 @@ public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(options().main.fasterBlockBreaking.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().main.fasterBlockBreaking.set(!options().main.fasterBlockBreaking.getCurrentValue());
-            this.refreshNonRestartableFeature();
+        this.addButtonObject(ButtonWidget.builder(ModTexts.CONFIGURE_OPTION, button -> {
+            this.refreshRestartableFeature();
+            ((MainOptionsScreen)this.client.currentScreen).searchField.setText("block breaking");
         }).build());
     }
 

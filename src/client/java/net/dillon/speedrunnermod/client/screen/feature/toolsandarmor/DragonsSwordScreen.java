@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.FasterBlockBreakingScreen;
+import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.ICarusModeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
@@ -16,7 +16,7 @@ public class DragonsSwordScreen extends AbstractFeatureScreen {
     public DragonsSwordScreen(Screen parent) {
         super(parent, ModTexts.TITLE_FEATURE_DRAGONS_SWORD,
                 new SpeedrunnersWastelandBiomeScreen(parent), ModTexts.MENU_ORES_AND_WORLDGEN,
-                new FasterBlockBreakingScreen(parent), ModTexts.MENU_MISCELLANEOUS,
+                new ICarusModeScreen(parent), ModTexts.MENU_MISCELLANEOUS,
                 new SpeedrunnerIngotsScreen(parent), ModTexts.MENU_BLOCKS_AND_ITEMS, false, null, null);
     }
 

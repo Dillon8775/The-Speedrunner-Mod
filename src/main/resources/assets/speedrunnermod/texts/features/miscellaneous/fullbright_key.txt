@@ -1,6 +1,6 @@
 ### Instantly set your brightness to §a1000% §fto see in the §7dark areas.
 
-# Default key is §lO.§r
+# Default key is §lV.§r
 
 You can configure this keybind in the §lControl §fsettings.
 

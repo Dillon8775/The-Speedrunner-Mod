@@ -1,6 +1,6 @@
-### Used to convert §6golden tools §finto §6golden §6§lspeedrunner tools.
+### Used to convert §egolden tools §finto §6golden §b§lspeedrunner tools.
 
-### To use it, place the §6template §fin the template slot, then place in your §6golden tool §fand §bspeedrunner ingot §fto get the §6§lgolden speedrunner tool!
+### To use it, place the §6template §fin the template slot, then place in your §egolden tool §fand §bspeedrunner ingot §fto get the §6§lgolden speedrunner tool!
 
 !image:textures/gui/features/recipes/golden_speedrunner_smithing_template_smithing.png scale=.35
 ### These templates can §lonly be found §rin §druined portal chests §rand §6bastion remnant chests.

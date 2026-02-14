@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.feature.miscellaneous;
 
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
@@ -9,6 +10,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 
 public class BetterVillagerTradesScreen extends AbstractFeatureScreen {
@@ -22,8 +24,10 @@ public class BetterVillagerTradesScreen extends AbstractFeatureScreen {
         super.init();
 
         this.addButtonObject(ButtonWidget.builder(options().main.betterVillagerTrades.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            this.refreshRestartableFeature();
+            RestartRequiredScreen.getCurrentOptions();
             options().main.betterVillagerTrades.set(!options().main.betterVillagerTrades.getCurrentValue());
+            saveAllChanges();
+            this.client.setScreen(new RestartRequiredScreen(this));
         }).build());
     }
 

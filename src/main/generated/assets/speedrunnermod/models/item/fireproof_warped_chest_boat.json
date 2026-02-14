@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "speedrunnermod:item/fireproof_warped_chest_boat"
+  }
+}

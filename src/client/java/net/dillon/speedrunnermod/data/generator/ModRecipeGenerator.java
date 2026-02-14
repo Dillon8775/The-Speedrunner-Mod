@@ -7,8 +7,6 @@ import net.dillon.speedrunnermod.recipe.DragonFireballRecipe;
 import net.dillon.speedrunnermod.recipe.InventoryPreserverRecipe;
 import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
 import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
-import net.dillon.speedrunnermod.recipe.boat.*;
-import net.dillon.speedrunnermod.recipe.boat.chest.*;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -76,16 +74,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createCookableFood(ModItems.ROTTEN_SPEEDRUNNER_BULK, Items.ROTTEN_FLESH);
                 helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK);
 
+                helper.createFireproofBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModItems.FIREPROOF_SPEEDRUNNER_BOAT, ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS);
                 helper.createBoatSet(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
-                helper.createFireproofBoatSet(CrimsonBoatRecipe::new, CrimsonChestBoatRecipe::new, "crimson");
-                helper.createFireproofBoatSet(FireproofCrimsonBoatRecipe::new, FireproofCrimsonChestBoatRecipe::new, "crimson_with_paddle");
-                helper.createBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS);
-                helper.createFireproofBoatSet(SpeedrunnerBoatRecipe::new, SpeedrunnerChestBoatRecipe::new, "speedrunner");
-                helper.createFireproofBoatSet(FireproofSpeedrunnerBoatRecipe::new, FireproofSpeedrunnerChestBoatRecipe::new, "speedrunner_with_paddle");
-                helper.createBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS);
-                helper.createFireproofBoatSet(WarpedBoatRecipe::new, WarpedChestBoatRecipe::new, "warped");
-                helper.createFireproofBoatSet(FireproofWarpedBoatRecipe::new, FireproofWarpedChestBoatRecipe::new, "warped_with_paddle");
-                helper.createBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS);
+                helper.createFireproofBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, ModItems.FIREPROOF_CRIMSON_BOAT, ModItems.FIREPROOF_CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS);
+                helper.createFireproofBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, ModItems.FIREPROOF_WARPED_BOAT, ModItems.FIREPROOF_WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS);
 
                 helper.offerBannerRecipe(Items.BLACK_BANNER, Blocks.BLACK_WOOL);
                 helper.offerBannerRecipe(Items.BLUE_BANNER, Blocks.BLUE_WOOL);
@@ -350,12 +342,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
                         .input('I', ModItems.SPEEDRUNNER_INGOT)
-                        .input('A', ModItems.SPEEDRUNNER_PADDLE)
                         .input('B', ModItems.SPEEDRUNNER_BLOCK)
-                        .input('T', ModItemTags.SPEEDRUNNER_TOOLS)
                         .input('P', ModItemTags.Block.SPEEDRUNNER_PLANKS)
                         .pattern("III")
-                        .pattern("ABT")
+                        .pattern("PBP")
                         .pattern("PPP")
                         .criterion("has_planks", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH))
                         .offerTo(this.exporter);

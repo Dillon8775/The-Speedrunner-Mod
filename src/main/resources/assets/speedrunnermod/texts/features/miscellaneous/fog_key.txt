@@ -1,6 +1,6 @@
 ### Enable / disable §aMinecraft's annoying fog.
 
-# Default key = §lH.§r
+# Default key = §lO.§r
 
 You can configure to whatever you'd like in the §l"Controls"§r menu.
 

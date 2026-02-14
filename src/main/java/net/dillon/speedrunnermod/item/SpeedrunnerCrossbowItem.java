@@ -6,10 +6,9 @@ import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.CrossbowItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
+import net.minecraft.item.*;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -44,6 +43,21 @@ public class SpeedrunnerCrossbowItem extends CrossbowItem  {
             return ActionResult.CONSUME;
         }
         return ActionResult.FAIL;
+    }
+
+    /**
+     * Increases damage with speedrunner crossbow.
+     */
+    @Override
+    protected ProjectileEntity createArrowEntity(World world, LivingEntity shooter, ItemStack weaponStack, ItemStack projectileStack, boolean critical) {
+        ArrowItem arrowItem2 = projectileStack.getItem() instanceof ArrowItem arrowItem ? arrowItem : (ArrowItem)Items.ARROW;
+        PersistentProjectileEntity persistentProjectileEntity = arrowItem2.createArrow(world, projectileStack, shooter, weaponStack);
+        persistentProjectileEntity.applyDamageModifier(1.1F); // Added to increase the power of the crossbow slightly
+        if (critical) {
+            persistentProjectileEntity.setCritical(true);
+        }
+
+        return persistentProjectileEntity;
     }
 
     /**

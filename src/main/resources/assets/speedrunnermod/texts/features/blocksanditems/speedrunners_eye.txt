@@ -1,4 +1,6 @@
 ### Locates §aoverworld structures, including §6villages, §druined portals, §eshipwrecks, §9ocean monuments, §3ancient cities, §atrial chambers, §6woodland mansions§f and §6desert temples.
 
+#### §aShift + right click§f to swap between structures.
+
 !image:textures/gui/features/items/speedrunners_eye.png scale=.15
 !image:textures/gui/features/recipes/speedrunners_eye_crafting_recipe.png scale=.5

@@ -1,4 +1,17 @@
 {
-  "type": "speedrunnermod:crafting_speedrunner_boat",
-  "category": "misc"
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "key": {
+    "#": "speedrunnermod:fireproof_speedrunner_chest_boat",
+    "P": "speedrunnermod:speedrunner_paddle"
+  },
+  "pattern": [
+    "#P#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:fireproof_speedrunner_boat"
+  }
 }

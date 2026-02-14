@@ -167,10 +167,16 @@ public class ModItems {
     public static final Item DEAD_SPEEDRUNNER_STICK = Items.register(of("dead_speedrunner_stick"), Item::new);
 
     public static final Item SPEEDRUNNER_BOAT = Items.register(of("speedrunner_boat"), settings -> new BoatItem(
-            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
+            ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item FIREPROOF_SPEEDRUNNER_BOAT = Items.register(of("fireproof_speedrunner_boat"), settings -> new BoatItem(
+            ModEntityTypes.FIREPROOF_SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item SPEEDRUNNER_CHEST_BOAT = Items.register(of("speedrunner_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
+            ModEntityTypes.SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item FIREPROOF_SPEEDRUNNER_CHEST_BOAT = Items.register(of("fireproof_speedrunner_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item DEAD_SPEEDRUNNER_BOAT = Items.register(of("dead_speedrunner_boat"), settings -> new BoatItem(
             ModEntityTypes.DEAD_SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));
@@ -179,16 +185,28 @@ public class ModItems {
             ModEntityTypes.DEAD_SPEEDRUNNER_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item CRIMSON_BOAT = Items.register(of("crimson_boat"), settings -> new BoatItem(
-            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
+            ModEntityTypes.CRIMSON_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item FIREPROOF_CRIMSON_BOAT = Items.register(of("fireproof_crimson_boat"), settings -> new BoatItem(
+            ModEntityTypes.FIREPROOF_CRIMSON_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item CRIMSON_CHEST_BOAT = Items.register(of("crimson_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
+            ModEntityTypes.CRIMSON_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item FIREPROOF_CRIMSON_CHEST_BOAT = Items.register(of("fireproof_crimson_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.FIREPROOF_CRIMSON_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item WARPED_BOAT = Items.register(of("warped_boat"), settings -> new BoatItem(
-            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().component(ModDataComponentTypes.BOOLEAN, false).maxCount(1));
+            ModEntityTypes.WARPED_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item FIREPROOF_WARPED_BOAT = Items.register(of("fireproof_warped_boat"), settings -> new BoatItem(
+            ModEntityTypes.FIREPROOF_WARPED_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item WARPED_CHEST_BOAT = Items.register(of("warped_chest_boat"), settings -> new BoatItem(
-            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1).component(ModDataComponentTypes.BOOLEAN, false));
+            ModEntityTypes.WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
+
+    public static final Item FIREPROOF_WARPED_CHEST_BOAT = Items.register(of("fireproof_warped_chest_boat"), settings -> new BoatItem(
+            ModEntityTypes.FIREPROOF_WARPED_CHEST_BOAT, settings), new Item.Settings().maxCount(1));
 
     public static final Item ENDER_MATTER = Items.register(of("ender_matter"), settings -> new Item(
             settings) {
@@ -207,7 +225,6 @@ public class ModItems {
         @Override
         public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
             textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_paddle.tooltip.line1").formatted(Formatting.GRAY));
-            textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_paddle.tooltip.line2").formatted(Formatting.GRAY));
         }
     }, new Item.Settings().maxCount(16));
 

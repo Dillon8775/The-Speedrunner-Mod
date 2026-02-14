@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.FasterBlockBreakingScreen;
+import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.ICarusModeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
@@ -15,7 +15,7 @@ public class FortressesBastionsAndStrongholdsScreen extends AbstractFeatureScree
 
     public FortressesBastionsAndStrongholdsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_FEATURE_FORTRESSES_BASTIONS_AND_STRONGHOLDS,
-                new FasterBlockBreakingScreen(parent), ModTexts.MENU_MISCELLANEOUS,
+                new ICarusModeScreen(parent), ModTexts.MENU_MISCELLANEOUS,
                 new SpeedrunnerIngotsScreen(parent), ModTexts.MENU_BLOCKS_AND_ITEMS,
                 new SpeedrunnerArmorScreen(parent), ModTexts.MENU_TOOLS_AND_ARMOR,
                 false, null, null);
