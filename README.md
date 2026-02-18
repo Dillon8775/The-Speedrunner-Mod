@@ -34,7 +34,7 @@ Better than iron, but worse than diamond. However, they're faster than both **di
 ---
 
 ### Speedrunner Boots
-Allow the player to **move faster** in lava and water. They also prevent **skulk sensors** from sounding off.
+Increases the players speed by 20%. They also prevent **skulk sensors** from sounding off.
 
 ---
 
@@ -82,13 +82,13 @@ Faster than normal boats, and can be ridden in lava (if crafted with a speedrunn
 
 ---
 
-### Crimson and Warped Boats
+### Fireproof Boats
 Boats that can be ridden in lava (if crafted with a speedrunner paddle).
 
 ### You can disable boats riding in lava by turning off the "Lava Boats" option.
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" width="233" height="84" alt="Speedrunner, warped and crimson boats.">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" width="320" height="180" alt="Speedrunner, warped and crimson boats.">
 </a>
 
 ####
@@ -102,8 +102,8 @@ Boats that can be ridden in lava (if crafted with a speedrunner paddle).
 ### Dead Speedrunner Wood
 Similar to speedrunner wood, however, these blocks do burn from nearby fire and lava, and it's respective boats (the dead speedrunner boat) cannot ride in lava, but are still faster than normal boats.
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead%20speedrunner%20wood.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead%20speedrunner%20wood.png?raw=true" width="73" height="73" alt="Dead speedrunner wood.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead%20speedrunner%20wood'.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead%20speedrunner%20wood'.png?raw=true" width="73" height="73" alt="Dead speedrunner wood.">
 </a>
 
 ---
@@ -154,7 +154,7 @@ This totem also immitts a special particle, similar to the vanilla totem particl
 ---
 
 ### Golden Speedrunner Tools, armor, and weapons
-Better *and* faster than golden tools, and protects you from piglin, just as gold does.
+Keeps you 100% safe from piglin, meaning you can break gold blocks and open containers with ease!
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/golden%20speedrunner%20armor.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/golden%20speedrunner%20armor.png?raw=true" width="83" height="151" alt="Golden speedrunner armor.">
@@ -270,6 +270,36 @@ Makes the ender dragon perch instantly.
 
 ---
 
+### Dragon's Aura
+Buffs the player in many ways, by giving +5 health, x2 more damage, added armor points and increased block interaction distance.
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dragons%20aura.png?raw=true" target="_blank">
+<img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dragons%20aura.png?raw=true" width="51" height="74" alt="Dragon's aura.">
+</a>
+ 
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20aura.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20aura.png?raw=true" width="480" height="270" alt="Dragon's aura recipe.">
+</a>
+
+- The ender dragon does 50% less damage with this potion applied, and players are immune to the dragon's breath.
+- Ender pearl damage is ignored.
+- Players have a 45% chance to ignore all durability damage to armor.
+- Enderman are not aggroed when staring.
+- Many more side effects.
+
+---
+
+### Dragon's Fireball
+Throw the dragon's breath!
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20fireball.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/dragons%20fireball.png?raw=true" width="228" height="104" alt="Dragon's fireball recipe.">
+</a>
+
+---
+
 ### The Dragon's Sword
 One-shots the ender dragon.
 
@@ -335,7 +365,7 @@ It also shoots further and faster than regular ender pearls.
 
 ### Raid Eradicator
 
-Kills all nearby raider entities.
+Kills all nearby raider entities and protects nearby villagers.
 
 The player must be wearing a totem to use the item, as it will try to instantly kill the player upon use.
 
@@ -345,15 +375,14 @@ The player must be wearing a totem to use the item, as it will try to instantly 
 
 ---
 
-### Wither Bones
-Crafted with **2 normal bones** and **2 pieces of coal.**
+### Inventory Preserver
+Keep your inventory when you die.
 
-### The Wither Sword
-One-shots wither skeletons, with a 45% chance to drop a **wither skeleton skull.** If it drops, the sword instantly breaks.
-
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wither%20sword.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wither%20sword.png?raw=true" width="228" height="104" alt="Wither sword.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/inventory%20preserver.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/inventory%20preserver.png?raw=true" width="62" height="54" alt="Inventory preserver.">
 </a>
+
+It has 1 durability point, can be increased with ender matter (max 3), and only found in treasure bastion chests, ancient cities, and *very rarely* in strongholds.
 
 ---
 
@@ -462,7 +491,11 @@ It cannot be killed from the void. If it gets knocked into the void, it will tel
 
 Once Goliath reaches half health, ranged weapons are no good.
 
+Every time Goliath hits you, you will receieve slowness, weakness, and nausea. Once he reaches 1/3 health, he can't do this anymore.
+
 Goliath will randomly drop rotten and cooked flesh when taking damage, and also randomly spawn TNT around itself.
+
+If Goliath reaches 1/3 health, he will appear angry, and always spawn TNT when taking damage.
 
 Goliath is completely immune to explosives, fall damage, fire, and lava.
 
@@ -481,7 +514,7 @@ This feature works on all modes!
 
 If broken, they will spawn various hostile mobs, along with some lava.
 
-You can avoid these things if you break these blocks with a speedrunner or golden speedrunner tool, and they will also drop a variety of helpful items to make the end fight a little bit easier, including armor, crossbows, etc.
+You can avoid these things if you break these blocks with a speedrunner or golden speedrunner tool (OR if you have the Dragon's Aura effect), and they will also drop a variety of helpful items to make the end fight a little bit easier, including armor, crossbows, etc.
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode%20chaos.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/doom%20mode%20chaos.png?raw=true" width="480" height="270" alt="Doom blocks.">
@@ -495,20 +528,19 @@ Yes, this exists with this mod. It can only be obtained from breaking the doom b
 ---
 
 ### Other Things to Know (doom mode exclusive)
+- The difficulty is locked on hard.
 - Vindicators will spawn across the overworld and the end.
-- Piglin Brutes will spawn *all* across the nether.
 - Evokers, Breezes, and Ravagers will spawn in the end.
+- Piglin Brutes will spawn *all* across the nether.
 - Hostile mobs inflict the player with slowness when attacking.
 - Skeletons shoot slowness arrows, and shoot quicker.
 - Ghasts shoot fireballs at an extremely fast rate.
-- Right-clicking a creeper with a flint and steel makes it instantly explode.
+- Ender pearls give the player blindness when landing.
 - End crystals do more damage when exploding.
 - Beds do more damage when exploding in the end.
-- Ender pearls give the player blindness when landing.
 - Ender eyes always break.
 - Strongholds generate extremely large, and generate close to the bottom of the world, making them difficult to find and navigate.
-- The Eye of Annul is enabled on this mode.
-- The Ender Thruster is also enabled on this mode, however it only works if you are below Y = 0, or in a mountain biome.
+- Right-clicking a creeper with a flint and steel makes it instantly explode.
 
 ## *If you're up for the challenge, I wish you luck.*
 
@@ -569,6 +601,13 @@ For all ores, if you mine it with fortune, it will drop triple the experience.
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/more%20xp%20with%20fortune.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/more%20xp%20with%20fortune.png?raw=true" width="240" height="135" alt="More XP with fortune.">
+</a>
+
+### Experience Fragments
+Obtained from smelting experience ores, can be used to craft XP bottles!
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/xp%20bottle%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/xp%20bottle%20recipe.png?raw=true" width="194" height="128" alt="XP orb recipe.">
 </a>
 
 ---
@@ -760,13 +799,29 @@ You can disable this feature by turning off the "Fireproof Items" option.
 ### Throwable Fireballs
 You can throw fireballs! (just like in bedwars...)
 
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/throwable%20fireballs.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Misc/throwable%20fireballs.png?raw=true" width="320" height="180" alt="Throwable fireballs.">
+</a>
+
 ---
 
 ### Reverse Crafting
-You can "reverse craft" certain things, including turning wool back into string, and sticks back into planks.
+You can "reverse craft" certain things, including turning wool back into string, sticks back into planks, and blaze powder back into blaze rods.
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wool%20to%20string.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/wool%20to%20string.png?raw=true" width="194" height="116" alt="Reverse crafting.">
+</a>
+
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/sticks%20to%20planks.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/sticks%20to%20planks.png?raw=true" width="194" height="116" alt="Sticks to planks.">
+</a>
+
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/blaze%20rod%20recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/blaze%20rod%20recipe.png?raw=true" width="228" height="104" alt="Blaze powder to blaze rods.">
 </a>
 
 ---
@@ -798,10 +853,20 @@ These features can be disabled by turning off the "Higher Enchant Levels" option
 
 ---
 
-## Void Totems
-Free-fall into the void with a totem of undying (if equipped), and you will be teleported to the center of the end island.
+## Craftable Totems and Enchanted Golden Apples
+You can craft enchanted golden apples and normal totems!
 
-If you have a speedrunner's totem, this feature will work as long as the totem is anywhere in your inventory (it doesn't have to be "equipped").
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/enchanted%20golden%20apple.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/enchanted%20golden%20apple.png?raw=true" width="228" height="104" alt="Craftable enchanted golden apples.">
+</a>
+
+####
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/totem%20of%20undying.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/totem%20of%20undying.png?raw=true" width="228" height="104" alt="Craftable totems.">
+</a>
+
+---
 
 ## Right-Click to Remove Silk Touch
 Right-click on an ore block to remove the silk touch enchantment from your tool (if the tool has it)!
@@ -838,6 +903,9 @@ An enchantment which makes the player faster.
 
 ## Cooldown Enchantment
 Lowers the cooldown on certain items (shields, ender pearls, etc.).
+
+## Withered Enchantment
+Increases chances of getting a wither skeleton skull from wither skeletons, and inflicts wither on targets.
 
 ## InfiniPearl™ Mode
 A mode which grants the player with an ender pearl that does not do damage or get consumed upon use.
@@ -892,7 +960,8 @@ You can disable this feature by turning off the "Higher Breath Time" option.
 
 ### Nether gold ores drop more golden nuggets.
 
-### Furnaces smelt certain ores and food at an extremely fast rate.
+### Everything smelts and brews faster.
+You can disable this feature by turning off the "Faster Smelting/Brewing" option(s).
 
 ### Sheep drop more wool when sheared.
 
@@ -912,20 +981,6 @@ This can be configured by changing the "Mob Spawning Rate" option.
 ### Ghasts have a slower shooting cooldown (faster if playing on doom mode).
 
 ### An option to instantly kill a ghast when it throws a fireball.
-
----
-
-## Tutorial Mode
-
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/tutorial%20mode.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Modes/tutorial%20mode.png?raw=true" width="300" height="40" alt="Tutorial mode.">
-</a>
-
-### This mod comes with a built-in tutorial mode to help you better understand the mod's features!
-### The tutorial mode is setup to work with all modes (easy, balanced and doom) accordingly so that it will point you in the right direction!
-Upon booting into the mod for the first time, you will see an option to enable tutorial mode. You can also enable tutorial mode at any time via the speedrunner mod options.
-
-You can also reset your tutorial mode progression in the speedrunner mod options menu.
 
 ---
 
@@ -965,11 +1020,19 @@ Obtain a piece of golden speedrunner armor.
 
 ---
 
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedrunning%20pro.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedrunning%20pro.png?raw=true" width="240" height="48" alt="Speedrunning pro advancement.">
+</a>
+
+Use a golden upgrade smithing template to view all speedrunner mod features.
+
+---
+
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/ranged%20speedrunning.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/ranged%20speedrunning.png?raw=true" width="240" height="48" alt="Ranged speedrunning advancement.">
 </a>
 
-Obtaining a speedrunner bow.
+Obtain a speedrunner bow.
 
 ---
 
@@ -977,7 +1040,7 @@ Obtaining a speedrunner bow.
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy%20betsy.png?raw=true" width="240" height="48" alt="Speedy betsy advancement.">
 </a>
 
-Obtaining a speedrunner crossbow.
+Obtain a speedrunner crossbow.
 
 ---
 
@@ -1013,11 +1076,19 @@ Use an ender thruster.
 
 ---
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/bulked.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/bulked.png?raw=true" width="240" height="48" alt="Bulked advancement.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/bulky.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/bulky.png?raw=true" width="240" height="48" alt="Bulky advancement.">
 </a>
 
 Obtain a piece of speedrunner bulk.
+
+---
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20step%20ahead.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20step%20ahead.png?raw=true" width="240" height="48" alt="One step ahead advancement.">
+</a>
+
+Use the speedrunner's workbench to transfer enchantments.
 
 ---
 
@@ -1061,6 +1132,22 @@ Obtain a dragon's pearl.
 
 ---
 
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dragons%20aura.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dragons%20aura.png?raw=true" width="240" height="48" alt="Dragon's aura advancement.">
+</a>
+
+Obtain a dragon's aura potion.
+
+---
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dragons%20breath.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dragons%20breath.png?raw=true" width="240" height="48" alt="Dragon's fireball advancement.">
+</a>
+
+Obtain a dragon's fireball.
+
+---
+
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20hit%20one%20kill.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20hit%20one%20kill.png?raw=true" width="240" height="48" alt="One hit one kill advancement.">
 </a>
@@ -1093,8 +1180,8 @@ Complete a speedrun.
 
 ---
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/The%20ends%20matter.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/The%20ends%20matter.png?raw=true" width="240" height="48" alt="The ends matter advancement.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20end%20of%20the%20matter.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/the%20end%20of%20the%20matter.png?raw=true" width="240" height="48" alt="The end of the matter advancement.">
 </a>
 
 Obtain ender matter.
@@ -1109,11 +1196,27 @@ Obtain an InfiniPearl™.
 
 ---
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/immortal.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/immortal.png?raw=true" width="240" height="48" alt="Immortal advancement.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/i%20lost%20my%20stuff.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/i%20lost%20my%20stuff.png?raw=true" width="240" height="48" alt="Inventory preserver advancement.">
 </a>
 
-Free fall into the void with a totem of undying (or a speedrunner's totem).
+Use an inventory preserver.
+
+---
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/i%20am%20immortal.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/i%20am%20immortal.png?raw=true" width="240" height="48" alt="Immortal advancement.">
+</a>
+
+Free fall into the void.
+
+---
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/you%20should%20add%20a%20feature-.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/you%20should%20add%20a%20feature-.png?raw=true" width="240" height="48" alt="You should add a feature- advancement.">
+</a>
+
+Throw a fireball.
 
 ---
 
@@ -1183,18 +1286,26 @@ Determines if the player must be shifting in order to throw a fireball.
 
 ---
 
-## Technical Features
-#### This mod comes with it's own item group.
-#### Nether Water has a different color, respective to it's nether biome.
+## Other Features
+#### This mod has its own dedicated item group.
+#### Nether Water has a different color, respective to its nether biome.
 #### When water hits lava in the nether, the lava is replaced with basalt instead of obsidian.
 #### Lava paddling sound for riding in lava.
 #### Dolphins can follow players from a further distance and give the dolphin's grace effect.
 #### Shulkers cannot teleport they can be shot with arrows even when their shell is closed.
 #### Silverfish take longer to call for backup upon hitting (unless you are playing on doom mode).
-#### Using a piglin awakener on balanced mode or doom mode will diminish the item and it will not be used, and it will give back the respective item(s) used to originally craft it (ex. if you used a golden carrot to craft it, it will give back a golden carrot, since there are several different items which can be used to craft the piglin awakener).
+#### Using a piglin awakener on balanced mode will diminish the item and it will not be used, and it will give back the respective item(s) used to originally craft it (ex. if you used a golden carrot to craft it, it will give back a golden carrot, since there are several different items which can be used to craft the piglin awakener).
 #### Using any other item on a mode that the item is disabled in will do the same thing.
+#### Shifting with the piglin awakener will teleport piglins *directly* on top of you.
+#### The trusted block, which is created when teleporting with the eye of annul or ender thruster. It serves no purpose, just a decorative block when using those 2 items.
+#### You can find a speedrunners totem, inventory preserver, 2 enchanted golden apples, a piece of ender matter and a golden apple can be found in the ancient city's center chest.
+#### Right-click a golden smithing template to view all speedrunner mod features.
 #### Speedrunner saplings grow faster than normal saplings.
 #### If Doom Mode is enabled, crimson spore particles can be seen in the end.
+
+---
+
+## Technical Features
 #### Several different block tags (I am not listening them all, there are too many).
 #### Locating Structure *("speedrunnermod:locating_structure")* data component type, which stores a structure to locate.
 #### Stored ItemStack *("speedrunnermod:stored_itemstack")* data component type, which stores an itemstack within an item.
@@ -1212,6 +1323,7 @@ Determines if the player must be shifting in order to throw a fireball.
 #### As mentioned before, using the speedrunner's workbench costs levels, and the resulted item takes durability points.
 #### The cost is calculated by taking the *total amount of transferred enchantments*, and then adding each transferred enchantment's level to the cost.
 #### The output durability is calculated by taking the item's *current durability* and dividing it by (1, PLUS -> each enchantment's level represents an additional .1 point. So fortune 3 would be 1.3, Efficiency 5 would be 1.5, etc.).
+#### If you add a golden smithing template to remove all durability damage, the total cost is multiplied.
 
 ## Configuration Files
 The configuration files store all the values for each Speedrunner Mod option.

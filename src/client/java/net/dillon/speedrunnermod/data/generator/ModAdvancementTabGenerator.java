@@ -23,12 +23,13 @@ import net.minecraft.registry.RegistryEntryLookup;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod advancements.
@@ -48,7 +49,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNERS_WORKBENCH,
                         Text.translatable("advancements.speedrunnermod.title"),
                         Text.translatable("advancements.speedrunnermod.description"),
-                        Identifier.ofVanilla("gui/advancements/backgrounds/stone"),
+                        ofSpeedrunnerMod("gui/advancements/backgrounds/speedrunner"),
                         AdvancementFrame.TASK,
                         false,
                         false,
@@ -458,9 +459,6 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .criterion("killed_dragon", OnKilledCriterion.Conditions.createPlayerKilledEntity(
-                        EntityPredicate.Builder.create()
-                        .type(entityLookup, EntityType.ENDER_DRAGON)))
                 .criterion("used_dragons_sword", InventoryChangedCriterion.Conditions.items(ModItems.DRAGONS_SWORD))
                 .rewards(AdvancementRewards.Builder.experience(100))
                 .build(exporter, "speedrunnermod:items/one_hit_one_kill");

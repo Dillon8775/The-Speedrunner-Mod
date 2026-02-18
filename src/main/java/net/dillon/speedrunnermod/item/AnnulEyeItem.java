@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HorizontalFacingBlock;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -61,49 +60,31 @@ public class AnnulEyeItem extends Item implements EyeItem {
         } else if (world.getRegistryKey() != World.OVERWORLD) {
             ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.wrong_dimension"), Formatting.GREEN, Formatting.WHITE);
         } else {
-            boolean hasEnderEye = player.getInventory().contains(new ItemStack(Items.ENDER_EYE));
-            boolean hasEnderPearl = player.getInventory().contains(new ItemStack(Items.ENDER_PEARL));
-            boolean hasRequiredItems = (hasEnderEye && hasEnderPearl) || player.getAbilities().creativeMode;
+            player.sendMessage(ModTexts.CALCULATING, false);
+            BlockPos centerBlock = this.findPortalRoom(world, player.getBlockPos());
 
-            if (!hasRequiredItems) {
-                if (!hasEnderEye && !hasEnderPearl) {
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.has_none").formatted(Formatting.DARK_GREEN));
-                } else if (!hasEnderEye) {
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_eye").formatted(Formatting.GREEN));
-                } else {
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.no_ender_pearl").formatted(Formatting.BLUE));
-                }
-                player.swingHand(hand, true);
-                this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, 5.0F, world, player);
+            if (centerBlock == null) {
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED));
             } else {
-                player.sendMessage(ModTexts.CALCULATING, false);
-                BlockPos centerBlock = this.findPortalRoom(world, player.getBlockPos());
+                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
+                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
+                this.playThrowSound(world, player);
 
-                if (centerBlock == null) {
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").formatted(Formatting.RED));
-                } else {
-                    ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.eye_of_annul.teleporting").formatted(Formatting.LIGHT_PURPLE).formatted(Formatting.BOLD));
-                    player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
-                    this.playThrowSound(world, player);
+                this.correctlyTeleport(world, centerBlock, player, 0.0F);
+                world.sendEntityStatus(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
+                this.playWorldSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, world, player);
+                this.playTeleportSound(world, player);
+                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
 
-                    TaskScheduler.schedule(ModUtil.secondsAsTicks(3), () -> {
-                        this.correctlyTeleport(world, centerBlock, player, 0.0F);
-                        world.sendEntityStatus(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
-                        this.playWorldSound(SoundEvents.BLOCK_END_PORTAL_SPAWN, world, player);
-                        this.playTeleportSound(world, player);
-                        ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
-                    });
+                player.incrementStat(Stats.USED.getOrCreateStat(this));
+                player.swingHand(hand, true);
+                this.playThrowSound(world, player);
 
-                    player.incrementStat(Stats.USED.getOrCreateStat(this));
-                    player.swingHand(hand, true);
-                    this.playThrowSound(world, player);
+                this.decrementIfPossible(player, stack);
+                this.decrementIfPossible(player, Items.ENDER_EYE);
+                this.decrementIfPossible(player, Items.ENDER_PEARL);
 
-                    this.decrementIfPossible(player, stack);
-                    this.decrementIfPossible(player, Items.ENDER_EYE);
-                    this.decrementIfPossible(player, Items.ENDER_PEARL);
-
-                    return ActionResult.SUCCESS;
-                }
+                return ActionResult.SUCCESS;
             }
         }
         return ActionResult.CONSUME;

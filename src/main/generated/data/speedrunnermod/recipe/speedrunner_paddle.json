@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "I": "speedrunnermod:speedrunner_ingot",
+    "I": "speedrunnermod:speedrunner_nugget",
     "S": "#speedrunnermod:speedrunner_sticks"
   },
   "pattern": [

@@ -1,6 +1,8 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
 import net.dillon.speedrunnermod.client.screen.base.MainScreen;
+import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen;
+import net.dillon.speedrunnermod.client.screen.base.synced.TimedScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -28,7 +30,7 @@ public class GameMenuScreenMixin extends Screen {
     @Shadow @Final
     private boolean showMenu;
     @Unique
-    private ButtonWidget featuresButton, optionsButton, createWorldButton;
+    private ButtonWidget featuresButton, optionsButton, createWorldButton, restartButton;
 
     public GameMenuScreenMixin(Text title, ButtonWidget createWorldButton) {
         super(title);
@@ -43,6 +45,12 @@ public class GameMenuScreenMixin extends Screen {
             this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                 this.client.setScreen(new MainScreen(this));
             }).dimensions(this.width / 2 - 4 - 120 - 2, this.height / 4 + 96 - 16, 20, 20).build());
+
+            if (RestartRequiredScreen.restartRequired) {
+                this.restartButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
+                    this.client.setScreen(new TimedScreen(this, 5, false));
+                }).dimensions(this.optionsButton.getX() - 24, this.optionsButton.getY(), 20, 20).build());
+            }
 
             this.featuresButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
                 this.client.setScreen(new FeaturesScreen(this));
@@ -77,6 +85,9 @@ public class GameMenuScreenMixin extends Screen {
             }
 
             ClientModUtil.renderModIcon(context, this.optionsButton);
+            if (this.restartButton != null) {
+                ClientModUtil.renderSyncIcon(context, this.restartButton);
+            }
 
             this.renderTooltips(context, mouseX, mouseY);
         }
@@ -96,6 +107,9 @@ public class GameMenuScreenMixin extends Screen {
         }
         if (this.featuresButton.isHovered()) {
             context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
+        }
+        if (this.restartButton != null && this.restartButton.isHovered()) {
+            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.RESTART_REQUIRED_TOOLTIP, 200), mouseX, mouseY);
         }
     }
 }

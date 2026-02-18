@@ -58,7 +58,7 @@ public class ClientModPackets {
             ModOptions serverOptions = packet.toOptions();
             configHandler().match(serverOptions);
             context.client().getNetworkHandler().getConnection().disconnect(ModTexts.MATCHED_SETTINGS_WITH_SERVER);
-            context.client().disconnect(new TimedScreen(null, 5), false, false);
+            context.client().disconnect(new TimedScreen(null, 5, true), false, false);
         });
     }
 

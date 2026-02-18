@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.mixin.main.enchantment;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.ForgingSlotsManager;
@@ -69,40 +69,35 @@ public abstract class AnvilScreenHandlerMixin extends ForgingScreenHandler {
      */
     @Redirect(method = "updateResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/Enchantment;getMaxLevel()I"))
     private int countOverMaxLevel(Enchantment enchantment) {
-        ItemStack itemStack = this.input.getStack(0); // Gets the input of the first slot in the anvil
-        ItemStack itemStack2 = itemStack.copy(); // Copies the first input in the anvil, used for the result
-        ItemStack itemStack3 = this.input.getStack(1); // Gets the input of the second slot in the anvil
-        ItemEnchantmentsComponent itemStack2Component = EnchantmentHelper.getEnchantments(itemStack2); // Gets the enchantments on the first slot in anvil
-        ItemEnchantmentsComponent itemStack3Component = EnchantmentHelper.getEnchantments(itemStack3); // Gets the enchantments on the second slot in anvil
-        int newEnchantmentLevel = 0; // Initialize new enchantment level
-        int secondSlotLevel; // Initialize second slot integer
-
-        // As long as the first slot has enchantments, run for each enchantment on the first slot and increment accordingly
-        if (!itemStack2Component.getEnchantmentEntries().isEmpty()) {
-            for (Object2IntMap.Entry<RegistryEntry<Enchantment>> firstSlotEnchantmentEntry : itemStack2Component.getEnchantmentEntries()) { // Goes through all first slot enchantment entries
-                for (Object2IntMap.Entry<RegistryEntry<Enchantment>> secondSlotEnchantmentEntry : itemStack3Component.getEnchantmentEntries()) { // Which then goes through all second slot enchantment entries
-                    int firstSlotLevel = itemStack2Component.getLevel(firstSlotEnchantmentEntry.getKey()); // Gets the level of the enchantment entry in the first anvil slot
-                    secondSlotLevel = itemStack3Component.getLevel(secondSlotEnchantmentEntry.getKey()); // Gets the level of the enchantment entry in the second anvil slot
-
-                    // If enchantment levels match, get the current value of the enchantment level, and increment by one
-                    // Otherwise, return the maximum value between the two enchantment level
-                    newEnchantmentLevel = firstSlotLevel == secondSlotLevel ? firstSlotLevel + 1 : Math.max(firstSlotLevel, secondSlotLevel);
-                }
-            }
-        } else { // Otherwise, run through each enchantment on the second slot
-            for (Object2IntMap.Entry<RegistryEntry<Enchantment>> entry : itemStack3Component.getEnchantmentEntries()) {
-                secondSlotLevel = itemStack3Component.getLevel(entry.getKey()); // Gets the level of the enchantment in the second anvil slot
-                newEnchantmentLevel = secondSlotLevel; // Set new enchantment level to the level of the enchantment in the second anvil slot
-            }
+        if (!options().main.higherEnchantmentLevels.getCurrentValue()) {
+            return enchantment.getMaxLevel();
         }
 
-        // Cap the new enchantment level at 100
-        if (newEnchantmentLevel > 100) {
-            newEnchantmentLevel = 100;
+        if (enchantment.getMaxLevel() == 1) {
+            return enchantment.getMaxLevel();
         }
 
-        // Return the incremented integer value, unless the default maximum level is 1, then there is no point to increment
-        boolean isntOne = enchantment.getMaxLevel() != 1;
-        return options().main.higherEnchantmentLevels.getCurrentValue() && isntOne ? newEnchantmentLevel : enchantment.getMaxLevel();
+        ItemStack firstSlot = this.input.getStack(0);
+        ItemStack secondSlot = this.input.getStack(1);
+
+        ItemEnchantmentsComponent firstEnchantments = EnchantmentHelper.getEnchantments(firstSlot);
+        ItemEnchantmentsComponent secondEnchantments = EnchantmentHelper.getEnchantments(secondSlot);
+
+        RegistryEntry<Enchantment> entry =
+                this.player.getEntityWorld().getRegistryManager()
+                        .getOrThrow(RegistryKeys.ENCHANTMENT)
+                        .getEntry(enchantment);
+
+        int firstLevel = firstEnchantments.getLevel(entry);
+        int secondLevel = secondEnchantments.getLevel(entry);
+
+        int newLevel;
+        if (firstLevel == secondLevel) {
+            newLevel = firstLevel + 1;
+        } else {
+            newLevel = Math.max(firstLevel, secondLevel);
+        }
+
+        return Math.min(newLevel, 100);
     }
 }

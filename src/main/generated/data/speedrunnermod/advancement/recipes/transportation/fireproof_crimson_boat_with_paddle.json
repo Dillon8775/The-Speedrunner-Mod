@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_item": {
+    "has_boat": {
       "conditions": {
         "items": [
           {
-            "items": "speedrunnermod:speedrunner_planks"
+            "items": "#minecraft:boats"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:fireproof_speedrunner_boat"
+        "recipe": "speedrunnermod:fireproof_crimson_boat_with_paddle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_item"
+      "has_boat"
     ]
   ],
   "rewards": {
     "recipes": [
-      "speedrunnermod:fireproof_speedrunner_boat"
+      "speedrunnermod:fireproof_crimson_boat_with_paddle"
     ]
   }
 }

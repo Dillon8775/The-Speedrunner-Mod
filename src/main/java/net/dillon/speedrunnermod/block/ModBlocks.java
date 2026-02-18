@@ -269,7 +269,7 @@ public class ModBlocks {
             .sounds(BlockSoundGroup.NETHER_ORE));
 
     public static final Block FLESH_BLOCK = Blocks.register(of("flesh_block"), Block::new, AbstractBlock.Settings.create()
-            .strength(3.0F, 3.0F)
+            .strength(2.0F, 2.0F)
             .slipperiness(1.01F)
             .sounds(BlockSoundGroup.HONEY));
 

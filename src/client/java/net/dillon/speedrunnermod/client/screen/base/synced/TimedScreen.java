@@ -14,12 +14,14 @@ import java.util.TimerTask;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 
 public class TimedScreen extends AbstractModScreen {
+    private final boolean server;
     public int countdown;
     private Timer timer;
 
-    public TimedScreen(Screen parent, int countdown) {
+    public TimedScreen(Screen parent, int countdown, boolean server) {
         super(parent, ModTexts.BLANK);
         this.countdown = countdown + 1;
+        this.server = server;
     }
 
     /**
@@ -44,7 +46,9 @@ public class TimedScreen extends AbstractModScreen {
 
     @Override
     public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, Colors.WHITE);
+        if (this.server) {
+            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, Colors.WHITE);
+        }
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, Colors.WHITE);
         context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(this.countdown+"..."), this.width / 2, 160, Colors.WHITE);
     }

@@ -28,6 +28,13 @@ public class ClientModUtil {
     }
 
     /**
+     * Renders the {@code sync icon.}
+     */
+    public static void renderSyncIcon(DrawContext context, ButtonWidget button) {
+        renderSyncIcon(context, button, 1.0F);
+    }
+
+    /**
      * Renders the {@code golden speedrunner smithing template} texture with a custom width and height and a custom alpha fade.
      */
     public static void renderSpeedrunnerSmithingTemplate(DrawContext context, ButtonWidget button, float f) {
@@ -41,5 +48,12 @@ public class ClientModUtil {
      */
     public static void renderModIcon(DrawContext context, ButtonWidget button, float f) {
         context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/icon_other.png"), button.getX() + 1, button.getY() + 1, 0.0F, 0.0F, 18, 18, 18, 18, ColorHelper.withAlpha(f, Colors.WHITE));
+    }
+
+    /**
+     * Renders the {@code sync icon} with a custom alpha fade.
+     */
+    public static void renderSyncIcon(DrawContext context, ButtonWidget button, float f) {
+        context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/sync.png"), button.getX() + 2, button.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16, ColorHelper.withAlpha(f, Colors.WHITE));
     }
 }

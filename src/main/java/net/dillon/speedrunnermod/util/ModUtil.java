@@ -691,11 +691,7 @@ public class ModUtil {
      * @return how long the ender dragon should stay sitting.
      */
     public static float getEnderDragonSittingTime() {
-        if (options().advanced.longerDragonPerchStayTime.getCurrentValue()) {
-            return isDoomMode() ? 0.18F : 0.60F;
-        } else {
-            return 0.25F;
-        }
+        return options().advanced.longerDragonPerchStayTime.getCurrentValue() ? 0.60F : 0.25F;
     }
 
     /**

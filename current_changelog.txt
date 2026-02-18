@@ -93,6 +93,7 @@ OTHER CHANGES:
 - Golden Speedrunner Armor now keeps you 100% safe from piglin, meaning you can break gold blocks and open containers without ease!
 
 - You can now get blast protection and cooldown from Retired Speedrunners.
+- Speedrunner paddles are now crafted with any speedrunner stick and 2 speedrunner nuggets (previously ingots).
 
 - All smeltable recipes now only take 2 seconds to cook (this includes food, ores, blocks, everything).
 - Blast furnace and smoker recipes take only 1 second to cook.
@@ -102,6 +103,7 @@ OTHER CHANGES:
 
 - The warden now actually drops good loot when killed.
 - Buffed ancient city chests and trail chamber chests.
+- Ancient cities are now slightly more common.
 - Modified other loot tables (nothing major).
 
 - Normal totems of undying no longer work in the void. Only speedrunner totems can save you from the void now.
@@ -139,6 +141,8 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Tons, I mean TONS, of tweaks, optimizations, and bug fixes.
 
 - Fire charges are no longer required in order to craft Eyes of Annul, Dragon's Pearls, and Raid Eradicators.
+- There is no longer a 3-second wait when using the eye of annul.
+- The eye of annul no longer requires an ender eye and ender pearl to use.
 - The Dragon's sword now does 9 attack damage.
 - Raid Eradicators now stack to 16.
 - Speedrunner Eyes now stack to 64.
@@ -163,6 +167,8 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
     - Cooldown enchantment does not work on any items at all.
 - Fixed bug where creepers are one-shots.
 - Fixed bug where the cost in an anvil is always set to the cost limit, regardless of whether or not the cost ever went over the limit.
+- Fixed bug where going over max enchantment costs does not work correctly.
+- Fixed bug with speedrunner's workbench where enchantments don't upgrade sometimes.
 - Fixed duplicate recipes displaying in recipe book.
 - Fixed bug where patches of raw speedrunner blocks would almost never generate in the Speedrunner's Wasteland biome, due to the chance being incredibly low.
 - Fixed bug where Goliath infinitely spawns TNT when "in fire".

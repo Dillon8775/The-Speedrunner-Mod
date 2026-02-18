@@ -26,7 +26,7 @@ public class ModeDoesntMatchScreen extends AbstractModScreen {
         this.matchModeToServerButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.MATCH_MODE_TO_SERVER, (buttonWidget) -> {
             options().main.mode.set(this.serverSideMode);
             saveDedicatedServerChanges();
-            this.client.setScreen(new TimedScreen(null, 5));
+            this.client.setScreen(new TimedScreen(null, 5, true));
         }).dimensions(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("gui.toMenu"), (buttonWidget) -> {
             this.close();

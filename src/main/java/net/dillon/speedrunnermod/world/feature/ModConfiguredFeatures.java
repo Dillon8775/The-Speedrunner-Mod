@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.world.feature;
 
+import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.Registerable;
@@ -11,14 +12,15 @@ import net.minecraft.structure.rule.RuleTest;
 import net.minecraft.structure.rule.TagMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.size.TwoLayersFeatureSize;
-import net.minecraft.world.gen.foliage.LargeOakFoliagePlacer;
+import net.minecraft.world.gen.foliage.MegaPineFoliagePlacer;
 import net.minecraft.world.gen.stateprovider.BlockStateProvider;
-import net.minecraft.world.gen.trunk.LargeOakTrunkPlacer;
+import net.minecraft.world.gen.treedecorator.AlterGroundTreeDecorator;
+import net.minecraft.world.gen.trunk.GiantTrunkPlacer;
 
 import java.util.List;
-import java.util.OptionalInt;
 
 /**
  * All Speedrunner Mod {@code configured features.}
@@ -83,12 +85,13 @@ public class ModConfiguredFeatures {
     }
 
     private static TreeFeatureConfig.Builder doomTree() {
-        return new TreeFeatureConfig.Builder(BlockStateProvider.of(
-                ModBlocks.DOOM_LOG),
-                new LargeOakTrunkPlacer(3, 11, 0), BlockStateProvider.of(ModBlocks.DOOM_LEAVES),
-                new LargeOakFoliagePlacer(ConstantIntProvider.create(2), ConstantIntProvider.create(4), 4),
-                new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)))
-                .ignoreVines();
+        return new TreeFeatureConfig.Builder(
+                BlockStateProvider.of(ModBlocks.DOOM_LOG),
+                new GiantTrunkPlacer(13, 2, 14),
+                BlockStateProvider.of(ModBlocks.DOOM_LEAVES),
+                new MegaPineFoliagePlacer(ConstantIntProvider.create(0), ConstantIntProvider.create(0), UniformIntProvider.create(13, 17)),
+                new TwoLayersFeatureSize(1, 1, 2)
+        ).decorators(ImmutableList.of(new AlterGroundTreeDecorator(BlockStateProvider.of(Blocks.PODZOL))));
     }
 
     /**

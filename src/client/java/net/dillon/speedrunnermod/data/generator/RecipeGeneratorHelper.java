@@ -16,6 +16,7 @@ import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.registry.tag.TagKey;
 import org.jetbrains.annotations.Nullable;
 
@@ -126,9 +127,10 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * Creates a fireproof {@code boat} and {@code chest boat} recipe.
      */
-    protected void createFireproofBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible fireproofBoat, ItemConvertible fireproofChestBoat, ItemConvertible planks) {
+    protected void createFireproofBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible fireproofBoat, ItemConvertible fireproofChestBoat, ItemConvertible planks, String s) {
         this.offerBoatRecipe(boat, planks);
-        this.offerFireproofBoatRecipe(fireproofBoat, fireproofChestBoat);
+        this.offerFireproofBoatRecipe(fireproofBoat, planks);
+        this.offerPaddleFireproofBoatRecipe(fireproofBoat, boat, fireproofChestBoat, chestBoat, s);
         this.offerChestBoatRecipe(chestBoat, boat);
         this.offerChestBoatRecipe(fireproofChestBoat, fireproofBoat);
     }
@@ -140,8 +142,23 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
                 .pattern("#P#")
                 .pattern("###")
                 .group("boat")
-                .criterion("in_water", this.conditionsFromItem(input))
+                .criterion("has_item", this.conditionsFromItem(input))
                 .offerTo(this.exporter);
+    }
+
+    public void offerPaddleFireproofBoatRecipe(ItemConvertible fireproofBoat, ItemConvertible boat, ItemConvertible fireproofChestBoat, ItemConvertible chestBoat, String s) {
+        this.createShapeless(RecipeCategory.TRANSPORTATION, fireproofBoat)
+                .input(ModItems.SPEEDRUNNER_PADDLE)
+                .input(boat)
+                .group("boat")
+                .criterion("has_boat", this.conditionsFromTag(ItemTags.BOATS))
+                .offerTo(this.exporter, this.speedrunnerModRecipe(s + "_with_paddle"));
+        this.createShapeless(RecipeCategory.TRANSPORTATION, fireproofChestBoat)
+                .input(ModItems.SPEEDRUNNER_PADDLE)
+                .input(chestBoat)
+                .group("chest_boat")
+                .criterion("has_boat", this.conditionsFromTag(ItemTags.BOATS))
+                .offerTo(this.exporter, this.speedrunnerModRecipe(s + "_with_chest_paddle"));
     }
 
     /**

@@ -3,7 +3,7 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": "speedrunnermod:fireproof_warped_chest_boat",
+    "#": "minecraft:warped_planks",
     "P": "speedrunnermod:speedrunner_paddle"
   },
   "pattern": [

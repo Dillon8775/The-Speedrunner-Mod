@@ -1,20 +1,6 @@
 {
   "parent": "speedrunnermod:items/perch_already",
   "criteria": {
-    "killed_dragon": {
-      "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "type": "minecraft:ender_dragon"
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:player_killed_entity"
-    },
     "used_dragons_sword": {
       "conditions": {
         "items": [
@@ -40,9 +26,6 @@
     }
   },
   "requirements": [
-    [
-      "killed_dragon"
-    ],
     [
       "used_dragons_sword"
     ]

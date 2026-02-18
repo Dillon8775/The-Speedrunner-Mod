@@ -21,7 +21,7 @@ public class AncientCityConfig extends Ssr {
 
     @Override
     public int[] common() {
-        return new int[]{16, 8};
+        return new int[]{12, 8};
     }
 
     @Override

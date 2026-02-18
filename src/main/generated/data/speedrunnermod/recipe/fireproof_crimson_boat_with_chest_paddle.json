@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    "speedrunnermod:speedrunner_paddle",
+    "speedrunnermod:crimson_chest_boat"
+  ],
+  "result": {
+    "count": 1,
+    "id": "speedrunnermod:fireproof_crimson_chest_boat"
+  }
+}

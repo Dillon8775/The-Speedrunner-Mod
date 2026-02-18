@@ -23,6 +23,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 public class RestartRequiredScreen extends AbstractModScreen {
+    public static boolean restartRequired = false;
     private static final List<OptionValue<?>> restartTrackedValues = new ArrayList<>();
     private static final List<Object> initialValues = new ArrayList<>();
     private static final Set<Object> processedObjects = new HashSet<>();
@@ -54,6 +55,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     @Override
     public void close() {
         saveAllChanges();
+        restartRequired = true;
         this.client.setScreen(this.parent);
         if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
             this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());

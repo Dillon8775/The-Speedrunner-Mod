@@ -41,48 +41,48 @@ public class ModTradeOffers {
      */
     public static void registerTradeOffers() {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.BOOK, 1, 3, 12, 4));
+            factories.add(new TradeOffers.SellItemFactory(Items.BOOK, 1, 3, 12, 3));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
             factories.add(new EnchantedBookFactory(3, 4, 0.2F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
-            factories.add(new TradeOffers.BuyItemFactory(ModItems.SPEEDRUNNER_BLOCK, 2, 12, 12));
+            factories.add(new TradeOffers.BuyItemFactory(ModItems.SPEEDRUNNER_BLOCK, 1, 12, 2, 1));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 2, factories -> {
-            factories.add(new EnchantedBookFactory(3, 6, 0.0F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            factories.add(new EnchantedBookFactory(3, 10, 0.0F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 2, factories -> {
-            factories.add(new SellItemFactorySpeedrunnerIngot(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2, 1, 12, 5));
+            factories.add(new SellItemFactorySpeedrunnerIngot(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2, 1, 12, 8));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
-            factories.add(new TradeOffers.SellPotionHoldingItemFactory(Items.WATER_BUCKET, 1, Items.SPLASH_POTION, 1, 1, 12, 9));
+            factories.add(new TradeOffers.SellPotionHoldingItemFactory(Items.WATER_BUCKET, 1, Items.SPLASH_POTION, 1, 1, 12, 12));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
-            factories.add(new EnchantedBookFactory(3, 10, 0.0F, 16, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            factories.add(new EnchantedBookFactory(3, 14, 0.0F, 16, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
-            factories.add(new EnchantedBookFactory(7, 15, 0.2F, 8, 1, 4, ModEnchantmentTags.WITHERED_ENCHANTMENTS));
+            factories.add(new EnchantedBookFactory(7, 13, 0.2F, 8, 1, 4, ModEnchantmentTags.WITHERED_ENCHANTMENTS));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.GOLDEN_APPLE, 4, 3, 16, 12));
+            factories.add(new TradeOffers.SellItemFactory(Items.GOLDEN_APPLE, 4, 3, 16, 18));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(ModItems.INFINI_PEARL, 24, 1, 1, 14));
+            factories.add(new TradeOffers.SellItemFactory(ModItems.INFINI_PEARL, 24, 1, 1, 24));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 15));
+            factories.add(new TradeOffers.SellItemFactory(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 28));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
             ItemStack dragonsAura = new ItemStack(Items.POTION);
             dragonsAura.set(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(ModPotions.DRAGONS_AURA));
-            factories.add(new TradeOffers.SellItemFactory(dragonsAura, 16, 1, 1, 15));
+            factories.add(new TradeOffers.SellItemFactory(dragonsAura, 16, 1, 1, 35));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
-            factories.add(new EnchantedBookFactory(3, 20, 0.0F, 24, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
+            factories.add(new EnchantedBookFactory(3, 35, 0.0F, 24, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
-            factories.add(new SellMaxedEnchantedNetheriteChestplateFactory(12, 3, 25, 1.35F));
+            factories.add(new SellMaxedEnchantedNetheriteChestplateFactory(12, 3, 40, 1.35F));
         });
 
         SpeedrunnerMod.debug("Registered trade offers.");

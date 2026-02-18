@@ -1,7 +1,7 @@
 // 1.21.11	-999999999-01-01T00:00:00	The Speedrunner Mod/Speedrunner Mod World Gen
 ec9b9ad82b437f3667b8b5ac7813ead3f2988718 data/speedrunnermod/worldgen/biome/speedrunners_wasteland.json
 af95b751bb176f331088ffc18e3d05f1fff40bf5 data/speedrunnermod/worldgen/configured_feature/dead_speedrunner.json
-88951b30b69120abe3fbc739578073365047c16e data/speedrunnermod/worldgen/configured_feature/doom_tree.json
+e7112702f729422928d84a89f381670132c31f31 data/speedrunnermod/worldgen/configured_feature/doom_tree.json
 8c628973dae38f24f5805480fc4aeb9159deb125 data/speedrunnermod/worldgen/configured_feature/ore_experience.json
 8b4f834a8d68f370a96f889c9865d058b76ba1f6 data/speedrunnermod/worldgen/configured_feature/ore_igneous.json
 fdf9d0386627e36e181d5ce72955622fabfbaef2 data/speedrunnermod/worldgen/configured_feature/ore_nether_experience.json

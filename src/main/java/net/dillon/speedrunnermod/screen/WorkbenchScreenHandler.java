@@ -160,9 +160,7 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
                     // If all enchantments are compatible with each other and can be combined, OR can be upgraded
                     // Try to transfer enchantments
                     if ((allIsCompatible && enchantment.isAcceptableItem(secondSlot)) || alreadyPresentButUpgradable) {
-                        if (secondSlotBuilder.getLevel(entry.getKey()) != enchantment.getMaxLevel() // ensure enchantment isn't already at max level; if it is then ignore transferring
-                                && firstSlotBuilder.getLevel(entry.getKey()) != secondSlotBuilder.getLevel(entry.getKey()) // ensure first slot enchantment level isn't the same as second slot enchantment level
-                                && secondSlotBuilder.getLevel(entry.getKey()) < firstSlotBuilder.getLevel(entry.getKey())) { // ensure first slot enchantment level isn't less than the second slot enchantment level
+                        if (secondSlotBuilder.getLevel(entry.getKey()) < firstSlotBuilder.getLevel(entry.getKey())) {
                             enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
                             enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
                             this.sendContentUpdates();

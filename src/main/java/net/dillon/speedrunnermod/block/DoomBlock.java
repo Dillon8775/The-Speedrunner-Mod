@@ -95,7 +95,8 @@ public class DoomBlock {
                         Items.ELYTRA,
                         ModItems.KNOCKBACK_STICK,
                         Items.POTION,
-                        ModItems.DRAGONS_PEARL
+                        ModItems.DRAGONS_PEARL,
+                        Items.MACE
                 );
 
                 Item item = possibleItems.get(ModUtil.randomIntInclusive(0, possibleItems.size() - 1));
@@ -131,6 +132,10 @@ public class DoomBlock {
                     stack = ModUtil.ofUnbreakable(item);
                 } else if (item == Items.POTION) {
                     stack.set(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(ModPotions.DRAGONS_AURA));
+                } else if (item == Items.MACE) {
+                    if (world.getRandom().nextFloat() < 0.35F) {
+                        stack.addEnchantment(ModUtil.enchantment(player, Enchantments.WIND_BURST), ModUtil.randomIntInclusive(1, 3));
+                    }
                 }
 
                 ModUtil.spawnFloatingItemEntity(world, pos, stack, player, true);
