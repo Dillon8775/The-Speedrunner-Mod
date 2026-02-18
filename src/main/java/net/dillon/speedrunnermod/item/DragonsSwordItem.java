@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -13,7 +12,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
@@ -42,7 +40,6 @@ public class DragonsSwordItem extends Item implements EyeItem {
         if (target instanceof EnderDragonEntity dragon && attacker instanceof PlayerEntity player) {
             if (isEasyMode() && dragon.getEntityWorld() instanceof ServerWorld serverWorld) {
                 dragon.damage(serverWorld, dragon.getDamageSources().playerAttack(player), 1000.0F); // Enough damage to kill the dragon
-                Criteria.PLAYER_KILLED_ENTITY.trigger((ServerPlayerEntity) player, dragon, dragon.getDamageSources().playerAttack(player));
             } else {
                 if (isDoomMode()) {
                     attacker.serverDamage(attacker.getDamageSources().mobAttack(attacker), ModUtil.randomFloatInclusive(2.0F, 3.0F));

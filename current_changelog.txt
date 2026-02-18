@@ -117,6 +117,8 @@ OTHER CHANGES:
 - Goliath now appears as angry when at 1/3 of health.
 - Speedrunner swords no longer do more damage to Goliath (or withers).
 
+- When the ender dragon dies (no matter how it dies), it now grants the "Free the end" advancement to all nearby players.
+
 - Speedrunner armor now gives +1 armor toughness.
 - Golden speedrunner armor now gives +0.5 armor toughness.
 - Using a speedrunner's totem can now give the "Postmortal" advancement.

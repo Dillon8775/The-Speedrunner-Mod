@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -134,6 +135,12 @@ public class EnderDragonEntityMixin extends MobEntity {
     @Override
     public void onDeath(DamageSource source) {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+
+        for (PlayerEntity player : dragon.getEntityWorld().getPlayers()) {
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                Criteria.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.getDamageSources().playerAttack(serverPlayer));
+            }
+        }
 
         if (this.isDragonInvincible(dragon)) {
             this.setHealth(1.0F);
