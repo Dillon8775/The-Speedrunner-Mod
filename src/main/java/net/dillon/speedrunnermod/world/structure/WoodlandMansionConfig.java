@@ -21,7 +21,7 @@ public class WoodlandMansionConfig extends Ssr {
 
     @Override
     public int[] common() {
-        return new int[]{25, 20};
+        return new int[]{16, 10};
     }
 
     @Override

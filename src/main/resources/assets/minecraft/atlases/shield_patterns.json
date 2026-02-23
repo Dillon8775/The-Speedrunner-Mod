@@ -8,6 +8,14 @@
     {
       "type": "single",
       "resource": "entity/speedrunner_shield_base_no_pattern"
+    },
+    {
+      "type": "single",
+      "resource": "entity/golden_shield_base"
+    },
+    {
+      "type": "single",
+      "resource": "entity/golden_shield_base_no_pattern"
     }
   ]
 }

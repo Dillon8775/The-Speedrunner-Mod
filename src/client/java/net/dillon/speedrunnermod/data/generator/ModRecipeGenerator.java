@@ -3,10 +3,7 @@ package net.dillon.speedrunnermod.data.generator;
 import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.recipe.DragonFireballRecipe;
-import net.dillon.speedrunnermod.recipe.InventoryPreserverRecipe;
-import net.dillon.speedrunnermod.recipe.PiglinAwakenerRecipe;
-import net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe;
+import net.dillon.speedrunnermod.recipe.*;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -75,7 +72,8 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK);
 
                 helper.createFireproofBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModItems.FIREPROOF_SPEEDRUNNER_BOAT, ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS, "fireproof_speedrunner_boat");
-                helper.createBoatSet(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+                this.offerBoatRecipe(ModItems.DEAD_SPEEDRUNNER_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+                this.offerChestBoatRecipe(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, Items.CHEST);
                 helper.createFireproofBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, ModItems.FIREPROOF_CRIMSON_BOAT, ModItems.FIREPROOF_CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS, "fireproof_crimson_boat");
                 helper.createFireproofBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, ModItems.FIREPROOF_WARPED_BOAT, ModItems.FIREPROOF_WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS, "fireproof_warped_boat");
 
@@ -275,7 +273,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(this.exporter);
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.DRAGONS_PEARL)
-                        .input(Items.ENDER_PEARL)
                         .input(Items.BLAZE_POWDER)
                         .input(ModItems.SPEEDRUNNERS_EYE)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.DRAGONS_PEARL))
@@ -301,7 +298,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .offerTo(this.exporter);
 
                 this.createShapeless(RecipeCategory.MISC, ModItems.RAID_ERADICATOR)
-                        .input(Items.ENDER_PEARL)
                         .input(Items.ENCHANTED_GOLDEN_APPLE)
                         .input(ModItems.SPEEDRUNNERS_EYE)
                         .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.RAID_ERADICATOR))
@@ -390,7 +386,18 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         .group("shields")
                         .offerTo(this.exporter);
 
+                this.createShaped(RecipeCategory.COMBAT, ModItems.GOLDEN_SHIELD)
+                        .input('W', ItemTags.PLANKS)
+                        .input('o', Items.GOLD_INGOT)
+                        .pattern("WoW")
+                        .pattern("WWW")
+                        .pattern(" W ")
+                        .criterion("has_gold_ingot", this.conditionsFromItem(Items.GOLD_INGOT))
+                        .group("shields")
+                        .offerTo(this.exporter);
+
                 ComplexRecipeJsonBuilder.create(SpeedrunnerShieldDecorationRecipe::new).offerTo(this.exporter, "speedrunner_shield_decoration");
+                ComplexRecipeJsonBuilder.create(GoldenShieldDecorationRecipe::new).offerTo(this.exporter, "golden_shield_decoration");
                 ComplexRecipeJsonBuilder.create(PiglinAwakenerRecipe::new).offerTo(this.exporter, "piglin_awakener");
                 ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_fireball");
                 ComplexRecipeJsonBuilder.create(InventoryPreserverRecipe::new).offerTo(this.exporter, "inventory_preserver");

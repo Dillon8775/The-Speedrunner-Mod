@@ -20,9 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -74,6 +72,14 @@ public abstract class EnderPearlEntityMixin extends ThrownItemEntity {
         if (entity instanceof ServerPlayerEntity player) {
             this.getEntityWorld().sendEntityStatus(player, this.isInfiniPearl() ? ModStatuses.ADD_INFINI_PEARL_LANDING_PARTICLES : ModStatuses.ADD_PEARL_LANDING_PARTICLES);
         }
+    }
+
+    /**
+     * Doubles entity hit damage when throwing an infini pearl.
+     */
+    @ModifyConstant(method = "onEntityHit", constant = @Constant(floatValue = 0.0F))
+    private float doubleDamage(float constant) {
+        return this.isInfiniPearl() ? 3.0F : constant;
     }
 
     /**

@@ -46,10 +46,22 @@ public class EntitySpawnsLoader {
     }
 
     /**
-     * A list of all biomes that include {@link net.minecraft.world.gen.feature.DefaultBiomeFeatures#addMonsters(SpawnSettings.Builder, int, int, int, boolean)}.
+     * A list of all biomes that should modify monster spawns.
      */
     public static List<String> biomesWithDefaultMonsters() {
-        return List.of(biomeName("old_growth_pine_taiga"),
+        return List.of(
+                // Newly added biomes
+                biomeName("cherry_grove"),
+                biomeName("dripstone_caves"),
+                biomeName("desert"),
+                biomeName("snowy_plains"),
+                biomeName("ice_spikes"),
+                biomeName("sunflower_plains"),
+                biomeName("ocean"),
+                biomeName("lukewarm_ocean"),
+                biomeName("cold_ocean"),
+
+                biomeName("old_growth_pine_taiga"),
                 biomeName("old_growth_spruce_taiga"),
                 biomeName("windswept_hills"),
                 biomeName("windswept_gravelly_hills"),

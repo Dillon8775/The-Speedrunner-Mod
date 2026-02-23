@@ -57,7 +57,6 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Override
     public void attemptTickInVoid() {
         ItemStack speedrunnersTotem = new ItemStack(ModItems.SPEEDRUNNERS_TOTEM);
-        ItemStack enderMatter = new ItemStack(ModItems.ENDER_MATTER);
         if (this.getY() < (double)(this.getEntityWorld().getBottomY() - 64)) {
             if (this.getInventory().contains(speedrunnersTotem)) {
                 int y = this.getEntityWorld().getTopY(Heightmap.Type.MOTION_BLOCKING, 0, 0);
@@ -74,9 +73,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                     }
                 }
 
-                this.damage(this.getEntityWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
                 this.teleport(0.5, y, 0.5, true);
                 this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 10.0F, 1.0F);
+                this.damage(this.getEntityWorld(), this.getDamageSources().generic(), Integer.MAX_VALUE);
                 ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultStack());
             } else if (this.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
                 if (!this.effectsAdded && this.canAddEffects) {
@@ -125,7 +124,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
     @Inject(method = "onDeath", at = @At("TAIL"))
     private void sendDeathCords(DamageSource source, CallbackInfo ci) {
         if (options().main.showDeathCords.getCurrentValue() && this.getEntityWorld().getGameRules().getValue(GameRules.SHOW_DEATH_MESSAGES)) {
-            this.sendMessage(ModUtil.deathCords(this.getX(), this.getY(), this.getZ()), false);
+            ModUtil.latestDeathCords = new double[]{this.getX(), this.getY(), this.getZ()};
+            this.sendMessage(ModUtil.deathCords(ModUtil.latestDeathCords[0], ModUtil.latestDeathCords[1], ModUtil.latestDeathCords[2]), false);
         }
         this.canAddEffects = false;
         this.effectsAdded = false;

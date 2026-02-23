@@ -134,6 +134,7 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_SPEEDRUNNER_FLINT_AND_STEEL = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_flint_and_steel");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_SHEARS = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_shears");
     public static final Text TITLE_FEATURE_SPEEDRUNNER_SHIELD = Text.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_shield");
+    public static final Text TITLE_FEATURE_GOLDEN_SHIELD = Text.translatable("speedrunnermod.title.features.tools_and_armor.golden_shield");
     public static final Text TITLE_FEATURE_RAW_SPEEDRUNNER = Text.translatable("speedrunnermod.title.features.blocks_and_items.raw_speedrunner");
 
     // Tools and armor feature screens

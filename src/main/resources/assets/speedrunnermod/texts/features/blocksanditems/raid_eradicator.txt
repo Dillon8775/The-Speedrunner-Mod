@@ -1,12 +1,7 @@
 ### §cKills §fall nearby §7raiders §r§fwithin a §a300 block radius.
 
-§9Witches are §eexcluded §ffrom the kill list, instead, they §dteleport §b§odirectly §r§ftowards the player.
-
-### To use this item, you must be holding a §etotem of undying, §b§lor, §rhave a §bspeedrunner's totem §a§oanywhere §r§fin your inventory.
-
 #### All nearby §6villagers §r§fwill §eglow, §r§fand be given §dregeneration §r§fand §7resistance§r§f for §a§l30 §r§aseconds.
 
-#### The player will §close §c§l100%§r of their health.
+### §eEvokers §rwon't be §ckilled, §r§finstead, they will §dteleport §r§fto the player.
 
-!image:textures/gui/features/items/raid_eradicator.png scale=.15
 !image:textures/gui/features/recipes/raid_eradicator_crafting_recipe.png scale=.55

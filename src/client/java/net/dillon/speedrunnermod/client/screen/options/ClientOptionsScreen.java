@@ -4,6 +4,7 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -11,6 +12,8 @@ import net.minecraft.client.option.GameOptions;
 import net.minecraft.text.Text;
 
 import java.util.List;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybindsLoaded;
 
 /**
  * The Speedrunner Mod's {@code client options screen.}
@@ -25,12 +28,15 @@ public class ClientOptionsScreen extends AbstractModScreen {
      * All of the {@code client-side speedrunner mod options.}
      */
     private List<ClickableWidget> clientOptions(GameOptions gameOptions) {
-        return List.of(
+        return isSimpleKeybindsLoaded() ? List.of(
                 ModListOptions.fog().createWidget(this.gameOptions),
-                gameOptions.getGamma().createWidget(this.gameOptions),
                 ModListOptions.itemMessages().createWidget(this.gameOptions),
-                ModListOptions.increasedLavaVision().createWidget(this.gameOptions)
-        );
+                ModListOptions.increasedLavaVision().createWidget(this.gameOptions)) : List.of(
+                        ModListOptions.fog().createWidget(this.gameOptions),
+                        ModListOptions.itemMessages().createWidget(this.gameOptions),
+                        gameOptions.getGamma().createWidget(this.gameOptions),
+                        ModListOptions.fullbrightAmount().createWidget(this.gameOptions),
+                        ModListOptions.increasedLavaVision().createWidget(this.gameOptions));
     }
 
     @Override

@@ -91,6 +91,8 @@ public class ModItems {
 
     public static final Item SPEEDRUNNER_SHIELD = Items.register(of("speedrunner_shield"), SpeedrunnerShieldItem::new);
 
+    public static final Item GOLDEN_SHIELD = Items.register(of("golden_shield"), GoldenShieldItem::new);
+
     public static final Item GOLDEN_SPEEDRUNNER_SWORD = Items.register(of("golden_speedrunner_sword"), Item::new,
             new Item.Settings().sword(ModToolMaterials.GOLDEN_SPEEDRUNNER, 4, -2.4F));
 

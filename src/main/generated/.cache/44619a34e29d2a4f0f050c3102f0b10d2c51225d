@@ -5,7 +5,7 @@ e39ac6ffb6af974addd599ea1dfef968053522ad data/c/tags/item/tools/bow.json
 362b26547b99707c8fde2e335bfd18110e4f7fc2 data/c/tags/item/tools/crossbow.json
 eda7dbbdacb3b7dde786ad7f02df7264022a6ee9 data/c/tags/item/tools/igniter.json
 0294870efdba5d14283ef50ef105a69f9cd23a84 data/c/tags/item/tools/shear.json
-8735c25b5431bd244ac8a2760c9927ad6eba3f84 data/c/tags/item/tools/shield.json
+62333d0dc22834871128cfa13bfee82bb6c0fe9d data/c/tags/item/tools/shield.json
 35dbdd5b07ec26f99db2410ac17f1ae92714ec5a data/minecraft/tags/item/axes.json
 bdb6ccb8e26431ab082745677529b55974345122 data/minecraft/tags/item/boats.json
 6a35e28f3c01ba2bc12985687a3cb20b4adc1311 data/minecraft/tags/item/chest_armor.json
@@ -14,7 +14,8 @@ eda7dbbdacb3b7dde786ad7f02df7264022a6ee9 data/minecraft/tags/item/creeper_ignite
 986504d53c29cdf82d3995494666ca4c18f17799 data/minecraft/tags/item/doors.json
 e39ac6ffb6af974addd599ea1dfef968053522ad data/minecraft/tags/item/enchantable/bow.json
 362b26547b99707c8fde2e335bfd18110e4f7fc2 data/minecraft/tags/item/enchantable/crossbow.json
-41477a95223e2f3de43a12983f9013f4444416c9 data/minecraft/tags/item/enchantable/durability.json
+6aac1b028543376fa41c70c77e032d20b10a682a data/minecraft/tags/item/enchantable/durability.json
+ba9125aa546790a0582445879c658b228dbb763c data/minecraft/tags/item/enchantable/melee_weapon.json
 0294870efdba5d14283ef50ef105a69f9cd23a84 data/minecraft/tags/item/enchantable/mining.json
 29e9b4051601ff7423239232d99802f3fe71597f data/minecraft/tags/item/fence_gates.json
 3be005000fb6b4ccc4c025d191d9411cb9a2476e data/minecraft/tags/item/foot_armor.json
@@ -42,7 +43,7 @@ ebcb6df97718314913387058d6107ba954896c77 data/minecraft/tags/item/wooden_fences.
 8778674db62d9285c4a8da3b67f026abcd2d48f4 data/minecraft/tags/item/wooden_stairs.json
 d3e5eadca807cb0af3f7d58d3164cdb8d83c86e6 data/minecraft/tags/item/wooden_trapdoors.json
 4292b9e45cc32f6be48a36f728c9f8d4fb741a26 data/speedrunnermod/tags/item/advancement_criterions/blaze_spotter.json
-6c58a690ed2473fab07cd45070852ef5896691c0 data/speedrunnermod/tags/item/advancement_criterions/dragons_pearl.json
+94bf157a403b4b18fa6c38a791bd98ceefed5bb7 data/speedrunnermod/tags/item/advancement_criterions/dragons_pearl.json
 57159512e46ee9b198632c782d821c24f63e6d34 data/speedrunnermod/tags/item/advancement_criterions/dragons_sword.json
 1948c81f79aade459321ba9003dea533d66ad876 data/speedrunnermod/tags/item/advancement_criterions/ender_thruster.json
 122146228e306c850db162c581465306177623ca data/speedrunnermod/tags/item/advancement_criterions/eye_of_annul.json

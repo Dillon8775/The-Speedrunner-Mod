@@ -2,5 +2,4 @@
 
 #### §aShift + right click§f to swap between structures.
 
-!image:textures/gui/features/items/speedrunners_eye.png scale=.15
 !image:textures/gui/features/recipes/speedrunners_eye_crafting_recipe.png scale=.5

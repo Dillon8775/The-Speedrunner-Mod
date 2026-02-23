@@ -16,12 +16,12 @@ public class AncientCityConfig extends Ssr {
 
     @Override
     public int[] veryCommon() {
-        return new int[]{10, 7};
+        return new int[]{10, 5};
     }
 
     @Override
     public int[] common() {
-        return new int[]{12, 8};
+        return new int[]{10, 6};
     }
 
     @Override

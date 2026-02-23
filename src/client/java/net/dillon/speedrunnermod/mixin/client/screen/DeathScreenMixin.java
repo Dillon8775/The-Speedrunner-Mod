@@ -55,7 +55,7 @@ public class DeathScreenMixin extends Screen {
     @Inject(method = "render", at = @At("TAIL"))
     private void displayDeathCords(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (options().main.showDeathCords.getCurrentValue()) {
-            context.drawCenteredTextWithShadow(this.textRenderer, ModUtil.deathCords(this.client.player.getX(), this.client.player.getY(), this.client.player.getZ()), this.width / 2, 115, Colors.WHITE);
+            context.drawCenteredTextWithShadow(this.textRenderer, ModUtil.deathCords(ModUtil.latestDeathCords[0], ModUtil.latestDeathCords[1], ModUtil.latestDeathCords[2]), this.width / 2, 115, Colors.WHITE);
         }
     }
 }

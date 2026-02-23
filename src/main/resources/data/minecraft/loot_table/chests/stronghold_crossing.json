@@ -115,8 +115,13 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 3,
           "name": "speedrunnermod:inventory_preserver"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "name": "speedrunnermod:ender_matter"
         },
         {
           "type": "minecraft:item",

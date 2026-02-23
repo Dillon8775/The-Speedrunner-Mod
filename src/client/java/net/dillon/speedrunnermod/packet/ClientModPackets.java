@@ -24,6 +24,7 @@ import net.minecraft.command.permission.PermissionPredicate;
 import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Hand;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -69,7 +70,7 @@ public class ClientModPackets {
         PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(OpenFeaturesScreenS2CPacket.PACKET, (payload, context) -> {
-            context.player().swingHand(context.player().getActiveHand(), true);
+            context.player().swingHand(Hand.MAIN_HAND, true);
             context.client().setScreen(new FeaturesScreen(null));
         });
     }

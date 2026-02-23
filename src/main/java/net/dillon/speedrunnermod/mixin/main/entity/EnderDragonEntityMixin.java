@@ -136,12 +136,6 @@ public class EnderDragonEntityMixin extends MobEntity {
     public void onDeath(DamageSource source) {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
 
-        for (PlayerEntity player : dragon.getEntityWorld().getPlayers()) {
-            if (player instanceof ServerPlayerEntity serverPlayer) {
-                Criteria.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.getDamageSources().playerAttack(serverPlayer));
-            }
-        }
-
         if (this.isDragonInvincible(dragon)) {
             this.setHealth(1.0F);
             this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 0.65F);
@@ -157,6 +151,8 @@ public class EnderDragonEntityMixin extends MobEntity {
                         serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.giant_still_alive"), false);
                     } else if (isWitherAlive(dragon)) {
                         serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.wither_still_alive"), false);
+                    } else {
+                        Criteria.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.getDamageSources().playerAttack(serverPlayer));
                     }
                 }
             }

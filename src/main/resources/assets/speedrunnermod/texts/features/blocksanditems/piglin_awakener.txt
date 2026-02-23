@@ -2,5 +2,4 @@
 
 #### If you §lshift, §r§fthe §6piglin §fwill be teleported §b§odirectly §r§ftowards the player.
 
-!image:textures/gui/features/items/piglin_awakener.png scale=.15
 !image:textures/gui/features/recipes/piglin_awakener_crafting_recipe.png scale=.5

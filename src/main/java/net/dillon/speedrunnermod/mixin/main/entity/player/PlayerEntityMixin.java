@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.entity.player;
 
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
+import net.dillon.speedrunnermod.item.GoldenShieldItem;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerShieldItem;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -49,6 +50,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             int cooldownLevel = (ModUtil.getItemCooldown((PlayerEntity)(Object)this) * 5) * 2 /* Doubled cooldown because it's Giant >:) */;
             this.getItemCooldownManager().set(Items.SHIELD.getDefaultStack(), cooldownLevel);
             this.getItemCooldownManager().set(ModItems.SPEEDRUNNER_SHIELD.getDefaultStack(), (int)(cooldownLevel / SpeedrunnerShieldItem.COOLDOWN_DIVIDER));
+            this.getItemCooldownManager().set(ModItems.GOLDEN_SHIELD.getDefaultStack(), (int)(cooldownLevel / GoldenShieldItem.COOLDOWN_DIVIDER));
             this.clearActiveItem();
             this.getEntityWorld().sendEntityStatus(this, (byte)30);
         }

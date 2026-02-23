@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.client.render.GoldenShieldModelRenderer;
 import net.dillon.speedrunnermod.client.render.SpeedrunnerShieldModelRenderer;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
@@ -9,6 +10,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.client.render.item.model.ItemModel;
+import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
@@ -115,7 +117,8 @@ public class ModModelGenerator extends FabricModelProvider {
 
         itemModelGenerator.registerBow(ModItems.SPEEDRUNNER_BOW);
         itemModelGenerator.registerCrossbow(ModItems.SPEEDRUNNER_CROSSBOW);
-        this.registerSpeedrunnerShield(itemModelGenerator, ModItems.SPEEDRUNNER_SHIELD);
+        this.registerModdedShield(itemModelGenerator, ModItems.SPEEDRUNNER_SHIELD, new SpeedrunnerShieldModelRenderer.Unbaked());
+        this.registerModdedShield(itemModelGenerator, ModItems.GOLDEN_SHIELD, new GoldenShieldModelRenderer.Unbaked());
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_SHEARS, Models.GENERATED);
         itemModelGenerator.register(ModItems.SPEEDRUNNER_FLINT_AND_STEEL, Models.GENERATED);
@@ -183,9 +186,9 @@ public class ModModelGenerator extends FabricModelProvider {
     /**
      * Registers a {@code speedrunner shield renderer.}
      */
-    private void registerSpeedrunnerShield(ItemModelGenerator itemModelGenerator, Item item) {
-        ItemModel.Unbaked unbaked = ItemModels.special(ModelIds.getItemModelId(item), new SpeedrunnerShieldModelRenderer.Unbaked());
-        ItemModel.Unbaked unbaked2 = ItemModels.special(ModelIds.getItemSubModelId(item, "_blocking"), new SpeedrunnerShieldModelRenderer.Unbaked());
+    private void registerModdedShield(ItemModelGenerator itemModelGenerator, Item item, SpecialModelRenderer.Unbaked unbakedModel) {
+        ItemModel.Unbaked unbaked = ItemModels.special(ModelIds.getItemModelId(item), unbakedModel);
+        ItemModel.Unbaked unbaked2 = ItemModels.special(ModelIds.getItemSubModelId(item, "_blocking"), unbakedModel);
         itemModelGenerator.registerCondition(item, ItemModels.usingItemProperty(), unbaked2, unbaked);
     }
 }

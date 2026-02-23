@@ -41,6 +41,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.SPEEDRUNNER_SHEARS);
 
         valueLookupBuilder(ConventionalItemTags.SHIELD_TOOLS)
+                .add(ModItems.GOLDEN_SHIELD)
                 .add(ModItems.SPEEDRUNNER_SHIELD);
 
         valueLookupBuilder(ModItemTags.SPEED_BOOTS)
@@ -267,7 +268,6 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(Items.LAVA_BUCKET);
 
         valueLookupBuilder(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
-                .add(Items.ENDER_PEARL)
                 .add(Items.BLAZE_POWDER)
                 .add(ModItems.SPEEDRUNNERS_EYE);
 
@@ -323,6 +323,9 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ItemTags.DOORS)
                 .add(ModItems.SPEEDRUNNER_DOOR);
+
+        valueLookupBuilder(ItemTags.MELEE_WEAPON_ENCHANTABLE)
+                .addTag(ItemTags.AXES);
 
         valueLookupBuilder(ItemTags.WOODEN_DOORS)
                 .add(ModItems.WOODEN_SPEEDRUNNER_DOOR)
@@ -412,6 +415,7 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 .add(ModItems.SPEEDRUNNER_BOW)
                 .add(ModItems.SPEEDRUNNER_CROSSBOW)
                 .add(ModItems.SPEEDRUNNER_SHIELD)
+                .add(ModItems.GOLDEN_SHIELD)
                 .add(ModItems.INFINI_PEARL);
 
         valueLookupBuilder(ItemTags.BOW_ENCHANTABLE)

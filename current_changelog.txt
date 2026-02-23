@@ -65,19 +65,23 @@ EXPERIENCE FRAGMENT:
 - With this item, you can craft Bottles of Enchanting.
 - To craft Bottles of Enchanting, you will need 1 experience fragment and 1 glass bottle. You will then receive 2 bottles of enchanting.
 
+GOLDEN SHIELD:
+- Added the golden shield, with an extremely fast cooldown, but low durability.
+
 NEW TEXTURES / TEXTURE CHANGES:
 - New animated texture for the InfiniPearl! (credit to MannyQUESO)
 - New textures for the Golden Speedrunner armor and tools.
 - Individual textures for fireproof boats (you can easily tell that they are fireproof).
 - New texture for the piglin awakener, blaze spotter, and raid eradicator (credit to MannyQUESO for these).
-- Fixed inconsistency with other textures, as well as removed extremely strong blue from most speedrunner items.
-    - This includes revamped textures for: Speedrunner Ingot, Raw Speedrunner, Raw Speedrunner Block, Speedrunner's Eye, Speedrunner Shield, Speedrunner Boat, Speedrunner logs, speedrunner sapling, doors, signs, and trapdoors (this includes all DEAD variants as well)
+- Fixed inconsistency with other textures, as well as removed the extremely strong blue from all speedrunner items.
+    - This includes revamped textures for: Speedrunner Ingot, Raw Speedrunner, Raw Speedrunner Block, Speedrunner's Eye, Speedrunner Shield, Speedrunner's Totem, Speedrunner Boat, Speedrunner logs, speedrunner sapling, doors, signs, and trapdoors (this includes all DEAD variants as well)
 - Fixed knockback stick item model.
 
 OTHER CHANGES:
 - Removed tutorial mode.
 
 - The InfiniPearl now glows when thrown.
+- InfiniPearls now do 1.5 hearts of damage to entities on entity collision.
 - Increased speed of InfiniPearl when in water.
 - You no longer need an ender thruster in order to craft an InfiniPearl.
 - You can now add unbreaking and mending to InfiniPearls.
@@ -85,10 +89,15 @@ OTHER CHANGES:
 - Ender matter now has a 25% chance to drop from enderman, with looting increasing its chance, all the way up to 38% with looting 3.
 - Lowered the chance of ender matter generating from shipwreck chests.
 
+- Removed waiting time on certain items.
 - The Piglin Awakener now works on doom mode, but cannot teleport more than 3 piglin at a time.
 - The Blaze Spotter now works on doom mode.
 - Using the Raid Eradicator now makes all villagers in the radius glow for 3 minutes, and gives them regeneration 2 and resistance for 30 seconds.
+- The raid eradicator no longer requires a totem of undying to use, and doesn't damage the player upon use.
+- Raid eradicators now kill witches, and all evokers are teleported to the player upon use.
 - Removed Ender Thruster doom mode restriction.
+
+- Evokers now have a small chance of generating in the overworld on doom mode.
 
 - Golden Speedrunner Armor now keeps you 100% safe from piglin, meaning you can break gold blocks and open containers without ease!
 
@@ -110,6 +119,7 @@ OTHER CHANGES:
 - Using a totem no longer removes any currently applied positive effects (with both normal totems and speedrunner totems).
 - Totems of Undying are now craftable with an enchanted golden apple in the center and 8 gold blocks surrounding it.
 - Speedrunner totems can also trigger the "Postmortal" advancement, when used.
+- Speedrunner ingots and nuggets are now slightly more common from piglin bartering.
 
 - Goliath now has more health (300 points -> 400).
 - Goliath now has a 15% chance to summon TNT around himself when taking damage (previously 10%).
@@ -143,6 +153,7 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Tons, I mean TONS, of tweaks, optimizations, and bug fixes.
 
 - Fire charges are no longer required in order to craft Eyes of Annul, Dragon's Pearls, and Raid Eradicators.
+- Ender perals are no longer required in order to craft Raid Eradicators and Dragon's Pearls.
 - There is no longer a 3-second wait when using the eye of annul.
 - The eye of annul no longer requires an ender eye and ender pearl to use.
 - The Dragon's sword now does 9 attack damage.
@@ -156,6 +167,7 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 
 - Removed "Open config directory" button.
 - Renamed config files to "speedrunnermod.json" and "speedrunnermod_client.json".
+- Added option to configure fullbright brightness amount.
 
 - Normal totems of undying are now attempted to be used first before checking for speedrunners totems.
 - Fixed crash with timed-set items (items that execute something after a set amount of seconds).
@@ -167,6 +179,7 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Fixed bug where:
     - Speedrunner shield does not have a faster cooldown than normal shields.
     - Cooldown enchantment does not work on any items at all.
+- Fixed bug where certain sword enchantments cannot be applied to axes.
 - Fixed bug where creepers are one-shots.
 - Fixed bug where the cost in an anvil is always set to the cost limit, regardless of whether or not the cost ever went over the limit.
 - Fixed bug where going over max enchantment costs does not work correctly.
@@ -175,3 +188,4 @@ TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Fixed bug where patches of raw speedrunner blocks would almost never generate in the Speedrunner's Wasteland biome, due to the chance being incredibly low.
 - Fixed bug where Goliath infinitely spawns TNT when "in fire".
 - Fixed other bugs and other random inconveniences.
+- Improved compatibility with Simple Keybinds and QoQ.

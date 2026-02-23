@@ -1303,6 +1303,8 @@ Determines if the player must be shifting in order to throw a fireball.
 #### Speedrunner saplings grow faster than normal saplings.
 #### If Doom Mode is enabled, crimson spore particles can be seen in the end.
 
+## New credits, that I think you should read.
+
 ---
 
 ## Technical Features

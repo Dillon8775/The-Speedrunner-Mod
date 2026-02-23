@@ -1,4 +1,4 @@
-### Found in §bshipwrecks,§f §3ancient cities §r§fand §dend cities.
+### Found in §bshipwrecks,§f §3ancient cities, §r§dend cities §r§fand §7strongholds.
 
 #### They also have a §a25% chance§f of dropping when killing an §denderman.
 

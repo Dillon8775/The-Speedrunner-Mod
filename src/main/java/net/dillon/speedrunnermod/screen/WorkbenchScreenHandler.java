@@ -96,8 +96,10 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
         }
         this.input.setStack(this.getInputSlot().id, newSlot1);
         boolean ingot = this.input.getStack(this.getTransferToSlot().id).isOf(ModItems.SPEEDRUNNER_INGOT) && this.input.getStack(this.getInputSlot().id).isIn(ModItemTags.UPGRADEABLE_GOLD);
-        if (this.input.getStack(this.getTransferToSlot().id).isOf(Items.BOOK) || ingot) {
+        if (ingot) {
             this.input.setStack(this.getInputSlot().id, ItemStack.EMPTY);
+        }
+        if (this.input.getStack(this.getTransferToSlot().id).isOf(Items.BOOK) || ingot) {
             this.input.setStack(this.getTransferToSlot().id, this.decrementedStack(this.input.getStack(this.getTransferToSlot().id).copy()));
             if (ingot) {
                 this.input.setStack(this.getSmithingTemplateSlot().id, this.decrementedStack(this.input.getStack(this.getSmithingTemplateSlot().id).copy()));

@@ -82,6 +82,8 @@ public class ModUtil {
     public static final float FAST_BOAT_VELOCITY_MULTIPLIER = 1.035F;
     public static final double DOLPHIN_PREDICATE_RANGE = 20.0D;
 
+    public static double[] latestDeathCords = new double[]{0, 0, 0};
+
     /**
      * Locates structures.
      */

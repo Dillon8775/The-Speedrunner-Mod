@@ -72,6 +72,13 @@ public class LoaderMain {
             vindicator.addProperty("minCount", 1);
             vindicator.addProperty("weight", 100);
             spawnersArray.add(vindicator);
+
+            JsonObject evoker = new JsonObject();
+            evoker.addProperty("type", "minecraft:evoker");
+            evoker.addProperty("maxCount", 1);
+            evoker.addProperty("minCount", 1);
+            evoker.addProperty("weight", 35);
+            spawnersArray.add(evoker);
         }
     }
 

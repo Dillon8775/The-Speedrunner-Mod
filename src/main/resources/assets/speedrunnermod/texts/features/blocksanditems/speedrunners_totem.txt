@@ -4,5 +4,4 @@
 
 ### It also works if you fall into §7the void!
 
-!image:textures/gui/features/items/speedrunners_totem.png scale=.15
-!image:textures/gui/features/recipes/speedrunners_totem_crafting_recipe.png scale=.4
+!image:textures/gui/features/recipes/speedrunners_totem_crafting_recipe.png scale=.5

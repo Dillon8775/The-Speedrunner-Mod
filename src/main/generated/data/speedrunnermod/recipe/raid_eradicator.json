@@ -2,7 +2,6 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    "minecraft:ender_pearl",
     "minecraft:enchanted_golden_apple",
     "speedrunnermod:speedrunners_eye"
   ],

@@ -2,5 +2,4 @@
 
 #### It only has one use: §7§lcrafting obsidian.
 
-!image:textures/gui/features/items/igneous_rock.png scale=.2
 !image:textures/gui/features/recipes/igneous_rock_crafting.png scale=.5

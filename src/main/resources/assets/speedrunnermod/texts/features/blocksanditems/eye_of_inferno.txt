@@ -2,5 +2,4 @@
 
 #### §aShift + right click§f to swap between the two structures.
 
-!image:textures/gui/features/items/eye_of_inferno.png scale=.15
 !image:textures/gui/features/recipes/eye_of_inferno_crafting_recipe.png scale=.5

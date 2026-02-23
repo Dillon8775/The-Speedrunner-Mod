@@ -1,8 +1,10 @@
 package net.dillon.speedrunnermod.mixin.client;
 
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -79,36 +81,36 @@ public abstract class Keybindings {
             }
         }
 
-        while (ModKeybindings.TOGGLE_HITBOXES.wasPressed()) {
-            boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
-            debugWarn(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
-        }
-
-        while (ModKeybindings.TOGGLE_CHUNK_BORDERS.wasPressed()) {
-            boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
-            debugWarn(bl ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
-        }
-
         while (ModKeybindings.TOGGLE_FOG.wasPressed()) {
             if (clientOptions().mixins.fogMixins.getCurrentValue()) {
                 clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
                 saveClientChanges();
                 MinecraftClient.getInstance().worldRenderer.reload();
-                debugWarn(clientOptions().client.fog.getCurrentValue() ? "speedrunnermod.toggle_fog.on" : "speedrunnermod.toggle_fog.off");
             } else {
                 debugWarn("speedrunnermod.fog.mixin_disabled");
             }
         }
 
-        while (ModKeybindings.TOGGLE_FULLBRIGHT.wasPressed()) {
-            if (clientOptions().mixins.simpleOptionMixin.getCurrentValue()) {
-                clientOptions().client.fullBright.set(!clientOptions().client.fullBright.getCurrentValue());
-                saveClientChanges();
-                MinecraftClient.getInstance().options.getGamma().setValue(clientOptions().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
-                debugWarn(clientOptions().client.fullBright.getCurrentValue() ? "speedrunnermod.toggle_fullbright.on" : "speedrunnermod.toggle_fullbright.off");
-                MinecraftClient.getInstance().options.write();
-            } else {
-                debugWarn("\"Simple Option Mixin\" is disabled, cannot change brightness.");
+        if (!FabricLoader.getInstance().isModLoaded("simplekeybinds")) {
+            while (ModKeybindings.TOGGLE_FULLBRIGHT.wasPressed()) {
+                if (clientOptions().mixins.simpleOptionMixin.getCurrentValue()) {
+                    clientOptions().client.fullBright.set(!clientOptions().client.fullBright.getCurrentValue());
+                    saveClientChanges();
+                    MinecraftClient.getInstance().options.getGamma().setValue(clientOptions().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                    MinecraftClient.getInstance().options.write();
+                } else {
+                    debugWarn("\"Simple Option Mixin\" is disabled, cannot change brightness.");
+                }
+            }
+
+            while (ModKeybindings.TOGGLE_HITBOXES.wasPressed()) {
+                boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
+                debugWarn(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
+            }
+
+            while (ModKeybindings.TOGGLE_CHUNK_BORDERS.wasPressed()) {
+                boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
+                debugWarn(bl ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
             }
         }
     }

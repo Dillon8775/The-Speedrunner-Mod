@@ -3,11 +3,10 @@
   "category": "misc",
   "group": "boat",
   "key": {
-    "#": "speedrunnermod:dead_speedrunner_planks",
-    "P": "speedrunnermod:speedrunner_paddle"
+    "#": "speedrunnermod:dead_speedrunner_planks"
   },
   "pattern": [
-    "#P#",
+    "# #",
     "###"
   ],
   "result": {

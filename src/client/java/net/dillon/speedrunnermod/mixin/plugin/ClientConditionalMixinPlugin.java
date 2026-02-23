@@ -24,9 +24,6 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
      */
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (FabricLoader.getInstance().isModLoaded("qualityofqueso")) {
-            return !mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.FogRendererMixin");
-        }
         boolean bl = shouldNotApply(mixinClassName);
         if (bl) {
             SpeedrunnerMod.warn("Skipping mixin " + mixinClassName + " for target " + targetClassName + " because it should not be applied.");
@@ -46,7 +43,6 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void acceptTargets(Set<String> myTargets, Set<String> otherTargets) {
-
     }
 
     @Override
@@ -66,6 +62,9 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
      * Returns client-side mixins that should not apply based on certain conditions.
      */
     private boolean shouldNotApply(String mixinClassName) {
+        if (FabricLoader.getInstance().isModLoaded("simplekeybinds") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.IncreasedBrightness")) {
+            return true;
+        }
         return !readOptionAsBoolean("fog_mixins") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.FogRendererMixin") ||
                 !readOptionAsBoolean("fog_mixins") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.LavaFogModifierMixin") ||
                 !readOptionAsBoolean("simple_option_mixin") && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.IncreasedBrightness") ||

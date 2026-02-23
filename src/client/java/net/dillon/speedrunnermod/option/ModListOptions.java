@@ -595,6 +595,14 @@ public class ModListOptions {
         );
     }
 
+    public static SimpleOption<Integer> fullbrightAmount() {
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.fullbright_amount",
+                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fullbright_amount.tooltip")),
+                clientOptions().client.fullbrightAmount
+        );
+    }
+
     public static SimpleOption<Integer> icarusFireworksInventorySlot() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.icarus_fireworks_inventory_slot",

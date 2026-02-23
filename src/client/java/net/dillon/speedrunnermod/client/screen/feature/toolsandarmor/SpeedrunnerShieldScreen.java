@@ -7,7 +7,6 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screen.Screen;
 import org.jetbrains.annotations.NotNull;
 
-
 public class SpeedrunnerShieldScreen extends AbstractFeatureScreen {
 
     public SpeedrunnerShieldScreen(Screen parent) {

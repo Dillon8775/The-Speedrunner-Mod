@@ -1,4 +1,3 @@
 ## §dTeleports the player §b§odirectly§r§f to the nearest §astronghold portal room.
 
-!image:textures/gui/features/items/eye_of_annul.png scale=.15
 !image:textures/gui/features/recipes/eye_of_annul_crafting_recipe.png scale=.5

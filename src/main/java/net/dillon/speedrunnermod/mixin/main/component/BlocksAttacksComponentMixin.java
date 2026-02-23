@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.main.component;
 
+import net.dillon.speedrunnermod.item.GoldenShieldItem;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerShieldItem;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -21,7 +22,9 @@ public class BlocksAttacksComponentMixin {
     @ModifyVariable(method = "applyShieldCooldown", at = @At("STORE"), ordinal = 0)
     private int modifyCooldown(int originalCooldown, ServerWorld world, LivingEntity affectedEntity, float cooldownSeconds, ItemStack stack) {
         if (affectedEntity instanceof PlayerEntity player) {
-            int i = stack.isOf(ModItems.SPEEDRUNNER_SHIELD) ? (int)(ModUtil.getItemCooldown(player) / SpeedrunnerShieldItem.COOLDOWN_DIVIDER) : ModUtil.getItemCooldown(player);
+            int i = stack.isOf(ModItems.SPEEDRUNNER_SHIELD) ? (int)(ModUtil.getItemCooldown(player) / SpeedrunnerShieldItem.COOLDOWN_DIVIDER) :
+                    stack.isOf(ModItems.GOLDEN_SHIELD) ? (int)(((float) ModUtil.getItemCooldown(player) / 2.5) / GoldenShieldItem.COOLDOWN_DIVIDER) :
+                    ModUtil.getItemCooldown(player);
             return i * (int)cooldownSeconds;
         }
 

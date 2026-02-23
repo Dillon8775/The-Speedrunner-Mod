@@ -64,9 +64,11 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_CROSSBOW);
                         entries.add(ModItems.SPEEDRUNNER_SHEARS);
                         entries.add(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
-                        entries.add(ModItems.SPEEDRUNNER_SHIELD);
                         entries.add(ModItems.SPEEDRUNNERS_TOTEM);
                         entries.add(ModItems.SPEEDRUNNERS_WORKBENCH);
+                        entries.add(ModItems.SPEEDRUNNER_SHIELD);
+                        entries.add(ModItems.GOLDEN_SHIELD);
+                        entries.add(Items.GOLD_INGOT);
                         entries.add(ModItems.SPEEDRUNNERS_EYE);
                         entries.add(ModItems.ENDER_THRUSTER);
                         entries.add(ModItems.THRUSTED_BLOCK);
@@ -231,6 +233,7 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.COMBAT, ModItems.SPEEDRUNNER_BOW);
         addToItemGroup(ItemGroups.COMBAT, ModItems.SPEEDRUNNER_CROSSBOW);
         addToItemGroup(ItemGroups.COMBAT, ModItems.SPEEDRUNNER_SHIELD);
+        addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SHIELD);
         addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_SWORD);
         addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_HELMET);
         addToItemGroup(ItemGroups.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE);

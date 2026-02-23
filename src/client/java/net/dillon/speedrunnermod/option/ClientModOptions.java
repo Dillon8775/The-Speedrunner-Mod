@@ -109,6 +109,11 @@ public class ClientModOptions {
         public OptionValue<Boolean> showResetButton = new OptionValue<>(true, false);
 
         /**
+         * The amount that the brightness should be set to when fullbright is turned on.
+         */
+        public IntegerOptionValue fullbrightAmount = new IntegerOptionValue(1200, false, 300, 1200);
+
+        /**
          * Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.
          */
         public IntegerOptionValue iCarusFireworksInventorySlot = new IntegerOptionValue(1, false, 1, 36);
@@ -128,11 +133,6 @@ public class ClientModOptions {
          * The minimum brightness amount for the Speedrunner Mod.
          */
         public OptionValue<Double> minimumBrightness = new OptionValue<>(0.0D, false);
-
-        /**
-         * The maximum brightness amount for the Speedrunner Mod.
-         */
-        public OptionValue<Double> maximumBrightness = new OptionValue<>(12.0D, false);
 
         /**
          * To show people who to turn to.

@@ -74,10 +74,8 @@ public class DragonsPearlItem extends Item implements EyeItem {
 
                     this.decrementIfPossible(player, stack);
 
-                    TaskScheduler.schedule(ModUtil.secondsAsTicks(2), () -> {
-                        enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
-                        this.playWorldSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 3.0F, 0.65F, world, player);
-                    });
+                    enderDragon.getPhaseManager().setPhase(PhaseType.LANDING);
+                    this.playWorldSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 3.0F, 0.65F, world, player);
 
                     player.incrementStat(Stats.USED.getOrCreateStat(this));
                     player.swingHand(hand, true);

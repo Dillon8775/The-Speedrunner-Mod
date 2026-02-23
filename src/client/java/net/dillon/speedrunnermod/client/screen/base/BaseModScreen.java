@@ -188,6 +188,7 @@ public class BaseModScreen extends GameOptionsScreen {
                 GoldenSmithingTemplateScreen.class,
                 SpeedrunnerSafeBootsScreen.class,
                 SpeedrunnerShieldScreen.class,
+                GoldenShieldScreen.class,
                 SpeedrunnerBowAndCrossbowScreen.class,
                 SpeedrunnerFlintAndSteelScreen.class,
                 SpeedrunnerShearsScreen.class,

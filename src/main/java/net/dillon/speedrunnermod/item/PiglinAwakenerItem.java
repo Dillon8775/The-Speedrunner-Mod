@@ -87,6 +87,7 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
                     this.playWorldSound(SoundEvents.ENTITY_PIGLIN_AMBIENT, 3.0F, 1.0F, world, player);
                     ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.no_gold_ingot"), Formatting.RED, Formatting.WHITE);
                 } else {
+                    this.playThrowSound(world, player);
                     this.playWorldSound(SoundEvents.ENTITY_PIGLIN_ANGRY, 3.0F, 1.0F, world, player);
                     player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(1));
                     boolean sneakingWhenClicked = player.isSneaking();
@@ -95,24 +96,22 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
 
                     this.decrementIfPossible(player, stack);
 
-                    TaskScheduler.schedule(ModUtil.secondsAsTicks(2), () -> {
-                        int piglinTeleported = 0;
-                        for (PiglinEntity piglin : piglins) {
-                            if (!piglin.isBaby() && !piglin.hasCustomName()) {
-                                if (world.random.nextFloat() < 0.50F) {
-                                    piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(1), 0, false, true, false));
-                                }
-                                double x = !sneakingWhenClicked ? player.getX() + world.random.nextInt(7) - 3 : player.getX();
-                                double y = !sneakingWhenClicked ? player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
-                                double z = !sneakingWhenClicked ? player.getZ() + world.random.nextInt(7) - 3 : player.getZ();
-                                piglin.teleport(x, y, z, false);
-                                piglinTeleported++;
+                    int piglinTeleported = 0;
+                    for (PiglinEntity piglin : piglins) {
+                        if (!piglin.isBaby() && !piglin.hasCustomName()) {
+                            if (world.random.nextFloat() < 0.50F) {
+                                piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(1), 0, false, true, false));
                             }
-                            if (piglinTeleported >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
-                                break;
-                            }
+                            double x = !sneakingWhenClicked ? player.getX() + world.random.nextInt(7) - 3 : player.getX();
+                            double y = !sneakingWhenClicked ? player.getY() + world.random.nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
+                            double z = !sneakingWhenClicked ? player.getZ() + world.random.nextInt(7) - 3 : player.getZ();
+                            piglin.teleport(x, y, z, false);
+                            piglinTeleported++;
                         }
-                    });
+                        if (piglinTeleported >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
+                            break;
+                        }
+                    }
                     player.incrementStat(Stats.USED.getOrCreateStat(this));
                     player.swingHand(hand, true);
                     return ActionResult.SUCCESS;

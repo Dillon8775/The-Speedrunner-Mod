@@ -2,5 +2,4 @@
 
 #### This item is §a§oessential§r§f to craft §6fireproof boats.
 
-!image:textures/gui/features/items/speedrunner_paddle.png scale=.15
 !image:textures/gui/features/recipes/speedrunner_paddle_crafting_recipe.png scale=.5
