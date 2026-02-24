@@ -137,7 +137,7 @@ public class EnderDragonEntityMixin extends MobEntity {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
 
         if (this.isDragonInvincible(dragon)) {
-            this.setHealth(1.0F);
+            this.setHealth(5.0F);
             this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 0.65F);
             this.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 5.0F, 0.65F);
         }
@@ -151,10 +151,21 @@ public class EnderDragonEntityMixin extends MobEntity {
                         serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.giant_still_alive"), false);
                     } else if (isWitherAlive(dragon)) {
                         serverPlayer.sendMessageToClient(Text.translatable("speedrunnermod.doom_mode.wither_still_alive"), false);
-                    } else {
-                        Criteria.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.getDamageSources().playerAttack(serverPlayer));
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Grants the "Free the End" advancement to all nearby players.
+     */
+    @Inject(method = "updatePostDeath", at = @At("TAIL"))
+    private void grantAdvancementToAll(CallbackInfo ci) {
+        EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
+        for (PlayerEntity player : this.getEntityWorld().getPlayers()) {
+            if (player instanceof ServerPlayerEntity serverPlayer) {
+                Criteria.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.getDamageSources().playerAttack(serverPlayer));
             }
         }
     }

@@ -47,7 +47,6 @@ public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
 
         this.builder(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
                 .add(Enchantments.PROTECTION)
-                .add(Enchantments.BLAST_PROTECTION)
                 .add(Enchantments.FEATHER_FALLING)
                 .add(Enchantments.THORNS)
                 .add(Enchantments.SHARPNESS)

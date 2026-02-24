@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
@@ -53,6 +54,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             this.getItemCooldownManager().set(ModItems.GOLDEN_SHIELD.getDefaultStack(), (int)(cooldownLevel / GoldenShieldItem.COOLDOWN_DIVIDER));
             this.clearActiveItem();
             this.getEntityWorld().sendEntityStatus(this, (byte)30);
+            this.getEntityWorld().playSound(null, this.getBlockPos(), SoundEvents.ITEM_SHIELD_BREAK.value(), SoundCategory.PLAYERS);
         }
     }
 

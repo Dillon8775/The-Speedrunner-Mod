@@ -157,13 +157,17 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
                     }
 
                     // Determines if an enchantment in second slot can be upgraded to a higher level
-                    boolean alreadyPresentButUpgradable = registryEntry2.equals(registryEntry) && secondSlotBuilder.getLevel(registryEntry2) < firstSlotBuilder.getLevel(registryEntry);
+                    boolean alreadyPresentButUpgradable = registryEntry2.equals(registryEntry) && secondSlotBuilder.getLevel(registryEntry2) <= firstSlotBuilder.getLevel(registryEntry);
 
                     // If all enchantments are compatible with each other and can be combined, OR can be upgraded
                     // Try to transfer enchantments
                     if ((allIsCompatible && enchantment.isAcceptableItem(secondSlot)) || alreadyPresentButUpgradable) {
-                        if (secondSlotBuilder.getLevel(entry.getKey()) < firstSlotBuilder.getLevel(entry.getKey())) {
-                            enchantmentsToTransfer.put(entry, firstSlotBuilder.getLevel(entry.getKey()));
+                        if (secondSlotBuilder.getLevel(entry.getKey()) <= firstSlotBuilder.getLevel(entry.getKey())) {
+                            int slotBuilder = firstSlotBuilder.getLevel(entry.getKey());
+                            System.out.println(secondSlotBuilder.getLevel(entry.getKey()) == slotBuilder
+                                    ? slotBuilder + 1 : slotBuilder);
+                            enchantmentsToTransfer.put(entry, secondSlotBuilder.getLevel(entry.getKey()) == slotBuilder
+                                    ? slotBuilder + 1 : slotBuilder);
                             enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
                             this.sendContentUpdates();
                         }
@@ -185,8 +189,9 @@ public class WorkbenchScreenHandler extends ForgingScreenHandler {
             // Check if second slot already has the enchantment
             if (secondSlotLevel > 0) {
                 // If second slot has a lower level, upgrade it
-                if (secondSlotLevel < firstSlotLevel) {
-                    EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(), firstSlotLevel));
+                if (secondSlotLevel <= firstSlotLevel) {
+                    EnchantmentHelper.apply(output, builder -> builder.add(entry.getKey(),
+                            secondSlotLevel == firstSlotLevel ? firstSlotLevel + 1 : firstSlotLevel));
                 }
                 // No further action needed if the levels are equal or second slot has a higher level
             } else {

@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client;
 
 import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.loader.api.FabricLoader;
