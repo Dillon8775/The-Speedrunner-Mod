@@ -1219,6 +1219,14 @@ Throw a fireball.
 
 ---
 
+<a href="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Advancements/deep%20dark.png" target="_blank">
+  <img src="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Advancements/deep%20dark.png" width="240" height="48" alt="Dominion advancement.">
+</a>
+
+Kill the Warden.
+
+---
+
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dominion.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/dominion.png?raw=true" width="240" height="48" alt="Dominion advancement.">
 </a>
@@ -1226,6 +1234,7 @@ Throw a fireball.
 Kill all of Minecraft's bosses (these include the warden, the ender dragon, the elder guardian, and the wither).
 
 ---
+
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/lumberjack.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/lumberjack.png?raw=true" width="240" height="48" alt="Lumberjack advancement.">
