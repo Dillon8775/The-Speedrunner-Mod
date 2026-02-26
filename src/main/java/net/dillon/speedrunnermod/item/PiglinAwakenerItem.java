@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;

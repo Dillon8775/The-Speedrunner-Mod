@@ -11,7 +11,8 @@ import net.minecraft.text.Text;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * A screen for some of the {@code advanced speedrunner mod options.}
@@ -97,9 +98,9 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                         Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip")
                 );
 
-        this.lockOptionWithTooltip(ModListOptions.piglinAwakenerPiglinCount(), isEasyMode(),
+        this.lockOptionWithTooltip(ModListOptions.piglinAwakenerPiglinCount(), !isBalancedMode(),
                 Text.translatable("speedrunnermod.options.piglin_awakener_piglin_count.tooltip"),
-                Text.translatable("speedrunnermod.options.mode_easy_required.tooltip")
+                Text.translatable("speedrunnermod.options.mode_easy_or_doom_required.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.icarusFireworksInventorySlot(), options().main.iCarusMode.getCurrentValue(),
@@ -127,12 +128,12 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 Text.translatable("speedrunnermod.options.mode_easy_or_doom_required.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.piglinAwakenerSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()), isEasyMode(),
+        this.lockOptionWithTooltip(ModListOptions.piglinAwakenerSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()), !isBalancedMode(),
                 ModListOptions.listIntegerTooltip(Text.translatable("speedrunnermod.options.piglin_awakener_search_radius.tooltip")),
                 Text.translatable("speedrunnermod.options.mode_easy_required.tooltip")
         );
 
-        this.lockOptionWithTooltip(ModListOptions.blazeSpotterSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()), isEasyMode(),
+        this.lockOptionWithTooltip(ModListOptions.blazeSpotterSearchRadius(this.hasXDown(), this.hasYDown(), this.hasZDown()), !isBalancedMode(),
                 ModListOptions.listIntegerTooltip(Text.translatable("speedrunnermod.options.blaze_spotter_search_radius.tooltip")),
                 Text.translatable("speedrunnermod.options.mode_easy_required.tooltip")
         );

@@ -294,7 +294,7 @@ public class ModOptions {
         /**
          * Sets the delay when entering/exiting the nether via a nether portal block.
          */
-        public IntegerOptionValue netherPortalDelay = new IntegerOptionValue(2, false, -1, 20);
+        public IntegerOptionValue netherPortalDelay = new IntegerOptionValue(2, false, -1, 5);
 
         /**
          * Allows fireballs to be thrown.
