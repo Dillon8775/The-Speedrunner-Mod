@@ -118,11 +118,10 @@ public class EnderDragonEntityMixin extends MobEntity {
             EnderDragonEntity dragon = (EnderDragonEntity) (Object) this;
             World world = this.getEntityWorld();
 
-            List<HostileEntity> hostiles = world.getEntitiesByClass(HostileEntity.class,
-                    dragon.getBoundingBox().expand(options().advanced.dragonMassKillRadius.getCurrentValue().getFirst(), options().advanced.dragonMassKillRadius.getCurrentValue().get(1), options().advanced.dragonMassKillRadius.getCurrentValue().get(2)), entity -> true);
+            List<HostileEntity> hostiles = getEntitiesWithinRange(world, HostileEntity.class, dragon, options().advanced.dragonMassKillRadius.getCurrentValue());
 
             for (HostileEntity hostile : hostiles) {
-                if (!(hostile instanceof EndermanEntity) && !hostile.hasCustomName()) {
+                if (!(hostile instanceof EndermanEntity)) {
                     hostile.kill(serverWorld);
                 }
             }
@@ -163,7 +162,9 @@ public class EnderDragonEntityMixin extends MobEntity {
     @Inject(method = "updatePostDeath", at = @At("TAIL"))
     private void grantAdvancementToAll(CallbackInfo ci) {
         EnderDragonEntity dragon = (EnderDragonEntity)(Object)this;
-        for (PlayerEntity player : this.getEntityWorld().getPlayers()) {
+
+        List<PlayerEntity> players = getEntitiesWithinRange(dragon.getEntityWorld(), PlayerEntity.class, dragon, List.of(300, 300, 300));
+        for (PlayerEntity player : players) {
             if (player instanceof ServerPlayerEntity serverPlayer) {
                 Criteria.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.getDamageSources().playerAttack(serverPlayer));
             }

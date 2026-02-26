@@ -168,12 +168,10 @@ public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         valueLookupBuilder(ModItemTags.STICKS)
                 .add(Items.STICK)
-                .add(ModItems.SPEEDRUNNER_STICK)
-                .add(ModItems.DEAD_SPEEDRUNNER_STICK);
+                .add(ModItems.SPEEDRUNNER_STICK);
 
         valueLookupBuilder(ModItemTags.SPEEDRUNNER_STICKS)
-                .add(ModItems.SPEEDRUNNER_STICK)
-                .add(ModItems.DEAD_SPEEDRUNNER_STICK);
+                .add(ModItems.SPEEDRUNNER_STICK);
 
         valueLookupBuilder(ModItemTags.TOTEMS)
                 .add(Items.TOTEM_OF_UNDYING)

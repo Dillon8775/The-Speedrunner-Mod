@@ -54,11 +54,7 @@ public class DragonsPearlItem extends Item implements EyeItem {
             this.playPitchedLaunchSound(5.0F, world, player);
             ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").formatted(Formatting.LIGHT_PURPLE));
         } else {
-            List<EnderDragonEntity> dragons = world.getEntitiesByClass(EnderDragonEntity.class, player.getBoundingBox().expand(
-                    options().advanced.dragonsPearlSearchRadius.getCurrentValue().getFirst(),
-                    options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(1),
-                    options().advanced.dragonsPearlSearchRadius.getCurrentValue().get(2)),
-                    entity -> true);
+            List<EnderDragonEntity> dragons = ModUtil.getEntitiesWithinRange(world, EnderDragonEntity.class, player, options().advanced.dragonsPearlSearchRadius.getCurrentValue());
 
             if (dragons.isEmpty()) {
                 this.playWorldSound(SoundEvents.ENTITY_ENDER_EYE_LAUNCH, 3.0F, world, player);

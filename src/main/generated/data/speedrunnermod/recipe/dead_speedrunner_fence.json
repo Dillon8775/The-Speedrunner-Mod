@@ -3,7 +3,7 @@
   "category": "misc",
   "group": "wooden_fence",
   "key": {
-    "#": "speedrunnermod:dead_speedrunner_stick",
+    "#": "speedrunnermod:speedrunner_stick",
     "W": "speedrunnermod:dead_speedrunner_planks"
   },
   "pattern": [

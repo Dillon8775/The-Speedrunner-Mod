@@ -144,7 +144,7 @@
               "function": "minecraft:explosion_decay"
             }
           ],
-          "name": "speedrunnermod:dead_speedrunner_stick"
+          "name": "speedrunnermod:speedrunner_stick"
         }
       ],
       "rolls": 1.0

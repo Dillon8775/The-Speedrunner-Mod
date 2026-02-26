@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_sticks": {
+    "has_planks": {
       "conditions": {
         "items": [
           {
-            "items": "speedrunnermod:dead_speedrunner_stick"
+            "items": "speedrunnermod:speedrunner_planks"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:dead_speedrunner_planks_from_dead_speedrunner_stick"
+        "recipe": "speedrunnermod:speedrunner_stick_from_speedrunner_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_sticks"
+      "has_planks"
     ]
   ],
   "rewards": {
     "recipes": [
-      "speedrunnermod:dead_speedrunner_planks_from_dead_speedrunner_stick"
+      "speedrunnermod:speedrunner_stick_from_speedrunner_planks"
     ]
   }
 }

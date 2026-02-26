@@ -81,8 +81,6 @@ public class AnnulEyeItem extends Item implements EyeItem {
                 this.playThrowSound(world, player);
 
                 this.decrementIfPossible(player, stack);
-                this.decrementIfPossible(player, Items.ENDER_EYE);
-                this.decrementIfPossible(player, Items.ENDER_PEARL);
 
                 return ActionResult.SUCCESS;
             }

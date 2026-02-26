@@ -152,12 +152,17 @@ OTHER CHANGES:
 TWEAKS, OPTIMIZATIONS, & BUG FIXES:
 - Tons, I mean TONS, of tweaks, optimizations, and bug fixes.
 
+- Removed the dead speedrunner stick. Pointless and annoying.
+- This means you can convert dead speedrunner wood to speedrunner wood by taking dead speedrunner planks and reverting to speedrunner sticks, and then using those sticks to craft the normal speedrunner planks.
+
 - Fire charges are no longer required in order to craft Eyes of Annul, Dragon's Pearls, and Raid Eradicators.
 - Ender perals are no longer required in order to craft Raid Eradicators and Dragon's Pearls.
 - There is no longer a 3-second wait when using the eye of annul.
 - The eye of annul no longer requires an ender eye and ender pearl to use.
 - The Dragon's sword now does 9 attack damage.
 - Raid Eradicators now stack to 16.
+- Lowered the cooldown of the Raid Eradicator to 3 minutes (previously 5).
+- Lowered the cooldown of the Dragon's Pearl to 20 seconds (previously 30 sec).
 - Speedrunner Eyes now stack to 64.
 
 - Moved speedrunner mod advancement parents around.

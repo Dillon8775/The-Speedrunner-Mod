@@ -26,7 +26,7 @@
         ]
       },
       {
-        "discipline": "Feature Creators",
+        "discipline": "Textures and Assets",
         "titles": [
           {
             "title": "Speedrunner's Edition Logo",
@@ -47,9 +47,9 @@
             ]
           },
           {
-            "title": "Original Creator InfiniPearl™ and iCarus Mod",
+            "title": "Lava Paddle Sound",
             "names": [
-              "DuncanRuns"
+              "Anxietie"
             ]
           },
           {
@@ -93,17 +93,28 @@
             "names": [
               "Pulled from Minecraft / Dillon8775"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "discipline": "Code and Functionality Credits",
+        "titles": [
           {
-            "title": "Fullbright Feature",
+            "title": "Original Creator of InfiniPearl™ and iCarus Mod",
             "names": [
-              "Adam Viola"
+              "DuncanRuns"
             ]
           },
           {
-            "title": "Lava Boat Functionality and Lava Paddle Sound",
+            "title": "Fireproof Boats",
             "names": [
               "Anxietie"
+            ]
+          },
+          {
+            "title": "Fullbright",
+            "names": [
+              "Adam Viola"
             ]
           },
           {
@@ -125,7 +136,7 @@
             ]
           },
           {
-            "title": "Lots of other features...",
+            "title": "Lots of other stuff...",
             "names": [
               "ChatGPT"
             ]

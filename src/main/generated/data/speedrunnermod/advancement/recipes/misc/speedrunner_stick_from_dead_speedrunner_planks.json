@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "speedrunnermod:speedrunner_planks"
+            "items": "speedrunnermod:dead_speedrunner_planks"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_stick"
+        "recipe": "speedrunnermod:speedrunner_stick_from_dead_speedrunner_planks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "speedrunnermod:speedrunner_stick"
+      "speedrunnermod:speedrunner_stick_from_dead_speedrunner_planks"
     ]
   }
 }

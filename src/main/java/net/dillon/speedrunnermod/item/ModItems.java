@@ -166,7 +166,6 @@ public class ModItems {
     });
 
     public static final Item SPEEDRUNNER_STICK = Items.register(of("speedrunner_stick"), Item::new);
-    public static final Item DEAD_SPEEDRUNNER_STICK = Items.register(of("dead_speedrunner_stick"), Item::new);
 
     public static final Item SPEEDRUNNER_BOAT = Items.register(of("speedrunner_boat"), settings -> new BoatItem(
             ModEntityTypes.SPEEDRUNNER_BOAT, settings), new Item.Settings().maxCount(1));

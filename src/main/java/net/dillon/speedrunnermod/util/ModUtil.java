@@ -185,12 +185,7 @@ public class ModUtil {
      * @return true if a dragon is alive, near the ender dragon.
      */
     public static boolean isGiantAlive(EnderDragonEntity dragon) {
-        List<GiantEntity> giants = dragon.getEntityWorld().getEntitiesByClass(GiantEntity.class,
-                dragon.getBoundingBox().expand(
-                        options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().getFirst(),
-                        options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(1),
-                        options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue().get(2)),
-                entity -> true);
+        List<GiantEntity> giants = getEntitiesWithinRange(dragon.getEntityWorld(), GiantEntity.class, dragon, options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
 
         for (GiantEntity giant : giants) {
             if (giant.isAlive()) {
@@ -205,12 +200,7 @@ public class ModUtil {
      * @return true if a wither is alive, near the ender dragon.
      */
     public static boolean isWitherAlive(EnderDragonEntity dragon) {
-        List<WitherEntity> withers = dragon.getEntityWorld().getEntitiesByClass(WitherEntity.class,
-                dragon.getBoundingBox().expand(
-                        options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().getFirst(),
-                        options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(1),
-                        options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue().get(2)),
-                entity -> true);
+        List<WitherEntity> withers = getEntitiesWithinRange(dragon.getEntityWorld(), WitherEntity.class, dragon, options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue());
 
         for (WitherEntity wither : withers) {
             if (wither.isAlive()) {
@@ -357,6 +347,21 @@ public class ModUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * @return a raw {@link List} of entities (excluding {@code named entities}) within a specified range.
+     * @param world world reference
+     * @param entityListOf the list of entities to return, by class
+     * @param startingPoint the entity that the game should start searching from
+     * @param xyz an array of the maximum {@code x, y, and z} search radius
+     */
+    public static List getEntitiesWithinRange(World world, Class<? extends LivingEntity> entityListOf, LivingEntity startingPoint, List<Integer> xyz) {
+        return world.getEntitiesByClass(entityListOf, startingPoint.getBoundingBox().expand(
+                        xyz.getFirst(),
+                        xyz.get(1),
+                        xyz.get(2)),
+                e -> !e.hasCustomName());
     }
 
     /**

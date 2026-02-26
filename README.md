@@ -136,8 +136,8 @@ Better than the vanilla items, with more durability.
 ### The Speedrunner Shield
 Comes with more durability than a normal shield, and has a faster cooldown when being disabled by an axe.
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20shield.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/speedrunner%20shield.png?raw=true" width="35" height="64" alt="Speedrunner shield.">
+<a href="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Recipes/speedrunner%20shield%20recipe%20UGH.png" target="_blank">
+  <img src="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Recipes/speedrunner%20shield%20recipe%20UGH.png" width="228" height="104" alt="Speedrunner shield.">
 </a>
 
 ---
@@ -162,7 +162,7 @@ Keeps you 100% safe from piglin, meaning you can break gold blocks and open cont
 
 ---
 
-### Golden Speedrunner Smithing Template Upgrade
+### Golden Upgrade Smithing Template
 A smithing template upgrade item, which can be used to craft the golden speedrunner tools, armor, and weapons.
 
 You can also right-click it to view all features in the mod!
@@ -763,7 +763,7 @@ Nether portals can be built with both **crying obsidian** *and* **obsidian!**
 
 ---
 
-### Blaze Changes
+### Mob Drops
 Blazes have a *100%* chance to drop a blaze rod, and they also have a chance to drop gold blocks and fire charges!
 
 They cannot inflict melee attacks.
@@ -854,7 +854,6 @@ These features can be disabled by turning off the "Higher Enchant Levels" option
 ---
 
 ## Craftable Totems and Enchanted Golden Apples
-You can craft enchanted golden apples and normal totems!
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/enchanted%20golden%20apple.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/enchanted%20golden%20apple.png?raw=true" width="228" height="104" alt="Craftable enchanted golden apples.">
@@ -1152,7 +1151,7 @@ Obtain a dragon's fireball.
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/one%20hit%20one%20kill.png?raw=true" width="240" height="48" alt="One hit one kill advancement.">
 </a>
 
-Use a dragon's sword.
+Obtain a dragon's sword.
 
 ---
 
@@ -1307,11 +1306,11 @@ Determines if the player must be shifting in order to throw a fireball.
 
 ---
 
-## Technical Features
-#### Several different block tags (I am not listening them all, there are too many).
-#### Locating Structure *("speedrunnermod:locating_structure")* data component type, which stores a structure to locate.
-#### Stored ItemStack *("speedrunnermod:stored_itemstack")* data component type, which stores an itemstack within an item.
-#### Using the /give command will correctly suggest every item for each mod loaded.
+# Technical Features
+- #### Several different block tags (I am not listening them all, there are too many).
+- #### Locating Structure *("speedrunnermod:locating_structure")* data component type, which stores a structure to locate.
+- #### Stored ItemStack *("speedrunnermod:stored_itemstack")* data component type, which stores an itemstack within an item.
+- #### Using the /give command will correctly suggest every item for each mod loaded.
 
 ## /syncoptions Command
 #### If you don't want to go through the struggle of configuring your speedrunner mod options in the .json file on a server, you can simply configure everything that you want in-game, and then run the /syncoptions command on the server, and all of your settings will be sent over to the server.
@@ -1327,19 +1326,28 @@ Determines if the player must be shifting in order to throw a fireball.
 #### The output durability is calculated by taking the item's *current durability* and dividing it by (1, PLUS -> each enchantment's level represents an additional .1 point. So fortune 3 would be 1.3, Efficiency 5 would be 1.5, etc.).
 #### If you add a golden smithing template to remove all durability damage, the total cost is multiplied.
 
-## Configuration Files
+## Configuration File(s)
 The configuration files store all the values for each Speedrunner Mod option.
 
 Configuration files are stored as *.json* files. They are stored in your *.minecraft/config* directory.
 
-Each configuration option has a different stored values, including:
-- The current value (currentValue) - **this is the ONLY value that you can change**
-- The default value (defaultValue)
-- A statement declaring if the option requires a restart (requiresRestart)
-- A statement declaring if the option is "broken"
-- For number options, a "minValue" and "maxValue".
+Each configuration option has stored values, including:
+    
+    - "currentValue" -> The current value of the option. This is the ONLY value that you can and should change.
+    
+    
+    Changing any of these other values listed below will do nothing.
+    They are just references for the user and the game's code.
 
-Do not change _**ANY**_ of these values, except for the currentValue. The currentValue is the only value that you should change. Changing anything else will do nothing and will eventually revert back.
+    - "defaultValue" -> The option's default value.
+    - "requiresRestart" -> Declares if the option requires a game restart upon changing.
+    - "broken" -> If an option is "null" or has improper value, this value will be "true".
+    
+    For numeric options only:
+    - "minValue" -> The minimum value that is allowed for that option.
+    - "maxValue" -> The maximum value that is allowed for that option.
+
+Do not change _**ANY**_ of these values except for the **currentValue.** The **currentValue** is the only value that you should change. Changing anything else will do nothing and will eventually revert back.
 
 The only reason you should modify the Speedrunner Mod configuration file directly is if you are playing on a server, and you need to change the server's config and you don't want to use the /syncoptions command. Otherwise, you should just change the options via the configuration screen(s).
 
@@ -1352,12 +1360,60 @@ Mixin options are options that change the vanilla game's code, and should only b
 - ## **Requires** [Fabric API](https://modrinth.com/mod/fabric-api).
 - ### **Incompatible** with OptiFine/OptiFabric.
 - **Recommended mods** (not required): [Sodium,](https://modrinth.com/mod/sodium) [Lithium,](https://modrinth.com/mod/lithium) and [SpeedrunIGT](https://modrinth.com/mod/speedrunigt) (an in-game timer mod)
-- #### This mod comes with [Mod Menu](https://modrinth.com/mod/modmenu) Integration.
+- #### This mod *does* have [Mod Menu](https://modrinth.com/mod/modmenu) Integration.
+
+---
 
 ## Leaderboards
 Leaderboards are currently disabled, due to lack of activity.
 
-## License
-All rights reserved.
+---
+
+# Credits and License
+### [All rights reserved](https://en.wikipedia.org/wiki/All_rights_reserved) unless explicitly stated below.
+
+## Textures and Assets
+
+### [MannyQUESO](https://www.youtube.com/@MannyQUESO)
+- Speedrunner's Edition Logo
+- Speedrunner's Workbench Texture
+- Piglin Awakener Texture
+- Blaze Spotter Texture
+- Raid Eradicator Texture (+me, [Dillon8775](https://www.youtube.com/@dillon8775))
+- Thrusted Block Texture
+
+### Vaplayk
+- Panorama Screen
+
+### [krevikus](https://www.curseforge.com/members/krevikus/projects)
+- Experience Ore Textures
+
+### [Anxietie](https://github.com/Anxietie)
+- Lava Paddling Sound
+
+## Code and Functionality
+
+### [DuncanRuns](https://github.com/DuncanRuns)
+- Original creator of the InfiniPearl™ and iCarus Mod.
+
+### [Anxietie](https://github.com/Anxietie)
+- Fireproof Boats
+
+### [Adam Viola](https://github.com/adamviola)
+- Fullbright
+
+### [MaxenceDC](https://github.com/MaxenceDC)
+- Custom Data Generation
+
+### [Yeleefff](https://github.com/Yeleefff)
+- Speedrunner's Totem Functionality
+
+### [TerraformersMC](https://github.com/TerraformersMC)
+- Custom Signs API
+
+### [ChatGPT](https://chatgpt.com/)
+- Lots of other stuff...
+
+---
 
 ## [Issue Tracker](https://github.com/Dillon8775/Speedrunner-Mod/issues)

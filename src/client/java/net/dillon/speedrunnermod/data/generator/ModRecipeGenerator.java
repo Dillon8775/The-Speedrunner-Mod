@@ -125,11 +125,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                         "speedrunner_nugget"
                 );
 
-                helper.createModdedFenceRecipe(ModBlocks.DEAD_SPEEDRUNNER_FENCE, ModBlocks.DEAD_SPEEDRUNNER_PLANKS, true);
-                helper.createModdedFenceRecipe(ModBlocks.SPEEDRUNNER_FENCE, ModBlocks.SPEEDRUNNER_PLANKS, false);
+                helper.createModdedFenceRecipe(ModBlocks.DEAD_SPEEDRUNNER_FENCE, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+                helper.createModdedFenceRecipe(ModBlocks.SPEEDRUNNER_FENCE, ModBlocks.SPEEDRUNNER_PLANKS);
 
-                helper.createModdedFenceGateRecipe(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE, ModBlocks.DEAD_SPEEDRUNNER_PLANKS, true);
-                helper.createModdedFenceGateRecipe(ModBlocks.SPEEDRUNNER_FENCE_GATE, ModBlocks.SPEEDRUNNER_PLANKS, false);
+                helper.createModdedFenceGateRecipe(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+                helper.createModdedFenceGateRecipe(ModBlocks.SPEEDRUNNER_FENCE_GATE, ModBlocks.SPEEDRUNNER_PLANKS);
 
                 helper.createSign(ModBlocks.DEAD_SPEEDRUNNER_SIGN, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
                 helper.createSign(ModBlocks.SPEEDRUNNER_SIGN, ModBlocks.SPEEDRUNNER_PLANKS);
@@ -402,11 +402,10 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_fireball");
                 ComplexRecipeJsonBuilder.create(InventoryPreserverRecipe::new).offerTo(this.exporter, "inventory_preserver");
 
-                helper.createStickRecipe(true);
-                helper.createStickRecipe(false);
+                helper.createStickRecipe(true, "speedrunner_stick_from_dead_speedrunner_planks");
+                helper.createStickRecipe(false, "speedrunner_stick_from_speedrunner_planks");
 
-                helper.createReversePlankRecipe(true);
-                helper.createReversePlankRecipe(false);
+                helper.createReversePlankRecipe();
 
                 this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModItems.FLESH_BLOCK)
                         .input('#', ModItemTags.FLESH)

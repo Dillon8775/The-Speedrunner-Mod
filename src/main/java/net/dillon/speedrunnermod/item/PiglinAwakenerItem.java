@@ -6,6 +6,7 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PiglinEntity;
@@ -60,11 +61,7 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
         } else if (world.getRegistryKey() != World.NETHER) {
             ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), Formatting.RED, Formatting.WHITE);
         } else {
-            List<PiglinEntity> piglins = world.getEntitiesByClass(PiglinEntity.class, player.getBoundingBox().expand(
-                            options().advanced.piglinAwakenerSearchRadius.getCurrentValue().getFirst(),
-                            options().advanced.piglinAwakenerSearchRadius.getCurrentValue().get(1),
-                            options().advanced.piglinAwakenerSearchRadius.getCurrentValue().get(2)),
-                    entity -> true);
+            List<PiglinEntity> piglins = ModUtil.getEntitiesWithinRange(world, PiglinEntity.class, player, options().advanced.piglinAwakenerSearchRadius.getCurrentValue());
 
             if (piglins.isEmpty()) {
                 ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins"), Formatting.RED, Formatting.WHITE);
@@ -97,7 +94,7 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
 
                     int piglinTeleported = 0;
                     for (PiglinEntity piglin : piglins) {
-                        if (!piglin.isBaby() && !piglin.hasCustomName()) {
+                        if (!piglin.isBaby()) {
                             if (world.random.nextFloat() < 0.50F) {
                                 piglin.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(1), 0, false, true, false));
                             }

@@ -60,38 +60,28 @@ public class RaidEradicatorItem extends Item implements EyeItem {
             player.dropItem((ServerWorld)world, Items.ENCHANTED_GOLDEN_APPLE);
             player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
         } else {
-            List<RaiderEntity> raiders = world.getEntitiesByClass(RaiderEntity.class, player.getBoundingBox().expand(
-                    options().advanced.raidEradicatorSearchRadius.getCurrentValue().getFirst(),
-                    options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(1),
-                    options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(2)),
-                    entity -> true);
+            List<RaiderEntity> raiders = ModUtil.getEntitiesWithinRange(world, RaiderEntity.class, player, options().advanced.raidEradicatorSearchRadius.getCurrentValue());
 
             if (raiders.isEmpty()) {
                 ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"));
             } else {
                 this.playWorldSound(SoundEvents.ENTITY_RAVAGER_ROAR, 3.0F, 1.0F, world, player);
-                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(5));
+                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(3));
                 this.decrementIfPossible(player, stack);
                 ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
 
-                List<VillagerEntity> villagers = world.getEntitiesByClass(VillagerEntity.class, player.getBoundingBox().expand(
-                                options().advanced.raidEradicatorSearchRadius.getCurrentValue().getFirst(),
-                                options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(1),
-                                options().advanced.raidEradicatorSearchRadius.getCurrentValue().get(2)),
-                        entity -> true);
+                List<VillagerEntity> villagers = ModUtil.getEntitiesWithinRange(world, VillagerEntity.class, player, options().advanced.raidEradicatorSearchRadius.getCurrentValue());
 
                 TaskScheduler.schedule(ModUtil.secondsAsTicks(3), () -> {
                     for (RaiderEntity raider : raiders) {
-                        if (!raider.hasCustomName()) {
-                            if (!(raider instanceof EvokerEntity)) {
-                                raider.kill((ServerWorld)world);
-                            } else {
-                                Random random = new Random();
-                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(30), 2, false, true, false));
-                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsAsTicks(30), 1, false, true, false));
-                                raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesAsTicks(2), 0, false, true, false));
-                                raider.teleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false);
-                            }
+                        if (!(raider instanceof EvokerEntity)) {
+                            raider.kill((ServerWorld)world);
+                        } else {
+                            Random random = new Random();
+                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(30), 2, false, true, false));
+                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsAsTicks(30), 1, false, true, false));
+                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesAsTicks(2), 0, false, true, false));
+                            raider.teleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false);
                         }
                     }
                     if (!villagers.isEmpty()) {

@@ -261,7 +261,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      */
     @Override
     public void checkDespawn() {
-        if (this.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL && this.getType().isAllowedInPeaceful()) {
+        if (this.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL && !this.getType().isAllowedInPeaceful()) {
             this.discard();
         } else {
             this.despawnCounter = 0;
@@ -479,7 +479,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
             if (tnt != null) {
                 tnt.setFuse(data[3]);
                 if (data[3] == 100) {
-                    tnt.setInvulnerable(true); // Only first 8 TNTs were invulnerable in your original (optional)
+                    tnt.setInvulnerable(true);
                 }
                 tnt.refreshPositionAndAngles(
                         this.getX() + data[0],

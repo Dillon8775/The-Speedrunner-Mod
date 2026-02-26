@@ -143,7 +143,6 @@ public class ModItemGroups {
                         entries.add(ModItems.SPEEDRUNNER_PLANKS);
                         entries.add(ModItems.SPEEDRUNNER_STICK);
                         entries.add(ModItems.DEAD_SPEEDRUNNER_PLANKS);
-                        entries.add(ModItems.DEAD_SPEEDRUNNER_STICK);
                         entries.add(ModItems.SPEEDRUNNER_SLAB);
                         entries.add(ModItems.DEAD_SPEEDRUNNER_SLAB);
                         entries.add(ModItems.SPEEDRUNNER_STAIRS);
