@@ -128,6 +128,7 @@ public class ModModelGenerator extends FabricModelProvider {
         itemModelGenerator.register(ModItems.COOKED_FLESH, Models.GENERATED);
         itemModelGenerator.register(ModItems.PIGLIN_PORK, Models.GENERATED);
         itemModelGenerator.register(ModItems.COOKED_PIGLIN_PORK, Models.GENERATED);
+        itemModelGenerator.register(ModItems.GOLIATH_SPAWN_EGG, Models.GENERATED);
         itemModelGenerator.register(ModItems.IGNEOUS_ROCK, Models.GENERATED);
 
         itemModelGenerator.register(ModItems.SPEEDRUNNER_BOAT, Models.GENERATED);

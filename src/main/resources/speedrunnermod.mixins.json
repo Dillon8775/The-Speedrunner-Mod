@@ -71,7 +71,7 @@
     "main.entity.block.AbstractFurnaceBlockEntityMixin",
     "main.entity.block.BrewingStandBlockEntityMixin",
     "main.entity.boat.AbstractBoatEntityMixin",
-    "main.entity.giant.GiantEntityMixin",
+    "main.entity.goliath.GoliathEntity",
     "main.entity.living.LivingEntityMixin",
     "main.entity.player.InventoryAccessor",
     "main.entity.player.PlayerEntityMixin",

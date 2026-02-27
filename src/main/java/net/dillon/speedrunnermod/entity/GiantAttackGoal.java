@@ -1,10 +1,11 @@
 package net.dillon.speedrunnermod.entity;
 
+import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.mob.GiantEntity;
 
 /**
- * See {@link net.dillon.speedrunnermod.mixin.main.entity.giant.GiantEntityMixin} for more.
+ * See {@link GoliathEntity} for more.
  */
 public class GiantAttackGoal extends MeleeAttackGoal {
     private final GiantEntity giant;

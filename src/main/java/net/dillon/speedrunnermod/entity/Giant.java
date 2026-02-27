@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.entity;
 
+import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 
 /**
- * See {@link net.dillon.speedrunnermod.mixin.main.entity.giant.GiantEntityMixin} for more.
+ * See {@link GoliathEntity} for more.
  */
 public interface Giant {
 

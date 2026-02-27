@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.mixin.main.entity.giant;
+package net.dillon.speedrunnermod.mixin.main.entity.goliath;
 
 import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
@@ -56,7 +56,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * <p>- And more...</p>
  */
 @Mixin(GiantEntity.class)
-public class GiantEntityMixin extends HostileEntity implements Giant {
+public class GoliathEntity extends HostileEntity implements Giant {
     @Unique
     protected SwimNavigation waterNavigation;
     @Unique
@@ -66,7 +66,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
     @Unique
     private ServerBossBar bossBar;
 
-    public GiantEntityMixin(EntityType<? extends HostileEntity> entityType, World world) {
+    public GoliathEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -146,7 +146,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
                 if (!this.isSilent()) {
                     this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 10.0F, 1.0F);
                     this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 10.0F, 1.0F);
-                    this.playSound(ModSoundEvents.GOLIATH_LAUGH, 15.0F, 0.65F);
+                    this.playSound(ModSoundEvents.GOLIATH_LAUGH, 40.0F, 0.65F);
                 }
             }
         }
@@ -453,7 +453,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
             tnt.refreshPositionAndAngles(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
             this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
             this.getEntityWorld().spawnEntity(tnt);
-            this.playSound(ModSoundEvents.GOLIATH_ATTACK, 15.0F, 0.85F);
+            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), ModSoundEvents.GOLIATH_ATTACK, SoundCategory.HOSTILE, 35.0F, 0.85F);
         }
     }
 

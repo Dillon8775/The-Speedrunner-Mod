@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "speedrunnermod:item/goliath_spawn_egg"
+  }
+}

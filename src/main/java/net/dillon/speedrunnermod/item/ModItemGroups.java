@@ -119,6 +119,8 @@ public class ModItemGroups {
                         entries.add(ModItems.ROTTEN_SPEEDRUNNER_BULK);
                         entries.add(ModItems.COOKED_FLESH);
                         entries.add(ModItems.FLESH_BLOCK);
+                        entries.add(Items.ZOMBIE_HEAD);
+                        entries.add(ModItems.GOLIATH_SPAWN_EGG);
                         entries.add(ModItems.EXPERIENCE_FRAGMENT);
                         entries.add(ModItems.EXPERIENCE_ORE);
                         entries.add(ModItems.DEEPSLATE_EXPERIENCE_ORE);
@@ -334,6 +336,8 @@ public class ModItemGroups {
         addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.DOOM_LOG);
         addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.STRIPPED_DOOM_LOG);
         addToItemGroup(ItemGroups.FUNCTIONAL, ModItems.DOOM_LEAVES);
+
+        addToItemGroup(ItemGroups.SPAWN_EGGS, ModItems.GOLIATH_SPAWN_EGG);
 
         SpeedrunnerMod.debug("Registered modified item groups.");
     }

@@ -6,6 +6,7 @@ import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.component.type.TooltipDisplayComponent;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.item.tooltip.TooltipType;
@@ -155,6 +156,10 @@ public class ModItems {
 
     public static final Item COOKED_PIGLIN_PORK = Items.register(of("cooked_piglin_pork"), Item::new,
             new Item.Settings().food(ModFoodComponents.COOKED_PIGLIN_PORK));
+
+    public static final Item GOLIATH_SPAWN_EGG = Items.register(of("goliath_spawn_egg"), SpawnEggItem::new,
+            new Item.Settings().spawnEgg(EntityType.GIANT)
+    );
 
     public static final Item IGNEOUS_ROCK = Items.register(of("igneous_rock"), settings -> new Item(
             settings) {
