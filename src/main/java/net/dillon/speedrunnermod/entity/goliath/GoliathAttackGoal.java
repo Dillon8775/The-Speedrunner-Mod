@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.entity;
+package net.dillon.speedrunnermod.entity.goliath;
 
 import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
@@ -7,11 +7,11 @@ import net.minecraft.entity.mob.GiantEntity;
 /**
  * See {@link GoliathEntity} for more.
  */
-public class GiantAttackGoal extends MeleeAttackGoal {
+public class GoliathAttackGoal extends MeleeAttackGoal {
     private final GiantEntity giant;
     private int ticks;
 
-    public GiantAttackGoal(GiantEntity giant, double speed, boolean pauseWhenMobIdle) {
+    public GoliathAttackGoal(GiantEntity giant, double speed, boolean pauseWhenMobIdle) {
         super(giant, speed, pauseWhenMobIdle);
         this.giant = giant;
     }

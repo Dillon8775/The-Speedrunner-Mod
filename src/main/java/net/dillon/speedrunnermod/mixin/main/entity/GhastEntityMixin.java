@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -23,5 +24,13 @@ public class GhastEntityMixin {
         MobEntity dis = (MobEntity)(Object)this;
         ModUtil.modifyMaxHealth(dis, isDoomMode() ? 20.0D : 5.0D);
         ModUtil.modifyFollowRange(dis, isDoomMode() ? 100.0D : 50.0D);
+    }
+
+    /**
+     * Modifies the strength of a ghast's fireball.
+     */
+    @Inject(method = "getFireballStrength", at = @At("RETURN"), cancellable = true)
+    private void modifyExplosionPower(CallbackInfoReturnable<Integer> cir) {
+        cir.setReturnValue(isDoomMode() ? 5 : cir.getReturnValue());
     }
 }

@@ -177,8 +177,8 @@
 
   "item.speedrunnermod.piglin_awakener.couldnt_find_piglins": "Couldn't find any nearby piglin!",
   "item.speedrunnermod.piglin_awakener.wrong_dimension": "You must be in the nether to use this item!",
-  "item.speedrunnermod.piglin_awakener.unsafe": "The piglins require you to put on some gold armor.",
-  "item.speedrunnermod.piglin_awakener.no_gold_ingot": "The piglins require that you have gold in your inventory.",
+  "item.speedrunnermod.piglin_awakener.unsafe": "The piglins request you to put on gold armor.",
+  "item.speedrunnermod.piglin_awakener.no_gold_ingot": "The piglins request that you have gold in your inventory.",
   "item.speedrunnermod.piglin_awakener.shift.tooltip": "Shift to TP piglins directly to you.",
   "item.speedrunnermod.piglin_awakener.doom_mode": "Cannot teleport more than 3 piglin.",
   "item.speedrunnermod.piglin_awakener_craftable.line1": "Can be used to craft the",
@@ -773,12 +773,9 @@
   "speedrunnermod.menu.open_client_options_file.tooltip": "Open client-side configuration file...",
 
   "speedrunnermod.menu.features": "Features...",
-  "speedrunnermod.menu.features.tooltip": "View a list of multiple pages, containing a bunch of features that this mod includes!",
+  "speedrunnermod.menu.features.tooltip": "View all speedrunner mod features!",
   "speedrunnermod.menu.features.learn_more": "Learn More...",
   "speedrunnermod.title.features": "Features",
-
-  "speedrunnermod.menu.features.all_features": "ALL Features...",
-  "speedrunnermod.title.features.all_features": "All Features",
 
   "speedrunnermod.menu.features.blocks_and_items": "Blocks and Items...",
   "speedrunnermod.title.features.blocks_and_items": "Blocks and Items",
@@ -902,8 +899,8 @@
   "speedrunnermod.menu.resources": "Resources...",
   "speedrunnermod.menu.resources.tooltip": "Mods, tutorials, and more!",
   "speedrunnermod.title.resources": "Resources",
-  "speedrunnermod.menu.resources.mods": "Mods...",
-  "speedrunnermod.title.resources.mods": "Mods",
+  "speedrunnermod.menu.resources.mods": "Other Mods...",
+  "speedrunnermod.title.resources.mods": "Other Mods",
   "speedrunnermod.title.resources.mods.sodium": "Sodium...",
   "speedrunnermod.title.resources.mods.sodium.tooltip": "A mod that improves the frame rate and fixes graphical issues.",
   "speedrunnermod.title.resources.mods.lithium": "Lithium...",
@@ -953,8 +950,14 @@
   "speedrunnermod.menu.resources.tutorials.buried_treasure": "Buried Treasures...",
   "speedrunnermod.menu.resources.tutorials.buried_treasure.tooltip": "Learn how to locate a buried treasure without a map!",
 
+  "speedrunnermod.menu.resources.tutorials.comprehensive_guide": "Comprehensive Guide...",
+  "speedrunnermod.menu.resources.tutorials.comprehensive_guide.tooltip": "An extremely detailed guide for every aspect of speedrunning.",
+
   "speedrunnermod.menu.resources.tutorials.other_useful_tricks": "Other Useful Tricks...",
   "speedrunnermod.menu.resources.tutorials.other_useful_tricks.tooltip": "Check out this video by \"Penny\" to learn some more.",
+
+  "speedrunnermod.menu.resources.tutorials.thirty_min_run": "Quick Speedruns...",
+  "speedrunnermod.menu.resources.tutorials.thirty_min_run.tooltip": "Check out this video by \"FrizzClips\" on how you can easily beat the game in under 30 minutes.",
 
   "speedrunnermod.menu.external": "External...",
   "speedrunnermod.external": "External",
@@ -964,14 +967,13 @@
   "speedrunnermod.menu.external.youtube": "YouTube...",
   "speedrunnermod.menu.external.discord": "Discord...",
   "speedrunnermod.discord.tooltip": "Become a part of the Speedrunner Mod community, and get notified of new updates, sneak peaks, and more!",
-  "speedrunnermod.menu.external.mod_showcase_video": "Release Trailer...",
+  "speedrunnermod.menu.external.mod_showcase_video": "Showcase Video...",
+  "speedrunnermod.menu.external.mod_release_trailer": "Release Trailer...",
   "speedrunnermod.menu.external.leaderboards": "Leaderboards...",
   "speedrunnermod.menu.leaderboards.disabled": "Leaderboards are disabled, due to inactivity.",
 
   "speedrunnermod.questions_and_issues": "Questions and Issues...",
-  "speedrunnermod.questions_and_issues.tooltip": "Fill out this form to answer any questions or address any issues you may be having with the mod.",
   "speedrunnermod.suggestions_and_feedback": "Suggestions and Feedback...",
-  "speedrunnermod.suggestions_and_feedback.tooltip": "Fill out this form and give some feedback on the mod and throw out some suggestions!",
 
   "speedrunnermod.menu.credits": "Credits...",
   "speedrunnermod.menu.credits.tooltip": "I urge you.\n\nHold shift and click to hear a story...",
@@ -1032,6 +1034,10 @@
   "speedrunnermod.entity_boat_paddle_lava": "Rowing",
   "speedrunnermod.entity_goliath_laugh": "Goliath laughs",
   "speedrunnermod.entity_goliath_attack": "Goliath attacks",
+  "speedrunnermod.entity_goliath_ambient": "Goliath growls",
+  "speedrunnermod.entity_goliath_hurt": "Goliath hurts",
+  "speedrunnermod.entity_goliath_death": "Goliath dies",
+  "speedrunnermod.entity_goliath_found_you": "Found you...",
 
   "deathScreen.title": "Dead run!",
   "deathScreen.titleScreen": "Quit",

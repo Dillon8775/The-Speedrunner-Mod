@@ -21,5 +21,34 @@
       "speedrunnermod:goliath_attack_3",
       "speedrunnermod:goliath_attack_4"
     ]
+  },
+  "entity.goliath.ambient": {
+    "subtitle": "speedrunnermod.entity_goliath_ambient",
+    "sounds": [
+      "speedrunnermod:goliath_ambient_1",
+      "speedrunnermod:goliath_ambient_2",
+      "speedrunnermod:goliath_ambient_3"
+    ]
+  },
+  "entity.goliath.hurt": {
+    "subtitle": "speedrunnermod.entity_goliath_hurt",
+    "sounds": [
+      "speedrunnermod:goliath_hurt_1",
+      "speedrunnermod:goliath_hurt_2",
+      "speedrunnermod:goliath_hurt_3"
+    ]
+  },
+  "entity.goliath.death": {
+    "subtitle": "speedrunnermod.entity_goliath_death",
+    "sounds": [
+      "speedrunnermod:goliath_death"
+    ]
+  },
+  "entity.goliath.found_you": {
+    "subtitle": "speedrunnermod.entity_goliath_found_you",
+    "sounds": [
+      "speedrunnermod:goliath_found_you_1",
+      "speedrunnermod:goliath_found_you_2"
+    ]
   }
 }

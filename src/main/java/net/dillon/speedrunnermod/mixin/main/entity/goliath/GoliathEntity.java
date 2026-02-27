@@ -1,7 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.entity.goliath;
 
-import net.dillon.speedrunnermod.entity.Giant;
-import net.dillon.speedrunnermod.entity.GiantAttackGoal;
+import net.dillon.speedrunnermod.entity.goliath.Goliath;
+import net.dillon.speedrunnermod.entity.goliath.GoliathAttackGoal;
+import net.dillon.speedrunnermod.entity.goliath.GoliathTargetGoal;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -56,7 +57,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * <p>- And more...</p>
  */
 @Mixin(GiantEntity.class)
-public class GoliathEntity extends HostileEntity implements Giant {
+public class GoliathEntity extends HostileEntity implements Goliath {
     @Unique
     protected SwimNavigation waterNavigation;
     @Unique
@@ -91,6 +92,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
         this.waterNavigation = new SwimNavigation(this, this.getEntityWorld());
         this.landNavigation = new MobNavigation(this, this.getEntityWorld());
+        ModUtil.modifyFollowRange(this, 35.0D);
         ModUtil.modifyMaxHealth(this, 400.0D);
         ModUtil.modifyMovementSpeed(this, 0.35D);
         ModUtil.modifyAttackDamage(this, 10.0D);
@@ -104,11 +106,11 @@ public class GoliathEntity extends HostileEntity implements Giant {
     @Override
     protected void initGoals() {
         this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new GiantAttackGoal((GiantEntity) (Object) this, 1.0D, false));
+        this.goalSelector.add(2, new GoliathAttackGoal((GiantEntity) (Object) this, 1.0D, false));
         this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
         this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 32.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
-        this.targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.add(1, new GoliathTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.add(2, new RevengeGoal(this));
         this.targetSelector.add(3, new ActiveTargetGoal<>(this, MobEntity.class, true));
     }
@@ -146,7 +148,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
                 if (!this.isSilent()) {
                     this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 10.0F, 1.0F);
                     this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 10.0F, 1.0F);
-                    this.playSound(ModSoundEvents.GOLIATH_LAUGH, 40.0F, 0.65F);
+                    this.playSound(ModSoundEvents.ENTITY_GOLIATH_LAUGH, 40.0F, 0.65F);
                 }
             }
         }
@@ -217,7 +219,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
     @Override
     public boolean tryAttack(ServerWorld world, Entity target) {
         this.getEntityWorld().sendEntityStatus(this, (byte)4);
-        return Giant.tryAttack(world, this, (LivingEntity)target);
+        return Goliath.tryAttack(world, this, (LivingEntity)target);
     }
 
     /**
@@ -225,7 +227,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
      */
     @Override
     protected void knockback(LivingEntity target) {
-        Giant.knockback(this, target);
+        Goliath.knockback(this, target);
     }
 
     /**
@@ -359,7 +361,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
      */
     @Override
     public SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_ZOMBIE_AMBIENT;
+        return ModSoundEvents.ENTITY_GOLIATH_AMBIENT;
     }
 
     /**
@@ -367,7 +369,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
      */
     @Override
     public SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_ZOMBIE_HURT;
+        return ModSoundEvents.ENTITY_GOLIATH_HURT;
     }
 
     /**
@@ -375,7 +377,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
      */
     @Override
     public SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_ZOMBIE_DEATH;
+        return ModSoundEvents.ENTITY_GOLIATH_DEATH;
     }
 
     /**
@@ -453,7 +455,7 @@ public class GoliathEntity extends HostileEntity implements Giant {
             tnt.refreshPositionAndAngles(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
             this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
             this.getEntityWorld().spawnEntity(tnt);
-            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), ModSoundEvents.GOLIATH_ATTACK, SoundCategory.HOSTILE, 35.0F, 0.85F);
+            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), ModSoundEvents.ENTITY_GOLIATH_ATTACK, SoundCategory.HOSTILE, 35.0F, 0.85F);
         }
     }
 

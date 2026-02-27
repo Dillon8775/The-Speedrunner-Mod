@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.client.screen.base.misc;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
@@ -11,7 +10,7 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import java.util.List;
 
 public class ResourcesScreen extends AbstractModScreen {
-    private ButtonWidget modsButton, questionsAndIssuesButton, suggestionsAndFeedbackButton, tutorialsButton, modShowcaseVideoButton;
+    private ButtonWidget modsButton, questionsAndIssuesButton, tutorialsButton, showcaseVideoButton, releaseTrailerButton;
 
     public ResourcesScreen(Screen parent) {
         super(parent, ModTexts.TITLE_RESOURCES);
@@ -20,11 +19,11 @@ public class ResourcesScreen extends AbstractModScreen {
     @Override
     protected List<ClickableWidget> buttons() {
         return List.of(
-             this.modsButton,
-             this.questionsAndIssuesButton,
-             this.suggestionsAndFeedbackButton,
-             this.tutorialsButton,
-             this.modShowcaseVideoButton
+                this.modsButton,
+                this.questionsAndIssuesButton,
+                this.tutorialsButton,
+                this.showcaseVideoButton,
+                this.releaseTrailerButton
         );
     }
 
@@ -38,29 +37,19 @@ public class ResourcesScreen extends AbstractModScreen {
             this.openLink(ModLinks.QUESTIONS_AND_ISSUES, true);
         }).build();
 
-        this.suggestionsAndFeedbackButton = ButtonWidget.builder(ModTexts.SUGGESTIONS_AND_FEEDBACK, (button) -> {
-            this.openLink(ModLinks.SUGGESTIONS_AND_FEEDBACK, true);
-        }).build();
-
         this.tutorialsButton = ButtonWidget.builder(ModTexts.MENU_TUTORIALS, (button) -> {
             this.client.setScreen(new TutorialsScreen(this.parent));
         }).build();
 
-        this.modShowcaseVideoButton = ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
+        this.showcaseVideoButton = ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
+            this.openLink(ModLinks.SHOWCASE_VIDEO, true);
+        }).build();
+
+        this.releaseTrailerButton = ButtonWidget.builder(ModTexts.MOD_RELEASE_TRAILER, (buttonWidget) -> {
             this.openLink(ModLinks.RELEASE_TRAILER, true);
         }).build();
 
         super.init();
-    }
-
-    @Override
-    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
-        if (this.questionsAndIssuesButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.QUESTIONS_AND_ISSUES_TOOLTIP, context, mouseX, mouseY);
-        }
-        if (this.suggestionsAndFeedbackButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.SUGGESTIONS_AND_FEEDBACK_TOOLTIP, context, mouseX, mouseY);
-        }
     }
 
     @Override

@@ -19,6 +19,8 @@ public class TutorialsScreen extends AbstractModScreen {
             pieChartButton,
             f3MenuButton,
             buriedTreasuresButton,
+            comprehensiveGuideButton,
+            thirtyMinRun,
             otherUsefulTricksButton;
 
     public TutorialsScreen(Screen parent) {
@@ -36,6 +38,8 @@ public class TutorialsScreen extends AbstractModScreen {
                 this.pieChartButton,
                 this.f3MenuButton,
                 this.buriedTreasuresButton,
+                this.comprehensiveGuideButton,
+                this.thirtyMinRun,
                 this.otherUsefulTricksButton
         );
     }
@@ -74,6 +78,14 @@ public class TutorialsScreen extends AbstractModScreen {
             this.openLink("https://www.youtube.com/watch?v=_dyD8ZwagDg", false);
         }).build();
 
+        this.comprehensiveGuideButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.comprehensive_guide"), (button) -> {
+            this.openLink("https://youtu.be/iaUF0oaegns?si=L47hwqlAerCAZ-S4", false);
+        }).build();
+
+        this.thirtyMinRun = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.thirty_min_run"), (button) -> {
+            this.openLink("https://youtu.be/olakF9Xbisc?si=1pquTzHph5n5S44o", false);
+        }).build();
+
         this.otherUsefulTricksButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=TvvApbI6fis", false);
         }).build();
@@ -103,6 +115,12 @@ public class TutorialsScreen extends AbstractModScreen {
         }
         if (this.buriedTreasuresButton.isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.buried_treasure.tooltip"), context, mouseX, mouseY);
+        }
+        if (this.comprehensiveGuideButton.isHovered()) {
+            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.comprehensive_guide.tooltip"), context, mouseX, mouseY);
+        }
+        if (this.thirtyMinRun.isHovered()) {
+            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.thirty_min_run.tooltip"), context, mouseX, mouseY);
         }
         if (this.otherUsefulTricksButton.isHovered()) {
             this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks.tooltip"), context, mouseX, mouseY);

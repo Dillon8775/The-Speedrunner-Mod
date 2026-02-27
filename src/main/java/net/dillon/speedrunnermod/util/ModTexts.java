@@ -69,7 +69,7 @@ public class ModTexts {
     public static final Text TITLE_RESOURCES = Text.translatable("speedrunnermod.title.resources");
     public static final Text MENU_MODS = Text.translatable("speedrunnermod.menu.resources.mods").formatted(Formatting.AQUA);
     public static final Text TITLE_MODS = Text.translatable("speedrunnermod.title.resources.mods");
-    public static final Text MENU_TUTORIALS = Text.translatable("speedrunnermod.menu.resources.tutorials").formatted(Formatting.DARK_AQUA);
+    public static final Text MENU_TUTORIALS = Text.translatable("speedrunnermod.menu.resources.tutorials").formatted(Formatting.GREEN);
     public static final Text TITLE_TUTORIALS = Text.translatable("speedrunnermod.title.resources.tutorials");
     public static final Text TITLE_RESTART_REQUIRED = Text.translatable("speedrunnermod.title.restart_required");
     public static final Text TITLE_SAFE_BOOT = Text.translatable("speedrunnermod.title.safe_mode");
@@ -89,8 +89,6 @@ public class ModTexts {
     public static final Text ENABLE_ICARUS_MODE = Text.translatable("speedrunnermod.enable_icarus_mode").formatted(Formatting.GRAY);
     public static final Text DISABLE_INFINI_PEARL_MODE = Text.translatable("speedrunnermod.disable_infini_pearl_mode").formatted(Formatting.BLUE);
     public static final Text ENABLE_INFINI_PEARL_MODE = Text.translatable("speedrunnermod.enable_infini_pearl_mode").formatted(Formatting.BLUE);
-    public static final Text DISABLE_HIGHER_ENCHANT_LEVELS = Text.translatable("speedrunnermod.disable_higher_enchant_levels").formatted(Formatting.RED);
-    public static final Text ENABLE_HIGHER_ENCHANT_LEVELS = Text.translatable("speedrunnermod.enable_higher_enchant_levels").formatted(Formatting.LIGHT_PURPLE);
     public static final Text CONFIGURE_OPTION = Text.translatable("speedrunnermod.configure_option");
 
     // Feature screen categories
@@ -159,7 +157,6 @@ public class ModTexts {
     public static final Text TITLE_FEATURE_STRUCTURES = Text.translatable("speedrunnermod.title.features.ores_and_worldgen.structures");
 
     // Miscellaneous feature screens
-    public static final Text TITLE_FEATURE_TUTORIAL_MODE = Text.translatable("speedrunnermod.title.features.miscellaneous.tutorial_mode");
     public static final Text TITLE_FEATURE_AND_MORE = Text.translatable("speedrunnermod.title.features.miscellaneous.and_more");
     public static final Text TITLE_FEATURE_ARROWS_EXPLODE_BEDS = Text.translatable("speedrunnermod.title.features.miscellaneous.arrows_explode_beds");
     public static final Text TITLE_FEATURE_BETTER_ANVILS = Text.translatable("speedrunnermod.title.features.miscellaneous.better_anvils");
@@ -209,7 +206,8 @@ public class ModTexts {
     public static final Text CURSEFORGE = Text.translatable("speedrunnermod.menu.external.curseforge").formatted(Formatting.GOLD);
     public static final Text MODRINTH = Text.translatable("speedrunnermod.menu.external.modrinth").formatted(Formatting.GREEN);
     public static final Text GITHUB = Text.translatable("speedrunnermod.menu.external.github").formatted(Formatting.GRAY);
-    public static final Text MOD_SHOWCASE_VIDEO = Text.translatable("speedrunnermod.menu.external.mod_showcase_video").formatted(Formatting.AQUA);
+    public static final Text MOD_SHOWCASE_VIDEO = Text.translatable("speedrunnermod.menu.external.mod_showcase_video").formatted(Formatting.LIGHT_PURPLE);
+    public static final Text MOD_RELEASE_TRAILER = Text.translatable("speedrunnermod.menu.external.mod_release_trailer").formatted(Formatting.AQUA);
     public static final Text MENU_LEADERBOARDS = Text.translatable("speedrunnermod.menu.external.leaderboards").formatted(Formatting.GREEN);
     public static final Text MENU_LEADERBOARDS_DISABLED = Text.translatable("speedrunnermod.menu.leaderboards.disabled");
     public static final Text MENU_LEADERBOARDS_VIEW = Text.translatable("speedrunnermod.menu.leaderboards.view");
@@ -290,9 +288,6 @@ public class ModTexts {
 
     // Miscellaneous
     public static final Text QUESTIONS_AND_ISSUES = Text.translatable("speedrunnermod.questions_and_issues").formatted(Formatting.BLUE);
-    public static final Text QUESTIONS_AND_ISSUES_TOOLTIP = Text.translatable("speedrunnermod.questions_and_issues.tooltip");
-    public static final Text SUGGESTIONS_AND_FEEDBACK = Text.translatable("speedrunnermod.suggestions_and_feedback").formatted(Formatting.GOLD);
-    public static final Text SUGGESTIONS_AND_FEEDBACK_TOOLTIP = Text.translatable("speedrunnermod.suggestions_and_feedback.tooltip");
 
     /**
      * @return the text for disabled items.

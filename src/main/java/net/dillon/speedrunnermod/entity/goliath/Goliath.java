@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.entity;
+package net.dillon.speedrunnermod.entity.goliath;
 
 import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -14,7 +14,7 @@ import net.minecraft.util.math.Vec3d;
 /**
  * See {@link GoliathEntity} for more.
  */
-public interface Giant {
+public interface Goliath {
 
     static boolean tryAttack(ServerWorld world, LivingEntity attacker, LivingEntity target) {
         float f = (float)attacker.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);

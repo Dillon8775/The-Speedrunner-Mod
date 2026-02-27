@@ -9,6 +9,7 @@ public class ModLinks {
     public static final String CURSEFORGE = "https://www.curseforge.com/minecraft/mc-mods/speedrunner-mod";
     public static final String MODRINTH = "https://modrinth.com/mod/speedrunner-mod";
     public static final String GITHUB = "https://github.com/Dillon8775/Speedrunner-Mod";
+    public static final String SHOWCASE_VIDEO = "https://youtu.be/08z9VvnFacw";
     public static final String RELEASE_TRAILER = "https://youtu.be/u37ujBiCMCw";
     public static final String LEADERBOARDS = "https://sites.google.com/view/dillon8775/leaderboards";
     public static final String LEADERBOARDS_SUBMISSION = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScnw-e4gkYyHGEVztWY-DLmm64jIbnqLw_LCIBkF2uQFfqVTg/viewform";
@@ -28,6 +29,5 @@ public class ModLinks {
         return url + "/versions?g=" + SpeedrunnerMod.MC_VERSION + "&l=fabric";
     }
 
-    public static final String QUESTIONS_AND_ISSUES = "https://docs.google.com/forms/d/e/1FAIpQLSfkTe-xvvYiqLAYmqdMqeE6IgEJkt6S4sfhVfi4D_eAJ2FAXQ/viewform";
-    public static final String SUGGESTIONS_AND_FEEDBACK = "https://docs.google.com/forms/d/e/1FAIpQLSf1b3cmA95jpQgY3dd_e8X1oY9jdLlzL36LTyBsjl8Z2ekHQw/viewform";
+    public static final String QUESTIONS_AND_ISSUES = "https://discord.gg/vfqEAn4YFy";
 }

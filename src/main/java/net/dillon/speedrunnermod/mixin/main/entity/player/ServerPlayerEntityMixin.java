@@ -4,11 +4,13 @@ import com.mojang.authlib.GameProfile;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.GiantEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -126,6 +128,9 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         if (options().main.showDeathCords.getCurrentValue() && this.getEntityWorld().getGameRules().getValue(GameRules.SHOW_DEATH_MESSAGES)) {
             ModUtil.latestDeathCords = new double[]{this.getX(), this.getY(), this.getZ()};
             this.sendMessage(ModUtil.deathCords(ModUtil.latestDeathCords[0], ModUtil.latestDeathCords[1], ModUtil.latestDeathCords[2]), false);
+        }
+        if (source.getSource() instanceof GiantEntity giant) {
+            giant.getEntityWorld().playSound(null, giant.getX(), giant.getEyeY(), giant.getZ(), ModSoundEvents.ENTITY_GOLIATH_LAUGH, SoundCategory.HOSTILE, 15.0F, 0.7F);
         }
         this.canAddEffects = false;
         this.effectsAdded = false;

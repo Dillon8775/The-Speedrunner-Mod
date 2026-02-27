@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class GoldenShieldScreen extends AbstractFeatureScreen {
 
     public GoldenShieldScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_SPEEDRUNNER_SHIELD);
+        super(parent, ModTexts.TITLE_FEATURE_GOLDEN_SHIELD);
     }
 
     @Override

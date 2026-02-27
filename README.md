@@ -534,13 +534,14 @@ Yes, this exists with this mod. It can only be obtained from breaking the doom b
 - Piglin Brutes will spawn *all* across the nether.
 - Hostile mobs inflict the player with slowness when attacking.
 - Skeletons shoot slowness arrows, and shoot quicker.
-- Ghasts shoot fireballs at an extremely fast rate.
+- Ghasts shoot fireballs at an extremely fast rate, and their fireballs are extremely powerful.
 - Ender pearls give the player blindness when landing.
 - End crystals do more damage when exploding.
 - Beds do more damage when exploding in the end.
 - Ender eyes always break.
 - Strongholds generate extremely large, and generate close to the bottom of the world, making them difficult to find and navigate.
 - Right-clicking a creeper with a flint and steel makes it instantly explode.
+- You drown very fast.
 
 ## *If you're up for the challenge, I wish you luck.*
 
