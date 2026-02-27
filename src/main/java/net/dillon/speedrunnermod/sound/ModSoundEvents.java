@@ -12,6 +12,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModSoundEvents {
     public static final SoundEvent ENTITY_BOAT_PADDLE_LAVA = of("entity.boat.paddle_lava");
+    public static final SoundEvent GOLIATH_LAUGH = of("entity.goliath.laugh");
+    public static final SoundEvent GOLIATH_ATTACK = of("entity.goliath.attack");
 
     /**
      * Registers a {@code sound event.}

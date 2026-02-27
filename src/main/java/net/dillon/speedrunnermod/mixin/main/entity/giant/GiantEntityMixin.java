@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.mixin.main.entity.giant;
 import net.dillon.speedrunnermod.entity.Giant;
 import net.dillon.speedrunnermod.entity.GiantAttackGoal;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -94,6 +95,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         ModUtil.modifyMovementSpeed(this, 0.35D);
         ModUtil.modifyAttackDamage(this, 10.0D);
         ModUtil.modifyAttackKnockback(this, 1.5D);
+        ModUtil.modifyKnockbackResistance(this, 0.7F);
     }
 
     /**
@@ -144,6 +146,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
                 if (!this.isSilent()) {
                     this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 10.0F, 1.0F);
                     this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 10.0F, 1.0F);
+                    this.playSound(ModSoundEvents.GOLIATH_LAUGH, 15.0F, 0.65F);
                 }
             }
         }
@@ -198,11 +201,11 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
         }
 
         if ((this.random.nextFloat() < 0.15F || this.getHealth() <= this.getMaxHealth() / 3) && !source.isIn(DamageTypeTags.IS_FIRE)) {
-            this.onGiantDamage();
+            this.onGoliathDamage();
         }
 
         if (this.random.nextFloat() < 0.05F && this.getHealth() <= 250) {
-            this.onGiantDamageDropFood(world);
+            this.onGoliathDamageDropFood(world);
         }
 
         return super.damage(world, source, amount);
@@ -415,7 +418,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      * Drops rotten flesh randomly when Goliath is damaged.
      */
     @Unique
-    private void onGiantDamageDropFood(ServerWorld serverWorld) {
+    private void onGoliathDamageDropFood(ServerWorld serverWorld) {
         int v = 3;
         this.dropFood(serverWorld, v);
         v--;
@@ -441,7 +444,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
      * Spawns four TNT entities around Goliath, randomly, when damaged.
      */
     @Unique
-    private void onGiantDamage() {
+    private void onGoliathDamage() {
         for (int i = 0; i < 4; i++) {
             TntEntity tnt = EntityType.TNT.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
             tnt.setFuse(100);
@@ -450,6 +453,7 @@ public class GiantEntityMixin extends HostileEntity implements Giant {
             tnt.refreshPositionAndAngles(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
             this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
             this.getEntityWorld().spawnEntity(tnt);
+            this.playSound(ModSoundEvents.GOLIATH_ATTACK, 15.0F, 0.85F);
         }
     }
 

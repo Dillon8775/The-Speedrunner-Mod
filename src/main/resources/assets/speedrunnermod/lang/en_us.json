@@ -1029,6 +1029,8 @@
   "speedrunnermod.fog.mixin_disabled": "Fog mixin has been disabled. Re-enable it in the advanced Speedrunner Mod options to use this feature.",
 
   "speedrunnermod.entity_boat_paddle_lava": "Rowing",
+  "speedrunnermod.entity_goliath_laugh": "Goliath laughs",
+  "speedrunnermod.entity_goliath_attack": "Goliath attacks",
 
   "deathScreen.title": "Dead run!",
   "deathScreen.titleScreen": "Quit",
