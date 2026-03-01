@@ -193,6 +193,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
         if (this.getHealth() <= this.getMaxHealth() / 2 && entity instanceof ProjectileEntity projectile) {
             if (projectile.getOwner() != null) {
                 this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 1.0F);
+                this.playSound(ModSoundEvents.ENTITY_GOLIATH_LAUGH, 40.0F, 0.65F);
                 projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
             }
             return false;
