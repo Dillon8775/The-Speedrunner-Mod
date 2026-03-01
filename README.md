@@ -20,6 +20,9 @@ With this being said, if you decide to play the Speedrunner Mod on an older Mine
 I know newer Minecraft versions are harder to speedrun, but ***not with this mod...***
 
 ---
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/08z9VvnFacw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+---
 
 # Features
 
@@ -1261,40 +1264,6 @@ Obtain a stack of lime wool.
 
 ---
 
-## Other Configuration Options (not listed anywhere above)
-
-### Item Messages
-Choose whether certain messages are sent to the player's chat or actionbar (the actionbar is a space above the hotbar).
-
-### Show Reset Button
-Displays the reset world button on the title screen, game menu screen and pause screen.
-
-### Nether Portal Cooldown
-Reduces the cooldown when entering a nether portal.
-
-### Custom Data Generation
-Allows all world modifications to be applied, which includes making structures more common, modifying mob/creature spawn rates, doom mode features, etc.
-
-### Modified Stronghold Generation
-Allows stronghold generation modifications to be applied (like making the smaller/bigger).
-
-### Modified Stronghold Y Generation
-Allows strongholds to generate at higher/lower Y-levels.
-
-### Modified Nether Fortress Generation
-Allows nether fortress generation modifications to be applied.
-
-### Generate Speedrunner Wood
-Allows all types/variants of speedrunner wood to generate across the world.
-
-### Fireball Explosion Power
-Determines the explosion power for fireballs when thrown as a fire charge.
-
-### Shift to Throw Fireball
-Determines if the player must be shifting in order to throw a fireball.
-
----
-
 ## Other Features
 #### This mod has its own dedicated item group.
 #### Nether Water has a different color, respective to its nether biome.
@@ -1316,12 +1285,6 @@ Determines if the player must be shifting in order to throw a fireball.
 
 ---
 
-# Technical Features
-- #### Several different block tags (I am not listening them all, there are too many).
-- #### Locating Structure *("speedrunnermod:locating_structure")* data component type, which stores a structure to locate.
-- #### Stored ItemStack *("speedrunnermod:stored_itemstack")* data component type, which stores an itemstack within an item.
-- #### Using the /give command will correctly suggest every item for each mod loaded.
-
 ## /syncoptions Command
 #### If you don't want to go through the struggle of configuring your speedrunner mod options in the .json file on a server, you can simply configure everything that you want in-game, and then run the /syncoptions command on the server, and all of your settings will be sent over to the server.
 #### The server console will need to authorize the request by executing "syncoptions *playername* accept/deny".
@@ -1330,15 +1293,7 @@ Determines if the player must be shifting in order to throw a fireball.
 #### If you are playing with multiple people and have the speedrunner mod installed on the server, you can join that server and match *your* settings by pressing the "Match Settings with Server" button, located at the bottom left of any speedrunner mod options screen.
 #### You will be required to restart your game, and you will not be able to undo the changes.
 
-## Speedrunner's Workbench Cost and Durability Handing
-#### As mentioned before, using the speedrunner's workbench costs levels, and the resulted item takes durability points.
-#### The cost is calculated by taking the *total amount of transferred enchantments*, and then adding each transferred enchantment's level to the cost.
-#### The output durability is calculated by taking the item's *current durability* and dividing it by (1, PLUS -> each enchantment's level represents an additional .1 point. So fortune 3 would be 1.3, Efficiency 5 would be 1.5, etc.).
-#### If you add a golden smithing template to remove all durability damage, the total cost is multiplied.
-
 ## Configuration File(s)
-The configuration files store all the values for each Speedrunner Mod option.
-
 Configuration files are stored as *.json* files. They are stored in your *.minecraft/config* directory.
 
 Each configuration option has stored values, including:
@@ -1357,20 +1312,13 @@ Each configuration option has stored values, including:
     - "minValue" -> The minimum value that is allowed for that option.
     - "maxValue" -> The maximum value that is allowed for that option.
 
-Do not change _**ANY**_ of these values except for the **currentValue.** The **currentValue** is the only value that you should change. Changing anything else will do nothing and will eventually revert back.
-
-The only reason you should modify the Speedrunner Mod configuration file directly is if you are playing on a server, and you need to change the server's config and you don't want to use the /syncoptions command. Otherwise, you should just change the options via the configuration screen(s).
-
-## Mixin Options
-Mixin options are options that change the vanilla game's code, and should only be disabled if you are experiencing compatibility issues with other mods, or if another mod interferes with a similar feature that this mod changes.
+The **currentValue** is the only value that you should change.
 
 ---
 
 # Dependencies & Compatibility
 - ## **Requires** [Fabric API](https://modrinth.com/mod/fabric-api).
-- ### **Incompatible** with OptiFine/OptiFabric.
 - **Recommended mods** (not required): [Sodium,](https://modrinth.com/mod/sodium) [Lithium,](https://modrinth.com/mod/lithium) and [SpeedrunIGT](https://modrinth.com/mod/speedrunigt) (an in-game timer mod)
-- #### This mod *does* have [Mod Menu](https://modrinth.com/mod/modmenu) Integration.
 
 ---
 
