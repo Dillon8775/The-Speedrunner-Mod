@@ -3,13 +3,13 @@ package net.dillon.speedrunnermod.data.generator;
 import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.minecraft.client.data.EquipmentAssetProvider;
-import net.minecraft.client.render.entity.equipment.EquipmentModel;
-import net.minecraft.data.DataOutput;
+import net.minecraft.client.data.models.EquipmentAssetProvider;
+import net.minecraft.client.resources.model.EquipmentClientInfo;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.DataWriter;
-import net.minecraft.item.equipment.EquipmentAsset;
-import net.minecraft.registry.RegistryKey;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,30 +20,30 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 @Author(Authors.BLOCKLEGEND001)
 public class ModEquipmentAssetProvider extends EquipmentAssetProvider {
-    protected final DataOutput.PathResolver pathResolver;
+    protected final PackOutput.PathProvider pathResolver;
 
-    public ModEquipmentAssetProvider(DataOutput output) {
+    public ModEquipmentAssetProvider(PackOutput output) {
         super(output);
-        this.pathResolver = output.getResolver(DataOutput.OutputType.RESOURCE_PACK, "equipment");
+        this.pathResolver = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "equipment");
     }
 
-    public static void bootstrap(BiConsumer<RegistryKey<EquipmentAsset>, EquipmentModel> consumer) {
+    public static void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer) {
         consumer.accept(ModEquipmentAssetKeys.SPEEDRUNNER, createHumanoidOnlyModel("speedrunner"));
         consumer.accept(ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, createHumanoidOnlyModel("golden_speedrunner"));
     }
 
-    private static EquipmentModel createHumanoidOnlyModel(String id) {
-        return EquipmentModel.builder().addHumanoidLayers(ofSpeedrunnerMod(id)).build();
+    private static EquipmentClientInfo createHumanoidOnlyModel(String id) {
+        return EquipmentClientInfo.builder().addHumanoidLayers(ofSpeedrunnerMod(id)).build();
     }
 
     @Override
-    public CompletableFuture<?> run(DataWriter writer) {
-        Map<RegistryKey<EquipmentAsset>, EquipmentModel> map = new HashMap<>();
+    public CompletableFuture<?> run(CachedOutput writer) {
+        Map<ResourceKey<EquipmentAsset>, EquipmentClientInfo> map = new HashMap<>();
         bootstrap((key, model) -> {
             if (map.putIfAbsent(key, model) != null) {
                 throw new IllegalStateException("Tried to register equipment asset twice for id: " + key);
             }
         });
-        return DataProvider.writeAllToPath(writer, EquipmentModel.CODEC, this.pathResolver::resolveJson, map);
+        return DataProvider.saveAll(writer, EquipmentClientInfo.CODEC, this.pathResolver::json, map);
     }
 }

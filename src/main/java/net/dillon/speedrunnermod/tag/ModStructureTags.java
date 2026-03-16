@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.tag;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -21,7 +21,7 @@ public class ModStructureTags {
      * Registers a {@code structure tag.}
      */
     private static TagKey<Structure> of(String path) {
-        return TagKey.of(RegistryKeys.STRUCTURE, ofSpeedrunnerMod(path));
+        return TagKey.create(Registries.STRUCTURE, ofSpeedrunnerMod(path));
     }
 
     /**

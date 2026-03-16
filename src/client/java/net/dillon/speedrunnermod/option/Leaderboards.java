@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.option;
 
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.*;
  */
 @Deprecated // deprecated because it's not used anymore
 public class Leaderboards {
-    public static List<Text> ineligibleOptions = new ArrayList<>();
+    public static List<Component> ineligibleOptions = new ArrayList<>();
     private static final ModOptions.Main options = options().main;
     private static final ClientModOptions.Client cloptions = clientOptions().client;
     private static boolean currentLeaderboardsMode;
@@ -68,57 +68,57 @@ public class Leaderboards {
         ineligibleOptions.clear();
         if (!areStructureSpawnRatesEligible()) {
             warnIneligible("Structure Spawn Rates");
-            addIneligible("structure_spawn_rates", withFormatting(options.structureSpawnRates.toString(), isSsrEverywhere() ? Formatting.AQUA : isSsrDefault() || isSsrDefault() ? Formatting.WHITE : isSsrRare() ? Formatting.LIGHT_PURPLE : isSsrVeryRare() ? Formatting.DARK_PURPLE : Formatting.RED, Formatting.BOLD));
+            addIneligible("structure_spawn_rates", withFormatting(options.structureSpawnRates.toString(), isSsrEverywhere() ? ChatFormatting.AQUA : isSsrDefault() || isSsrDefault() ? ChatFormatting.WHITE : isSsrRare() ? ChatFormatting.LIGHT_PURPLE : isSsrVeryRare() ? ChatFormatting.DARK_PURPLE : ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isDragonPerchTimeEligible()) {
             warnIneligible("Dragon Perch Time");
-            addIneligible("dragon_perch_time", withFormatting(options.dragonPerchTime.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("dragon_perch_time", withFormatting(options.dragonPerchTime.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isBlockBreakingMultiplierEligible()) {
             warnIneligible("Block Breaking Multiplier");
-            addIneligible("block_breaking_multiplier", withFormatting(options.blockBreakingMultiplier.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("block_breaking_multiplier", withFormatting(options.blockBreakingMultiplier.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isDifficultyEligible()) {
             warnIneligible("Difficulty");
-            addIneligible("difficulty", withFormatting(cloptions.difficulty.toString(), Formatting.BOLD));
+            addIneligible("difficulty", withFormatting(cloptions.difficulty.toString(), ChatFormatting.BOLD));
         }
 
         if (!isStrongholdCountEligible()) {
             warnIneligible("Stronghold Count");
-            addIneligible("stronghold_count", withFormatting(options.strongholdCount.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("stronghold_count", withFormatting(options.strongholdCount.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isStrongholdDistanceEligible()) {
             warnIneligible("Stronghold Distance");
-            addIneligible("stronghold_distance", withFormatting(options.strongholdDistance.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("stronghold_distance", withFormatting(options.strongholdDistance.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isStrongholdSpreadEligible()) {
             warnIneligible("Stronghold Spread");
-            addIneligible("stronghold_spread", withFormatting(options.strongholdSpread.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("stronghold_spread", withFormatting(options.strongholdSpread.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isStrongholdPortalRoomsEligible()) {
             warnIneligible("Stronghold Portal Room Count");
-            addIneligible("stronghold_portal_room_count", withFormatting(options.strongholdPortalRoomCount.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("stronghold_portal_room_count", withFormatting(options.strongholdPortalRoomCount.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isStrongholdLibrariesEligible()) {
             warnIneligible("Stronghold Library Count");
-            addIneligible("stronghold_library_count", withFormatting(options.strongholdLibraryCount.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("stronghold_library_count", withFormatting(options.strongholdLibraryCount.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isAnvilCostLimitEligible()) {
             warnIneligible("Anvil Cost Limit");
-            addIneligible("anvil_cost_limit", withFormatting(options.anvilCostLimit.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("anvil_cost_limit", withFormatting(options.anvilCostLimit.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isNetherPortalCooldownEligible()) {
             warnIneligible("Nether Portal Cooldown");
-            addIneligible("nether_portal_cooldown", withFormatting(options.netherPortalDelay.getCurrentValue(), Formatting.RED, Formatting.BOLD));
+            addIneligible("nether_portal_cooldown", withFormatting(options.netherPortalDelay.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isIcarusModeEligible()) {
@@ -348,7 +348,7 @@ public class Leaderboards {
      * Adds the ineligible option to a translation key, which then gets displayed on the {@code Ineligible Options screen.}
      */
     private static void addIneligible(String translation, Object... args) {
-        Text baseText = Text.translatable("speedrunnermod.leaderboards.ineligible_options." + translation, args);
+        Component baseText = Component.translatable("speedrunnermod.leaderboards.ineligible_options." + translation, args);
         if (!ineligibleOptions.contains(baseText)) {
             ineligibleOptions.add(baseText);
         }
@@ -357,15 +357,15 @@ public class Leaderboards {
     /**
      * Gets the translation key or value of an option and returns it with a new formatting.
      */
-    private static Text withFormatting(String optionString, Formatting... formatting) {
-        return Text.translatable(optionString).formatted(formatting);
+    private static Component withFormatting(String optionString, ChatFormatting... formatting) {
+        return Component.translatable(optionString).withStyle(formatting);
     }
 
     /**
      * Gets the translation key or value of an option and returns it with a new formatting, for integer values.
      */
-    private static Text withFormatting(int intOption, Formatting... formatting) {
-        return Text.translatable(String.valueOf(intOption)).formatted(formatting);
+    private static Component withFormatting(int intOption, ChatFormatting... formatting) {
+        return Component.translatable(String.valueOf(intOption)).withStyle(formatting);
     }
 
     /**

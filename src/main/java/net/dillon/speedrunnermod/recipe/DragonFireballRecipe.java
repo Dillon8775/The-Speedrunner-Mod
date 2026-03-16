@@ -2,31 +2,31 @@ package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.PotionItem;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.world.World;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.PotionItem;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
 
 /**
  * The recipe to craft the dragon's fireball, 1 dragon's aura potion and 8 ender pearls.
  */
-public class DragonFireballRecipe extends SpecialCraftingRecipe {
+public class DragonFireballRecipe extends CustomRecipe {
 
-    public DragonFireballRecipe(CraftingRecipeCategory category) {
+    public DragonFireballRecipe(CraftingBookCategory category) {
         super(category);
     }
 
     @Override
-    public boolean matches(CraftingRecipeInput craftingRecipeInput, World world) {
-        if (craftingRecipeInput.getWidth() == 3 && craftingRecipeInput.getHeight() == 3 && craftingRecipeInput.getStackCount() == 9) {
-            for (int i = 0; i < craftingRecipeInput.getHeight(); i++) {
-                for (int j = 0; j < craftingRecipeInput.getWidth(); j++) {
-                    ItemStack itemStack = craftingRecipeInput.getStackInSlot(j, i);
+    public boolean matches(CraftingInput craftingRecipeInput, Level world) {
+        if (craftingRecipeInput.width() == 3 && craftingRecipeInput.height() == 3 && craftingRecipeInput.ingredientCount() == 9) {
+            for (int i = 0; i < craftingRecipeInput.height(); i++) {
+                for (int j = 0; j < craftingRecipeInput.width(); j++) {
+                    ItemStack itemStack = craftingRecipeInput.getItem(j, i);
                     if (itemStack.isEmpty()) {
                         return false;
                     }
@@ -39,7 +39,7 @@ public class DragonFireballRecipe extends SpecialCraftingRecipe {
                                 return false;
                             }
                         }
-                    } else if (!itemStack.isOf(Items.FIRE_CHARGE)) {
+                    } else if (!itemStack.is(Items.FIRE_CHARGE)) {
                         return false;
                     }
                 }
@@ -52,8 +52,8 @@ public class DragonFireballRecipe extends SpecialCraftingRecipe {
     }
 
     @Override
-    public ItemStack craft(CraftingRecipeInput craftingRecipeInput, RegistryWrapper.WrapperLookup wrapperLookup) {
-        ItemStack itemStack = craftingRecipeInput.getStackInSlot(1, 1);
+    public ItemStack assemble(CraftingInput craftingRecipeInput) {
+        ItemStack itemStack = craftingRecipeInput.getItem(1, 1);
         if (!(itemStack.getItem() instanceof PotionItem)) {
             return ItemStack.EMPTY;
         } else {

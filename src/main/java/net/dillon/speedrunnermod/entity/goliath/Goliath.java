@@ -2,37 +2,37 @@ package net.dillon.speedrunnermod.entity.goliath;
 
 import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * See {@link GoliathEntity} for more.
  */
 public interface Goliath {
 
-    static boolean tryAttack(ServerWorld world, LivingEntity attacker, LivingEntity target) {
-        float f = (float)attacker.getAttributeValue(EntityAttributes.ATTACK_DAMAGE);
+    static boolean tryAttack(ServerLevel world, LivingEntity attacker, LivingEntity target) {
+        float f = (float)attacker.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float g;
         if (!attacker.isBaby() && (int)f > 0) {
-            g = f / 2.0F + (float)world.random.nextInt((int)f);
+            g = f / 2.0F + (float)world.getRandom().nextInt((int)f);
         } else {
             g = f;
         }
 
-        DamageSource damageSource = attacker.getDamageSources().mobAttack(attacker);
-        boolean bl = target.damage(world, damageSource, g);
+        DamageSource damageSource = attacker.damageSources().mobAttack(attacker);
+        boolean bl = target.hurtServer(world, damageSource, g);
         if (bl) {
-            EnchantmentHelper.onTargetDamaged(world, target, damageSource);
+            EnchantmentHelper.doPostAttackEffects(world, target, damageSource);
             if (!(attacker.getHealth() < attacker.getMaxHealth() / 3)) {
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(3)));
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsAsTicks(3)));
-                target.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, ModUtil.secondsAsTicks(7)));
+                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, ModUtil.secondsAsTicks(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, ModUtil.secondsAsTicks(7)));
             }
             if (!attacker.isBaby()) {
                 knockback(attacker, target);
@@ -43,18 +43,18 @@ public interface Goliath {
     }
 
     static void knockback(LivingEntity attacker, LivingEntity target) {
-        double d = attacker.getAttributeValue(EntityAttributes.ATTACK_KNOCKBACK);
-        double e = target.getAttributeValue(EntityAttributes.KNOCKBACK_RESISTANCE);
+        double d = attacker.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
+        double e = target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
         double f = d - e;
         if (!(f <= (double)0.0F)) {
             double g = target.getX() - attacker.getX();
             double h = target.getZ() - attacker.getZ();
-            float i = (float)(attacker.getEntityWorld().random.nextInt(21) - 10);
-            double j = f * (double)(attacker.getEntityWorld().random.nextFloat() * 0.5F + 0.2F);
-            Vec3d vec3d = (new Vec3d(g, (double)0.0F, h)).normalize().multiply(j).rotateY(i);
-            double k = f * (double)attacker.getEntityWorld().random.nextFloat() * (double)0.5F;
-            target.addVelocity(vec3d.x, k, vec3d.z);
-            target.knockedBack = true;
+            float i = (float)(attacker.level().getRandom().nextInt(21) - 10);
+            double j = f * (double)(attacker.level().getRandom().nextFloat() * 0.5F + 0.2F);
+            Vec3 vec3d = (new Vec3(g, (double)0.0F, h)).normalize().scale(j).yRot(i);
+            double k = f * (double)attacker.level().getRandom().nextFloat() * (double)0.5F;
+            target.push(vec3d.x, k, vec3d.z);
+            target.hurtMarked = true;
         }
     }
 }

@@ -1,20 +1,20 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.mixin.main.component.BlocksAttacksComponentMixin;
+import net.dillon.speedrunnermod.mixin.main.component.BlocksAttacksMixin;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ShieldItem;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.BlocksAttacks;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,35 +22,35 @@ import java.util.function.Consumer;
 
 /**
  * <p>A shield which has a faster cooldown, and more durability.</p>
- * <p>See {@link net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe}, SpeedrunnerShieldModelRenderer and {@link net.dillon.speedrunnermod.mixin.main.entity.player.PlayerEntityMixin} for more.
- * <p>Shield cooldown function located in {@link BlocksAttacksComponentMixin}</p></p>
+ * <p>See {@link net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe}, SpeedrunnerShieldModelRenderer and {@link net.dillon.speedrunnermod.mixin.main.entity.player.PlayerMixin} for more.
+ * <p>Shield cooldown function located in {@link BlocksAttacksMixin}</p></p>
  */
 public class SpeedrunnerShieldItem extends ShieldItem {
     public static final float COOLDOWN_DIVIDER = 1.6F;
 
-    public SpeedrunnerShieldItem(Settings settings) {
+    public SpeedrunnerShieldItem(Properties settings) {
         super(settings
-                .maxCount(1)
-                .maxDamage(672)
+                .stacksTo(1)
+                .durability(672)
                 .repairable(ModItemTags.SPEEDRUNNER_SHIELD_REPAIRABLE)
-                .component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT)
-                .component(
-                        DataComponentTypes.BLOCKS_ATTACKS,
-                        new BlocksAttacksComponent(
+                .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
+                .delayedComponent(
+                        DataComponents.BLOCKS_ATTACKS,
+                        context -> new BlocksAttacks(
                                 0.25F,
                                 0.6F,
-                                List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
-                                new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F),
-                                Optional.of(DamageTypeTags.BYPASSES_SHIELD),
-                                Optional.of(SoundEvents.ITEM_SHIELD_BLOCK),
-                                Optional.of(SoundEvents.ITEM_SHIELD_BREAK)
+                                List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                                Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                                Optional.of(SoundEvents.SHIELD_BLOCK),
+                                Optional.of(SoundEvents.SHIELD_BREAK)
                         )
                 )
                 .equippableUnswappable(EquipmentSlot.OFFHAND));
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_shield.tooltip").formatted(Formatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_shield.tooltip").withStyle(ChatFormatting.GRAY));
     }
 }

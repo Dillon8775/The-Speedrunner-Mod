@@ -11,15 +11,15 @@ import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.*;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
-import net.minecraft.client.gui.screen.MessageScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.option.GameOptionsScreen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Util;
 
 import java.util.List;
@@ -28,22 +28,22 @@ import java.util.function.Function;
 /**
  * The base screen for any {@code Speedrunner Mod} screen.
  */
-public class BaseModScreen extends GameOptionsScreen {
-    public TextFieldWidget searchField;
+public class BaseModScreen extends OptionsSubScreen {
+    public EditBox searchField;
 
-    public BaseModScreen(Screen parent, Text title) {
-        super(parent, MinecraftClient.getInstance().options, title);
+    public BaseModScreen(Screen parent, Component title) {
+        super(parent, Minecraft.getInstance().options, title);
     }
 
     /**
      * Quits a world.
      */
     protected void quitWorld() {
-        if (this.client.isInSingleplayer()) {
-            this.client.world.disconnect(Text.translatable("menu.savingLevel"));
-            this.client.disconnect(new MessageScreen(Text.translatable("menu.savingLevel")), false, false);
+        if (this.minecraft.isLocalServer()) {
+            this.minecraft.level.disconnect(Component.translatable("menu.savingLevel"));
+            this.minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false, false);
         } else {
-            this.client.disconnect(new TitleScreen(), false, false);
+            this.minecraft.disconnect(new TitleScreen(), false, false);
         }
     }
 
@@ -55,13 +55,13 @@ public class BaseModScreen extends GameOptionsScreen {
         String text = "";
         boolean refocus = this.searchField != null && this.searchField.isFocused();
         if (this.searchField != null) {
-            text = this.searchField.getText();
+            text = this.searchField.getValue();
             refocus = this.searchField.isFocused();
         }
         super.resize(width, height);
-        this.clearAndInit();
+        this.rebuildWidgets();
         if (this.searchField != null) {
-            this.searchField.setText(text);
+            this.searchField.setValue(text);
             this.searchField.setFocused(refocus);
         }
     }
@@ -70,11 +70,11 @@ public class BaseModScreen extends GameOptionsScreen {
      * An easier way to open a link.
      */
     protected void openLink(String link, boolean trusted) {
-        this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
+        this.minecraft.setScreen(new ConfirmLinkScreen(openInBrowser -> {
             if (openInBrowser) {
-                Util.getOperatingSystem().open(link);
+                Util.getPlatform().openUri(link);
             }
-            this.client.setScreen(this);
+            this.minecraft.setScreen(this);
             this.resize(this.width, this.height);
         }, link, trusted));
     }
@@ -82,24 +82,24 @@ public class BaseModScreen extends GameOptionsScreen {
     /**
      * A simplified way to render a tooltip.
      */
-    protected void renderBasicTooltip(Text text, DrawContext context, int mouseX, int mouseY) {
-        context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(text, 200), mouseX, mouseY);
+    protected void renderBasicTooltip(Component text, GuiGraphics context, int mouseX, int mouseY) {
+        context.setTooltipForNextFrame(this.font, this.font.split(text, 200), mouseX, mouseY);
     }
 
     /**
      * Refreshes a base mod screen.
      */
     public void refreshScreen(String id) {
-        this.client.setScreen(new TemporaryScreen(this.parent, ModTexts.REFRESHING));
-        this.client.setScreen(this.determineRefreshedScreen(id));
+        this.minecraft.setScreen(new TemporaryScreen(this.lastScreen, ModTexts.REFRESHING));
+        this.minecraft.setScreen(this.determineRefreshedScreen(id));
     }
 
     /**
      * Refreshes a feature screen.
      */
     public void refreshFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
-        this.client.setScreen(new TemporaryScreen(this.parent, ModTexts.REFRESHING));
-        this.client.setScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
+        this.minecraft.setScreen(new TemporaryScreen(this.lastScreen, ModTexts.REFRESHING));
+        this.minecraft.setScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
     }
 
     /**
@@ -107,12 +107,12 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     private Screen determineRefreshedScreen(String pageId) {
         for (Function<Screen, AbstractModScreen> modScreenConstructor : SpeedrunnerModClient.ALL_MOD_SCREENS) {
-            AbstractModScreen screen = modScreenConstructor.apply(this.parent);
+            AbstractModScreen screen = modScreenConstructor.apply(this.lastScreen);
             if (screen.pageId().equals(pageId)) {
                 return screen;
             }
         }
-        return new MainScreen(this.parent);
+        return new MainScreen(this.lastScreen);
     }
 
     /**
@@ -120,7 +120,7 @@ public class BaseModScreen extends GameOptionsScreen {
      */
     private Screen determineRefreshedFeatureScreen(int pageNumber, ScreenCategory screenCategory) {
         for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
+            AbstractFeatureScreen screen = featureScreenConstructor.apply(this.lastScreen);
             if (screen.getPageNumber() == pageNumber && screen.getScreenCategory() == screenCategory) {
                 if (this instanceof AbstractFeatureScreen previous) {
                     screen.targetScrollOffset = previous.targetScrollOffset;
@@ -129,7 +129,7 @@ public class BaseModScreen extends GameOptionsScreen {
                 return screen;
             }
         }
-        return new FirstTimePlayingScreen(this.parent);
+        return new FirstTimePlayingScreen(this.lastScreen);
     }
 
     /**
@@ -292,7 +292,7 @@ public class BaseModScreen extends GameOptionsScreen {
     }
 
     /**
-     * Needed because this method is abstract in {@link GameOptionsScreen}.
+     * Needed because this method is abstract in {@link OptionsSubScreen}.
      */
     @Override
     protected void addOptions() {

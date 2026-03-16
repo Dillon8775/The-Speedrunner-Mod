@@ -1,0 +1,151 @@
+package net.dillon.speedrunnermod.mixin.main.entity.boat;
+
+import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.item.FireproofBoat;
+import net.dillon.speedrunnermod.sound.ModSoundEvents;
+import net.dillon.speedrunnermod.tag.ModFluidTags;
+import net.dillon.speedrunnermod.util.Author;
+import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.util.ModUtil;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.Vec3;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.function.Supplier;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+
+/**
+ * A mixin to register, control, and fix modded boats.
+ */
+@Author(Authors.ANXIETIE)
+@Mixin(AbstractBoat.class)
+public abstract class AbstractBoatMixin extends Entity implements FireproofBoat {
+    @Shadow
+    public abstract InteractionResult interact(final Player player, final InteractionHand hand, final Vec3 location);
+    @Shadow @Final
+    private Supplier<Item> dropItem;
+    @Unique
+    private static final EntityDataAccessor<Boolean> FIREPROOF = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.BOOLEAN);
+
+    public AbstractBoatMixin(EntityType<?> type, Level world) {
+        super(type, world);
+    }
+
+    /**
+     * Makes all boats slightly slower in lava.
+     */
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void applySpeedrunnerModBoatProperties(CallbackInfo ci) {
+        AbstractBoat abstractBoat = (AbstractBoat)(Object)this;
+
+        if (abstractBoat.isInLava()) {
+            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModUtil.LAVA_BOAT_VELOCITY_MULTIPLIER));
+        }
+
+        if (ModEntityTypes.isFastBoat(this.dropItem)) {
+            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModUtil.FAST_BOAT_VELOCITY_MULTIPLIER));
+        }
+    }
+
+    /**
+     * Allows the paddling in lava sound to play when paddling a boat in lava.
+     */
+    @Inject(method = "getPaddleSound", at = @At("HEAD"), cancellable = true)
+    public void lavaPaddleSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (this.isInLava()) {
+            cir.setReturnValue(ModSoundEvents.ENTITY_BOAT_PADDLE_LAVA);
+        }
+    }
+
+    /**
+     * Makes fireproof boats fire immune.
+     */
+    @Override
+    public boolean fireImmune() {
+        if (options().main.lavaBoats.getCurrentValue()) {
+            return ModEntityTypes.isFireproofBoat((AbstractBoat)(Object)this) || super.fireImmune();
+        } else {
+            return super.fireImmune();
+        }
+    }
+
+    /**
+     * Sets the boat to be fireproof.
+     */
+    @Override
+    public void setFireproof(boolean fireproof) {
+        this.entityData.set(FIREPROOF, fireproof);
+    }
+
+    /**
+     * @return if the boat is legitimately fireproof.
+     */
+    @Override
+    public boolean isFireproof() {
+        return this.entityData.get(FIREPROOF);
+    }
+
+    /**
+     * Creates the {@code fireproof data tracker.}
+     */
+    @Inject(method = "defineSynchedData", at = @At("TAIL"))
+    private void writeFireproofTracker(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(FIREPROOF, false);
+    }
+
+    /**
+     * Writes the {@code fireproof tracker} to NBT.
+     */
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void writeFireproofToNbt(ValueOutput view, CallbackInfo ci) {
+        view.putBoolean("Fireproof", this.isFireproof());
+    }
+
+    /**
+     * Reads the {@code fireproof tracker} by NBT and writes it back.
+     */
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readFireproofFromNbt(ValueInput view, CallbackInfo ci) {
+        this.setFireproof(view.getBooleanOr("Fireproof", false));
+    }
+
+    /**
+     * Allows the modded boats to float in lava, just like it would in water.
+     */
+    @Redirect(method = "checkInWater", at = @At(value = "FIELD", target = "Lnet/minecraft/tags/FluidTags;WATER:Lnet/minecraft/tags/TagKey;"))
+    private TagKey<Fluid> checkBoatInLava() {
+        return ModFluidTags.BOAT_SAFE_FLUIDS;
+    }
+
+    /**
+     * Fixes a bug where fireproof boats go slightly under lava when landing on it from a high distance.
+     */
+    @Redirect(method = "getWaterLevelAbove", at = @At(value = "FIELD", target = "Lnet/minecraft/tags/FluidTags;WATER:Lnet/minecraft/tags/TagKey;"))
+    private TagKey<Fluid> redirectWaterHeight() {
+        return ModFluidTags.BOAT_SAFE_FLUIDS;
+    }
+}

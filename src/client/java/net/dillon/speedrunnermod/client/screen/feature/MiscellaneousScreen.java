@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.client.screen.feature;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screens.Screen;
 
 public class MiscellaneousScreen extends AbstractModScreen {
 
@@ -23,8 +23,8 @@ public class MiscellaneousScreen extends AbstractModScreen {
     }
 
     @Override
-    public void close() {
-        this.client.setScreen(new FeaturesScreen(this.parent));
+    public void onClose() {
+        this.minecraft.setScreen(new FeaturesScreen(this.parent));
     }
 
     @Override

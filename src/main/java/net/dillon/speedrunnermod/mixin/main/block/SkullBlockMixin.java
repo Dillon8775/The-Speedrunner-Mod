@@ -2,24 +2,25 @@ package net.dillon.speedrunnermod.mixin.main.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.block.SkullBlockInvoker;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.SkullBlockEntity;
-import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.CachedBlockPosition;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.GiantEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.predicate.block.BlockStatePredicate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -36,12 +37,12 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
     @Nullable
     private static BlockPattern goliathDispenserPattern;
 
-    public SkullBlockMixin(SkullBlock.SkullType type, Settings settings) {
+    public SkullBlockMixin(SkullBlock.Type type, Properties settings) {
         super(type, settings);
     }
 
     @Override
-    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
         onPlaced(world, pos);
     }
 
@@ -49,7 +50,7 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
      * Helper method for on placed.
      */
     @Unique
-    private void onPlaced(World world, BlockPos pos) {
+    private void onPlaced(Level world, BlockPos pos) {
         if (world.getBlockEntity(pos) instanceof SkullBlockEntity skullBlockEntity) {
             onPlaced(world, pos, skullBlockEntity);
         }
@@ -57,34 +58,34 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
 
     /**
      * Handles the summoning of Goliath.
-     * <p>See {@link WitherSkullBlock#onPlaced(World, BlockPos, SkullBlockEntity)} for more.</p>
+     * <p>See {@link WitherSkullBlock#checkSpawn(Level, BlockPos, SkullBlockEntity)} for more.</p>
      */
     @Unique
-    public void onPlaced(World world, BlockPos pos, SkullBlockEntity blockEntity) {
-        if (!world.isClient()) {
-            BlockState blockState = blockEntity.getCachedState();
-            boolean bl = blockState.isOf(Blocks.ZOMBIE_HEAD) || blockState.isOf(Blocks.ZOMBIE_WALL_HEAD);
-            if (bl && pos.getY() >= world.getBottomY() && world.getDifficulty() != Difficulty.PEACEFUL) {
-                BlockPattern.Result result = getGoliathBossPattern().searchAround(world, pos);
+    public void onPlaced(Level world, BlockPos pos, SkullBlockEntity blockEntity) {
+        if (!world.isClientSide()) {
+            BlockState blockState = blockEntity.getBlockState();
+            boolean bl = blockState.is(Blocks.ZOMBIE_HEAD) || blockState.is(Blocks.ZOMBIE_WALL_HEAD);
+            if (bl && pos.getY() >= world.getMinY() && world.getDifficulty() != Difficulty.PEACEFUL) {
+                BlockPattern.BlockPatternMatch result = getGoliathBossPattern().find(world, pos);
                 if (result != null) {
-                    GiantEntity giant = EntityType.GIANT.create(world, SpawnReason.TRIGGERED);
+                    Giant giant = EntityType.GIANT.create(world, EntitySpawnReason.TRIGGERED);
                     if (giant != null) {
-                        CarvedPumpkinBlock.breakPatternBlocks(world, result);
-                        BlockPos blockPos = result.translate(1, 2, 0).getBlockPos();
-                        giant.refreshPositionAndAngles(
+                        CarvedPumpkinBlock.clearPatternBlocks(world, result);
+                        BlockPos blockPos = result.getBlock(1, 2, 0).getPos();
+                        giant.snapTo(
                                 (double)blockPos.getX() + 0.5,
                                 (double)blockPos.getY() + 0.55,
                                 (double)blockPos.getZ() + 0.5,
                                 result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F,
                                 0.0F
                         );
-                        giant.bodyYaw = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
+                        giant.yBodyRot = result.getForwards().getAxis() == Direction.Axis.X ? 0.0F : 90.0F;
 
-                        for (ServerPlayerEntity serverPlayerEntity : world.getNonSpectatingEntities(ServerPlayerEntity.class, giant.getBoundingBox().expand(50.0))) {
-                            Criteria.SUMMONED_ENTITY.trigger(serverPlayerEntity, giant);
+                        for (ServerPlayer serverPlayerEntity : world.getEntitiesOfClass(ServerPlayer.class, giant.getBoundingBox().inflate(50.0))) {
+                            CriteriaTriggers.SUMMONED_ENTITY.trigger(serverPlayerEntity, giant);
                         }
 
-                        world.spawnEntity(giant);
+                        world.addFreshEntity(giant);
                         CarvedPumpkinBlock.updatePatternBlocks(world, result);
                     }
                 }
@@ -96,8 +97,8 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
      * Determines if the block can be dispensed.
      */
     @Unique
-    public boolean canDispense(World world, BlockPos pos, ItemStack stack) {
-        return stack.isOf(Items.ZOMBIE_HEAD) && pos.getY() >= world.getBottomY() + 2 && world.getDifficulty() != Difficulty.PEACEFUL && !world.isClient() && getGoliathDispenserPattern().searchAround(world, pos) != null;
+    public boolean canDispense(Level world, BlockPos pos, ItemStack stack) {
+        return stack.is(Items.ZOMBIE_HEAD) && pos.getY() >= world.getMinY() + 2 && world.getDifficulty() != Difficulty.PEACEFUL && !world.isClientSide() && getGoliathDispenserPattern().find(world, pos) != null;
     }
 
     /**
@@ -108,10 +109,10 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
         if (goliathBossPattern == null) {
             goliathBossPattern = BlockPatternBuilder.start()
                     .aisle("^", "#", "#")
-                    .where('#', pos -> pos.getBlockState().isOf(ModBlocks.FLESH_BLOCK))
+                    .where('#', pos -> pos.getState().is(ModBlocks.FLESH_BLOCK))
                     .where(
                             '^',
-                            CachedBlockPosition.matchesBlockState(
+                            BlockInWorld.hasState(
                                     BlockStatePredicate.forBlock(Blocks.ZOMBIE_HEAD).or(BlockStatePredicate.forBlock(Blocks.ZOMBIE_WALL_HEAD))
                             )
                     )
@@ -129,7 +130,7 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
         if (goliathDispenserPattern == null) {
             goliathDispenserPattern = BlockPatternBuilder.start()
                     .aisle(" ", "#", "#")
-                    .where('#', pos -> pos.getBlockState().isOf(ModBlocks.FLESH_BLOCK))
+                    .where('#', pos -> pos.getState().is(ModBlocks.FLESH_BLOCK))
                     .build();
         }
 

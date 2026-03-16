@@ -6,10 +6,10 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
@@ -25,23 +25,23 @@ public class ReadyToPlayScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(ModTexts.BEGIN_PLAYING, button -> {
+        this.addButtonObject(Button.builder(ModTexts.BEGIN_PLAYING, button -> {
             if (restartRequired) {
-                this.client.setScreen(this.getNextScreen());
+                this.minecraft.setScreen(this.getNextScreen());
             } else {
                 clientOptions().storedValues.firstTimePlaying.set(false);
                 if (clientOptions().storedValues.enterFeaturesScreen.getCurrentValue()) {
-                    this.client.setScreen(new FeaturesScreen(null));
+                    this.minecraft.setScreen(new FeaturesScreen(null));
                     clientOptions().storedValues.enterFeaturesScreen.set(false);
                 } else {
-                    this.client.setScreen(new TitleScreen());
+                    this.minecraft.setScreen(new TitleScreen());
                 }
                 saveClientChanges();
             }
         }).build());
-        this.addButtonObject(ModListOptions.enterFeatureScreens().createWidget(MinecraftClient.getInstance().options));
-        this.addButtonObject(ButtonWidget.builder(ModTexts.BACK, button -> {
-            this.client.setScreen(this.getPreviousScreen());
+        this.addButtonObject(ModListOptions.enterFeatureScreens().createButton(Minecraft.getInstance().options));
+        this.addButtonObject(Button.builder(ModTexts.BACK, button -> {
+            this.minecraft.setScreen(this.getPreviousScreen());
             restartRequired = false;
         }).build());
     }

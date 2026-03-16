@@ -3,10 +3,10 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -26,55 +26,55 @@ public class MainOptionsScreen extends AbstractModScreen {
      * All of the {@code main options.}
      * <p>These are displayed in order.</p>
      */
-    private List<ClickableWidget> mainOptions() {
+    private List<AbstractWidget> mainOptions() {
         return List.of(
-                ModListOptions.fasterBlockBreaking().createWidget(this.gameOptions),
-                ModListOptions.blockBreakingMultiplier().createWidget(this.gameOptions),
+                ModListOptions.fasterBlockBreaking().createButton(this.options),
+                ModListOptions.blockBreakingMultiplier().createButton(this.options),
 
-                ModListOptions.icarusMode().createWidget(this.gameOptions),
-                ModListOptions.infiniPearlMode().createWidget(this.gameOptions),
+                ModListOptions.icarusMode().createButton(this.options),
+                ModListOptions.infiniPearlMode().createButton(this.options),
 
-                ModListOptions.betterVillagerTrades().createWidget(this.gameOptions),
-                ModListOptions.betterFoods().createWidget(this.gameOptions),
+                ModListOptions.betterVillagerTrades().createButton(this.options),
+                ModListOptions.betterFoods().createButton(this.options),
 
-                ModListOptions.betterBiomes().createWidget(this.gameOptions),
-                ModListOptions.dragonPerchTime().createWidget(this.gameOptions),
+                ModListOptions.betterBiomes().createButton(this.options),
+                ModListOptions.dragonPerchTime().createButton(this.options),
 
-                ModListOptions.fireproofItems().createWidget(this.gameOptions),
-                ModListOptions.throwableFireballs().createWidget(this.gameOptions),
+                ModListOptions.fireproofItems().createButton(this.options),
+                ModListOptions.throwableFireballs().createButton(this.options),
 
-                ModListOptions.fallDamage().createWidget(this.gameOptions),
-                ModListOptions.kineticDamage().createWidget(this.gameOptions),
+                ModListOptions.fallDamage().createButton(this.options),
+                ModListOptions.kineticDamage().createButton(this.options),
 
-                ModListOptions.strongholdCount().createWidget(this.gameOptions),
-                ModListOptions.strongholdDistance().createWidget(this.gameOptions),
+                ModListOptions.strongholdCount().createButton(this.options),
+                ModListOptions.strongholdDistance().createButton(this.options),
 
-                ModListOptions.strongholdSpread().createWidget(this.gameOptions),
-                ModListOptions.strongholdPortalRoomCount().createWidget(this.gameOptions),
+                ModListOptions.strongholdSpread().createButton(this.options),
+                ModListOptions.strongholdPortalRoomCount().createButton(this.options),
 
-                ModListOptions.strongholdLibraryCount().createWidget(this.gameOptions),
-                ModListOptions.globalNetherPortals().createWidget(this.gameOptions),
+                ModListOptions.strongholdLibraryCount().createButton(this.options),
+                ModListOptions.globalNetherPortals().createButton(this.options),
 
-                ModListOptions.lavaBoats().createWidget(this.gameOptions),
-                ModListOptions.netherWater().createWidget(this.gameOptions),
+                ModListOptions.lavaBoats().createButton(this.options),
+                ModListOptions.netherWater().createButton(this.options),
 
-                ModListOptions.commonOres().createWidget(this.gameOptions),
-                ModListOptions.betterAnvil().createWidget(this.gameOptions),
+                ModListOptions.commonOres().createButton(this.options),
+                ModListOptions.betterAnvil().createButton(this.options),
 
-                ModListOptions.anvilCostLimit().createWidget(this.gameOptions),
-                ModListOptions.higherEnchantmentLevels().createWidget(this.gameOptions),
+                ModListOptions.anvilCostLimit().createButton(this.options),
+                ModListOptions.higherEnchantmentLevels().createButton(this.options),
 
-                ModListOptions.arrowsDestroyBeds().createWidget(this.gameOptions),
-                ModListOptions.creatureSpawningRate().createWidget(this.gameOptions),
+                ModListOptions.arrowsDestroyBeds().createButton(this.options),
+                ModListOptions.creatureSpawningRate().createButton(this.options),
 
-                ModListOptions.fasterSpawners().createWidget(this.gameOptions),
-                ModListOptions.fasterBrewing().createWidget(this.gameOptions),
+                ModListOptions.fasterSpawners().createButton(this.options),
+                ModListOptions.fasterBrewing().createButton(this.options),
 
-                ModListOptions.fasterSmelting().createWidget(this.gameOptions),
-                ModListOptions.netherPortalDelay().createWidget(this.gameOptions),
+                ModListOptions.fasterSmelting().createButton(this.options),
+                ModListOptions.netherPortalDelay().createButton(this.options),
 
-                ModListOptions.showDeathCords().createWidget(this.gameOptions),
-                ModListOptions.killGhastOnFireball().createWidget(this.gameOptions)
+                ModListOptions.showDeathCords().createButton(this.options),
+                ModListOptions.killGhastOnFireball().createButton(this.options)
         );
     }
 
@@ -93,20 +93,20 @@ public class MainOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(GuiGraphics context, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(ModListOptions.mode(), !this.isOnServer(),
-                Text.translatable("speedrunnermod.options.mode.tooltip"),
-                Text.translatable("speedrunnermod.options.mode.server.tooltip")
+                Component.translatable("speedrunnermod.options.mode.tooltip"),
+                Component.translatable("speedrunnermod.options.mode.server.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.structureSpawnRate(), options().main.customDataGeneration.getCurrentValue(),
                 ModListOptions.structureSpawnRateTooltip(),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.blockBreakingMultiplier(), options().main.fasterBlockBreaking.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip"),
-                Text.translatable("speedrunnermod.options.block_breaking_multiplier.inactive")
+                Component.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip"),
+                Component.translatable("speedrunnermod.options.block_breaking_multiplier.inactive")
         );
 
         boolean customDataGen = options().main.customDataGeneration.getCurrentValue();
@@ -114,60 +114,60 @@ public class MainOptionsScreen extends AbstractModScreen {
         boolean customDataGenAndBalancedModeAndModifiedStrongholdGeneration = customDataGenAndBalancedMode && options().advanced.modifiedStrongholdGeneration.getCurrentValue();
 
         this.lockOptionWithTooltip(ModListOptions.strongholdCount(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
-                Text.translatable("speedrunnermod.options.stronghold_count.tooltip"),
+                Component.translatable("speedrunnermod.options.stronghold_count.tooltip"),
                 !options().main.customDataGeneration.getCurrentValue() ?
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
+                                Component.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.strongholdDistance(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
-                Text.translatable("speedrunnermod.options.stronghold_distance.tooltip"),
+                Component.translatable("speedrunnermod.options.stronghold_distance.tooltip"),
                 !options().main.customDataGeneration.getCurrentValue() ?
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
+                                Component.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.strongholdSpread(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
-                Text.translatable("speedrunnermod.options.stronghold_spread.tooltip"),
+                Component.translatable("speedrunnermod.options.stronghold_spread.tooltip"),
                 !options().main.customDataGeneration.getCurrentValue() ?
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
+                                Component.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.strongholdPortalRoomCount(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
-                Text.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip"),
+                Component.translatable("speedrunnermod.options.stronghold_portal_room_count.tooltip"),
                 !options().main.customDataGeneration.getCurrentValue() ?
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
+                                Component.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.strongholdLibraryCount(), customDataGenAndBalancedModeAndModifiedStrongholdGeneration,
-                Text.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
+                Component.translatable("speedrunnermod.options.stronghold_library_count.tooltip"),
                 !options().main.customDataGeneration.getCurrentValue() ?
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
                         !isBalancedMode() ?
-                                Text.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
-                                Text.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
+                                Component.translatable("speedrunnermod.options.modified_stronghold_generation_must_be_enabled.tooltip") :
+                                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.betterBiomes(), options().main.customDataGeneration.getCurrentValue() && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.better_biomes.tooltip"),
+                Component.translatable("speedrunnermod.options.better_biomes.tooltip"),
                 !options().main.customDataGeneration.getCurrentValue() ?
-                        Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
-                        Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip")
+                        Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
+                        Component.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.customBiomesAndCustomBiomeFeatures(), options().main.customDataGeneration.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features.tooltip"),
-                Text.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
+                Component.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features.tooltip"),
+                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip")
         );
     }
 

@@ -6,12 +6,12 @@ import net.dillon.speedrunnermod.client.screen.base.option.RestartRequiredScreen
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.ConfirmLinkScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.CommonColors;
 import net.minecraft.util.Util;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
@@ -23,7 +23,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
 public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     public static boolean needsRestart = false;
     public static boolean needsRestartFromEnablingLeaderboardsMode = false;
-    protected ButtonWidget leftButton, middleButton, rightButton, viewIneligibleOptionsButton, visitSubmissionPageButton;
+    protected Button leftButton, middleButton, rightButton, viewIneligibleOptionsButton, visitSubmissionPageButton;
 
     public LeaderboardsIneligibleScreen(Screen parent) {
         super(parent, ModTexts.TITLE_LEADERBOARDS);
@@ -32,72 +32,72 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     @Override
     protected void init() {
         int height = this.getButtonsHeight();
-        this.leftButton = this.addDrawableChild(ButtonWidget.builder(needsRestartFromEnablingLeaderboardsMode ? ModTexts.RESTART_NOW : Leaderboards.noOptionsWereChanged() ? ModTexts.FIX_AND_RESTART : ModTexts.REVERT_CHANGES, (buttonWidget) -> {
+        this.leftButton = this.addRenderableWidget(Button.builder(needsRestartFromEnablingLeaderboardsMode ? ModTexts.RESTART_NOW : Leaderboards.noOptionsWereChanged() ? ModTexts.FIX_AND_RESTART : ModTexts.REVERT_CHANGES, (buttonWidget) -> {
             if (needsRestartFromEnablingLeaderboardsMode) {
                 this.quitWorld();
-                this.client.scheduleStop();
+                this.minecraft.stop();
             } else if (Leaderboards.noOptionsWereChanged()) {
                 this.quitWorld();
                 info("Fixing options! Re-launch to apply changes.");
                 Leaderboards.fixOptions();
                 saveAllChanges();
-                this.client.scheduleStop();
+                this.minecraft.stop();
             } else {
                 this.revertChanges();
             }
-        }).dimensions(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
-        this.middleButton = this.addDrawableChild(ButtonWidget.builder(needsRestartFromEnablingLeaderboardsMode ? ModTexts.REVERT_CHANGES : ModTexts.DISABLE_LEADERBOARDS_MODE_AND_RESTART, (buttonWidget) -> {
+        }).bounds(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
+        this.middleButton = this.addRenderableWidget(Button.builder(needsRestartFromEnablingLeaderboardsMode ? ModTexts.REVERT_CHANGES : ModTexts.DISABLE_LEADERBOARDS_MODE_AND_RESTART, (buttonWidget) -> {
             if (needsRestartFromEnablingLeaderboardsMode) {
                 this.revertChanges();
             } else {
                 this.quitWorld();
                 Leaderboards.disableLeaderboardsMode();
-                this.client.scheduleStop();
+                this.minecraft.stop();
             }
-        }).dimensions(this.getButtonsMiddle(), this.getButtonsHeight(), 100, 20
+        }).bounds(this.getButtonsMiddle(), this.getButtonsHeight(), 100, 20
 
         ).build());
-        this.rightButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.IGNORE, (buttonWidget) -> {
+        this.rightButton = this.addRenderableWidget(Button.builder(ModTexts.IGNORE, (buttonWidget) -> {
             Leaderboards.sendIgnoreWarning();
             if (needsRestart && !needsRestartFromEnablingLeaderboardsMode) {
-                this.client.setScreen(new RestartRequiredScreen(this.parent));
+                this.minecraft.setScreen(new RestartRequiredScreen(this.parent));
             } else {
-                this.client.setScreen(new MainScreen(this.parent));
+                this.minecraft.setScreen(new MainScreen(this.parent));
             }
-        }).dimensions(this.getButtonsRightSide(), this.getButtonsHeight(), 100, 20).build());
+        }).bounds(this.getButtonsRightSide(), this.getButtonsHeight(), 100, 20).build());
 
         if (!needsRestartFromEnablingLeaderboardsMode) {
             height += 36;
-            this.viewIneligibleOptionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.VIEW_INELIGIBLE_OPTIONS, (buttonWidget) -> {
+            this.viewIneligibleOptionsButton = this.addRenderableWidget(Button.builder(ModTexts.VIEW_INELIGIBLE_OPTIONS, (buttonWidget) -> {
                 LeaderboardsIneligibleOptionsScreen.fromInitialBoot = false;
                 Leaderboards.checkForIneligibleOptions();
-                this.client.setScreen(new LeaderboardsIneligibleOptionsScreen(this.parent));
-            }).dimensions(this.width / 2 - 100, height, 200, 20).build());
+                this.minecraft.setScreen(new LeaderboardsIneligibleOptionsScreen(this.parent));
+            }).bounds(this.width / 2 - 100, height, 200, 20).build());
 
-            this.visitSubmissionPageButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.VISIT_SUBMISSION_PAGE, (button) -> {
-                this.client.setScreen(new ConfirmLinkScreen(openInBrowser -> {
+            this.visitSubmissionPageButton = this.addRenderableWidget(Button.builder(ModTexts.VISIT_SUBMISSION_PAGE, (button) -> {
+                this.minecraft.setScreen(new ConfirmLinkScreen(openInBrowser -> {
                     if (openInBrowser) {
-                        Util.getOperatingSystem().open(ModLinks.LEADERBOARDS_SUBMISSION);
+                        Util.getPlatform().openUri(ModLinks.LEADERBOARDS_SUBMISSION);
                     }
-                    this.client.setScreen(this);
+                    this.minecraft.setScreen(this);
                 }, ModLinks.LEADERBOARDS_SUBMISSION, true));
-            }).dimensions(this.width / 2 - 100, this.height - 29, 200, 20).build());
+            }).bounds(this.width / 2 - 100, this.height - 29, 200, 20).build());
         }
     }
 
     @Override
-    public void renderCustomText(DrawContext context) {
+    public void renderCustomText(GuiGraphics context) {
         if (needsRestartFromEnablingLeaderboardsMode) {
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.restart_required.line1"), this.width / 2, 110, Colors.WHITE);
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.restart_required.line2"), this.width / 2, 130, Colors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.restart_required.line1"), this.width / 2, 110, CommonColors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.restart_required.line2"), this.width / 2, 130, CommonColors.WHITE);
         } else if (Leaderboards.noOptionsWereChanged()) {
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.restart.line1"), this.width / 2, 80, Colors.WHITE);
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.restart.line2"), this.width / 2, 100, Colors.WHITE);
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.restart.line3"), this.width / 2, 120, Colors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.restart.line1"), this.width / 2, 80, CommonColors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.restart.line2"), this.width / 2, 100, CommonColors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.restart.line3"), this.width / 2, 120, CommonColors.WHITE);
         } else {
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.ineligible.line1"), this.width / 2, 80, Colors.WHITE);
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.ineligible.line2"), this.width / 2, 100, Colors.WHITE);
-            context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.leaderboards.ineligible_options.line3"), this.width / 2, 120, Colors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible.line1"), this.width / 2, 80, CommonColors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible.line2"), this.width / 2, 100, CommonColors.WHITE);
+            context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line3"), this.width / 2, 120, CommonColors.WHITE);
         }
     }
 
@@ -107,26 +107,26 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
         if (this.leftButton.isHovered()) {
             if (needsRestartFromEnablingLeaderboardsMode) {
-                this.renderBasicTooltip(Text.translatable("speedrunnermod.restart_now.tooltip"), context, mouseX, mouseY);
+                this.renderBasicTooltip(Component.translatable("speedrunnermod.restart_now.tooltip"), context, mouseX, mouseY);
             } else if (Leaderboards.noOptionsWereChanged()) {
-                this.renderBasicTooltip(Text.translatable("speedrunnermod.fix_and_restart.tooltip"), context, mouseX, mouseY);
+                this.renderBasicTooltip(Component.translatable("speedrunnermod.fix_and_restart.tooltip"), context, mouseX, mouseY);
             } else {
-                this.renderBasicTooltip(Text.translatable("speedrunnermod.revert_changes.tooltip"), context, mouseX, mouseY);
+                this.renderBasicTooltip(Component.translatable("speedrunnermod.revert_changes.tooltip"), context, mouseX, mouseY);
             }
         }
         if (this.middleButton.isHovered()) {
             if (!needsRestartFromEnablingLeaderboardsMode) {
-                this.renderBasicTooltip(Text.translatable("speedrunnermod.disable_leaderboards_mode_and_restart.tooltip"), context, mouseX, mouseY);
+                this.renderBasicTooltip(Component.translatable("speedrunnermod.disable_leaderboards_mode_and_restart.tooltip"), context, mouseX, mouseY);
             }
         }
         if (this.rightButton.isHovered()) {
             if (!needsRestartFromEnablingLeaderboardsMode) {
-                this.renderBasicTooltip(Text.translatable("speedrunnermod.ignore.tooltip"), context, mouseX, mouseY);
+                this.renderBasicTooltip(Component.translatable("speedrunnermod.ignore.tooltip"), context, mouseX, mouseY);
             } else {
-                this.renderBasicTooltip(Text.translatable("speedrunnermod.ignore_restart.tooltip"), context, mouseX, mouseY);
+                this.renderBasicTooltip(Component.translatable("speedrunnermod.ignore_restart.tooltip"), context, mouseX, mouseY);
             }
         }
         super.renderTooltips(context, mouseX, mouseY);
@@ -136,7 +136,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
         Leaderboards.revertChanges();
         saveAllChanges();
         info("Changes reverted.");
-        this.client.setScreen(this.parent);
+        this.minecraft.setScreen(this.parent);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     }
 
     @Override
-    public void close() {
+    public void onClose() {
         warn("Cannot close screen! Please choose an option.");
     }
 

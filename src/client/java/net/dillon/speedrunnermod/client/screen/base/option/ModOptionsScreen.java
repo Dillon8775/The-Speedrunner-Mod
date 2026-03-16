@@ -3,11 +3,11 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.options.*;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -17,15 +17,15 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
  * The {@code options} screen for the Speedrunner Mod, consisting of all the option categories.
  */
 public class ModOptionsScreen extends AbstractModScreen {
-    private ButtonWidget mainOptionsButton, fwcOptionsButton, clientOptionsButton, ssrOptionsButton, advancedOptionsButton, mixinOptionsButton, resetOptionsButton;
+    private Button mainOptionsButton, fwcOptionsButton, clientOptionsButton, ssrOptionsButton, advancedOptionsButton, mixinOptionsButton, resetOptionsButton;
 
     public ModOptionsScreen(Screen parent) {
-        super(parent, Text.translatable("speedrunnermod.title.options"));
+        super(parent, Component.translatable("speedrunnermod.title.options"));
     }
 
     @Override
-    protected List<ClickableWidget> buttons() {
-        List<ClickableWidget> widgets = new java.util.ArrayList<>();
+    protected List<AbstractWidget> buttons() {
+        List<AbstractWidget> widgets = new java.util.ArrayList<>();
         if (this.mainOptionsButton != null) {
             widgets.add(this.mainOptionsButton);
         }
@@ -52,32 +52,32 @@ public class ModOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.mainOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
+        this.mainOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
             this.openOptionsScreen(new MainOptionsScreen(this));
         }).build();
 
-        this.fwcOptionsButton = ButtonWidget.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
+        this.fwcOptionsButton = Button.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
             this.openOptionsScreen(new FastWorldCreationOptionsScreen(this));
         }).build();
 
-        this.clientOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
+        this.clientOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
             this.openOptionsScreen(new ClientOptionsScreen(this));
         }).build();
 
-        this.ssrOptionsButton = ButtonWidget.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
+        this.ssrOptionsButton = Button.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
             this.openOptionsScreen(new StructureSpawnRateOptionsScreen(this));
         }).build();
 
-        this.advancedOptionsButton = ButtonWidget.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
+        this.advancedOptionsButton = Button.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
             this.openOptionsScreen(new AdvancedOptionsScreen(this));
         }).build();
 
-        this.mixinOptionsButton = ButtonWidget.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
+        this.mixinOptionsButton = Button.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
             this.openOptionsScreen(new MixinOptionsScreen(this));
         }).build();
 
-        this.resetOptionsButton = ButtonWidget.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
-            this.client.setScreen(new ResetOptionsConfirmScreen(this));
+        this.resetOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
+            this.minecraft.setScreen(new ResetOptionsConfirmScreen(this));
         }).build();
 
         super.init();
@@ -88,17 +88,17 @@ public class ModOptionsScreen extends AbstractModScreen {
      */
     private void openOptionsScreen(AbstractModScreen screen) {
         RestartRequiredScreen.getCurrentOptions();
-        this.client.setScreen(screen);
+        this.minecraft.setScreen(screen);
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float deltaTicks) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
         this.ssrOptionsButton.active = isSsrCustom();
         super.render(context, mouseX, mouseY, deltaTicks);
     }
 
     @Override
-    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
         if (this.mainOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_MAIN_TOOLTIP, context, mouseX, mouseY);
         }

@@ -5,9 +5,9 @@ import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
 import net.dillon.speedrunnermod.world.feature.ModPlacedFeatures;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.registry.tag.BiomeTags;
-import net.minecraft.world.biome.BiomeKeys;
-import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.tags.BiomeTags;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.GenerationStep;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
@@ -42,34 +42,34 @@ public class ModWorldGen {
      */
     private static void addOres() {
         BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_UPPER);
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_UPPER);
 
         BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_MIDDLE);
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_MIDDLE);
 
         BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_SMALL);
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_SMALL);
 
         BiomeModifications.addFeature(BiomeSelectors.excludeByKey(ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE);
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE);
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_DELTAS);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BASALT_DELTAS),
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_DELTAS);
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_IGNEOUS_DELTAS);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BASALT_DELTAS),
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_IGNEOUS_DELTAS);
 
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.BASALT_DELTAS),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_DELTAS);
-
-        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_NETHER);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.BASALT_DELTAS),
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_DELTAS);
 
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_IGNEOUS_NETHER);
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_SPEEDRUNNER_NETHER);
 
         BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
-                GenerationStep.Feature.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_NETHER);
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_IGNEOUS_NETHER);
+
+        BiomeModifications.addFeature(BiomeSelectors.foundInTheNether(),
+                GenerationStep.Decoration.UNDERGROUND_ORES, ModPlacedFeatures.ORE_EXPERIENCE_NETHER);
     }
 
     /**
@@ -78,26 +78,26 @@ public class ModWorldGen {
     private static void addVegetalDecoration() {
         if (options().advanced.generateSpeedrunnerWood.getCurrentValue()) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(
-                            BiomeKeys.DESERT,
-                            BiomeKeys.BADLANDS),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_SPEEDRUNNER_PLACED);
+                            Biomes.DESERT,
+                            Biomes.BADLANDS),
+                    GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_SPEEDRUNNER_PLACED);
 
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.SWAMP_HUT_HAS_STRUCTURE),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_SWAMP);
+            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.HAS_SWAMP_HUT),
+                    GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_SWAMP);
 
-            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.DESERT_PYRAMID_HAS_STRUCTURE),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_DESERT);
+            BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.HAS_DESERT_PYRAMID),
+                    GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_DESERT);
 
             BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_BADLANDS),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_BADLANDS);
+                    GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH_BADLANDS);
 
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.SOUL_SAND_VALLEY),
-                    GenerationStep.Feature.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_SPEEDRUNNER_PLACED_NETHER);
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SOUL_SAND_VALLEY),
+                    GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.DEAD_SPEEDRUNNER_PLACED_NETHER);
         }
 
         if (isDoomMode()) {
-            BiomeModifications.addFeature(BiomeSelectors.includeByKey(BiomeKeys.THE_END),
-                    GenerationStep.Feature.VEGETAL_DECORATION,
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.THE_END),
+                    GenerationStep.Decoration.VEGETAL_DECORATION,
                     ModPlacedFeatures.DOOM_TREE_PLACED);
         }
     }

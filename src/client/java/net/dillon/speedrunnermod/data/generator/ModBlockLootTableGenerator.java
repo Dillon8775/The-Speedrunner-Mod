@@ -4,21 +4,21 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.condition.TableBonusLootCondition;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.ApplyBonusLootFunction;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -29,48 +29,48 @@ import java.util.concurrent.CompletableFuture;
 public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
     private static final float[] NEW_SAPLING_DROP_CHANCE = new float[]{0.075F, 0.0800F, 0.093333336F, 0.15F};
     private static final float[] NEW_LEAVES_STICK_DROP_CHANCE = new float[]{0.65F, 0.06555558F, 0.70F, 0.075F, 0.1F};
-    private final RegistryWrapper.Impl<Enchantment> impl = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
+    private final HolderLookup.RegistryLookup<Enchantment> impl = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
-    protected ModBlockLootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    protected ModBlockLootTableGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
     @Override
     public void generate() {
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_BUSH, (Block block) -> dropsWithShears(block, applyExplosionDecay(block, ItemEntry.builder(ModItems.SPEEDRUNNER_STICK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(3, 9))))));
-        addDrop(ModBlocks.SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.SPEEDRUNNER_STICK, ModBlocks.SPEEDRUNNER_SAPLING, false, NEW_SAPLING_DROP_CHANCE));
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.SPEEDRUNNER_STICK, ModBlocks.DEAD_SPEEDRUNNER_SAPLING, false, NEW_SAPLING_DROP_CHANCE));
+        add(ModBlocks.DEAD_SPEEDRUNNER_BUSH, (Block block) -> createShearsDispatchTable(block, applyExplosionDecay(block, LootItem.lootTableItem(ModItems.SPEEDRUNNER_STICK).apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 9))))));
+        add(ModBlocks.SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.SPEEDRUNNER_STICK, ModBlocks.SPEEDRUNNER_SAPLING, false, NEW_SAPLING_DROP_CHANCE));
+        add(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, (Block block) -> speedrunnerLeavesDrops(block, ModItems.SPEEDRUNNER_STICK, ModBlocks.DEAD_SPEEDRUNNER_SAPLING, false, NEW_SAPLING_DROP_CHANCE));
 
-        addPottedPlantDrops(ModBlocks.POTTED_DEAD_SPEEDRUNNER_BUSH);
-        addPottedPlantDrops(ModBlocks.POTTED_SPEEDRUNNER_SAPLING);
+        dropPottedContents(ModBlocks.POTTED_DEAD_SPEEDRUNNER_BUSH);
+        dropPottedContents(ModBlocks.POTTED_SPEEDRUNNER_SAPLING);
 
-        addDrop(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
-        addDrop(ModBlocks.SPEEDRUNNER_BLOCK);
-        addDrop(ModBlocks.SPEEDRUNNER_FENCE);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_FENCE);
-        addDrop(ModBlocks.SPEEDRUNNER_FENCE_GATE);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE);
-        addDrop(ModBlocks.SPEEDRUNNER_SAPLING);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_SAPLING);
-        addDrop(ModBlocks.SPEEDRUNNER_SLAB, this::slabDrops);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_SLAB, this::slabDrops);
-        addDrop(ModBlocks.SPEEDRUNNER_STAIRS);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_STAIRS);
-        addDrop(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON);
-        addDrop(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON);
+        dropSelf(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
+        dropSelf(ModBlocks.SPEEDRUNNER_BLOCK);
+        dropSelf(ModBlocks.SPEEDRUNNER_FENCE);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_FENCE);
+        dropSelf(ModBlocks.SPEEDRUNNER_FENCE_GATE);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE);
+        dropSelf(ModBlocks.SPEEDRUNNER_SAPLING);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_SAPLING);
+        add(ModBlocks.SPEEDRUNNER_SLAB, this::createSlabItemTable);
+        add(ModBlocks.DEAD_SPEEDRUNNER_SLAB, this::createSlabItemTable);
+        dropSelf(ModBlocks.SPEEDRUNNER_STAIRS);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_STAIRS);
+        dropSelf(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON);
+        dropSelf(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON);
 
-        addDrop(ModBlocks.SPEEDRUNNERS_WORKBENCH);
+        dropSelf(ModBlocks.SPEEDRUNNERS_WORKBENCH);
 
-        addDrop(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, this::doorDrops);
-        addDrop(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, this::doorDrops);
-        addDrop(ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
-        addDrop(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
-        addDrop(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR);
-        addDrop(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
+        add(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, this::createDoorTable);
+        add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, this::createDoorTable);
+        dropSelf(ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
+        dropSelf(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
+        dropSelf(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR);
+        dropSelf(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
 
-        addDrop(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE);
-        addDrop(ModBlocks.SPEEDRUNNER_TRAPDOOR);
-        addDrop(ModBlocks.SPEEDRUNNER_DOOR, this::doorDrops);
+        dropSelf(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE);
+        dropSelf(ModBlocks.SPEEDRUNNER_TRAPDOOR);
+        add(ModBlocks.SPEEDRUNNER_DOOR, this::createDoorTable);
 
         addOreDrops();
         addWoodDrops();
@@ -79,55 +79,55 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
     }
 
     private void addOreDrops() {
-        addDrop(ModBlocks.SPEEDRUNNER_ORE, (Block block) -> oreDrops(block, ModItems.SPEEDRUNNER_INGOT));
-        addDrop(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, (Block block) -> oreDrops(block, ModItems.SPEEDRUNNER_INGOT));
-        addDrop(ModBlocks.NETHER_SPEEDRUNNER_ORE, (Block block) -> dropsWithSilkTouch(block, this.applyExplosionDecay(block, ItemEntry.builder(ModItems.SPEEDRUNNER_NUGGET).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(2, 6)))).apply(ApplyBonusLootFunction.oreDrops(impl.getOrThrow(Enchantments.FORTUNE)))));
+        add(ModBlocks.SPEEDRUNNER_ORE, (Block block) -> createOreDrop(block, ModItems.SPEEDRUNNER_INGOT));
+        add(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, (Block block) -> createOreDrop(block, ModItems.SPEEDRUNNER_INGOT));
+        add(ModBlocks.NETHER_SPEEDRUNNER_ORE, (Block block) -> createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(ModItems.SPEEDRUNNER_NUGGET).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)))).apply(ApplyBonusCount.addOreBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
 
-        addDrop(ModBlocks.IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
-        addDrop(ModBlocks.DEEPSLATE_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
-        addDrop(ModBlocks.NETHER_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 4));
+        add(ModBlocks.IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
+        add(ModBlocks.DEEPSLATE_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
+        add(ModBlocks.NETHER_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 4));
 
-        addDropWithSilkTouch(ModBlocks.THRUSTED_BLOCK);
-        addDropWithSilkTouch(ModBlocks.EXPERIENCE_ORE);
-        addDropWithSilkTouch(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
-        addDropWithSilkTouch(ModBlocks.NETHER_EXPERIENCE_ORE);
+        dropWhenSilkTouch(ModBlocks.THRUSTED_BLOCK);
+        dropWhenSilkTouch(ModBlocks.EXPERIENCE_ORE);
+        dropWhenSilkTouch(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
+        dropWhenSilkTouch(ModBlocks.NETHER_EXPERIENCE_ORE);
     }
 
     private void addWoodDrops() {
-        addDrop(ModBlocks.SPEEDRUNNER_LOG);
-        addDrop(ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
-        addDrop(ModBlocks.SPEEDRUNNER_WOOD);
-        addDrop(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
+        dropSelf(ModBlocks.SPEEDRUNNER_LOG);
+        dropSelf(ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
+        dropSelf(ModBlocks.SPEEDRUNNER_WOOD);
+        dropSelf(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
 
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_LOG);
-        addDrop(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
-        addDrop(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_LOG);
+        dropSelf(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
+        dropSelf(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
     }
 
     private void addSignDrops() {
-        addDrop(ModBlocks.SPEEDRUNNER_SIGN);
-        addDrop(ModBlocks.SPEEDRUNNER_WALL_SIGN);
-        addDrop(ModBlocks.SPEEDRUNNER_HANGING_SIGN);
-        addDrop(ModBlocks.SPEEDRUNNER_HANGING_WALL_SIGN);
+        dropSelf(ModBlocks.SPEEDRUNNER_SIGN);
+        dropSelf(ModBlocks.SPEEDRUNNER_WALL_SIGN);
+        dropSelf(ModBlocks.SPEEDRUNNER_HANGING_SIGN);
+        dropSelf(ModBlocks.SPEEDRUNNER_HANGING_WALL_SIGN);
 
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_SIGN);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_WALL_SIGN);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN);
-        addDrop(ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_SIGN);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_WALL_SIGN);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
     }
 
     private void addDoomDrops() {
-        addDropWithSilkTouch(ModBlocks.DOOM_STONE);
-        addDropWithSilkTouch(ModBlocks.DOOM_LOG);
-        addDropWithSilkTouch(ModBlocks.STRIPPED_DOOM_LOG);
+        dropWhenSilkTouch(ModBlocks.DOOM_STONE);
+        dropWhenSilkTouch(ModBlocks.DOOM_LOG);
+        dropWhenSilkTouch(ModBlocks.STRIPPED_DOOM_LOG);
     }
 
     private LootTable.Builder igneousOreDrops(Block dropWithSilkTouch, int min) {
-        return dropsWithSilkTouch(dropWithSilkTouch, applyExplosionDecay(dropWithSilkTouch, ItemEntry.builder(ModItems.IGNEOUS_ROCK).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(min, 6))).apply(ApplyBonusLootFunction.oreDrops(impl.getOrThrow(Enchantments.FORTUNE)))));
+        return createSilkTouchDispatchTable(dropWithSilkTouch, applyExplosionDecay(dropWithSilkTouch, LootItem.lootTableItem(ModItems.IGNEOUS_ROCK).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, 6))).apply(ApplyBonusCount.addOreBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
     }
 
     private LootTable.Builder speedrunnerLeavesDrops(Block leaves, Item item, Block drop, boolean goldenApple, float ... chance) {
-        return dropsWithSilkTouchOrShears(leaves, addSurvivesExplosionCondition(leaves, ItemEntry.builder(drop)).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), chance))).pool(LootPool.builder().rolls(ConstantLootNumberProvider.create(1.0f)).conditionally(createWithoutShearsOrSilkTouchCondition()).with(addSurvivesExplosionCondition(leaves, ItemEntry.builder(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)).with(applyExplosionDecay(leaves, ItemEntry.builder(item).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2))))).conditionally(TableBonusLootCondition.builder(impl.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
+        return createSilkTouchOrShearsDispatchTable(leaves, applyExplosionCondition(leaves, LootItem.lootTableItem(drop)).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), chance))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).when(doesNotHaveShearsOrSilkTouch()).add(applyExplosionCondition(leaves, LootItem.lootTableItem(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE))).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)).add(applyExplosionDecay(leaves, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
     }
 }

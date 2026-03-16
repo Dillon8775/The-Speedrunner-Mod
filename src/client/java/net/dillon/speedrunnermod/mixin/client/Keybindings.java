@@ -4,18 +4,18 @@ import net.dillon.speedrunnermod.client.keybind.ModKeybindings;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.RunArgs;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.gui.hud.debug.DebugHudEntries;
-import net.minecraft.client.gui.screen.MessageScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.world.CreateWorldScreen;
-import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.components.debug.DebugScreenEntries;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
+import net.minecraft.client.main.GameConfig;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,47 +31,47 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChan
 /**
  * Implements all keybindings functions into the game.
  */
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public abstract class Keybindings {
     @Shadow @Final
-    public InGameHud inGameHud;
+    public Gui gui;
     @Shadow
-    public ClientWorld world;
+    public ClientLevel level;
     @Shadow
     public abstract void disconnect(Screen disconnectionScreen, boolean transferring, boolean bl);
     @Shadow
     public abstract void setScreen(@Nullable Screen screen);
     @Shadow
-    public abstract boolean isInSingleplayer();
+    public abstract boolean isLocalServer();
     @Shadow
-    public abstract @Nullable ServerInfo getCurrentServerEntry();
+    public abstract @Nullable ServerData getCurrentServer();
     @Shadow @Final
-    public GameOptions options;
+    public Options options;
 
     /**
      * Ensures that the {@code fullbright} option is correctly initialized when launching the game.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void setGammaUponStart(RunArgs args, CallbackInfo ci) {
-        clientOptions().client.fullBright.set(MinecraftClient.getInstance().options.getGamma().getValue() >= 10.0D);
+    private void setGammaUponStart(GameConfig args, CallbackInfo ci) {
+        clientOptions().client.fullBright.set(Minecraft.getInstance().options.gamma().get() >= 10.0D);
         saveClientChanges();
     }
 
     /**
      * All speedrunner mod {@code keybinding} functions.
      */
-    @Inject(method = "handleInputEvents", at = @At("TAIL"))
+    @Inject(method = "handleKeybinds", at = @At("TAIL"))
     private void implementSpeedrunnerModKeybindFunctions(CallbackInfo info) {
-        while (ModKeybindings.RESET.wasPressed()) {
-            if (this.isInSingleplayer() && this.getCurrentServerEntry() == null) {
+        while (ModKeybindings.RESET.consumeClick()) {
+            if (this.isLocalServer() && this.getCurrentServer() == null) {
                 if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
-                    if (this.inGameHud != null) {
-                        this.inGameHud.getChatHud().clear(false);
+                    if (this.gui != null) {
+                        this.gui.getChat().clearMessages(false);
                     }
-                    assert this.world != null;
-                    this.world.disconnect(Text.translatable("menu.savingLevel"));
-                    this.disconnect(new MessageScreen(Text.translatable("speedrunnermod.menu.generating_new_world")), false, false);
-                    CreateWorldScreen.show(MinecraftClient.getInstance(), null);
+                    assert this.level != null;
+                    this.level.disconnect(Component.translatable("menu.savingLevel"));
+                    this.disconnect(new GenericMessageScreen(Component.translatable("speedrunnermod.menu.generating_new_world")), false, false);
+                    CreateWorldScreen.openFresh(Minecraft.getInstance(), null);
                 } else {
                     debugWarn("\"Fast World Creation\" is OFF, please enable to use this feature.");
                 }
@@ -80,35 +80,35 @@ public abstract class Keybindings {
             }
         }
 
-        while (ModKeybindings.TOGGLE_FOG.wasPressed()) {
+        while (ModKeybindings.TOGGLE_FOG.consumeClick()) {
             if (clientOptions().mixins.fogMixins.getCurrentValue()) {
                 clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
                 saveClientChanges();
-                MinecraftClient.getInstance().worldRenderer.reload();
+                Minecraft.getInstance().levelRenderer.allChanged();
             } else {
                 debugWarn("speedrunnermod.fog.mixin_disabled");
             }
         }
 
         if (!FabricLoader.getInstance().isModLoaded("simplekeybinds")) {
-            while (ModKeybindings.TOGGLE_FULLBRIGHT.wasPressed()) {
+            while (ModKeybindings.TOGGLE_FULLBRIGHT.consumeClick()) {
                 if (clientOptions().mixins.simpleOptionMixin.getCurrentValue()) {
                     clientOptions().client.fullBright.set(!clientOptions().client.fullBright.getCurrentValue());
                     saveClientChanges();
-                    MinecraftClient.getInstance().options.getGamma().setValue(clientOptions().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
-                    MinecraftClient.getInstance().options.write();
+                    Minecraft.getInstance().options.gamma().set(clientOptions().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                    Minecraft.getInstance().options.save();
                 } else {
                     debugWarn("\"Simple Option Mixin\" is disabled, cannot change brightness.");
                 }
             }
 
-            while (ModKeybindings.TOGGLE_HITBOXES.wasPressed()) {
-                boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
+            while (ModKeybindings.TOGGLE_HITBOXES.consumeClick()) {
+                boolean bl = Minecraft.getInstance().debugEntries.toggleStatus(DebugScreenEntries.ENTITY_HITBOXES);
                 debugWarn(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
             }
 
-            while (ModKeybindings.TOGGLE_CHUNK_BORDERS.wasPressed()) {
-                boolean bl = MinecraftClient.getInstance().debugHudEntryList.toggleVisibility(DebugHudEntries.ENTITY_HITBOXES);
+            while (ModKeybindings.TOGGLE_CHUNK_BORDERS.consumeClick()) {
+                boolean bl = Minecraft.getInstance().debugEntries.toggleStatus(DebugScreenEntries.ENTITY_HITBOXES);
                 debugWarn(bl ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
             }
         }
@@ -119,6 +119,6 @@ public abstract class Keybindings {
      */
     @Unique
     private void debugWarn(String string, Object... objects) {
-        this.inGameHud.getChatHud().addMessage((ModTexts.BLANK).copy().append((Text.translatable("debug.prefix")).formatted(Formatting.YELLOW, Formatting.BOLD)).append(" ").append(Text.translatable(string, objects)));
+        this.gui.getChat().addMessage((ModTexts.BLANK).copy().append((Component.translatable("debug.prefix")).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD)).append(" ").append(Component.translatable(string, objects)));
     }
 }

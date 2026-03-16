@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.main.item;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.BucketItem;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.level.material.Fluid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -15,7 +15,7 @@ public abstract class BucketItemMixin {
     /**
      * Allows water to be placed in the nether if the {@code allow water in nether} option is on.
      */
-    @Redirect(method = "placeFluid", at = @At(value = "INVOKE", target = "Lnet/minecraft/fluid/Fluid;isIn(Lnet/minecraft/registry/tag/TagKey;)Z"))
+    @Redirect(method = "emptyContents", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Fluid;is(Lnet/minecraft/tags/TagKey;)Z"))
     private boolean allowWaterInNether(Fluid instance, TagKey<Fluid> tag) {
         return !options().main.netherWater.getCurrentValue();
     }

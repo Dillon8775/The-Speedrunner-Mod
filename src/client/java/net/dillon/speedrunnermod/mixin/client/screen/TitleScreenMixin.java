@@ -7,17 +7,18 @@ import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.world.CreateWorldScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.CommonColors;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,9 +33,9 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
     @Unique
-    private ButtonWidget featuresButton, createWorldButton, optionsButton, restartButton;
+    private Button featuresButton, createWorldButton, optionsButton, restartButton;
 
-    public TitleScreenMixin(Text title) {
+    public TitleScreenMixin(Component title) {
         super(title);
     }
 
@@ -43,24 +44,24 @@ public class TitleScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void addSpeedrunnerModButtons(CallbackInfo ci) {
-        this.optionsButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-            this.client.setScreen(new MainScreen(this));
-        }).dimensions(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
+        this.optionsButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (buttonWidget) -> {
+            this.minecraft.setScreen(new MainScreen(this));
+        }).bounds(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
 
         if (RestartRequiredScreen.restartRequired) {
-            this.restartButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                this.client.setScreen(new TimedScreen(this, 5, false));
-            }).dimensions(this.optionsButton.getX() - 24, this.optionsButton.getY(), 20, 20).build());
+            this.restartButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (buttonWidget) -> {
+                this.minecraft.setScreen(new TimedScreen(this, 5, false));
+            }).bounds(this.optionsButton.getX() - 24, this.optionsButton.getY(), 20, 20).build());
         }
 
-        this.featuresButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-            this.client.setScreen(new FeaturesScreen(this));
-        }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 48, 20, 20).build());
+        this.featuresButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (buttonWidget) -> {
+            this.minecraft.setScreen(new FeaturesScreen(this));
+        }).bounds(this.optionsButton.getX(), this.optionsButton.getY() - 48, 20, 20).build());
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {
-            this.createWorldButton = this.addDrawableChild(ButtonWidget.builder(ModTexts.BLANK, (buttonWidget) -> {
-                CreateWorldScreen.show(this.client, null);
-            }).dimensions(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
+            this.createWorldButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (buttonWidget) -> {
+                CreateWorldScreen.openFresh(this.minecraft, null);
+            }).bounds(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
             this.createWorldButton.active = clientOptions().client.fastWorldCreation.getCurrentValue();
         }
     }
@@ -68,12 +69,12 @@ public class TitleScreenMixin extends Screen {
     /**
      * Adds additional textures to the title screen.
      */
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTextWithShadow(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;III)V"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void renderSpeedrunnerModButtonTexturesAndText(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci, float f) {
+    @Inject(method = "extractRenderState", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void renderSpeedrunnerModButtonTexturesAndText(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci, float f) {
         ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton, f);
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {
-            context.drawTexture(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16, ColorHelper.withAlpha(f, Colors.WHITE));
+            context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16, ARGB.color(f, CommonColors.WHITE));
         }
 
         ClientModUtil.renderModIcon(context, this.optionsButton, f);
@@ -82,28 +83,28 @@ public class TitleScreenMixin extends Screen {
         }
 
         this.renderTooltips(context, mouseX, mouseY);
-        context.drawTextWithShadow(this.textRenderer, SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION, 2, this.height - 20, ColorHelper.withAlpha(f, Formatting.AQUA.getColorValue()));
+        context.centeredText(this.font, SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION, 2, this.height - 20, ARGB.color(f, ChatFormatting.AQUA.getColor()));
     }
 
     /**
      * Renders the tooltips on the title screen buttons.
      */
     @Unique
-    private void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+    private void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.featuresButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (clientOptions().client.showResetButton.getCurrentValue() && this.createWorldButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(clientOptions().client.fastWorldCreation.getCurrentValue() ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, this.font.split(clientOptions().client.fastWorldCreation.getCurrentValue() ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.optionsButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.restartButton != null && this.restartButton.isHovered()) {
-            context.drawOrderedTooltip(this.textRenderer, this.textRenderer.wrapLines(ModTexts.RESTART_REQUIRED_TOOLTIP, 200), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.RESTART_REQUIRED_TOOLTIP, 200), mouseX, mouseY);
         }
     }
 
@@ -111,9 +112,9 @@ public class TitleScreenMixin extends Screen {
      * Allows the user to refresh the title screen.
      */
     @Override
-    public boolean keyPressed(KeyInput input) {
+    public boolean keyPressed(KeyEvent input) {
         if (input.key() == GLFW.GLFW_KEY_R) {
-            this.client.setScreen(new TitleScreen());
+            this.minecraft.setScreen(new TitleScreen());
         }
         return super.keyPressed(input);
     }

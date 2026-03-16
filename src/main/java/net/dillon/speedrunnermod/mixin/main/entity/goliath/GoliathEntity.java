@@ -6,39 +6,49 @@ import net.dillon.speedrunnermod.entity.goliath.GoliathTargetGoal;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.ai.pathing.MobNavigation;
-import net.minecraft.entity.ai.pathing.PathNodeType;
-import net.minecraft.entity.ai.pathing.SwimNavigation;
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.passive.IronGolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.WitherSkullEntity;
-import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import net.minecraft.world.entity.monster.illager.Vindicator;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.EvokerFangs;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -56,18 +66,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * <p>- Summons TNT upon death</p>
  * <p>- And more...</p>
  */
-@Mixin(GiantEntity.class)
-public class GoliathEntity extends HostileEntity implements Goliath {
+@Mixin(Giant.class)
+public class GoliathEntity extends Monster implements Goliath {
     @Unique
-    protected SwimNavigation waterNavigation;
+    protected WaterBoundPathNavigation waterNavigation;
     @Unique
-    protected MobNavigation landNavigation;
+    protected GroundPathNavigation landNavigation;
     @Unique
     boolean targetingUnderwater;
     @Unique
-    private ServerBossBar bossBar;
+    private ServerBossEvent bossBar;
 
-    public GoliathEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public GoliathEntity(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -75,10 +85,10 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Drops more experience upon death when using looting.
      */
     @Override
-    public int getExperienceToDrop(ServerWorld world) {
-        int looting = this.getAttacker() != null ? EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment((GiantEntity)(Object)this, Enchantments.LOOTING), this.getAttacker()) * 150 : 0;
-        this.experiencePoints = 50 + looting;
-        return super.getExperienceToDrop(world);
+    public int getBaseExperienceReward(ServerLevel world) {
+        int looting = this.getLastHurtByMob() != null ? EnchantmentHelper.getEnchantmentLevel(ModUtil.enchantment((Giant)(Object)this, Enchantments.LOOTING), this.getLastHurtByMob()) * 150 : 0;
+        this.xpReward = 50 + looting;
+        return super.getBaseExperienceReward(world);
     }
 
     /**
@@ -86,12 +96,12 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        this.bossBar = new ServerBossBar(Text.translatable("entity.minecraft.giant.speedrunner_mod"), BossBar.Color.GREEN, BossBar.Style.PROGRESS);
-        this.setPathfindingPenalty(PathNodeType.LAVA, 8.0F);
-        this.setPathfindingPenalty(PathNodeType.DANGER_FIRE, 0.0F);
-        this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0.0F);
-        this.waterNavigation = new SwimNavigation(this, this.getEntityWorld());
-        this.landNavigation = new MobNavigation(this, this.getEntityWorld());
+        this.bossBar = new ServerBossEvent(this.getUUID(), Component.translatable("entity.minecraft.giant.speedrunner_mod"), BossEvent.BossBarColor.GREEN, BossEvent.BossBarOverlay.PROGRESS);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.FIRE_IN_NEIGHBOR, 0.0F);
+        this.setPathfindingMalus(PathType.FIRE, 0.0F);
+        this.waterNavigation = new WaterBoundPathNavigation(this, this.level());
+        this.landNavigation = new GroundPathNavigation(this, this.level());
         ModUtil.modifyFollowRange(this, 35.0D);
         ModUtil.modifyMaxHealth(this, 400.0D);
         ModUtil.modifyMovementSpeed(this, 0.35D);
@@ -104,15 +114,15 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Gives Goliath different goals, to be able to swim, look around, attack other entities, etc.
      */
     @Override
-    protected void initGoals() {
-        this.goalSelector.add(1, new SwimGoal(this));
-        this.goalSelector.add(2, new GoliathAttackGoal((GiantEntity) (Object) this, 1.0D, false));
-        this.goalSelector.add(7, new WanderAroundFarGoal(this, 1.0D));
-        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 32.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-        this.targetSelector.add(1, new GoliathTargetGoal<>(this, PlayerEntity.class, true));
-        this.targetSelector.add(2, new RevengeGoal(this));
-        this.targetSelector.add(3, new ActiveTargetGoal<>(this, MobEntity.class, true));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new GoliathAttackGoal((Giant) (Object) this, 1.0D, false));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 32.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new GoliathTargetGoal<>(this, Player.class, true));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, true));
     }
 
     /**
@@ -121,7 +131,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
     @Override
     public void tick() {
         super.tick();
-        if (this.age % 10 == 0) {
+        if (this.tickCount % 10 == 0) {
             this.heal(0.8F);
         }
 
@@ -130,24 +140,24 @@ public class GoliathEntity extends HostileEntity implements Goliath {
                 double d = this.random.nextGaussian() * 0.02;
                 double e = this.random.nextGaussian() * 0.02;
                 double f = this.random.nextGaussian() * 0.02;
-                this.getEntityWorld().addParticleClient(ParticleTypes.ANGRY_VILLAGER, this.getParticleX(1.0), this.getRandomBodyY() + 1.0, this.getParticleZ(1.0), d, e, f);
+                this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 1.0, this.getRandomZ(1.0), d, e, f);
             }
         }
 
-        this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+        this.bossBar.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     /**
      * Teleports Goliath to the middle of the end island if it falls into the void.
      */
     @Override
-    public void attemptTickInVoid() {
-        if (this.getEntityWorld() instanceof ServerWorld && this.getEntityWorld().getRegistryKey() == World.END) {
-            if (this.getY() < (double)(this.getEntityWorld().getBottomY() - 64)) {
-                this.teleport(0, 96, 0, true);
+    public void checkBelowWorld() {
+        if (this.level() instanceof ServerLevel && this.level().dimension() == Level.END) {
+            if (this.getY() < (double)(this.level().getMinY() - 64)) {
+                this.randomTeleport(0, 96, 0, true);
                 if (!this.isSilent()) {
-                    this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.HOSTILE, 10.0F, 1.0F);
-                    this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 10.0F, 1.0F);
+                    this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.HOSTILE, 10.0F, 1.0F);
+                    this.playSound(SoundEvents.ENDERMAN_TELEPORT, 10.0F, 1.0F);
                     this.playSound(ModSoundEvents.ENTITY_GOLIATH_LAUGH, 40.0F, 0.65F);
                 }
             }
@@ -158,12 +168,12 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Summons TNT upon death and plays a fitting sound effect.
      */
     @Override
-    public void onDeath(DamageSource source) {
-        super.onDeath(source);
+    public void die(DamageSource source) {
+        super.die(source);
         this.onGiantDeath();
-        if (this.getAttacker() instanceof PlayerEntity player) {
-            if (!this.isSilent() && player instanceof ServerPlayerEntity serverPlayer) {
-                serverPlayer.networkHandler.sendPacket(new PlaySoundS2CPacket(SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE, SoundCategory.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.getEntityWorld().getRandom().nextLong()));
+        if (this.getLastHurtByMob() instanceof Player player) {
+            if (!this.isSilent() && player instanceof ServerPlayer serverPlayer) {
+                serverPlayer.connection.send(new ClientboundSoundPacket(SoundEvents.RESPAWN_ANCHOR_DEPLETE, SoundSource.BLOCKS, serverPlayer.getX(), serverPlayer.getY(), serverPlayer.getZ(), 1.0F, 1.0F, this.level().getRandom().nextLong()));
             }
         }
     }
@@ -172,38 +182,38 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Handles {@code damaging} for Goliath.
      */
     @Override
-    public boolean damage(ServerWorld world, DamageSource source, float amount) {
-        Entity entity = source.getSource();
+    public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
+        Entity entity = source.getDirectEntity();
 
-        if (entity instanceof WitherSkullEntity ||
-                entity instanceof WitherEntity ||
-                entity instanceof IronGolemEntity ||
-                entity instanceof RavagerEntity ||
-                entity instanceof VindicatorEntity ||
-                entity instanceof ZombieEntity ||
-                entity instanceof EnderDragonEntity ||
-                entity instanceof EndermanEntity ||
-                entity instanceof VexEntity ||
-                entity instanceof EvokerEntity ||
-                entity instanceof EvokerFangsEntity ||
-                entity instanceof AreaEffectCloudEntity) {
+        if (entity instanceof WitherSkull ||
+                entity instanceof WitherBoss ||
+                entity instanceof IronGolem ||
+                entity instanceof Ravager ||
+                entity instanceof Vindicator ||
+                entity instanceof Zombie ||
+                entity instanceof EnderDragon ||
+                entity instanceof EnderMan ||
+                entity instanceof Vex ||
+                entity instanceof Evoker ||
+                entity instanceof EvokerFangs ||
+                entity instanceof AreaEffectCloud) {
             return false;
         }
 
-        if (this.getHealth() <= this.getMaxHealth() / 2 && entity instanceof ProjectileEntity projectile) {
+        if (this.getHealth() <= this.getMaxHealth() / 2 && entity instanceof Projectile projectile) {
             if (projectile.getOwner() != null) {
-                this.playSound(SoundEvents.ITEM_SHIELD_BLOCK.value(), 5.0F, 1.0F);
+                this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
                 this.playSound(ModSoundEvents.ENTITY_GOLIATH_LAUGH, 40.0F, 0.65F);
-                projectile.getOwner().damage(world, projectile.getOwner().getDamageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
+                projectile.getOwner().hurtServer(world, projectile.getOwner().damageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
             }
             return false;
         }
 
-        if (this.getHealth() <= this.getMaxHealth() / 3 && entity instanceof PlayerEntity) {
+        if (this.getHealth() <= this.getMaxHealth() / 3 && entity instanceof Player) {
             this.heal(ModUtil.randomFloatInclusive(1.35F, 3.45F));
         }
 
-        if ((this.random.nextFloat() < 0.15F || this.getHealth() <= this.getMaxHealth() / 3) && !source.isIn(DamageTypeTags.IS_FIRE)) {
+        if ((this.random.nextFloat() < 0.15F || this.getHealth() <= this.getMaxHealth() / 3) && !source.is(DamageTypeTags.IS_FIRE)) {
             this.onGoliathDamage();
         }
 
@@ -211,15 +221,15 @@ public class GoliathEntity extends HostileEntity implements Goliath {
             this.onGoliathDamageDropFood(world);
         }
 
-        return super.damage(world, source, amount);
+        return super.hurtServer(world, source, amount);
     }
 
     /**
      * Handles {@code attacking} for Goliath.
      */
     @Override
-    public boolean tryAttack(ServerWorld world, Entity target) {
-        this.getEntityWorld().sendEntityStatus(this, (byte)4);
+    public boolean doHurtTarget(ServerLevel world, Entity target) {
+        this.level().broadcastEntityEvent(this, (byte)4);
         return Goliath.tryAttack(world, this, (LivingEntity)target);
     }
 
@@ -227,7 +237,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Handles {@code knockback} for Goliath.
      */
     @Override
-    protected void knockback(LivingEntity target) {
+    protected void blockedByItem(LivingEntity target) {
         Goliath.knockback(this, target);
     }
 
@@ -235,11 +245,11 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Handles {@code movements} for Goliath.
      */
     @Override
-    public void travel(Vec3d movementInput) {
-        if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
-            this.updateVelocity(0.01F, movementInput);
-            this.move(MovementType.SELF, this.getVelocity());
-            this.setVelocity(this.getVelocity().multiply(0.9D));
+    public void travel(Vec3 movementInput) {
+        if (this.canSimulateMovement() && this.isInWater() && this.isTargetingUnderwater()) {
+            this.moveRelative(0.01F, movementInput);
+            this.move(MoverType.SELF, this.getDeltaMovement());
+            this.setDeltaMovement(this.getDeltaMovement().scale(0.9D));
         } else {
             super.travel(movementInput);
         }
@@ -251,8 +261,8 @@ public class GoliathEntity extends HostileEntity implements Goliath {
     @Override
     public void updateSwimming() {
         super.updateSwimming();
-        if (!this.getEntityWorld().isClient()) {
-            if (this.canMoveVoluntarily() && this.isTouchingWater() && this.isTargetingUnderwater()) {
+        if (!this.level().isClientSide()) {
+            if (this.canSimulateMovement() && this.isInWater() && this.isTargetingUnderwater()) {
                 this.navigation = this.waterNavigation;
                 this.setSwimming(true);
             } else {
@@ -267,10 +277,10 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      */
     @Override
     public void checkDespawn() {
-        if (this.getEntityWorld().getDifficulty() == Difficulty.PEACEFUL && !this.getType().isAllowedInPeaceful()) {
+        if (this.level().getDifficulty() == Difficulty.PEACEFUL && !this.getType().isAllowedInPeaceful()) {
             this.discard();
         } else {
-            this.despawnCounter = 0;
+            this.noActionTime = 0;
         }
     }
 
@@ -278,7 +288,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Makes Goliath {@code immune to fall damage.}
      */
     @Override
-    public boolean handleFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
+    public boolean causeFallDamage(double fallDistance, float damageMultiplier, DamageSource source) {
         return false;
     }
 
@@ -286,7 +296,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Prevents Goliath from getting status effects.
      */
     @Override
-    public boolean addStatusEffect(StatusEffectInstance effect, @Nullable Entity source) {
+    public boolean addEffect(MobEffectInstance effect, @Nullable Entity source) {
         return false;
     }
 
@@ -294,7 +304,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Makes Goliath immune to fire and lava damage.
      */
     @Override
-    public boolean isFireImmune() {
+    public boolean fireImmune() {
         return true;
     }
 
@@ -302,7 +312,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Makes Goliath immune to explosion damage.
      */
     @Override
-    public boolean isImmuneToExplosion(Explosion explosion) {
+    public boolean ignoreExplosion(Explosion explosion) {
         return true;
     }
 
@@ -310,7 +320,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Prevents Goliath from being able to be ridden.
      */
     @Override
-    public boolean canStartRiding(Entity entity) {
+    public boolean canRide(Entity entity) {
         return false;
     }
 
@@ -318,7 +328,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Prevents Goliath from being able to use portals.
      */
     @Override
-    public boolean canUsePortals(boolean allowVehicles) {
+    public boolean canUsePortal(boolean allowVehicles) {
         return false;
     }
 
@@ -326,7 +336,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Sets the bossbars name to {@code "Goliath".}
      */
     @Override
-    public void setCustomName(@Nullable Text name) {
+    public void setCustomName(@Nullable Component name) {
         super.setCustomName(name);
         this.bossBar.setName(this.getDisplayName());
     }
@@ -335,8 +345,8 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Detects when a player is {@code in range} of Goliath, and then {@code displays} the bossbar on that players screen.
      */
     @Override
-    public void onStartedTrackingBy(ServerPlayerEntity player) {
-        super.onStartedTrackingBy(player);
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
         this.bossBar.addPlayer(player);
     }
 
@@ -344,8 +354,8 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Detects when the player gets {@code out of range} of the Goliath, and then {@code removes} the bossbar from that players screen.
      */
     @Override
-    public void onStoppedTrackingBy(ServerPlayerEntity player) {
-        super.onStoppedTrackingBy(player);
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
         this.bossBar.removePlayer(player);
     }
 
@@ -353,8 +363,8 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Puts Goliath's sound under the {@code "hostile"} category (neutral if doom mode is disabled).
      */
     @Override
-    public SoundCategory getSoundCategory() {
-        return SoundCategory.HOSTILE;
+    public SoundSource getSoundSource() {
+        return SoundSource.HOSTILE;
     }
 
     /**
@@ -386,7 +396,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      */
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(SoundEvents.ENTITY_ZOMBIE_STEP, 0.50F, this.getSoundPitch());
+        this.playSound(SoundEvents.ZOMBIE_STEP, 0.50F, this.getVoicePitch());
     }
 
     /**
@@ -400,7 +410,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
     /**
      * @return the {@code pitch} for Goliath.
      */
-    public float getSoundPitch() {
+    public float getVoicePitch() {
         return 0.7F;
     }
 
@@ -413,7 +423,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
             return true;
         } else {
             LivingEntity livingEntity = this.getTarget();
-            return livingEntity != null && livingEntity.isTouchingWater();
+            return livingEntity != null && livingEntity.isInWater();
         }
     }
 
@@ -421,7 +431,7 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Drops rotten flesh randomly when Goliath is damaged.
      */
     @Unique
-    private void onGoliathDamageDropFood(ServerWorld serverWorld) {
+    private void onGoliathDamageDropFood(ServerLevel serverWorld) {
         int v = 3;
         this.dropFood(serverWorld, v);
         v--;
@@ -437,9 +447,9 @@ public class GoliathEntity extends HostileEntity implements Goliath {
      * Drops flesh on the ground.
      */
     @Unique
-    private void dropFood(ServerWorld serverWorld, int v) {
+    private void dropFood(ServerLevel serverWorld, int v) {
         for (int i = 0; i < v; i++) {
-            this.dropItem(serverWorld, ModItems.COOKED_FLESH);
+            this.spawnAtLocation(serverWorld, ModItems.COOKED_FLESH);
         }
     }
 
@@ -449,14 +459,14 @@ public class GoliathEntity extends HostileEntity implements Goliath {
     @Unique
     private void onGoliathDamage() {
         for (int i = 0; i < 4; i++) {
-            TntEntity tnt = EntityType.TNT.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
+            PrimedTnt tnt = EntityType.TNT.create(this.level(), EntitySpawnReason.TRIGGERED);
             tnt.setFuse(100);
             int x = i == 0 || i == 2 ? 5 : -5;
             int z = i == 0 || i == 1 ? 5 : -5;
-            tnt.refreshPositionAndAngles(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
-            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
-            this.getEntityWorld().spawnEntity(tnt);
-            this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), ModSoundEvents.ENTITY_GOLIATH_ATTACK, SoundCategory.HOSTILE, 35.0F, 0.85F);
+            tnt.snapTo(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
+            this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.TNT_PRIMED, SoundSource.AMBIENT, 5.0F, 1.0F);
+            this.level().addFreshEntity(tnt);
+            this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), ModSoundEvents.ENTITY_GOLIATH_ATTACK, SoundSource.HOSTILE, 35.0F, 0.85F);
         }
     }
 
@@ -482,22 +492,22 @@ public class GoliathEntity extends HostileEntity implements Goliath {
         };
 
         for (int[] data : tntData) {
-            TntEntity tnt = EntityType.TNT.create(this.getEntityWorld(), SpawnReason.TRIGGERED);
+            PrimedTnt tnt = EntityType.TNT.create(this.level(), EntitySpawnReason.TRIGGERED);
             if (tnt != null) {
                 tnt.setFuse(data[3]);
                 if (data[3] == 100) {
                     tnt.setInvulnerable(true);
                 }
-                tnt.refreshPositionAndAngles(
+                tnt.snapTo(
                         this.getX() + data[0],
                         this.getY() + data[1],
                         this.getZ() + data[2],
                         0.0F, 0.0F
                 );
-                this.getEntityWorld().spawnEntity(tnt);
+                this.level().addFreshEntity(tnt);
             }
         }
 
-        this.getEntityWorld().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.AMBIENT, 5.0F, 1.0F);
+        this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.TNT_PRIMED, SoundSource.AMBIENT, 5.0F, 1.0F);
     }
 }

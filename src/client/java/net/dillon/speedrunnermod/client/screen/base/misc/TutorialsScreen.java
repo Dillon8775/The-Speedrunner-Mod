@@ -2,16 +2,16 @@ package net.dillon.speedrunnermod.client.screen.base.misc;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
 public class TutorialsScreen extends AbstractModScreen {
-    private ButtonWidget bastionRoutesButton,
+    private Button bastionRoutesButton,
             netherFortressesButton,
             microlensingButton,
             blindTravelButton,
@@ -28,7 +28,7 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected List<ClickableWidget> buttons() {
+    protected List<AbstractWidget> buttons() {
         return List.of(
                 this.bastionRoutesButton,
                 this.netherFortressesButton,
@@ -46,47 +46,47 @@ public class TutorialsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.bastionRoutesButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes"), (button) -> {
-            this.client.setScreen(new BastionRoutesScreen(this.parent));
+        this.bastionRoutesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes"), (button) -> {
+            this.minecraft.setScreen(new BastionRoutesScreen(this.parent));
         }).build();
 
-        this.netherFortressesButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.nether_fortresses"), (button) -> {
+        this.netherFortressesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.nether_fortresses"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=pmx9LyUvLTk", false);
         }).build();
 
-        this.microlensingButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing"), (button) -> {
-            this.client.setScreen(new MicrolensingScreen(this.parent));
+        this.microlensingButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.microlensing"), (button) -> {
+            this.minecraft.setScreen(new MicrolensingScreen(this.parent));
         }).build();
 
-        this.blindTravelButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.blind_travel"), (button) -> {
+        this.blindTravelButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.blind_travel"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=Ou58P7e-ZY0", false);
         }).build();
 
-        this.oneCyclingButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.one_cycling"), (button) -> {
+        this.oneCyclingButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.one_cycling"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=JaVyuTyDxxs", false);
         }).build();
 
-        this.pieChartButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.pie_chart"), (button) -> {
+        this.pieChartButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.pie_chart"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=ENgEBHIifm8", false);
         }).build();
 
-        this.f3MenuButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.f3_menu"), (button) -> {
+        this.f3MenuButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.f3_menu"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=-fSr7P5LQJY", false);
         }).build();
 
-        this.buriedTreasuresButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.buried_treasure"), (button) -> {
+        this.buriedTreasuresButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.buried_treasure"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=_dyD8ZwagDg", false);
         }).build();
 
-        this.comprehensiveGuideButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.comprehensive_guide"), (button) -> {
+        this.comprehensiveGuideButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.comprehensive_guide"), (button) -> {
             this.openLink("https://youtu.be/iaUF0oaegns?si=L47hwqlAerCAZ-S4", false);
         }).build();
 
-        this.thirtyMinRun = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.thirty_min_run"), (button) -> {
+        this.thirtyMinRun = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.thirty_min_run"), (button) -> {
             this.openLink("https://youtu.be/olakF9Xbisc?si=1pquTzHph5n5S44o", false);
         }).build();
 
-        this.otherUsefulTricksButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks"), (button) -> {
+        this.otherUsefulTricksButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks"), (button) -> {
             this.openLink("https://www.youtube.com/watch?v=TvvApbI6fis", false);
         }).build();
 
@@ -94,36 +94,36 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
         if (this.bastionRoutesButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.tooltip"), context, mouseX, mouseY);
         }
         if (this.netherFortressesButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.nether_fortresses.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.nether_fortresses.tooltip"), context, mouseX, mouseY);
         }
         if (this.microlensingButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.microlensing.tooltip"), context, mouseX, mouseY);
         }
         if (this.blindTravelButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.blind_travel.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.blind_travel.tooltip"), context, mouseX, mouseY);
         }
         if (this.oneCyclingButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.one_cycling.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.one_cycling.tooltip"), context, mouseX, mouseY);
         }
         if (this.pieChartButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.pie_chart.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.pie_chart.tooltip"), context, mouseX, mouseY);
         }
         if (this.buriedTreasuresButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.buried_treasure.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.buried_treasure.tooltip"), context, mouseX, mouseY);
         }
         if (this.comprehensiveGuideButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.comprehensive_guide.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.comprehensive_guide.tooltip"), context, mouseX, mouseY);
         }
         if (this.thirtyMinRun.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.thirty_min_run.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.thirty_min_run.tooltip"), context, mouseX, mouseY);
         }
         if (this.otherUsefulTricksButton.isHovered()) {
-            this.renderBasicTooltip(Text.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks.tooltip"), context, mouseX, mouseY);
+            this.renderBasicTooltip(Component.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks.tooltip"), context, mouseX, mouseY);
         }
         super.renderTooltips(context, mouseX, mouseY);
     }
@@ -134,8 +134,8 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    public void close() {
-        this.client.setScreen(new ResourcesScreen(this.parent));
+    public void onClose() {
+        this.minecraft.setScreen(new ResourcesScreen(this.parent));
     }
 
     @Override
@@ -159,14 +159,14 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     protected static class BastionRoutesScreen extends AbstractModScreen {
-        private ButtonWidget treasureBastionButton, bridgeBastionButton, stablesBastionButton, housingBastionButton;
+        private Button treasureBastionButton, bridgeBastionButton, stablesBastionButton, housingBastionButton;
 
         public BastionRoutesScreen(Screen parent) {
-            super(parent, Text.translatable("speedrunnermod.title.resources.tutorials.bastion_routes"));
+            super(parent, Component.translatable("speedrunnermod.title.resources.tutorials.bastion_routes"));
         }
 
         @Override
-        protected List<ClickableWidget> buttons() {
+        protected List<AbstractWidget> buttons() {
             return List.of(
                     this.treasureBastionButton,
                     this.bridgeBastionButton,
@@ -177,19 +177,19 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         protected void init() {
-            this.treasureBastionButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.treasure"), (button) -> {
+            this.treasureBastionButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.treasure"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=np6fc_z9LUY", false);
             }).build();
 
-            this.bridgeBastionButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.bridge"), (button) -> {
+            this.bridgeBastionButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.bridge"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=Dts81nEnzuQ", false);
             }).build();
 
-            this.stablesBastionButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.stables"), (button) -> {
+            this.stablesBastionButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.stables"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=WIN-ZtUJfIc", false);
             }).build();
 
-            this.housingBastionButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.housing"), (button) -> {
+            this.housingBastionButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.housing"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=S0G5asEjrgk", false);
             }).build();
 
@@ -197,8 +197,8 @@ public class TutorialsScreen extends AbstractModScreen {
         }
 
         @Override
-        public void close() {
-            this.client.setScreen(new TutorialsScreen(this.parent));
+        public void onClose() {
+            this.minecraft.setScreen(new TutorialsScreen(this.parent));
         }
 
         @Override
@@ -228,14 +228,14 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     public static class MicrolensingScreen extends AbstractModScreen {
-        private ButtonWidget bastionsButton, fortressesButton;
+        private Button bastionsButton, fortressesButton;
 
         public MicrolensingScreen(Screen parent) {
-            super(parent, Text.translatable("speedrunnermod.title.resources.tutorials.microlensing"));
+            super(parent, Component.translatable("speedrunnermod.title.resources.tutorials.microlensing"));
         }
 
         @Override
-        protected List<ClickableWidget> buttons() {
+        protected List<AbstractWidget> buttons() {
             return List.of(
                    this.bastionsButton,
                    this.fortressesButton
@@ -244,11 +244,11 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         protected void init() {
-            this.bastionsButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.bastion"), (button) -> {
+            this.bastionsButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.microlensing.bastion"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=jvTfMLPnMSw", false);
             }).build();
 
-            this.fortressesButton = ButtonWidget.builder(Text.translatable("speedrunnermod.menu.resources.tutorials.microlensing.fortress"), (button) -> {
+            this.fortressesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.microlensing.fortress"), (button) -> {
                 this.openLink("https://www.youtube.com/watch?v=Kl_-L9XbJko", false);
             }).build();
 
@@ -256,8 +256,8 @@ public class TutorialsScreen extends AbstractModScreen {
         }
 
         @Override
-        public void close() {
-            this.client.setScreen(new TutorialsScreen(this.parent));
+        public void onClose() {
+            this.minecraft.setScreen(new TutorialsScreen(this.parent));
         }
 
         @Override

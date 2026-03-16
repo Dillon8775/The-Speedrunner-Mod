@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.mixin.client.enchantment;
 
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.minecraft.client.gui.screen.ingame.AnvilScreen;
+import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
@@ -16,7 +16,7 @@ public class RemoveTooExpensiveText {
     /**
      * Removes the {@code too expensive} level cap on the anvil screen (client-side).
      */
-    @ModifyConstant(method = "drawForeground", constant = @Constant(intValue = 40))
+    @ModifyConstant(method = "extractLabels", constant = @Constant(intValue = 40))
     private int removeTooExpensiveText(int i) {
         if (options().main.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;

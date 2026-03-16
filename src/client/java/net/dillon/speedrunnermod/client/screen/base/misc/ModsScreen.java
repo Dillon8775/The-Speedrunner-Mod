@@ -3,22 +3,22 @@ package net.dillon.speedrunnermod.client.screen.base.misc;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 
 import java.util.List;
 
 public class ModsScreen extends AbstractModScreen {
-    private ButtonWidget sodiumButton, lithiumButton, speedrunIGTButton, kryptonButton, simpleKeybindsButton, qualityOfQuesoButton, optiFineButton;
+    private Button sodiumButton, lithiumButton, speedrunIGTButton, kryptonButton, simpleKeybindsButton, qualityOfQuesoButton, optiFineButton;
 
     public ModsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_MODS);
     }
 
     @Override
-    protected List<ClickableWidget> buttons() {
+    protected List<AbstractWidget> buttons() {
         return List.of(
                 this.sodiumButton,
                 this.lithiumButton,
@@ -32,31 +32,31 @@ public class ModsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.sodiumButton = ButtonWidget.builder(ModTexts.SODIUM, (buttonWidget) -> {
+        this.sodiumButton = Button.builder(ModTexts.SODIUM, (buttonWidget) -> {
             this.openLink(ModLinks.SODIUM, false);
         }).build();
 
-        this.lithiumButton = ButtonWidget.builder(ModTexts.LITHIUM, (buttonWidget) -> {
+        this.lithiumButton = Button.builder(ModTexts.LITHIUM, (buttonWidget) -> {
             this.openLink(ModLinks.LITHIUM, false);
         }).build();
 
-        this.speedrunIGTButton = ButtonWidget.builder(ModTexts.SPEEDRUN_IGT, (buttonWidget) -> {
+        this.speedrunIGTButton = Button.builder(ModTexts.SPEEDRUN_IGT, (buttonWidget) -> {
             this.openLink(ModLinks.SPEEDRUNIGT, false);
         }).build();
 
-        this.kryptonButton = ButtonWidget.builder(ModTexts.KRYPTON, (buttonWidget) -> {
+        this.kryptonButton = Button.builder(ModTexts.KRYPTON, (buttonWidget) -> {
             this.openLink(ModLinks.KRYPTON, false);
         }).build();
 
-        this.simpleKeybindsButton = ButtonWidget.builder(ModTexts.SIMPLE_KEYBINDS, (buttonWidget) -> {
+        this.simpleKeybindsButton = Button.builder(ModTexts.SIMPLE_KEYBINDS, (buttonWidget) -> {
             this.openLink(ModLinks.SIMPLE_KEYBINDS, false);
         }).build();
 
-        this.qualityOfQuesoButton = ButtonWidget.builder(ModTexts.QUALITY_OF_QUESO, (buttonWidget) -> {
+        this.qualityOfQuesoButton = Button.builder(ModTexts.QUALITY_OF_QUESO, (buttonWidget) -> {
             this.openLink(ModLinks.QUALITY_OF_QUESO, false);
         }).build();
 
-        this.optiFineButton = ButtonWidget.builder(ModTexts.OPTIFINE, (buttonWidget) -> {}).build();
+        this.optiFineButton = Button.builder(ModTexts.OPTIFINE, (buttonWidget) -> {}).build();
         this.optiFineButton.active = false;
 
         super.init();
@@ -68,7 +68,7 @@ public class ModsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
         if (this.sodiumButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.SODIUM_TOOLTIP, context, mouseX, mouseY);
         }
@@ -94,8 +94,8 @@ public class ModsScreen extends AbstractModScreen {
     }
 
     @Override
-    public void close() {
-        this.client.setScreen(new ResourcesScreen(this.parent));
+    public void onClose() {
+        this.minecraft.setScreen(new ResourcesScreen(this.parent));
     }
 
     @Override

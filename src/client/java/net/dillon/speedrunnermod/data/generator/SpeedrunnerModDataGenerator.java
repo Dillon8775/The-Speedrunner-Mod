@@ -8,9 +8,9 @@ import net.dillon.speedrunnermod.world.feature.WastelandConfiguredFeatures;
 import net.dillon.speedrunnermod.world.feature.WastelandPlacedFeatures;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
 
 /**
  * Runs all Speedrunner Mod {@code data generators} and creates all respective {@code .json} files.
@@ -33,7 +33,7 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModRecipeGenerator::new);
         pack.addProvider(ModModelGenerator::new);
 
-        DataGenerator.Pack secondPack = fabricDataGenerator.createPack();
+        DataGenerator.PackGenerator secondPack = fabricDataGenerator.createPack();
         secondPack.addProvider(ModEquipmentAssetProvider::new);
 
         SpeedrunnerMod.info("Finished running through data generator.");
@@ -43,11 +43,11 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
      * Runs all other data generators.
      */
     @Override
-    public void buildRegistry(RegistryBuilder registryBuilder) {
-        registryBuilder.addRegistry(RegistryKeys.BIOME, ModBiomes::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.CONFIGURED_FEATURE, WastelandConfiguredFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
-        registryBuilder.addRegistry(RegistryKeys.PLACED_FEATURE, WastelandPlacedFeatures::bootstrap);
+    public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.BIOME, ModBiomes::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, WastelandConfiguredFeatures::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, WastelandPlacedFeatures::bootstrap);
     }
 }

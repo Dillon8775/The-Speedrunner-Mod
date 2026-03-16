@@ -3,16 +3,16 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonFight;
-import net.minecraft.entity.boss.dragon.phase.PhaseType;
-import net.minecraft.entity.mob.GiantEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.level.dimension.end.EndDragonFight;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,32 +24,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
-@Mixin(EnderDragonFight.class)
+@Mixin(EndDragonFight.class)
 public abstract class DragonPerchTime {
     @Shadow @Final
-    private ServerWorld world;
+    private ServerLevel level;
 
     /**
      * Implements the {@code dragon perch time feature} and spawns doom mode monsters.
      */
-    @Inject(method = "createDragon", at = @At("RETURN"))
-    private void createDragonFeatures(CallbackInfoReturnable<EnderDragonEntity> cir, @Local EnderDragonEntity dragon) {
+    @Inject(method = "createNewDragon", at = @At("RETURN"))
+    private void createDragonFeatures(CallbackInfoReturnable<EnderDragon> cir, @Local EnderDragon dragon) {
         if (options().isInstantDragonPerchTime()) {
-            dragon.getPhaseManager().setPhase(PhaseType.LANDING);
+            dragon.getPhaseManager().setPhase(EnderDragonPhase.LANDING);
             playDragonSound();
         } else if (options().isDragonPerchTimeOn()) {
             TaskScheduler.schedule(ModUtil.secondsAsTicks(options().getDragonPerchTime()), () -> {
-                dragon.getPhaseManager().setPhase(PhaseType.LANDING);
+                dragon.getPhaseManager().setPhase(EnderDragonPhase.LANDING);
                 playDragonSound();
             });
         }
         if (isDoomMode()) {
-            WitherEntity witherEntity = EntityType.WITHER.create(this.world, SpawnReason.EVENT);
-            witherEntity.refreshPositionAndAngles(0.0D, 196.0D, 0.0D, this.world.random.nextFloat() * 360.0F, 0.0F);
-            this.world.spawnEntity(witherEntity);
-            GiantEntity giantEntity = EntityType.GIANT.create(this.world, SpawnReason.EVENT);
-            giantEntity.refreshPositionAndAngles(0.0D, 96.0D, 0.0D, this.world.random.nextFloat() * 240.0F, 0.0F);
-            this.world.spawnEntity(giantEntity);
+            WitherBoss witherEntity = EntityType.WITHER.create(this.level, EntitySpawnReason.EVENT);
+            witherEntity.snapTo(0.0D, 196.0D, 0.0D, this.level.random.nextFloat() * 360.0F, 0.0F);
+            this.level.addFreshEntity(witherEntity);
+            Giant giantEntity = EntityType.GIANT.create(this.level, EntitySpawnReason.EVENT);
+            giantEntity.snapTo(0.0D, 96.0D, 0.0D, this.level.random.nextFloat() * 240.0F, 0.0F);
+            this.level.addFreshEntity(giantEntity);
         }
     }
 
@@ -58,8 +58,8 @@ public abstract class DragonPerchTime {
      */
     @Unique
     private void playDragonSound() {
-        for (int i = 0; i < this.world.getPlayers().size(); i++) {
-            this.world.playSound(null, this.world.getPlayers().get(i).getX(), this.world.getPlayers().get(i).getY(), this.world.getPlayers().get(i).getZ(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0F, 0.65F);
+        for (int i = 0; i < this.level.players().size(); i++) {
+            this.level.playSound(null, this.level.players().get(i).getX(), this.level.players().get(i).getY(), this.level.players().get(i).getZ(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.HOSTILE, 3.0F, 0.65F);
         }
     }
 }

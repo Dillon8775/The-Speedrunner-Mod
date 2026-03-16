@@ -1,24 +1,24 @@
 package net.dillon.speedrunnermod.mixin.main.entity;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.SpectralArrowEntity;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.projectile.arrow.SpectralArrow;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
-@Mixin(value = {ArrowEntity.class, SpectralArrowEntity.class})
-public abstract class ArrowEntitiesMixin extends PersistentProjectileEntity {
+@Mixin(value = {Arrow.class, SpectralArrow.class})
+public abstract class ArrowEntitiesMixin extends AbstractArrow {
 
-    public ArrowEntitiesMixin(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
+    public ArrowEntitiesMixin(EntityType<? extends AbstractArrow> entityType, Level world) {
         super(entityType, world);
     }
 
@@ -26,17 +26,17 @@ public abstract class ArrowEntitiesMixin extends PersistentProjectileEntity {
      * Makes beds explode when hit with an arrow.
      */
     @Override
-    protected void onBlockHit(BlockHitResult blockHitResult) {
-        if (options().main.arrowsDestroyBeds.getCurrentValue() && !(this.getEntityWorld().getRegistryKey() == World.OVERWORLD) && blockHitResult.getType() == HitResult.Type.BLOCK) {
+    protected void onHitBlock(BlockHitResult blockHitResult) {
+        if (options().main.arrowsDestroyBeds.getCurrentValue() && !(this.level().dimension() == Level.OVERWORLD) && blockHitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos blockPos = blockHitResult.getBlockPos();
-            BlockState blockState = this.getEntityWorld().getBlockState(blockPos);
+            BlockState blockState = this.level().getBlockState(blockPos);
 
-            if (blockState.getBlock().getDefaultState().isIn(BlockTags.BEDS)) {
+            if (blockState.getBlock().defaultBlockState().is(BlockTags.BEDS)) {
                 this.discard();
-                this.getEntityWorld().removeBlock(blockPos, false);
-                this.getEntityWorld().createExplosion(this, getX(), getY(), getZ(), ModUtil.getBedBlockExplosionPower(this.getEntityWorld()), true, World.ExplosionSourceType.BLOCK);
+                this.level().removeBlock(blockPos, false);
+                this.level().explode(this, getX(), getY(), getZ(), ModUtil.getBedBlockExplosionPower(this.level()), true, Level.ExplosionInteraction.BLOCK);
             }
         }
-        super.onBlockHit(blockHitResult);
+        super.onHitBlock(blockHitResult);
     }
 }

@@ -4,8 +4,8 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
@@ -22,16 +22,16 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(ModTexts.BACK, button -> {
-            this.client.setScreen(this.getPreviousScreen());
+        this.addButtonObject(Button.builder(ModTexts.BACK, button -> {
+            this.minecraft.setScreen(this.getPreviousScreen());
             if (isEasyMode()) {
                 restartRequired = false;
             }
         }).build());
-        this.addButtonObject(ButtonWidget.builder(ModTexts.RESTART_NOW, button -> {
+        this.addButtonObject(Button.builder(ModTexts.RESTART_NOW, button -> {
             clientOptions().storedValues.firstTimePlaying.set(false);
             saveClientChanges();
-            this.client.scheduleStop();
+            this.minecraft.stop();
         }).build());
     }
 

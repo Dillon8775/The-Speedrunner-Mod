@@ -1,32 +1,32 @@
 package net.dillon.speedrunnermod.packet.client;
 
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * Checks the mode from server, and makes sure that it matches on client-side.
  */
-public record CheckModeS2CPacket(ModOptions.Mode serverSideMode) implements CustomPayload {
+public record CheckModeS2CPacket(ModOptions.Mode serverSideMode) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("check_mode_s2c");
 
-    public static final CustomPayload.Id<CheckModeS2CPacket> PACKET = new CustomPayload.Id<>(ID);
-    public static final PacketCodec<RegistryByteBuf, CheckModeS2CPacket> CODEC =
-            PacketCodec.of(
+    public static final CustomPacketPayload.Type<CheckModeS2CPacket> PACKET = new CustomPacketPayload.Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, CheckModeS2CPacket> CODEC =
+            StreamCodec.ofMember(
                     (buf, packet) -> {
-                        packet.writeEnumConstant(buf.serverSideMode());
+                        packet.writeEnum(buf.serverSideMode());
                     },
                     buf -> new CheckModeS2CPacket(
-                            buf.readEnumConstant(ModOptions.Mode.class)
+                            buf.readEnum(ModOptions.Mode.class)
                     )
             );
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return PACKET;
     }
 }

@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.tag;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -16,7 +16,7 @@ public class ModEnchantmentTags {
      * Registers an {@code enchantment tag.}
      */
     private static TagKey<Enchantment> of(String path) {
-        return TagKey.of(RegistryKeys.ENCHANTMENT, ofSpeedrunnerMod(path));
+        return TagKey.create(Registries.ENCHANTMENT, ofSpeedrunnerMod(path));
     }
 
     /**

@@ -2,14 +2,14 @@ package net.dillon.speedrunnermod.mixin.main.entity;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.AbstractSkeletonEntity;
-import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,10 +23,10 @@ public class ProjectileUtilMixin {
     /**
      * Makes skeleton's shoot slowness arrows if {@code doom mode} is enabled.
      */
-    @Inject(method = "createArrowProjectile", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;applyDamageModifier(F)V"))
-    private static void createSlownessArrow(LivingEntity entity, ItemStack stack, float damageModifier, ItemStack bow, CallbackInfoReturnable<PersistentProjectileEntity> cir, @Local PersistentProjectileEntity persistantProjectileEntity) {
-        if (isDoomMode() && entity instanceof AbstractSkeletonEntity && persistantProjectileEntity instanceof ArrowEntity) {
-            ((ArrowEntity)persistantProjectileEntity).addEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
+    @Inject(method = "getMobArrow", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/arrow/AbstractArrow;setBaseDamageFromMob(F)V"))
+    private static void createSlownessArrow(LivingEntity entity, ItemStack stack, float damageModifier, ItemStack bow, CallbackInfoReturnable<AbstractArrow> cir, @Local AbstractArrow persistantProjectileEntity) {
+        if (isDoomMode() && entity instanceof AbstractSkeleton && persistantProjectileEntity instanceof Arrow) {
+            ((Arrow)persistantProjectileEntity).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
         }
     }
 }

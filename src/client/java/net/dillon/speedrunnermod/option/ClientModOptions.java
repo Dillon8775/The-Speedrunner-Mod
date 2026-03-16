@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.option;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.text.Text;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -186,7 +186,7 @@ public class ClientModOptions {
     /**
      * All the different {@code GameMode} options.
      */
-    public enum GameMode implements StringIdentifiable {
+    public enum GameMode implements StringRepresentable {
         SURVIVAL(0, "survival", "speedrunnermod.options.gamemode.survival"),
         CREATIVE(1, "creative", "speedrunnermod.options.gamemode.creative"),
         HARDCORE(2, "hardcore", "speedrunnermod.options.gamemode.hardcore"),
@@ -195,12 +195,12 @@ public class ClientModOptions {
         private static final GameMode[] VALUES = Arrays.stream(GameMode.values()).sorted(Comparator.comparingInt(GameMode::getId)).toArray(GameMode[]::new);
         private final int id;
         private final String name;
-        private final Text translateKey;
+        private final Component translateKey;
 
         GameMode(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Text.translatable(translationKey);
+            this.translateKey = Component.translatable(translationKey);
         }
 
         /**
@@ -213,11 +213,11 @@ public class ClientModOptions {
         /**
          * Returns the {@code translation key} of the {@code GameMode} option.
          */
-        public Text getText() {
+        public Component getText() {
             return this.translateKey;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
 
@@ -225,14 +225,14 @@ public class ClientModOptions {
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
         public static GameMode byId(int id) {
-            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+            return VALUES[Mth.positiveModulo(id, VALUES.length)];
         }
     }
 
     /**
      * All the different {@code Difficulty} options.
      */
-    public enum Difficulty implements StringIdentifiable {
+    public enum Difficulty implements StringRepresentable {
         PEACEFUL(0, "peaceful", "speedrunnermod.options.difficulty.peaceful"),
         EASY(1, "easy", "speedrunnermod.options.difficulty.easy"),
         NORMAL(2, "normal", "speedrunnermod.options.difficulty.normal"),
@@ -241,12 +241,12 @@ public class ClientModOptions {
         private static final Difficulty[] VALUES = Arrays.stream(Difficulty.values()).sorted(Comparator.comparingInt(Difficulty::getId)).toArray(Difficulty[]::new);
         private final int id;
         private final String name;
-        private final Text translateKey;
+        private final Component translateKey;
 
         Difficulty(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Text.translatable(translationKey);
+            this.translateKey = Component.translatable(translationKey);
         }
 
         /**
@@ -259,11 +259,11 @@ public class ClientModOptions {
         /**
          * Returns the {@code translation key} of the {@code Difficulty} option.
          */
-        public Text getText() {
+        public Component getText() {
             return this.translateKey;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
 
@@ -271,23 +271,23 @@ public class ClientModOptions {
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
         public static Difficulty byId(int id) {
-            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+            return VALUES[Mth.positiveModulo(id, VALUES.length)];
         }
     }
 
-    public enum ItemMessages implements StringIdentifiable {
+    public enum ItemMessages implements StringRepresentable {
         CHAT(0, "chat", "speedrunnermod.options.item_messages.chat"),
         ACTIONBAR(1, "actionbar", "speedrunnermod.options.item_messages.actionbar");
 
         private static final ItemMessages[] VALUES = Arrays.stream(ItemMessages.values()).sorted(Comparator.comparingInt(ItemMessages::getId)).toArray(ItemMessages[]::new);
         private final int id;
         private final String name;
-        private final Text translateKey;
+        private final Component translateKey;
 
         ItemMessages(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Text.translatable(translationKey);
+            this.translateKey = Component.translatable(translationKey);
         }
 
         /**
@@ -300,11 +300,11 @@ public class ClientModOptions {
         /**
          * Returns the {@code translation key} of the {@code Item Messages} option.
          */
-        public Text getText() {
+        public Component getText() {
             return this.translateKey;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
 
@@ -312,7 +312,7 @@ public class ClientModOptions {
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
         public static ItemMessages byId(int id) {
-            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+            return VALUES[Mth.positiveModulo(id, VALUES.length)];
         }
     }
 

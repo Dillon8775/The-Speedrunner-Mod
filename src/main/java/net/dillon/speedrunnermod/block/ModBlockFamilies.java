@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.block.Block;
-import net.minecraft.data.family.BlockFamilies;
-import net.minecraft.data.family.BlockFamily;
+import net.minecraft.data.BlockFamilies;
+import net.minecraft.data.BlockFamily;
+import net.minecraft.world.level.block.Block;
 
 /**
  * The {@code speedrunner mod} block family.
@@ -17,9 +17,9 @@ public class ModBlockFamilies {
      * Registers a {@code sign block family.}
      */
     private static BlockFamily registerSignFamily(Block block, Block sign, Block wallSign) {
-        return BlockFamilies.register(block)
+        return BlockFamilies.familyBuilder(block)
                 .sign(sign, wallSign)
-                .group("wooden").unlockCriterionName("has_planks").build();
+                .recipeGroupPrefix("wooden").recipeUnlockedBy("has_planks").getFamily();
     }
 
     /**

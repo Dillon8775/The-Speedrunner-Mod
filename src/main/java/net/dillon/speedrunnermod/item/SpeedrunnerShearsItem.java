@@ -1,16 +1,16 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.ShearsDispenserBehavior;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ToolComponent;
-import net.minecraft.item.ShearsItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryEntryLookup;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.dispenser.ShearsDispenseItemBehavior;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.component.Tool;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 
 import java.util.List;
 
@@ -19,14 +19,14 @@ import java.util.List;
  */
 public class SpeedrunnerShearsItem extends ShearsItem {
 
-    public static ToolComponent createSpeedrunnerShears() {
-        RegistryEntryLookup<Block> registryEntryLookup = Registries.createEntryLookup(Registries.BLOCK);
-        return new ToolComponent(
+    public static Tool createSpeedrunnerShears() {
+        HolderGetter<Block> registryEntryLookup = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        return new Tool(
                 List.of(
-                        ToolComponent.Rule.ofAlwaysDropping(RegistryEntryList.of(Blocks.COBWEB.getRegistryEntry()), 17.0F),
-                        ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.LEAVES), 17.0F),
-                        ToolComponent.Rule.of(registryEntryLookup.getOrThrow(BlockTags.WOOL), 7.5F),
-                        ToolComponent.Rule.of(RegistryEntryList.of(Blocks.VINE.getRegistryEntry(), Blocks.GLOW_LICHEN.getRegistryEntry()), 2.0F)
+                        Tool.Rule.minesAndDrops(HolderSet.direct(Blocks.COBWEB.builtInRegistryHolder()), 17.0F),
+                        Tool.Rule.overrideSpeed(registryEntryLookup.getOrThrow(BlockTags.LEAVES), 17.0F),
+                        Tool.Rule.overrideSpeed(registryEntryLookup.getOrThrow(BlockTags.WOOL), 7.5F),
+                        Tool.Rule.overrideSpeed(HolderSet.direct(Blocks.VINE.builtInRegistryHolder(), Blocks.GLOW_LICHEN.builtInRegistryHolder()), 2.0F)
                 ),
                 1.0F,
                 1,
@@ -34,8 +34,8 @@ public class SpeedrunnerShearsItem extends ShearsItem {
         );
     }
 
-    public SpeedrunnerShearsItem(Settings settings) {
-        super(settings.maxCount(1).maxDamage(476).component(DataComponentTypes.TOOL, createSpeedrunnerShears()));
-        DispenserBlock.registerBehavior(this, new ShearsDispenserBehavior());
+    public SpeedrunnerShearsItem(Properties settings) {
+        super(settings.stacksTo(1).durability(476).component(DataComponents.TOOL, createSpeedrunnerShears()));
+        DispenserBlock.registerBehavior(this, new ShearsDispenseItemBehavior());
     }
 }

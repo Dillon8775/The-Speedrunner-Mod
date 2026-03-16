@@ -1,13 +1,13 @@
 package net.dillon.speedrunnermod.mixin.main.world;
 
-import net.minecraft.structure.RuinedPortalStructurePiece;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.noise.NoiseConfig;
-import net.minecraft.world.gen.structure.RuinedPortalStructure;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.LevelHeightAccessor;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.RandomState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.levelgen.structure.structures.RuinedPortalPiece;
+import net.minecraft.world.level.levelgen.structure.structures.RuinedPortalStructure;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,13 +21,13 @@ public class RuinedPortalStructureMixin {
     /**
      * Allows ruined portals to generate correctly with the {@code speedrunner mod's world generation modifications.}
      */
-    @Inject(method = "getFloorHeight", at = @At(value = "RETURN"), cancellable = true)
-    private static void newFloorHeight(Random random, ChunkGenerator chunkGenerator, RuinedPortalStructurePiece.VerticalPlacement verticalPlacement, boolean airPocket, int height, int blockCountY, BlockBox box, HeightLimitView world, NoiseConfig noiseConfig, CallbackInfoReturnable<Integer> cir) {
+    @Inject(method = "findSuitableY", at = @At(value = "RETURN"), cancellable = true)
+    private static void newFloorHeight(RandomSource random, ChunkGenerator chunkGenerator, RuinedPortalPiece.VerticalPlacement verticalPlacement, boolean airPocket, int height, int blockCountY, BoundingBox box, LevelHeightAccessor world, RandomState noiseConfig, CallbackInfoReturnable<Integer> cir) {
         if (options().main.customDataGeneration.getCurrentValue()) {
-            if (verticalPlacement == RuinedPortalStructurePiece.VerticalPlacement.PARTLY_BURIED || verticalPlacement == RuinedPortalStructurePiece.VerticalPlacement.UNDERGROUND) {
+            if (verticalPlacement == RuinedPortalPiece.VerticalPlacement.PARTLY_BURIED || verticalPlacement == RuinedPortalPiece.VerticalPlacement.UNDERGROUND) {
                 cir.setReturnValue(height);
-            } else if (verticalPlacement == RuinedPortalStructurePiece.VerticalPlacement.IN_MOUNTAIN) {
-                cir.setReturnValue(height - blockCountY + MathHelper.nextBetween(random, 2, 8));
+            } else if (verticalPlacement == RuinedPortalPiece.VerticalPlacement.IN_MOUNTAIN) {
+                cir.setReturnValue(height - blockCountY + Mth.randomBetweenInclusive(random, 2, 8));
             }
         }
     }

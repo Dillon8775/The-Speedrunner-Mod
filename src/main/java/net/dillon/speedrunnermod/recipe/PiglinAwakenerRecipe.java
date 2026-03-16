@@ -3,15 +3,10 @@ package net.dillon.speedrunnermod.recipe;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RawShapedRecipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.recipe.book.CraftingRecipeCategory;
-import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
 
 import java.util.Map;
 
@@ -22,12 +17,12 @@ import static net.dillon.speedrunnermod.recipe.ModRecipes.CENTER_SLOT_3x3;
  */
 public class PiglinAwakenerRecipe extends ShapedRecipe {
 
-    public PiglinAwakenerRecipe(CraftingRecipeCategory category) {
+    public PiglinAwakenerRecipe(CraftingBookCategory category) {
         super("",
                 category,
-                RawShapedRecipe.create(
-                        Map.of('#', Ingredient.ofItem(Items.GOLD_INGOT),
-                                'O', Ingredient.ofItems(
+                ShapedRecipePattern.of(
+                        Map.of('#', Ingredient.of(Items.GOLD_INGOT),
+                                'O', Ingredient.of(
                                         Items.ENDER_PEARL,
                                         Items.BLAZE_POWDER,
                                         Items.GOLDEN_APPLE,
@@ -45,12 +40,12 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
      * Copies the item over as a placeholder for what item to drop if used on the wrong mode.
      */
     @Override
-    public ItemStack craft(CraftingRecipeInput input, RegistryWrapper.WrapperLookup registries) {
+    public ItemStack assemble(CraftingInput input) {
         ItemStack result = new ItemStack(ModItems.PIGLIN_AWAKENER);
 
-        ItemStack center = input.getStackInSlot(CENTER_SLOT_3x3); // 4 is center slot
+        ItemStack center = input.getItem(CENTER_SLOT_3x3); // 4 is center slot
 
-        if (center.isIn(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
+        if (center.is(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
             result.set(ModDataComponentTypes.STORED_ITEMSTACK, center.copyWithCount(1));
         }
 
@@ -63,7 +58,7 @@ public class PiglinAwakenerRecipe extends ShapedRecipe {
     }
 
     @Override
-    public CraftingRecipeCategory getCategory() {
-        return CraftingRecipeCategory.MISC;
+    public CraftingBookCategory category() {
+        return CraftingBookCategory.MISC;
     }
 }

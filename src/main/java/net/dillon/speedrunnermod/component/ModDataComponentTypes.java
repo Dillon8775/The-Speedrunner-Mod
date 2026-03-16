@@ -2,82 +2,82 @@ package net.dillon.speedrunnermod.component;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.type.ConsumableComponent;
-import net.minecraft.component.type.DeathProtectionComponent;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.consume.ApplyEffectsConsumeEffect;
-import net.minecraft.item.consume.ClearAllEffectsConsumeEffect;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.DeathProtection;
+import net.minecraft.world.item.consume_effects.ApplyStatusEffectsConsumeEffect;
+import net.minecraft.world.item.consume_effects.ClearAllStatusEffectsConsumeEffect;
+import net.minecraft.world.level.levelgen.structure.Structure;
 
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.minecraft.component.type.ConsumableComponents.food;
+import static net.minecraft.world.item.component.Consumables.defaultFood;
 
 /**
  * Different types of components for mod items.
  */
 public class ModDataComponentTypes {
-    public static final ComponentType<TagKey<Structure>> LOCATING_STRUCTURE = Registry.register(
-            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("locating_structure"), ComponentType.<TagKey<Structure>>builder().codec(TagKey.codec(RegistryKeys.STRUCTURE)).build());
+    public static final DataComponentType<TagKey<Structure>> LOCATING_STRUCTURE = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("locating_structure"), DataComponentType.<TagKey<Structure>>builder().persistent(TagKey.hashedCodec(Registries.STRUCTURE)).build());
 
-    public static final ComponentType<ItemStack> STORED_ITEMSTACK = Registry.register(
-            Registries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("stored_itemstack"), ComponentType.<ItemStack>builder().codec(ItemStack.OPTIONAL_CODEC).packetCodec(ItemStack.OPTIONAL_PACKET_CODEC).build());
+    public static final DataComponentType<ItemStack> STORED_ITEMSTACK = Registry.register(
+            BuiltInRegistries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("stored_itemstack"), DataComponentType.<ItemStack>builder().persistent(ItemStack.OPTIONAL_CODEC).networkSynchronized(ItemStack.OPTIONAL_STREAM_CODEC).build());
 
-    public static final DeathProtectionComponent TOTEM_SPEEDRUNNERS = new DeathProtectionComponent(
+    public static final DeathProtection TOTEM_SPEEDRUNNERS = new DeathProtection(
             List.of(
-                    new ClearAllEffectsConsumeEffect(),
-                    new ApplyEffectsConsumeEffect(
+                    new ClearAllStatusEffectsConsumeEffect(),
+                    new ApplyStatusEffectsConsumeEffect(
                             List.of(
-                                    new StatusEffectInstance(StatusEffects.REGENERATION, 1800, 1),
-                                    new StatusEffectInstance(StatusEffects.ABSORPTION, ModUtil.minutesAsTicks(1), 1),
-                                    new StatusEffectInstance(StatusEffects.RESISTANCE, ModUtil.secondsAsTicks(30)),
-                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(2)),
-                                    new StatusEffectInstance(StatusEffects.STRENGTH, ModUtil.secondsAsTicks(15)),
-                                    new StatusEffectInstance(StatusEffects.SPEED, ModUtil.secondsAsTicks(30)),
-                                    new StatusEffectInstance(StatusEffects.SLOW_FALLING, ModUtil.secondsAsTicks(10))
+                                    new MobEffectInstance(MobEffects.REGENERATION, 1800, 1),
+                                    new MobEffectInstance(MobEffects.ABSORPTION, ModUtil.minutesAsTicks(1), 1),
+                                    new MobEffectInstance(MobEffects.RESISTANCE, ModUtil.secondsAsTicks(30)),
+                                    new MobEffectInstance(MobEffects.FIRE_RESISTANCE, ModUtil.minutesAsTicks(2)),
+                                    new MobEffectInstance(MobEffects.STRENGTH, ModUtil.secondsAsTicks(15)),
+                                    new MobEffectInstance(MobEffects.SPEED, ModUtil.secondsAsTicks(30)),
+                                    new MobEffectInstance(MobEffects.SLOW_FALLING, ModUtil.secondsAsTicks(10))
                             )
                     )
             ));
 
-    public static final ConsumableComponent SPEEDRUNNER_BULK = food()
-            .consumeEffect(
-                    new ApplyEffectsConsumeEffect(
+    public static final Consumable SPEEDRUNNER_BULK = defaultFood()
+            .onConsume(
+                    new ApplyStatusEffectsConsumeEffect(
                             List.of(
-                                    new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 1200, 0),
-                                    new StatusEffectInstance(StatusEffects.WATER_BREATHING, 1200, 0),
-                                    new StatusEffectInstance(StatusEffects.SPEED, 600, 0)
+                                    new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200, 0),
+                                    new MobEffectInstance(MobEffects.WATER_BREATHING, 1200, 0),
+                                    new MobEffectInstance(MobEffects.SPEED, 600, 0)
                             )
                     )
             )
-            .consumeEffect(
-                    new ApplyEffectsConsumeEffect(
-                            new StatusEffectInstance(StatusEffects.HASTE, 500, 1), 0.5F
+            .onConsume(
+                    new ApplyStatusEffectsConsumeEffect(
+                            new MobEffectInstance(MobEffects.HASTE, 500, 1), 0.5F
                     )
             )
-            .consumeEffect(
-                    new ApplyEffectsConsumeEffect(
-                            new StatusEffectInstance(StatusEffects.REGENERATION, 200), 0.25F
+            .onConsume(
+                    new ApplyStatusEffectsConsumeEffect(
+                            new MobEffectInstance(MobEffects.REGENERATION, 200), 0.25F
                     )
             )
             .build();
 
-    public static final ConsumableComponent ROTTEN_SPEEDRUNNER_BULK = food()
-            .consumeEffect(
-                    new ApplyEffectsConsumeEffect(
-                            new StatusEffectInstance(StatusEffects.HUNGER, 400, 0), 0.5F
+    public static final Consumable ROTTEN_SPEEDRUNNER_BULK = defaultFood()
+            .onConsume(
+                    new ApplyStatusEffectsConsumeEffect(
+                            new MobEffectInstance(MobEffects.HUNGER, 400, 0), 0.5F
                     )
             )
-            .consumeEffect(
-                    new ApplyEffectsConsumeEffect(
-                            new StatusEffectInstance(StatusEffects.SLOWNESS, 300, 0), 0.1F
+            .onConsume(
+                    new ApplyStatusEffectsConsumeEffect(
+                            new MobEffectInstance(MobEffects.SLOWNESS, 300, 0), 0.1F
                     )
             )
             .build();

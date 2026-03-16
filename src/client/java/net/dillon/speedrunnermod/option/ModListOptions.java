@@ -3,11 +3,11 @@ package net.dillon.speedrunnermod.option;
 import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.GameOptions;
-import net.minecraft.client.option.SimpleOption;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
+import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,305 +23,305 @@ import static net.dillon.speedrunnermod.option.ModOptions.*;
  */
 public class ModListOptions {
 
-    public static SimpleOption<ModOptions.Mode> mode() {
-        return new SimpleOption<>("speedrunnermod.options.mode", SimpleOption.emptyTooltip(), (optionText, value) -> value.getText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.Mode.values()), Codec.INT.xmap(ModOptions.Mode::byId, ModOptions.Mode::getId)),
+    public static OptionInstance<ModOptions.Mode> mode() {
+        return new OptionInstance<>("speedrunnermod.options.mode", OptionInstance.noTooltip(), (optionText, value) -> value.getText(),
+                new OptionInstance.Enum<>(Arrays.asList(ModOptions.Mode.values()), Codec.INT.xmap(ModOptions.Mode::byId, ModOptions.Mode::getId)),
                 options().main.mode.getCurrentValue(), value -> options().main.mode.set(value));
     }
 
-    public static SimpleOption<ModOptions.StructureSpawnRate> structureSpawnRate() {
-        return new SimpleOption<>("speedrunnermod.options.structure_spawn_rates", SimpleOption.emptyTooltip(), (optionText, value) -> value.getText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
+    public static OptionInstance<ModOptions.StructureSpawnRate> structureSpawnRate() {
+        return new OptionInstance<>("speedrunnermod.options.structure_spawn_rates", OptionInstance.noTooltip(), (optionText, value) -> value.getText(),
+                new OptionInstance.Enum<>(Arrays.asList(ModOptions.StructureSpawnRate.values()), Codec.INT.xmap(ModOptions.StructureSpawnRate::byId, ModOptions.StructureSpawnRate::getId)),
                 options().main.structureSpawnRates.getCurrentValue(), value -> options().main.structureSpawnRates.set(value));
     }
 
-    public static SimpleOption<ClientModOptions.ItemMessages> itemMessages() {
-        return new SimpleOption<>("speedrunnermod.options.item_messages",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.item_messages.tooltip")),
+    public static OptionInstance<ClientModOptions.ItemMessages> itemMessages() {
+        return new OptionInstance<>("speedrunnermod.options.item_messages",
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.item_messages.tooltip")),
                 (optionText, value) -> value.getText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.ItemMessages.values()),
+                new OptionInstance.Enum<>(Arrays.asList(ClientModOptions.ItemMessages.values()),
                         Codec.INT.xmap(ClientModOptions.ItemMessages::byId, ClientModOptions.ItemMessages::getId)),
                 clientOptions().client.itemMessages.getCurrentValue(),
                 value -> clientOptions().client.itemMessages.set(value));
     }
 
-    public static SimpleOption<ModOptions.CreatureSpawnRate> creatureSpawningRate() {
-        return new SimpleOption<>("speedrunnermod.options.creature_spawn_rate",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.creature_spawn_rate.tooltip")),
+    public static OptionInstance<ModOptions.CreatureSpawnRate> creatureSpawningRate() {
+        return new OptionInstance<>("speedrunnermod.options.creature_spawn_rate",
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.creature_spawn_rate.tooltip")),
                 (optionText, value) -> value.getText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ModOptions.CreatureSpawnRate.values()),
+                new OptionInstance.Enum<>(Arrays.asList(ModOptions.CreatureSpawnRate.values()),
                         Codec.INT.xmap(ModOptions.CreatureSpawnRate::byId, ModOptions.CreatureSpawnRate::getId)),
                 options().main.creatureSpawnRate.getCurrentValue(),
                 value -> options().main.creatureSpawnRate.set(value));
     }
 
-    public static SimpleOption<ClientModOptions.GameMode> gameMode() {
-        return new SimpleOption<>("speedrunnermod.options.gamemode",
-                SimpleOption.emptyTooltip(),
+    public static OptionInstance<ClientModOptions.GameMode> gameMode() {
+        return new OptionInstance<>("speedrunnermod.options.gamemode",
+                OptionInstance.noTooltip(),
                 (optionText, value) -> value.getText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.GameMode.values()),
+                new OptionInstance.Enum<>(Arrays.asList(ClientModOptions.GameMode.values()),
                         Codec.INT.xmap(ClientModOptions.GameMode::byId, ClientModOptions.GameMode::getId)),
                 clientOptions().client.gameMode.getCurrentValue(),
                 value -> clientOptions().client.gameMode.set(value));
     }
 
-    public static SimpleOption<ClientModOptions.Difficulty> difficulty() {
-        return new SimpleOption<>("speedrunnermod.options.difficulty",
-                SimpleOption.emptyTooltip(),
+    public static OptionInstance<ClientModOptions.Difficulty> difficulty() {
+        return new OptionInstance<>("speedrunnermod.options.difficulty",
+                OptionInstance.noTooltip(),
                 (optionText, value) -> value.getText(),
-                new SimpleOption.PotentialValuesBasedCallbacks<>(Arrays.asList(ClientModOptions.Difficulty.values()),
+                new OptionInstance.Enum<>(Arrays.asList(ClientModOptions.Difficulty.values()),
                         Codec.INT.xmap(ClientModOptions.Difficulty::byId, ClientModOptions.Difficulty::getId)),
                 isDoomMode() ? ClientModOptions.Difficulty.HARD : clientOptions().client.difficulty.getCurrentValue(),
                 value -> clientOptions().client.difficulty.set(value));
     }
 
-    public static SimpleOption<Boolean> fasterBlockBreaking() {
+    public static OptionInstance<Boolean> fasterBlockBreaking() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_block_breaking",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
                 options().main.fasterBlockBreaking
         );
     }
 
-    public static SimpleOption<Boolean> icarusMode() {
+    public static OptionInstance<Boolean> icarusMode() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.icarus_mode",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.icarus_mode.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.icarus_mode.tooltip")),
                 options().main.iCarusMode
         );
     }
 
-    public static SimpleOption<Boolean> fog() {
-        return new SimpleOption<>("speedrunnermod.options.fog",
-                SimpleOption.emptyTooltip(),
+    public static OptionInstance<Boolean> fog() {
+        return new OptionInstance<>("speedrunnermod.options.fog",
+                OptionInstance.noTooltip(),
                 (optionText, value) -> !clientOptions().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
+                OptionInstance.BOOLEAN_VALUES,
                 clientOptions().client.fog.getCurrentValue(),
                 value -> {
                     clientOptions().client.fog.set(value);
-                    MinecraftClient.getInstance().worldRenderer.reload();
+                    Minecraft.getInstance().levelRenderer.allChanged();
                 });
     }
 
-    public static SimpleOption<Boolean> increasedLavaVision() {
-        return new SimpleOption<>("speedrunnermod.options.increased_lava_vision",
-                SimpleOption.emptyTooltip(),
+    public static OptionInstance<Boolean> increasedLavaVision() {
+        return new OptionInstance<>("speedrunnermod.options.increased_lava_vision",
+                OptionInstance.noTooltip(),
                 (optionText, value) -> !clientOptions().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
+                OptionInstance.BOOLEAN_VALUES,
                 clientOptions().client.increasedLavaVision.getCurrentValue(),
                 value -> clientOptions().client.increasedLavaVision.set(value));
     }
 
-    public static SimpleOption<Boolean> infiniPearlMode() {
+    public static OptionInstance<Boolean> infiniPearlMode() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.infini_pearl_mode",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.infini_pearl_mode.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.infini_pearl_mode.tooltip")),
                 options().main.infiniPearlMode
         );
     }
 
     @Deprecated
-    public static SimpleOption<Boolean> leaderboardsMode() {
+    public static OptionInstance<Boolean> leaderboardsMode() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.leaderboards_mode",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.leaderboards_mode.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.leaderboards_mode.tooltip")),
                 options().main.leaderboardsMode
         );
     }
 
-    public static SimpleOption<Boolean> killGhastOnFireball() {
+    public static OptionInstance<Boolean> killGhastOnFireball() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.kill_ghast_on_fireball",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kill_ghast_on_fireball.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.kill_ghast_on_fireball.tooltip")),
                 options().main.killGhastOnFireball
         );
     }
 
-    public static SimpleOption<Boolean> betterVillagerTrades() {
+    public static OptionInstance<Boolean> betterVillagerTrades() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_villager_trades",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_villager_trades.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.better_villager_trades.tooltip")),
                 options().main.betterVillagerTrades
         );
     }
 
-    public static SimpleOption<Boolean> fireproofItems() {
+    public static OptionInstance<Boolean> fireproofItems() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.fireproof_items",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fireproof_items.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fireproof_items.tooltip")),
                 options().main.fireproofItems
         );
     }
 
-    public static SimpleOption<Boolean> fasterSpawners() {
+    public static OptionInstance<Boolean> fasterSpawners() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_spawners",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_spawners.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_spawners.tooltip")),
                 options().main.fasterSpawners
         );
     }
 
-    public static SimpleOption<Boolean> fasterSmelting() {
+    public static OptionInstance<Boolean> fasterSmelting() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_smelting",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_smelting.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_smelting.tooltip")),
                 options().main.fasterSmelting
         );
     }
 
-    public static SimpleOption<Boolean> fasterBrewing() {
+    public static OptionInstance<Boolean> fasterBrewing() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_brewing",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.faster_brewing.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_brewing.tooltip")),
                 options().main.fasterBrewing
         );
     }
 
-    public static SimpleOption<Boolean> betterBiomes() {
+    public static OptionInstance<Boolean> betterBiomes() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_biomes",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.betterBiomes
         );
     }
 
-    public static SimpleOption<Boolean> customBiomesAndCustomBiomeFeatures() {
+    public static OptionInstance<Boolean> customBiomesAndCustomBiomeFeatures() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.custom_biomes_and_custom_biome_features",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.customBiomesAndCustomBiomeFeatures
         );
     }
 
-    public static SimpleOption<Boolean> commonOres() {
+    public static OptionInstance<Boolean> commonOres() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.common_ores",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.common_ores.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.common_ores.tooltip")),
                 options().main.commonOres
         );
     }
 
-    public static SimpleOption<Boolean> lavaBoats() {
+    public static OptionInstance<Boolean> lavaBoats() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.lava_boats",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.lava_boats.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.lava_boats.tooltip")),
                 options().main.lavaBoats
         );
     }
 
-    public static SimpleOption<Boolean> netherWater() {
+    public static OptionInstance<Boolean> netherWater() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.nether_water",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.nether_water.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.nether_water.tooltip")),
                 options().main.netherWater
         );
     }
 
-    public static SimpleOption<Boolean> betterFoods() {
+    public static OptionInstance<Boolean> betterFoods() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_foods",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_foods.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.better_foods.tooltip")),
                 options().main.betterFoods
         );
     }
 
-    public static SimpleOption<Boolean> fallDamage() {
+    public static OptionInstance<Boolean> fallDamage() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.fall_damage",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fall_damage.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fall_damage.tooltip")),
                 options().main.fallDamage
         );
     }
 
-    public static SimpleOption<Boolean> arrowsDestroyBeds() {
+    public static OptionInstance<Boolean> arrowsDestroyBeds() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.arrows_destroy_beds",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.arrows_destroy_beds.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.arrows_destroy_beds.tooltip")),
                 options().main.arrowsDestroyBeds
         );
     }
 
-    public static SimpleOption<Boolean> globalNetherPortals() {
+    public static OptionInstance<Boolean> globalNetherPortals() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.global_nether_portals",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.global_nether_portals.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.global_nether_portals.tooltip")),
                 options().main.globalNetherPortals
         );
     }
 
-    public static SimpleOption<Boolean> betterAnvil() {
+    public static OptionInstance<Boolean> betterAnvil() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_anvil",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.better_anvil.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.better_anvil.tooltip")),
                 options().main.betterAnvil
         );
     }
 
-    public static SimpleOption<Boolean> higherEnchantmentLevels() {
+    public static OptionInstance<Boolean> higherEnchantmentLevels() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.higher_enchantment_levels",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.higher_enchantment_levels.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.higher_enchantment_levels.tooltip")),
                 options().main.higherEnchantmentLevels
         );
     }
 
-    public static SimpleOption<Boolean> rightClickToRemoveSilkTouch() {
+    public static OptionInstance<Boolean> rightClickToRemoveSilkTouch() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.right_click_to_remove_silk_touch",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.right_click_to_remove_silk_touch.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.right_click_to_remove_silk_touch.tooltip")),
                 options().main.rightClickToRemoveSilkTouch
         );
     }
 
-    public static SimpleOption<Boolean> showDeathCords() {
+    public static OptionInstance<Boolean> showDeathCords() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.show_death_cords",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_death_cords.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.show_death_cords.tooltip")),
                 options().main.showDeathCords
         );
     }
 
-    public static SimpleOption<Boolean> kineticDamage() {
+    public static OptionInstance<Boolean> kineticDamage() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.kinetic_damage",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.kinetic_damage.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.kinetic_damage.tooltip")),
                 options().main.kineticDamage
         );
     }
 
-    public static SimpleOption<Boolean> throwableFireballs() {
+    public static OptionInstance<Boolean> throwableFireballs() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.throwable_fireballs",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.throwable_fireballs.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.throwable_fireballs.tooltip")),
                 options().main.throwableFireballs
         );
     }
 
-    public static SimpleOption<Boolean> customDataGeneration() {
+    public static OptionInstance<Boolean> customDataGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.custom_data_generation",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.custom_data_generation.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.custom_data_generation.tooltip")),
                 options().main.customDataGeneration
         );
     }
 
-    public static SimpleOption<Boolean> fastWorldCreation() {
+    public static OptionInstance<Boolean> fastWorldCreation() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.fast_world_creation",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fast_world_creation.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fast_world_creation.tooltip")),
                 clientOptions().client.fastWorldCreation
         );
     }
 
-    public static SimpleOption<Boolean> allowCheats() {
+    public static OptionInstance<Boolean> allowCheats() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.allow_cheats",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 clientOptions().client.allowCheats
         );
     }
 
-    public static SimpleOption<Boolean> modifiedStrongholdGeneration() {
+    public static OptionInstance<Boolean> modifiedStrongholdGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_stronghold_generation",
                 new boolean[]{!isBalancedMode()},
@@ -329,7 +329,7 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Boolean> modifiedStrongholdYGeneration() {
+    public static OptionInstance<Boolean> modifiedStrongholdYGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_stronghold_y_generation",
                 new boolean[]{!isBalancedMode()},
@@ -337,7 +337,7 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Boolean> modifiedNetherFortressGeneration() {
+    public static OptionInstance<Boolean> modifiedNetherFortressGeneration() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_nether_fortress_generation",
                 new boolean[]{!isBalancedMode()},
@@ -345,310 +345,310 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Boolean> dragonKillsNearbyHostileEntities() {
+    public static OptionInstance<Boolean> dragonKillsNearbyHostileEntities() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.dragon_kills_nearby_hostile_entities",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip")),
                 options().advanced.dragonKillsNearbyHostileEntities
         );
     }
 
-    public static SimpleOption<Boolean> dragonImmunityFromGoliathAndWither() {
+    public static OptionInstance<Boolean> dragonImmunityFromGoliathAndWither() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.dragon_immunity_from_goliath_and_wither",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.dragonImmunityFromGoliathAndWither
         );
     }
 
-    public static SimpleOption<Boolean> shiftToThrowFireball() {
+    public static OptionInstance<Boolean> shiftToThrowFireball() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.shift_to_throw_fireball",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.shift_to_throw_fireball.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.shift_to_throw_fireball.tooltip")),
                 options().advanced.shiftToThrowFireball
         );
     }
 
-    public static SimpleOption<Boolean> showResetButton() {
+    public static OptionInstance<Boolean> showResetButton() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.show_reset_button",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.show_reset_button.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.show_reset_button.tooltip")),
                 clientOptions().client.showResetButton
         );
     }
 
-    public static SimpleOption<Boolean> higherBreathTime() {
+    public static OptionInstance<Boolean> higherBreathTime() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.higher_breath_time",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.higher_breath_time.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.higher_breath_time.tooltip")),
                 options().advanced.higherBreathTime
         );
     }
 
-    public static SimpleOption<Boolean> generateSpeedrunnerWood() {
+    public static OptionInstance<Boolean> generateSpeedrunnerWood() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.generate_speedrunner_wood",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.generateSpeedrunnerWood
         );
     }
 
-    public static SimpleOption<Boolean> longerDragonPerchStayTime() {
+    public static OptionInstance<Boolean> longerDragonPerchStayTime() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.longer_dragon_perch_stay_time",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.longer_dragon_perch_stay_time.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.longer_dragon_perch_stay_time.tooltip")),
                 options().advanced.longerDragonPerchStayTime,
                 true
         );
     }
 
-    public static SimpleOption<Boolean> decreasedZombifiedPiglinScareDistance() {
+    public static OptionInstance<Boolean> decreasedZombifiedPiglinScareDistance() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.decreased_zombified_piglin_scare_distance",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip")),
                 options().advanced.decreasedZombifiedPiglinScareDistance
         );
     }
 
-    public static SimpleOption<Boolean> enterFeatureScreens() {
+    public static OptionInstance<Boolean> enterFeatureScreens() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.enter_feature_screens",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.enter_feature_screens.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.enter_feature_screens.tooltip")),
                 clientOptions().storedValues.enterFeaturesScreen,
                 true
         );
     }
 
-    public static SimpleOption<Boolean> terraBlenderSurfaceRuleDataMixin() {
+    public static OptionInstance<Boolean> terraBlenderSurfaceRuleDataMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.terrablender_surface_rule_data_mixin",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.terrablender_surface_rule_data_mixin.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.terrablender_surface_rule_data_mixin.tooltip")),
                 options().mixins.terraBlenderSurfaceRuleDataMixin,
                 false
         );
     }
 
-    public static SimpleOption<Boolean> fogMixins() {
+    public static OptionInstance<Boolean> fogMixins() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.fog_mixins",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fog_mixins.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fog_mixins.tooltip")),
                 clientOptions().mixins.fogMixins,
                 false
         );
     }
 
-    public static SimpleOption<Boolean> simpleOptionMixin() {
+    public static OptionInstance<Boolean> simpleOptionMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.simple_option_mixin",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.simple_option_mixin.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.simple_option_mixin.tooltip")),
                 clientOptions().mixins.simpleOptionMixin,
                 false
         );
     }
 
-    public static SimpleOption<Boolean> logoDrawerMixin() {
+    public static OptionInstance<Boolean> logoDrawerMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.logo_drawer_mixin",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.logo_drawer_mixin.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.logo_drawer_mixin.tooltip")),
                 clientOptions().mixins.logoDrawerMixin,
                 false
         );
     }
 
-    public static SimpleOption<Boolean> renderLayersMixin() {
+    public static OptionInstance<Boolean> renderLayersMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.render_layers_mixin",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.render_layers_mixin.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.render_layers_mixin.tooltip")),
                 clientOptions().mixins.renderLayersMixin,
                 false
         );
     }
 
-    public static SimpleOption<Integer> blockBreakingMultiplier() {
+    public static OptionInstance<Integer> blockBreakingMultiplier() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.block_breaking_multiplier",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.blockBreakingMultiplier,
                 (optionText, value) -> {
                     if (value == 1) {
-                        return GameOptions.getGenericValueText(optionText, ModTexts.OFF);
+                        return Options.genericValueLabel(optionText, ModTexts.OFF);
                     } else {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("x" + value).formatted(Formatting.AQUA));
+                        return Options.genericValueLabel(optionText, Component.literal("x" + value).withStyle(ChatFormatting.AQUA));
                     }
                 }
         );
     }
 
-    public static SimpleOption<Integer> dragonPerchTime() {
+    public static OptionInstance<Integer> dragonPerchTime() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.dragon_perch_time",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.dragon_perch_time.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.dragon_perch_time.tooltip")),
                 options().main.dragonPerchTime,
                 (optionText, value) -> {
                     if (value == 9) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("Instant").formatted(Formatting.GREEN));
+                        return Options.genericValueLabel(optionText, Component.literal("Instant").withStyle(ChatFormatting.GREEN));
                     } else if (value <= 8) {
-                        return GameOptions.getGenericValueText(optionText, ModTexts.OFF);
+                        return Options.genericValueLabel(optionText, ModTexts.OFF);
                     } else if (value >= 60 && value <= 119) {
                         int minutes = value / 60;
                         int seconds = value % 60;
                         if (seconds == 0) {
-                            return GameOptions.getGenericValueText(optionText, Text.literal(minutes + "m").formatted(Formatting.DARK_AQUA));
+                            return Options.genericValueLabel(optionText, Component.literal(minutes + "m").withStyle(ChatFormatting.DARK_AQUA));
                         } else {
-                            return GameOptions.getGenericValueText(optionText, Text.literal(minutes + "m " + seconds + "s").formatted(Formatting.DARK_AQUA));
+                            return Options.genericValueLabel(optionText, Component.literal(minutes + "m " + seconds + "s").withStyle(ChatFormatting.DARK_AQUA));
                         }
                     } else {
-                        return GameOptions.getGenericValueText(optionText, Text.literal(value + "s").formatted(Formatting.AQUA));
+                        return Options.genericValueLabel(optionText, Component.literal(value + "s").withStyle(ChatFormatting.AQUA));
                     }
                 }
         );
     }
 
-    public static SimpleOption<Integer> strongholdDistance() {
+    public static OptionInstance<Integer> strongholdDistance() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_distance",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.strongholdDistance
         );
     }
 
-    public static SimpleOption<Integer> strongholdSpread() {
+    public static OptionInstance<Integer> strongholdSpread() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_spread",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.strongholdSpread
         );
     }
 
-    public static SimpleOption<Integer> strongholdCount() {
+    public static OptionInstance<Integer> strongholdCount() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_count",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.strongholdCount
         );
     }
 
-    public static SimpleOption<Integer> strongholdPortalRoomCount() {
+    public static OptionInstance<Integer> strongholdPortalRoomCount() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_portal_room_count",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.strongholdPortalRoomCount
         );
     }
 
-    public static SimpleOption<Integer> strongholdLibraryCount() {
+    public static OptionInstance<Integer> strongholdLibraryCount() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_library_count",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().main.strongholdLibraryCount
         );
     }
 
-    public static SimpleOption<Integer> netherPortalDelay() {
+    public static OptionInstance<Integer> netherPortalDelay() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.nether_portal_delay",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.nether_portal_delay.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.nether_portal_delay.tooltip")),
                 options().main.netherPortalDelay,
                 (optionText, value) -> {
                     if (value == -1) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("Go by Gamerule").formatted(Formatting.GREEN));
+                        return Options.genericValueLabel(optionText, Component.literal("Go by Gamerule").withStyle(ChatFormatting.GREEN));
                     } else if (value == 0) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("None").formatted(Formatting.RED));
+                        return Options.genericValueLabel(optionText, Component.literal("None").withStyle(ChatFormatting.RED));
                     } else {
-                        return GameOptions.getGenericValueText(optionText, Text.literal(value + "s").formatted(Formatting.AQUA));
+                        return Options.genericValueLabel(optionText, Component.literal(value + "s").withStyle(ChatFormatting.AQUA));
                     }
                 }
         );
     }
 
-    public static SimpleOption<Integer> anvilCostLimit() {
+    public static OptionInstance<Integer> anvilCostLimit() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.anvil_cost_limit",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.anvil_cost_limit.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.anvil_cost_limit.tooltip")),
                 options().main.anvilCostLimit,
                 (optionText, value) -> {
                     if (value == 50) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("No Limit").formatted(Formatting.RED));
+                        return Options.genericValueLabel(optionText, Component.literal("No Limit").withStyle(ChatFormatting.RED));
                     } else if (value == 1) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal(value + " level").formatted(Formatting.AQUA));
+                        return Options.genericValueLabel(optionText, Component.literal(value + " level").withStyle(ChatFormatting.AQUA));
                     } else {
-                        return GameOptions.getGenericValueText(optionText, Text.literal(value + " levels").formatted(Formatting.AQUA));
+                        return Options.genericValueLabel(optionText, Component.literal(value + " levels").withStyle(ChatFormatting.AQUA));
                     }
                 }
         );
     }
 
-    public static SimpleOption<Integer> enderEyeBreakingCooldown() {
+    public static OptionInstance<Integer> enderEyeBreakingCooldown() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.ender_eye_breaking_cooldown",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.ender_eye_breaking_cooldown.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.ender_eye_breaking_cooldown.tooltip")),
                 options().advanced.enderEyeBreakingCooldown,
-                (optionText, value) -> GameOptions.getGenericValueText(optionText, Text.literal(value + "s").formatted(Formatting.AQUA))
+                (optionText, value) -> Options.genericValueLabel(optionText, Component.literal(value + "s").withStyle(ChatFormatting.AQUA))
         );
     }
 
-    public static SimpleOption<Integer> piglinAwakenerPiglinCount() {
+    public static OptionInstance<Integer> piglinAwakenerPiglinCount() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.piglin_awakener_piglin_count",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.piglinAwakenerPiglinCount
         );
     }
 
-    public static SimpleOption<Integer> fullbrightAmount() {
+    public static OptionInstance<Integer> fullbrightAmount() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.fullbright_amount",
-                SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.fullbright_amount.tooltip")),
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fullbright_amount.tooltip")),
                 clientOptions().client.fullbrightAmount
         );
     }
 
-    public static SimpleOption<Integer> icarusFireworksInventorySlot() {
+    public static OptionInstance<Integer> icarusFireworksInventorySlot() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.icarus_fireworks_inventory_slot",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 clientOptions().client.iCarusFireworksInventorySlot,
                 (optionText, value) -> {
                     if (value < 10) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("Hotbar Slot ").formatted(Formatting.AQUA)
-                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                        return Options.genericValueLabel(optionText, Component.literal("Hotbar Slot ").withStyle(ChatFormatting.AQUA)
+                                .copy().append(Component.literal(Integer.toString(value)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA)));
                     } else {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("Slot ").formatted(Formatting.AQUA)
-                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                        return Options.genericValueLabel(optionText, Component.literal("Slot ").withStyle(ChatFormatting.AQUA)
+                                .copy().append(Component.literal(Integer.toString(value)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA)));
                     }
                 }
         );
     }
 
-    public static SimpleOption<Integer> infiniPearlInventorySlot() {
+    public static OptionInstance<Integer> infiniPearlInventorySlot() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.infini_pearl_inventory_slot",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 clientOptions().client.infiniPearlInventorySlot,
                 (optionText, value) -> {
                     if (value < 10) {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("Hotbar Slot ").formatted(Formatting.AQUA)
-                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                        return Options.genericValueLabel(optionText, Component.literal("Hotbar Slot ").withStyle(ChatFormatting.AQUA)
+                                .copy().append(Component.literal(Integer.toString(value)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA)));
                     } else {
-                        return GameOptions.getGenericValueText(optionText, Text.literal("Slot ").formatted(Formatting.AQUA)
-                                .copy().append(Text.literal(Integer.toString(value)).formatted(Formatting.BOLD).formatted(Formatting.AQUA)));
+                        return Options.genericValueLabel(optionText, Component.literal("Slot ").withStyle(ChatFormatting.AQUA)
+                                .copy().append(Component.literal(Integer.toString(value)).withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.AQUA)));
                     }
                 }
         );
     }
 
-    public static SimpleOption<Integer> fireballExplosionPower() {
+    public static OptionInstance<Integer> fireballExplosionPower() {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.fireball_explosion_power",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.fireballExplosionPower
         );
     }
 
-    public static SimpleOption<Integer> annulEyeSearchRadius(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> annulEyeSearchRadius(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.annul_eye_search_radius",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.annulEyeSearchRadius,
                 100,
                 200,
@@ -658,10 +658,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> piglinAwakenerSearchRadius(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> piglinAwakenerSearchRadius(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.piglin_awakener_search_radius",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.piglinAwakenerSearchRadius,
                 100,
                 300,
@@ -671,10 +671,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> blazeSpotterSearchRadius(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> blazeSpotterSearchRadius(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.blaze_spotter_search_radius",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.blazeSpotterSearchRadius,
                 50,
                 300,
@@ -684,10 +684,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> raidEradicatorSearchRadius(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> raidEradicatorSearchRadius(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.raid_eradicator_search_radius",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.raidEradicatorSearchRadius,
                 100,
                 400,
@@ -697,10 +697,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> dragonsPearlSearchRadius(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> dragonsPearlSearchRadius(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.dragons_pearl_search_radius",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.dragonsPearlSearchRadius,
                 100,
                 350,
@@ -710,10 +710,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> dragonMassKillRadius(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> dragonMassKillRadius(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.dragon_mass_kill_radius",
-                SimpleOption.constantTooltip(ModListOptions.listIntegerTooltip(Text.translatable("speedrunnermod.options.dragon_mass_kill_radius.tooltip"))),
+                OptionInstance.cachedConstantTooltip(ModListOptions.listIntegerTooltip(Component.translatable("speedrunnermod.options.dragon_mass_kill_radius.tooltip"))),
                 options().advanced.dragonMassKillRadius,
                 100,
                 300,
@@ -723,10 +723,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> dragonImmunityDetectionRadiusForGoliath(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> dragonImmunityDetectionRadiusForGoliath(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.dragon_immunity_detection_radius_for_goliath",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.dragonImmunityDetectionRadiusForGoliath,
                 100,
                 300,
@@ -736,10 +736,10 @@ public class ModListOptions {
         );
     }
 
-    public static SimpleOption<Integer> dragonImmunityDetectionRadiusForWither(boolean x, boolean y, boolean z) {
+    public static OptionInstance<Integer> dragonImmunityDetectionRadiusForWither(boolean x, boolean y, boolean z) {
         return ofIntegerList(
                 "speedrunnermod.options.dragon_immunity_detection_radius_for_wither",
-                SimpleOption.emptyTooltip(),
+                OptionInstance.noTooltip(),
                 options().advanced.dragonImmunityDetectionRadiusForWither,
                 100,
                 350,
@@ -752,10 +752,10 @@ public class ModListOptions {
     /**
      * Creates a new {@code simple boolean option.}
      */
-    private static SimpleOption<Boolean> createSimpleBooleanOption(String key, SimpleOption.TooltipFactory<Boolean> tooltip, OptionValue<Boolean> option) {
-        return new SimpleOption<>(key, tooltip,
+    private static OptionInstance<Boolean> createSimpleBooleanOption(String key, OptionInstance.TooltipSupplier<Boolean> tooltip, OptionValue<Boolean> option) {
+        return new OptionInstance<>(key, tooltip,
                 (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
-                SimpleOption.BOOLEAN,
+                OptionInstance.BOOLEAN_VALUES,
                 option.getCurrentValue(),
                 option::set);
     }
@@ -764,8 +764,8 @@ public class ModListOptions {
      * Creates a new {@code simple boolean option.} with different text displayers based on other options.
      * @param bl the list of booleans to be checked if false, and if one of them are false, return {@code displayer} as the <b>displayer text,</b> and {@code displayerTooltip} as the tooltip.
      */
-    private static SimpleOption<Boolean> createSimpleBooleanOption(String key, boolean[] bl, OptionValue<Boolean> option) throws IllegalArgumentException {
-        return new SimpleOption<>(key, SimpleOption.emptyTooltip(),
+    private static OptionInstance<Boolean> createSimpleBooleanOption(String key, boolean[] bl, OptionValue<Boolean> option) throws IllegalArgumentException {
+        return new OptionInstance<>(key, OptionInstance.noTooltip(),
                 (optionText, value) -> {
                     for (boolean b : bl) {
                         if (!b) {
@@ -774,7 +774,7 @@ public class ModListOptions {
                     }
                     return !value ? ModTexts.OFF : ModTexts.ON;
                 },
-                SimpleOption.BOOLEAN,
+                OptionInstance.BOOLEAN_VALUES,
                 option.getCurrentValue(),
                 option::set);
     }
@@ -782,10 +782,10 @@ public class ModListOptions {
     /**
      * Creates a new {@code simple boolean option} with different text displayers.
      */
-    private static SimpleOption<Boolean> createSimpleBooleanOptionWithCustomSwitch(String key, SimpleOption.TooltipFactory<Boolean> tooltip, OptionValue<Boolean> option, boolean question) {
-        return new SimpleOption<>(key, tooltip,
+    private static OptionInstance<Boolean> createSimpleBooleanOptionWithCustomSwitch(String key, OptionInstance.TooltipSupplier<Boolean> tooltip, OptionValue<Boolean> option, boolean question) {
+        return new OptionInstance<>(key, tooltip,
                 (optionText, value) -> !value ? question ? ModTexts.NO : ModTexts.DISABLED : question ? ModTexts.YES : ModTexts.ENABLED,
-                SimpleOption.BOOLEAN,
+                OptionInstance.BOOLEAN_VALUES,
                 option.getCurrentValue(),
                 option::set);
     }
@@ -793,42 +793,42 @@ public class ModListOptions {
     /**
      * Creates a new {@code simple integer option.}
      */
-    private static SimpleOption<Integer> createSimpleIntegerOption(String key, SimpleOption.TooltipFactory<Integer> tooltip, IntegerOptionValue option) {
-        return new SimpleOption<>(key, tooltip,
+    private static OptionInstance<Integer> createSimpleIntegerOption(String key, OptionInstance.TooltipSupplier<Integer> tooltip, IntegerOptionValue option) {
+        return new OptionInstance<>(key, tooltip,
                 ModListOptions::getGenericValueText,
-                new SimpleOption.ValidatingIntSliderCallbacks(option.getMinValue(), option.getMaxValue()), option.getCurrentValue(), option::set);
+                new OptionInstance.IntRange(option.getMinValue(), option.getMaxValue()), option.getCurrentValue(), option::set);
     }
 
     /**
      * Creates a new {@code simple integer option} custom a custom {@code text supplier.}
      */
-    private static SimpleOption<Integer> createSimpleIntegerOption(String key, SimpleOption.TooltipFactory<Integer> tooltip, IntegerOptionValue option, BiFunction<Text, Integer, Text> formatter) {
-        return new SimpleOption<>(key, tooltip,
+    private static OptionInstance<Integer> createSimpleIntegerOption(String key, OptionInstance.TooltipSupplier<Integer> tooltip, IntegerOptionValue option, BiFunction<Component, Integer, Component> formatter) {
+        return new OptionInstance<>(key, tooltip,
                 formatter::apply,
-                new SimpleOption.ValidatingIntSliderCallbacks(option.getMinValue(), option.getMaxValue()), option.getCurrentValue(), option::set);
+                new OptionInstance.IntRange(option.getMinValue(), option.getMaxValue()), option.getCurrentValue(), option::set);
     }
 
     /**
      * Creates a new {@code Structure Spawn Rate option.}
      */
-    public static SimpleOption<Integer> createStructureSpawnRateOption(String structure) {
-        return new SimpleOption<>("speedrunnermod.options.structure_spawn_rates." + structure, isSsrCustom() ? SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.structure_spawn_rates_description.tooltip")) : SimpleOption.constantTooltip(Text.translatable("speedrunnermod.options.structure_spawn_rates.custom_required")),
+    public static OptionInstance<Integer> createStructureSpawnRateOption(String structure) {
+        return new OptionInstance<>("speedrunnermod.options.structure_spawn_rates." + structure, isSsrCustom() ? OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.structure_spawn_rates_description.tooltip")) : OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.structure_spawn_rates.custom_required")),
                 (optionText, value) -> ModListOptions.listIntegerText(optionText, structure),
-                new SimpleOption.ValidatingIntSliderCallbacks(3, 24), defaultStructureValue(structure), value -> determineValue(structure, value));
+                new OptionInstance.IntRange(3, 24), defaultStructureValue(structure), value -> determineValue(structure, value));
     }
 
     /**
      * Creates an {@code integer list option.}
      */
-    private static SimpleOption<Integer> ofIntegerList(String key, SimpleOption.TooltipFactory<Integer> tooltip, OptionValue<List<Integer>> option, int min, int max, boolean x, boolean y, boolean z) {
-        return new SimpleOption<>(key, tooltip,
+    private static OptionInstance<Integer> ofIntegerList(String key, OptionInstance.TooltipSupplier<Integer> tooltip, OptionValue<List<Integer>> option, int min, int max, boolean x, boolean y, boolean z) {
+        return new OptionInstance<>(key, tooltip,
                 (optionText, value) -> ModListOptions.listIntegerText(optionText,
                         option,
                         x,
                         y,
                         z
                 ),
-                new SimpleOption.ValidatingIntSliderCallbacks(min, max),
+                new OptionInstance.IntRange(min, max),
                 x ? option.getCurrentValue().get(0) :
                         y ? option.getCurrentValue().get(1) :
                                 option.getCurrentValue().get(2),
@@ -836,7 +836,7 @@ public class ModListOptions {
     }
 
     /**
-     * Bounds the value of the {@link SimpleOption} to the {@code -X, -Y, -Z, X, Y and Z}.
+     * Bounds the value of the {@link OptionInstance} to the {@code -X, -Y, -Z, X, Y and Z}.
      */
     private static void setValue(List<Integer> option, int value, boolean x, boolean y, boolean z) {
         if (x) {
@@ -853,20 +853,20 @@ public class ModListOptions {
     /**
      * @return the text for {@code list integer options}, with {@code x, y, and z} values.
      */
-    private static Text listIntegerText(Text prefix, OptionValue<List<Integer>> value, boolean x, boolean y, boolean z) {
+    private static Component listIntegerText(Component prefix, OptionValue<List<Integer>> value, boolean x, boolean y, boolean z) {
         boolean all = !x && !y && !z;
-        Text xText = Text.literal("X: " + value.getCurrentValue().get(0)).formatted(x || all ? Formatting.GREEN : Formatting.GRAY);
-        Text yText = Text.literal("Y: " + value.getCurrentValue().get(1)).formatted(y || all ? Formatting.GREEN : Formatting.GRAY);
-        Text zText = Text.literal("Z: " + value.getCurrentValue().get(2)).formatted(z || all ? Formatting.GREEN : Formatting.GRAY);
-        Text comma = Text.literal(", ").formatted(Formatting.WHITE);
-        return GameOptions.getGenericValueText(prefix, xText.copy().append(comma).append(yText).append(comma).append(zText));
+        Component xText = Component.literal("X: " + value.getCurrentValue().get(0)).withStyle(x || all ? ChatFormatting.GREEN : ChatFormatting.GRAY);
+        Component yText = Component.literal("Y: " + value.getCurrentValue().get(1)).withStyle(y || all ? ChatFormatting.GREEN : ChatFormatting.GRAY);
+        Component zText = Component.literal("Z: " + value.getCurrentValue().get(2)).withStyle(z || all ? ChatFormatting.GREEN : ChatFormatting.GRAY);
+        Component comma = Component.literal(", ").withStyle(ChatFormatting.WHITE);
+        return Options.genericValueLabel(prefix, xText.copy().append(comma).append(yText).append(comma).append(zText));
     }
 
     /**
      * @return the {@code tooltip} to display, along with the {@code list options control} tooltip.
      */
-    public static Text listIntegerTooltip(Text tooltip) {
-        return tooltip.copy().append("\n\n").append(Text.translatable("speedrunnermod.options.list_options_control"));
+    public static Component listIntegerTooltip(Component tooltip) {
+        return tooltip.copy().append("\n\n").append(Component.translatable("speedrunnermod.options.list_options_control"));
     }
 
     /**
@@ -889,7 +889,7 @@ public class ModListOptions {
     }
 
     /**
-     * Bounds the value of the {@link SimpleOption} to the {@code spacing value} of the structure, and then sets the separate value to that divided by 2.
+     * Bounds the value of the {@link OptionInstance} to the {@code spacing value} of the structure, and then sets the separate value to that divided by 2.
      */
     private static void setValue(List<Integer> option, int value) {
         option.set(0, value);
@@ -897,48 +897,48 @@ public class ModListOptions {
     }
 
     /**
-     * Returns the text that should be displayed on the {@link SimpleOption}.
+     * Returns the text that should be displayed on the {@link OptionInstance}.
      */
-    private static Text listIntegerText(Text prefix, String structure) {
+    private static Component listIntegerText(Component prefix, String structure) {
         switch (structure) {
             case TranslationStringKeys.ANCIENT_CITY -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.ancientCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.ancientCities.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.ancientCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.ancientCities.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.DESERT_PYRAMID -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.desertPyramids.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.desertPyramids.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.desertPyramids.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.desertPyramids.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.JUNGLE_PYRAMID -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.junglePyramids.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.junglePyramids.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.junglePyramids.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.junglePyramids.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.PILLAGER_OUTPOST -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.END_CITY -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.endCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.endCities.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.endCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.endCities.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.WOODLAND_MANSION -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.woodlandMansions.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.woodlandMansions.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.woodlandMansions.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.woodlandMansions.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.RUINED_PORTAL -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.ruinedPortals.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.ruinedPortals.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.ruinedPortals.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.ruinedPortals.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.SHIPWRECK -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.shipwrecks.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.shipwrecks.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.shipwrecks.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.shipwrecks.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.TRIAL_CHAMBER -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.trialChambers.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.trialChambers.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.NETHER_COMPLEXES -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.netherComplexes.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.netherComplexes.getCurrentValue().get(1)));
             }
             default -> {
-                return GameOptions.getGenericValueText(prefix, Text.literal(options().customStructureSpawnRates.villages.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.villages.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.villages.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.villages.getCurrentValue().get(1)));
             }
         }
     }
 
     /**
-     * Returns the {@code default spacing value} that the respective {@link SimpleOption} should return when loading into the game.
+     * Returns the {@code default spacing value} that the respective {@link OptionInstance} should return when loading into the game.
      */
     private static int defaultStructureValue(String structure) {
         switch (structure) {
@@ -981,19 +981,19 @@ public class ModListOptions {
     /**
      * @return the {@code tooltip} to render for each {@code structure spawn rate.}
      */
-    public static Text structureSpawnRateTooltip() {
-        Text structureSpawnRate;
+    public static Component structureSpawnRateTooltip() {
+        Component structureSpawnRate;
         switch (options().main.structureSpawnRates.getCurrentValue()) {
-            case EVERYWHERE -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.everywhere.tooltip");
-            case VERY_COMMON -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.very_common.tooltip");
-            case COMMON -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.common.tooltip");
-            case NORMAL -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.normal.tooltip");
-            case RARE -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.rare.tooltip");
-            case VERY_RARE -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.very_rare.tooltip");
-            case CUSTOM -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.custom.tooltip");
-            default -> structureSpawnRate = Text.translatable("speedrunnermod.options.structure_spawn_rates.default.tooltip");
+            case EVERYWHERE -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.everywhere.tooltip");
+            case VERY_COMMON -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.very_common.tooltip");
+            case COMMON -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.common.tooltip");
+            case NORMAL -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.normal.tooltip");
+            case RARE -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.rare.tooltip");
+            case VERY_RARE -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.very_rare.tooltip");
+            case CUSTOM -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.custom.tooltip");
+            default -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.default.tooltip");
         }
-        return Text.translatable("speedrunnermod.options.structure_spawn_rates.tooltip")
+        return Component.translatable("speedrunnermod.options.structure_spawn_rates.tooltip")
                 .copy()
                 .append("\n\n")
                 .append(structureSpawnRate);
@@ -1002,7 +1002,7 @@ public class ModListOptions {
     /**
      * @return the generic value text prefix, with aqua formatting.
      */
-    private static Text getGenericValueText(Text prefix, int value) {
-        return GameOptions.getGenericValueText(prefix, Text.literal(Integer.toString(value)).formatted(Formatting.AQUA));
+    private static Component getGenericValueText(Component prefix, int value) {
+        return Options.genericValueLabel(prefix, Component.literal(Integer.toString(value)).withStyle(ChatFormatting.AQUA));
     }
 }

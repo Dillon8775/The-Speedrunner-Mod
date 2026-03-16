@@ -16,12 +16,12 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -35,10 +35,10 @@ public class ModPackets {
      * Registers the {@link ClientPreferencesC2SPacket} packet.
      */
     private static void registerC2SClientPreferences() {
-        PayloadTypeRegistry.playC2S().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
-            UUID playerUuid = context.player().getUuid();
+            UUID playerUuid = context.player().getUUID();
             ServerStorage.setActionbarPref(playerUuid, packet.actionbar());
             ServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
             ServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
@@ -49,7 +49,7 @@ public class ModPackets {
      * Registers the receiver for syncing client-side options with server-side.
      */
     private static void registerC2SRequestServerSideOptions() {
-        PayloadTypeRegistry.playC2S().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(RequestServerSideOptionsC2SPacket.PACKET, (packet, context) -> {
             ModOptions serverOptions = options();
@@ -62,13 +62,13 @@ public class ModPackets {
      * Registers the packet for syncing server-side options with client-side.
      */
     private static void registerC2SMatchServerOptionsWithClient() {
-        PayloadTypeRegistry.playC2S().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(MatchServerOptionsWithClientC2SPacket.PACKET, (packet, context) -> {
             ModOptions clientOptions = packet.toOptions();
             String player = packet.playerName();
             ServerStorage.storePendingSyncRequest(player, clientOptions);
-            context.server().sendMessage(Text.translatable("speedrunnermod.client_options_request_received", player, player));
+            context.server().sendSystemMessage(Component.translatable("speedrunnermod.client_options_request_received", player, player));
         });
     }
 
@@ -78,10 +78,10 @@ public class ModPackets {
     private static void registerS2COnServer() {
         // Only register on server
         if (isEnvironmentTypeServer()) {
-            PayloadTypeRegistry.playS2C().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
-            PayloadTypeRegistry.playS2C().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
-            PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
-            PayloadTypeRegistry.playS2C().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
+            PayloadTypeRegistry.clientboundPlay().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
+            PayloadTypeRegistry.clientboundPlay().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
+            PayloadTypeRegistry.clientboundPlay().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
+            PayloadTypeRegistry.clientboundPlay().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
         }
     }
 
@@ -91,15 +91,15 @@ public class ModPackets {
     private static void registerDedicatedServerJoinAndDisconnectEvents() {
         // When a player joins the server, send the CheckPlayingModeS2CPacket over to client, to check if client-side playing mode matches server-side mode
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            ServerPlayerEntity player = handler.getPlayer();
+            ServerPlayer player = handler.getPlayer();
             if (player != null) {
                 // Handle icarus and infini pearl mode
-                if (handler.getPlayer().getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.PLAY_TIME)) == 0) {
+                if (handler.getPlayer().getStats().getValue(Stats.CUSTOM.get(Stats.PLAY_TIME)) == 0) {
                     // Create a timer to give the server time to receive the slots from client
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            UUID playerUuid = handler.getPlayer().getUuid();
+                            UUID playerUuid = handler.getPlayer().getUUID();
                             int iCarusFireworksInventorySlot = ServerStorage.getIcarusFireworkSlot(playerUuid);
                             int infiniPearlInventorySlot = ServerStorage.getInfiniPearlSlot(playerUuid);
 
@@ -108,8 +108,8 @@ public class ModPackets {
                                 item = ModUtil.ofUnbreakable(Items.ELYTRA);
                                 ItemStack fireworks = ModUtil.fireworkWithFlightDuration(64);
 
-                                player.equipment.put(EquipmentSlot.CHEST, item);
-                                player.getInventory().getMainStacks().set(iCarusFireworksInventorySlot - 1, fireworks);
+                                player.equipment.set(EquipmentSlot.CHEST, item);
+                                player.getInventory().getNonEquipmentItems().set(iCarusFireworksInventorySlot - 1, fireworks);
                             }
 
                             if (options().main.infiniPearlMode.getCurrentValue()) {
@@ -124,7 +124,7 @@ public class ModPackets {
                                     slot -= 2;
                                 }
 
-                                player.getInventory().getMainStacks().set(slot, infiniPearl);
+                                player.getInventory().getNonEquipmentItems().set(slot, infiniPearl);
                             }
                         }
                     }, 150); // this is the delay that works to ensure that the server has time to receive the slots
@@ -133,13 +133,13 @@ public class ModPackets {
         });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            ServerStorage.clearPrefs(handler.getPlayer().getUuid());
+            ServerStorage.clearPrefs(handler.getPlayer().getUUID());
         });
 
         if (isEnvironmentTypeServer()) {
             // Make sure each player's playing mode always matches each tick
             ServerTickEvents.END_SERVER_TICK.register(server -> {
-                for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                for (ServerPlayer player : server.getPlayerList().getPlayers()) {
                     ServerPlayNetworking.send(player, new CheckModeS2CPacket(options().main.mode.getCurrentValue()));
                 }
             });

@@ -5,11 +5,11 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.CommonColors;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -34,40 +34,40 @@ public class RestartRequiredScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.addDrawableChild(ButtonWidget.builder(ModTexts.RESTART_NOW, (buttonWidget) -> {
+        this.addRenderableWidget(Button.builder(ModTexts.RESTART_NOW, (buttonWidget) -> {
             this.quitWorld();
             info("Closing game! Re-launch to apply changes.");
-            this.client.scheduleStop();
-        }).dimensions(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
-        this.addDrawableChild(ButtonWidget.builder(ModTexts.REVERT_CHANGES, (buttonWidget) -> {
+            this.minecraft.stop();
+        }).bounds(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
+        this.addRenderableWidget(Button.builder(ModTexts.REVERT_CHANGES, (buttonWidget) -> {
             revertChanges();
             info("Changes reverted.");
-            this.client.setScreen(this.parent);
+            this.minecraft.setScreen(this.parent);
             if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
                 this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
             }
-        }).dimensions(this.getButtonsMiddle(), this.getButtonsHeight(), 100, 20).build());
-        this.addDrawableChild(ButtonWidget.builder(ModTexts.NOT_NOW, (buttonWidget) -> {
-            this.close();
-        }).dimensions(this.getButtonsRightSide(), this.getButtonsHeight(), 100, 20).build());
+        }).bounds(this.getButtonsMiddle(), this.getButtonsHeight(), 100, 20).build());
+        this.addRenderableWidget(Button.builder(ModTexts.NOT_NOW, (buttonWidget) -> {
+            this.onClose();
+        }).bounds(this.getButtonsRightSide(), this.getButtonsHeight(), 100, 20).build());
     }
 
     @Override
-    public void close() {
+    public void onClose() {
         saveAllChanges();
         restartRequired = true;
-        this.client.setScreen(this.parent);
+        this.minecraft.setScreen(this.parent);
         if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
             this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
         }
-        super.close();
+        super.onClose();
     }
 
     @Override
-    public void renderCustomText(DrawContext context) {
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restart_required.line1"), this.width / 2, 100, Colors.WHITE);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restart_required.line2"), this.width / 2, 120, Colors.WHITE);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restart_required.line3"), this.width / 2, 140, Colors.WHITE);
+    public void renderCustomText(GuiGraphics context) {
+        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restart_required.line1"), this.width / 2, 100, CommonColors.WHITE);
+        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restart_required.line2"), this.width / 2, 120, CommonColors.WHITE);
+        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restart_required.line3"), this.width / 2, 140, CommonColors.WHITE);
     }
 
     @Override

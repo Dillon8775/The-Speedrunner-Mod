@@ -5,8 +5,8 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -20,9 +20,9 @@ public class StructuresScreen extends AbstractFeatureScreen {
     protected void init() {
         super.init();
 
-        this.addButtonObject(ButtonWidget.builder(ModTexts.CONFIGURE_OPTION, button -> {
+        this.addButtonObject(Button.builder(ModTexts.CONFIGURE_OPTION, button -> {
             this.refreshRestartableFeature();
-            ((MainOptionsScreen)this.client.currentScreen).searchField.setText("structures");
+            ((MainOptionsScreen)this.minecraft.screen).searchField.setValue("structures");
         }).build());
     }
 

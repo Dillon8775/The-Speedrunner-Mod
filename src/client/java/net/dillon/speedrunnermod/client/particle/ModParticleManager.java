@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.client.particle;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
-import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 
 /**
  * Manages all speedrunner mod particle types and registers them client-side.
@@ -13,8 +13,8 @@ public class ModParticleManager {
      * Registers all speedrunner mod particle types on the client-side.
      */
     public static void registerDefaults() {
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BLUE_PORTAL, BluePortalParticle.Factory::new);
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.SPEEDRUNNERS_TOTEM, SpeedrunnersTotemParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(ModParticleTypes.BLUE_PORTAL, BluePortalParticle.Factory::new);
+        ParticleProviderRegistry.getInstance().register(ModParticleTypes.SPEEDRUNNERS_TOTEM, SpeedrunnersTotemParticle.Factory::new);
 
         SpeedrunnerMod.debug("Registered client-side particle defaults for Speedrunner Mod.");
     }

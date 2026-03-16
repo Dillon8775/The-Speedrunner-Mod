@@ -5,11 +5,11 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerC
 
 
 public class ModeOptionScreen extends AbstractFeatureScreen {
-    private ClickableWidget easyButton, balancedButton, doomButton;
+    private AbstractWidget easyButton, balancedButton, doomButton;
 
     public ModeOptionScreen(Screen parent) {
         super(parent, ModTexts.BLANK);
@@ -26,31 +26,31 @@ public class ModeOptionScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.easyButton = this.addButtonObject(ButtonWidget.builder(ModTexts.EASY_MODE, button -> {
+        this.easyButton = this.addButtonObject(Button.builder(ModTexts.EASY_MODE, button -> {
             options().main.mode.set(ModOptions.Mode.EASY);
             saveDedicatedServerChanges();
             restartRequired = false;
-            this.client.setScreen(this.getNextScreen());
+            this.minecraft.setScreen(this.getNextScreen());
         }).build());
-        this.balancedButton = this.addButtonObject(ButtonWidget.builder(ModTexts.BALANCED_MODE, button -> {
+        this.balancedButton = this.addButtonObject(Button.builder(ModTexts.BALANCED_MODE, button -> {
             options().main.mode.set(ModOptions.Mode.BALANCED);
             saveDedicatedServerChanges();
             restartRequired = true;
-            this.client.setScreen(this.getNextScreen());
+            this.minecraft.setScreen(this.getNextScreen());
         }).build());
-        this.doomButton = this.addButtonObject(ButtonWidget.builder(ModTexts.DOOM_MODE, button -> {
+        this.doomButton = this.addButtonObject(Button.builder(ModTexts.DOOM_MODE, button -> {
             options().main.mode.set(ModOptions.Mode.DOOM);
             saveDedicatedServerChanges();
             restartRequired = true;
-            this.client.setScreen(this.getNextScreen());
+            this.minecraft.setScreen(this.getNextScreen());
         }).build());
-        this.addButtonObject(ButtonWidget.builder(Text.translatable("speedrunnermod.back"), button -> {
-            this.client.setScreen(this.getPreviousScreen());
+        this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.back"), button -> {
+            this.minecraft.setScreen(this.getPreviousScreen());
         }).build());
     }
 
     @Override
-    protected void renderTooltips(DrawContext context, int x, int y) {
+    protected void renderTooltips(GuiGraphics context, int x, int y) {
         if (this.easyButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.EASY_MODE_TOOLTIP, context, x, y);
         } else if (this.balancedButton.isHovered()) {

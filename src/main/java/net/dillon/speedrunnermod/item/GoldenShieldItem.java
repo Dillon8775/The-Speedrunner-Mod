@@ -1,19 +1,15 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.component.type.BlocksAttacksComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ShieldItem;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.tag.DamageTypeTags;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.BlocksAttacks;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,22 +21,22 @@ import java.util.function.Consumer;
 public class GoldenShieldItem extends ShieldItem {
     public static final float COOLDOWN_DIVIDER = 1.9F;
 
-    public GoldenShieldItem(Settings settings) {
+    public GoldenShieldItem(Properties settings) {
         super(settings
-                .maxCount(1)
-                .maxDamage(76)
+                .stacksTo(1)
+                .durability(76)
                 .repairable(Items.GOLD_INGOT)
-                .component(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT)
-                .component(
-                        DataComponentTypes.BLOCKS_ATTACKS,
-                        new BlocksAttacksComponent(
+                .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
+                .delayedComponent(
+                        DataComponents.BLOCKS_ATTACKS,
+                        context -> new BlocksAttacks(
                                 0.25F,
                                 0.2F,
-                                List.of(new BlocksAttacksComponent.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
-                                new BlocksAttacksComponent.ItemDamage(3.0F, 1.0F, 1.0F),
-                                Optional.of(DamageTypeTags.BYPASSES_SHIELD),
-                                Optional.of(SoundEvents.ITEM_SHIELD_BLOCK),
-                                Optional.of(SoundEvents.ITEM_SHIELD_BREAK)
+                                List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                                Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                                Optional.of(SoundEvents.SHIELD_BLOCK),
+                                Optional.of(SoundEvents.SHIELD_BREAK)
                         )
                 )
                 .equippableUnswappable(EquipmentSlot.OFFHAND)
@@ -48,7 +44,7 @@ public class GoldenShieldItem extends ShieldItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.golden_shield.tooltip").formatted(Formatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        textConsumer.accept(Component.translatable("item.speedrunnermod.golden_shield.tooltip").withStyle(ChatFormatting.GRAY));
     }
 }

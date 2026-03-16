@@ -1,22 +1,22 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.OrderedText;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.Identifier;
+import net.minecraft.util.CommonColors;
+import net.minecraft.util.FormattedCharSequence;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -42,7 +42,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     private int lastMouseY = -1;
     private int top, bottom;
 
-    public AbstractScrollableScreen(Screen parent, Text title) {
+    public AbstractScrollableScreen(Screen parent, Component title) {
         super(parent, title);
         this.parent = parent;
     }
@@ -51,11 +51,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Loads and parses lines from the specified resource text file.
      */
     private void loadAndPrintText(Identifier path) {
-        try (BufferedReader reader = new BufferedReader(this.client.getResourceManager().openAsReader(path))) {
+        try (BufferedReader reader = new BufferedReader(this.minecraft.getResourceManager().openAsReader(path))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) {
-                    this.objectsToDisplay.add(new LineObject(Text.literal(" "), 1.0F, null, 0, 0, null));
+                    this.objectsToDisplay.add(new LineObject(Component.literal(" "), 1.0F, null, 0, 0, null));
                     continue;
                 }
 
@@ -96,7 +96,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             Identifier imageId = ofSpeedrunnerMod(imagePath);
 
             try {
-                NativeImage image = NativeImage.read(this.client.getResourceManager().open(imageId));
+                NativeImage image = NativeImage.read(this.minecraft.getResourceManager().open(imageId));
                 int originalWidth = image.getWidth();
                 int originalHeight = image.getHeight();
 
@@ -113,7 +113,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 } else {
                     e.printStackTrace();
                 }
-                return new LineObject(Text.literal("[Image Load Failed]"), 1.0F, null, 0, 0, null);
+                return new LineObject(Component.literal("[Image Load Failed]"), 1.0F, null, 0, 0, null);
             }
         }
 
@@ -133,7 +133,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         };
 
         String content = line.substring(headingLevel).stripLeading();
-        Text formatted = this.parseLegacyFormattedText(content);
+        Component formatted = this.parseLegacyFormattedText(content);
 
         return new LineObject(formatted, scale, null, 0, 0, null);
     }
@@ -141,9 +141,9 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Parses legacy Minecraft formatting codes (e.g., §a, §l) into styled text.
      */
-    private Text parseLegacyFormattedText(String input) {
+    private Component parseLegacyFormattedText(String input) {
         Style currentStyle = Style.EMPTY;
-        MutableText result = Text.literal("");
+        MutableComponent result = Component.literal("");
 
         for (int i = 0; i < input.length(); ) {
             char c = input.charAt(i);
@@ -151,7 +151,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 currentStyle = applyFormatCode(currentStyle, input.charAt(i + 1));
                 i += 2;
             } else {
-                result.append(Text.literal(String.valueOf(c)).setStyle(currentStyle));
+                result.append(Component.literal(String.valueOf(c)).setStyle(currentStyle));
                 i++;
             }
         }
@@ -164,25 +164,25 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     private Style applyFormatCode(Style style, char code) {
         return switch (code) {
-            case '0' -> style.withColor(Formatting.BLACK);
-            case '1' -> style.withColor(Formatting.DARK_BLUE);
-            case '2' -> style.withColor(Formatting.DARK_GREEN);
-            case '3' -> style.withColor(Formatting.DARK_AQUA);
-            case '4' -> style.withColor(Formatting.DARK_RED);
-            case '5' -> style.withColor(Formatting.DARK_PURPLE);
-            case '6' -> style.withColor(Formatting.GOLD);
-            case '7' -> style.withColor(Formatting.GRAY);
-            case '8' -> style.withColor(Formatting.DARK_GRAY);
-            case '9' -> style.withColor(Formatting.BLUE);
-            case 'a' -> style.withColor(Formatting.GREEN);
-            case 'b' -> style.withColor(Formatting.AQUA);
-            case 'c' -> style.withColor(Formatting.RED);
-            case 'd' -> style.withColor(Formatting.LIGHT_PURPLE);
-            case 'e' -> style.withColor(Formatting.YELLOW);
-            case 'f' -> style.withColor(Formatting.WHITE);
+            case '0' -> style.withColor(ChatFormatting.BLACK);
+            case '1' -> style.withColor(ChatFormatting.DARK_BLUE);
+            case '2' -> style.withColor(ChatFormatting.DARK_GREEN);
+            case '3' -> style.withColor(ChatFormatting.DARK_AQUA);
+            case '4' -> style.withColor(ChatFormatting.DARK_RED);
+            case '5' -> style.withColor(ChatFormatting.DARK_PURPLE);
+            case '6' -> style.withColor(ChatFormatting.GOLD);
+            case '7' -> style.withColor(ChatFormatting.GRAY);
+            case '8' -> style.withColor(ChatFormatting.DARK_GRAY);
+            case '9' -> style.withColor(ChatFormatting.BLUE);
+            case 'a' -> style.withColor(ChatFormatting.GREEN);
+            case 'b' -> style.withColor(ChatFormatting.AQUA);
+            case 'c' -> style.withColor(ChatFormatting.RED);
+            case 'd' -> style.withColor(ChatFormatting.LIGHT_PURPLE);
+            case 'e' -> style.withColor(ChatFormatting.YELLOW);
+            case 'f' -> style.withColor(ChatFormatting.WHITE);
             case 'l' -> style.withBold(true);
             case 'o' -> style.withItalic(true);
-            case 'n' -> style.withUnderline(true);
+            case 'n' -> style.withUnderlined(true);
             case 'm' -> style.withStrikethrough(true);
             case 'k' -> style.withObfuscated(true);
             case 'r' -> Style.EMPTY;
@@ -221,8 +221,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             } else if (line.isButton()) {
                 totalHeight += 20 + 4;
             } else if (line.isText()) {
-                List<OrderedText> wrapped = this.textRenderer.wrapLines(line.text, this.getWrapWidth(line));
-                int lineHeight = (int)((this.textRenderer.fontHeight + 2) * line.scale);
+                List<FormattedCharSequence> wrapped = this.font.split(line.text, this.getWrapWidth(line));
+                int lineHeight = (int)((this.font.lineHeight + 2) * line.scale);
                 totalHeight += wrapped.size() * lineHeight;
             }
         }
@@ -270,7 +270,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Renders scrollable formatted text.
      */
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
         if (!isDraggingScrollbar && !isDraggingAnywhere) {
             this.scrollOffset += (targetScrollOffset - scrollOffset) * SCROLL_LERP_SPEED;
             int maxScroll = getAccurateMaxScroll();
@@ -291,10 +291,10 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             float scale = line.scale;
 
             if (line.isText()) {
-                List<OrderedText> wrapped = this.textRenderer.wrapLines(line.text, this.getWrapWidth(line));
-                int lineHeight = (int)((this.textRenderer.fontHeight + 2) * scale);
+                List<FormattedCharSequence> wrapped = this.font.split(line.text, this.getWrapWidth(line));
+                int lineHeight = (int)((this.font.lineHeight + 2) * scale);
 
-                for (OrderedText wrappedLine : wrapped) {
+                for (FormattedCharSequence wrappedLine : wrapped) {
                     if (y + lineHeight < top) {
                         y += lineHeight;
                         continue;
@@ -303,14 +303,14 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                         break;
                     }
 
-                    int textWidth = this.textRenderer.getWidth(wrappedLine);
+                    int textWidth = this.font.width(wrappedLine);
                     double textX = (this.width - textWidth * scale) / 2.0;
 
-                    context.getMatrices().pushMatrix();
-                    context.getMatrices().translate(this.centerAligned() ? (float)textX : (float)this.width / 2 - 175, (float)y);
-                    context.getMatrices().scale(scale, scale);
-                    context.drawTextWithShadow(this.textRenderer, wrappedLine, 0, 0, Colors.WHITE);
-                    context.getMatrices().popMatrix();
+                    context.pose().pushMatrix();
+                    context.pose().translate(this.centerAligned() ? (float)textX : (float)this.width / 2 - 175, (float)y);
+                    context.pose().scale(scale, scale);
+                    context.drawString(this.font, wrappedLine, 0, 0, CommonColors.WHITE);
+                    context.pose().popMatrix();
 
                     y += lineHeight;
                 }
@@ -334,7 +334,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
                 if (visibleHeight > 0) {
                     int x = (this.width - scaledWidth) / 2;
-                    context.drawTexture(RenderPipelines.GUI_TEXTURED, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
+                    context.blit(RenderPipelines.GUI_TEXTURED, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
                 }
 
                 y += scaledHeight + 16;
@@ -342,7 +342,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             }
 
             if (line.isButton()) {
-                ClickableWidget button = line.button();
+                AbstractWidget button = line.button();
                 button.setWidth(this.getButtonsWidth());
                 button.setHeight(20);
                 button.setX(this.width / 2 - 75);
@@ -356,12 +356,12 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 button.visible = true;
 
                 if (!this.children().contains(button)) {
-                    this.addDrawableChild(button);
+                    this.addRenderableWidget(button);
                 }
 
                 button.visible = true;
                 if (!this.children().contains(button)) {
-                    this.addDrawableChild(button);
+                    this.addRenderableWidget(button);
                 }
                 button.render(context, mouseX, mouseY, delta);
 
@@ -392,15 +392,15 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Enables scrollbar dragging when clicked.
      */
     @Override
-    public boolean mouseClicked(Click click, boolean doubled) {
+    public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
         for (LineObject line : objectsToDisplay) {
             if (line.isButton() && line.button.visible && line.button.isMouseOver(click.x(), click.y())) {
-                if (line.button instanceof ButtonWidget buttonWidget) {
+                if (line.button instanceof Button buttonWidget) {
                     buttonWidget.onPress(click);
                 } else {
                     line.button.onClick(click, doubled);
                 }
-                line.button.playDownSound(MinecraftClient.getInstance().getSoundManager());
+                line.button.playDownSound(Minecraft.getInstance().getSoundManager());
                 return true;
             }
         }
@@ -428,7 +428,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Releases dragging state.
      */
     @Override
-    public boolean mouseReleased(Click click) {
+    public boolean mouseReleased(MouseButtonEvent click) {
         isDraggingScrollbar = false;
         isDraggingAnywhere = false;
         return super.mouseReleased(click);
@@ -449,7 +449,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Scrolls content when dragging the scrollbar.
      */
     @Override
-    public boolean mouseDragged(Click click, double offsetX, double offsetY) {
+    public boolean mouseDragged(MouseButtonEvent click, double offsetX, double offsetY) {
         initializeTopAndBottom();
         int scrollbarHeight = bottom - top;
         int contentHeight = getTotalContentHeight();
@@ -481,7 +481,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Handles keyboard arrow key scrolling.
      */
     @Override
-    public boolean keyPressed(KeyInput input) {
+    public boolean keyPressed(KeyEvent input) {
         float maxScroll = getAccurateMaxScroll();
 
         if (input.key() == 264) { // Down arrow
@@ -527,14 +527,14 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     }
 
     @Override
-    public void close() {
-        this.client.setScreen(this.parent);
+    public void onClose() {
+        this.minecraft.setScreen(this.parent);
     }
 
     /**
      * Adds a button to scrollable text screen.
      */
-    protected ClickableWidget addButtonObject(ClickableWidget button) {
+    protected AbstractWidget addButtonObject(AbstractWidget button) {
         this.objectsToDisplay.add(new LineObject(null, 1.0F, null, 0, 0, button));
         return button;
     }
@@ -561,7 +561,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     /**
      * Data structure representing a line of text with a scale factor.
      */
-    public record LineObject(Text text, float scale, Identifier imageId, int imageWidth, int imageHeight, ClickableWidget button) {
+    public record LineObject(Component text, float scale, Identifier imageId, int imageWidth, int imageHeight, AbstractWidget button) {
         public boolean isImage() {
             return imageId != null;
         }
@@ -571,7 +571,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         }
 
         @NotNull
-        public ClickableWidget getButton() {
+        public AbstractWidget getButton() {
             return this.button;
         }
 

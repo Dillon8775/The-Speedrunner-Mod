@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.feature.secretdoommode;
 
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
 
 

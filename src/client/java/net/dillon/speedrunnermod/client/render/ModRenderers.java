@@ -4,17 +4,15 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.block.sign.TerraformSignBlockHelper;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.client.render.entity.BoatEntityRenderer;
-import net.minecraft.client.render.entity.EntityRendererFactories;
-import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.client.render.entity.model.BoatEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.vehicle.AbstractBoatEntity;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.object.boat.BoatModel;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.client.renderer.entity.BoatRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -27,18 +25,18 @@ public class ModRenderers {
      * Registers block renderers.
      */
     private static void initializeBlockRenderers() {
-        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_SAPLING, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_LEAVES, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.DOOM_LEAVES, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_DOOR, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_TRAPDOOR, BlockRenderLayer.CUTOUT);
-        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_SPEEDRUNNER_BUSH, BlockRenderLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_SAPLING, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_LEAVES, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DOOM_LEAVES, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_DOOR, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.SPEEDRUNNER_TRAPDOOR, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(ModBlocks.DEAD_SPEEDRUNNER_BUSH, ChunkSectionLayer.CUTOUT);
 
         SpeedrunnerMod.debug("Initialized custom block models.");
     }
@@ -73,35 +71,35 @@ public class ModRenderers {
     /**
      * Registers a boat renderer.
      */
-    private static <T extends AbstractBoatEntity> void registerBoatRenderer(EntityType<? extends T> entityType, EntityModelLayer modelLayer, boolean chest) {
+    private static <T extends AbstractBoat> void registerBoatRenderer(EntityType<? extends T> entityType, ModelLayerLocation modelLayer, boolean chest) {
         registerEntityRenderer(
                 entityType,
                 modelLayer,
-                chest ? BoatEntityModel::getChestTexturedModelData : BoatEntityModel::getTexturedModelData,
-                context -> new BoatEntityRenderer(context, modelLayer)
+                chest ? BoatModel::createChestBoatModel : BoatModel::createBoatModel,
+                context -> new BoatRenderer(context, modelLayer)
         );
     }
 
     /**
      * Registers entity renderers for the speedrunner mod boats.
      */
-    private static <T extends Entity> void registerEntityRenderer(EntityType<? extends T> entityType, EntityModelLayer modelLayer, EntityModelLayerRegistry.TexturedModelDataProvider texturedModelDataProvider, EntityRendererFactory<T> entityRendererFactory) {
+    private static <T extends Entity> void registerEntityRenderer(EntityType<? extends T> entityType, ModelLayerLocation modelLayer, EntityModelLayerRegistry.TexturedModelDataProvider texturedModelDataProvider, EntityRendererProvider<T> entityRendererFactory) {
         EntityModelLayerRegistry.registerModelLayer(modelLayer, texturedModelDataProvider);
-        EntityRendererFactories.register(entityType, entityRendererFactory);
+        EntityRenderers.register(entityType, entityRendererFactory);
     }
 
     /**
      * @return the texture path for a {@code normal boat.}
      */
-    private static EntityModelLayer boatModelLayer(String id) {
-        return new EntityModelLayer(ofSpeedrunnerMod("boat/" + id), "main");
+    private static ModelLayerLocation boatModelLayer(String id) {
+        return new ModelLayerLocation(ofSpeedrunnerMod("boat/" + id), "main");
     }
 
     /**
      * @return the texture path for a {@code chest boat.}
      */
-    private static EntityModelLayer chestBoatModelLayer(String id) {
-        return new EntityModelLayer(ofSpeedrunnerMod("chest_boat/" + id), "main");
+    private static ModelLayerLocation chestBoatModelLayer(String id) {
+        return new ModelLayerLocation(ofSpeedrunnerMod("chest_boat/" + id), "main");
     }
 
     /**

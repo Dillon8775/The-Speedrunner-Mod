@@ -3,24 +3,24 @@ package net.dillon.speedrunnermod.data.generator;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.data.tag.EnchantmentTagProvider;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.tags.EnchantmentTagsProvider;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 import java.util.concurrent.CompletableFuture;
 
 /**
  * Contains all the entries for new or already existing enchantment tags.
  */
-public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
+public class ModEnchantmentTagGenerator extends EnchantmentTagsProvider {
 
-    public ModEnchantmentTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+    public ModEnchantmentTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(output, completableFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        this.builder(ModEnchantmentTags.ON_RANDOM_SPEEDRUNNER_LOOT)
+    protected void addTags(HolderLookup.Provider wrapperLookup) {
+        this.tag(ModEnchantmentTags.ON_RANDOM_SPEEDRUNNER_LOOT)
                 .add(Enchantments.PROTECTION)
                 .add(Enchantments.FIRE_PROTECTION)
                 .add(Enchantments.BLAST_PROTECTION)
@@ -45,7 +45,7 @@ public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
                 .addOptional(ModEnchantments.DASH)
                 .addOptional(ModEnchantments.WITHERED);
 
-        this.builder(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
+        this.tag(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
                 .add(Enchantments.PROTECTION)
                 .add(Enchantments.FEATHER_FALLING)
                 .add(Enchantments.THORNS)
@@ -58,7 +58,7 @@ public class ModEnchantmentTagGenerator extends EnchantmentTagProvider {
                 .add(Enchantments.MENDING)
                 .addOptional(ModEnchantments.COOLDOWN);
 
-        this.builder(ModEnchantmentTags.WITHERED_ENCHANTMENTS)
+        this.tag(ModEnchantmentTags.WITHERED_ENCHANTMENTS)
                 .addOptional(ModEnchantments.WITHERED);
     }
 }

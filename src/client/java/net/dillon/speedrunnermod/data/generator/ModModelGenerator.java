@@ -8,11 +8,12 @@ import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.minecraft.client.data.*;
-import net.minecraft.client.render.item.model.ItemModel;
-import net.minecraft.client.render.item.model.special.SpecialModelRenderer;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 /**
  * Used to create the blockstate and model JSON files from scratch using code.
@@ -24,32 +25,32 @@ public class ModModelGenerator extends FabricModelProvider {
     }
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        blockStateModelGenerator.createLogTexturePool(ModBlocks.SPEEDRUNNER_LOG).log(ModBlocks.SPEEDRUNNER_LOG).wood(ModBlocks.SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.createLogTexturePool(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).log(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.createLogTexturePool(ModBlocks.DEAD_SPEEDRUNNER_LOG).log(ModBlocks.DEAD_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.createLogTexturePool(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).log(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.createLogTexturePool(ModBlocks.DOOM_LOG).log(ModBlocks.DOOM_LOG);
-        blockStateModelGenerator.createLogTexturePool(ModBlocks.STRIPPED_DOOM_LOG).log(ModBlocks.STRIPPED_DOOM_LOG);
+    public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
+        blockStateModelGenerator.woodProvider(ModBlocks.SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.SPEEDRUNNER_LOG).wood(ModBlocks.SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.woodProvider(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.woodProvider(ModBlocks.DEAD_SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.DEAD_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.woodProvider(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
+        blockStateModelGenerator.woodProvider(ModBlocks.DOOM_LOG).logWithHorizontal(ModBlocks.DOOM_LOG);
+        blockStateModelGenerator.woodProvider(ModBlocks.STRIPPED_DOOM_LOG).logWithHorizontal(ModBlocks.STRIPPED_DOOM_LOG);
 
-        blockStateModelGenerator.registerSingleton(ModBlocks.SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);
-        blockStateModelGenerator.registerSingleton(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);
-        blockStateModelGenerator.registerSingleton(ModBlocks.DOOM_LEAVES, TexturedModel.LEAVES);
+        blockStateModelGenerator.createTrivialBlock(ModBlocks.SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);
+        blockStateModelGenerator.createTrivialBlock(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);
+        blockStateModelGenerator.createTrivialBlock(ModBlocks.DOOM_LEAVES, TexturedModel.LEAVES);
 
-        blockStateModelGenerator.registerFlowerPotPlantAndItem(ModBlocks.SPEEDRUNNER_SAPLING, ModBlocks.POTTED_SPEEDRUNNER_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerFlowerPotPlantAndItem(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, ModBlocks.DEAD_POTTED_SPEEDRUNNER_SAPLING, BlockStateModelGenerator.CrossType.NOT_TINTED);
-        blockStateModelGenerator.registerFlowerPotPlantAndItem(ModBlocks.DEAD_SPEEDRUNNER_BUSH, ModBlocks.POTTED_DEAD_SPEEDRUNNER_BUSH, BlockStateModelGenerator.CrossType.NOT_TINTED);
+        blockStateModelGenerator.createPlantWithDefaultItem(ModBlocks.SPEEDRUNNER_SAPLING, ModBlocks.POTTED_SPEEDRUNNER_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createPlantWithDefaultItem(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, ModBlocks.DEAD_POTTED_SPEEDRUNNER_SAPLING, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockStateModelGenerator.createPlantWithDefaultItem(ModBlocks.DEAD_SPEEDRUNNER_BUSH, ModBlocks.POTTED_DEAD_SPEEDRUNNER_BUSH, BlockModelGenerators.PlantType.NOT_TINTED);
 
-        BlockStateModelGenerator.BlockTexturePool speedrunnerPool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.SPEEDRUNNER_PLANKS);
+        BlockModelGenerators.BlockFamilyProvider speedrunnerPool = blockStateModelGenerator.family(ModBlocks.SPEEDRUNNER_PLANKS);
         speedrunnerPool.slab(ModBlocks.SPEEDRUNNER_SLAB);
         speedrunnerPool.stairs(ModBlocks.SPEEDRUNNER_STAIRS);
         speedrunnerPool.fence(ModBlocks.SPEEDRUNNER_FENCE);
         speedrunnerPool.fenceGate(ModBlocks.SPEEDRUNNER_FENCE_GATE);
         speedrunnerPool.button(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON);
         speedrunnerPool.pressurePlate(ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
-        blockStateModelGenerator.registerWeightedPressurePlate(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE, ModBlocks.SPEEDRUNNER_BLOCK);
+        blockStateModelGenerator.createWeightedPressurePlate(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE, ModBlocks.SPEEDRUNNER_BLOCK);
 
-        BlockStateModelGenerator.BlockTexturePool deadSpeedrunnerPool = blockStateModelGenerator.registerCubeAllModelTexturePool(ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+        BlockModelGenerators.BlockFamilyProvider deadSpeedrunnerPool = blockStateModelGenerator.family(ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
         deadSpeedrunnerPool.slab(ModBlocks.DEAD_SPEEDRUNNER_SLAB);
         deadSpeedrunnerPool.stairs(ModBlocks.DEAD_SPEEDRUNNER_STAIRS);
         deadSpeedrunnerPool.fence(ModBlocks.DEAD_SPEEDRUNNER_FENCE);
@@ -57,128 +58,128 @@ public class ModModelGenerator extends FabricModelProvider {
         deadSpeedrunnerPool.button(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON);
         deadSpeedrunnerPool.pressurePlate(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE);
 
-        speedrunnerPool.family(ModBlockFamilies.SPEEDRUNNER_FAMILY);
-        speedrunnerPool.family(ModBlockFamilies.DEAD_SPEEDRUNNER_FAMILY);
-        blockStateModelGenerator.registerHangingSign(ModBlocks.STRIPPED_SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_HANGING_SIGN, ModBlocks.SPEEDRUNNER_HANGING_WALL_SIGN);
-        blockStateModelGenerator.registerHangingSign(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN, ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
+        speedrunnerPool.generateFor(ModBlockFamilies.SPEEDRUNNER_FAMILY);
+        speedrunnerPool.generateFor(ModBlockFamilies.DEAD_SPEEDRUNNER_FAMILY);
+        blockStateModelGenerator.createHangingSign(ModBlocks.STRIPPED_SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_HANGING_SIGN, ModBlocks.SPEEDRUNNER_HANGING_WALL_SIGN);
+        blockStateModelGenerator.createHangingSign(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN, ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
 
-        blockStateModelGenerator.registerTrapdoor(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR);
-        blockStateModelGenerator.registerTrapdoor(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
-        blockStateModelGenerator.registerTrapdoor(ModBlocks.SPEEDRUNNER_TRAPDOOR);
+        blockStateModelGenerator.createTrapdoor(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR);
+        blockStateModelGenerator.createTrapdoor(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR);
+        blockStateModelGenerator.createTrapdoor(ModBlocks.SPEEDRUNNER_TRAPDOOR);
 
-        blockStateModelGenerator.registerDoor(ModBlocks.WOODEN_SPEEDRUNNER_DOOR);
-        blockStateModelGenerator.registerDoor(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR);
-        blockStateModelGenerator.registerDoor(ModBlocks.SPEEDRUNNER_DOOR);
+        blockStateModelGenerator.createDoor(ModBlocks.WOODEN_SPEEDRUNNER_DOOR);
+        blockStateModelGenerator.createDoor(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR);
+        blockStateModelGenerator.createDoor(ModBlocks.SPEEDRUNNER_DOOR);
 
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SPEEDRUNNER_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.THRUSTED_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.SPEEDRUNNER_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NETHER_SPEEDRUNNER_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.IGNEOUS_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEEPSLATE_IGNEOUS_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NETHER_IGNEOUS_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.EXPERIENCE_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.NETHER_EXPERIENCE_ORE);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.FLESH_BLOCK);
-        blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.DOOM_STONE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.SPEEDRUNNER_BLOCK);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.THRUSTED_BLOCK);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.SPEEDRUNNER_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NETHER_SPEEDRUNNER_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.IGNEOUS_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.DEEPSLATE_IGNEOUS_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NETHER_IGNEOUS_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.EXPERIENCE_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.NETHER_EXPERIENCE_ORE);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.FLESH_BLOCK);
+        blockStateModelGenerator.createTrivialCube(ModBlocks.DOOM_STONE);
 
-        TextureMap textureMap = new TextureMap()
-                .put(TextureKey.PARTICLE, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
-                .put(TextureKey.DOWN, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_bottom"))
-                .put(TextureKey.UP, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_top"))
-                .put(TextureKey.NORTH, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
-                .put(TextureKey.SOUTH, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
-                .put(TextureKey.EAST, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_side"))
-                .put(TextureKey.WEST, TextureMap.getSubId(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_side"));
-        blockStateModelGenerator.blockStateCollector
-                .accept(BlockStateModelGenerator.createSingletonBlockState(ModBlocks.SPEEDRUNNERS_WORKBENCH, BlockStateModelGenerator.createWeightedVariant(Models.CUBE.upload(ModBlocks.SPEEDRUNNERS_WORKBENCH, textureMap, blockStateModelGenerator.modelCollector))));
+        TextureMapping textureMap = new TextureMapping()
+                .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
+                .put(TextureSlot.DOWN, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_bottom"))
+                .put(TextureSlot.UP, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_top"))
+                .put(TextureSlot.NORTH, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
+                .put(TextureSlot.SOUTH, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_front"))
+                .put(TextureSlot.EAST, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_side"))
+                .put(TextureSlot.WEST, TextureMapping.getBlockTexture(ModBlocks.SPEEDRUNNERS_WORKBENCH, "_side"));
+        blockStateModelGenerator.blockStateOutput
+                .accept(BlockModelGenerators.createSimpleBlock(ModBlocks.SPEEDRUNNERS_WORKBENCH, BlockModelGenerators.plainVariant(ModelTemplates.CUBE.create(ModBlocks.SPEEDRUNNERS_WORKBENCH, textureMap, blockStateModelGenerator.modelOutput))));
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_INGOT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.INVENTORY_PRESERVER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.RAW_SPEEDRUNNER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_NUGGET, Models.GENERATED);
+    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_INGOT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.INVENTORY_PRESERVER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RAW_SPEEDRUNNER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_NUGGET, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("helmet"), false);
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("chestplate"), false);
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("leggings"), false);
-        itemModelGenerator.registerArmor(ModItems.SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("boots"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("helmet"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("chestplate"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("leggings"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("boots"), false);
 
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("helmet"), false);
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("chestplate"), false);
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("leggings"), false);
-        itemModelGenerator.registerArmor(ModItems.GOLDEN_SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerator.getTrimAssetIdPrefix("boots"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("helmet"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("chestplate"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("leggings"), false);
+        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("boots"), false);
 
-        itemModelGenerator.registerBow(ModItems.SPEEDRUNNER_BOW);
-        itemModelGenerator.registerCrossbow(ModItems.SPEEDRUNNER_CROSSBOW);
+        itemModelGenerator.generateBow(ModItems.SPEEDRUNNER_BOW);
+        itemModelGenerator.generateCrossbow(ModItems.SPEEDRUNNER_CROSSBOW);
         this.registerModdedShield(itemModelGenerator, ModItems.SPEEDRUNNER_SHIELD, new SpeedrunnerShieldModelRenderer.Unbaked());
         this.registerModdedShield(itemModelGenerator, ModItems.GOLDEN_SHIELD, new GoldenShieldModelRenderer.Unbaked());
 
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_SHEARS, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_FLINT_AND_STEEL, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_SHEARS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_FLINT_AND_STEEL, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_BULK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ROTTEN_SPEEDRUNNER_BULK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COOKED_FLESH, Models.GENERATED);
-        itemModelGenerator.register(ModItems.PIGLIN_PORK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.COOKED_PIGLIN_PORK, Models.GENERATED);
-        itemModelGenerator.register(ModItems.GOLIATH_SPAWN_EGG, Models.GENERATED);
-        itemModelGenerator.register(ModItems.IGNEOUS_ROCK, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_BULK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ROTTEN_SPEEDRUNNER_BULK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COOKED_FLESH, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PIGLIN_PORK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.COOKED_PIGLIN_PORK, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLIATH_SPAWN_EGG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.IGNEOUS_ROCK, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FIREPROOF_SPEEDRUNNER_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FIREPROOF_SPEEDRUNNER_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.DEAD_SPEEDRUNNER_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.DEAD_SPEEDRUNNER_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.CRIMSON_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FIREPROOF_CRIMSON_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.CRIMSON_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FIREPROOF_CRIMSON_CHEST_BOAT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.CRIMSON_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FIREPROOF_CRIMSON_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.CRIMSON_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FIREPROOF_CRIMSON_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.WARPED_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FIREPROOF_WARPED_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.WARPED_CHEST_BOAT, Models.GENERATED);
-        itemModelGenerator.register(ModItems.FIREPROOF_WARPED_CHEST_BOAT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.WARPED_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FIREPROOF_WARPED_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.WARPED_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.FIREPROOF_WARPED_CHEST_BOAT, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.ANNUL_EYE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNERS_EYE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.SPEEDRUNNERS_TOTEM, Models.GENERATED);
-        itemModelGenerator.register(ModItems.INFERNO_EYE, Models.GENERATED);
-        itemModelGenerator.register(ModItems.INFINI_PEARL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDER_MATTER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.PIGLIN_AWAKENER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.BLAZE_SPOTTER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.RAID_ERADICATOR, Models.GENERATED);
-        itemModelGenerator.register(ModItems.ENDER_THRUSTER, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DRAGONS_PEARL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.DRAGONS_FIREBALL, Models.GENERATED);
-        itemModelGenerator.register(ModItems.EXPERIENCE_FRAGMENT, Models.GENERATED);
+        itemModelGenerator.generateFlatItem(ModItems.ANNUL_EYE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNERS_EYE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNERS_TOTEM, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.INFERNO_EYE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.INFINI_PEARL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDER_MATTER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.PIGLIN_AWAKENER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.BLAZE_SPOTTER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.RAID_ERADICATOR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.ENDER_THRUSTER, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DRAGONS_PEARL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DRAGONS_FIREBALL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.EXPERIENCE_FRAGMENT, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_SHOVEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_PADDLE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_HOE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_SWORD, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_SHOVEL, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_PICKAXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_AXE, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.GOLDEN_SPEEDRUNNER_HOE, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_PADDLE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_SHOVEL, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_PICKAXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        itemModelGenerator.register(ModItems.DRAGONS_SWORD, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.DRAGONS_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        itemModelGenerator.register(ModItems.SPEEDRUNNER_STICK, Models.HANDHELD);
-        itemModelGenerator.registerWithTextureSource(ModItems.KNOCKBACK_STICK, Items.STICK, Models.HANDHELD);
+        itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_STICK, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.KNOCKBACK_STICK, Items.STICK, ModelTemplates.FLAT_HANDHELD_ITEM);
 
         // Speedrunner Bow, Crossbow, shield, and wither bone are done separately.
     }
@@ -186,9 +187,9 @@ public class ModModelGenerator extends FabricModelProvider {
     /**
      * Registers a {@code speedrunner shield renderer.}
      */
-    private void registerModdedShield(ItemModelGenerator itemModelGenerator, Item item, SpecialModelRenderer.Unbaked unbakedModel) {
-        ItemModel.Unbaked unbaked = ItemModels.special(ModelIds.getItemModelId(item), unbakedModel);
-        ItemModel.Unbaked unbaked2 = ItemModels.special(ModelIds.getItemSubModelId(item, "_blocking"), unbakedModel);
-        itemModelGenerator.registerCondition(item, ItemModels.usingItemProperty(), unbaked2, unbaked);
+    private void registerModdedShield(ItemModelGenerators itemModelGenerator, Item item, SpecialModelRenderer.Unbaked unbakedModel) {
+        net.minecraft.client.renderer.item.ItemModel.Unbaked unbaked = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item), unbakedModel);
+        net.minecraft.client.renderer.item.ItemModel.Unbaked unbaked2 = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item, "_blocking"), unbakedModel);
+        itemModelGenerator.generateBooleanDispatch(item, ItemModelUtils.isUsingItem(), unbaked2, unbaked);
     }
 }

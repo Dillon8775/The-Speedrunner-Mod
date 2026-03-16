@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.minecraft.client.gui.screen.world.CreateWorldScreen;
-import net.minecraft.client.gui.screen.world.WorldCreator;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
+import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.world.Difficulty;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,15 +17,15 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin {
     @Shadow @Final
-    WorldCreator worldCreator;
+    WorldCreationUiState uiState;
     @Shadow
-    protected abstract void createLevel();
+    protected abstract void onCreate();
 
     /**
      * Hard-locks the difficulty to hard on doom mode.
      */
-    @Redirect(method = "createLevelInfo", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/world/WorldCreator;getDifficulty()Lnet/minecraft/world/Difficulty;"))
-    private Difficulty lockDifficultyDoomMode(WorldCreator original) {
+    @Redirect(method = "createLevelSettings", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldCreationUiState;getDifficulty()Lnet/minecraft/world/Difficulty;"))
+    private Difficulty lockDifficultyDoomMode(WorldCreationUiState original) {
         return isDoomMode() ? Difficulty.HARD : original.getDifficulty();
     }
 
@@ -52,28 +52,28 @@ public abstract class CreateWorldScreenMixin {
                     break;
             }
 
-            WorldCreator.Mode gameMode = null;
+            WorldCreationUiState.SelectedGameMode gameMode = null;
             switch (clientOptions().client.gameMode.getCurrentValue()) {
                 case SURVIVAL:
-                    gameMode = WorldCreator.Mode.SURVIVAL;
+                    gameMode = WorldCreationUiState.SelectedGameMode.SURVIVAL;
                     break;
                 case CREATIVE:
-                    gameMode = WorldCreator.Mode.CREATIVE;
+                    gameMode = WorldCreationUiState.SelectedGameMode.CREATIVE;
                     break;
                 case HARDCORE:
-                    gameMode = WorldCreator.Mode.HARDCORE;
+                    gameMode = WorldCreationUiState.SelectedGameMode.HARDCORE;
                     break;
                 case SPECTATOR:
-                    gameMode = WorldCreator.Mode.DEBUG;
+                    gameMode = WorldCreationUiState.SelectedGameMode.DEBUG;
                     break;
             }
 
             assert gameMode != null;
             assert difficulty != null;
-            this.worldCreator.setGameMode(gameMode);
-            this.worldCreator.setDifficulty(difficulty);
-            this.worldCreator.setCheatsEnabled(clientOptions().client.allowCheats.getCurrentValue());
-            createLevel();
+            this.uiState.setGameMode(gameMode);
+            this.uiState.setDifficulty(difficulty);
+            this.uiState.setAllowCommands(clientOptions().client.allowCheats.getCurrentValue());
+            onCreate();
         }
     }
 }

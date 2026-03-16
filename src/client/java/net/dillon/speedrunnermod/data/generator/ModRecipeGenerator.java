@@ -7,17 +7,13 @@ import net.dillon.speedrunnermod.recipe.*;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.recipe.ComplexRecipeJsonBuilder;
-import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -25,21 +21,21 @@ import java.util.concurrent.CompletableFuture;
  * Used to modify {@code vanilla recipes} and create {@code Speedrunner Mod} recipes.
  */
 public class ModRecipeGenerator extends FabricRecipeProvider {
-    private static final ImmutableList<ItemConvertible> IGNEOUS_ORES = ImmutableList.of(ModBlocks.IGNEOUS_ORE, ModBlocks.DEEPSLATE_IGNEOUS_ORE, ModBlocks.NETHER_IGNEOUS_ORE);
-    private static final ImmutableList<ItemConvertible> EXPERIENCE_ORES = ImmutableList.of(ModBlocks.EXPERIENCE_ORE, ModBlocks.DEEPSLATE_EXPERIENCE_ORE, ModBlocks.NETHER_EXPERIENCE_ORE);
-    private static final ImmutableList<ItemConvertible> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE, ModItems.RAW_SPEEDRUNNER);
+    private static final ImmutableList<ItemLike> IGNEOUS_ORES = ImmutableList.of(ModBlocks.IGNEOUS_ORE, ModBlocks.DEEPSLATE_IGNEOUS_ORE, ModBlocks.NETHER_IGNEOUS_ORE);
+    private static final ImmutableList<ItemLike> EXPERIENCE_ORES = ImmutableList.of(ModBlocks.EXPERIENCE_ORE, ModBlocks.DEEPSLATE_EXPERIENCE_ORE, ModBlocks.NETHER_EXPERIENCE_ORE);
+    private static final ImmutableList<ItemLike> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE, ModItems.RAW_SPEEDRUNNER);
 
-    public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected RecipeGenerator getRecipeGenerator(RegistryWrapper.WrapperLookup wrapperLookup, RecipeExporter recipeExporter) {
-        return new RecipeGenerator(wrapperLookup, recipeExporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
+        return new RecipeProvider(wrapperLookup, recipeExporter) {
 
             @Override
-            public void generate() {
-                RecipeGeneratorHelper helper = new RecipeGeneratorHelper(wrapperLookup, exporter);
+            public void buildRecipes() {
+                RecipeGeneratorHelper helper = new RecipeGeneratorHelper(wrapperLookup, output);
 
                 helper.createAxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_AXE);
                 helper.createHoe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_HOE);
@@ -72,27 +68,27 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createCookableFood(ModItems.PIGLIN_PORK, ModItems.COOKED_PIGLIN_PORK);
 
                 helper.createFireproofBoatSet(ModItems.SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT, ModItems.FIREPROOF_SPEEDRUNNER_BOAT, ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, ModBlocks.SPEEDRUNNER_PLANKS, "fireproof_speedrunner_boat");
-                this.offerBoatRecipe(ModItems.DEAD_SPEEDRUNNER_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
-                this.offerChestBoatRecipe(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, Items.CHEST);
+                this.woodenBoat(ModItems.DEAD_SPEEDRUNNER_BOAT, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
+                this.chestBoat(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, Items.CHEST);
                 helper.createFireproofBoatSet(ModItems.CRIMSON_BOAT, ModItems.CRIMSON_CHEST_BOAT, ModItems.FIREPROOF_CRIMSON_BOAT, ModItems.FIREPROOF_CRIMSON_CHEST_BOAT, Blocks.CRIMSON_PLANKS, "fireproof_crimson_boat");
                 helper.createFireproofBoatSet(ModItems.WARPED_BOAT, ModItems.WARPED_CHEST_BOAT, ModItems.FIREPROOF_WARPED_BOAT, ModItems.FIREPROOF_WARPED_CHEST_BOAT, Blocks.WARPED_PLANKS, "fireproof_warped_boat");
 
-                helper.offerBannerRecipe(Items.BLACK_BANNER, Blocks.BLACK_WOOL);
-                helper.offerBannerRecipe(Items.BLUE_BANNER, Blocks.BLUE_WOOL);
-                helper.offerBannerRecipe(Items.BROWN_BANNER, Blocks.BROWN_WOOL);
-                helper.offerBannerRecipe(Items.CYAN_BANNER, Blocks.CYAN_WOOL);
-                helper.offerBannerRecipe(Items.GRAY_BANNER, Blocks.GRAY_WOOL);
-                helper.offerBannerRecipe(Items.GREEN_BANNER, Blocks.GREEN_WOOL);
-                helper.offerBannerRecipe(Items.LIGHT_BLUE_BANNER, Blocks.LIGHT_BLUE_WOOL);
-                helper.offerBannerRecipe(Items.LIGHT_GRAY_BANNER, Blocks.LIGHT_GRAY_WOOL);
-                helper.offerBannerRecipe(Items.LIME_BANNER, Blocks.LIME_WOOL);
-                helper.offerBannerRecipe(Items.MAGENTA_BANNER, Blocks.MAGENTA_WOOL);
-                helper.offerBannerRecipe(Items.ORANGE_BANNER, Blocks.ORANGE_WOOL);
-                helper.offerBannerRecipe(Items.PINK_BANNER, Blocks.PINK_WOOL);
-                helper.offerBannerRecipe(Items.PURPLE_BANNER, Blocks.PURPLE_WOOL);
-                helper.offerBannerRecipe(Items.RED_BANNER, Blocks.RED_WOOL);
-                helper.offerBannerRecipe(Items.WHITE_BANNER, Blocks.WHITE_WOOL);
-                helper.offerBannerRecipe(Items.YELLOW_BANNER, Blocks.YELLOW_WOOL);
+                helper.banner(Items.BLACK_BANNER, Blocks.BLACK_WOOL);
+                helper.banner(Items.BLUE_BANNER, Blocks.BLUE_WOOL);
+                helper.banner(Items.BROWN_BANNER, Blocks.BROWN_WOOL);
+                helper.banner(Items.CYAN_BANNER, Blocks.CYAN_WOOL);
+                helper.banner(Items.GRAY_BANNER, Blocks.GRAY_WOOL);
+                helper.banner(Items.GREEN_BANNER, Blocks.GREEN_WOOL);
+                helper.banner(Items.LIGHT_BLUE_BANNER, Blocks.LIGHT_BLUE_WOOL);
+                helper.banner(Items.LIGHT_GRAY_BANNER, Blocks.LIGHT_GRAY_WOOL);
+                helper.banner(Items.LIME_BANNER, Blocks.LIME_WOOL);
+                helper.banner(Items.MAGENTA_BANNER, Blocks.MAGENTA_WOOL);
+                helper.banner(Items.ORANGE_BANNER, Blocks.ORANGE_WOOL);
+                helper.banner(Items.PINK_BANNER, Blocks.PINK_WOOL);
+                helper.banner(Items.PURPLE_BANNER, Blocks.PURPLE_WOOL);
+                helper.banner(Items.RED_BANNER, Blocks.RED_WOOL);
+                helper.banner(Items.WHITE_BANNER, Blocks.WHITE_WOOL);
+                helper.banner(Items.YELLOW_BANNER, Blocks.YELLOW_WOOL);
 
                 helper.offerModdedReversibleCompactingRecipes(
                         RecipeCategory.MISC,
@@ -134,76 +130,76 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 helper.createSign(ModBlocks.DEAD_SPEEDRUNNER_SIGN, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
                 helper.createSign(ModBlocks.SPEEDRUNNER_SIGN, ModBlocks.SPEEDRUNNER_PLANKS);
 
-                this.createDoorRecipe(ModBlocks.SPEEDRUNNER_DOOR, Ingredient.ofItem(ModItems.SPEEDRUNNER_INGOT))
-                        .criterion(hasItem(ModItems.SPEEDRUNNER_INGOT), this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
-                        .offerTo(this.exporter);
-                this.createDoorRecipe(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, Ingredient.ofItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                this.doorBuilder(ModBlocks.SPEEDRUNNER_DOOR, Ingredient.of(ModItems.SPEEDRUNNER_INGOT))
+                        .unlockedBy(getHasName(ModItems.SPEEDRUNNER_INGOT), this.has(ModItems.SPEEDRUNNER_INGOT))
+                        .save(this.output);
+                this.doorBuilder(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, Ingredient.of(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.has(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
                         .group("wooden_door")
-                        .offerTo(this.exporter);
-                this.createDoorRecipe(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, Ingredient.ofItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .save(this.output);
+                this.doorBuilder(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, Ingredient.of(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModBlocks.SPEEDRUNNER_PLANKS))
                         .group("wooden_door")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.offer2x2CompactingRecipe(RecipeCategory.REDSTONE, ModBlocks.SPEEDRUNNER_TRAPDOOR, ModItems.SPEEDRUNNER_INGOT);
-                this.createTrapdoorRecipe(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR, Ingredient.ofItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                this.twoByTwoPacker(RecipeCategory.REDSTONE, ModBlocks.SPEEDRUNNER_TRAPDOOR, ModItems.SPEEDRUNNER_INGOT);
+                this.trapdoorBuilder(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR, Ingredient.of(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.has(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
                         .group("wooden_trapdoor")
-                        .offerTo(this.exporter);
-                this.createTrapdoorRecipe(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR, Ingredient.ofItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .save(this.output);
+                this.trapdoorBuilder(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR, Ingredient.of(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModBlocks.SPEEDRUNNER_PLANKS))
                         .group("wooden_trapdoor")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createButtonRecipe(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON, Ingredient.ofItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .offerTo(this.exporter);
-                this.createButtonRecipe(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON, Ingredient.ofItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .offerTo(this.exporter);
+                this.buttonBuilder(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON, Ingredient.of(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.has(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .save(this.output);
+                this.buttonBuilder(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON, Ingredient.of(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .save(this.output);
 
-                this.createStairsRecipe(ModBlocks.DEAD_SPEEDRUNNER_STAIRS, Ingredient.ofItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                this.stairBuilder(ModBlocks.DEAD_SPEEDRUNNER_STAIRS, Ingredient.of(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.has(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
                         .group("wooden_stairs")
-                        .offerTo(this.exporter);
-                this.createStairsRecipe(ModBlocks.SPEEDRUNNER_STAIRS, Ingredient.ofItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .save(this.output);
+                this.stairBuilder(ModBlocks.SPEEDRUNNER_STAIRS, Ingredient.of(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModBlocks.SPEEDRUNNER_PLANKS))
                         .group("wooden_stairs")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DEAD_SPEEDRUNNER_SLAB, Ingredient.ofItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                this.slabBuilder(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DEAD_SPEEDRUNNER_SLAB, Ingredient.of(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.DEAD_SPEEDRUNNER_PLANKS), this.has(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
                         .group("wooden_slab")
-                        .offerTo(this.exporter);
-                this.createSlabRecipe(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNER_SLAB, Ingredient.ofItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .save(this.output);
+                this.slabBuilder(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNER_SLAB, Ingredient.of(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModBlocks.SPEEDRUNNER_PLANKS))
                         .group("wooden_slab")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.offerPressurePlateRecipe(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE, ModItems.SPEEDRUNNER_INGOT);
-                this.createPressurePlateRecipe(RecipeCategory.REDSTONE, ModBlocks.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE, Ingredient.ofItem(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                this.pressurePlate(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE, ModItems.SPEEDRUNNER_INGOT);
+                this.pressurePlateBuilder(RecipeCategory.REDSTONE, ModBlocks.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE, Ingredient.of(ModBlocks.DEAD_SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModItems.SPEEDRUNNER_INGOT))
                         .group("wooden_pressure_plate")
-                        .offerTo(this.exporter);
-                this.createPressurePlateRecipe(RecipeCategory.REDSTONE, ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE, Ingredient.ofItem(ModBlocks.SPEEDRUNNER_PLANKS))
-                        .criterion(hasItem(ModBlocks.SPEEDRUNNER_PLANKS), this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .save(this.output);
+                this.pressurePlateBuilder(RecipeCategory.REDSTONE, ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE, Ingredient.of(ModBlocks.SPEEDRUNNER_PLANKS))
+                        .unlockedBy(getHasName(ModBlocks.SPEEDRUNNER_PLANKS), this.has(ModItems.SPEEDRUNNER_INGOT))
                         .group("wooden_pressure_plate")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.offerPlanksRecipe(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, ModItemTags.Block.DEAD_SPEEDRUNNER_LOGS, 4);
-                this.offerPlanksRecipe(ModBlocks.SPEEDRUNNER_PLANKS, ModItemTags.Block.SPEEDRUNNER_LOGS, 4);
+                this.planksFromLogs(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, ModItemTags.Block.DEAD_SPEEDRUNNER_LOGS, 4);
+                this.planksFromLogs(ModBlocks.SPEEDRUNNER_PLANKS, ModItemTags.Block.SPEEDRUNNER_LOGS, 4);
 
-                this.offerBarkBlockRecipe(ModBlocks.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_LOG);
-                this.offerBarkBlockRecipe(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
-                this.offerBarkBlockRecipe(ModBlocks.SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_LOG);
-                this.offerBarkBlockRecipe(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
+                this.woodFromLogs(ModBlocks.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_LOG);
+                this.woodFromLogs(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
+                this.woodFromLogs(ModBlocks.SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_LOG);
+                this.woodFromLogs(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
 
-                this.offerHangingSignRecipe(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
-                this.offerHangingSignRecipe(ModBlocks.SPEEDRUNNER_HANGING_SIGN, ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
+                this.hangingSign(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
+                this.hangingSign(ModBlocks.SPEEDRUNNER_HANGING_SIGN, ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
 
-                CookingRecipeJsonBuilder.createSmelting(
-                                Ingredient.ofItems(
+                SimpleCookingRecipeBuilder.smelting(
+                                Ingredient.of(
                                         ModItems.SPEEDRUNNER_PICKAXE,
                                         ModItems.SPEEDRUNNER_SHOVEL,
                                         ModItems.SPEEDRUNNER_AXE,
@@ -219,19 +215,19 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                 0.2F,
                                 200
                         )
-                        .criterion("has_speedrunner_pickaxe", this.conditionsFromItem(ModItems.SPEEDRUNNER_PICKAXE))
-                        .criterion("has_speedrunner_shovel", this.conditionsFromItem(ModItems.SPEEDRUNNER_SHOVEL))
-                        .criterion("has_speedrunner_axe", this.conditionsFromItem(ModItems.SPEEDRUNNER_AXE))
-                        .criterion("has_speedrunner_hoe", this.conditionsFromItem(ModItems.SPEEDRUNNER_HOE))
-                        .criterion("has_speedrunner_sword", this.conditionsFromItem(ModItems.SPEEDRUNNER_SWORD))
-                        .criterion("has_speedrunner_helmet", this.conditionsFromItem(ModItems.SPEEDRUNNER_HELMET))
-                        .criterion("has_speedrunner_chestplate", this.conditionsFromItem(ModItems.SPEEDRUNNER_CHESTPLATE))
-                        .criterion("has_speedrunner_leggings", this.conditionsFromItem(ModItems.SPEEDRUNNER_LEGGINGS))
-                        .criterion("has_speedrunner_boots", this.conditionsFromItem(ModItems.SPEEDRUNNER_BOOTS))
-                        .offerTo(this.exporter, getSmeltingItemPath(ModItems.SPEEDRUNNER_NUGGET));
+                        .unlockedBy("has_speedrunner_pickaxe", this.has(ModItems.SPEEDRUNNER_PICKAXE))
+                        .unlockedBy("has_speedrunner_shovel", this.has(ModItems.SPEEDRUNNER_SHOVEL))
+                        .unlockedBy("has_speedrunner_axe", this.has(ModItems.SPEEDRUNNER_AXE))
+                        .unlockedBy("has_speedrunner_hoe", this.has(ModItems.SPEEDRUNNER_HOE))
+                        .unlockedBy("has_speedrunner_sword", this.has(ModItems.SPEEDRUNNER_SWORD))
+                        .unlockedBy("has_speedrunner_helmet", this.has(ModItems.SPEEDRUNNER_HELMET))
+                        .unlockedBy("has_speedrunner_chestplate", this.has(ModItems.SPEEDRUNNER_CHESTPLATE))
+                        .unlockedBy("has_speedrunner_leggings", this.has(ModItems.SPEEDRUNNER_LEGGINGS))
+                        .unlockedBy("has_speedrunner_boots", this.has(ModItems.SPEEDRUNNER_BOOTS))
+                        .save(this.output, getSmeltingRecipeName(ModItems.SPEEDRUNNER_NUGGET));
 
-                CookingRecipeJsonBuilder.createBlasting(
-                                Ingredient.ofItems(
+                SimpleCookingRecipeBuilder.blasting(
+                                Ingredient.of(
                                         ModItems.SPEEDRUNNER_PICKAXE,
                                         ModItems.SPEEDRUNNER_SHOVEL,
                                         ModItems.SPEEDRUNNER_AXE,
@@ -247,240 +243,240 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                 0.2F,
                                 200
                         )
-                        .criterion("has_speedrunner_pickaxe", this.conditionsFromItem(ModItems.SPEEDRUNNER_PICKAXE))
-                        .criterion("has_speedrunner_shovel", this.conditionsFromItem(ModItems.SPEEDRUNNER_SHOVEL))
-                        .criterion("has_speedrunner_axe", this.conditionsFromItem(ModItems.SPEEDRUNNER_AXE))
-                        .criterion("has_speedrunner_hoe", this.conditionsFromItem(ModItems.SPEEDRUNNER_HOE))
-                        .criterion("has_speedrunner_sword", this.conditionsFromItem(ModItems.SPEEDRUNNER_SWORD))
-                        .criterion("has_speedrunner_helmet", this.conditionsFromItem(ModItems.SPEEDRUNNER_HELMET))
-                        .criterion("has_speedrunner_chestplate", this.conditionsFromItem(ModItems.SPEEDRUNNER_CHESTPLATE))
-                        .criterion("has_speedrunner_leggings", this.conditionsFromItem(ModItems.SPEEDRUNNER_LEGGINGS))
-                        .criterion("has_speedrunner_boots", this.conditionsFromItem(ModItems.SPEEDRUNNER_BOOTS))
-                        .offerTo(this.exporter, getBlastingItemPath(ModItems.SPEEDRUNNER_NUGGET));
+                        .unlockedBy("has_speedrunner_pickaxe", this.has(ModItems.SPEEDRUNNER_PICKAXE))
+                        .unlockedBy("has_speedrunner_shovel", this.has(ModItems.SPEEDRUNNER_SHOVEL))
+                        .unlockedBy("has_speedrunner_axe", this.has(ModItems.SPEEDRUNNER_AXE))
+                        .unlockedBy("has_speedrunner_hoe", this.has(ModItems.SPEEDRUNNER_HOE))
+                        .unlockedBy("has_speedrunner_sword", this.has(ModItems.SPEEDRUNNER_SWORD))
+                        .unlockedBy("has_speedrunner_helmet", this.has(ModItems.SPEEDRUNNER_HELMET))
+                        .unlockedBy("has_speedrunner_chestplate", this.has(ModItems.SPEEDRUNNER_CHESTPLATE))
+                        .unlockedBy("has_speedrunner_leggings", this.has(ModItems.SPEEDRUNNER_LEGGINGS))
+                        .unlockedBy("has_speedrunner_boots", this.has(ModItems.SPEEDRUNNER_BOOTS))
+                        .save(this.output, getBlastingRecipeName(ModItems.SPEEDRUNNER_NUGGET));
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.ANNUL_EYE)
-                        .input(Items.ENDER_PEARL)
-                        .input(Items.BLAZE_POWDER)
-                        .input(Items.ENDER_EYE)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.ANNUL_EYE)
+                        .requires(Items.ENDER_PEARL)
+                        .requires(Items.BLAZE_POWDER)
+                        .requires(Items.ENDER_EYE)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.EYE_OF_ANNUL))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.BLAZE_SPOTTER)
-                        .input(Items.ENDER_PEARL)
-                        .input(Items.FIRE_CHARGE)
-                        .input(Items.LAVA_BUCKET)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.BLAZE_SPOTTER)
+                        .requires(Items.ENDER_PEARL)
+                        .requires(Items.FIRE_CHARGE)
+                        .requires(Items.LAVA_BUCKET)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.DRAGONS_PEARL)
-                        .input(Items.BLAZE_POWDER)
-                        .input(ModItems.SPEEDRUNNERS_EYE)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.DRAGONS_PEARL))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.DRAGONS_PEARL)
+                        .requires(Items.BLAZE_POWDER)
+                        .requires(ModItems.SPEEDRUNNERS_EYE)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.DRAGONS_PEARL))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.COMBAT, ModItems.DRAGONS_SWORD)
-                        .input(ModItems.SPEEDRUNNER_SWORD)
-                        .input(ModItems.DRAGONS_PEARL)
-                        .input(ModItems.ENDER_MATTER)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.DRAGONS_SWORD))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.COMBAT, ModItems.DRAGONS_SWORD)
+                        .requires(ModItems.SPEEDRUNNER_SWORD)
+                        .requires(ModItems.DRAGONS_PEARL)
+                        .requires(ModItems.ENDER_MATTER)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.DRAGONS_SWORD))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.ENDER_THRUSTER)
-                        .input(Items.ENDER_PEARL)
-                        .input(ModItems.SPEEDRUNNERS_EYE)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.ENDER_THRUSTER))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.ENDER_THRUSTER)
+                        .requires(Items.ENDER_PEARL)
+                        .requires(ModItems.SPEEDRUNNERS_EYE)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.ENDER_THRUSTER))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.INFERNO_EYE)
-                        .input(Items.ENDER_PEARL)
-                        .input(Items.FIRE_CHARGE)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.INFERNO_EYE))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.INFERNO_EYE)
+                        .requires(Items.ENDER_PEARL)
+                        .requires(Items.FIRE_CHARGE)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.INFERNO_EYE))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.RAID_ERADICATOR)
-                        .input(Items.ENCHANTED_GOLDEN_APPLE)
-                        .input(ModItems.SPEEDRUNNERS_EYE)
-                        .criterion("has_items", this.conditionsFromTag(ModItemTags.AdvancementCriterions.RAID_ERADICATOR))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.RAID_ERADICATOR)
+                        .requires(Items.ENCHANTED_GOLDEN_APPLE)
+                        .requires(ModItems.SPEEDRUNNERS_EYE)
+                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.RAID_ERADICATOR))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.SPEEDRUNNERS_EYE)
-                        .input(Items.ENDER_PEARL)
-                        .input(ModItems.SPEEDRUNNER_INGOT)
-                        .criterion("has_items", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.SPEEDRUNNERS_EYE)
+                        .requires(Items.ENDER_PEARL)
+                        .requires(ModItems.SPEEDRUNNER_INGOT)
+                        .unlockedBy("has_items", this.has(ModItems.SPEEDRUNNER_INGOT))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_FLINT_AND_STEEL)
-                        .input(Items.FLINT)
-                        .input(ModItems.SPEEDRUNNER_INGOT)
-                        .criterion("has_speedrunner_ingot", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL))
+                this.shapeless(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_FLINT_AND_STEEL)
+                        .requires(Items.FLINT)
+                        .requires(ModItems.SPEEDRUNNER_INGOT)
+                        .unlockedBy("has_speedrunner_ingot", this.has(ModItemTags.AdvancementCriterions.SPEEDRUNNER_FLINT_AND_STEEL))
                         .group("flint_and_steels")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_PADDLE)
-                        .input('I', ModItems.SPEEDRUNNER_NUGGET)
-                        .input('S', ModItemTags.SPEEDRUNNER_STICKS)
+                this.shaped(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_PADDLE)
+                        .define('I', ModItems.SPEEDRUNNER_NUGGET)
+                        .define('S', ModItemTags.SPEEDRUNNER_STICKS)
                         .pattern("I")
                         .pattern("S")
                         .pattern("I")
-                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_NUGGET))
-                        .offerTo(this.exporter);
+                        .unlockedBy("has_speedrunner_ingot", this.has(ModItems.SPEEDRUNNER_NUGGET))
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.MISC, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2)
-                        .input('#', Items.GOLD_INGOT)
-                        .input('C', Items.GOLD_BLOCK)
-                        .input('S', ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE)
+                this.shaped(RecipeCategory.MISC, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2)
+                        .define('#', Items.GOLD_INGOT)
+                        .define('C', Items.GOLD_BLOCK)
+                        .define('S', ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE)
                         .pattern("#S#")
                         .pattern("#C#")
                         .pattern("###")
                         .showNotification(true)
-                        .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_INGOT))
-                        .offerTo(this.exporter);
+                        .unlockedBy("has_gold_block", this.has(Items.GOLD_INGOT))
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
-                        .input('I', ModItems.SPEEDRUNNER_INGOT)
-                        .input('B', ModItems.SPEEDRUNNER_BLOCK)
-                        .input('P', ModItemTags.Block.SPEEDRUNNER_PLANKS)
+                this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
+                        .define('I', ModItems.SPEEDRUNNER_INGOT)
+                        .define('B', ModItems.SPEEDRUNNER_BLOCK)
+                        .define('P', ModItemTags.Block.SPEEDRUNNER_PLANKS)
                         .pattern("III")
                         .pattern("PBP")
                         .pattern("PPP")
-                        .criterion("has_planks", this.conditionsFromTag(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH))
-                        .offerTo(this.exporter);
+                        .unlockedBy("has_planks", this.has(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH))
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_BOW)
-                        .input('/', ModItemTags.SPEEDRUNNER_STICKS)
-                        .input('S', Items.STRING)
+                this.shaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_BOW)
+                        .define('/', ModItemTags.SPEEDRUNNER_STICKS)
+                        .define('S', Items.STRING)
                         .pattern(" /S")
                         .pattern("/ S")
                         .pattern(" /S")
-                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
+                        .unlockedBy("has_string", this.has(Items.STRING))
                         .group("bows")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_CROSSBOW)
-                        .input('~', Items.STRING)
-                        .input('#', ModItemTags.SPEEDRUNNER_STICKS)
-                        .input('S', ModItems.SPEEDRUNNER_INGOT)
-                        .input('$', Items.TRIPWIRE_HOOK)
+                this.shaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_CROSSBOW)
+                        .define('~', Items.STRING)
+                        .define('#', ModItemTags.SPEEDRUNNER_STICKS)
+                        .define('S', ModItems.SPEEDRUNNER_INGOT)
+                        .define('$', Items.TRIPWIRE_HOOK)
                         .pattern("#S#")
                         .pattern("~$~")
                         .pattern(" # ")
-                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .unlockedBy("has_speedrunner_ingot", this.has(ModItems.SPEEDRUNNER_INGOT))
                         .group("crossbows")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_SHEARS)
-                        .input('#', ModItems.SPEEDRUNNER_INGOT)
+                this.shaped(RecipeCategory.TOOLS, ModItems.SPEEDRUNNER_SHEARS)
+                        .define('#', ModItems.SPEEDRUNNER_INGOT)
                         .pattern(" #")
                         .pattern("# ")
-                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .unlockedBy("has_speedrunner_ingot", this.has(ModItems.SPEEDRUNNER_INGOT))
                         .group("shears")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_SHIELD)
-                        .input('W', ItemTags.PLANKS)
-                        .input('o', ModItems.SPEEDRUNNER_INGOT)
+                this.shaped(RecipeCategory.COMBAT, ModItems.SPEEDRUNNER_SHIELD)
+                        .define('W', ItemTags.PLANKS)
+                        .define('o', ModItems.SPEEDRUNNER_INGOT)
                         .pattern("WoW")
                         .pattern("WWW")
                         .pattern(" W ")
-                        .criterion("has_speedrunner_ingot", this.conditionsFromItem(ModItems.SPEEDRUNNER_INGOT))
+                        .unlockedBy("has_speedrunner_ingot", this.has(ModItems.SPEEDRUNNER_INGOT))
                         .group("shields")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.COMBAT, ModItems.GOLDEN_SHIELD)
-                        .input('W', ItemTags.PLANKS)
-                        .input('o', Items.GOLD_INGOT)
+                this.shaped(RecipeCategory.COMBAT, ModItems.GOLDEN_SHIELD)
+                        .define('W', ItemTags.PLANKS)
+                        .define('o', Items.GOLD_INGOT)
                         .pattern("WoW")
                         .pattern("WWW")
                         .pattern(" W ")
-                        .criterion("has_gold_ingot", this.conditionsFromItem(Items.GOLD_INGOT))
+                        .unlockedBy("has_gold_ingot", this.has(Items.GOLD_INGOT))
                         .group("shields")
-                        .offerTo(this.exporter);
+                        .save(this.output);
 
-                ComplexRecipeJsonBuilder.create(SpeedrunnerShieldDecorationRecipe::new).offerTo(this.exporter, "speedrunner_shield_decoration");
-                ComplexRecipeJsonBuilder.create(GoldenShieldDecorationRecipe::new).offerTo(this.exporter, "golden_shield_decoration");
-                ComplexRecipeJsonBuilder.create(PiglinAwakenerRecipe::new).offerTo(this.exporter, "piglin_awakener");
-                ComplexRecipeJsonBuilder.create(DragonFireballRecipe::new).offerTo(this.exporter, "dragons_fireball");
-                ComplexRecipeJsonBuilder.create(InventoryPreserverRecipe::new).offerTo(this.exporter, "inventory_preserver");
+                SpecialRecipeBuilder.special(SpeedrunnerShieldDecorationRecipe::new).save(this.output, "speedrunner_shield_decoration");
+                SpecialRecipeBuilder.special(GoldenShieldDecorationRecipe::new).save(this.output, "golden_shield_decoration");
+                SpecialRecipeBuilder.special(PiglinAwakenerRecipe::new).save(this.output, "piglin_awakener");
+                SpecialRecipeBuilder.special(DragonFireballRecipe::new).save(this.output, "dragons_fireball");
+                SpecialRecipeBuilder.special(InventoryPreserverRecipe::new).save(this.output, "inventory_preserver");
 
                 helper.createStickRecipe(true, "speedrunner_stick_from_dead_speedrunner_planks");
                 helper.createStickRecipe(false, "speedrunner_stick_from_speedrunner_planks");
 
                 helper.createReversePlankRecipe();
 
-                this.createShaped(RecipeCategory.BUILDING_BLOCKS, ModItems.FLESH_BLOCK)
-                        .input('#', ModItemTags.FLESH)
+                this.shaped(RecipeCategory.BUILDING_BLOCKS, ModItems.FLESH_BLOCK)
+                        .define('#', ModItemTags.FLESH)
                         .pattern("###")
                         .pattern("###")
                         .pattern("###")
-                        .criterion("has_flesh_item", this.conditionsFromTag(ModItemTags.FLESH))
-                        .offerTo(this.exporter);
+                        .unlockedBy("has_flesh_item", this.has(ModItemTags.FLESH))
+                        .save(this.output);
 
-                this.createShaped(RecipeCategory.MISC, Blocks.OAK_PLANKS)
-                        .input('/', Items.STICK)
+                this.shaped(RecipeCategory.MISC, Blocks.OAK_PLANKS)
+                        .define('/', Items.STICK)
                         .group("planks")
                         .pattern("//")
                         .pattern("//")
-                        .criterion("has_stick", this.conditionsFromItem(Items.STICK))
-                        .offerTo(this.exporter, helper.speedrunnerModRecipe("oak_planks_from_sticks"));
+                        .unlockedBy("has_stick", this.has(Items.STICK))
+                        .save(this.output, helper.speedrunnerModRecipe("oak_planks_from_sticks"));
 
-                this.createShaped(RecipeCategory.MISC, Blocks.OBSIDIAN)
-                        .input('#', ModItems.IGNEOUS_ROCK)
+                this.shaped(RecipeCategory.MISC, Blocks.OBSIDIAN)
+                        .define('#', ModItems.IGNEOUS_ROCK)
                         .pattern("###")
                         .pattern("###")
                         .pattern("###")
-                        .criterion("has_igneous_rock", this.conditionsFromItem(ModItems.IGNEOUS_ROCK))
-                        .offerTo(this.exporter, helper.speedrunnerModRecipe("obsidian_from_igneous_rocks"));
+                        .unlockedBy("has_igneous_rock", this.has(ModItems.IGNEOUS_ROCK))
+                        .save(this.output, helper.speedrunnerModRecipe("obsidian_from_igneous_rocks"));
 
-                this.createShaped(RecipeCategory.FOOD, Items.ENCHANTED_GOLDEN_APPLE)
-                        .input('a', Items.GOLDEN_APPLE)
-                        .input('B', Items.GOLD_BLOCK)
+                this.shaped(RecipeCategory.FOOD, Items.ENCHANTED_GOLDEN_APPLE)
+                        .define('a', Items.GOLDEN_APPLE)
+                        .define('B', Items.GOLD_BLOCK)
                         .pattern("BBB")
                         .pattern("BaB")
                         .pattern("BBB")
-                        .criterion("has_gold_block", this.conditionsFromItem(Items.GOLD_BLOCK))
-                        .offerTo(this.exporter, helper.speedrunnerModRecipe("enchanted_golden_apple"));
+                        .unlockedBy("has_gold_block", this.has(Items.GOLD_BLOCK))
+                        .save(this.output, helper.speedrunnerModRecipe("enchanted_golden_apple"));
 
-                this.createShaped(RecipeCategory.COMBAT, Items.TOTEM_OF_UNDYING)
-                        .input('e', Items.ENCHANTED_GOLDEN_APPLE)
-                        .input('B', Items.GOLD_BLOCK)
+                this.shaped(RecipeCategory.COMBAT, Items.TOTEM_OF_UNDYING)
+                        .define('e', Items.ENCHANTED_GOLDEN_APPLE)
+                        .define('B', Items.GOLD_BLOCK)
                         .pattern("BBB")
                         .pattern("BeB")
                         .pattern("BBB")
-                        .criterion("has_enchanted_golden_apple", this.conditionsFromItem(Items.ENCHANTED_GOLDEN_APPLE))
-                        .offerTo(this.exporter, helper.speedrunnerModRecipe("totem_of_undying"));
+                        .unlockedBy("has_enchanted_golden_apple", this.has(Items.ENCHANTED_GOLDEN_APPLE))
+                        .save(this.output, helper.speedrunnerModRecipe("totem_of_undying"));
 
-                this.createShaped(RecipeCategory.BREWING, Items.BLAZE_ROD)
-                        .input('P', Items.BLAZE_POWDER)
-                        .input('/', ModItemTags.SPEEDRUNNER_STICKS)
+                this.shaped(RecipeCategory.BREWING, Items.BLAZE_ROD)
+                        .define('P', Items.BLAZE_POWDER)
+                        .define('/', ModItemTags.SPEEDRUNNER_STICKS)
                         .pattern("P")
                         .pattern("P")
                         .pattern("/")
-                        .criterion("has_blaze_powder", this.conditionsFromItem(Items.BLAZE_POWDER))
-                        .offerTo(this.exporter, helper.speedrunnerModRecipe("blaze_rod"));
+                        .unlockedBy("has_blaze_powder", this.has(Items.BLAZE_POWDER))
+                        .save(this.output, helper.speedrunnerModRecipe("blaze_rod"));
 
-                this.createShapeless(RecipeCategory.MISC, Items.STRING, 4)
-                        .input(ItemTags.WOOL)
-                        .criterion("has_string", this.conditionsFromItem(Items.STRING))
-                        .offerTo(this.exporter, helper.speedrunnerModRecipe("string_from_wool"));
+                this.shapeless(RecipeCategory.MISC, Items.STRING, 4)
+                        .requires(ItemTags.WOOL)
+                        .unlockedBy("has_string", this.has(Items.STRING))
+                        .save(this.output, helper.speedrunnerModRecipe("string_from_wool"));
 
-                this.createShapeless(RecipeCategory.MISC, ModItems.INFINI_PEARL)
-                        .input(Items.ENDER_PEARL)
-                        .input(ModItems.SPEEDRUNNERS_EYE)
-                        .input(ModItems.ENDER_MATTER)
-                        .criterion("has_ender_matter", this.conditionsFromItem(ModItems.ENDER_MATTER))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.MISC, ModItems.INFINI_PEARL)
+                        .requires(Items.ENDER_PEARL)
+                        .requires(ModItems.SPEEDRUNNERS_EYE)
+                        .requires(ModItems.ENDER_MATTER)
+                        .unlockedBy("has_ender_matter", this.has(ModItems.ENDER_MATTER))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.TOOLS, Items.EXPERIENCE_BOTTLE, 2)
-                        .input(Items.GLASS_BOTTLE)
-                        .input(ModItems.EXPERIENCE_FRAGMENT)
-                        .criterion("has_item", this.conditionsFromTag(ModItemTags.EXPERIENCE_BOTTLE_CRAFTABLES))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.TOOLS, Items.EXPERIENCE_BOTTLE, 2)
+                        .requires(Items.GLASS_BOTTLE)
+                        .requires(ModItems.EXPERIENCE_FRAGMENT)
+                        .unlockedBy("has_item", this.has(ModItemTags.EXPERIENCE_BOTTLE_CRAFTABLES))
+                        .save(this.output);
 
-                this.createShapeless(RecipeCategory.COMBAT, ModItems.SPEEDRUNNERS_TOTEM)
-                        .input(Items.TOTEM_OF_UNDYING)
-                        .input(ModItems.ENDER_MATTER)
-                        .criterion("has_totem", this.conditionsFromItem(Items.TOTEM_OF_UNDYING))
-                        .offerTo(this.exporter);
+                this.shapeless(RecipeCategory.COMBAT, ModItems.SPEEDRUNNERS_TOTEM)
+                        .requires(Items.TOTEM_OF_UNDYING)
+                        .requires(ModItems.ENDER_MATTER)
+                        .unlockedBy("has_totem", this.has(Items.TOTEM_OF_UNDYING))
+                        .save(this.output);
             }
         };
     }

@@ -14,7 +14,7 @@ import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screens.Screen;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 

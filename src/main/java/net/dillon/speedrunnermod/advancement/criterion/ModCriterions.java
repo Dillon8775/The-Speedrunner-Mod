@@ -2,9 +2,9 @@ package net.dillon.speedrunnermod.advancement.criterion;
 
 import net.dillon.speedrunnermod.advancement.TriggeredByItemCriterion;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.advancement.criterion.Criterion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 /**
  * All speedrunner mod criterions.
@@ -12,8 +12,8 @@ import net.minecraft.registry.Registry;
 public class ModCriterions {
     public static final TriggeredByItemCriterion TRIGGERED_BY_ITEM = register("triggered_by_item_criterion", new TriggeredByItemCriterion());
 
-    public static <T extends Criterion<?>> T register(String id, T criterion) {
-        return Registry.register(Registries.CRITERION, id, criterion);
+    public static <T extends CriterionTrigger<?>> T register(String id, T criterion) {
+        return Registry.register(BuiltInRegistries.TRIGGER_TYPES, id, criterion);
     }
 
     /**

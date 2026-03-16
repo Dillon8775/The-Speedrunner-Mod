@@ -3,21 +3,17 @@ package net.dillon.speedrunnermod.data.generator;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.data.recipe.SmithingTransformRecipeJsonBuilder;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.*;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -27,65 +23,65 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * A helper class to easily create recipes.
  */
-public class RecipeGeneratorHelper extends RecipeGenerator {
+public class RecipeGeneratorHelper extends RecipeProvider {
 
-    protected RecipeGeneratorHelper(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+    protected RecipeGeneratorHelper(HolderLookup.Provider registries, RecipeOutput exporter) {
         super(registries, exporter);
     }
 
     /**
      * Creates a smelting, campfire cooking, and smoker recipe.
      */
-    protected void createCookableFood(ItemConvertible input, ItemConvertible output) {
-        CookingRecipeJsonBuilder.createCampfireCooking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 60)
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter, output+"_from_campfire_cooking");
-        CookingRecipeJsonBuilder.createSmelting(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 200)
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter, output+"_from_smelting");
-        CookingRecipeJsonBuilder.createSmoking(Ingredient.ofItem(input), RecipeCategory.FOOD, output, 0.35F, 200)
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter, output+"_from_smoking");
+    protected void createCookableFood(ItemLike input, ItemLike output) {
+        SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, output, 0.35F, 60)
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output, output+"_from_campfire_cooking");
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, 0.35F, 200)
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output, output+"_from_smelting");
+        SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, 0.35F, 200)
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output, output+"_from_smoking");
     }
 
     /**
      * Creates a {@code smithing table} recipe.
      */
     public void offerGoldenSpeedrunnerUpgradeRecipe(Item input, RecipeCategory category, Item result) {
-        SmithingTransformRecipeJsonBuilder.create(
-                        Ingredient.ofItem(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE),
-                        Ingredient.ofItem(input),
-                        this.ingredientFromTag(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS),
+        SmithingTransformRecipeBuilder.smithing(
+                        Ingredient.of(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE),
+                        Ingredient.of(input),
+                        this.tag(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS),
                         category,
                         result
                 )
-                .criterion("has_speedrunner_ingot", this.conditionsFromTag(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS))
-                .offerTo(this.exporter, result+"_smithing");
+                .unlocks("has_speedrunner_ingot", this.has(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS))
+                .save(this.output, result+"_smithing");
     }
 
     /**
      * Creates a reversible compacting recipe, with the correct identifier.
      */
-    public void offerModdedReversibleCompactingRecipes(RecipeCategory reverseCategory, ItemConvertible baseItem, RecipeCategory compactingCategory, ItemConvertible compactItem, String compactingId, @Nullable String compactingGroup, String reverseId, @Nullable String reverseGroup) {
-        this.createShapeless(reverseCategory, baseItem, 9)
-                .input(compactItem)
+    public void offerModdedReversibleCompactingRecipes(RecipeCategory reverseCategory, ItemLike baseItem, RecipeCategory compactingCategory, ItemLike compactItem, String compactingId, @Nullable String compactingGroup, String reverseId, @Nullable String reverseGroup) {
+        this.shapeless(reverseCategory, baseItem, 9)
+                .requires(compactItem)
                 .group(reverseGroup)
-                .criterion(hasItem(compactItem), this.conditionsFromItem(compactItem))
-                .offerTo(this.exporter, this.speedrunnerModRecipe(reverseId));
-        this.createShaped(compactingCategory, compactItem)
-                .input('#', baseItem)
+                .unlockedBy(getHasName(compactItem), this.has(compactItem))
+                .save(this.output, this.speedrunnerModRecipe(reverseId));
+        this.shaped(compactingCategory, compactItem)
+                .define('#', baseItem)
                 .pattern("###")
                 .pattern("###")
                 .pattern("###")
                 .group(compactingGroup)
-                .criterion(hasItem(baseItem), this.conditionsFromItem(baseItem))
-                .offerTo(this.exporter, this.speedrunnerModRecipe(compactingId));
+                .unlockedBy(getHasName(baseItem), this.has(baseItem))
+                .save(this.output, this.speedrunnerModRecipe(compactingId));
     }
 
     /**
      * Creates a smeltable and blastable material.
      */
-    public void offerBurnableMaterial(List<ItemConvertible> inputs, ItemConvertible output, float exp, String group) {
+    public void offerBurnableMaterial(List<ItemLike> inputs, ItemLike output, float exp, String group) {
         offerNewSmelting(inputs, RecipeCategory.MISC, output, exp, group);
         offerNewBlasting(inputs, RecipeCategory.MISC, output, exp, group);
     }
@@ -93,277 +89,277 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
     /**
      * A helper method for creating a new smelting recipe.
      */
-    protected void offerNewSmelting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group) {
-        this.offerMultipleOptionsH(RecipeSerializer.SMELTING, SmeltingRecipe::new, inputs, category, output, experience, 20, group, "_from_smelting");
+    protected void offerNewSmelting(List<ItemLike> inputs, RecipeCategory category, ItemLike output, float experience, String group) {
+        this.offerMultipleOptionsH(RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, inputs, category, output, experience, 20, group, "_from_smelting");
     }
 
     /**
      * A helper method for creating a new blasting recipe.
      */
-    protected void offerNewBlasting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, String group) {
-        this.offerMultipleOptionsH(RecipeSerializer.BLASTING, BlastingRecipe::new, inputs, category, output, experience, 20, group, "_from_blasting");
+    protected void offerNewBlasting(List<ItemLike> inputs, RecipeCategory category, ItemLike output, float experience, String group) {
+        this.offerMultipleOptionsH(RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, inputs, category, output, experience, 20, group, "_from_blasting");
     }
 
     /**
      * A helper method for creating a new cooking recipe.
      */
-    protected final <T extends AbstractCookingRecipe> void offerMultipleOptionsH(RecipeSerializer<T> serializer, AbstractCookingRecipe.RecipeFactory<T> recipeFactory, List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group, String suffix) {
-        for (ItemConvertible itemConvertible : inputs) {
-            CookingRecipeJsonBuilder.create(Ingredient.ofItem(itemConvertible), category, output, experience, cookingTime, serializer, recipeFactory)
+    protected final <T extends AbstractCookingRecipe> void offerMultipleOptionsH(RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> inputs, RecipeCategory category, ItemLike output, float experience, int cookingTime, String group, String suffix) {
+        for (ItemLike itemConvertible : inputs) {
+            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemConvertible), category, output, experience, cookingTime, serializer, recipeFactory)
                     .group(group)
-                    .criterion(hasItem(itemConvertible), this.conditionsFromItem(itemConvertible))
-                    .offerTo(this.exporter, output + suffix + "_" + this.removeSpeedrunnerModNamespace(itemConvertible.asItem().toString()));
+                    .unlockedBy(getHasName(itemConvertible), this.has(itemConvertible))
+                    .save(this.output, output + suffix + "_" + this.removeSpeedrunnerModNamespace(itemConvertible.asItem().toString()));
         }
     }
 
     /**
      * Creates a normal {@code boat} and {@code chest boat} recipe.
      */
-    protected void createBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible planks) {
+    protected void createBoatSet(ItemLike boat, ItemLike chestBoat, ItemLike planks) {
         this.offerFireproofBoatRecipe(boat, planks);
-        this.offerChestBoatRecipe(chestBoat, boat);
+        this.chestBoat(chestBoat, boat);
     }
 
     /**
      * Creates a fireproof {@code boat} and {@code chest boat} recipe.
      */
-    protected void createFireproofBoatSet(ItemConvertible boat, ItemConvertible chestBoat, ItemConvertible fireproofBoat, ItemConvertible fireproofChestBoat, ItemConvertible planks, String s) {
-        this.offerBoatRecipe(boat, planks);
+    protected void createFireproofBoatSet(ItemLike boat, ItemLike chestBoat, ItemLike fireproofBoat, ItemLike fireproofChestBoat, ItemLike planks, String s) {
+        this.woodenBoat(boat, planks);
         this.offerFireproofBoatRecipe(fireproofBoat, planks);
         this.offerPaddleFireproofBoatRecipe(fireproofBoat, boat, fireproofChestBoat, chestBoat, s);
-        this.offerChestBoatRecipe(chestBoat, boat);
-        this.offerChestBoatRecipe(fireproofChestBoat, fireproofBoat);
+        this.chestBoat(chestBoat, boat);
+        this.chestBoat(fireproofChestBoat, fireproofBoat);
     }
 
-    public void offerFireproofBoatRecipe(ItemConvertible output, ItemConvertible input) {
-        this.createShaped(RecipeCategory.TRANSPORTATION, output)
-                .input('#', input)
-                .input('P', ModItems.SPEEDRUNNER_PADDLE)
+    public void offerFireproofBoatRecipe(ItemLike output, ItemLike input) {
+        this.shaped(RecipeCategory.TRANSPORTATION, output)
+                .define('#', input)
+                .define('P', ModItems.SPEEDRUNNER_PADDLE)
                 .pattern("#P#")
                 .pattern("###")
                 .group("boat")
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output);
     }
 
-    public void offerPaddleFireproofBoatRecipe(ItemConvertible fireproofBoat, ItemConvertible boat, ItemConvertible fireproofChestBoat, ItemConvertible chestBoat, String s) {
-        this.createShapeless(RecipeCategory.TRANSPORTATION, fireproofBoat)
-                .input(ModItems.SPEEDRUNNER_PADDLE)
-                .input(boat)
+    public void offerPaddleFireproofBoatRecipe(ItemLike fireproofBoat, ItemLike boat, ItemLike fireproofChestBoat, ItemLike chestBoat, String s) {
+        this.shapeless(RecipeCategory.TRANSPORTATION, fireproofBoat)
+                .requires(ModItems.SPEEDRUNNER_PADDLE)
+                .requires(boat)
                 .group("boat")
-                .criterion("has_boat", this.conditionsFromTag(ItemTags.BOATS))
-                .offerTo(this.exporter, this.speedrunnerModRecipe(s + "_with_paddle"));
-        this.createShapeless(RecipeCategory.TRANSPORTATION, fireproofChestBoat)
-                .input(ModItems.SPEEDRUNNER_PADDLE)
-                .input(chestBoat)
+                .unlockedBy("has_boat", this.has(ItemTags.BOATS))
+                .save(this.output, this.speedrunnerModRecipe(s + "_with_paddle"));
+        this.shapeless(RecipeCategory.TRANSPORTATION, fireproofChestBoat)
+                .requires(ModItems.SPEEDRUNNER_PADDLE)
+                .requires(chestBoat)
                 .group("chest_boat")
-                .criterion("has_boat", this.conditionsFromTag(ItemTags.BOATS))
-                .offerTo(this.exporter, this.speedrunnerModRecipe(s + "_with_chest_paddle"));
+                .unlockedBy("has_boat", this.has(ItemTags.BOATS))
+                .save(this.output, this.speedrunnerModRecipe(s + "_with_chest_paddle"));
     }
 
     /**
      * Creates a {@code sign} recipe.
      */
-    protected void createSign(ItemConvertible sign, ItemConvertible plank) {
-        this.createShaped(RecipeCategory.DECORATIONS, sign, 3)
-                .input('#', plank)
-                .input('X', ModItemTags.STICKS)
+    protected void createSign(ItemLike sign, ItemLike plank) {
+        this.shaped(RecipeCategory.DECORATIONS, sign, 3)
+                .define('#', plank)
+                .define('X', ModItemTags.STICKS)
                 .group("wooden_sign")
                 .pattern("###")
                 .pattern("###")
                 .pattern(" X ")
-                .criterion("has_plank", this.conditionsFromItem(plank))
-                .offerTo(this.exporter);
+                .unlockedBy("has_plank", this.has(plank))
+                .save(this.output);
     }
 
     /**
      * Creates a {@code fence recipe} with speedrunner sticks.
      */
-    public void createModdedFenceRecipe(ItemConvertible output, ItemConvertible input) {
+    public void createModdedFenceRecipe(ItemLike output, ItemLike input) {
         int i = output == Blocks.NETHER_BRICK_FENCE ? 6 : 3;
         Item item = output == Blocks.NETHER_BRICK_FENCE ? Items.NETHER_BRICK : ModItems.SPEEDRUNNER_STICK;
-        this.createShaped(RecipeCategory.DECORATIONS, output, i)
-                .input('W', input)
-                .input('#', item)
+        this.shaped(RecipeCategory.DECORATIONS, output, i)
+                .define('W', input)
+                .define('#', item)
                 .group("wooden_fence")
                 .pattern("W#W")
                 .pattern("W#W")
-                .criterion(hasItem(input), this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy(getHasName(input), this.has(input))
+                .save(this.output);
     }
 
     /**
      * Creates a {@code fence gate recipe} with speedrunner sticks.
      */
-    public void createModdedFenceGateRecipe(ItemConvertible output, ItemConvertible input) {
-        this.createShaped(RecipeCategory.REDSTONE, output)
-                .input('#', ModItems.SPEEDRUNNER_STICK)
-                .input('W', input)
+    public void createModdedFenceGateRecipe(ItemLike output, ItemLike input) {
+        this.shaped(RecipeCategory.REDSTONE, output)
+                .define('#', ModItems.SPEEDRUNNER_STICK)
+                .define('W', input)
                 .group("wooden_fence_gate")
                 .pattern("#W#")
                 .pattern("#W#")
-                .criterion(hasItem(input), this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy(getHasName(input), this.has(input))
+                .save(this.output);
     }
 
     /**
      * Creates a {@code stick} recipe.
      */
     public void createStickRecipe(boolean dead, String name) {
-        this.createShaped(RecipeCategory.MISC, ModItems.SPEEDRUNNER_STICK, 4)
-                .input('S', dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS)
+        this.shaped(RecipeCategory.MISC, ModItems.SPEEDRUNNER_STICK, 4)
+                .define('S', dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS)
                 .group("sticks")
                 .pattern("S")
                 .pattern("S")
                 .group("sticks")
-                .criterion("has_planks", this.conditionsFromItem(dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS))
-                .offerTo(this.exporter, name);
+                .unlockedBy("has_planks", this.has(dead ? ModBlocks.DEAD_SPEEDRUNNER_PLANKS : ModBlocks.SPEEDRUNNER_PLANKS))
+                .save(this.output, name);
     }
 
     /**
      * Creates a {@code reverse plank} recipe.
      */
     public void createReversePlankRecipe() {
-        this.createShaped(RecipeCategory.MISC, ModBlocks.SPEEDRUNNER_PLANKS)
-                .input('/', ModItems.SPEEDRUNNER_STICK)
+        this.shaped(RecipeCategory.MISC, ModBlocks.SPEEDRUNNER_PLANKS)
+                .define('/', ModItems.SPEEDRUNNER_STICK)
                 .group("planks")
                 .pattern("//")
                 .pattern("//")
-                .criterion("has_sticks", this.conditionsFromItem(ModItems.SPEEDRUNNER_STICK))
-                .offerTo(this.exporter, this.speedrunnerModRecipe("speedrunner_planks_from_speedrunner_stick"));
+                .unlockedBy("has_sticks", this.has(ModItems.SPEEDRUNNER_STICK))
+                .save(this.output, this.speedrunnerModRecipe("speedrunner_planks_from_speedrunner_stick"));
     }
 
     /**
      * Creates a {@code sword} recipe.
      */
-    protected void createSword(TagKey<Item> material, ItemConvertible output) {
-        var recipe = this.createShaped(RecipeCategory.COMBAT, output)
-                .input('#', ModItemTags.STICKS)
-                .input('X', material)
+    protected void createSword(TagKey<Item> material, ItemLike output) {
+        var recipe = this.shaped(RecipeCategory.COMBAT, output)
+                .define('#', ModItemTags.STICKS)
+                .define('X', material)
                 .pattern("X")
                 .pattern("X")
                 .pattern("#")
-                .criterion("has_material", this.conditionsFromTag(material));
+                .unlockedBy("has_material", this.has(material));
 
-        recipe.offerTo(this.exporter);
+        recipe.save(this.output);
     }
 
 
     /**
      * Creates a {@code shovel} recipe.
      */
-    protected void createShovel(TagKey<Item> material, ItemConvertible output) {
-        var recipe = this.createShaped(RecipeCategory.TOOLS, output)
-                .input('#', ModItemTags.STICKS)
-                .input('X', material)
+    protected void createShovel(TagKey<Item> material, ItemLike output) {
+        var recipe = this.shaped(RecipeCategory.TOOLS, output)
+                .define('#', ModItemTags.STICKS)
+                .define('X', material)
                 .pattern("X")
                 .pattern("#")
                 .pattern("#")
-                .criterion("has_material", this.conditionsFromTag(material));
+                .unlockedBy("has_material", this.has(material));
 
-        recipe.offerTo(this.exporter);
+        recipe.save(this.output);
     }
 
     /**
      * Creates a {@code pickaxe} recipe.
      */
-    protected void createPickaxe(TagKey<Item> material, ItemConvertible output) {
-        var recipe = this.createShaped(RecipeCategory.TOOLS, output)
-                .input('#', ModItemTags.STICKS)
-                .input('X', material)
+    protected void createPickaxe(TagKey<Item> material, ItemLike output) {
+        var recipe = this.shaped(RecipeCategory.TOOLS, output)
+                .define('#', ModItemTags.STICKS)
+                .define('X', material)
                 .pattern("XXX")
                 .pattern(" # ")
                 .pattern(" # ")
-                .criterion("has_material", this.conditionsFromTag(material));
+                .unlockedBy("has_material", this.has(material));
 
-        recipe.offerTo(this.exporter);
+        recipe.save(this.output);
     }
 
     /**
      * Creates an {@code axe} recipe.
      */
-    protected void createAxe(TagKey<Item> material, ItemConvertible output) {
-        var recipe = this.createShaped(RecipeCategory.TOOLS, output)
-                .input('#', ModItemTags.STICKS)
-                .input('X', material)
+    protected void createAxe(TagKey<Item> material, ItemLike output) {
+        var recipe = this.shaped(RecipeCategory.TOOLS, output)
+                .define('#', ModItemTags.STICKS)
+                .define('X', material)
                 .pattern("XX")
                 .pattern("X#")
                 .pattern(" #")
-                .criterion("has_material", this.conditionsFromTag(material));
+                .unlockedBy("has_material", this.has(material));
 
-        recipe.offerTo(this.exporter);
+        recipe.save(this.output);
     }
 
     /**
      * Creates a {@code hoe} recipe.
      */
-    protected void createHoe(TagKey<Item> material, ItemConvertible output) {
-        var recipe = this.createShaped(RecipeCategory.TOOLS, output)
-                .input('#', ModItemTags.STICKS)
-                .input('X', material)
+    protected void createHoe(TagKey<Item> material, ItemLike output) {
+        var recipe = this.shaped(RecipeCategory.TOOLS, output)
+                .define('#', ModItemTags.STICKS)
+                .define('X', material)
                 .pattern("XX")
                 .pattern(" #")
                 .pattern(" #")
-                .criterion("has_material", this.conditionsFromTag(material));
+                .unlockedBy("has_material", this.has(material));
 
-        recipe.offerTo(this.exporter);
+        recipe.save(this.output);
     }
 
     /**
      * Creates a {@code helmet} recipe.
      */
-    protected void createHelmet(ItemConvertible input, ItemConvertible output) {
-        this.createShaped(RecipeCategory.COMBAT, output)
-                .input('X', input)
+    protected void createHelmet(ItemLike input, ItemLike output) {
+        this.shaped(RecipeCategory.COMBAT, output)
+                .define('X', input)
                 .pattern("XXX")
                 .pattern("X X")
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output);
     }
 
     /**
      * Creates a {@code chestplate} recipe.
      */
-    protected void createChestplate(ItemConvertible input, ItemConvertible output) {
-        this.createShaped(RecipeCategory.COMBAT, output)
-                .input('X', input)
+    protected void createChestplate(ItemLike input, ItemLike output) {
+        this.shaped(RecipeCategory.COMBAT, output)
+                .define('X', input)
                 .pattern("X X")
                 .pattern("XXX")
                 .pattern("XXX")
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output);
     }
 
     /**
      * Creates a {@code leggings} recipe.
      */
-    protected void createLeggings(ItemConvertible input, ItemConvertible output) {
-        this.createShaped(RecipeCategory.COMBAT, output)
-                .input('X', input)
+    protected void createLeggings(ItemLike input, ItemLike output) {
+        this.shaped(RecipeCategory.COMBAT, output)
+                .define('X', input)
                 .pattern("XXX")
                 .pattern("X X")
                 .pattern("X X")
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output);
     }
 
     /**
      * Creates a {@code boot} recipe.
      */
-    protected void createBoots(ItemConvertible input, ItemConvertible output) {
-        this.createShaped(RecipeCategory.COMBAT, output)
-                .input('X', input)
+    protected void createBoots(ItemLike input, ItemLike output) {
+        this.shaped(RecipeCategory.COMBAT, output)
+                .define('X', input)
                 .pattern("X X")
                 .pattern("X X")
-                .criterion("has_item", this.conditionsFromItem(input))
-                .offerTo(this.exporter);
+                .unlockedBy("has_item", this.has(input))
+                .save(this.output);
     }
 
     /**
      * Returns a speedrunner mod recipe identifier.
      */
-    protected RegistryKey<Recipe<?>> speedrunnerModRecipe(String path) {
-        return RegistryKey.of(RegistryKeys.RECIPE, ofSpeedrunnerMod(path));
+    protected ResourceKey<Recipe<?>> speedrunnerModRecipe(String path) {
+        return ResourceKey.create(Registries.RECIPE, ofSpeedrunnerMod(path));
     }
 
     /**
@@ -377,22 +373,22 @@ public class RecipeGeneratorHelper extends RecipeGenerator {
      * Creates a banner recipe with the {@code Speedrunner Mod sticks tag.}
      */
     @Override
-    public void offerBannerRecipe(ItemConvertible output, ItemConvertible inputWool) {
-        this.createShaped(RecipeCategory.DECORATIONS, output)
-                .input('#', inputWool)
-                .input('|', ModItemTags.STICKS)
+    public void banner(ItemLike output, ItemLike inputWool) {
+        this.shaped(RecipeCategory.DECORATIONS, output)
+                .define('#', inputWool)
+                .define('|', ModItemTags.STICKS)
                 .pattern("###")
                 .pattern("###")
                 .pattern(" | ")
                 .group("banner")
-                .criterion(hasItem(inputWool), this.conditionsFromItem(inputWool))
-                .offerTo(this.exporter);
+                .unlockedBy(getHasName(inputWool), this.has(inputWool))
+                .save(this.output);
     }
 
     /**
      * This method does absolutely nothing. Just needed to create a functional helper class.
      */
     @Override
-    public void generate() {
+    public void buildRecipes() {
     }
 }

@@ -4,10 +4,10 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.server.ServerStorage;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 
@@ -16,17 +16,17 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
  */
 public class SyncOptionsAuthorizeCommand {
 
-    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(CommandManager.literal("syncoptionsauthorize")
-                .requires(source -> !source.isExecutedByPlayer())
-                .then(CommandManager.argument("player", StringArgumentType.word())
-                        .then(CommandManager.argument("action", StringArgumentType.word())
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+        dispatcher.register(Commands.literal("syncoptionsauthorize")
+                .requires(source -> !source.isPlayer())
+                .then(Commands.argument("player", StringArgumentType.word())
+                        .then(Commands.argument("action", StringArgumentType.word())
                                 .executes(context -> {
                                     String player = StringArgumentType.getString(context, "player");
                                     String action = StringArgumentType.getString(context, "action");
 
                                     if (!ServerStorage.hasPendingSyncRequest(player)) {
-                                        context.getSource().sendError(Text.literal("No pending sync request from " + player + "."));
+                                        context.getSource().sendFailure(Component.literal("No pending sync request from " + player + "."));
                                         return 0;
                                     }
 
@@ -35,20 +35,20 @@ public class SyncOptionsAuthorizeCommand {
                                         configHandler().match(clientOptions);
 
                                         // Disconnect all players
-                                        for (ServerPlayerEntity p : context.getSource().getServer().getPlayerManager().getPlayerList()) {
-                                            p.networkHandler.disconnect(Text.translatable("speedrunnermod.server_closed_sync_options", player));
+                                        for (ServerPlayer p : context.getSource().getServer().getPlayerList().getPlayers()) {
+                                            p.connection.disconnect(Component.translatable("speedrunnermod.server_closed_sync_options", player));
                                         }
 
-                                        context.getSource().sendMessage(Text.translatable("speedrunnermod.closing_server_sync_options", player));
-                                        context.getSource().getServer().stop(false);
+                                        context.getSource().sendSystemMessage(Component.translatable("speedrunnermod.closing_server_sync_options", player));
+                                        context.getSource().getServer().halt(false);
 
                                     } else if (action.equalsIgnoreCase("deny")) {
                                         // Notify the requesting player
-                                        ServerPlayerEntity requestingPlayer = context.getSource().getServer().getPlayerManager().getPlayer(player);
+                                        ServerPlayer requestingPlayer = context.getSource().getServer().getPlayerList().getPlayerByName(player);
                                         if (requestingPlayer != null) {
-                                            requestingPlayer.sendMessage(Text.translatable("speedrunnermod.sync_options_request_denied", player), false);
+                                            requestingPlayer.sendSystemMessage(Component.translatable("speedrunnermod.sync_options_request_denied", player), false);
                                         }
-                                        context.getSource().sendMessage(Text.translatable("speedrunnermod.denied_sync_options_request", player));
+                                        context.getSource().sendSystemMessage(Component.translatable("speedrunnermod.denied_sync_options_request", player));
                                     }
 
                                     ServerStorage.removePendingSyncRequest(player);

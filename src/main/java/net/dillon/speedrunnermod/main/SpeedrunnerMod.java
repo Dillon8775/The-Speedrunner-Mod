@@ -31,7 +31,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,8 +43,8 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    public static final String MOD_VERSION = "v1.12";
-    public static final String MC_VERSION = "1.21.11";
+    public static final String MOD_VERSION = "v1.12.1";
+    public static final String MC_VERSION = "26.1";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
@@ -189,7 +189,7 @@ public class SpeedrunnerMod implements ModInitializer {
      * Returns a new {@link Identifier} with the {@code Speedrunner Mod's namespace.}
      */
     public static Identifier ofSpeedrunnerMod(String path) {
-        return Identifier.of("speedrunnermod", path);
+        return Identifier.fromNamespaceAndPath("speedrunnermod", path);
     }
 
     /**

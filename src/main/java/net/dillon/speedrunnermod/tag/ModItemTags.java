@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.tag;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -38,7 +38,6 @@ public class ModItemTags {
     public static TagKey<Item> SPEEDRUNNER_STICKS = of("speedrunner_sticks");
     public static TagKey<Item> TOTEMS = of("totems");
     public static TagKey<Item> UPGRADEABLE_GOLD = of("upgradable_gold");
-    public static TagKey<Item> WITHER_TOOL_MATERIALS = of("wither_tool_materials");
 
     /**
      * Item tags specifically for advancement criterions.
@@ -78,14 +77,14 @@ public class ModItemTags {
      * Registers an {@code item tag.}
      */
     private static TagKey<Item> of(String path) {
-        return TagKey.of(RegistryKeys.ITEM, ofSpeedrunnerMod(path));
+        return TagKey.create(Registries.ITEM, ofSpeedrunnerMod(path));
     }
 
     /**
      * Registers an {@code item tag,} specifically for advancement unlocks.
      */
     private static TagKey<Item> ofAdvancement(String path) {
-        return TagKey.of(RegistryKeys.ITEM, ofSpeedrunnerMod("advancement_criterions/"+path));
+        return TagKey.create(Registries.ITEM, ofSpeedrunnerMod("advancement_criterions/"+path));
     }
 
     /**

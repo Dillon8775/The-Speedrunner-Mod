@@ -2,17 +2,17 @@ package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SmithingTableBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SmithingTableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 /**
  * A block that allows transferring of enchantments to other items.
@@ -20,7 +20,7 @@ import net.minecraft.world.World;
  */
 public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
 
-    public SpeedrunnersWorkbenchBlock(Settings settings) {
+    public SpeedrunnersWorkbenchBlock(Properties settings) {
         super(settings);
     }
 
@@ -28,9 +28,9 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
      * Create the handled screen factory so the game knows what screen to open.
      */
     @Override
-    protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
-        return new SimpleNamedScreenHandlerFactory(
-                (syncId, inventory, player) -> new WorkbenchScreenHandler(syncId, inventory, ScreenHandlerContext.create(world, pos)), Text.translatable("block.speedrunnermod.speedrunners_workbench")
+    protected MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
+        return new SimpleMenuProvider(
+                (syncId, inventory, player) -> new WorkbenchScreenHandler(syncId, inventory, ContainerLevelAccess.create(world, pos)), Component.translatable("block.speedrunnermod.speedrunners_workbench")
         );
     }
 
@@ -38,11 +38,11 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
      * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link ModOptions.Mode} is {@link ModOptions.Mode#BALANCED}.
      */
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient()) {
-            player.openHandledScreen(state.createScreenHandlerFactory(world, pos));
+    public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!world.isClientSide()) {
+            player.openMenu(state.getMenuProvider(world, pos));
         }
 
-        return ActionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 }

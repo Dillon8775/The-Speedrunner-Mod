@@ -1,20 +1,20 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.component.type.EquippableComponent;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.equipment.ArmorMaterial;
-import net.minecraft.item.equipment.EquipmentType;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.Equippable;
 
 import java.util.function.Consumer;
 
@@ -25,44 +25,44 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class SpeedrunnerBootsItem extends Item {
 
-    public SpeedrunnerBootsItem(ArmorMaterial material, int multiplier, Settings settings) {
+    public SpeedrunnerBootsItem(ArmorMaterial material, int multiplier, Properties settings) {
         super(settings
-                .maxCount(1)
-                .maxDamage(EquipmentType.BOOTS.getMaxDamage(multiplier))
-                .attributeModifiers(
-                        AttributeModifiersComponent.builder()
+                .stacksTo(1)
+                .durability(ArmorType.BOOTS.getDurability(multiplier))
+                .attributes(
+                        ItemAttributeModifiers.builder()
                                 .add(
-                                        EntityAttributes.ARMOR,
-                                        new EntityAttributeModifier(ofSpeedrunnerMod("armor_speedrunner_boots"), material.defense().get(EquipmentType.BOOTS), EntityAttributeModifier.Operation.ADD_VALUE),
-                                        AttributeModifierSlot.FEET
+                                        Attributes.ARMOR,
+                                        new AttributeModifier(ofSpeedrunnerMod("armor_speedrunner_boots"), material.defense().get(ArmorType.BOOTS), AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.FEET
                                 )
                                 .add(
-                                        EntityAttributes.ARMOR_TOUGHNESS,
-                                        new EntityAttributeModifier(ofSpeedrunnerMod("armor_toughness_speedrunner_boots"), material.toughness(), EntityAttributeModifier.Operation.ADD_VALUE),
-                                        AttributeModifierSlot.FEET
+                                        Attributes.ARMOR_TOUGHNESS,
+                                        new AttributeModifier(ofSpeedrunnerMod("armor_toughness_speedrunner_boots"), material.toughness(), AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.FEET
                                 )
                                 .add(
-                                        EntityAttributes.MOVEMENT_SPEED,
-                                        new EntityAttributeModifier(ofSpeedrunnerMod("movement_speed_speedrunner_boots"), 0.2F, EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
-                                        AttributeModifierSlot.FEET)
+                                        Attributes.MOVEMENT_SPEED,
+                                        new AttributeModifier(ofSpeedrunnerMod("movement_speed_speedrunner_boots"), 0.2F, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                                        EquipmentSlotGroup.FEET)
                                 .add(
-                                        EntityAttributes.WATER_MOVEMENT_EFFICIENCY,
-                                        new EntityAttributeModifier(ofSpeedrunnerMod("water_movement_speedrunner_boots"), 0.15F, EntityAttributeModifier.Operation.ADD_VALUE),
-                                        AttributeModifierSlot.FEET
+                                        Attributes.WATER_MOVEMENT_EFFICIENCY,
+                                        new AttributeModifier(ofSpeedrunnerMod("water_movement_speedrunner_boots"), 0.15F, AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.FEET
                                 )
                                 .build()
                 )
                 .enchantable(material.enchantmentValue())
                 .component(
-                        DataComponentTypes.EQUIPPABLE, EquippableComponent.builder(EquipmentSlot.FEET).equipSound(material.equipSound()).model(material.assetId()).build()
+                        DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.FEET).setEquipSound(material.equipSound()).setAsset(material.assetId()).build()
                 )
                 .repairable(material.repairIngredient())
         );
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.speedrunner_boots.tooltip").formatted(Formatting.GRAY));
-        super.appendTooltip(stack, context, displayComponent, textConsumer, type);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_boots.tooltip").withStyle(ChatFormatting.GRAY));
+        super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 }

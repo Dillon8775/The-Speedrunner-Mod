@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.block.sign.hanging.wall;
 
 import net.dillon.speedrunnermod.block.sign.TerraformSignBlockHelper;
-import net.minecraft.block.WallHangingSignBlock;
+import net.minecraft.world.level.block.WallHangingSignBlock;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -10,7 +10,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class CustomWallHangingSignBlock extends WallHangingSignBlock {
 
-	public CustomWallHangingSignBlock(String id, Settings settings) {
+	public CustomWallHangingSignBlock(String id, Properties settings) {
 		super(TerraformSignBlockHelper.registerDefaultWoodType(ofSpeedrunnerMod(id)), settings);
 	}
 }

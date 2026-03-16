@@ -3,10 +3,10 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
@@ -25,12 +25,12 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     /**
      * All of the {@code fast world creation options.}
      */
-    private List<ClickableWidget> fwcOptions() {
+    private List<AbstractWidget> fwcOptions() {
         return List.of(
-                ModListOptions.fastWorldCreation().createWidget(this.gameOptions),
-                ModListOptions.difficulty().createWidget(this.gameOptions),
-                ModListOptions.gameMode().createWidget(this.gameOptions),
-                ModListOptions.allowCheats().createWidget(this.gameOptions)
+                ModListOptions.fastWorldCreation().createButton(this.options),
+                ModListOptions.difficulty().createButton(this.options),
+                ModListOptions.gameMode().createButton(this.options),
+                ModListOptions.allowCheats().createButton(this.options)
         );
     }
 
@@ -44,22 +44,22 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void lockOptionsAndRenderTooltips(DrawContext context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(GuiGraphics context, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.gamemode.tooltip"),
-                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
+                Component.translatable("speedrunnermod.options.gamemode.tooltip"),
+                Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.difficulty(), !isDoomMode(),
-                Text.translatable("speedrunnermod.options.difficulty.tooltip"),
+                Component.translatable("speedrunnermod.options.difficulty.tooltip"),
                 clientOptions().client.fastWorldCreation.getCurrentValue() ?
-                        Text.translatable("speedrunnermod.options.difficulty_locked.tooltip") :
-                        Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
+                        Component.translatable("speedrunnermod.options.difficulty_locked.tooltip") :
+                        Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
 
         this.lockOptionWithTooltip(ModListOptions.allowCheats(), clientOptions().client.fastWorldCreation.getCurrentValue(),
-                Text.translatable("speedrunnermod.options.allow_cheats.tooltip"),
-                Text.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
+                Component.translatable("speedrunnermod.options.allow_cheats.tooltip"),
+                Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")
         );
     }
 

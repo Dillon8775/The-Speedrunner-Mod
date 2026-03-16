@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.tag;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.material.Fluid;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -17,7 +17,7 @@ public class ModFluidTags {
      * Registers a {@code fluid tag.}
      */
     private static TagKey<Fluid> of(String path) {
-        return TagKey.of(RegistryKeys.FLUID, ofSpeedrunnerMod(path));
+        return TagKey.create(Registries.FLUID, ofSpeedrunnerMod(path));
     }
 
     /**

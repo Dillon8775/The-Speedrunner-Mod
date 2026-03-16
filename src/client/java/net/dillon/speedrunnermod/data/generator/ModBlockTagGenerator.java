@@ -4,9 +4,9 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -15,12 +15,12 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
-    public ModBlockTagGenerator(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public ModBlockTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup arg) {
+    protected void addTags(HolderLookup.Provider arg) {
         valueLookupBuilder(ModBlockTags.DOOM_LOGS)
                 .add(ModBlocks.DOOM_LOG)
                 .add(ModBlocks.STRIPPED_DOOM_LOG);
@@ -93,7 +93,7 @@ public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DEAD_SPEEDRUNNER_HANGING_SIGN)
                 .add(ModBlocks.DEAD_SPEEDRUNNER_HANGING_WALL_SIGN);
 
-        valueLookupBuilder(BlockTags.AXE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .forceAddTag(ModBlockTags.SPEEDRUNNER_LOGS)
                 .forceAddTag(ModBlockTags.DEAD_SPEEDRUNNER_LOGS)
                 .forceAddTag(ModBlockTags.DOOM_LOGS)
@@ -118,12 +118,12 @@ public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR)
                 .add(ModBlocks.SPEEDRUNNERS_WORKBENCH);
 
-        valueLookupBuilder(BlockTags.HOE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE)
                 .add(ModBlocks.SPEEDRUNNER_LEAVES)
                 .add(ModBlocks.DEAD_SPEEDRUNNER_LEAVES)
                 .add(ModBlocks.DOOM_LEAVES);
 
-        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .forceAddTag(ModBlockTags.EXPERIENCE_ORES)
                 .forceAddTag(ModBlockTags.IGNEOUS_ORES)
                 .forceAddTag(ModBlockTags.SPEEDRUNNER_ORES)
@@ -133,7 +133,7 @@ public class ModBlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 .add(ModBlocks.SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE)
                 .add(ModBlocks.DOOM_STONE);
 
-        valueLookupBuilder(BlockTags.SHOVEL_MINEABLE)
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
                 .add(ModBlocks.THRUSTED_BLOCK);
 
         valueLookupBuilder(BlockTags.BEACON_BASE_BLOCKS)

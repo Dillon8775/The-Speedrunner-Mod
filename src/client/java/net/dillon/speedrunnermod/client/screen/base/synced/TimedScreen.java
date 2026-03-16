@@ -2,11 +2,11 @@ package net.dillon.speedrunnermod.client.screen.base.synced;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.CommonColors;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,11 +33,11 @@ public class TimedScreen extends AbstractModScreen {
         this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                MinecraftClient.getInstance().execute(() -> {
+                Minecraft.getInstance().execute(() -> {
                     countdown--;
                     if (countdown <= 0) {
                         timer.cancel();
-                        MinecraftClient.getInstance().scheduleStop();
+                        Minecraft.getInstance().stop();
                     }
                 });
             }
@@ -45,16 +45,16 @@ public class TimedScreen extends AbstractModScreen {
     }
 
     @Override
-    public void renderCustomText(DrawContext context) {
+    public void renderCustomText(GuiGraphics context) {
         if (this.server) {
-            context.drawCenteredTextWithShadow(this.textRenderer, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, Colors.WHITE);
+            context.drawCenteredString(this.font, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, CommonColors.WHITE);
         }
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, Colors.WHITE);
-        context.drawCenteredTextWithShadow(this.textRenderer, Text.literal(this.countdown+"..."), this.width / 2, 160, Colors.WHITE);
+        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, CommonColors.WHITE);
+        context.drawCenteredString(this.font, Component.literal(this.countdown+"..."), this.width / 2, 160, CommonColors.WHITE);
     }
 
     @Override
-    public void close() {
+    public void onClose() {
         warn("Cannot close this screen.");
     }
 
@@ -65,7 +65,7 @@ public class TimedScreen extends AbstractModScreen {
     public void resize(int width, int height) {
         this.width = width;
         this.height = height;
-        this.refreshWidgetPositions();
+        this.repositionElements();
     }
 
     @Override

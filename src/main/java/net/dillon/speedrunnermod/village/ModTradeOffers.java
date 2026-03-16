@@ -7,27 +7,27 @@ import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.PotionContentsComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentLevelEntry;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TradedItem;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
 
 import java.util.Optional;
 
@@ -41,7 +41,7 @@ public class ModTradeOffers {
      */
     public static void registerTradeOffers() {
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.BOOK, 1, 3, 12, 3));
+            factories.add(new VillagerTrades.ItemsForEmeralds(Items.BOOK, 1, 3, 12, 3));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 1, factories -> {
             factories.add(new EnchantedBookFactory(3, 4, 0.2F, 12, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
@@ -53,7 +53,7 @@ public class ModTradeOffers {
             factories.add(new SellItemFactorySpeedrunnerIngot(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 2, 1, 12, 8));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
-            factories.add(new TradeOffers.SellPotionHoldingItemFactory(Items.WATER_BUCKET, 1, Items.SPLASH_POTION, 1, 1, 12, 12));
+            factories.add(new VillagerTrades.TippedArrowForItemsAndEmeralds(Items.WATER_BUCKET, 1, Items.SPLASH_POTION, 1, 1, 12, 12));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 3, factories -> {
             factories.add(new EnchantedBookFactory(3, 14, 0.0F, 16, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
@@ -62,18 +62,18 @@ public class ModTradeOffers {
             factories.add(new EnchantedBookFactory(7, 13, 0.2F, 8, 1, 4, ModEnchantmentTags.WITHERED_ENCHANTMENTS));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.GOLDEN_APPLE, 4, 3, 16, 18));
+            factories.add(new VillagerTrades.ItemsForEmeralds(Items.GOLDEN_APPLE, 4, 3, 16, 18));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 4, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(ModItems.INFINI_PEARL, 24, 1, 1, 24));
+            factories.add(new VillagerTrades.ItemsForEmeralds(ModItems.INFINI_PEARL, 24, 1, 1, 24));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
-            factories.add(new TradeOffers.SellItemFactory(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 28));
+            factories.add(new VillagerTrades.ItemsForEmeralds(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 3, 1, 9, 28));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
             ItemStack dragonsAura = new ItemStack(Items.POTION);
-            dragonsAura.set(DataComponentTypes.POTION_CONTENTS, new PotionContentsComponent(ModPotions.DRAGONS_AURA));
-            factories.add(new TradeOffers.SellItemFactory(dragonsAura, 16, 1, 1, 35));
+            dragonsAura.set(DataComponents.POTION_CONTENTS, new PotionContents(ModPotions.DRAGONS_AURA));
+            factories.add(new VillagerTrades.ItemsForEmeralds(dragonsAura, 16, 1, 1, 35));
         });
         TradeOfferHelper.registerVillagerOffers(ModVillagers.RETIRED_SPEEDRUNNER_KEY, 5, factories -> {
             factories.add(new EnchantedBookFactory(3, 35, 0.0F, 24, ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES));
@@ -85,7 +85,7 @@ public class ModTradeOffers {
         SpeedrunnerMod.debug("Registered trade offers.");
     }
 
-    public static class SellItemFactorySpeedrunnerIngot implements TradeOffers.Factory {
+    public static class SellItemFactorySpeedrunnerIngot implements VillagerTrades.ItemListing {
         private final ItemStack sell;
         private final int price;
         private final int count;
@@ -115,12 +115,12 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
-            return new TradeOffer(new TradedItem(ModItems.SPEEDRUNNER_INGOT, this.price), new ItemStack(this.sell.getItem(), this.count), this.maxUses, this.experience, this.multiplier);
+        public MerchantOffer getOffer(ServerLevel serverWorld, Entity entity, RandomSource random) {
+            return new MerchantOffer(new ItemCost(ModItems.SPEEDRUNNER_INGOT, this.price), new ItemStack(this.sell.getItem(), this.count), this.maxUses, this.experience, this.multiplier);
         }
     }
 
-    public static class SellItemFactoryIronIngot implements TradeOffers.Factory {
+    public static class SellItemFactoryIronIngot implements VillagerTrades.ItemListing {
         private final ItemStack sell;
         private final int price;
         private final int count;
@@ -146,12 +146,12 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
-            return new TradeOffer(new TradedItem(Items.IRON_INGOT, this.price), new ItemStack(this.sell.getItem(), this.count), this.maxUses, this.experience, this.multiplier);
+        public MerchantOffer getOffer(ServerLevel serverWorld, Entity entity, RandomSource random) {
+            return new MerchantOffer(new ItemCost(Items.IRON_INGOT, this.price), new ItemStack(this.sell.getItem(), this.count), this.maxUses, this.experience, this.multiplier);
         }
     }
 
-    public static class EnchantedBookFactory implements TradeOffers.Factory {
+    public static class EnchantedBookFactory implements VillagerTrades.ItemListing {
         private final int basePrice;
         private final int experience;
         private final float priceMultiplier;
@@ -179,21 +179,21 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
+        public MerchantOffer getOffer(ServerLevel serverWorld, Entity entity, RandomSource random) {
             int l;
             ItemStack itemStack;
-            Optional<RegistryEntry<Enchantment>> optional = entity.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getRandomEntry(this.possibleEnchantments, random);
+            Optional<Holder<Enchantment>> optional = entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getRandomElementOf(this.possibleEnchantments, random);
             if (!optional.isEmpty()) {
-                RegistryEntry<Enchantment> registryEntry = optional.get();
+                Holder<Enchantment> registryEntry = optional.get();
                 Enchantment enchantment = registryEntry.value();
                 boolean bl = this.minLevel == -1 && this.maxLevel == -1;
                 int k = enchantment.getMaxLevel();
                 if (!bl) {
                     int i = Math.max(enchantment.getMinLevel(), this.minLevel);
                     int j = Math.min(enchantment.getMaxLevel(), this.maxLevel);
-                    k = MathHelper.nextInt(random, i, j);
+                    k = Mth.nextInt(random, i, j);
                 }
-                itemStack = EnchantmentHelper.getEnchantedBookWith(new EnchantmentLevelEntry(registryEntry, k));
+                itemStack = EnchantmentHelper.createBook(new EnchantmentInstance(registryEntry, k));
                 l = this.basePrice;
 
                 if (l > 10) {
@@ -203,11 +203,11 @@ public class ModTradeOffers {
                 l = 1;
                 itemStack = new ItemStack(Items.BOOK);
             }
-            return new TradeOffer(new TradedItem(Items.EMERALD, l), Optional.of(new TradedItem(Items.BOOK)), itemStack, this.maxUses, this.experience, this.priceMultiplier);
+            return new MerchantOffer(new ItemCost(Items.EMERALD, l), Optional.of(new ItemCost(Items.BOOK)), itemStack, this.maxUses, this.experience, this.priceMultiplier);
         }
     }
 
-    public static class SellMaxedEnchantedToolFactory implements TradeOffers.Factory {
+    public static class SellMaxedEnchantedToolFactory implements VillagerTrades.ItemListing {
         private final ItemStack tool;
         private final int price;
         private final int maxUses;
@@ -229,16 +229,16 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
+        public MerchantOffer getOffer(ServerLevel serverWorld, Entity entity, RandomSource random) {
             int i = random.nextInt(4) + 30;
-            DynamicRegistryManager dynamicRegistryManager = entity.getEntityWorld().getRegistryManager();
-            Optional<RegistryEntryList.Named<Enchantment>> optional = dynamicRegistryManager.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(this.possibleEnchantments);
-            ItemStack itemStack = EnchantmentHelper.enchant(random, new ItemStack(this.tool.getItem()), i, dynamicRegistryManager, optional);
-            return new TradeOffer(new TradedItem(Items.EMERALD, this.price), itemStack, this.maxUses, this.experience, this.multiplier);
+            RegistryAccess dynamicRegistryManager = entity.level().registryAccess();
+            Optional<HolderSet.Named<Enchantment>> optional = dynamicRegistryManager.lookupOrThrow(Registries.ENCHANTMENT).get(this.possibleEnchantments);
+            ItemStack itemStack = EnchantmentHelper.enchantItem(random, new ItemStack(this.tool.getItem()), i, dynamicRegistryManager, optional);
+            return new MerchantOffer(new ItemCost(Items.EMERALD, this.price), itemStack, this.maxUses, this.experience, this.multiplier);
         }
     }
 
-    public static class SellMaxedEnchantedNetheriteChestplateFactory implements TradeOffers.Factory {
+    public static class SellMaxedEnchantedNetheriteChestplateFactory implements VillagerTrades.ItemListing {
         private final int price;
         private final int maxUses;
         private final int experience;
@@ -252,32 +252,32 @@ public class ModTradeOffers {
         }
 
         @Override
-        public TradeOffer create(ServerWorld serverWorld, Entity entity, Random random) {
+        public MerchantOffer getOffer(ServerLevel serverWorld, Entity entity, RandomSource random) {
             int i = random.nextInt(4) + 1;
             ItemStack itemStack = new ItemStack(i == 1 ? Items.NETHERITE_HELMET : i == 2 ? Items.NETHERITE_CHESTPLATE : i == 3 ? Items.NETHERITE_LEGGINGS : Items.NETHERITE_BOOTS);
-            itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.PROTECTION), random.nextInt(3) + 3);
-            itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.UNBREAKING), random.nextInt(3) + 3);
+            itemStack.enchant(ModUtil.enchantment(entity, Enchantments.PROTECTION), random.nextInt(3) + 3);
+            itemStack.enchant(ModUtil.enchantment(entity, Enchantments.UNBREAKING), random.nextInt(3) + 3);
             if (random.nextBoolean()) {
-                itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.MENDING), 1);
+                itemStack.enchant(ModUtil.enchantment(entity, Enchantments.MENDING), 1);
             }
             if (random.nextDouble() < 0.35) {
-                itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.THORNS), random.nextInt(3) + 2);
+                itemStack.enchant(ModUtil.enchantment(entity, Enchantments.THORNS), random.nextInt(3) + 2);
             }
             if (i == 1 && random.nextDouble() < 0.40) {
-                itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.RESPIRATION), random.nextInt(2) + 2);
+                itemStack.enchant(ModUtil.enchantment(entity, Enchantments.RESPIRATION), random.nextInt(2) + 2);
             }
             if (i == 3 && random.nextDouble() < 0.25) {
-                itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.SWIFT_SNEAK), random.nextInt(3) + 2);
+                itemStack.enchant(ModUtil.enchantment(entity, Enchantments.SWIFT_SNEAK), random.nextInt(3) + 2);
             }
             if (i == 4) {
                 if (random.nextDouble() < 0.40) {
-                    itemStack.addEnchantment(ModUtil.enchantment(entity, ModEnchantments.DASH), random.nextInt(3) + 2);
+                    itemStack.enchant(ModUtil.enchantment(entity, ModEnchantments.DASH), random.nextInt(3) + 2);
                 }
                 if (random.nextDouble() < 0.35) {
-                    itemStack.addEnchantment(ModUtil.enchantment(entity, Enchantments.FEATHER_FALLING), random.nextInt(2) + 3);
+                    itemStack.enchant(ModUtil.enchantment(entity, Enchantments.FEATHER_FALLING), random.nextInt(2) + 3);
                 }
             }
-            return new TradeOffer(new TradedItem(Items.EMERALD, this.price), itemStack, this.maxUses, this.experience, this.multiplier);
+            return new MerchantOffer(new ItemCost(Items.EMERALD, this.price), itemStack, this.maxUses, this.experience, this.multiplier);
         }
     }
 }

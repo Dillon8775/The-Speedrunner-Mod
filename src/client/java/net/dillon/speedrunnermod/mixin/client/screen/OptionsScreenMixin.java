@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.gui.widget.CyclingButtonWidget;
-import net.minecraft.client.gui.widget.LockButtonWidget;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.LockIconButton;
+import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.world.Difficulty;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,9 +16,9 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 @Mixin(OptionsScreen.class)
 public class OptionsScreenMixin {
     @Shadow
-    private @Nullable LockButtonWidget lockDifficultyButton;
+    private @Nullable LockIconButton lockButton;
     @Shadow
-    private @Nullable CyclingButtonWidget<Difficulty> difficultyButton;
+    private @Nullable CycleButton<Difficulty> difficultyButton;
 
     /**
      * Locks the difficulty button on doom mode. You can't change it >:).
@@ -26,9 +26,9 @@ public class OptionsScreenMixin {
     @Inject(method = "init", at = @At("TAIL"))
     private void lockDifficultyOnDoomMode(CallbackInfo ci) {
         if (isDoomMode()) {
-            if (this.lockDifficultyButton != null) {
-                this.lockDifficultyButton.setLocked(true);
-                this.lockDifficultyButton.active = false;
+            if (this.lockButton != null) {
+                this.lockButton.setLocked(true);
+                this.lockButton.active = false;
             }
             if (this.difficultyButton != null) {
                 this.difficultyButton.active = false;

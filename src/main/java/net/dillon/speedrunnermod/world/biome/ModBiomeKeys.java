@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.world.biome;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -12,7 +12,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * <p>Note: These do not contain the biome's features, it just registers the biome itself. See {@link ModBiomes} for biome features.</p>
  */
 public class ModBiomeKeys {
-    public static final RegistryKey<Biome> SPEEDRUNNERS_WASTELAND_KEY = RegistryKey.of(RegistryKeys.BIOME, ofSpeedrunnerMod("speedrunners_wasteland"));
+    public static final ResourceKey<Biome> SPEEDRUNNERS_WASTELAND_KEY = ResourceKey.create(Registries.BIOME, ofSpeedrunnerMod("speedrunners_wasteland"));
 
     /**
      * Initializes this class, registering the {@code Speedrunner's Wasteland} biome.

@@ -4,8 +4,8 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.Screen;
 
 import java.util.List;
 
@@ -23,18 +23,18 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
     /**
      * Returns a list of all of the {@code structure spawn rate structure settings.}
      */
-    private List<ClickableWidget> structures() {
+    private List<AbstractWidget> structures() {
         return List.of(
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.VILLAGE).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.ANCIENT_CITY).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.DESERT_PYRAMID).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.JUNGLE_PYRAMID).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.PILLAGER_OUTPOST).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.END_CITY).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.WOODLAND_MANSION).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.RUINED_PORTAL).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.SHIPWRECK).createWidget(this.gameOptions),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.TRIAL_CHAMBER).createWidget(this.gameOptions)
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.VILLAGE).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.ANCIENT_CITY).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.DESERT_PYRAMID).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.JUNGLE_PYRAMID).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.PILLAGER_OUTPOST).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.END_CITY).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.WOODLAND_MANSION).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.RUINED_PORTAL).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.SHIPWRECK).createButton(this.options),
+                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.TRIAL_CHAMBER).createButton(this.options)
         );
     }
 

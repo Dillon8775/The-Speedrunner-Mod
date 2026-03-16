@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.mixin.main.better_loot;
 
-import net.minecraft.loot.function.ApplyBonusLootFunction;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(ApplyBonusLootFunction.OreDrops.class)
+@Mixin(ApplyBonusCount.OreDrops.class)
 public class OreDropsMixin {
 
     /**
@@ -13,7 +13,7 @@ public class OreDropsMixin {
      * @reason Applies better loot drops from ores.
      */
     @Overwrite
-    public int getValue(Random random, int initialCount, int enchantmentLevel) {
+    public int calculateNewCount(RandomSource random, int initialCount, int enchantmentLevel) {
         return enchantmentLevel > 0 ? initialCount * (enchantmentLevel + 1) : initialCount;
     }
 }

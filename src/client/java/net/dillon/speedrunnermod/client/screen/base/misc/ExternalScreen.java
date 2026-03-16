@@ -3,21 +3,21 @@ package net.dillon.speedrunnermod.client.screen.base.misc;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 
 import java.util.List;
 
 public class ExternalScreen extends AbstractModScreen {
-    private ButtonWidget curseForgeButton, modrinthButton, githubButton;
+    private Button curseForgeButton, modrinthButton, githubButton;
 
     public ExternalScreen(Screen parent) {
         super(parent, ModTexts.TITLE_EXTERNAL);
     }
 
     @Override
-    protected List<ClickableWidget> buttons() {
+    protected List<AbstractWidget> buttons() {
         return List.of(
                 this.curseForgeButton,
                 this.modrinthButton,
@@ -27,15 +27,15 @@ public class ExternalScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.curseForgeButton = ButtonWidget.builder(ModTexts.CURSEFORGE, (buttonWidget) -> {
+        this.curseForgeButton = Button.builder(ModTexts.CURSEFORGE, (buttonWidget) -> {
             this.openLink(ModLinks.CURSEFORGE, false);
         }).build();
 
-        this.modrinthButton = ButtonWidget.builder(ModTexts.MODRINTH, (buttonWidget) -> {
+        this.modrinthButton = Button.builder(ModTexts.MODRINTH, (buttonWidget) -> {
             this.openLink(ModLinks.MODRINTH, false);
         }).build();
 
-        this.githubButton = ButtonWidget.builder(ModTexts.GITHUB, (buttonWidget) -> {
+        this.githubButton = Button.builder(ModTexts.GITHUB, (buttonWidget) -> {
             this.openLink(ModLinks.GITHUB, false);
         }).build();
 

@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.sound;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvent;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -24,7 +24,7 @@ public class ModSoundEvents {
      * Registers a {@code sound event.}
      */
     private static SoundEvent of(String path) {
-        return Registry.register(Registries.SOUND_EVENT, "speedrunnermod:" + path, SoundEvent.of(ofSpeedrunnerMod(path)));
+        return Registry.register(BuiltInRegistries.SOUND_EVENT, "speedrunnermod:" + path, SoundEvent.createVariableRangeEvent(ofSpeedrunnerMod(path)));
     }
 
     /**

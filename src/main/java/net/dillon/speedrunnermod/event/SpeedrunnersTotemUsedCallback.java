@@ -6,12 +6,12 @@ import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 @Author(Authors.YELEEFFF)
 @FunctionalInterface
@@ -28,9 +28,9 @@ public interface SpeedrunnersTotemUsedCallback {
             listener.invoke(entity, stack, source);
 
             entity.setHealth(1.0F);
-            entity.getEntityWorld().sendEntityStatus(entity, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES);
-            if (entity instanceof ServerPlayerEntity player) {
-                Criteria.USED_TOTEM.trigger(player, new ItemStack(Items.TOTEM_OF_UNDYING));
+            entity.level().broadcastEntityEvent(entity, ModStatuses.ADD_SPEEDRUNNER_TOTEM_PARTICLES);
+            if (entity instanceof ServerPlayer player) {
+                CriteriaTriggers.USED_TOTEM.trigger(player, new ItemStack(Items.TOTEM_OF_UNDYING));
             }
         }
     });

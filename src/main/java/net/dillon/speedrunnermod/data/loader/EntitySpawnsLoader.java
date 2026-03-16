@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.data.loader;
 
 import com.google.gson.JsonElement;
-import net.minecraft.world.biome.SpawnSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +98,7 @@ public class EntitySpawnsLoader {
     }
 
     /**
-     * A list of all biomes that use {@link net.minecraft.world.gen.feature.DefaultBiomeFeatures#addFarmAnimals(SpawnSettings.Builder)}.
+     * A list of all biomes that use {@link net.minecraft.data.worldgen.BiomeDefaultFeatures#farmAnimals(MobSpawnSettings.Builder)}.
      */
     public static List<String> biomesWithFarmAnimals() {
         return List.of(

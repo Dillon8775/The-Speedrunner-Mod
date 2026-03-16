@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
 import net.dillon.speedrunnermod.entity.ModStatusEffects;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
-@Mixin(InGameHud.HeartType.class)
+@Mixin(Gui.HeartType.class)
 public class InGameHudMixin {
     @Unique
     private static final Identifier AURA_HALF_BLINKING = ofSpeedrunnerMod("hud/heart/aura_half_blinking");
@@ -35,15 +35,15 @@ public class InGameHudMixin {
     /**
      * Renders the dragon's hearts on the player when they have the {@code Dragon's Aura} effect.
      */
-    @Inject(method = "getTexture", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getSprite", at = @At("HEAD"), cancellable = true)
     private void redirectTexture(boolean hardcore, boolean half, boolean blinking, CallbackInfoReturnable<Identifier> cir) {
-        PlayerEntity player = MinecraftClient.getInstance().player;
+        Player player = Minecraft.getInstance().player;
 
-        if ((Object)this != InGameHud.HeartType.NORMAL) {
+        if ((Object)this != Gui.HeartType.NORMAL) {
             return;
         }
 
-        if (player != null && player.hasStatusEffect(ModStatusEffects.DRAGONS_AURA)) {
+        if (player != null && player.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
             if (!hardcore) {
                 if (half) {
                     cir.setReturnValue(blinking ? AURA_HALF_BLINKING : AURA_HALF);

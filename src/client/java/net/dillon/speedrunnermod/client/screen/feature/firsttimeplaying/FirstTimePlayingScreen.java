@@ -4,8 +4,8 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -18,8 +18,8 @@ public class FirstTimePlayingScreen extends AbstractFeatureScreen {
     @Override
     protected void init() {
         super.init();
-        this.addButtonObject(ButtonWidget.builder(ModTexts.LETS_GO, button -> {
-            this.client.setScreen(this.getNextScreen());
+        this.addButtonObject(Button.builder(ModTexts.LETS_GO, button -> {
+            this.minecraft.setScreen(this.getNextScreen());
         }).build());
     }
 

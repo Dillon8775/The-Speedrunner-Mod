@@ -1,26 +1,26 @@
 package net.dillon.speedrunnermod.packet.server;
 
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * Requests mod options from client-to-server.
  */
-public record RequestServerSideOptionsC2SPacket() implements CustomPayload {
+public record RequestServerSideOptionsC2SPacket() implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("request_server_side_options_c2s");
-    public static final CustomPayload.Id<RequestServerSideOptionsC2SPacket> PACKET = new CustomPayload.Id<>(ID);
+    public static final CustomPacketPayload.Type<RequestServerSideOptionsC2SPacket> PACKET = new CustomPacketPayload.Type<>(ID);
 
-    public static final PacketCodec<PacketByteBuf, RequestServerSideOptionsC2SPacket> CODEC = PacketCodec.of(
+    public static final StreamCodec<FriendlyByteBuf, RequestServerSideOptionsC2SPacket> CODEC = StreamCodec.ofMember(
         (buf, packet) -> {},
         buf -> new RequestServerSideOptionsC2SPacket()
     );
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return PACKET;
     }
 }

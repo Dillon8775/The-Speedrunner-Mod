@@ -1,19 +1,19 @@
 package net.dillon.speedrunnermod.mixin.main.trades;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntryList;
-import net.minecraft.registry.tag.EnchantmentTags;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.village.TradeOffer;
-import net.minecraft.village.TradeOffers;
-import net.minecraft.village.TradedItem;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EnchantmentTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.trading.ItemCost;
+import net.minecraft.world.item.trading.MerchantOffer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -21,31 +21,31 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Optional;
 
-@Mixin(TradeOffers.SellEnchantedToolFactory.class)
+@Mixin(VillagerTrades.EnchantedItemForEmeralds.class)
 public class SellEnchantedToolFactoryMixin {
     @Shadow @Final
-    private ItemStack tool;
+    private ItemStack itemStack;
     @Shadow @Final
-    int basePrice;
+    int baseEmeraldCost;
     @Shadow @Final
     private int maxUses;
     @Shadow @Final
-    private int experience;
+    private int villagerXp;
     @Shadow @Final
-    private float multiplier;
+    private float priceMultiplier;
 
     /**
      * @author Dillon8775
      * @reason Lowers the cost of {@code enchanted tools} sold from villagers.
      */
     @Overwrite
-    public TradeOffer create(ServerWorld world, Entity entity, Random random) {
+    public MerchantOffer getOffer(ServerLevel world, Entity entity, RandomSource random) {
         int i = random.nextInt(4) + 30;
-        DynamicRegistryManager dynamicRegistryManager = entity.getEntityWorld().getRegistryManager();
-        Optional<RegistryEntryList.Named<Enchantment>> optional = dynamicRegistryManager.getOrThrow(RegistryKeys.ENCHANTMENT).getOptional(EnchantmentTags.ON_TRADED_EQUIPMENT);
-        ItemStack itemStack = EnchantmentHelper.enchant(random, new ItemStack(this.tool.getItem()), i, dynamicRegistryManager, optional);
-        int j = Math.min(this.basePrice, 12);
-        TradedItem tradedItem = new TradedItem(Items.EMERALD, j);
-        return new TradeOffer(tradedItem, itemStack, this.maxUses, this.experience, this.multiplier);
+        RegistryAccess dynamicRegistryManager = entity.level().registryAccess();
+        Optional<HolderSet.Named<Enchantment>> optional = dynamicRegistryManager.lookupOrThrow(Registries.ENCHANTMENT).get(EnchantmentTags.ON_TRADED_EQUIPMENT);
+        ItemStack itemStack = EnchantmentHelper.enchantItem(random, new ItemStack(this.itemStack.getItem()), i, dynamicRegistryManager, optional);
+        int j = Math.min(this.baseEmeraldCost, 12);
+        ItemCost tradedItem = new ItemCost(Items.EMERALD, j);
+        return new MerchantOffer(tradedItem, itemStack, this.maxUses, this.villagerXp, this.priceMultiplier);
     }
 }

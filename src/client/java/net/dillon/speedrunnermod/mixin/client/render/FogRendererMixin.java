@@ -1,14 +1,14 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
-import net.minecraft.block.enums.CameraSubmersionType;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderTickCounter;
-import net.minecraft.client.render.fog.FogData;
-import net.minecraft.client.render.fog.FogRenderer;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.fog.FogData;
+import net.minecraft.client.renderer.fog.FogRenderer;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.material.FogType;
 import org.joml.Vector4f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,17 +24,17 @@ public class FogRendererMixin {
     /**
      * Removes fog from the game when using the keybind.
      */
-    @Inject(method = "applyFog(Lnet/minecraft/client/render/Camera;ILnet/minecraft/client/render/RenderTickCounter;FLnet/minecraft/client/world/ClientWorld;)Lorg/joml/Vector4f;", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void modifyFogEnd(Camera camera, int viewDistance, RenderTickCounter renderTickCounter, float f, ClientWorld clientWorld, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f vector4f, float h, CameraSubmersionType cameraSubmersionType, Entity entity, FogData fogData, float i) {
+    @Inject(method = "setupFog", at = @At(value = "RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void modifyFogEnd(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, float renderDistanceFogSpan) {
         if (entity instanceof LivingEntity livingEntity &&
-                !livingEntity.hasStatusEffect(StatusEffects.BLINDNESS) &&
-                !livingEntity.hasStatusEffect(StatusEffects.DARKNESS) &&
+                !livingEntity.hasEffect(MobEffects.BLINDNESS) &&
+                !livingEntity.hasEffect(MobEffects.DARKNESS) &&
                 !clientOptions().client.fog.getCurrentValue() &&
-                cameraSubmersionType != CameraSubmersionType.WATER &&
-                cameraSubmersionType != CameraSubmersionType.LAVA &&
-                cameraSubmersionType != CameraSubmersionType.POWDER_SNOW) {
-            fogData.renderDistanceEnd = Integer.MAX_VALUE;
-            fogData.environmentalEnd = Integer.MAX_VALUE;
+                fogType != FogType.WATER &&
+                fogType != FogType.LAVA &&
+                fogType != FogType.POWDER_SNOW) {
+            fog.renderDistanceEnd = Integer.MAX_VALUE;
+            fog.environmentalEnd = Integer.MAX_VALUE;
         }
     }
 }

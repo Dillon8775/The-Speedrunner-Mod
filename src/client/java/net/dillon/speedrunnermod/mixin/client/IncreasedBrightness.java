@@ -4,11 +4,11 @@ import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.util.IncreasedBrightnessSliderCallbacks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.SimpleOption;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
-import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,42 +21,44 @@ import java.util.function.Function;
  * Increases the maximum brightness for the speedrunner mod, allowing for fullbright.
  */
 @Author(Authors.ADAMVIOLA)
-@Mixin(SimpleOption.class)
+@Mixin(OptionInstance.class)
 public class IncreasedBrightness {
     @Shadow @Final
-    Text text;
+    Component caption;
     @Shadow @Final @Mutable
-    Function<Double, Text> textGetter;
+    Function<Double, Component> toString;
     @Shadow @Final @Mutable
-    private SimpleOption.Callbacks<Double> callbacks;
+    private OptionInstance.ValueSet<Double> values;
     @Shadow @Final @Mutable
     private Codec<Double> codec;
     @Shadow @Final @Mutable
-    private Consumer<Double> changeCallback;
+    private Consumer<Double> onValueUpdate;
 
+    // TODO(Ravel): wildcard and regex target are not supported
+// TODO(Ravel): wildcard and regex target are not supported
     @Inject(at = @At("RETURN"), method = "<init>*")
     private void init(CallbackInfo info) {
-        TextContent content = this.text.getContent();
-        if (!(content instanceof TranslatableTextContent))
+        ComponentContents content = this.caption.getContents();
+        if (!(content instanceof TranslatableContents))
             return;
 
-        String key = ((TranslatableTextContent) content).getKey();
+        String key = ((TranslatableContents) content).getKey();
         if (!key.equals("options.gamma"))
             return;
 
-        this.textGetter = this::textGetter;
-        this.callbacks = IncreasedBrightnessSliderCallbacks.INSTANCE;
-        this.codec = this.callbacks.codec();
-        this.changeCallback = this::changeCallback;
+        this.toString = this::textGetter;
+        this.values = IncreasedBrightnessSliderCallbacks.INSTANCE;
+        this.codec = this.values.codec();
+        this.onValueUpdate = this::changeCallback;
     }
 
     /**
      * Gets the text to display at certain gamma values.
      */
     @Unique
-    private Text textGetter(Double gamma) {
+    private Component textGetter(Double gamma) {
         long brightness = Math.round(gamma * 100);
-        return Text.translatable("options.gamma").append(": ").append(brightness == 0 ? Text.translatable("options.gamma.min") : brightness == 100 ? Text.translatable("options.gamma.max") : Text.literal(String.valueOf(brightness)));
+        return Component.translatable("options.gamma").append(": ").append(brightness == 0 ? Component.translatable("options.gamma.min") : brightness == 100 ? Component.translatable("options.gamma.max") : Component.literal(String.valueOf(brightness)));
     }
 
     /**
@@ -64,6 +66,6 @@ public class IncreasedBrightness {
      */
     @Unique
     private void changeCallback(Double gamma) {
-        MinecraftClient.getInstance().options.getGamma().setValue(gamma);
+        Minecraft.getInstance().options.gamma().set(gamma);
     }
 }

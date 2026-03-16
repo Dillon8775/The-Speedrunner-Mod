@@ -5,25 +5,21 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.block.Blocks;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 import java.util.function.Consumer;
 
@@ -32,68 +28,68 @@ import java.util.function.Consumer;
  */
 public class EnderThrusterItem extends Item implements EyeItem {
 
-    public EnderThrusterItem(Settings settings) {
-        super(settings.rarity(Rarity.RARE).maxCount(1));
+    public EnderThrusterItem(Properties settings) {
+        super(settings.rarity(Rarity.RARE).stacksTo(1));
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getStackInHand(hand);
-        player.setCurrentHand(hand);
-        if (world.isClient()) {
-            return ActionResult.CONSUME;
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        player.startUsingItem(hand);
+        if (world.isClientSide()) {
+            return InteractionResult.CONSUME;
         } else if (this.isDisabled()) {
-            this.playWorldSound(SoundEvents.ENTITY_ENDERMAN_AMBIENT, world, player);
-            stack.decrement(1);
-            player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled_twomode").formatted(Formatting.BLUE), false);
-            player.swingHand(hand, true);
-            player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
-            player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
-        } else if (world.getRegistryKey() == World.NETHER) {
-            ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.ender_thruster.wrong_dimension"), Formatting.AQUA, Formatting.WHITE);
+            this.playWorldSound(SoundEvents.ENDERMAN_AMBIENT, world, player);
+            stack.shrink(1);
+            player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled_twomode").withStyle(ChatFormatting.BLUE));
+            player.swing(hand, true);
+            player.spawnAtLocation((ServerLevel)world, Items.ENDER_PEARL);
+            player.spawnAtLocation((ServerLevel)world, ModItems.SPEEDRUNNERS_EYE);
+        } else if (world.dimension() == Level.NETHER) {
+            ModUtil.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.ender_thruster.wrong_dimension"), ChatFormatting.AQUA, ChatFormatting.WHITE);
         } else {
-            int topY = world.getTopY(Heightmap.Type.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
+            int topY = world.getHeight(Heightmap.Types.MOTION_BLOCKING, player.getBlockX(), player.getBlockZ());
             BlockPos topPos = new BlockPos(player.getBlockX(), topY - 1, player.getBlockZ());
             double playerY = player.getY();
 
             boolean canTeleport = topY != playerY && !(playerY > topY);
 
             if (!canTeleport) {
-                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.ender_thruster.couldnt_teleport"));
+                ModUtil.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.ender_thruster.couldnt_teleport"));
             } else {
-                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.secondsAsTicks(10));
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), ModUtil.secondsAsTicks(10));
 
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity)player, stack);
+                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)player, stack);
 
                 this.decrementIfPossible(player, stack);
 
                 if (world.getBlockState(topPos).getBlock() == Blocks.WATER) {
-                    world.setBlockState(topPos, Blocks.FROSTED_ICE.getDefaultState());
+                    world.setBlockAndUpdate(topPos, Blocks.FROSTED_ICE.defaultBlockState());
                 } else if (world.getBlockState(topPos).getBlock() == Blocks.LAVA) {
-                    world.setBlockState(topPos, Blocks.BASALT.getDefaultState());
+                    world.setBlockAndUpdate(topPos, Blocks.BASALT.defaultBlockState());
                 } else {
-                    world.setBlockState(topPos, ModBlocks.THRUSTED_BLOCK.getDefaultState());
+                    world.setBlockAndUpdate(topPos, ModBlocks.THRUSTED_BLOCK.defaultBlockState());
                 }
 
                 this.removeObstructions(world, topPos);
 
-                player.teleport(topPos.getX() + 0.5F, topY, topPos.getZ() + 0.5F, false);
-                player.incrementStat(Stats.USED.getOrCreateStat(this));
-                player.swingHand(hand, true);
-                world.sendEntityStatus(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
+                player.randomTeleport(topPos.getX() + 0.5F, topY, topPos.getZ() + 0.5F, false);
+                player.awardStat(Stats.ITEM_USED.get(this));
+                player.swing(hand, true);
+                world.broadcastEntityEvent(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
                 this.playThrowSound(world, player);
                 this.playTeleportSound(world, player);
-                return ActionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ActionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.ender_thruster.tooltip")
-                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        textConsumer.accept(Component.translatable("item.speedrunnermod.ender_thruster.tooltip")
+                .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }
 

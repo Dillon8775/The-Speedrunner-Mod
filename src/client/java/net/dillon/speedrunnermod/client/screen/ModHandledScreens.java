@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen;
 
 import net.dillon.speedrunnermod.screen.ModScreenHandlerTypes;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.gui.screens.MenuScreens;
 
 /**
  * All handled screens for the speedrunner mod.
@@ -9,6 +9,6 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 public class ModHandledScreens {
 
     public static void registerScreens() {
-        HandledScreens.register(ModScreenHandlerTypes.WORKBENCH, WorkbenchScreen::new);
+        MenuScreens.register(ModScreenHandlerTypes.WORKBENCH, WorkbenchScreen::new);
     }
 }

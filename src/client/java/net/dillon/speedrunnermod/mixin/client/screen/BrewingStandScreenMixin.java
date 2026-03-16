@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.minecraft.client.gui.screen.ingame.BrewingStandScreen;
+import net.minecraft.client.gui.screens.inventory.BrewingStandScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
@@ -13,7 +13,7 @@ public class BrewingStandScreenMixin {
     /**
      * Modifies the total brewing time, so it displays correctly.
      */
-    @ModifyConstant(method = "drawBackground", constant = @Constant(floatValue = 400.0F))
+    @ModifyConstant(method = "extractBackground", constant = @Constant(floatValue = 400.0F))
     private static float changeBrewDisplayTime(float original) {
         return options().main.fasterBrewing.getCurrentValue() ? 100.0F : original;
     }

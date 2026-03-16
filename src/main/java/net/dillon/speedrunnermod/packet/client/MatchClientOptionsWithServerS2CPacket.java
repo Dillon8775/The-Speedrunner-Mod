@@ -2,22 +2,22 @@ package net.dillon.speedrunnermod.packet.client;
 
 import com.google.gson.Gson;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
-public record MatchClientOptionsWithServerS2CPacket(String jsonOptions) implements CustomPayload {
+public record MatchClientOptionsWithServerS2CPacket(String jsonOptions) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("match_client_options_with_server_s2c");
-    public static final CustomPayload.Id<MatchClientOptionsWithServerS2CPacket> PACKET = new CustomPayload.Id<>(ID);
+    public static final CustomPacketPayload.Type<MatchClientOptionsWithServerS2CPacket> PACKET = new CustomPacketPayload.Type<>(ID);
 
     public static final Gson GSON = new Gson();
 
-    public static final PacketCodec<PacketByteBuf, MatchClientOptionsWithServerS2CPacket> CODEC = PacketCodec.of(
-        (buf, packet) -> packet.writeString(buf.jsonOptions()),
-        buf -> new MatchClientOptionsWithServerS2CPacket(buf.readString())
+    public static final StreamCodec<FriendlyByteBuf, MatchClientOptionsWithServerS2CPacket> CODEC = StreamCodec.ofMember(
+        (buf, packet) -> packet.writeUtf(buf.jsonOptions()),
+        buf -> new MatchClientOptionsWithServerS2CPacket(buf.readUtf())
     );
 
     public static MatchClientOptionsWithServerS2CPacket from(ModOptions options) {
@@ -29,7 +29,7 @@ public record MatchClientOptionsWithServerS2CPacket(String jsonOptions) implemen
     }
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return PACKET;
     }
 }

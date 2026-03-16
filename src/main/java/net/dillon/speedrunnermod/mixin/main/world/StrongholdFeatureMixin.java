@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.main.world;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.world.gen.structure.StrongholdStructure;
+import net.minecraft.world.level.levelgen.structure.structures.StrongholdStructure;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
@@ -18,7 +18,7 @@ public abstract class StrongholdFeatureMixin {
     /**
      * Changes the {@code minimum} and {@code maximum Y-value} a stronghold can generate at.
      */
-    @ModifyArgs(method = "addPieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/structure/StructurePiecesCollector;shiftInto(IILnet/minecraft/util/math/random/Random;I)I"))
+    @ModifyArgs(method = "generatePieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/pieces/StructurePiecesBuilder;moveBelowSeaLevel(IILnet/minecraft/util/RandomSource;I)I"))
     private static void changeStrongholdMinAndMaxY(Args args) {
         if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdYGeneration.getCurrentValue()) {
             args.set(1, ModUtil.getStrongholdMinY());

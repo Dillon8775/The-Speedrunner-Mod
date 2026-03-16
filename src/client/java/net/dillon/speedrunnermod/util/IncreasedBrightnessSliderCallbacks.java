@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.util;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.OptionInstance;
 
 import java.util.Optional;
 
@@ -11,23 +11,23 @@ import java.util.Optional;
  * Used to increase the maximum brightness for the Speedrunner Mod, and allowing {@code fullbright.}
  */
 @Author(Authors.ADAMVIOLA)
-public enum IncreasedBrightnessSliderCallbacks implements SimpleOption.SliderCallbacks<Double> {
+public enum IncreasedBrightnessSliderCallbacks implements OptionInstance.SliderableValueSet<Double> {
     INSTANCE;
 
     @Override
-    public Optional<Double> validate(Double double_) {
+    public Optional<Double> validateValue(Double double_) {
         return double_ >= SpeedrunnerModClient.getMinBrightness() && double_ <= SpeedrunnerModClient.getMaxBrightness() ? Optional.of(double_) : Optional.empty();
     }
 
     @Override
-    public double toSliderProgress(Double double_) {
+    public double toSliderValue(Double double_) {
         double range = SpeedrunnerModClient.getMaxBrightness() - SpeedrunnerModClient.getMinBrightness();
         double offset = SpeedrunnerModClient.getMinBrightness();
         return (double_ - offset) / range;
     }
 
     @Override
-    public Double toValue(double d) {
+    public Double fromSliderValue(double d) {
         double range = SpeedrunnerModClient.getMaxBrightness() - SpeedrunnerModClient.getMinBrightness();
         double offset = SpeedrunnerModClient.getMinBrightness();
         return d * range + offset;

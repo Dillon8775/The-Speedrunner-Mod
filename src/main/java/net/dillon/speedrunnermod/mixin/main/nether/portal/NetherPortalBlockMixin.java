@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.mixin.main.nether.portal;
 
-import net.minecraft.block.NetherPortalBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.NetherPortalBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,9 +17,9 @@ public class NetherPortalBlockMixin {
     /**
      * Returns the {@code custom nether portal delay}, according to the speedrunner mod option.
      */
-    @Inject(method = "getPortalDelay", at = @At("RETURN"), cancellable = true)
-    private void applyNetherPortalDelay(ServerWorld world, Entity entity, CallbackInfoReturnable<Integer> cir) {
-        if (entity instanceof PlayerEntity playerEntity) {
+    @Inject(method = "getPortalTransitionTime", at = @At("RETURN"), cancellable = true)
+    private void applyNetherPortalDelay(ServerLevel world, Entity entity, CallbackInfoReturnable<Integer> cir) {
+        if (entity instanceof Player playerEntity) {
             if (options().main.netherPortalDelay.getCurrentValue() >= 0) {
                 cir.setReturnValue(playerEntity.getAbilities().invulnerable ? 1 : options().main.netherPortalDelay.getCurrentValue() * 20);
             }

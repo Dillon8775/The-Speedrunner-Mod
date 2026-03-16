@@ -5,29 +5,25 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.dillon.speedrunnermod.util.VillagerGlowCountdown;
-import net.minecraft.component.type.TooltipDisplayComponent;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.EvokerEntity;
-import net.minecraft.entity.passive.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.network.packet.s2c.play.SubtitleS2CPacket;
-import net.minecraft.network.packet.s2c.play.TitleS2CPacket;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Rarity;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
+import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.Random;
@@ -37,83 +33,83 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
- * An item that kills all nearby {@link RaiderEntity}s.
+ * An item that kills all nearby {@link Raider}s.
  */
 public class RaidEradicatorItem extends Item implements EyeItem {
 
-    public RaidEradicatorItem(Settings settings) {
-        super(settings.rarity(Rarity.EPIC).maxCount(16));
+    public RaidEradicatorItem(Properties settings) {
+        super(settings.rarity(Rarity.EPIC).stacksTo(16));
     }
 
     @Override
-    public ActionResult use(World world, PlayerEntity player, Hand hand) {
-        ItemStack stack = player.getStackInHand(hand);
-        player.setCurrentHand(hand);
-        if (world.isClient()) {
-            return ActionResult.CONSUME;
+    public InteractionResult use(Level world, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        player.startUsingItem(hand);
+        if (world.isClientSide()) {
+            return InteractionResult.CONSUME;
         } else if (isBalancedMode()) {
-            this.playWorldSound(SoundEvents.ENTITY_VINDICATOR_DEATH, 1.0F, world, player);
-            player.sendMessage(Text.translatable("item.speedrunnermod.item_disabled").formatted(Formatting.GRAY), false);
-            stack.decrement(1);
-            player.dropItem((ServerWorld)world, Items.ENDER_PEARL);
-            player.dropItem((ServerWorld)world, Items.FIRE_CHARGE);
-            player.dropItem((ServerWorld)world, Items.ENCHANTED_GOLDEN_APPLE);
-            player.dropItem((ServerWorld)world, ModItems.SPEEDRUNNERS_EYE);
+            this.playWorldSound(SoundEvents.VINDICATOR_DEATH, 1.0F, world, player);
+            player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled").withStyle(ChatFormatting.GRAY));
+            stack.shrink(1);
+            player.spawnAtLocation((ServerLevel)world, Items.ENDER_PEARL);
+            player.spawnAtLocation((ServerLevel)world, Items.FIRE_CHARGE);
+            player.spawnAtLocation((ServerLevel)world, Items.ENCHANTED_GOLDEN_APPLE);
+            player.spawnAtLocation((ServerLevel)world, ModItems.SPEEDRUNNERS_EYE);
         } else {
-            List<RaiderEntity> raiders = ModUtil.getEntitiesWithinRange(world, RaiderEntity.class, player, options().advanced.raidEradicatorSearchRadius.getCurrentValue());
+            List<Raider> raiders = ModUtil.getEntitiesWithinRange(world, Raider.class, player, options().advanced.raidEradicatorSearchRadius.getCurrentValue());
 
             if (raiders.isEmpty()) {
-                ModUtil.sendMessageWithActionbarPref(player, Text.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"));
+                ModUtil.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"));
             } else {
-                this.playWorldSound(SoundEvents.ENTITY_RAVAGER_ROAR, 3.0F, 1.0F, world, player);
-                player.getItemCooldownManager().set(this.getDefaultStack(), ModUtil.minutesAsTicks(3));
+                this.playWorldSound(SoundEvents.RAVAGER_ROAR, 3.0F, 1.0F, world, player);
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), ModUtil.minutesAsTicks(3));
                 this.decrementIfPossible(player, stack);
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+                ServerPlayer serverPlayer = (ServerPlayer)player;
 
-                List<VillagerEntity> villagers = ModUtil.getEntitiesWithinRange(world, VillagerEntity.class, player, options().advanced.raidEradicatorSearchRadius.getCurrentValue());
+                List<Villager> villagers = ModUtil.getEntitiesWithinRange(world, Villager.class, player, options().advanced.raidEradicatorSearchRadius.getCurrentValue());
 
                 TaskScheduler.schedule(ModUtil.secondsAsTicks(3), () -> {
-                    for (RaiderEntity raider : raiders) {
-                        if (!(raider instanceof EvokerEntity)) {
-                            raider.kill((ServerWorld)world);
+                    for (Raider raider : raiders) {
+                        if (!(raider instanceof Evoker)) {
+                            raider.kill((ServerLevel)world);
                         } else {
                             Random random = new Random();
-                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, ModUtil.secondsAsTicks(30), 2, false, true, false));
-                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, ModUtil.secondsAsTicks(30), 1, false, true, false));
-                            raider.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, ModUtil.minutesAsTicks(2), 0, false, true, false));
-                            raider.teleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false);
+                            raider.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(30), 2, false, true, false));
+                            raider.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, ModUtil.secondsAsTicks(30), 1, false, true, false));
+                            raider.addEffect(new MobEffectInstance(MobEffects.GLOWING, ModUtil.minutesAsTicks(2), 0, false, true, false));
+                            raider.randomTeleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false);
                         }
                     }
                     if (!villagers.isEmpty()) {
-                        for (VillagerEntity villager : villagers) {
-                            villager.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, ModUtil.secondsAsTicks(30), 1));
-                            villager.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, ModUtil.secondsAsTicks(30)));
-                            villager.setGlowing(true);
+                        for (Villager villager : villagers) {
+                            villager.addEffect(new MobEffectInstance(MobEffects.REGENERATION, ModUtil.secondsAsTicks(30), 1));
+                            villager.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, ModUtil.secondsAsTicks(30)));
+                            villager.setGlowingTag(true);
                             ((VillagerGlowCountdown)villager).setGlowingFor(ModUtil.minutesAsTicks(3));
                         }
                     }
 
-                    ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, ModItems.RAID_ERADICATOR.getDefaultStack());
+                    ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, ModItems.RAID_ERADICATOR.getDefaultInstance());
 
-                    Text purgedText = Text.translatable("item.speedrunnermod.raid_eradicator.purged").formatted(Formatting.RED);
-                    player.sendMessage(purgedText, false);
-                    serverPlayer.networkHandler.sendPacket(new TitleS2CPacket(Text.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).formatted(Formatting.AQUA).formatted(Formatting.BOLD)));
-                    serverPlayer.networkHandler.sendPacket(new SubtitleS2CPacket(purgedText));
-                    this.playWorldSound(SoundEvents.ENTITY_RAVAGER_DEATH, 3.0F, 1.0F, world, player);
+                    Component purgedText = Component.translatable("item.speedrunnermod.raid_eradicator.purged").withStyle(ChatFormatting.RED);
+                    player.sendSystemMessage(purgedText);
+                    serverPlayer.connection.send(new ClientboundSetTitleTextPacket(Component.translatable("item.speedrunnermod.raid_eradicator.success", serverPlayer.getName()).withStyle(ChatFormatting.AQUA).withStyle(ChatFormatting.BOLD)));
+                    serverPlayer.connection.send(new ClientboundSetSubtitleTextPacket(purgedText));
+                    this.playWorldSound(SoundEvents.RAVAGER_DEATH, 3.0F, 1.0F, world, player);
                 });
-                player.incrementStat(Stats.USED.getOrCreateStat(this));
-                player.swingHand(hand, true);
-                return ActionResult.SUCCESS;
+                player.awardStat(Stats.ITEM_USED.get(this));
+                player.swing(hand, true);
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ActionResult.CONSUME;
+        return InteractionResult.CONSUME;
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
-        textConsumer.accept(Text.translatable("item.speedrunnermod.raid_eradicator.tooltip")
-                .formatted(this.isDisabled() ? Formatting.STRIKETHROUGH : Formatting.RESET).formatted(Formatting.GRAY));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        textConsumer.accept(Component.translatable("item.speedrunnermod.raid_eradicator.tooltip")
+                .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }
 

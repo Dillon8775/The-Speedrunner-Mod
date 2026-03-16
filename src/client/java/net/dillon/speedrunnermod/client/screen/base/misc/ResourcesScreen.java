@@ -3,21 +3,21 @@ package net.dillon.speedrunnermod.client.screen.base.misc;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 
 import java.util.List;
 
 public class ResourcesScreen extends AbstractModScreen {
-    private ButtonWidget modsButton, questionsAndIssuesButton, tutorialsButton, showcaseVideoButton, releaseTrailerButton;
+    private Button modsButton, questionsAndIssuesButton, tutorialsButton, showcaseVideoButton, releaseTrailerButton;
 
     public ResourcesScreen(Screen parent) {
         super(parent, ModTexts.TITLE_RESOURCES);
     }
 
     @Override
-    protected List<ClickableWidget> buttons() {
+    protected List<AbstractWidget> buttons() {
         return List.of(
                 this.modsButton,
                 this.questionsAndIssuesButton,
@@ -29,23 +29,23 @@ public class ResourcesScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.modsButton = ButtonWidget.builder(ModTexts.MENU_MODS, (button) -> {
-            this.client.setScreen(new ModsScreen(this.parent));
+        this.modsButton = Button.builder(ModTexts.MENU_MODS, (button) -> {
+            this.minecraft.setScreen(new ModsScreen(this.parent));
         }).build();
 
-        this.questionsAndIssuesButton = ButtonWidget.builder(ModTexts.QUESTIONS_AND_ISSUES, (button) -> {
+        this.questionsAndIssuesButton = Button.builder(ModTexts.QUESTIONS_AND_ISSUES, (button) -> {
             this.openLink(ModLinks.QUESTIONS_AND_ISSUES, true);
         }).build();
 
-        this.tutorialsButton = ButtonWidget.builder(ModTexts.MENU_TUTORIALS, (button) -> {
-            this.client.setScreen(new TutorialsScreen(this.parent));
+        this.tutorialsButton = Button.builder(ModTexts.MENU_TUTORIALS, (button) -> {
+            this.minecraft.setScreen(new TutorialsScreen(this.parent));
         }).build();
 
-        this.showcaseVideoButton = ButtonWidget.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
+        this.showcaseVideoButton = Button.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
             this.openLink(ModLinks.SHOWCASE_VIDEO, true);
         }).build();
 
-        this.releaseTrailerButton = ButtonWidget.builder(ModTexts.MOD_RELEASE_TRAILER, (buttonWidget) -> {
+        this.releaseTrailerButton = Button.builder(ModTexts.MOD_RELEASE_TRAILER, (buttonWidget) -> {
             this.openLink(ModLinks.RELEASE_TRAILER, true);
         }).build();
 

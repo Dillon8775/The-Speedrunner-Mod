@@ -1,14 +1,14 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.component.type.AttributeModifierSlot;
-import net.minecraft.component.type.AttributeModifiersComponent;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Rarity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -17,18 +17,18 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class KnockbackStickItem extends Item {
 
-    public KnockbackStickItem(Settings settings) {
+    public KnockbackStickItem(Properties settings) {
         super(settings
-                .attributeModifiers(
-                        AttributeModifiersComponent.builder()
+                .attributes(
+                        ItemAttributeModifiers.builder()
                                 .add(
-                                        EntityAttributes.ATTACK_KNOCKBACK,
-                                        new EntityAttributeModifier(ofSpeedrunnerMod("speedrunner_knockback_stick"), 5.0F, EntityAttributeModifier.Operation.ADD_VALUE),
-                                        AttributeModifierSlot.MAINHAND)
+                                        Attributes.ATTACK_KNOCKBACK,
+                                        new AttributeModifier(ofSpeedrunnerMod("speedrunner_knockback_stick"), 5.0F, AttributeModifier.Operation.ADD_VALUE),
+                                        EquipmentSlotGroup.MAINHAND)
                                 .build()
                 )
-                .maxCount(1)
-                .maxDamage(17)
+                .stacksTo(1)
+                .durability(17)
                 .rarity(Rarity.EPIC));
     }
 
@@ -36,15 +36,15 @@ public class KnockbackStickItem extends Item {
      * Decrement durability when hitting an entity.
      */
     @Override
-    public void postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        stack.damage(1, attacker, EquipmentSlot.MAINHAND);
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
     }
 
     /**
      * Always have a glint.
      */
     @Override
-    public boolean hasGlint(ItemStack stack) {
+    public boolean isFoil(ItemStack stack) {
         return true;
     }
 }

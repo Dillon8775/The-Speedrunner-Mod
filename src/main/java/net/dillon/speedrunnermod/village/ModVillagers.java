@@ -2,13 +2,13 @@ package net.dillon.speedrunnermod.village;
 
 import com.google.common.collect.ImmutableSet;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.village.VillagerProfession;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.village.ModPointOfInterestTypes.RETIRED_SPEEDRUNNER_POI_KEY;
@@ -17,23 +17,23 @@ import static net.dillon.speedrunnermod.village.ModPointOfInterestTypes.RETIRED_
  * {@code Custom villager professions} for the speedrunner mod.
  */
 public class ModVillagers {
-    public static final RegistryKey<VillagerProfession> RETIRED_SPEEDRUNNER_KEY =
-            RegistryKey.of(RegistryKeys.VILLAGER_PROFESSION, ofSpeedrunnerMod("retired_speedrunner"));
+    public static final ResourceKey<VillagerProfession> RETIRED_SPEEDRUNNER_KEY =
+            ResourceKey.create(Registries.VILLAGER_PROFESSION, ofSpeedrunnerMod("retired_speedrunner"));
 
     /**
      * Registers all speedrunner mod {@code villager professions.}
      */
     public static void registerVillagerProfessions() {
         Registry.register(
-                Registries.VILLAGER_PROFESSION,
-                RETIRED_SPEEDRUNNER_KEY.getValue(),
+                BuiltInRegistries.VILLAGER_PROFESSION,
+                RETIRED_SPEEDRUNNER_KEY.identifier(),
                 new VillagerProfession(
-                        Text.translatable("entity.minecraft.villager.retired_speedrunner"),
-                        entry -> entry.matchesKey(RETIRED_SPEEDRUNNER_POI_KEY),
-                        entry -> entry.matchesKey(RETIRED_SPEEDRUNNER_POI_KEY),
+                        Component.translatable("entity.minecraft.villager.retired_speedrunner"),
+                        entry -> entry.is(RETIRED_SPEEDRUNNER_POI_KEY),
+                        entry -> entry.is(RETIRED_SPEEDRUNNER_POI_KEY),
                         ImmutableSet.of(),
                         ImmutableSet.of(),
-                        SoundEvents.ENTITY_VILLAGER_WORK_ARMORER
+                        SoundEvents.VILLAGER_WORK_ARMORER
                 )
         );
         SpeedrunnerMod.debug("Registered villager professions.");

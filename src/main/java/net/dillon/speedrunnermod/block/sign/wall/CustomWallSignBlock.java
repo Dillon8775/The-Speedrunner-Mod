@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.block.sign.wall;
 
 import net.dillon.speedrunnermod.block.sign.TerraformSignBlockHelper;
-import net.minecraft.block.WallSignBlock;
+import net.minecraft.world.level.block.WallSignBlock;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -10,7 +10,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class CustomWallSignBlock extends WallSignBlock {
 
-	public CustomWallSignBlock(String id,  Settings settings) {
+	public CustomWallSignBlock(String id, Properties settings) {
 		super(TerraformSignBlockHelper.registerDefaultWoodType(ofSpeedrunnerMod(id)), settings);
 	}
 }

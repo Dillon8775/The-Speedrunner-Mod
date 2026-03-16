@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.option;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.mixin.main.fix.ItemStackArgumentTypeMixin;
+import net.dillon.speedrunnermod.mixin.main.fix.ItemArgumentMixin;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.text.Text;
-import net.minecraft.util.StringIdentifiable;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.*;
 
@@ -476,7 +476,7 @@ public class ModOptions {
         public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForWither = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
 
         /**
-         * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemStackArgumentTypeMixin}.
+         * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemArgumentMixin}.
          * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
          */
         public OptionValue<Set<String>> modIds = new OptionValue<>(new TreeSet<>(), false);
@@ -564,7 +564,7 @@ public class ModOptions {
         return option >= min && option <= max;
     }
 
-    public enum Mode implements StringIdentifiable {
+    public enum Mode implements StringRepresentable {
         EASY(0, "easy", "speedrunnermod.options.mode.easy"),
         BALANCED(1, "balanced", "speedrunnermod.options.mode.balanced"),
         DOOM(2, "doom", "speedrunnermod.options.mode.doom");
@@ -572,12 +572,12 @@ public class ModOptions {
         private static final Mode[] VALUES = Arrays.stream(Mode.values()).sorted(Comparator.comparingInt(Mode::getId)).toArray(Mode[]::new);
         private final int id;
         private final String name;
-        private final Text translateKey;
+        private final Component translateKey;
 
         Mode(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Text.translatable(translationKey);
+            this.translateKey = Component.translatable(translationKey);
         }
 
         /**
@@ -590,11 +590,11 @@ public class ModOptions {
         /**
          * Returns the {@code translation key} of the {@code Mode} option.
          */
-        public Text getText() {
+        public Component getText() {
             return this.translateKey;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
 
@@ -602,14 +602,14 @@ public class ModOptions {
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
         public static Mode byId(int id) {
-            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+            return VALUES[Mth.positiveModulo(id, VALUES.length)];
         }
     }
 
     /**
      * All the different {@code Structure Spawn Rate} options, from extremely common to extremely rare.
      */
-    public enum StructureSpawnRate implements StringIdentifiable {
+    public enum StructureSpawnRate implements StringRepresentable {
         EVERYWHERE(0, "everywhere", "speedrunnermod.options.structure_spawn_rates.everywhere"),
         VERY_COMMON(1, "very_common","speedrunnermod.options.structure_spawn_rates.very_common"),
         COMMON(2, "common", "speedrunnermod.options.structure_spawn_rates.common"),
@@ -622,12 +622,12 @@ public class ModOptions {
         private static final StructureSpawnRate[] VALUES = Arrays.stream(StructureSpawnRate.values()).sorted(Comparator.comparingInt(StructureSpawnRate::getId)).toArray(StructureSpawnRate[]::new);
         private final int id;
         private final String name;
-        private final Text translateKey;
+        private final Component translateKey;
 
         StructureSpawnRate(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Text.translatable(translationKey);
+            this.translateKey = Component.translatable(translationKey);
         }
 
         /**
@@ -640,11 +640,11 @@ public class ModOptions {
         /**
          * Returns the {@code translation key} of the {@code Mode} option.
          */
-        public Text getText() {
+        public Component getText() {
             return this.translateKey;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
 
@@ -652,14 +652,14 @@ public class ModOptions {
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
         public static StructureSpawnRate byId(int id) {
-            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+            return VALUES[Mth.positiveModulo(id, VALUES.length)];
         }
     }
 
     /**
      * All the different {@code Mob Spawning Rate} options.
      */
-    public enum CreatureSpawnRate implements StringIdentifiable {
+    public enum CreatureSpawnRate implements StringRepresentable {
         LOW(0, "low", "speedrunnermod.options.creature_spawn_rate.low"),
         NORMAL(1, "normal", "speedrunnermod.options.creature_spawn_rate.normal"),
         HIGH(2, "high", "speedrunnermod.options.creature_spawn_rate.high");
@@ -667,12 +667,12 @@ public class ModOptions {
         private static final CreatureSpawnRate[] VALUES = Arrays.stream(CreatureSpawnRate.values()).sorted(Comparator.comparingInt(CreatureSpawnRate::getId)).toArray(CreatureSpawnRate[]::new);
         private final int id;
         private final String name;
-        private final Text translateKey;
+        private final Component translateKey;
 
         CreatureSpawnRate(int id, final String name, String translationKey) {
             this.id = id;
             this.name = name;
-            this.translateKey = Text.translatable(translationKey);
+            this.translateKey = Component.translatable(translationKey);
         }
 
         /**
@@ -685,11 +685,11 @@ public class ModOptions {
         /**
          * Returns the {@code translation key} of the {@code Creature Spawning Rate} option.
          */
-        public Text getText() {
+        public Component getText() {
             return this.translateKey;
         }
 
-        public String asString() {
+        public String getSerializedName() {
             return this.name;
         }
 
@@ -697,7 +697,7 @@ public class ModOptions {
          * Not sure what this does to be honest, but it's used in ModListOptions.
          */
         public static CreatureSpawnRate byId(int id) {
-            return VALUES[MathHelper.floorMod(id, VALUES.length)];
+            return VALUES[Mth.positiveModulo(id, VALUES.length)];
         }
     }
 

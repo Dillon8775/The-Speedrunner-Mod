@@ -1,25 +1,25 @@
 package net.dillon.speedrunnermod.client.particle;
 
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.SimpleParticleType;
-import net.minecraft.util.math.random.Random;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.RandomSource;
 
 /**
  * The particle for the {@code speedrunners totem.}
  * <p>Copied over from {@link TotemParticle}.</p>
  */
-public class SpeedrunnersTotemParticle extends AnimatedParticle {
+public class SpeedrunnersTotemParticle extends SimpleAnimatedParticle {
 
-    SpeedrunnersTotemParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    SpeedrunnersTotemParticle(ClientLevel world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteSet spriteProvider) {
         super(world, x, y, z, spriteProvider, 1.25F);
-        this.velocityMultiplier = 0.6F;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
-        this.velocityZ = velocityZ;
-        this.scale *= 0.75F;
-        this.maxAge = 60 + this.random.nextInt(12);
-        this.updateSprite(spriteProvider);
+        this.friction = 0.6F;
+        this.xd = velocityX;
+        this.yd = velocityY;
+        this.zd = velocityZ;
+        this.quadSize *= 0.75F;
+        this.lifetime = 60 + this.random.nextInt(12);
+        this.setSpriteFromAge(spriteProvider);
         if (this.random.nextInt(4) == 0) {
             this.setColor(0.0F + this.random.nextFloat() * 0.2F, 0.8F + this.random.nextFloat() * 0.2F, 0.8F + this.random.nextFloat() * 0.2F);
         } else {
@@ -28,14 +28,14 @@ public class SpeedrunnersTotemParticle extends AnimatedParticle {
     }
 
     
-    public static class Factory implements ParticleFactory<SimpleParticleType> {
-        private final SpriteProvider spriteProvider;
+    public static class Factory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteProvider;
 
-        public Factory(SpriteProvider spriteProvider) {
+        public Factory(SpriteSet spriteProvider) {
             this.spriteProvider = spriteProvider;
         }
 
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i, Random random) {
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientWorld, double d, double e, double f, double g, double h, double i, RandomSource random) {
             return new SpeedrunnersTotemParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }

@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 
 /**
  * All Speedrunner Mod {@code fuels} (objects that can be used as a fuel source in a furnace).
@@ -13,7 +13,7 @@ public class ModFuels {
      * Registers all Speedrunner Mod {@code fuel objects.}
      */
     public static void registerFuels() {
-        FuelRegistryEvents.BUILD.register((builder, context) -> {
+        FuelValueEvents.BUILD.register((builder, context) -> {
             builder.add(ModBlocks.SPEEDRUNNER_LOG, 400);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_LOG, 500);
             builder.add(ModBlocks.STRIPPED_SPEEDRUNNER_LOG, 400);

@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.client.screen.feature.secretdoommode;
 
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -14,7 +14,7 @@ public class AllSecretsScreen extends AbstractSecretDoomModeScreen {
     }
 
     @Override
-    protected Text getButtonText() {
+    protected Component getButtonText() {
         return ModTexts.OK;
     }
 

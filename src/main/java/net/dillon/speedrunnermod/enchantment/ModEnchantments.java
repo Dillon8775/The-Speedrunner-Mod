@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.enchantment;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -12,17 +12,17 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModEnchantments {
     // For boots, grants the player the speed effect, amplifier increased for each level
-    public static final RegistryKey<Enchantment> DASH = register("dash");
+    public static final ResourceKey<Enchantment> DASH = register("dash");
     // For items that have a "cooldown" (shields, ender pearls, chorus fruit, etc.), this lowers the cooldown on those items
-    public static final RegistryKey<Enchantment> COOLDOWN = register("cooldown");
+    public static final ResourceKey<Enchantment> COOLDOWN = register("cooldown");
     // Inflicts target with wither effect for 3-7 seconds (based on level), and gives increased chance of wither skeleton skulls
-    public static final RegistryKey<Enchantment> WITHERED = register("withered");
+    public static final ResourceKey<Enchantment> WITHERED = register("withered");
 
     /**
      * Registers a {@code enchantment}
      */
-    private static RegistryKey<Enchantment> register(String path) {
-        return RegistryKey.of(RegistryKeys.ENCHANTMENT, ofSpeedrunnerMod(path));
+    private static ResourceKey<Enchantment> register(String path) {
+        return ResourceKey.create(Registries.ENCHANTMENT, ofSpeedrunnerMod(path));
     }
 
     /**

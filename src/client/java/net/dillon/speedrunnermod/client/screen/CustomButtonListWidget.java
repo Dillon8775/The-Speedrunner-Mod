@@ -2,28 +2,28 @@ package net.dillon.speedrunnermod.client.screen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.Element;
-import net.minecraft.client.gui.Selectable;
-import net.minecraft.client.gui.screen.option.GameOptionsScreen;
-import net.minecraft.client.gui.widget.ClickableWidget;
-import net.minecraft.client.gui.widget.ElementListWidget;
-import net.minecraft.client.option.SimpleOption;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.OptionInstance;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.ContainerObjectSelectionList;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copied over from Minecraft's original {@link net.minecraft.client.gui.widget.OptionListWidget}, this allows you to simply create a list of buttons.
+ * Copied over from Minecraft's original {@link net.minecraft.client.gui.components.OptionsList}, this allows you to simply create a list of buttons.
  */
-public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWidget.ModWidgetEntry> {
+public class CustomButtonListWidget extends ContainerObjectSelectionList<CustomButtonListWidget.ModWidgetEntry> {
 
     /**
      * Create a new {@link CustomButtonListWidget}.
      */
-    public CustomButtonListWidget(MinecraftClient client, int width, GameOptionsScreen optionsScreen) {
+    public CustomButtonListWidget(Minecraft client, int width, OptionsSubScreen optionsScreen) {
         super(client, width, optionsScreen.layout.getContentHeight(), optionsScreen.layout.getHeaderHeight(), 25);
         this.centerListVertically = false;
     }
@@ -31,8 +31,8 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
     /**
      * Adds a "row" of buttons to the list.
      */
-    public void addRow(ClickableWidget firstButton, @Nullable ClickableWidget secondButton) {
-        List<ClickableWidget> buttons = new ArrayList<>();
+    public void addRow(AbstractWidget firstButton, @Nullable AbstractWidget secondButton) {
+        List<AbstractWidget> buttons = new ArrayList<>();
         firstButton.setX(this.width / 2 - 155);
         buttons.add(firstButton);
         if (secondButton != null) {
@@ -46,11 +46,11 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
      * <p>Adds a single button to the list of buttons.</p>
      * This button will take up a whole "row" space.
      */
-    public void addSingleOptionEntry(SimpleOption<?> option) {
-        ClickableWidget button = option.createWidget(MinecraftClient.getInstance().options);
+    public void addSingleOptionEntry(OptionInstance<?> option) {
+        AbstractWidget button = option.createButton(Minecraft.getInstance().options);
         button.setX(this.width / 2 - 155);
         button.setWidth(310);
-        List<ClickableWidget> buttons = new ArrayList<>();
+        List<AbstractWidget> buttons = new ArrayList<>();
         buttons.add(button);
         this.addEntry(ModWidgetEntry.create(buttons));
     }
@@ -58,7 +58,7 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
     /**
      * Adds a whole {@link List} of buttons to the screen.
      */
-    public void addAll(List<ClickableWidget> buttons) {
+    public void addAll(List<AbstractWidget> buttons) {
         for (int i = 0; i < buttons.size(); i += 2) {
             this.addRow(buttons.get(i), i < buttons.size() - 1 ? buttons.get(i + 1) : null);
         }
@@ -70,32 +70,32 @@ public class CustomButtonListWidget extends ElementListWidget<CustomButtonListWi
     }
 
     @Environment(value= EnvType.CLIENT)
-    public static class ModWidgetEntry extends ElementListWidget.Entry<ModWidgetEntry> {
-        public final List<ClickableWidget> widgets;
+    public static class ModWidgetEntry extends ContainerObjectSelectionList.Entry<ModWidgetEntry> {
+        public final List<AbstractWidget> widgets;
 
-        private ModWidgetEntry(List<ClickableWidget> widgets) {
+        private ModWidgetEntry(List<AbstractWidget> widgets) {
             this.widgets = widgets;
         }
 
-        public static ModWidgetEntry create(List<ClickableWidget> widgets) {
+        public static ModWidgetEntry create(List<AbstractWidget> widgets) {
             return new ModWidgetEntry(widgets);
         }
 
         @Override
-        public void render(DrawContext context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
-            for (ClickableWidget widget : this.widgets) {
+        public void renderContent(GuiGraphics context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+            for (AbstractWidget widget : this.widgets) {
                 widget.setY(this.getY());
                 widget.render(context, mouseX, mouseY, deltaTicks);
             }
         }
 
         @Override
-        public List<? extends Element> children() {
+        public List<? extends GuiEventListener> children() {
             return this.widgets;
         }
 
         @Override
-        public List<? extends Selectable> selectableChildren() {
+        public List<? extends NarratableEntry> narratables() {
             return this.widgets;
         }
     }

@@ -1,17 +1,17 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 
 /**
  * A special target goal for Goliath.
  */
-public class GoliathTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<T> {
+public class GoliathTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
 
-    public GoliathTargetGoal(MobEntity mob, Class<T> targetClass, boolean checkVisibility) {
+    public GoliathTargetGoal(Mob mob, Class<T> targetClass, boolean checkVisibility) {
         super(mob, targetClass, 10, checkVisibility, false, null);
     }
 
@@ -21,6 +21,6 @@ public class GoliathTargetGoal<T extends LivingEntity> extends ActiveTargetGoal<
     @Override
     public void start() {
         super.start();
-        this.mob.getEntityWorld().playSound(null, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ(), ModSoundEvents.ENTITY_GOLIATH_FOUND_YOU, SoundCategory.HOSTILE, 20.0F, 0.7F);
+        this.mob.level().playSound(null, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ(), ModSoundEvents.ENTITY_GOLIATH_FOUND_YOU, SoundSource.HOSTILE, 20.0F, 0.7F);
     }
 }

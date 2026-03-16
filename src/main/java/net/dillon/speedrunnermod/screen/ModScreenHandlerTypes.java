@@ -1,13 +1,13 @@
 package net.dillon.speedrunnermod.screen;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.world.inventory.MenuType;
 
 /**
  * All mod screen handler types.
  */
 public class ModScreenHandlerTypes {
-    public static final ScreenHandlerType<WorkbenchScreenHandler> WORKBENCH = ScreenHandlerType.register("workbench", WorkbenchScreenHandler::new);
+    public static final MenuType<WorkbenchScreenHandler> WORKBENCH = MenuType.register("workbench", WorkbenchScreenHandler::new);
 
     /**
      * Initializes all screen speedrunner mod handlers.

@@ -2,33 +2,33 @@ package net.dillon.speedrunnermod.client.screen;
 
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.CyclingSlotIcon;
-import net.minecraft.client.gui.screen.ingame.ForgingScreen;
-import net.minecraft.client.input.KeyInput;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Items;
-import net.minecraft.screen.AnvilScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
+import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Items;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.minecraft.util.Identifier.ofVanilla;
+import static net.minecraft.resources.Identifier.withDefaultNamespace;
 
 /**
  * The base screen for the {@code Speedrunner's Workbench.}
  */
-public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
-    private static final Identifier ERROR_TEXTURE = ofVanilla("container/anvil/error");
+public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> {
+    private static final Identifier ERROR_TEXTURE = withDefaultNamespace("container/anvil/error");
     private static final Identifier TEXTURE = ofSpeedrunnerMod("textures/gui/container/workbench.png");
-    private static final Identifier SMITHING_TEMPLATE = ofVanilla("container/slot/smithing_template_netherite_upgrade");
-    private final PlayerEntity player;
+    private static final Identifier SMITHING_TEMPLATE = withDefaultNamespace("container/slot/smithing_template_netherite_upgrade");
+    private final Player player;
     private static final List<Identifier> SLOT_TEXTURES = List.of(
             slotTexture("axe"),
             slotTexture("boots"),
@@ -55,14 +55,14 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
     private static final List<Identifier> OUTPUT_SLOT_TEXTURES = List.of(
             ofSpeedrunnerMod("container/slot/enchanted_book")
     );
-    private final CyclingSlotIcon inputSlotIcon = new CyclingSlotIcon(this.handler.getInputSlot().id);
-    private final CyclingSlotIcon transferToSlotIcon = new CyclingSlotIcon(this.handler.getTransferToSlot().id);
-    private final CyclingSlotIcon outputSlotTextures = new CyclingSlotIcon(this.handler.getOutputSlot().id);
+    private final CyclingSlotBackground inputSlotIcon = new CyclingSlotBackground(this.menu.getInputSlot().index);
+    private final CyclingSlotBackground transferToSlotIcon = new CyclingSlotBackground(this.menu.getTransferToSlot().index);
+    private final CyclingSlotBackground outputSlotTextures = new CyclingSlotBackground(this.menu.getOutputSlot().index);
 
-    public WorkbenchScreen(WorkbenchScreenHandler handler, PlayerInventory inventory, Text title) {
+    public WorkbenchScreen(WorkbenchScreenHandler handler, Inventory inventory, Component title) {
         super(handler, inventory, title, TEXTURE);
-        this.titleX = 40;
-        this.titleY = 15;
+        this.titleLabelX = 40;
+        this.titleLabelY = 15;
         this.player = inventory.player;
     }
 
@@ -70,30 +70,30 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
      * @return the Identifier pointing to a slot texture.
      */
     private static Identifier slotTexture(String name) {
-        return ofVanilla("container/slot/" + name);
+        return withDefaultNamespace("container/slot/" + name);
     }
 
     /**
      * Handles animations on slots.
      */
     @Override
-    public void handledScreenTick() {
-        this.inputSlotIcon.updateTexture(SLOT_TEXTURES);
-        this.transferToSlotIcon.updateTexture(
-                this.handler.getInputSlot().getStack().isIn(ModItemTags.UPGRADEABLE_GOLD)
+    public void containerTick() {
+        this.inputSlotIcon.tick(SLOT_TEXTURES);
+        this.transferToSlotIcon.tick(
+                this.menu.getInputSlot().getItem().is(ModItemTags.UPGRADEABLE_GOLD)
                         ? GOLD_UPGRADE_SLOT_TEXTURES
                         : TRANSFER_SLOT_TEXTURES
         );
-        this.outputSlotTextures.updateTexture(OUTPUT_SLOT_TEXTURES);
-        super.handledScreenTick();
+        this.outputSlotTextures.tick(OUTPUT_SLOT_TEXTURES);
+        super.containerTick();
     }
 
     @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.inputSlotIcon.render(this.handler, context, delta, this.x, this.y);
-        this.outputSlotTextures.render(this.handler, context, delta, this.x, this.y);
-        if (this.handler.getInputSlot().hasStack()) {
-            this.transferToSlotIcon.render(this.handler, context, delta, this.x, this.y);
+    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+        this.inputSlotIcon.render(this.menu, context, delta, this.leftPos, this.topPos);
+        this.outputSlotTextures.render(this.menu, context, delta, this.leftPos, this.topPos);
+        if (this.menu.getInputSlot().hasItem()) {
+            this.transferToSlotIcon.render(this.menu, context, delta, this.leftPos, this.topPos);
         }
         super.render(context, mouseX, mouseY, delta);
     }
@@ -102,44 +102,44 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
      * Close the handled screen when pressing escape on keyboard.
      */
     @Override
-    public boolean keyPressed(KeyInput input) {
+    public boolean keyPressed(KeyEvent input) {
         if (input.key() == GLFW.GLFW_KEY_ESCAPE) {
-            this.client.player.closeHandledScreen();
+            this.minecraft.player.closeContainer();
         }
 
         return super.keyPressed(input);
     }
 
     /**
-     * Copied over from {@link AnvilScreenHandler}.
+     * Copied over from {@link AnvilMenu}.
      * <p>Draws the foreground.</p>
      */
     @Override
-    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
-        super.drawForeground(context, mouseX, mouseY);
-        context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, SMITHING_TEMPLATE, this.handler.getSmithingTemplateSlot().x, this.handler.getSmithingTemplateSlot().y, 16, 16);
-        if (this.handler.getTransferToSlot().getStack().isOf(Items.BOOK)) {
+    protected void renderLabels(GuiGraphics context, int mouseX, int mouseY) {
+        super.renderLabels(context, mouseX, mouseY);
+        context.blitSprite(RenderPipelines.GUI_TEXTURED, SMITHING_TEMPLATE, this.menu.getSmithingTemplateSlot().x, this.menu.getSmithingTemplateSlot().y, 16, 16);
+        if (this.menu.getTransferToSlot().getItem().is(Items.BOOK)) {
             int color = -1275068416;
-            Slot slot = this.handler.getSmithingTemplateSlot();
+            Slot slot = this.menu.getSmithingTemplateSlot();
             context.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, color, color);
         }
-        int i = this.handler.getLevelCost();
+        int i = this.menu.getLevelCost();
         if (i > 0) {
             int j = -8323296; // green
-            Text text;
-            if (!this.handler.getSlot(this.handler.getOutputSlot().id).hasStack()) {
+            Component text;
+            if (!this.menu.getSlot(this.menu.getOutputSlot().index).hasItem()) {
                 text = null;
             } else {
-                text = Text.translatable("block.speedrunnermod.speedrunners_workbench.cost", i);
-                if (!this.handler.getSlot(this.handler.getOutputSlot().id).canTakeItems(this.player)) {
+                text = Component.translatable("block.speedrunnermod.speedrunners_workbench.cost", i);
+                if (!this.menu.getSlot(this.menu.getOutputSlot().index).mayPickup(this.player)) {
                     j = -40864; // red
                 }
             }
 
             if (text != null) {
-                int k = this.backgroundWidth - 8 - this.textRenderer.getWidth(text) - 2;
-                context.fill(k - 2, 67, this.backgroundWidth - 8, 79, 1325400064);
-                context.drawTextWithShadow(this.textRenderer, text, k, 69, j);
+                int k = this.imageWidth - 8 - this.font.width(text) - 2;
+                context.fill(k - 2, 67, this.imageWidth - 8, 79, 1325400064);
+                context.drawString(this.font, text, k, 69, j);
             }
         }
     }
@@ -148,9 +148,9 @@ public class WorkbenchScreen extends ForgingScreen<WorkbenchScreenHandler> {
      * Draws the red arrow texture when something doesn't go righ.t
      */
     @Override
-    protected void drawInvalidRecipeArrow(DrawContext context, int x, int y) {
-        if ((this.handler.getSlot(this.handler.getInputSlot().id).hasStack() && this.handler.getSlot(this.handler.getTransferToSlot().id).hasStack()) && !this.handler.getSlot(this.handler.getResultSlotIndex()).hasStack()) {
-            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 35, 28, 21);
+    protected void renderErrorIcon(GuiGraphics context, int x, int y) {
+        if ((this.menu.getSlot(this.menu.getInputSlot().index).hasItem() && this.menu.getSlot(this.menu.getTransferToSlot().index).hasItem()) && !this.menu.getSlot(this.menu.getResultSlot()).hasItem()) {
+            context.blitSprite(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 35, 28, 21);
         }
     }
 

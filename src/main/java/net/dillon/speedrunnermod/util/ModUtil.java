@@ -6,49 +6,49 @@ import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.server.ServerStorage;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FireworksComponent;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EyeOfEnderEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.GiantEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.DragonFireballEntity;
-import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
-import net.minecraft.entity.projectile.FireballEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.HoverEvent;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
+import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.Structure;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.EyeOfEnder;
+import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
+import net.minecraft.world.entity.projectile.hurtingprojectile.DragonFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.Fireworks;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -88,22 +88,22 @@ public class ModUtil {
      * Locates structures.
      */
     @Author(Authors.KWPUGH)
-    public static void findStructureAndShoot(World world, PlayerEntity player, ItemStack itemstack, TagKey<Structure> type) {
-        BlockPos playerpos = player.getBlockPos();
-        ServerWorld serverWorld = (ServerWorld)world;
-        BlockPos locpos = serverWorld.locateStructure(type, playerpos, 100, false);
+    public static void findStructureAndShoot(Level world, Player player, ItemStack itemstack, TagKey<Structure> type) {
+        BlockPos playerpos = player.blockPosition();
+        ServerLevel serverWorld = (ServerLevel)world;
+        BlockPos locpos = serverWorld.findNearestMapStructure(type, playerpos, 100, false);
 
-        EyeOfEnderEntity finderentity = new EyeOfEnderEntity(world, player.getX(), player.getBodyY(0.5D), player.getZ());
+        EyeOfEnder finderentity = new EyeOfEnder(world, player.getX(), player.getY(0.5D), player.getZ());
         finderentity.setItem(itemstack);
-        Vec3d vec3d = new Vec3d(locpos.getX(), locpos.getY(), locpos.getZ());
-        finderentity.initTargetPos(vec3d);
-        world.spawnEntity(finderentity);
+        Vec3 vec3d = new Vec3(locpos.getX(), locpos.getY(), locpos.getZ());
+        finderentity.signalTo(vec3d);
+        world.addFreshEntity(finderentity);
 
-        if (player instanceof ServerPlayerEntity) {
-            Criteria.USED_ENDER_EYE.trigger((ServerPlayerEntity)player, locpos);
+        if (player instanceof ServerPlayer) {
+            CriteriaTriggers.USED_ENDER_EYE.trigger((ServerPlayer)player, locpos);
         }
 
-        world.syncWorldEvent(null, 1003, player.getBlockPos(), 0);
+        world.levelEvent(null, 1003, player.blockPosition(), 0);
     }
 
     /**
@@ -119,7 +119,7 @@ public class ModUtil {
                 copyInventory(oldPlayer, newPlayer);
                 ((InventoryPreserver)newPlayer).removeInventoryPreserver();
                 TaskScheduler.schedule(1, () -> {
-                    newPlayer.getEntityWorld().playSound(null, newPlayer.getX(), newPlayer.getY(), newPlayer.getZ(), SoundEvents.BLOCK_RESPAWN_ANCHOR_DEPLETE.value(), SoundCategory.PLAYERS, 3.0F, 1.0F);
+                    newPlayer.level().playSound(null, newPlayer.getX(), newPlayer.getY(), newPlayer.getZ(), SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), SoundSource.PLAYERS, 3.0F, 1.0F);
                     ModCriterions.TRIGGERED_BY_ITEM.trigger(newPlayer, new ItemStack(ModItems.INVENTORY_PRESERVER));
                 });
             }
@@ -129,65 +129,65 @@ public class ModUtil {
     /**
      * Copies inventory from {@code oldPlayer} to {@code newPlayer.}
      */
-    private static void copyInventory(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer) {
-        newPlayer.getInventory().clone(oldPlayer.getInventory());
+    private static void copyInventory(ServerPlayer oldPlayer, ServerPlayer newPlayer) {
+        newPlayer.getInventory().replaceWith(oldPlayer.getInventory());
     }
 
     /**
      * @return true if the oldPlayer's inventory contains a {@code Inventory Preserver.}
      */
-    private static boolean hasInventoryPreserver(PlayerEntity oldPlayer) {
+    private static boolean hasInventoryPreserver(Player oldPlayer) {
         return ((InventoryPreserver)(oldPlayer)).hadInventoryPreserver();
     }
 
     /**
      * Returns the oldPlayer's death coordinates as a clickable text to teleport right to it.
      */
-    public static Text deathCords(double x, double y, double z) {
-        return Text.translatable("speedrunnermod.player_death_cords",
+    public static Component deathCords(double x, double y, double z) {
+        return Component.translatable("speedrunnermod.player_death_cords",
                         ModUtil.roundToNearestTenthsPlace(x),
                         ModUtil.roundToNearestTenthsPlace(y),
                         ModUtil.roundToNearestTenthsPlace(z))
                 .setStyle(Style.EMPTY
-                        .withHoverEvent(new HoverEvent.ShowText(Text.translatable("speedrunnermod.teleport_to_player_death_cords")))
+                        .withHoverEvent(new HoverEvent.ShowText(Component.translatable("speedrunnermod.teleport_to_player_death_cords")))
                         .withClickEvent(new ClickEvent.SuggestCommand("/teleport @s " + x + " " + y + " " + z)));
     }
 
     /**
      * Sends a message to the oldPlayer with the mod prefix.
      */
-    public static void sendWithPrefix(String string, PlayerEntity player) {
-        player.sendMessage((ModTexts.BLANK).copy().append((Text.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Text.translatable(string)), false);
+    public static void sendWithPrefix(String string, Player player) {
+        player.displayClientMessage((ModTexts.BLANK).copy().append((Component.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Component.translatable(string)), false);
     }
 
     /**
      * Returns a specific type of formatting.
      */
-    public static Formatting toFormatting(UUID uuid, Formatting actionbar, Formatting chat) {
+    public static ChatFormatting toFormatting(UUID uuid, ChatFormatting actionbar, ChatFormatting chat) {
         return ServerStorage.shouldShowInActionbar(uuid) ? actionbar : chat;
     }
 
     /**
      * Sends a oldPlayer message with the actionbar preference and formatting.
      */
-    public static void sendMessageWithActionbarPref(PlayerEntity player, Text text) {
-        player.sendMessage(text, ServerStorage.shouldShowInActionbar(player.getUuid()));
+    public static void sendMessageWithActionbarPref(Player player, Component text) {
+        player.displayClientMessage(text, ServerStorage.shouldShowInActionbar(player.getUUID()));
     }
 
     /**
      * Sends a oldPlayer message with the actionbar preference and formatting with formatting for actionbar on/off.
      */
-    public static void sendMessageWithActionbarPref(PlayerEntity player, Text text, Formatting actionbar, Formatting chat) {
-        player.sendMessage(text.copy().formatted(ModUtil.toFormatting(player.getUuid(), actionbar, chat)), ServerStorage.shouldShowInActionbar(player.getUuid()));
+    public static void sendMessageWithActionbarPref(Player player, Component text, ChatFormatting actionbar, ChatFormatting chat) {
+        player.displayClientMessage(text.copy().withStyle(ModUtil.toFormatting(player.getUUID(), actionbar, chat)), ServerStorage.shouldShowInActionbar(player.getUUID()));
     }
 
     /**
      * @return true if a dragon is alive, near the ender dragon.
      */
-    public static boolean isGiantAlive(EnderDragonEntity dragon) {
-        List<GiantEntity> giants = getEntitiesWithinRange(dragon.getEntityWorld(), GiantEntity.class, dragon, options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
+    public static boolean isGiantAlive(EnderDragon dragon) {
+        List<Giant> giants = getEntitiesWithinRange(dragon.level(), Giant.class, dragon, options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
 
-        for (GiantEntity giant : giants) {
+        for (Giant giant : giants) {
             if (giant.isAlive()) {
                 return true;
             }
@@ -199,10 +199,10 @@ public class ModUtil {
     /**
      * @return true if a wither is alive, near the ender dragon.
      */
-    public static boolean isWitherAlive(EnderDragonEntity dragon) {
-        List<WitherEntity> withers = getEntitiesWithinRange(dragon.getEntityWorld(), WitherEntity.class, dragon, options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue());
+    public static boolean isWitherAlive(EnderDragon dragon) {
+        List<WitherBoss> withers = getEntitiesWithinRange(dragon.level(), WitherBoss.class, dragon, options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue());
 
-        for (WitherEntity wither : withers) {
+        for (WitherBoss wither : withers) {
             if (wither.isAlive()) {
                 return true;
             }
@@ -215,21 +215,21 @@ public class ModUtil {
      * Checks if a giant and/or a wither are alive.
      * <p>If either are present, the ender dragon {@code cannot die.}</p>
      */
-    public static boolean isGiantOrWitherAlive(EnderDragonEntity dragon) {
+    public static boolean isGiantOrWitherAlive(EnderDragon dragon) {
         return isGiantAlive(dragon) || isWitherAlive(dragon);
     }
 
     /**
-     * @return {@code enchantment} with the use of the {@link Entity} or {@link World} class.
-     * @param entityOrWorld should never be anything other than {@link Entity} or {@link World}.
+     * @return {@code enchantment} with the use of the {@link Entity} or {@link Level} class.
+     * @param entityOrWorld should never be anything other than {@link Entity} or {@link Level}.
      * @param enchantment the enchantment that should be returned.
      */
     @Deprecated
-    public static RegistryEntry<Enchantment> enchantment(@NotNull Object entityOrWorld, @NotNull RegistryKey<Enchantment> enchantment) {
+    public static Holder<Enchantment> enchantment(@NotNull Object entityOrWorld, @NotNull ResourceKey<Enchantment> enchantment) {
         try {
-            Optional<RegistryEntry.Reference<Enchantment>> optional =
-                    entityOrWorld instanceof Entity entity ? entity.getEntityWorld().getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
-                            entityOrWorld instanceof World world ? world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getEntry(enchantment.getValue()) :
+            Optional<Holder.Reference<Enchantment>> optional =
+                    entityOrWorld instanceof Entity entity ? entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(enchantment.identifier()) :
+                            entityOrWorld instanceof Level world ? world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(enchantment.identifier()) :
                                     Optional.empty();
             return optional.orElseThrow();
         } catch (Exception o) {
@@ -242,16 +242,16 @@ public class ModUtil {
                 SpeedrunnerMod.error("(" + errorMessagesSent + ") This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.");
             }
             errorMessagesSent++;
-            World world = null;
+            Level world = null;
             if (entityOrWorld instanceof Entity entity) {
-                world = entity.getEntityWorld();
-            } else if (entityOrWorld instanceof World w) {
+                world = entity.level();
+            } else if (entityOrWorld instanceof Level w) {
                 world = w;
             }
             if (world != null) {
-                return world.getRegistryManager()
-                        .getOrThrow(RegistryKeys.ENCHANTMENT)
-                        .getEntry(Enchantments.LOOTING.getValue())
+                return world.registryAccess()
+                        .lookupOrThrow(Registries.ENCHANTMENT)
+                        .get(Enchantments.LOOTING.identifier())
                         .orElseThrow();
             }
             throw o;
@@ -263,9 +263,9 @@ public class ModUtil {
      */
     public static ItemStack ofUnbreakable(Item item) {
         ItemStack stack = new ItemStack(item);
-        stack.set(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE);
+        stack.set(DataComponents.UNBREAKABLE, Unit.INSTANCE);
         if (item == Items.ELYTRA) {
-            stack.set(DataComponentTypes.ITEM_NAME, Text.translatable("item.speedrunnermod.icarus_wings"));
+            stack.set(DataComponents.ITEM_NAME, Component.translatable("item.speedrunnermod.icarus_wings"));
         }
         return stack;
     }
@@ -273,29 +273,29 @@ public class ModUtil {
     /**
      * Spawns a {@code floating item entity} from the oldPlayer's position.
      */
-    public static void spawnFloatingItemEntity(World world, ItemStack stack, PlayerEntity player) {
-        spawnFloatingItemEntity(world, player.getBlockPos(), stack, player, false);
+    public static void spawnFloatingItemEntity(Level world, ItemStack stack, Player player) {
+        spawnFloatingItemEntity(world, player.blockPosition(), stack, player, false);
     }
 
     /**
      * Spawns a {@code floating item entity} from the {@link BlockPos}'s position.
      */
-    public static void spawnFloatingItemEntity(World world, BlockPos pos, ItemStack stack, PlayerEntity player, boolean playSound) {
+    public static void spawnFloatingItemEntity(Level world, BlockPos pos, ItemStack stack, Player player, boolean playSound) {
         ItemEntity item = new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + 3.0F, pos.getZ() + 0.5F, stack);
         item.setInvulnerable(true);
-        item.setGlowing(true);
+        item.setGlowingTag(true);
         item.setNoGravity(true);
-        item.setNeverDespawn();
+        item.setUnlimitedLifetime();
 
-        Vec3d itemPos = item.getEntityPos();
-        Vec3d playerPos = player.getEntityPos();
-        Vec3d motion = playerPos.subtract(itemPos).normalize().multiply(0.1D);
-        item.setVelocity(motion.x, motion.y, motion.z);
+        Vec3 itemPos = item.position();
+        Vec3 playerPos = player.position();
+        Vec3 motion = playerPos.subtract(itemPos).normalize().scale(0.1D);
+        item.setDeltaMovement(motion.x, motion.y, motion.z);
 
         if (playSound) {
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_HIT_PLAYER, SoundCategory.NEUTRAL, 3.0F, 1.0F);
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_HIT_PLAYER, SoundSource.NEUTRAL, 3.0F, 1.0F);
         }
-        world.spawnEntity(item);
+        world.addFreshEntity(item);
     }
 
     /**
@@ -303,33 +303,33 @@ public class ModUtil {
      */
     public static ItemStack fireworkWithFlightDuration(int count) {
         ItemStack fireworks = new ItemStack(Items.FIREWORK_ROCKET, count);
-        fireworks.set(DataComponentTypes.FIREWORKS, new FireworksComponent(3, List.of()));
+        fireworks.set(DataComponents.FIREWORKS, new Fireworks(3, List.of()));
         return fireworks;
     }
 
     /**
      * Creates a fireball entity.
      */
-    public static boolean createFireball(Item item, World world, PlayerEntity player, Hand hand, boolean dragon) {
-        ItemStack stack = player.getStackInHand(hand);
-        if (!world.isClient()) {
-            Vec3d lookVec = player.getRotationVec(1.0F);
-            ExplosiveProjectileEntity fireball = new FireballEntity(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower.getCurrentValue());
+    public static boolean createFireball(Item item, Level world, Player player, InteractionHand hand, boolean dragon) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (!world.isClientSide()) {
+            Vec3 lookVec = player.getViewVector(1.0F);
+            AbstractHurtingProjectile fireball = new LargeFireball(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower.getCurrentValue());
             if (dragon) {
-                fireball = new DragonFireballEntity(world, player, lookVec.normalize());
+                fireball = new DragonFireball(world, player, lookVec.normalize());
             } else {
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayerEntity) player, stack);
+                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer) player, stack);
             }
-            fireball.updatePosition(player.getX(), player.getEyeY() - 0.235, player.getZ());
+            fireball.absSnapTo(player.getX(), player.getEyeY() - 0.235, player.getZ());
             fireball.setOwner(player);
-            world.spawnEntity(fireball);
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            world.addFreshEntity(fireball);
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
 
-            player.getItemCooldownManager().set(item.getDefaultStack(), ModUtil.secondsAsTicks(dragon ? 5 : 1));
-            if (!player.getAbilities().creativeMode) {
-                stack.decrement(1);
+            player.getCooldowns().addCooldown(item.getDefaultInstance(), ModUtil.secondsAsTicks(dragon ? 5 : 1));
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
             }
-            player.swingHand(hand);
+            player.swing(hand);
 
             return true;
         }
@@ -341,8 +341,8 @@ public class ModUtil {
      * @return true if dragon aura is found on potion contents.
      */
     public static boolean hasDragonsAura(ItemStack stack) {
-        for (StatusEffectInstance slotEffect : stack.get(DataComponentTypes.POTION_CONTENTS).getEffects()) {
-            if (slotEffect.getEffectType().matchesId(ofSpeedrunnerMod("dragons_aura"))) {
+        for (MobEffectInstance slotEffect : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
+            if (slotEffect.getEffect().is(ofSpeedrunnerMod("dragons_aura"))) {
                 return true;
             }
         }
@@ -356,8 +356,8 @@ public class ModUtil {
      * @param startingPoint the entity that the game should start searching from
      * @param xyz an array of the maximum {@code x, y, and z} search radius
      */
-    public static List getEntitiesWithinRange(World world, Class<? extends LivingEntity> entityListOf, LivingEntity startingPoint, List<Integer> xyz) {
-        return world.getEntitiesByClass(entityListOf, startingPoint.getBoundingBox().expand(
+    public static List getEntitiesWithinRange(Level world, Class<? extends LivingEntity> entityListOf, LivingEntity startingPoint, List<Integer> xyz) {
+        return world.getEntitiesOfClass(entityListOf, startingPoint.getBoundingBox().inflate(
                         xyz.getFirst(),
                         xyz.get(1),
                         xyz.get(2)),
@@ -367,44 +367,44 @@ public class ModUtil {
     /**
      * @return the item cooldown with the cooldown enchantment.
      */
-    public static int getItemCooldown(PlayerEntity playerEntity) {
-        int coolEnchantment = EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment(playerEntity, ModEnchantments.COOLDOWN), playerEntity);
+    public static int getItemCooldown(Player playerEntity) {
+        int coolEnchantment = EnchantmentHelper.getEnchantmentLevel(ModUtil.enchantment(playerEntity, ModEnchantments.COOLDOWN), playerEntity);
         return coolEnchantment > 3 ? 0 : coolEnchantment == 3 ? 5 : coolEnchantment == 2 ? 10 : coolEnchantment == 1 ? 15 : 20;
     }
 
     /**
      * Applies the correct shield cooldown.
      */
-    public static void applyItemCooldown(PlayerEntity playerEntity, ItemStack shield) {
-        playerEntity.getItemCooldownManager().set(shield, getItemCooldown(playerEntity));
+    public static void applyItemCooldown(Player playerEntity, ItemStack shield) {
+        playerEntity.getCooldowns().addCooldown(shield, getItemCooldown(playerEntity));
     }
 
     /**
      * Modifies the {@code maximum health} of an entity.
      */
     public static void modifyMaxHealth(LivingEntity entity, double health) {
-        if (entity.getAttributeInstance(EntityAttributes.MAX_HEALTH) != null) {
-            entity.getAttributeInstance(EntityAttributes.MAX_HEALTH).setBaseValue(health);
+        if (entity.getAttribute(Attributes.MAX_HEALTH) != null) {
+            entity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(health);
         }
-        entity.setHealth((float)entity.getAttributeInstance(EntityAttributes.MAX_HEALTH).getBaseValue());
+        entity.setHealth((float)entity.getAttribute(Attributes.MAX_HEALTH).getBaseValue());
     }
 
     /**
      * Modifies the {@code generic movement speed} of an entity.
      */
     public static void modifyMovementSpeed(LivingEntity entity, double speed) {
-        if (entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED) != null) {
-            entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(speed);
+        if (entity.getAttribute(Attributes.MOVEMENT_SPEED) != null) {
+            entity.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(speed);
         }
-        entity.setMovementSpeed((float)entity.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).getBaseValue());
+        entity.setSpeed((float)entity.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue());
     }
 
     /**
      * Modifies the {@code follow range} of an entity.
      */
     public static void modifyFollowRange(LivingEntity entity, double range) {
-        if (entity.getAttributeInstance(EntityAttributes.FOLLOW_RANGE) != null) {
-            entity.getAttributeInstance(EntityAttributes.FOLLOW_RANGE).setBaseValue(range);
+        if (entity.getAttribute(Attributes.FOLLOW_RANGE) != null) {
+            entity.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(range);
         }
     }
 
@@ -412,8 +412,8 @@ public class ModUtil {
      * Modifies the {@code attack damage} of an entity.
      */
     public static void modifyAttackDamage(LivingEntity entity, double attackDamage) {
-        if (entity.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE) != null) {
-            entity.getAttributeInstance(EntityAttributes.ATTACK_DAMAGE).setBaseValue(attackDamage);
+        if (entity.getAttribute(Attributes.ATTACK_DAMAGE) != null) {
+            entity.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(attackDamage);
         }
     }
 
@@ -421,8 +421,8 @@ public class ModUtil {
      * Modifies the {@code attack knockback} of an entity.
      */
     public static void modifyAttackKnockback(LivingEntity entity, double attackKnockback) {
-        if (entity.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK) != null) {
-            entity.getAttributeInstance(EntityAttributes.ATTACK_KNOCKBACK).setBaseValue(attackKnockback);
+        if (entity.getAttribute(Attributes.ATTACK_KNOCKBACK) != null) {
+            entity.getAttribute(Attributes.ATTACK_KNOCKBACK).setBaseValue(attackKnockback);
         }
     }
 
@@ -430,8 +430,8 @@ public class ModUtil {
      * Modifies the {@code knockback resistance} of an entity.
      */
     public static void modifyKnockbackResistance(LivingEntity entity, double resistance) {
-        if (entity.getAttributeInstance(EntityAttributes.KNOCKBACK_RESISTANCE) != null) {
-            entity.getAttributeInstance(EntityAttributes.KNOCKBACK_RESISTANCE).setBaseValue(resistance);
+        if (entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
+            entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(resistance);
         }
     }
 
@@ -439,16 +439,16 @@ public class ModUtil {
      * Modifies the {@code armor attribute} of an entity.
      */
     public static void modifyArmor(LivingEntity entity, double value) {
-        if (entity.getAttributeInstance(EntityAttributes.ARMOR) != null) {
-            entity.getAttributeInstance(EntityAttributes.ARMOR).setBaseValue(value);
+        if (entity.getAttribute(Attributes.ARMOR) != null) {
+            entity.getAttribute(Attributes.ARMOR).setBaseValue(value);
         }
     }
 
     /**
-     * Modifies the {@code experiencePoints} variable in {@link MobEntity}.
+     * Modifies the {@code experiencePoints} variable in {@link Mob}.
      */
-    public static int modifyExperiencePoints(MobEntity reference, LivingEntity attacker, int base, int multiplier) {
-        return base + EnchantmentHelper.getEquipmentLevel(ModUtil.enchantment(reference, Enchantments.LOOTING), attacker) * multiplier;
+    public static int modifyExperiencePoints(Mob reference, LivingEntity attacker, int base, int multiplier) {
+        return base + EnchantmentHelper.getEnchantmentLevel(ModUtil.enchantment(reference, Enchantments.LOOTING), attacker) * multiplier;
     }
 
     /**
@@ -459,7 +459,7 @@ public class ModUtil {
         int i = x2 - x1;
         int j = z2 - z1;
 
-        return MathHelper.sqrt((float) (i * i + j * j));
+        return Mth.sqrt((float) (i * i + j * j));
     }
 
     /**
@@ -536,9 +536,9 @@ public class ModUtil {
     /**
      * @return the bed block explosion power based.
      */
-    public static float getBedBlockExplosionPower(World world) {
+    public static float getBedBlockExplosionPower(Level world) {
         if (isDoomMode()) {
-            return world.getRegistryKey() == World.END ? 15.0F : 5.0F;
+            return world.dimension() == Level.END ? 15.0F : 5.0F;
         } else {
             return 5.0F;
         }

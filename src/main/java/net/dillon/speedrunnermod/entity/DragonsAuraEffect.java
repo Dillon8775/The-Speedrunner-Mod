@@ -1,51 +1,51 @@
 package net.dillon.speedrunnermod.entity;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectCategory;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * An effect which buffs the player in many ways.
  */
-public class DragonsAuraEffect extends StatusEffect {
+public class DragonsAuraEffect extends MobEffect {
 
-    protected DragonsAuraEffect(StatusEffectCategory category, int color) {
+    protected DragonsAuraEffect(MobEffectCategory category, int color) {
         super(category, color);
         this.addAttributeModifier(
-                EntityAttributes.MAX_HEALTH,
+                Attributes.MAX_HEALTH,
                 ofSpeedrunnerMod("max_health_dragons_aura"),
                 10.0,
-                EntityAttributeModifier.Operation.ADD_VALUE
+                AttributeModifier.Operation.ADD_VALUE
         );
         this.addAttributeModifier(
-                EntityAttributes.ATTACK_DAMAGE,
+                Attributes.ATTACK_DAMAGE,
                 ofSpeedrunnerMod("attack_damage_dragons_aura"),
                 2.0,
-                EntityAttributeModifier.Operation.ADD_VALUE
+                AttributeModifier.Operation.ADD_VALUE
         );
         this.addAttributeModifier(
-                EntityAttributes.ARMOR,
+                Attributes.ARMOR,
                 ofSpeedrunnerMod("armor_dragons_aura"),
                 8.0D,
-                EntityAttributeModifier.Operation.ADD_VALUE
+                AttributeModifier.Operation.ADD_VALUE
         );
         this.addAttributeModifier(
-                EntityAttributes.ARMOR_TOUGHNESS,
+                Attributes.ARMOR_TOUGHNESS,
                 ofSpeedrunnerMod("armor_toughness_dragons_aura"),
                 2.0D,
-                EntityAttributeModifier.Operation.ADD_VALUE
+                AttributeModifier.Operation.ADD_VALUE
         );
         this.addAttributeModifier(
-                EntityAttributes.BLOCK_INTERACTION_RANGE,
+                Attributes.BLOCK_INTERACTION_RANGE,
                 ofSpeedrunnerMod("block_interaction_range_dragons_aura"),
                 1.0D,
-                EntityAttributeModifier.Operation.ADD_VALUE
+                AttributeModifier.Operation.ADD_VALUE
         );
     }
 
@@ -53,7 +53,7 @@ public class DragonsAuraEffect extends StatusEffect {
      * Plays the ender dragon sound.
      */
     @Override
-    public void onApplied(LivingEntity entity, int amplifier) {
-        entity.getEntityWorld().playSound(null, entity.getBlockPos(), SoundEvents.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 5.0F, 0.65F);
+    public void onEffectStarted(LivingEntity entity, int amplifier) {
+        entity.level().playSound(null, entity.blockPosition(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.HOSTILE, 5.0F, 0.65F);
     }
 }

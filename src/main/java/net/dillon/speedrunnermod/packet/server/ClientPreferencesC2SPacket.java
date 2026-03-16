@@ -1,18 +1,18 @@
 package net.dillon.speedrunnermod.packet.server;
 
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
-import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
-public record ClientPreferencesC2SPacket(boolean actionbar, int iCarusFireworksInventorySlot, int infiniPearlInventorySlot) implements CustomPayload {
+public record ClientPreferencesC2SPacket(boolean actionbar, int iCarusFireworksInventorySlot, int infiniPearlInventorySlot) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("client_preferences_c2s");
 
-    public static final CustomPayload.Id<ClientPreferencesC2SPacket> PACKET = new CustomPayload.Id<>(ID);
-    public static final PacketCodec<RegistryByteBuf, ClientPreferencesC2SPacket> CODEC =
-            PacketCodec.of((buf, packet) -> {
+    public static final CustomPacketPayload.Type<ClientPreferencesC2SPacket> PACKET = new CustomPacketPayload.Type<>(ID);
+    public static final StreamCodec<RegistryFriendlyByteBuf, ClientPreferencesC2SPacket> CODEC =
+            StreamCodec.ofMember((buf, packet) -> {
                 packet.writeBoolean(buf.actionbar());
                 packet.writeInt(buf.iCarusFireworksInventorySlot());
                 packet.writeInt(buf.infiniPearlInventorySlot());
@@ -26,7 +26,7 @@ public record ClientPreferencesC2SPacket(boolean actionbar, int iCarusFireworksI
             );
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> getId() {
+    public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
         return PACKET;
     }
 }
