@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.client.screen;
 
 import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.client.input.KeyEvent;
@@ -89,13 +89,13 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> 
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        this.inputSlotIcon.render(this.menu, context, delta, this.leftPos, this.topPos);
-        this.outputSlotTextures.render(this.menu, context, delta, this.leftPos, this.topPos);
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        this.inputSlotIcon.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
+        this.outputSlotTextures.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
         if (this.menu.getInputSlot().hasItem()) {
-            this.transferToSlotIcon.render(this.menu, context, delta, this.leftPos, this.topPos);
+            this.transferToSlotIcon.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
         }
-        super.render(context, mouseX, mouseY, delta);
+        super.extractRenderState(context, mouseX, mouseY, delta);
     }
 
     /**
@@ -115,8 +115,8 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> 
      * <p>Draws the foreground.</p>
      */
     @Override
-    protected void renderLabels(GuiGraphics context, int mouseX, int mouseY) {
-        super.renderLabels(context, mouseX, mouseY);
+    protected void extractLabels(GuiGraphicsExtractor context, int mouseX, int mouseY) {
+        super.extractLabels(context, mouseX, mouseY);
         context.blitSprite(RenderPipelines.GUI_TEXTURED, SMITHING_TEMPLATE, this.menu.getSmithingTemplateSlot().x, this.menu.getSmithingTemplateSlot().y, 16, 16);
         if (this.menu.getTransferToSlot().getItem().is(Items.BOOK)) {
             int color = -1275068416;
@@ -139,7 +139,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> 
             if (text != null) {
                 int k = this.imageWidth - 8 - this.font.width(text) - 2;
                 context.fill(k - 2, 67, this.imageWidth - 8, 79, 1325400064);
-                context.drawString(this.font, text, k, 69, j);
+                context.text(this.font, text, k, 69, j);
             }
         }
     }
@@ -148,7 +148,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> 
      * Draws the red arrow texture when something doesn't go righ.t
      */
     @Override
-    protected void renderErrorIcon(GuiGraphics context, int x, int y) {
+    protected void extractErrorIcon(GuiGraphicsExtractor context, int x, int y) {
         if ((this.menu.getSlot(this.menu.getInputSlot().index).hasItem() && this.menu.getSlot(this.menu.getTransferToSlot().index).hasItem()) && !this.menu.getSlot(this.menu.getResultSlot()).hasItem()) {
             context.blitSprite(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 35, 28, 21);
         }

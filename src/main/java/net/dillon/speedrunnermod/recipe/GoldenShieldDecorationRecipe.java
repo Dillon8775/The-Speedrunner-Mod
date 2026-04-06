@@ -1,11 +1,9 @@
 package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.item.ModItems;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -18,8 +16,8 @@ import net.minecraft.world.level.block.entity.BannerPatternLayers;
  */
 public class GoldenShieldDecorationRecipe extends CustomRecipe {
 
-    public GoldenShieldDecorationRecipe(CraftingBookCategory category) {
-        super(category);
+    public GoldenShieldDecorationRecipe() {
+        super();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.mixin.main.screen;
+package net.dillon.speedrunnermod.mixin.main.menu;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.util.ModUtil;

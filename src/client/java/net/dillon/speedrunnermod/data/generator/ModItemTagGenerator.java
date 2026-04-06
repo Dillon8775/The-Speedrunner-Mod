@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
@@ -14,10 +14,10 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Contains the entries of all new or already existing item tags.
  */
-public class ModItemTagGenerator extends FabricTagProvider.ItemTagProvider {
+public class ModItemTagGenerator extends FabricTagsProvider.ItemTagsProvider {
 
-    public ModItemTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-        super(output, completableFuture);
+    public ModItemTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, registryLookupFuture);
     }
 
     @Override

@@ -7,7 +7,7 @@ import net.dillon.speedrunnermod.client.render.SpeedrunnerShieldModelRenderer;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
@@ -20,7 +20,7 @@ import net.minecraft.world.item.Items;
  */
 public class ModModelGenerator extends FabricModelProvider {
 
-    public ModModelGenerator(FabricDataOutput output) {
+    public ModModelGenerator(FabricPackOutput output) {
         super(output);
     }
 

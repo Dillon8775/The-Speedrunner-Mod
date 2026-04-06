@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -30,9 +30,9 @@ public class ResetOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    public void renderCustomText(GuiGraphics context) {
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.reset_options_successful.line1"), this.width / 2, 110, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.reset_options_successful.line2"), this.width / 2, 130, CommonColors.WHITE);
+    public void renderCustomText(GuiGraphicsExtractor context) {
+        context.centeredText(this.font, Component.translatable("speedrunnermod.reset_options_successful.line1"), this.width / 2, 110, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.reset_options_successful.line2"), this.width / 2, 130, CommonColors.WHITE);
     }
 
     @Override

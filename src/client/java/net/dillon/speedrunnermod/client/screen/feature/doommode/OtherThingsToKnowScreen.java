@@ -6,7 +6,7 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -39,7 +39,7 @@ public class OtherThingsToKnowScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.enableDoomModeButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.DOOM_MODE_ALREADY_ENABLED, context, mouseX, mouseY);
         }

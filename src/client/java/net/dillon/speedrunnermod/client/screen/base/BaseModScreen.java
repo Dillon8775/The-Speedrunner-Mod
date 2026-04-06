@@ -12,7 +12,7 @@ import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
@@ -82,7 +82,7 @@ public class BaseModScreen extends OptionsSubScreen {
     /**
      * A simplified way to render a tooltip.
      */
-    protected void renderBasicTooltip(Component text, GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderBasicTooltip(Component text, GuiGraphicsExtractor context, int mouseX, int mouseY) {
         context.setTooltipForNextFrame(this.font, this.font.split(text, 200), mouseX, mouseY);
     }
 

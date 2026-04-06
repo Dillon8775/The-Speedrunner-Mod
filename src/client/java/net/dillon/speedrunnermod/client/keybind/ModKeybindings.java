@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.client.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;

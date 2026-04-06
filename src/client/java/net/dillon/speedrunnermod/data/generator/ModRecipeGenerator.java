@@ -5,12 +5,13 @@ import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.recipe.*;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -25,7 +26,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
     private static final ImmutableList<ItemLike> EXPERIENCE_ORES = ImmutableList.of(ModBlocks.EXPERIENCE_ORE, ModBlocks.DEEPSLATE_EXPERIENCE_ORE, ModBlocks.NETHER_EXPERIENCE_ORE);
     private static final ImmutableList<ItemLike> SPEEDRUNNER_ORES_AND_BLOCKS = ImmutableList.of(ModBlocks.SPEEDRUNNER_ORE, ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, ModBlocks.NETHER_SPEEDRUNNER_ORE, ModItems.RAW_SPEEDRUNNER);
 
-    public ModRecipeGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+    public ModRecipeGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -211,6 +212,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                         ModItems.SPEEDRUNNER_BOOTS
                                 ),
                                 RecipeCategory.MISC,
+                                CookingBookCategory.MISC,
                                 ModItems.SPEEDRUNNER_NUGGET,
                                 0.2F,
                                 200
@@ -239,6 +241,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                                         ModItems.SPEEDRUNNER_BOOTS
                                 ),
                                 RecipeCategory.MISC,
+                                CookingBookCategory.MISC,
                                 ModItems.SPEEDRUNNER_NUGGET,
                                 0.2F,
                                 200

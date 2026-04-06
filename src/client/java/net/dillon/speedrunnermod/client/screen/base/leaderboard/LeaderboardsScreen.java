@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -42,7 +42,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.submitSpeedrunButton.isHovered()) {
             if (!options().main.leaderboardsMode.getCurrentValue()) {
                 this.renderBasicTooltip(Component.translatable("speedrunnermod.leaderboards_mode_disabled.tooltip"), context, mouseX, mouseY);

@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.client.screen.base.option;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.client.screen.options.*;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -92,13 +92,13 @@ public class ModOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float deltaTicks) {
+    public void render(GuiGraphicsExtractor context, int mouseX, int mouseY, float deltaTicks) {
         this.ssrOptionsButton.active = isSsrCustom();
         super.render(context, mouseX, mouseY, deltaTicks);
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.mainOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_MAIN_TOOLTIP, context, mouseX, mouseY);
         }

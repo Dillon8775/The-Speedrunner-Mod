@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Silverfish.SilverfishWakeUpFriendsGoal.class)
-public class SilverfishEntityCallForHelpGoalMixin {
+public class SilverfishEntityWakeUpFriendsGoalMixin {
     @Shadow
     int lookForFriends;
 

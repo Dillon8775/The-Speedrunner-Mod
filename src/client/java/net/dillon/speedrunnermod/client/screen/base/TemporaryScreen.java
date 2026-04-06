@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
@@ -19,8 +19,8 @@ public class TemporaryScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderCustomText(GuiGraphics context) {
-        context.drawCenteredString(this.font, this.text, this.width / 2, 100, CommonColors.WHITE);
+    protected void renderCustomText(GuiGraphicsExtractor context) {
+        context.centeredText(this.font, this.text, this.width / 2, 100, CommonColors.WHITE);
     }
 
     @Override

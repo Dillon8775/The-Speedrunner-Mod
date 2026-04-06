@@ -1,24 +1,26 @@
 package net.dillon.speedrunnermod.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Transformation;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.object.equipment.ShieldModel;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
-import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.MaterialSet;
+import net.minecraft.client.resources.model.sprite.SpriteGetter;
+import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 import java.util.Objects;
@@ -28,13 +30,14 @@ import java.util.function.Consumer;
  * The renderer class for the {@code golden shield.}
  */
 public class GoldenShieldModelRenderer implements SpecialModelRenderer<DataComponentMap> {
-    private final MaterialSet spriteHolder;
+    public static final Transformation DEFAULT_TRANSFORMATION = new Transformation(null, null, new Vector3f(1.0F, -1.0F, -1.0F), null);
+    private final SpriteGetter sprites;
     private final ShieldModel model;
-    private static final Material GOLDEN_SHIELD_BASE = new Material(Sheets.SHIELD_SHEET, Identifier.parse("entity/golden_shield_base"));
-    private static final Material GOLDEN_SHIELD_BASE_NO_PATTERN = new Material(Sheets.SHIELD_SHEET, Identifier.parse("entity/golden_shield_base_no_pattern"));
+    private static final SpriteId GOLDEN_SHIELD_BASE = Sheets.SHIELD_MAPPER.apply(Identifier.parse("entity/golden_shield_base"));
+    private static final SpriteId GOLDEN_SHIELD_BASE_NO_PATTERN = Sheets.SHIELD_MAPPER.apply(Identifier.parse("entity/golden_shield_base_no_pattern"));
 
-    public GoldenShieldModelRenderer(MaterialSet spriteHolder, ShieldModel model) {
-        this.spriteHolder = spriteHolder;
+    public GoldenShieldModelRenderer(final SpriteGetter sprites, final ShieldModel model) {
+        this.sprites = sprites;
         this.model = model;
     }
 
@@ -43,72 +46,43 @@ public class GoldenShieldModelRenderer implements SpecialModelRenderer<DataCompo
         return itemStack.immutableComponents();
     }
 
-    @Override
     public void submit(
-            @Nullable DataComponentMap componentMap,
-            ItemDisplayContext itemDisplayContext,
-            PoseStack matrixStack,
-            SubmitNodeCollector orderedRenderCommandQueue,
-            int i,
-            int j,
-            boolean bl,
-            int k
+            final @Nullable DataComponentMap components,
+            final PoseStack poseStack,
+            final SubmitNodeCollector submitNodeCollector,
+            final int lightCoords,
+            final int overlayCoords,
+            final boolean hasFoil,
+            final int outlineColor
     ) {
-        BannerPatternLayers bannerPatternsComponent = componentMap != null
-                ? (BannerPatternLayers)componentMap.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
+        BannerPatternLayers patterns = components != null
+                ? (BannerPatternLayers)components.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
                 : BannerPatternLayers.EMPTY;
-        DyeColor dyeColor = componentMap != null ? (DyeColor)componentMap.get(DataComponents.BASE_COLOR) : null;
-        boolean bl2 = !bannerPatternsComponent.layers().isEmpty() || dyeColor != null;
-        matrixStack.pushPose();
-        matrixStack.scale(1.0F, -1.0F, -1.0F);
-        Material spriteIdentifier = bl2 ? GOLDEN_SHIELD_BASE : GOLDEN_SHIELD_BASE_NO_PATTERN;
-        orderedRenderCommandQueue.submitModelPart(
-                this.model.handle(),
-                matrixStack,
-                this.model.renderType(spriteIdentifier.atlasLocation()),
-                i,
-                j,
-                this.spriteHolder.get(spriteIdentifier),
-                false,
-                false,
-                -1,
-                null,
-                k
-        );
-        if (bl2) {
+        DyeColor baseColor = components != null ? (DyeColor)components.get(DataComponents.BASE_COLOR) : null;
+        boolean hasPatterns = !patterns.layers().isEmpty() || baseColor != null;
+        SpriteId base = hasPatterns ? GOLDEN_SHIELD_BASE : GOLDEN_SHIELD_BASE_NO_PATTERN;
+        submitNodeCollector.submitModel(this.model, Unit.INSTANCE, poseStack, lightCoords, overlayCoords, -1, base, this.sprites, outlineColor, null);
+        if (hasPatterns) {
             BannerRenderer.submitPatterns(
-                    this.spriteHolder,
-                    matrixStack,
-                    orderedRenderCommandQueue,
-                    i,
-                    j,
+                    this.sprites,
+                    poseStack,
+                    submitNodeCollector,
+                    lightCoords,
+                    overlayCoords,
                     this.model,
                     Unit.INSTANCE,
-                    spriteIdentifier,
                     false,
-                    (DyeColor)Objects.requireNonNullElse(dyeColor, DyeColor.WHITE),
-                    bannerPatternsComponent,
-                    bl,
-                    null,
-                    k
-            );
-        } else {
-            orderedRenderCommandQueue.submitModelPart(
-                    this.model.plate(),
-                    matrixStack,
-                    this.model.renderType(spriteIdentifier.atlasLocation()),
-                    i,
-                    j,
-                    this.spriteHolder.get(spriteIdentifier),
-                    false,
-                    bl,
-                    -1,
-                    null,
-                    k
+                    (DyeColor)Objects.requireNonNullElse(baseColor, DyeColor.WHITE),
+                    patterns,
+                    null
             );
         }
 
-        matrixStack.popPose();
+        if (hasFoil) {
+            submitNodeCollector.submitModel(
+                    this.model, Unit.INSTANCE, poseStack, RenderTypes.entityGlint(), lightCoords, overlayCoords, -1, this.sprites.get(base), 0, null
+            );
+        }
     }
 
     @Override
@@ -118,19 +92,17 @@ public class GoldenShieldModelRenderer implements SpecialModelRenderer<DataCompo
         this.model.root().getExtentsForGui(matrixStack, consumer);
     }
 
-
-    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked {
+    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked<DataComponentMap> {
         public static final GoldenShieldModelRenderer.Unbaked INSTANCE = new GoldenShieldModelRenderer.Unbaked();
-        public static final MapCodec<GoldenShieldModelRenderer.Unbaked> CODEC = MapCodec.unit(INSTANCE);
+        public static final MapCodec<GoldenShieldModelRenderer.Unbaked> MAP_CODEC = MapCodec.unit(INSTANCE);
 
         @Override
         public MapCodec<GoldenShieldModelRenderer.Unbaked> type() {
-            return CODEC;
+            return MAP_CODEC;
         }
 
-        @Override
-        public SpecialModelRenderer<?> bake(SpecialModelRenderer.BakingContext context) {
-            return new GoldenShieldModelRenderer(context.materials(), new ShieldModel(context.entityModelSet().bakeLayer(ModelLayers.SHIELD)));
+        public GoldenShieldModelRenderer bake(final BakingContext context) {
+            return new GoldenShieldModelRenderer(context.sprites(), new ShieldModel(context.entityModelSet().bakeLayer(ModelLayers.SHIELD)));
         }
     }
 }

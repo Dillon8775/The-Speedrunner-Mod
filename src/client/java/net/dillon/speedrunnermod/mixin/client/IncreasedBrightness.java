@@ -34,8 +34,6 @@ public class IncreasedBrightness {
     @Shadow @Final @Mutable
     private Consumer<Double> onValueUpdate;
 
-    // TODO(Ravel): wildcard and regex target are not supported
-// TODO(Ravel): wildcard and regex target are not supported
     @Inject(at = @At("RETURN"), method = "<init>*")
     private void init(CallbackInfo info) {
         ComponentContents content = this.caption.getContents();

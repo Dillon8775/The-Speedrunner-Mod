@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -48,7 +48,7 @@ public class ClientOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void lockOptionsAndRenderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(ModListOptions.fog(), SpeedrunnerModClient.clientOptions().mixins.fogMixins.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.fog.tooltip"),
                 Component.translatable("speedrunnermod.options.fog_mixins_must_be_enabled.tooltip")

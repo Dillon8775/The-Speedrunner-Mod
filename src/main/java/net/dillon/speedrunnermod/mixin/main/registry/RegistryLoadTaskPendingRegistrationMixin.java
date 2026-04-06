@@ -2,36 +2,35 @@ package net.dillon.speedrunnermod.mixin.main.registry;
 
 import com.google.gson.JsonElement;
 import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Decoder;
 import net.dillon.speedrunnermod.data.loader.*;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
-import net.minecraft.core.RegistrationInfo;
-import net.minecraft.core.WritableRegistry;
-import net.minecraft.resources.RegistryDataLoader;
+import net.minecraft.resources.RegistryLoadTask;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.Resource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isSsrDefault;
 
-@Mixin(RegistryDataLoader.class)
-public class RegistryDataLoaderMixin {
+@Mixin(RegistryLoadTask.PendingRegistration.class)
+public class RegistryLoadTaskPendingRegistrationMixin {
 
     /**
      * Directly modifies {@code ".json" files} to change and modify {@code world generation features,} including structures, mob spawns, and more.
      * <p>See package {@link net.dillon.speedrunnermod.data.loader} fore more on this.</p>
      */
     @Author(Authors.MAXENCEDC)
-    @Inject(method = "loadElementFromResource", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"))
-    private static <E> void customDataGeneration(WritableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, ResourceKey<E> resourceKey, Resource resource, RegistrationInfo registrationInfo, CallbackInfo ci, @Local JsonElement jsonElement) {
-        String path = registry.key().identifier().getPath();
-        String fileName = path + "/" + resourceKey.identifier().getPath() + ".json";
+    @Inject(method = "loadFromResource", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"))
+    private static <T> void customDataGeneration(Decoder<T> elementDecoder, RegistryOps<JsonElement> ops, ResourceKey<T> elementKey, Resource thunk, CallbackInfoReturnable<Either<T, Exception>> cir, @Local JsonElement jsonElement) {
+        String path = elementKey.identifier().getPath();
+        String fileName = path + "/" + elementKey.identifier().getPath() + ".json";
 
         if (options().main.customDataGeneration.getCurrentValue()) {
             for (int i = 0; i < EntitySpawnsLoader.biomesWithDefaultMonsters().size(); i++) {

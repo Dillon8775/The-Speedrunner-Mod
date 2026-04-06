@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 @Mixin(Gui.HeartType.class)
-public class InGameHudMixin {
+public class HeartTypeMixin {
     @Unique
     private static final Identifier AURA_HALF_BLINKING = ofSpeedrunnerMod("hud/heart/aura_half_blinking");
     @Unique

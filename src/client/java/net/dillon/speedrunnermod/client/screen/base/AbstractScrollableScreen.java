@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -270,7 +270,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Renders scrollable formatted text.
      */
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         if (!isDraggingScrollbar && !isDraggingAnywhere) {
             this.scrollOffset += (targetScrollOffset - scrollOffset) * SCROLL_LERP_SPEED;
             int maxScroll = getAccurateMaxScroll();
@@ -278,7 +278,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         } else {
             this.scrollOffset = targetScrollOffset;
         }
-        super.render(context, mouseX, mouseY, delta);
+        super.extractRenderState(context, mouseX, mouseY, delta);
 
         initializeTopAndBottom();
         int scrollbarX = this.width - 10;
@@ -309,7 +309,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                     context.pose().pushMatrix();
                     context.pose().translate(this.centerAligned() ? (float)textX : (float)this.width / 2 - 175, (float)y);
                     context.pose().scale(scale, scale);
-                    context.drawString(this.font, wrappedLine, 0, 0, CommonColors.WHITE);
+                    context.text(this.font, wrappedLine, 0, 0, CommonColors.WHITE);
                     context.pose().popMatrix();
 
                     y += lineHeight;
@@ -363,7 +363,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 if (!this.children().contains(button)) {
                     this.addRenderableWidget(button);
                 }
-                button.render(context, mouseX, mouseY, delta);
+                button.extractRenderState(context, mouseX, mouseY, delta);
 
                 y += button.getHeight() + 4;
             }

@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Blaze.BlazeAttackGoal.class)
-public class BlazeEntityShootFireballGoalMixin {
+public class BlazeEntityAttackGoalMixin {
 
     /**
      * Increases the blaze's fireball cooldown, unless it's on {@code doom mode}.

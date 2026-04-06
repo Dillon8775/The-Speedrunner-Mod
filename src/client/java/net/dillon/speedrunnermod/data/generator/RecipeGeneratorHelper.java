@@ -36,7 +36,7 @@ public class RecipeGeneratorHelper extends RecipeProvider {
         SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), RecipeCategory.FOOD, output, 0.35F, 60)
                 .unlockedBy("has_item", this.has(input))
                 .save(this.output, output+"_from_campfire_cooking");
-        SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, output, 0.35F, 200)
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), RecipeCategory.FOOD, CookingBookCategory.FOOD, output, 0.35F, 200)
                 .unlockedBy("has_item", this.has(input))
                 .save(this.output, output+"_from_smelting");
         SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), RecipeCategory.FOOD, output, 0.35F, 200)
@@ -82,30 +82,30 @@ public class RecipeGeneratorHelper extends RecipeProvider {
      * Creates a smeltable and blastable material.
      */
     public void offerBurnableMaterial(List<ItemLike> inputs, ItemLike output, float exp, String group) {
-        offerNewSmelting(inputs, RecipeCategory.MISC, output, exp, group);
-        offerNewBlasting(inputs, RecipeCategory.MISC, output, exp, group);
+        offerNewSmelting(inputs, RecipeCategory.MISC, CookingBookCategory.MISC, output, exp, group);
+        offerNewBlasting(inputs, RecipeCategory.MISC, CookingBookCategory.MISC, output, exp, group);
     }
 
     /**
      * A helper method for creating a new smelting recipe.
      */
-    protected void offerNewSmelting(List<ItemLike> inputs, RecipeCategory category, ItemLike output, float experience, String group) {
-        this.offerMultipleOptionsH(RecipeSerializer.SMELTING_RECIPE, SmeltingRecipe::new, inputs, category, output, experience, 20, group, "_from_smelting");
+    protected void offerNewSmelting(List<ItemLike> inputs, RecipeCategory category, CookingBookCategory cookingBookCategory, ItemLike output, float experience, String group) {
+        this.offerMultipleOptionsH(SmeltingRecipe::new, inputs, category, cookingBookCategory, output, experience, 200, group, "_from_smelting");
     }
 
     /**
      * A helper method for creating a new blasting recipe.
      */
-    protected void offerNewBlasting(List<ItemLike> inputs, RecipeCategory category, ItemLike output, float experience, String group) {
-        this.offerMultipleOptionsH(RecipeSerializer.BLASTING_RECIPE, BlastingRecipe::new, inputs, category, output, experience, 20, group, "_from_blasting");
+    protected void offerNewBlasting(List<ItemLike> inputs, RecipeCategory category, CookingBookCategory cookingBookCategory, ItemLike output, float experience, String group) {
+        this.offerMultipleOptionsH(BlastingRecipe::new, inputs, category, cookingBookCategory, output, experience, 100, group, "_from_blasting");
     }
 
     /**
      * A helper method for creating a new cooking recipe.
      */
-    protected final <T extends AbstractCookingRecipe> void offerMultipleOptionsH(RecipeSerializer<T> serializer, AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> inputs, RecipeCategory category, ItemLike output, float experience, int cookingTime, String group, String suffix) {
+    protected final <T extends AbstractCookingRecipe> void offerMultipleOptionsH(AbstractCookingRecipe.Factory<T> recipeFactory, List<ItemLike> inputs, RecipeCategory craftingCategory, CookingBookCategory cookingBookCategory, ItemLike output, float experience, int cookingTime, String group, String suffix) {
         for (ItemLike itemConvertible : inputs) {
-            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemConvertible), category, output, experience, cookingTime, serializer, recipeFactory)
+            SimpleCookingRecipeBuilder.generic(Ingredient.of(itemConvertible), craftingCategory, cookingBookCategory, output, experience, cookingTime, recipeFactory)
                     .group(group)
                     .unlockedBy(getHasName(itemConvertible), this.has(itemConvertible))
                     .save(this.output, output + suffix + "_" + this.removeSpeedrunnerModNamespace(itemConvertible.asItem().toString()));

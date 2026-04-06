@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -44,7 +44,7 @@ public class FastWorldCreationOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void lockOptionsAndRenderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(ModListOptions.gameMode(), clientOptions().client.fastWorldCreation.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip")

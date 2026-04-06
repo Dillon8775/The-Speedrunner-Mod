@@ -1,1 +1,18 @@
 accessWidener v2 official
+
+# Block/World
+accessible class net/minecraft/world/level/storage/loot/functions/ApplyBonusCount$OreDrops
+accessible class net/minecraft/world/level/levelgen/structure/structures/NetherFortressPieces$PieceWeight
+accessible class net/minecraft/world/level/levelgen/structure/structures/StrongholdPieces$PieceWeight
+
+# Entites
+accessible class net/minecraft/world/entity/monster/Blaze$BlazeAttackGoal
+accessible class net/minecraft/world/entity/animal/dolphin/Dolphin$DolphinSwimWithPlayerGoal
+accessible class net/minecraft/world/entity/monster/Ghast$GhastShootFireballGoal
+accessible class net/minecraft/world/entity/monster/Silverfish$SilverfishWakeUpFriendsGoal
+
+# Menus/Screens
+accessible class net/minecraft/world/inventory/BrewingStandMenu$PotionSlot
+accessible class net/minecraft/client/gui/Gui$HeartType
+accessible class net/minecraft/client/OptionInstance$ValueSet
+accessible class net/minecraft/client/Minecraft$GameLoadCookie

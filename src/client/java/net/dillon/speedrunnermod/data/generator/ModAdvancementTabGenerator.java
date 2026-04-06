@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.advancement.TriggeredByItemCriterion;
 import net.dillon.speedrunnermod.entity.ModPotions;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -19,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.Level;
@@ -34,7 +35,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
 
-    protected ModAdvancementTabGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    protected ModAdvancementTabGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 
@@ -355,7 +356,7 @@ public class ModAdvancementTabGenerator extends FabricAdvancementProvider {
         AdvancementHolder dragonsAura = Advancement.Builder.advancement()
                 .parent(theEndOfTheMatter)
                 .display(
-                        stack,
+                        ItemStackTemplate.fromNonEmptyStack(stack),
                         Component.translatable("advancements.speedrunnermod.dragons_aura.title"),
                         Component.translatable("advancements.speedrunnermod.dragons_aura.description"),
                         null,

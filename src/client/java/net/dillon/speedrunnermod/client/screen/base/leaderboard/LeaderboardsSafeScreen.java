@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
@@ -66,10 +66,10 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
     }
 
     @Override
-    public void renderCustomText(GuiGraphics context) {
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line1"), this.width / 2, 80, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line2"), this.width / 2, 100, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line3"), this.width / 2, 120, CommonColors.WHITE);
+    public void renderCustomText(GuiGraphicsExtractor context) {
+        context.centeredText(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line1"), this.width / 2, 80, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line2"), this.width / 2, 100, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.leaderboards.ineligible_options.line3"), this.width / 2, 120, CommonColors.WHITE);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.leftButton.isHovered()) {
             this.renderBasicTooltip(Component.translatable("speedrunnermod.fix_and_restart.tooltip"), context, mouseX, mouseY);
         }

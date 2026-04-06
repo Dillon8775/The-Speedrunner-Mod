@@ -22,9 +22,9 @@ public class ModRecipes {
     protected static final RecipeSerializer<PiglinAwakenerRecipe> PIGLIN_AWAKENER_RECIPE_SERIALIZER =
             Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_piglin_awakener"), new CustomRecipe.Serializer<>(PiglinAwakenerRecipe::new));
 
-    protected static final CustomRecipe.Serializer<SpeedrunnerShieldDecorationRecipe> SPEEDRUNNER_SHIELD_DECORATION_RECIPE =
+    protected static final RecipeSerializer<SpeedrunnerShieldDecorationRecipe> SPEEDRUNNER_SHIELD_DECORATION_RECIPE =
             Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_speedrunner_shield_decoration"), new CustomRecipe.Serializer<>(SpeedrunnerShieldDecorationRecipe::new));
-    protected static final CustomRecipe.Serializer<GoldenShieldDecorationRecipe> GOLDEN_SHIELD_DECORATION_RECIPE =
+    protected static final RecipeSerializer<GoldenShieldDecorationRecipe> GOLDEN_SHIELD_DECORATION_RECIPE =
             Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_golden_shield_decoration"), new CustomRecipe.Serializer<>(GoldenShieldDecorationRecipe::new));
 
     /**

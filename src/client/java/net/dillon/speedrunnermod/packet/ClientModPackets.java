@@ -39,7 +39,7 @@ public class ClientModPackets {
      * Registers the {@code server-to-client} packet to ensure that client-side mode option matches server-side.
      */
     private static void registerS2CCheckModePacket() {
-        PayloadTypeRegistry.playS2C().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
             if (options().main.mode.getCurrentValue() != packet.serverSideMode()) {
@@ -53,7 +53,7 @@ public class ClientModPackets {
      * Registers the receiver for matching client-side options with server-side options.
      */
     private static void registerS2CMatchClientOptionsWithServer() {
-        PayloadTypeRegistry.playS2C().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(MatchClientOptionsWithServerS2CPacket.PACKET, (packet, context) -> {
             ModOptions serverOptions = packet.toOptions();
@@ -67,7 +67,7 @@ public class ClientModPackets {
      * Registers the {@code server-to-client open features screen} packet.
      */
     private static void registerS2COpenFeaturesScreen() {
-        PayloadTypeRegistry.playS2C().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(OpenFeaturesScreenS2CPacket.PACKET, (payload, context) -> {
             context.player().swing(InteractionHand.MAIN_HAND, true);
@@ -79,11 +79,11 @@ public class ClientModPackets {
      * Registers the {@code server-to-client} requesting syncing options packet.
      */
     private static void registerS2CRequestClientSideOptions() {
-        PayloadTypeRegistry.playS2C().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(RequestClientSideOptionsS2CPacket.PACKET, (payload, context) -> {
             ClientPlayNetworking.send(MatchServerOptionsWithClientC2SPacket.from(options(), context.player().getName().getString()));
-            context.player().displayClientMessage(Component.translatable("speedrunnermod.client_options_sent"), false);
+            context.player().sendSystemMessage(Component.translatable("speedrunnermod.client_options_sent"));
         });
     }
 
@@ -93,9 +93,9 @@ public class ClientModPackets {
     private static void registerC2SOnServer() {
         // only register on server
         if (isEnvironmentTypeServer()) {
-            PayloadTypeRegistry.playC2S().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
-            PayloadTypeRegistry.playC2S().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
-            PayloadTypeRegistry.playC2S().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
+            PayloadTypeRegistry.serverboundPlay().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
+            PayloadTypeRegistry.serverboundPlay().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
+            PayloadTypeRegistry.serverboundPlay().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
         }
     }
 

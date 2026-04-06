@@ -12,7 +12,7 @@ import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -90,7 +90,7 @@ public class MainScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.optionsButton.isHovered()) {
             if (options().main.leaderboardsMode.getCurrentValue()) {
                 if (!Leaderboards.isEligibleForLeaderboardRuns()) {

@@ -10,7 +10,7 @@ import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
@@ -133,14 +133,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      * Renders the basic and additional objects on a feature screen.
      */
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(context, mouseX, mouseY, delta);
         int leftSide = this.width / 2 - 155;
         int rightSide = leftSide + 160;
         int farRightSide = rightSide + 273;
         int height = this.height - 24;
         if (this.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) {
-            context.drawCenteredString(this.font, Component.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : farRightSide, height, CommonColors.WHITE);
+            context.centeredText(this.font, Component.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : farRightSide, height, CommonColors.WHITE);
         }
 
         if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
@@ -356,7 +356,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     /**
      * Render custom tooltips on screen.
      */
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) {
             if (this.getScreenType() == ScreenType.FIRST_PAGE || this.getScreenType() == ScreenType.DEFAULT) {
                 if (this.nextButton.isHovered()) {

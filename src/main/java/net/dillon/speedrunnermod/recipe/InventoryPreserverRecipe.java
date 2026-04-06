@@ -1,11 +1,9 @@
 package net.dillon.speedrunnermod.recipe;
 
 import net.dillon.speedrunnermod.item.ModItems;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -16,8 +14,8 @@ import net.minecraft.world.level.Level;
  */
 public class InventoryPreserverRecipe extends CustomRecipe {
 
-    public InventoryPreserverRecipe(CraftingBookCategory category) {
-        super(category);
+    public InventoryPreserverRecipe() {
+        super();
     }
 
     /**

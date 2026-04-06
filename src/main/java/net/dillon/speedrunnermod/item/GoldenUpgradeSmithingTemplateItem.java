@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.packet.client.OpenFeaturesScreenS2CPacket;
+import net.dillon.speedrunnermod.util.AccessorUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -35,8 +36,8 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
                 GOLDEN_INGREDIENTS_TEXT,
                 GOLDEN_BASE_SLOT_DESCRIPTION_TEXT,
                 GOLDEN_ADDITIONS_SLOT_DESCRIPTION_TEXT,
-                SmithingTemplateItem.createNetheriteUpgradeIconList(),
-                SmithingTemplateItem.createNetheriteUpgradeMaterialList(), settings);
+                AccessorUtil.upgradeIconList(),
+                AccessorUtil.upgradeMaterialList(), settings);
     }
 
     /**

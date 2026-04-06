@@ -2,8 +2,8 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.world.item.enchantment.Enchantments;
 
@@ -14,8 +14,8 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ModEnchantmentTagGenerator extends EnchantmentTagsProvider {
 
-    public ModEnchantmentTagGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-        super(output, completableFuture);
+    public ModEnchantmentTagGenerator(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider);
     }
 
     @Override

@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -82,10 +82,10 @@ public class CustomButtonListWidget extends ContainerObjectSelectionList<CustomB
         }
 
         @Override
-        public void renderContent(GuiGraphics context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
+        public void extractContent(GuiGraphicsExtractor context, int mouseX, int mouseY, boolean hovered, float deltaTicks) {
             for (AbstractWidget widget : this.widgets) {
                 widget.setY(this.getY());
-                widget.render(context, mouseX, mouseY, deltaTicks);
+                widget.extractRenderState(context, mouseX, mouseY, deltaTicks);
             }
         }
 

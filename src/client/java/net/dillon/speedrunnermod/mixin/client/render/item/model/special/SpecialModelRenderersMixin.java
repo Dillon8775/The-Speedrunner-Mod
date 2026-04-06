@@ -23,7 +23,7 @@ public class SpecialModelRenderersMixin {
 
     @Inject(method = "bootstrap", at = @At("TAIL"))
     private static void registerSpeedrunnerModModelRenderers(CallbackInfo ci) {
-        ID_MAPPER.put(ofSpeedrunnerMod("speedrunner_shield"), SpeedrunnerShieldModelRenderer.Unbaked.CODEC);
-        ID_MAPPER.put(ofSpeedrunnerMod("golden_shield"), GoldenShieldModelRenderer.Unbaked.CODEC);
+        ID_MAPPER.put(ofSpeedrunnerMod("speedrunner_shield"), SpeedrunnerShieldModelRenderer.Unbaked.MAP_CODEC);
+        ID_MAPPER.put(ofSpeedrunnerMod("golden_shield"), GoldenShieldModelRenderer.Unbaked.MAP_CODEC);
     }
 }

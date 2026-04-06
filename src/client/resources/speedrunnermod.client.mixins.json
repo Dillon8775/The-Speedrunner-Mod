@@ -15,7 +15,7 @@
     "network.ClientPlayNetworkHandlerMixin",
     "render.CustomWorldEvents",
     "render.FogRendererMixin",
-    "render.InGameHudMixin",
+    "render.HeartTypeMixin",
     "render.LavaFogModifierMixin",
     "render.item.model.special.SpecialModelTypesMixin",
     "screen.BrewingStandScreenMixin",

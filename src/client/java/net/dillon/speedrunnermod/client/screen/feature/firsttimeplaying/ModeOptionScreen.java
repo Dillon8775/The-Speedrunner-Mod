@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -50,7 +50,7 @@ public class ModeOptionScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int x, int y) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int x, int y) {
         if (this.easyButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.EASY_MODE_TOOLTIP, context, x, y);
         } else if (this.balancedButton.isHovered()) {

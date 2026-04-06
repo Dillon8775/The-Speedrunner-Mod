@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.client.screen.base.synced;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
@@ -45,12 +45,12 @@ public class TimedScreen extends AbstractModScreen {
     }
 
     @Override
-    public void renderCustomText(GuiGraphics context) {
+    public void renderCustomText(GuiGraphicsExtractor context) {
         if (this.server) {
-            context.drawCenteredString(this.font, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, CommonColors.WHITE);
+            context.centeredText(this.font, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, CommonColors.WHITE);
         }
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.literal(this.countdown+"..."), this.width / 2, 160, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, CommonColors.WHITE);
+        context.centeredText(this.font, Component.literal(this.countdown+"..."), this.width / 2, 160, CommonColors.WHITE);
     }
 
     @Override

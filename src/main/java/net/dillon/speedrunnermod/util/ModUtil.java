@@ -157,7 +157,7 @@ public class ModUtil {
      * Sends a message to the oldPlayer with the mod prefix.
      */
     public static void sendWithPrefix(String string, Player player) {
-        player.displayClientMessage((ModTexts.BLANK).copy().append((Component.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Component.translatable(string)), false);
+        player.sendSystemMessage((ModTexts.BLANK).copy().append((Component.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Component.translatable(string)));
     }
 
     /**
@@ -171,14 +171,23 @@ public class ModUtil {
      * Sends a oldPlayer message with the actionbar preference and formatting.
      */
     public static void sendMessageWithActionbarPref(Player player, Component text) {
-        player.displayClientMessage(text, ServerStorage.shouldShowInActionbar(player.getUUID()));
+        if (ServerStorage.shouldShowInActionbar(player.getUUID())) {
+            player.sendOverlayMessage(text);
+        } else {
+            player.sendSystemMessage(text);
+        }
     }
 
     /**
      * Sends a oldPlayer message with the actionbar preference and formatting with formatting for actionbar on/off.
      */
     public static void sendMessageWithActionbarPref(Player player, Component text, ChatFormatting actionbar, ChatFormatting chat) {
-        player.displayClientMessage(text.copy().withStyle(ModUtil.toFormatting(player.getUUID(), actionbar, chat)), ServerStorage.shouldShowInActionbar(player.getUUID()));
+        Component style = text.copy().withStyle(ModUtil.toFormatting(player.getUUID(), actionbar, chat));
+        if (ServerStorage.shouldShowInActionbar(player.getUUID())) {
+            player.sendOverlayMessage(style);
+        } else {
+            player.sendSystemMessage(style);
+        }
     }
 
     /**

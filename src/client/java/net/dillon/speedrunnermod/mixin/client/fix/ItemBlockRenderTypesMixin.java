@@ -1,7 +1,10 @@
 package net.dillon.speedrunnermod.mixin.client.fix;
 
 import com.google.common.collect.Maps;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandler;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderingRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.block.FluidModel;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.util.Util;
 import net.minecraft.world.level.material.Fluid;
@@ -33,6 +36,7 @@ public class ItemBlockRenderTypesMixin {
      */
     @Inject(method = "getRenderLayer", at = @At("RETURN"), cancellable = true)
     private static void registerLavaBoatRenderer(FluidState state, CallbackInfoReturnable<ChunkSectionLayer> cir) {
+        FluidRenderingRegistry.register(Fluids.LAVA, new FluidModel.Unbaked());
         ChunkSectionLayer lavaRenderLayer = LAVA.get(state.getType());
         if (lavaRenderLayer != null) {
             cir.setReturnValue(lavaRenderLayer);

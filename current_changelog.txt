@@ -1,5 +1,0 @@
-Version 1.12.1 (Fabric 26.1):
-- Updated to 26.1!
-
-- Removed feature screens :(. There is now a dedicated Wiki page for this mod.
-- New compatibility w/ Quality of Queso v1.6.

@@ -4,7 +4,7 @@ import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -37,7 +37,7 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.leftButton.isHovered()) {
             this.renderBasicTooltip(Component.translatable("speedrunnermod.download_and_install.tooltip"), context, mouseX, mouseY);
         }
@@ -53,10 +53,10 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
     }
 
     @Override
-    public void renderCustomText(GuiGraphics context) {
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.speedrun_igt_missing.line1"), this.width / 2, 90, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.speedrun_igt_missing.line2"), this.width / 2, 110, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.speedrun_igt_missing.line3"), this.width / 2, 130, CommonColors.WHITE);
+    public void renderCustomText(GuiGraphicsExtractor context) {
+        context.centeredText(this.font, Component.translatable("speedrunnermod.speedrun_igt_missing.line1"), this.width / 2, 90, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.speedrun_igt_missing.line2"), this.width / 2, 110, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.speedrun_igt_missing.line3"), this.width / 2, 130, CommonColors.WHITE);
     }
 
     @Override

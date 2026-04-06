@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -64,10 +64,10 @@ public class RestartRequiredScreen extends AbstractModScreen {
     }
 
     @Override
-    public void renderCustomText(GuiGraphics context) {
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restart_required.line1"), this.width / 2, 100, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restart_required.line2"), this.width / 2, 120, CommonColors.WHITE);
-        context.drawCenteredString(this.font, Component.translatable("speedrunnermod.restart_required.line3"), this.width / 2, 140, CommonColors.WHITE);
+    public void renderCustomText(GuiGraphicsExtractor context) {
+        context.centeredText(this.font, Component.translatable("speedrunnermod.restart_required.line1"), this.width / 2, 100, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.restart_required.line2"), this.width / 2, 120, CommonColors.WHITE);
+        context.centeredText(this.font, Component.translatable("speedrunnermod.restart_required.line3"), this.width / 2, 140, CommonColors.WHITE);
     }
 
     @Override

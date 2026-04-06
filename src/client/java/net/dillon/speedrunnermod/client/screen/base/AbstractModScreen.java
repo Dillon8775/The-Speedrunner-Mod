@@ -19,7 +19,7 @@ import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
@@ -100,8 +100,8 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     @Override
-    public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(context, mouseX, mouseY, delta);
         this.renderCustomText(context);
 
         if (this.shouldRenderVersionText()) {
@@ -109,17 +109,17 @@ public abstract class AbstractModScreen extends BaseModScreen {
             int rightSide = leftSide + 160;
             int farRightSide = rightSide + 267;
             int height = this.height - 24;
-            context.drawCenteredString(this.font, SpeedrunnerMod.VERSION, farRightSide, height, CommonColors.WHITE);
+            context.centeredText(this.font, SpeedrunnerMod.VERSION, farRightSide, height, CommonColors.WHITE);
         }
 
         if (this.searchField != null) {
-            this.searchField.render(context, mouseX, mouseY, delta);
+            this.searchField.extractWidgetRenderState(context, mouseX, mouseY, delta);
             this.search(!this.searchField.getValue().isEmpty());
         }
         this.lockOptionsAndRenderTooltips(context, mouseX, mouseY);
 
         if (this.shouldRenderTitleText()) {
-            context.drawCenteredString(this.font, this.title, this.hasSearchField() ? this.width / 2 - 45 : this.width / 2, 13, CommonColors.WHITE);
+            context.centeredText(this.font, this.title, this.hasSearchField() ? this.width / 2 - 45 : this.width / 2, 13, CommonColors.WHITE);
         }
 
         if (this.isOptionsScreen()) {
@@ -141,7 +141,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * Renders tooltips on certain buttons.
      */
-    protected void renderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.isOptionsScreen()) {
             if (this.saveButton.isHovered()) {
                 this.renderBasicTooltip(ModTexts.SAVE_TOOLTIP, context, mouseX, mouseY);
@@ -484,19 +484,19 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Render custom text on a mod screen.
      * <p><b>Never</b> {@link Override} the {@code basic render method,} use this method instead.</p>
      */
-    protected void renderCustomText(GuiGraphics context) {
+    protected void renderCustomText(GuiGraphicsExtractor context) {
     }
 
     /**
      * Render custom objects on a mod screen.
      */
-    protected void renderCustomObjects(GuiGraphics context) {
+    protected void renderCustomObjects(GuiGraphicsExtractor context) {
     }
 
     /**
      * Renders all {@link OptionInstance} tooltips.
      */
-    protected void lockOptionsAndRenderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
     }
 
     /**

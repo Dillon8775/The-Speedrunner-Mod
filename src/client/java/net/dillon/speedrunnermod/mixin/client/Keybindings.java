@@ -119,6 +119,6 @@ public abstract class Keybindings {
      */
     @Unique
     private void debugWarn(String string, Object... objects) {
-        this.gui.getChat().addMessage((ModTexts.BLANK).copy().append((Component.translatable("debug.prefix")).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD)).append(" ").append(Component.translatable(string, objects)));
+        this.gui.getChat().addClientSystemMessage((ModTexts.BLANK).copy().append((Component.translatable("debug.prefix")).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD)).append(" ").append(Component.translatable(string, objects)));
     }
 }

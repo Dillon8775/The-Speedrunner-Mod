@@ -18,8 +18,8 @@ import net.minecraft.world.level.block.entity.BannerPatternLayers;
  */
 public class SpeedrunnerShieldDecorationRecipe extends CustomRecipe {
 
-    public SpeedrunnerShieldDecorationRecipe(CraftingBookCategory category) {
-        super(category);
+    public SpeedrunnerShieldDecorationRecipe() {
+        super();
     }
 
     @Override

@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.client.screen.options;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
 import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -65,7 +65,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void lockOptionsAndRenderTooltips(GuiGraphics context, int mouseX, int mouseY) {
+    protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         boolean customDataGen = options().main.customDataGeneration.getCurrentValue();
         boolean customDataGenAndBalancedMode = customDataGen && !isBalancedMode();
         boolean customDataGenAndCustomBiomesAndCustomBiomeFeatures = customDataGen && options().main.customBiomesAndCustomBiomeFeatures.getCurrentValue();

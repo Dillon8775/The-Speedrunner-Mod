@@ -17,8 +17,8 @@ import net.minecraft.world.level.Level;
  */
 public class DragonFireballRecipe extends CustomRecipe {
 
-    public DragonFireballRecipe(CraftingBookCategory category) {
-        super(category);
+    public DragonFireballRecipe() {
+        super();
     }
 
     @Override

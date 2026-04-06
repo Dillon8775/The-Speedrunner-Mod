@@ -41,12 +41,12 @@ public abstract class MinecraftMixin {
      * <p>If the speedrunner mod detects broken options, then the game will load into the {@link SafeBootScreen}.</p>
      */
     @Overwrite
-    private Runnable buildInitialScreens(@Nullable Minecraft.GameLoadCookie loadingContext) {
+    private Runnable buildInitialScreens(final @Nullable Minecraft.GameLoadCookie cookie) {
         List<Function<Runnable, Screen>> list = new ArrayList();
         boolean bl = this.addInitialScreens(list);
         Runnable runnable = () -> {
-            if (loadingContext != null && loadingContext.quickPlayData().isEnabled()) {
-                QuickPlay.connect((Minecraft)(Object)this, loadingContext.quickPlayData().variant(), loadingContext.realmsClient());
+            if (cookie != null && cookie.quickPlayData().isEnabled()) {
+                QuickPlay.connect((Minecraft)(Object)this, cookie.quickPlayData().variant(), cookie.realmsClient());
             } else {
                 if (SpeedrunnerMod.safeBoot) {
                     this.setScreen(new SafeBootScreen(null));
