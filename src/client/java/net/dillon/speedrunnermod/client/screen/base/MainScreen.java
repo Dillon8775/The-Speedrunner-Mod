@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
+import net.dillon.speedrunnermod.client.option.Leaderboards;
 import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ExternalScreen;
 import net.dillon.speedrunnermod.client.screen.base.misc.ResourcesScreen;
@@ -8,7 +9,6 @@ import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.AbstractSecretDoomModeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.UmScreen;
 import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.YouArentReadyForThisScreen;
-import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;

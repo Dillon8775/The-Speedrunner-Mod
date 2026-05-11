@@ -15,5 +15,7 @@ public enum Authors {
     CECH12,
     BLOCKLEGEND001,
     YELEEFFF,
+    SERILUM,
+    SAMEDDIFFERENT,
     UNKNOWN
 }

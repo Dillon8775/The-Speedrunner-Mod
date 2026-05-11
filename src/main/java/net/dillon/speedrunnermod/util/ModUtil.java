@@ -4,8 +4,10 @@ import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.mixin.accessor.AbstractBoatAccessor;
 import net.dillon.speedrunnermod.server.ServerStorage;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -39,6 +41,7 @@ import net.minecraft.world.entity.projectile.EyeOfEnder;
 import net.minecraft.world.entity.projectile.hurtingprojectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.hurtingprojectile.DragonFireball;
 import net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball;
+import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -55,6 +58,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
@@ -156,6 +160,7 @@ public class ModUtil {
     /**
      * Sends a message to the oldPlayer with the mod prefix.
      */
+    @Deprecated(forRemoval = true)
     public static void sendWithPrefix(String string, Player player) {
         player.sendSystemMessage((ModTexts.BLANK).copy().append((Component.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Component.translatable(string)));
     }
@@ -188,6 +193,20 @@ public class ModUtil {
         } else {
             player.sendSystemMessage(style);
         }
+    }
+
+    /**
+     * @return if the quality of queso mod is loaded.
+     */
+    public static boolean isQualityOfQuesoLoaded() {
+        return FabricLoader.getInstance().isModLoaded("qualityofqueso");
+    }
+
+    /**
+     * @return if the simple keybinds is loaded.
+     */
+    public static boolean isSimpleKeybindsLoaded() {
+        return FabricLoader.getInstance().isModLoaded("simplekeybinds");
     }
 
     /**
@@ -277,6 +296,10 @@ public class ModUtil {
             stack.set(DataComponents.ITEM_NAME, Component.translatable("item.speedrunnermod.icarus_wings"));
         }
         return stack;
+    }
+
+    public static Supplier<Item> droppedItem(AbstractBoat boat) {
+        return ((AbstractBoatAccessor) boat).getDroppedItem();
     }
 
     /**
@@ -531,6 +554,7 @@ public class ModUtil {
     /**
      * Creates an {@code integer list option,} with {@code negative} and {@code positive} coordinate values.
      */
+    @Deprecated
     public static List<Integer> createListOption(int negX, int negY, int negZ, int posX, int posY, int posZ) {
         return List.of(negX, negY, negZ, posX, posY, posZ);
     }

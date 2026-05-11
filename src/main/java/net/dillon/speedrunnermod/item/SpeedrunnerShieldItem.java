@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.mixin.main.component.BlocksAttacksMixin;
+import net.dillon.speedrunnermod.mixin.entity.player.PlayerMixin;
+import net.dillon.speedrunnermod.mixin.item.component.BlocksAttacksMixin;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -22,7 +23,7 @@ import java.util.function.Consumer;
 
 /**
  * <p>A shield which has a faster cooldown, and more durability.</p>
- * <p>See {@link net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe}, SpeedrunnerShieldModelRenderer and {@link net.dillon.speedrunnermod.mixin.main.entity.player.PlayerMixin} for more.
+ * <p>See {@link net.dillon.speedrunnermod.recipe.SpeedrunnerShieldDecorationRecipe}, SpeedrunnerShieldModelRenderer and {@link PlayerMixin} for more.
  * <p>Shield cooldown function located in {@link BlocksAttacksMixin}</p></p>
  */
 public class SpeedrunnerShieldItem extends ShieldItem {

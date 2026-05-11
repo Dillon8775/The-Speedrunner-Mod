@@ -1,20 +1,23 @@
 package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.mixin.accessor.TreeFeaturesInvoker;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.BlockPileConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 
 import java.util.List;
@@ -51,7 +54,16 @@ public class WastelandConfiguredFeatures {
 
         FeatureUtils.register(context, DEFAULT_SPEEDRUNNER, Feature.TREE, speedrunnersWasteland().build());
         FeatureUtils.register(context, FANCY_SPEEDRUNNER, Feature.TREE, fancySpeedrunnersWasteland().build());
-        FeatureUtils.register(context, PATCH_RAW_SPEEDRUNNER_BLOCK, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.RAW_SPEEDRUNNER_BLOCK)), List.of(Blocks.GRASS_BLOCK)));
+        FeatureUtils.register(
+                context,
+                PATCH_RAW_SPEEDRUNNER_BLOCK,
+                Feature.BLOCK_PILE,
+                new BlockPileConfiguration(
+                        new WeightedStateProvider(WeightedList.<BlockState>builder()
+                                .add(ModBlocks.RAW_SPEEDRUNNER_BLOCK.defaultBlockState(), 19)
+                                .add(ModBlocks.SPEEDRUNNER_BLOCK.defaultBlockState(), 1))
+                )
+        );
         FeatureUtils.register(context, ORE_SPEEDRUNNER, Feature.ORE, new OreConfiguration(speedrunnerOres, 12));
         FeatureUtils.register(context, ORE_SPEEDRUNNER_SMALL, Feature.ORE, new OreConfiguration(speedrunnerOres, 5));
         FeatureUtils.register(context, ORE_EXPERIENCE, Feature.ORE, new OreConfiguration(experienceOres, 4, 0.2F));
@@ -60,7 +72,7 @@ public class WastelandConfiguredFeatures {
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder speedrunnersWasteland() {
-        return TreeFeatures.createStraightBlobTree(
+        return TreeFeaturesInvoker.invokeCreateStraightBlobTree(
                         ModBlocks.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LEAVES, 5, 3, 1, 3)
                 .ignoreVines();
     }

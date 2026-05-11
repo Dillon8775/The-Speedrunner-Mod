@@ -1,11 +1,9 @@
 package net.dillon.speedrunnermod.client.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Transformation;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.object.equipment.ShieldModel;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
@@ -14,13 +12,11 @@ import net.minecraft.client.resources.model.sprite.SpriteGetter;
 import net.minecraft.client.resources.model.sprite.SpriteId;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.Identifier;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 import java.util.Objects;
@@ -30,11 +26,8 @@ import java.util.function.Consumer;
  * The renderer class for the {@code speedrunner shield.}
  */
 public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<DataComponentMap> {
-    public static final Transformation DEFAULT_TRANSFORMATION = new Transformation(null, null, new Vector3f(1.0F, -1.0F, -1.0F), null);
     private final SpriteGetter sprites;
     private final ShieldModel model;
-    private static final SpriteId SPEEDRUNNER_SHIELD_BASE = Sheets.SHIELD_MAPPER.apply(Identifier.parse("entity/speedrunner_shield_base"));
-    private static final SpriteId SPEEDRUNNER_SHIELD_BASE_NO_PATTERN = Sheets.SHIELD_MAPPER.apply(Identifier.parse("entity/speedrunner_shield_base_no_pattern"));
 
     public SpeedrunnerShieldModelRenderer(final SpriteGetter sprites, final ShieldModel model) {
         this.sprites = sprites;
@@ -42,8 +35,8 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Data
     }
 
     @Nullable
-    public DataComponentMap extractArgument(ItemStack itemStack) {
-        return itemStack.immutableComponents();
+    public DataComponentMap extractArgument(final ItemStack stack) {
+        return stack.immutableComponents();
     }
 
     public void submit(
@@ -60,7 +53,7 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Data
                 : BannerPatternLayers.EMPTY;
         DyeColor baseColor = components != null ? (DyeColor)components.get(DataComponents.BASE_COLOR) : null;
         boolean hasPatterns = !patterns.layers().isEmpty() || baseColor != null;
-        SpriteId base = hasPatterns ? SPEEDRUNNER_SHIELD_BASE : SPEEDRUNNER_SHIELD_BASE_NO_PATTERN;
+        SpriteId base = hasPatterns ? ModSheets.SPEEDRUNNER_SHIELD_BASE : ModSheets.SPEEDRUNNER_SHIELD_BASE_NO_PATTERN;
         submitNodeCollector.submitModel(this.model, Unit.INSTANCE, poseStack, lightCoords, overlayCoords, -1, base, this.sprites, outlineColor, null);
         if (hasPatterns) {
             BannerRenderer.submitPatterns(
@@ -86,13 +79,12 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Data
     }
 
     @Override
-    public void getExtents(Consumer<Vector3fc> consumer) {
-        PoseStack matrixStack = new PoseStack();
-        matrixStack.scale(1.0F, -1.0F, -1.0F);
-        this.model.root().getExtentsForGui(matrixStack, consumer);
+    public void getExtents(final Consumer<Vector3fc> output) {
+        PoseStack poseStack = new PoseStack();
+        this.model.root().getExtentsForGui(poseStack, output);
     }
 
-    public record Unbaked() implements net.minecraft.client.renderer.special.SpecialModelRenderer.Unbaked<DataComponentMap> {
+    public record Unbaked() implements SpecialModelRenderer.Unbaked<DataComponentMap> {
         public static final SpeedrunnerShieldModelRenderer.Unbaked INSTANCE = new SpeedrunnerShieldModelRenderer.Unbaked();
         public static final MapCodec<SpeedrunnerShieldModelRenderer.Unbaked> MAP_CODEC = MapCodec.unit(INSTANCE);
 
@@ -101,7 +93,7 @@ public class SpeedrunnerShieldModelRenderer implements SpecialModelRenderer<Data
             return MAP_CODEC;
         }
 
-        public SpeedrunnerShieldModelRenderer bake(final BakingContext context) {
+        public SpeedrunnerShieldModelRenderer bake(final SpecialModelRenderer.BakingContext context) {
             return new SpeedrunnerShieldModelRenderer(context.sprites(), new ShieldModel(context.entityModelSet().bakeLayer(ModelLayers.SHIELD)));
         }
     }

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base.option;
 
+import net.dillon.speedrunnermod.client.option.ClientModOptions;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -9,8 +9,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveAllChanges;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 public class ResetOptionsConfirmScreen extends AbstractModScreen {
 

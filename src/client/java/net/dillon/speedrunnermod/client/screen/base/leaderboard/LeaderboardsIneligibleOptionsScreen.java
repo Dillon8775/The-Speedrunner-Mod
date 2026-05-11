@@ -1,9 +1,8 @@
 package net.dillon.speedrunnermod.client.screen.base.leaderboard;
 
+import net.dillon.speedrunnermod.client.option.Leaderboards;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.CommonColors;

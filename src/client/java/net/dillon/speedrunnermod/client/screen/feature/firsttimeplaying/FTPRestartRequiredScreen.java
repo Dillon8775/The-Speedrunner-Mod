@@ -8,8 +8,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.NotNull;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveClientChanges;
 import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
 

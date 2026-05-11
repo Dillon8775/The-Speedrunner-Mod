@@ -17,10 +17,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveAllChanges;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 public class RestartRequiredScreen extends AbstractModScreen {
     public static boolean restartRequired = false;

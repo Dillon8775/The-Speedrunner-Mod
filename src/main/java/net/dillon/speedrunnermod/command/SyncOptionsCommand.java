@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.command;
 
 import com.mojang.brigadier.CommandDispatcher;
-import net.dillon.speedrunnermod.packet.client.RequestClientSideOptionsS2CPacket;
+import net.dillon.speedrunnermod.network.client.RequestClientSideOptionsS2CPacket;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

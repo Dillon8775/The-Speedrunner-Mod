@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen;
 
-import net.dillon.speedrunnermod.screen.ModScreenHandlerTypes;
+import net.dillon.speedrunnermod.menu.ModMenus;
 import net.minecraft.client.gui.screens.MenuScreens;
 
 /**
@@ -9,6 +9,6 @@ import net.minecraft.client.gui.screens.MenuScreens;
 public class ModHandledScreens {
 
     public static void registerScreens() {
-        MenuScreens.register(ModScreenHandlerTypes.WORKBENCH, WorkbenchScreen::new);
+        MenuScreens.register(ModMenus.WORKBENCH, WorkbenchScreen::new);
     }
 }

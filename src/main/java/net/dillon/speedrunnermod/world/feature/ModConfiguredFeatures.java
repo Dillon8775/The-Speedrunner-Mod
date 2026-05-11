@@ -1,32 +1,30 @@
 package net.dillon.speedrunnermod.world.feature;
 
-import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.mixin.accessor.TreeFeaturesInvoker;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.features.TreeFeatures;
-import net.minecraft.data.worldgen.features.VegetationFeatures;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.MegaPineFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
-import net.minecraft.world.level.levelgen.feature.treedecorators.AlterGroundDecorator;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.GiantTrunkPlacer;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 
 import java.util.List;
+import java.util.OptionalInt;
 
 /**
  * All Speedrunner Mod {@code configured features.}
@@ -73,8 +71,8 @@ public class ModConfiguredFeatures {
 
         FeatureUtils.register(context, DEAD_SPEEDRUNNER, Feature.TREE, defaultDeadSpeedrunner().build());
         FeatureUtils.register(context, DOOM_TREE, Feature.TREE, doomTree().build());
-        FeatureUtils.register(context, PATCH_DEAD_SPEEDRUNNER_BUSH, Feature.RANDOM_PATCH,
-                VegetationFeatures.grassPatch(BlockStateProvider.simple(ModBlocks.DEAD_SPEEDRUNNER_BUSH), 3));
+        FeatureUtils.register(context, PATCH_DEAD_SPEEDRUNNER_BUSH, Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.DEAD_SPEEDRUNNER_BUSH)));
         FeatureUtils.register(context, ORE_SPEEDRUNNER, Feature.ORE, new OreConfiguration(speedrunnerOres, 9));
         FeatureUtils.register(context, ORE_SPEEDRUNNER_SMALL,  Feature.ORE, new OreConfiguration(speedrunnerOres, 4));
         FeatureUtils.register(context, ORE_NETHER_SPEEDRUNNER, Feature.ORE, new OreConfiguration(netherSpeedrunnerOres, 10));
@@ -85,7 +83,7 @@ public class ModConfiguredFeatures {
     }
 
     private static TreeConfiguration.TreeConfigurationBuilder defaultDeadSpeedrunner() {
-        return TreeFeatures.createStraightBlobTree(
+        return TreeFeaturesInvoker.invokeCreateStraightBlobTree(
                         ModBlocks.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LEAVES, 4, 2, 0, 2)
                 .ignoreVines();
     }
@@ -93,11 +91,12 @@ public class ModConfiguredFeatures {
     private static TreeConfiguration.TreeConfigurationBuilder doomTree() {
         return new TreeConfiguration.TreeConfigurationBuilder(
                 BlockStateProvider.simple(ModBlocks.DOOM_LOG),
-                new GiantTrunkPlacer(13, 2, 14),
+                new FancyTrunkPlacer(3, 11, 0),
                 BlockStateProvider.simple(ModBlocks.DOOM_LEAVES),
-                new MegaPineFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0), UniformInt.of(13, 17)),
-                new TwoLayersFeatureSize(1, 1, 2)
-        ).decorators(ImmutableList.of(new AlterGroundDecorator(BlockStateProvider.simple(Blocks.PODZOL))));
+                new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
+                new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4))
+        )
+                .ignoreVines();
     }
 
     /**

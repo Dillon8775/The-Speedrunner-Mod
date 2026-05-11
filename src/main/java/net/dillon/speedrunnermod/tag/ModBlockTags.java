@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.tag;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.mixin.block.BlockStateBaseMixin;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -25,7 +26,7 @@ public class ModBlockTags {
     public static TagKey<Block> SPEEDRUNNER_SIGNS = of("speedrunner_signs");
 
     /**
-     * These are the block tags that have a modified hardness value. See {@link net.dillon.speedrunnermod.mixin.main.block.AbstractBlockStateMixin} for more.
+     * These are the block tags that have a modified hardness value. See {@link BlockStateBaseMixin} for more.
      */
     public static class BlockHardness {
         public static TagKey<Block> ZERO_HARDNESS = blockHardness(0);

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
+import net.dillon.speedrunnermod.client.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.*;
@@ -9,7 +10,6 @@ import net.dillon.speedrunnermod.client.screen.feature.miscellaneous.*;
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.*;
 import net.dillon.speedrunnermod.client.screen.feature.secretdoommode.*;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.*;
-import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -223,39 +223,55 @@ public class BaseModScreen extends OptionsSubScreen {
         return List.of(
                 ICarusModeScreen.class,
                 InfiniPearlModeScreen.class,
+
                 FasterBlockBreakingScreen.class,
                 BetterPiglinBarteringScreen.class,
+
                 PiglinPorkScreen.class,
                 NoMorePiglinBrutesScreen.class,
+
                 TripledDropsScreen.class,
                 MoreExperienceScreen.class,
+
                 BlazeSpawnersInBastionsScreen.class,
                 BlazesDropGoldScreen.class,
+
                 BetterNetherPortalsScreen.class,
                 WaterInNetherScreen.class,
+
                 FireproofItemsScreen.class,
                 ThrowableFireballsScreen.class,
+
                 BetterHotkeysScreen.class,
                 ResetKeyScreen.class,
+
                 FogKeyScreen.class,
                 FullbrightKeyScreen.class,
-                BetterVillagerTradesScreen.class,
+
                 RetiredSpeedrunnerScreen.class,
                 BetterLootTablesScreen.class,
+
                 ReverseCraftingScreen.class,
                 FasterSmeltingScreen.class,
+
                 LessFallDamageScreen.class,
                 CookedFleshScreen.class,
+
                 BetterFoodsScreen.class,
-                BetterDeathScreen.class,
                 BetterAnvilsScreen.class,
+
+                BetterDeathScreen.class,
                 CraftableGodApplesScreen.class,
-                CraftableTotemsScreen.class,
+
                 RightClickToRemoveSilkTouchScreen.class,
+                CraftableTotemsScreen.class,
+
                 EnderEyesNeverBreak.class,
                 ArrowsExplodeBedsScreen.class,
+
                 SpeedrunnerEditionScreen.class,
                 CustomPanoramaScreen.class,
+
                 AndMoreScreen.class
         );
     }

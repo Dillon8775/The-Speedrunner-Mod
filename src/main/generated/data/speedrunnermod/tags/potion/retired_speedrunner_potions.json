@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:strength",
+    "minecraft:long_strength",
+    "minecraft:strong_strength",
+    "minecraft:strong_regeneration",
+    "minecraft:long_fire_resistance",
+    "minecraft:invisibility",
+    "minecraft:long_invisibility",
+    "minecraft:strong_harming"
+  ]
+}

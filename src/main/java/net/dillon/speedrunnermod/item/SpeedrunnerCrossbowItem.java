@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.mixin.accessor.CrossbowItemAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -36,8 +37,8 @@ public class SpeedrunnerCrossbowItem extends CrossbowItem {
             return InteractionResult.CONSUME;
         }
         if (!user.getProjectile(itemStack).isEmpty()) {
-            this.startSoundPlayed = false;
-            this.midLoadSoundPlayed = false;
+            ((CrossbowItemAccessor)(this)).setStartSoundPlayed(false);
+            ((CrossbowItemAccessor)(this)).setMidLoadSoundPlayed(false);
             user.startUsingItem(hand);
             return InteractionResult.CONSUME;
         }

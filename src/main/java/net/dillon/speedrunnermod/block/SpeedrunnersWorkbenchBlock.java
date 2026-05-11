@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.block;
 
+import net.dillon.speedrunnermod.menu.WorkbenchMenu;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -30,7 +30,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
     @Override
     protected MenuProvider getMenuProvider(BlockState state, Level world, BlockPos pos) {
         return new SimpleMenuProvider(
-                (syncId, inventory, player) -> new WorkbenchScreenHandler(syncId, inventory, ContainerLevelAccess.create(world, pos)), Component.translatable("block.speedrunnermod.speedrunners_workbench")
+                (syncId, inventory, player) -> new WorkbenchMenu(syncId, inventory, ContainerLevelAccess.create(world, pos)), Component.translatable("block.speedrunnermod.speedrunners_workbench")
         );
     }
 

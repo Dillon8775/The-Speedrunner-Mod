@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.base.synced;
 
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.packet.server.RequestServerSideOptionsC2SPacket;
+import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.GuiGraphicsExtractor;

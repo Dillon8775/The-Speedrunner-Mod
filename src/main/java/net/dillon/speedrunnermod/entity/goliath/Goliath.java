@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
-import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
+import net.dillon.speedrunnermod.mixin.entity.goliath.GoliathEntity;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;

@@ -1,4 +1,8 @@
 {
   "type": "speedrunnermod:crafting_golden_shield_decoration",
-  "category": "misc"
+  "banner": "#minecraft:banners",
+  "result": {
+    "id": "speedrunnermod:golden_shield"
+  },
+  "target": "speedrunnermod:golden_shield"
 }

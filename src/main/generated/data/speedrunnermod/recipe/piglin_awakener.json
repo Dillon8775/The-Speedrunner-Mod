@@ -1,4 +1,24 @@
 {
   "type": "speedrunnermod:crafting_piglin_awakener",
-  "category": "misc"
+  "category": "misc",
+  "group": "piglin_awakener",
+  "key": {
+    "#": "minecraft:gold_ingot",
+    "O": [
+      "minecraft:ender_pearl",
+      "minecraft:blaze_powder",
+      "minecraft:golden_apple",
+      "minecraft:enchanted_golden_apple",
+      "minecraft:golden_carrot"
+    ]
+  },
+  "pattern": [
+    "###",
+    "#O#",
+    "###"
+  ],
+  "result": {
+    "id": "speedrunnermod:piglin_awakener"
+  },
+  "show_notification": false
 }

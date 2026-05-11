@@ -1,12 +1,13 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.mixin.item.FoodsMixin;
 import net.minecraft.world.food.FoodProperties;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * All Speedrunner Mod {@code food components} (or food items).
- * <p>Also contains all modified vanilla food components, see {@link net.dillon.speedrunnermod.mixin.main.item.FoodsMixin} for more.</p>
+ * <p>Also contains all modified vanilla food components, see {@link FoodsMixin} for more.</p>
  */
 public class ModFoodComponents {
     protected static final FoodProperties SPEEDRUNNER_BULK;

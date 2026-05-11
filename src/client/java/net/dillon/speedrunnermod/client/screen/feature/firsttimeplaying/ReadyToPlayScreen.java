@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.client.screen.feature.firsttimeplaying;
 
+import net.dillon.speedrunnermod.client.option.ModListOptions;
 import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenType;
-import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -12,8 +12,8 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import org.jetbrains.annotations.NotNull;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveClientChanges;
 
 
 public class ReadyToPlayScreen extends AbstractFeatureScreen {

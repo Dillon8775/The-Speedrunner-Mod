@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "category": "misc",
-  "cookingtime": 20,
+  "cookingtime": 200,
   "experience": 0.85,
   "group": "speedrunner_ingot",
   "ingredient": "speedrunnermod:nether_speedrunner_ore",

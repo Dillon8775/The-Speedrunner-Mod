@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.mixin.accessor.OrePlacementsInvoker;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
@@ -12,8 +13,6 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-
-import static net.minecraft.data.worldgen.placement.OrePlacements.commonOrePlacement;
 
 /**
  * All Speedrunner Mod {@code placed features}, specifically for the {@code speedrunner's wasteland} biome.
@@ -50,16 +49,16 @@ public class WastelandPlacedFeatures {
         PlacementUtils.register(context, PATCH_RAW_SPEEDRUNNER_BLOCK_PLACED, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.PATCH_RAW_SPEEDRUNNER_BLOCK),
                 RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, ORE_SPEEDRUNNER_UPPER, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_SPEEDRUNNER),
-                commonOrePlacement(48, HeightRangePlacement.triangle(VerticalAnchor.absolute(80), VerticalAnchor.absolute(384))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(48, HeightRangePlacement.triangle(VerticalAnchor.absolute(80), VerticalAnchor.absolute(384))));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_MIDDLE, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_SPEEDRUNNER),
-                commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_SMALL, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_SPEEDRUNNER_SMALL),
-                commonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(7, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72))));
         PlacementUtils.register(context, ORE_EXPERIENCE, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_EXPERIENCE),
-                commonOrePlacement(18, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(62))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(18, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(62))));
         PlacementUtils.register(context, ORE_DIAMOND, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_DIAMOND),
-                commonOrePlacement(ModUtil.DIAMOND_ORE_SPAWN_CHANCE - 1, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(ModUtil.DIAMOND_ORE_SPAWN_CHANCE - 1, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
         PlacementUtils.register(context, ORE_DIAMOND_BURIED, registryEntryLookup.getOrThrow(WastelandConfiguredFeatures.ORE_DIAMOND_BURIED),
-                commonOrePlacement(ModUtil.BURIED_DIAMOND_ORE_SPAWN_CHANCE - 2, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(ModUtil.BURIED_DIAMOND_ORE_SPAWN_CHANCE - 2, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
     }
 }

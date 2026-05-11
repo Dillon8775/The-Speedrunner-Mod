@@ -7,8 +7,8 @@ import net.dillon.speedrunnermod.client.screen.feature.blocksanditems.Speedrunne
 import net.dillon.speedrunnermod.client.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
 import net.dillon.speedrunnermod.client.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
 import net.dillon.speedrunnermod.client.screen.options.MainOptionsScreen;
+import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -24,8 +24,8 @@ import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveAllChanges;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create {@code feature screens}, for the soul purpose of displaying some of Speedrunner Mod's features.

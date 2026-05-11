@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.client.screen;
 
-import net.dillon.speedrunnermod.screen.WorkbenchScreenHandler;
+import net.dillon.speedrunnermod.menu.WorkbenchMenu;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
@@ -24,7 +24,7 @@ import static net.minecraft.resources.Identifier.withDefaultNamespace;
 /**
  * The base screen for the {@code Speedrunner's Workbench.}
  */
-public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> {
+public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
     private static final Identifier ERROR_TEXTURE = withDefaultNamespace("container/anvil/error");
     private static final Identifier TEXTURE = ofSpeedrunnerMod("textures/gui/container/workbench.png");
     private static final Identifier SMITHING_TEMPLATE = withDefaultNamespace("container/slot/smithing_template_netherite_upgrade");
@@ -59,7 +59,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchScreenHandler> 
     private final CyclingSlotBackground transferToSlotIcon = new CyclingSlotBackground(this.menu.getTransferToSlot().index);
     private final CyclingSlotBackground outputSlotTextures = new CyclingSlotBackground(this.menu.getOutputSlot().index);
 
-    public WorkbenchScreen(WorkbenchScreenHandler handler, Inventory inventory, Component title) {
+    public WorkbenchScreen(WorkbenchMenu handler, Inventory inventory, Component title) {
         super(handler, inventory, title, TEXTURE);
         this.titleLabelX = 40;
         this.titleLabelY = 15;

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.mixin.accessor.OrePlacementsInvoker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -13,8 +14,6 @@ import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
-
-import static net.minecraft.data.worldgen.placement.OrePlacements.commonOrePlacement;
 
 /**
  * All Speedrunner Mod {@code placed features.}
@@ -56,27 +55,27 @@ public class ModPlacedFeatures {
                 BiomeFilter.biome());
         PlacementUtils.register(context, DOOM_TREE_PLACED, registryEntryLookup.getOrThrow(ModConfiguredFeatures.DOOM_TREE), VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_UPPER, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_SPEEDRUNNER),
-                commonOrePlacement(72, HeightRangePlacement.triangle(VerticalAnchor.absolute(80), VerticalAnchor.absolute(384))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(72, HeightRangePlacement.triangle(VerticalAnchor.absolute(80), VerticalAnchor.absolute(384))));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_MIDDLE, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_SPEEDRUNNER),
-                commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_SMALL, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_SPEEDRUNNER_SMALL),
-                commonOrePlacement(9, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(9, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(72))));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_DELTAS, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_NETHER_SPEEDRUNNER),
-                commonOrePlacement(20, PlacementUtils.RANGE_10_10));
+                OrePlacementsInvoker.invokeCommonOrePlacement(20, PlacementUtils.RANGE_10_10));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_NETHER, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_NETHER_SPEEDRUNNER),
-                commonOrePlacement(10, PlacementUtils.RANGE_10_10));
+                OrePlacementsInvoker.invokeCommonOrePlacement(10, PlacementUtils.RANGE_10_10));
         PlacementUtils.register(context, ORE_IGNEOUS, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_IGNEOUS),
-                commonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(24))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(10, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(24))));
         PlacementUtils.register(context, ORE_IGNEOUS_DELTAS, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_NETHER_IGNEOUS),
-                commonOrePlacement(20, PlacementUtils.RANGE_10_10));
+                OrePlacementsInvoker.invokeCommonOrePlacement(20, PlacementUtils.RANGE_10_10));
         PlacementUtils.register(context, ORE_IGNEOUS_NETHER, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_NETHER_IGNEOUS),
-                commonOrePlacement(10, PlacementUtils.RANGE_10_10));
+                OrePlacementsInvoker.invokeCommonOrePlacement(10, PlacementUtils.RANGE_10_10));
         PlacementUtils.register(context, ORE_EXPERIENCE, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_EXPERIENCE),
-                commonOrePlacement(28, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(49))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(28, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(49))));
         PlacementUtils.register(context, ORE_EXPERIENCE_DELTAS, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_NETHER_EXPERIENCE),
-                commonOrePlacement(108, PlacementUtils.RANGE_10_10));
+                OrePlacementsInvoker.invokeCommonOrePlacement(108, PlacementUtils.RANGE_10_10));
         PlacementUtils.register(context, ORE_EXPERIENCE_NETHER, registryEntryLookup.getOrThrow(ModConfiguredFeatures.ORE_NETHER_EXPERIENCE),
-                commonOrePlacement(92, PlacementUtils.RANGE_10_10));
+                OrePlacementsInvoker.invokeCommonOrePlacement(92, PlacementUtils.RANGE_10_10));
         PlacementUtils.register(context, PATCH_DEAD_SPEEDRUNNER_BUSH_SWAMP, registryEntryLookup.getOrThrow(ModConfiguredFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH),
                 InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP_WORLD_SURFACE, BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_DEAD_SPEEDRUNNER_BUSH_DESERT, registryEntryLookup.getOrThrow(ModConfiguredFeatures.PATCH_DEAD_SPEEDRUNNER_BUSH),

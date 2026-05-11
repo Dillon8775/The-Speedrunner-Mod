@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
+import net.dillon.speedrunnermod.client.option.ModListOptions;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.ModListOptions;
+import net.dillon.speedrunnermod.client.util.TranslationStringKeys;
 import net.dillon.speedrunnermod.util.ModTexts;
-import net.dillon.speedrunnermod.util.TranslationStringKeys;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 

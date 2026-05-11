@@ -3,15 +3,24 @@ package net.dillon.speedrunnermod.event;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.Author;
 import net.dillon.speedrunnermod.util.Authors;
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.minecraft.world.entity.player.Player;
 
-@Author(Authors.YELEEFFF)
+@Author(Authors.SERILUM)
 public class ModEventCallbacks {
 
     /**
      * Registers custom events.
      */
     public static void registerEventCallbacks() {
-        SpeedrunnersTotemUsedCallback.EVENT.register(((entity, stack, source) -> {}));
+        SpeedrunnersTotemEvent.EVENT.register(((entity, stack, source) -> {}));
+
+        ServerLivingEntityEvents.ALLOW_DEATH.register((entity, source, damage) -> {
+            if (entity instanceof Player player) {
+                return SpeedrunnersTotemEvent.canUseSpeedrunnersTotem(player, source);
+            }
+            return true;
+        });
 
         SpeedrunnerMod.debug("Registered event callbacks.");
     }

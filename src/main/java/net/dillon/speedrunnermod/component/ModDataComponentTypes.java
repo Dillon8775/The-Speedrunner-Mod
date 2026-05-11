@@ -31,7 +31,7 @@ public class ModDataComponentTypes {
     public static final DataComponentType<ItemStack> STORED_ITEMSTACK = Registry.register(
             BuiltInRegistries.DATA_COMPONENT_TYPE, ofSpeedrunnerMod("stored_itemstack"), DataComponentType.<ItemStack>builder().persistent(ItemStack.OPTIONAL_CODEC).networkSynchronized(ItemStack.OPTIONAL_STREAM_CODEC).build());
 
-    public static final DeathProtection TOTEM_SPEEDRUNNERS = new DeathProtection(
+    public static final DeathProtection SPEEDRUNNERS_TOTEM_EFFECTS = new DeathProtection(
             List.of(
                     new ClearAllStatusEffectsConsumeEffect(),
                     new ApplyStatusEffectsConsumeEffect(

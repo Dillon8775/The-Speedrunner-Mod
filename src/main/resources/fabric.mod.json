@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "speedrunnermod",
-  "version": "1.12.1+mc26.1",
+  "version": "1.12.1+mc26.1.2",
   "name": "The Speedrunner Mod",
   "description": "A mod that makes speedrunning, easier.",
   "accessWidener": "speedrunnermod.accessWidener",
@@ -22,10 +22,10 @@
       "net.dillon.speedrunnermod.main.SpeedrunnerMod"
     ],
     "client": [
-      "net.dillon.speedrunnermod.main.SpeedrunnerModClient"
+      "net.dillon.speedrunnermod.client.main.SpeedrunnerModClient"
     ],
     "fabric-datagen": [
-      "net.dillon.speedrunnermod.data.generator.SpeedrunnerModDataGenerator"
+      "net.dillon.speedrunnermod.client.data.generator.SpeedrunnerModDataGenerator"
     ],
     "modmenu": [
       "net.dillon.speedrunnermod.client.impl.ModMenuImpl"
@@ -39,9 +39,16 @@
     }
   ],
   "depends": {
-    "fabricloader": ">=0.18.5",
+    "fabricloader": ">=0.19.2",
     "fabric-api": "*",
-    "minecraft": ">=26.1.1",
+    "minecraft": ">=26.1",
     "java": ">=25"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/vfqEAn4YFy"
+      }
+    }
   }
 }

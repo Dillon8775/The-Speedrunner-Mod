@@ -1,7 +1,12 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
 	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id 'com.github.johnrengelman.shadow' version '8.1.1'
+
+	alias libs.plugins.curseForgeGradle apply(true)
+	alias libs.plugins.modrinthMinotaur apply(true)
 }
 
 version = project.mod_version
@@ -102,5 +107,54 @@ publishing {
 		// Notice: This block does NOT have the same function as the block in the top level.
 		// The repositories here will be used for publishing your artifact, not for
 		// retrieving dependencies.
+	}
+}
+
+tasks.register('curseforge', TaskPublishCurseForge) {
+	dependsOn('build')
+	description = 'Publishes the Fabric build to CurseForge.'
+	group = 'publishing'
+
+	apiToken = project.findProperty("curseforge.api_key") ?: System.getenv("CURSEFORGE_TOKEN") ?: "none"
+
+	def projectId = findProperty("curseforge_project_id")
+	onlyIf {
+		projectId != null
+	}
+	if (projectId) {
+		def mainFile = upload(findProperty("curseforge_project_id"), tasks.named("jar", Jar).get().archiveFile.get().asFile)
+		mainFile.displayName = "[${mc_version.substring(2)}] $mod_name ${mod_version_raw}"
+		mainFile.changelog = rootProject.file("${changelog_file}").text
+		mainFile.addRequirement("fabric-api")
+		def supportedVersions = supported_mc_versions
+				.split(",")
+				.collect { it.trim() }
+		supportedVersions.each { v ->
+			mainFile.addGameVersion(v)
+		}
+		mainFile.releaseType = "release"
+		project.findProperty("curseforge_environments")?.split(",")?.toList()?.each { mainFile.addEnvironment(it) }
+	}
+}
+
+modrinth {
+	token = project.findProperty("modrinth.token") ?: System.getenv("MODRINTH_TOKEN") ?: "none"
+	projectId = findProperty("modrinth_project_id")
+
+	versionNumber = project.mod_version_raw.toString()
+	versionName = "[mc${minecraft_version}] ${mod_name} ${project.mod_version_raw}"
+
+	uploadFile = tasks.named("jar")
+	def changelogFile = rootProject.file("${changelog_file}")
+	if (changelogFile.exists()) {
+		changelog = changelogFile.text
+	}
+	def supportedVersions = supported_mc_versions
+			.split(",")
+			.collect { it.trim() }
+	gameVersions = supportedVersions
+	loaders = ['fabric']
+	dependencies {
+		required.project "fabric-api"
 	}
 }

@@ -1,6 +1,9 @@
 package net.dillon.speedrunnermod.client.screen.base;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.dillon.speedrunnermod.client.main.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.client.network.ClientModPackets;
+import net.dillon.speedrunnermod.client.option.Leaderboards;
 import net.dillon.speedrunnermod.client.screen.CustomButtonListWidget;
 import net.dillon.speedrunnermod.client.screen.base.leaderboard.LeaderboardsIneligibleScreen;
 import net.dillon.speedrunnermod.client.screen.base.option.ResetOptionsConfirmScreen;
@@ -10,11 +13,8 @@ import net.dillon.speedrunnermod.client.screen.feature.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.client.screen.feature.ScreenCategory;
 import net.dillon.speedrunnermod.client.screen.options.AdvancedOptionsScreen;
 import net.dillon.speedrunnermod.client.screen.options.FastWorldCreationOptionsScreen;
+import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
-import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.packet.ClientModPackets;
-import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -36,9 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.clientConfigHandler;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveAllChanges;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.

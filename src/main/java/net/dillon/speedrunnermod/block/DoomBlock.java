@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.block;
 
-import net.dillon.speedrunnermod.entity.ModPotions;
-import net.dillon.speedrunnermod.entity.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModStatusEffects;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.potion.ModPotions;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.BlockPos;

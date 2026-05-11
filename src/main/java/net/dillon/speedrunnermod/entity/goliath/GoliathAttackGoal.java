@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
-import net.dillon.speedrunnermod.mixin.main.entity.goliath.GoliathEntity;
+import net.dillon.speedrunnermod.mixin.entity.goliath.GoliathEntity;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Giant;
 

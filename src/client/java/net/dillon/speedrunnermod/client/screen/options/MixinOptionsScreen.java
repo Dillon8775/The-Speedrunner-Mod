@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
+import net.dillon.speedrunnermod.client.option.ModListOptions;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.screens.Screen;
 
@@ -18,11 +18,10 @@ public class MixinOptionsScreen extends AbstractModScreen {
     protected void init() {
         this.initializeCustomButtonListWidget();
 
-        this.buttonList.addSingleOptionEntry(ModListOptions.terraBlenderSurfaceRuleDataMixin());
+        this.buttonList.addSingleOptionEntry(ModListOptions.theEndGatewayBlockEntityMixin());
         this.buttonList.addSingleOptionEntry(ModListOptions.fogMixins());
         this.buttonList.addSingleOptionEntry(ModListOptions.simpleOptionMixin());
         this.buttonList.addSingleOptionEntry(ModListOptions.logoDrawerMixin());
-        this.buttonList.addSingleOptionEntry(ModListOptions.renderLayersMixin());
 
         super.init();
     }

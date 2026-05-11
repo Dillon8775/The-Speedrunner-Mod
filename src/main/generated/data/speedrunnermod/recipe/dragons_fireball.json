@@ -1,4 +1,7 @@
 {
   "type": "speedrunnermod:crafting_dragon_fireball",
-  "category": "misc"
+  "result": {
+    "count": 8,
+    "id": "speedrunnermod:dragon_fireball"
+  }
 }

@@ -25,7 +25,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 public class SpeedrunnersTotemItem extends Item {
 
     public SpeedrunnersTotemItem(Properties settings) {
-        super(settings.stacksTo(3).rarity(Rarity.RARE).component(DataComponents.DEATH_PROTECTION, ModDataComponentTypes.TOTEM_SPEEDRUNNERS)
+        super(settings.stacksTo(3).rarity(Rarity.RARE).component(DataComponents.DEATH_PROTECTION, ModDataComponentTypes.SPEEDRUNNERS_TOTEM_EFFECTS)
                 .setId(ResourceKey.create(Registries.ITEM, ofSpeedrunnerMod("speedrunners_totem"))));
     }
 

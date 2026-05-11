@@ -1,0 +1,11 @@
+{
+  "gives": {
+    "id": "speedrunnermod:infini_pearl"
+  },
+  "max_uses": 1.0,
+  "wants": {
+    "count": 24.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 24.0
+}

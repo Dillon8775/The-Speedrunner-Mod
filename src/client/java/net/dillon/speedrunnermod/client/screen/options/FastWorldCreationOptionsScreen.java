@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
+import net.dillon.speedrunnermod.client.option.ModListOptions;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**

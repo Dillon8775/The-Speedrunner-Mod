@@ -5,26 +5,25 @@ import net.dillon.speedrunnermod.block.ModBlockFamilies;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.command.ModCommands;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.effect.ModStatusEffects;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
-import net.dillon.speedrunnermod.entity.ModPotions;
-import net.dillon.speedrunnermod.entity.ModStatusEffects;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
 import net.dillon.speedrunnermod.item.ModFuels;
 import net.dillon.speedrunnermod.item.ModItemGroups;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.menu.ModMenus;
+import net.dillon.speedrunnermod.network.ModPackets;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.packet.ModPackets;
 import net.dillon.speedrunnermod.particle.ModParticleTypes;
+import net.dillon.speedrunnermod.potion.ModPotions;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
-import net.dillon.speedrunnermod.screen.ModScreenHandlerTypes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.*;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
-import net.dillon.speedrunnermod.village.ModPointOfInterestTypes;
-import net.dillon.speedrunnermod.village.ModTradeOffers;
-import net.dillon.speedrunnermod.village.ModVillagers;
+import net.dillon.speedrunnermod.villager.ModPoiTypes;
+import net.dillon.speedrunnermod.villager.ModVillagers;
 import net.dillon.speedrunnermod.world.ModWorldGen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
@@ -44,7 +43,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  */
 public class SpeedrunnerMod implements ModInitializer {
     public static final String MOD_VERSION = "v1.12.1";
-    public static final String MC_VERSION = "26.1";
+    public static final String MC_VERSION = "26.1.2";
     public static final String VERSION = "Version: " + MOD_VERSION;
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
@@ -72,9 +71,8 @@ public class SpeedrunnerMod implements ModInitializer {
         ModStatusEffects.registerStatusEffects();
         ModPotions.registerPotions();
 
-        ModPointOfInterestTypes.initializePois();
-        ModVillagers.registerVillagerProfessions();
-        ModTradeOffers.registerTradeOffers();
+        ModPoiTypes.initializeModPois();
+        ModVillagers.initializeVillagerProfessions();
 
         ModCriterions.initializeCriterions();
         ModDataComponentTypes.initializeDataComponents();
@@ -95,10 +93,10 @@ public class SpeedrunnerMod implements ModInitializer {
         ModSoundEvents.initializeSoundEvents();
 
         ModEnchantments.initializeEnchantments();
-        ModRecipes.initializeCustomRecipes();
+        ModRecipes.registerModSerializers();
         ModFuels.registerFuels();
 
-        ModScreenHandlerTypes.initializeScreenHandlers();
+        ModMenus.initializeScreenHandlers();
 
         ServerTickEvents.END_SERVER_TICK.register(TaskScheduler::tick);
         ModUtil.registerInventoryPreserver();
@@ -131,7 +129,7 @@ public class SpeedrunnerMod implements ModInitializer {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 
-        info("The Speedrunner Mod " + MOD_VERSION + " loaded successfully.");
+        info("The Speedrunner Mod " + MOD_VERSION + " (for fabric) loaded successfully!");
     }
 
     /**

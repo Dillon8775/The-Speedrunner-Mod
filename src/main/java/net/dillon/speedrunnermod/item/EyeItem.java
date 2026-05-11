@@ -7,8 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.Ticket;
-import net.minecraft.server.level.TicketType;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -43,6 +42,7 @@ public interface EyeItem {
     /**
      * Decrements an item from the player's inventory.
      */
+    @Deprecated(forRemoval = true)
     default void decrementIfPossible(Player player, Item item) {
         if (!player.getAbilities().instabuild) {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
@@ -116,18 +116,21 @@ public interface EyeItem {
     }
 
     /**
-     * Loads the chunk before teleporting, to ensure no prevent teleportation bugs.
+     * Loads the chunk before teleporting, to ensure no prevent teleportation bugs, and prevents chunk loading errors.
      */
     default void correctlyTeleport(Level world, BlockPos pos, Player player, float additionalY) {
-        if (!(world instanceof ServerLevel serverWorld)) {
+        if (!(world instanceof ServerLevel serverWorld) || !(player instanceof ServerPlayer serverPlayer)) {
             return;
         }
 
-        ChunkPos chunkPos = new ChunkPos(pos.getX(), pos.getZ());
-        serverWorld.getChunkSource().addTicket(new Ticket(TicketType.PLAYER_LOADING, 1), chunkPos);
-        serverWorld.getChunk(chunkPos.x(), chunkPos.z());
+        double x = pos.getX() + 0.5D;
+        double y = pos.getY() + additionalY;
+        double z = pos.getZ() + 0.5D;
 
-        player.randomTeleport(pos.getX() + 0.5F, pos.getY() + additionalY, pos.getZ() + 0.5F, false);
+        ChunkPos chunkPos = new ChunkPos(BlockPos.containing(x, y, z).getX() >> 4, BlockPos.containing(x, y, z).getZ() >> 4);
+        // Ensure destination chunk exists before moving the player there.
+        serverWorld.getChunk(chunkPos.x(), chunkPos.z());
+        serverPlayer.connection.teleport(x, y, z, serverPlayer.getYRot(), serverPlayer.getXRot());
     }
 
     /**

@@ -5,6 +5,11 @@
         "texture": "speedrunnermod:speedrunner"
       }
     ],
+    "humanoid_baby": [
+      {
+        "texture": "speedrunnermod:speedrunner"
+      }
+    ],
     "humanoid_leggings": [
       {
         "texture": "speedrunnermod:speedrunner"

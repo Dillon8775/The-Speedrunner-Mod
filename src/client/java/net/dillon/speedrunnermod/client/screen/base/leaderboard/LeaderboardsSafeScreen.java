@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.client.screen.base.leaderboard;
 
+import net.dillon.speedrunnermod.client.option.Leaderboards;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.util.ModLinks;
+import net.dillon.speedrunnermod.client.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -13,9 +13,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Util;
 
+import static net.dillon.speedrunnermod.client.main.SpeedrunnerModClient.saveAllChanges;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 @Deprecated
 

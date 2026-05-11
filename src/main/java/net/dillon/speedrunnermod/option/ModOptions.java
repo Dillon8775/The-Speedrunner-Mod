@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.option;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.mixin.main.fix.ItemArgumentMixin;
+import net.dillon.speedrunnermod.mixin.fix.ItemArgumentMixin;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -210,11 +210,6 @@ public class ModOptions {
          * Instantly kills a ghast when they shoot a fireball.
          */
         public OptionValue<Boolean> killGhastOnFireball = new OptionValue<>(false, false);
-
-        /**
-         * Improves villager trades by making them less expensive and sell better stuff.
-         */
-        public OptionValue<Boolean> betterVillagerTrades = new OptionValue<>(true, true);
 
         /**
          * Allows certain items to be fireproof.
@@ -488,10 +483,10 @@ public class ModOptions {
     public static class Mixins {
 
         /**
-         * Applies the terrablender surface rule data mixin into the game.
+         * Applies the end gateway block entity mixin into the game.
          * <p>Disable this if you do not want doom stone to generate throughout the end when doom mode is enabled, or if another mod is trying to generate other blocks.</p>
          */
-        public OptionValue<Boolean> terraBlenderSurfaceRuleDataMixin = new OptionValue<>(true, true);
+        public OptionValue<Boolean> theEndGatewayBlockEntityMixin = new OptionValue<>(true, true);
     }
 
     /**

@@ -1,4 +1,6 @@
 {
   "type": "speedrunnermod:crafting_inventory_preserver",
-  "category": "misc"
+  "result": {
+    "id": "speedrunnermod:inventory_preserver"
+  }
 }

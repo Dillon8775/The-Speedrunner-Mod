@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.client.screen.options;
 
+import net.dillon.speedrunnermod.client.option.ModListOptions;
 import net.dillon.speedrunnermod.client.screen.base.AbstractModScreen;
-import net.dillon.speedrunnermod.option.ModListOptions;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -34,14 +34,11 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.icarusMode().createButton(this.options),
                 ModListOptions.infiniPearlMode().createButton(this.options),
 
-                ModListOptions.betterVillagerTrades().createButton(this.options),
                 ModListOptions.betterFoods().createButton(this.options),
-
                 ModListOptions.betterBiomes().createButton(this.options),
-                ModListOptions.dragonPerchTime().createButton(this.options),
 
-                ModListOptions.fireproofItems().createButton(this.options),
                 ModListOptions.throwableFireballs().createButton(this.options),
+                ModListOptions.fireproofItems().createButton(this.options),
 
                 ModListOptions.fallDamage().createButton(this.options),
                 ModListOptions.kineticDamage().createButton(this.options),
@@ -67,14 +64,17 @@ public class MainOptionsScreen extends AbstractModScreen {
                 ModListOptions.arrowsDestroyBeds().createButton(this.options),
                 ModListOptions.creatureSpawningRate().createButton(this.options),
 
-                ModListOptions.fasterSpawners().createButton(this.options),
+                ModListOptions.fasterSmelting().createButton(this.options),
                 ModListOptions.fasterBrewing().createButton(this.options),
 
-                ModListOptions.fasterSmelting().createButton(this.options),
+                ModListOptions.fasterSpawners().createButton(this.options),
                 ModListOptions.netherPortalDelay().createButton(this.options),
 
                 ModListOptions.showDeathCords().createButton(this.options),
-                ModListOptions.killGhastOnFireball().createButton(this.options)
+                ModListOptions.dragonPerchTime().createButton(this.options),
+
+                ModListOptions.killGhastOnFireball().createButton(this.options),
+                ModListOptions.customDataGeneration().createButton(this.options)
         );
     }
 
@@ -85,7 +85,6 @@ public class MainOptionsScreen extends AbstractModScreen {
         this.buttonList.addSingleOptionEntry(ModListOptions.mode());
         this.buttonList.addSingleOptionEntry(ModListOptions.structureSpawnRate());
         this.buttonList.addAll(mainOptions());
-        this.buttonList.addSingleOptionEntry(ModListOptions.customDataGeneration());
         this.buttonList.addSingleOptionEntry(ModListOptions.rightClickToRemoveSilkTouch());
         this.buttonList.addSingleOptionEntry(ModListOptions.customBiomesAndCustomBiomeFeatures());
 
