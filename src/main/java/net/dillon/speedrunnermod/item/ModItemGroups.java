@@ -63,15 +63,17 @@ public class ModItemGroups {
                         entries.accept(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
                         entries.accept(ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
                         entries.accept(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE);
+                        entries.accept(ModItems.GOLDEN_SPEEDRUNNER_SPEAR);
+                        entries.accept(ModItems.SPEEDRUNNER_SPEAR);
                         entries.accept(ModItems.SPEEDRUNNER_BOW);
                         entries.accept(ModItems.SPEEDRUNNER_CROSSBOW);
                         entries.accept(ModItems.SPEEDRUNNER_SHEARS);
                         entries.accept(ModItems.SPEEDRUNNER_FLINT_AND_STEEL);
                         entries.accept(ModItems.SPEEDRUNNERS_TOTEM);
-                        entries.accept(ModItems.SPEEDRUNNERS_WORKBENCH);
                         entries.accept(ModItems.SPEEDRUNNER_SHIELD);
                         entries.accept(ModItems.GOLDEN_SHIELD);
-                        entries.accept(Items.GOLD_INGOT);
+                        entries.accept(ModItems.SPEEDRUNNERS_WORKBENCH);
+                        entries.accept(Items.VILLAGER_SPAWN_EGG);
                         entries.accept(ModItems.SPEEDRUNNERS_EYE);
                         entries.accept(ModItems.ENDER_THRUSTER);
                         entries.accept(ModItems.THRUSTED_BLOCK);
@@ -81,6 +83,8 @@ public class ModItemGroups {
                         entries.accept(ModItems.RAID_ERADICATOR);
                         entries.accept(ModItems.ANNUL_EYE);
                         entries.accept(Items.ENDER_PEARL);
+                        entries.accept(Items.GOLD_INGOT);
+                        entries.accept(Items.BLAZE_POWDER);
                         entries.accept(Items.ENDER_EYE);
                         entries.accept(ModItems.DRAGONS_PEARL);
                         entries.accept(ModItems.DRAGONS_FIREBALL);

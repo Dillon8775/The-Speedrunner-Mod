@@ -1,3 +1,0 @@
-## Almost §lall food items §rgive §bbetter effects §fupon §aconsumption.
-
-!image:textures/gui/features/gui/better_foods.png scale=.3

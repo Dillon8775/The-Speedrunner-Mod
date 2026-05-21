@@ -12,13 +12,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 13.0,
-                "min": 4.0
+                "max": 14.0,
+                "min": 5.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "weight": 5
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -28,7 +28,7 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 5.0,
+                "max": 6.0,
                 "min": 2.0
               },
               "function": "minecraft:set_count"
@@ -38,66 +38,33 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 33,
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
-          "name": "speedrunnermod:speedrunner_crossbow",
-          "weight": 12
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:golden_apple",
           "functions": [
             {
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 9.0,
-                "min": 3.0
+                "max": 14.0,
+                "min": 5.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "weight": 15
+          "weight": 11
         },
         {
           "type": "minecraft:item",
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 33,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ],
-          "name": "minecraft:diamond_axe",
-          "weight": 13
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 33,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ],
-          "name": "minecraft:diamond_chestplate",
-          "weight": 14
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_randomly",
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
+              "levels": 27,
+              "options": [
+                "#speedrunnermod:on_random_speedrunner_loot"
+              ]
             }
           ],
           "name": "minecraft:book",
-          "weight": 11
+          "weight": 8
         },
         {
           "type": "minecraft:item",
@@ -112,7 +79,7 @@
             }
           ],
           "name": "minecraft:book",
-          "weight": 9
+          "weight": 7
         },
         {
           "type": "minecraft:item",
@@ -126,7 +93,7 @@
             }
           ],
           "name": "minecraft:book",
-          "weight": 8
+          "weight": 9
         },
         {
           "type": "minecraft:item",
@@ -136,13 +103,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 5.0,
+                "max": 6.0,
                 "min": 2.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "weight": 9
+          "weight": 10
         }
       ],
       "rolls": 1.0

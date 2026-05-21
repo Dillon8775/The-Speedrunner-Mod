@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.living;
 
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.event.SpeedrunnersTotemEvent;
 import net.dillon.speedrunnermod.item.ModItems;
@@ -68,7 +68,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
     @Shadow
     public static final Predicate<LivingEntity> PLAYER_NOT_WEARING_DISGUISE_ITEM = entity -> {
         if (entity instanceof Player playerEntity) {
-            if (playerEntity.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
+            if (playerEntity.hasEffect(ModMobEffects.DRAGONS_AURA)) {
                 return false;
             }
             ItemStack itemStack = playerEntity.getItemBySlot(EquipmentSlot.HEAD);
@@ -178,7 +178,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "causeFallDamage", at = @At("HEAD"), cancellable = true)
     private void cancelFallDamageDragonsAura(double fallDistance, float damagePerDistance, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
-        if (this.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
+        if (this.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             cir.setReturnValue(false);
         }
     }
@@ -188,7 +188,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "doHurtEquipment", at = @At("HEAD"), cancellable = true)
     private void cancelOutDamageDragonsAura(DamageSource source, float amount, EquipmentSlot[] slots, CallbackInfo ci) {
-        if (this.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
+        if (this.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             if (this.random.nextFloat() < 0.45F) {
                 ci.cancel();
             }
@@ -217,7 +217,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void applyAuraParticles(CallbackInfo ci) {
-        if (this.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
+        if (this.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             for (int i = 0; i < 2; i++) {
                 this.level()
                         .addParticle(

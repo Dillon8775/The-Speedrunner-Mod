@@ -26,7 +26,7 @@ import java.util.function.Consumer;
 /**
  * An item that can be used to {@code teleport} to the {@code surface.}
  */
-public class EnderThrusterItem extends Item implements EyeItem {
+public class EnderThrusterItem extends Item implements SpeedrunnerItem {
 
     public EnderThrusterItem(Properties settings) {
         super(settings.rarity(Rarity.RARE).stacksTo(1));
@@ -88,7 +88,7 @@ public class EnderThrusterItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.ender_thruster.tooltip")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.ender_thruster.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }

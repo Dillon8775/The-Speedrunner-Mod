@@ -1,0 +1,41 @@
+{
+  "parent": "speedrunnermod:items/perch_already",
+  "criteria": {
+    "killed_goliath": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "minecraft:giant"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.david_and_goliath.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "minecraft:zombie_head"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.david_and_goliath.title"
+    }
+  },
+  "requirements": [
+    [
+      "killed_goliath"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  },
+  "sends_telemetry_event": true
+}

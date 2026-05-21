@@ -62,7 +62,7 @@ public class SpeedrunnerBootsItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_boots.tooltip").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunner_boots.tooltip").withStyle(ChatFormatting.GRAY), 35);
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 }

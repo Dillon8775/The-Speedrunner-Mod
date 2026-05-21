@@ -11,7 +11,7 @@
   "gives": {
     "id": "minecraft:potion"
   },
-  "max_uses": 6.0,
+  "max_uses": 8.0,
   "wants": {
     "count": 5.0,
     "id": "speedrunnermod:speedrunner_ingot"

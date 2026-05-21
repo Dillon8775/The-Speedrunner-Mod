@@ -91,8 +91,10 @@ public class WorkbenchMenu extends ItemCombinerMenu {
         }
         this.inputSlots.setItem(this.getInputSlot().index, newSlot1);
         boolean ingot = this.inputSlots.getItem(this.getTransferToSlot().index).is(ModItems.SPEEDRUNNER_INGOT) && this.inputSlots.getItem(this.getInputSlot().index).is(ModItemTags.UPGRADEABLE_GOLD);
+        boolean upgraded = false;
         if (ingot) {
             this.inputSlots.setItem(this.getInputSlot().index, ItemStack.EMPTY);
+            upgraded = true;
         }
         if (this.inputSlots.getItem(this.getTransferToSlot().index).is(Items.BOOK) || ingot) {
             this.inputSlots.setItem(this.getTransferToSlot().index, this.decrementedStack(this.inputSlots.getItem(this.getTransferToSlot().index).copy()));
@@ -103,7 +105,7 @@ public class WorkbenchMenu extends ItemCombinerMenu {
             this.inputSlots.setItem(this.getTransferToSlot().index, ItemStack.EMPTY);
             this.inputSlots.setItem(this.getSmithingTemplateSlot().index, this.decrementedStack(this.inputSlots.getItem(this.getSmithingTemplateSlot().index).copy()));
         }
-        this.success(player);
+        this.success(player, upgraded);
     }
 
     /**
@@ -224,10 +226,10 @@ public class WorkbenchMenu extends ItemCombinerMenu {
     /**
      * A successful enchantment transfer.
      */
-    private void success(Player player) {
+    private void success(Player player, boolean upgraded) {
         player.playSound(SoundEvents.SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.giveExperienceLevels(this.levelCost.get());
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (!upgraded && player instanceof ServerPlayer serverPlayer) {
             ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH));
         }
     }
@@ -261,8 +263,10 @@ public class WorkbenchMenu extends ItemCombinerMenu {
             return ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE;
         } else if (s.is(Items.GOLDEN_LEGGINGS)) {
             return ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS;
-        } else if  (s.is(Items.GOLDEN_BOOTS)) {
+        } else if (s.is(Items.GOLDEN_BOOTS)) {
             return ModItems.GOLDEN_SPEEDRUNNER_BOOTS;
+        } else if (s.is(Items.GOLDEN_SPEAR)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_SPEAR;
         }
         return null;
     }

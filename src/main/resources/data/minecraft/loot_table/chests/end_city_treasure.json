@@ -38,6 +38,30 @@
         },
         {
           "type": "minecraft:item",
+          "weight": 9,
+          "name": "minecraft:diamond_spear",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 40,
+              "options": "#minecraft:on_random_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "speedrunnermod:speedrunner_spear",
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 40,
+              "options": "#minecraft:on_random_loot"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
           "weight": 10,
           "name": "minecraft:diamond",
           "functions": [

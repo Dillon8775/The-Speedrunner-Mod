@@ -109,6 +109,7 @@
     "item.component.BlocksAttacksMixin",
     "item.component.DeathProtectionMixin",
     "item.component.UseCooldownMixin",
+    "item.enchantment.ApplyEntityImpulseMixin",
     "loot.OreDropsMixin",
     "menu.AnvilMenuMixin",
     "menu.BrewingStandMenuMixin",

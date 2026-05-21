@@ -1,4 +1,0 @@
-### §aCharges faster, §bshoots further, §r§fand does §cmore damage §fthan §6regular bows §fand §6crossbows.
-
-!image:textures/gui/features/recipes/speedrunner_bow_crafting_recipe.png scale=.5
-!image:textures/gui/features/recipes/speedrunner_crossbow_crafting_recipe.png scale=.5

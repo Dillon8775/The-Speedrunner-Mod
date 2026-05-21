@@ -1,9 +1,0 @@
-### When §dthe end fight §r§fbegins, the §dender dragon§r will spawn like normal, but with §cquintuple§r the amount of health.
-
-#### A §7wither§r will also spawn, with almost §cdouble the amount of health. §r§fThey also §cregenerate §c§oextremely fast.
-
-## And finally, a §agiant (aka §a§lGoliath)§r§f will spawn.
-
-### The §dender dragon§r §c§ocannot die§r§f if §aGoliath§r§f and the §7wither§r§f are alive.
-
-!image:textures/gui/features/screenshots/bosses.png

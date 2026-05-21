@@ -1,8 +1,0 @@
-### Decreases the §acooldown §fon certain items, such as §9ender pearls, §7shields, §dchorus fruit, §fetc.
-
-#### Found in various different §bloot chests §r§f§oand §r§ffrom §atrading §r§fwith the §b§lRetired Speedrunner §r§fvillager.
-
-Applicable on §oany item §r§fwith a §acooldown effect.
-
-!image:textures/gui/features/items/enchanted_book.png scale=.2
-!image:textures/gui/features/gui/cooldown_enchantment_on_ender_pearl.png scale=.4

@@ -1,7 +1,7 @@
 {
   "required": true,
-  "package": "net.dillon.speedrunnermod.client.mixin",
-  "plugin": "net.dillon.speedrunnermod.client.mixin.plugin.ClientConditionalMixinPlugin",
+  "package": "net.dillon.speedrunnermod.mixin.client",
+  "plugin": "net.dillon.speedrunnermod.mixin.client.plugin.ClientConditionalMixinPlugin",
   "compatibilityLevel": "JAVA_25",
   "client": [
     "MinecraftMixin",

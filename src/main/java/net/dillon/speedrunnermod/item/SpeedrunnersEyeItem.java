@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 /**
  * An {@code eye of ender} item that locates {@code most overworld structures.}
  */
-public class SpeedrunnersEyeItem extends Item implements EyeItem {
+public class SpeedrunnersEyeItem extends Item implements SpeedrunnerItem {
 
     public SpeedrunnersEyeItem(Properties settings) {
         super(settings.component(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.VILLAGE).rarity(Rarity.RARE));
@@ -94,7 +94,7 @@ public class SpeedrunnersEyeItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_eye.tooltip").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunners_eye.tooltip"));
         textConsumer.accept(Component.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
     }
 

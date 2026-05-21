@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.item.equipment.ModArmorMaterials;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.accessor.ItemsInvoker;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -32,15 +31,43 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line1").withStyle(ChatFormatting.GRAY));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line2").withStyle(ChatFormatting.GRAY));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_ingot.tooltip.line3").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunner_ingot.tooltip"));
         }
     });
 
     public static final Item SPEEDRUNNER_NUGGET = ItemsInvoker.invokeRegisterItem(of("speedrunner_nugget"), Item::new);
 
     public static final Item RAW_SPEEDRUNNER = ItemsInvoker.invokeRegisterItem(of("raw_speedrunner"), Item::new);
+
+    public static final Item SPEEDRUNNER_SPEAR = ItemsInvoker.invokeRegisterItem(of("speedrunner_spear"), settings -> new SpeedrunnerSpearItem(
+            settings,
+            ModToolMaterials.SPEEDRUNNER_SPEAR,
+            5.5F,
+            7.0F,
+            0.225F,
+            1.0F,
+            1.0F,
+            0.55F,
+            2.75F,
+            10.5F,
+            6.65F,
+            10.50F
+    ));
+
+    public static final Item GOLDEN_SPEEDRUNNER_SPEAR = ItemsInvoker.invokeRegisterItem(of("golden_speedrunner_spear"), settings -> new SpeedrunnerSpearItem(
+            settings,
+            ModToolMaterials.GOLDEN_SPEEDRUNNER_SPEAR,
+            6.0F,
+            7.0F,
+            0.335F,
+            0.98F,
+            0.75F,
+            0.65F,
+            3.25F,
+            12.0F,
+            8.0F,
+            13.0F
+    ));
 
     public static final Item SPEEDRUNNER_SWORD = ItemsInvoker.invokeRegisterItem(of("speedrunner_sword"), Item::new,
             new Item.Properties().sword(ModToolMaterials.SPEEDRUNNER_SWORD_PICKAXE, 5, -2.4F));
@@ -139,8 +166,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line1"));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_bulk.tooltip.line2"));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunner_bulk.tooltip"));
         }
     }, new Item.Properties().rarity(Rarity.RARE).food(ModFoodComponents.SPEEDRUNNER_BULK, ModDataComponentTypes.SPEEDRUNNER_BULK));
 
@@ -165,7 +191,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.igneous_rock.tooltip").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.igneous_rock.tooltip"));
         }
     });
 
@@ -218,9 +244,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.ender_matter.tooltip.line1").withStyle(ChatFormatting.DARK_PURPLE));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.ender_matter.tooltip.line2").withStyle(ChatFormatting.GRAY));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.ender_matter.tooltip.line3").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.ender_matter.tooltip"));
         }
     }, new Item.Properties().rarity(Rarity.RARE).stacksTo(16));
 
@@ -229,7 +253,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_paddle.tooltip.line1").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunner_paddle.tooltip"));
         }
     }, new Item.Properties().stacksTo(16));
 
@@ -238,7 +262,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.experience_fragment.tooltip").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.experience_fragment.tooltip"));
         }
     });
 
@@ -247,7 +271,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.inventory_preserver.tooltip").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.inventory_preserver.tooltip"));
         }
     }, new Item.Properties().rarity(Rarity.RARE).durability(1));
 
@@ -318,8 +342,7 @@ public class ModItems {
 
         @Override
         public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line1").withStyle(ChatFormatting.GRAY));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_workbench.tooltip.line2").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunners_workbench.tooltip"));
         }
     });
 

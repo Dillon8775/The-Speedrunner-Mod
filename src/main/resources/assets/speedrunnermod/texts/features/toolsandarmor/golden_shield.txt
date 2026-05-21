@@ -1,3 +1,0 @@
-### Has a §avery fast cooldown §r§fwhen disabled, but §every low durability.
-
-!image:textures/gui/features/recipes/golden_shield_crafting_recipe.png scale=.5

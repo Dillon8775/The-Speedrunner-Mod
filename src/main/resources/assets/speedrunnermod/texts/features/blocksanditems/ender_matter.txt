@@ -1,7 +1,0 @@
-### Found in §bshipwrecks,§f §3ancient cities, §r§dend cities §r§fand §7strongholds.
-
-#### They also have a §a25% chance§f of dropping when killing an §denderman.
-
-This chance can be increased by using §alooting.
-
-!image:textures/gui/features/items/ender_matter.png scale=.4

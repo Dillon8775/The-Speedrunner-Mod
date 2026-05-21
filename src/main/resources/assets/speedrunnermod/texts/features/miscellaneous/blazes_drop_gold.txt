@@ -1,3 +1,0 @@
-## §eBlazes §fhave a chance to drop a few §egold blocks, §falong with some §6fire charges.
-
-!image:textures/gui/features/screenshots/blazes_drop_gold.png scale=.14

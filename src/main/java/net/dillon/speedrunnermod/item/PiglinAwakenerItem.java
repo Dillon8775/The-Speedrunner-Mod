@@ -34,7 +34,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 /**
  * An item that teleports {@code nearby piglin} to the player.
  */
-public class PiglinAwakenerItem extends Item implements EyeItem {
+public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
 
     public PiglinAwakenerItem(Properties settings) {
         super(settings
@@ -119,9 +119,7 @@ public class PiglinAwakenerItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.piglin_awakener.tooltip")
-                .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.piglin_awakener.shift.tooltip")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.piglin_awakener.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         if (isDoomMode()) {
             textConsumer.accept(Component.translatable("item.speedrunnermod.piglin_awakener.doom_mode").withStyle(ChatFormatting.RED));

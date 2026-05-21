@@ -1,28 +1,27 @@
 package net.dillon.speedrunnermod.block;
 
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
-import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.potion.ModPotions;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
+import net.dillon.speedrunnermod.loot.ModLootTables;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionContents;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.TintedParticleLeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class DoomBlock {
      * Does... stuff.
      */
     private static void whenBroken(Level world, BlockPos pos, Player player) {
-        if (!player.getAbilities().instabuild && !player.getMainHandItem().is(ModItemTags.DOOM_STONE_SAFE_TOOLS) && !player.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
+        if (!player.getAbilities().instabuild && !player.getMainHandItem().is(ModItemTags.DOOM_STONE_SAFE_TOOLS) && !player.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             if (world.getRandom().nextFloat() < 0.50F) {
                 world.setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
             }
@@ -78,67 +77,17 @@ public class DoomBlock {
                 }
             }
         } else if (!player.getAbilities().instabuild) {
-            if (world.getRandom().nextFloat() < 0.10F) {
-                List<Item> possibleItems = List.of(
-                        Items.DIAMOND_SWORD,
-                        Items.NETHERITE_CHESTPLATE,
-                        Items.BOW,
-                        ModItems.SPEEDRUNNER_BOW,
-                        ModItems.SPEEDRUNNER_CROSSBOW,
-                        Items.IRON_CHESTPLATE,
-                        Items.ENCHANTED_GOLDEN_APPLE,
-                        Items.GOLDEN_APPLE,
-                        ModItems.RAID_ERADICATOR,
-                        ModItems.SPEEDRUNNERS_TOTEM,
-                        Items.FIRE_CHARGE,
-                        ModItems.DRAGONS_FIREBALL,
-                        Items.ELYTRA,
-                        ModItems.KNOCKBACK_STICK,
-                        Items.POTION,
-                        ModItems.DRAGONS_PEARL,
-                        Items.MACE
-                );
+            if (world.getRandom().nextFloat() < ModUtil.randomFloatInclusive(0.22F, 0.32F) && world instanceof ServerLevel serverLevel) {
+                LootParams.Builder lootParams = new LootParams.Builder(serverLevel)
+                        .withParameter(LootContextParams.ORIGIN, pos.getCenter())
+                        .withParameter(LootContextParams.BLOCK_STATE, world.getBlockState(pos))
+                        .withOptionalParameter(LootContextParams.THIS_ENTITY, player)
+                        .withOptionalParameter(LootContextParams.TOOL, player.getMainHandItem());
 
-                Item item = possibleItems.get(ModUtil.randomIntInclusive(0, possibleItems.size() - 1));
-                ItemStack stack = new ItemStack(item);
-                if (item == Items.DIAMOND_SWORD) {
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.SHARPNESS), ModUtil.randomIntInclusive(3, 5));
-                    if (world.getRandom().nextFloat() < 0.40F) {
-                        stack.enchant(ModUtil.enchantment(player, Enchantments.KNOCKBACK), ModUtil.randomIntInclusive(1, 2));
-                    }
-                } else if (item == Items.NETHERITE_CHESTPLATE) {
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.PROTECTION), ModUtil.randomIntInclusive(3, 4));
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.THORNS), ModUtil.randomIntInclusive(2, 3));
-                } else if (item == Items.BOW || item == ModItems.SPEEDRUNNER_BOW) {
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.POWER), ModUtil.randomIntInclusive(3, 5));
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.FLAME), 1);
-                } else if (item == ModItems.SPEEDRUNNER_CROSSBOW) {
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.QUICK_CHARGE), ModUtil.randomIntInclusive(2, 3));
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.UNBREAKING), ModUtil.randomIntInclusive(1, 3));
-                    if (world.getRandom().nextFloat() < 0.65F) {
-                        stack.enchant(ModUtil.enchantment(player, Enchantments.MULTISHOT), 1);
-                    }
-                } else if (item == Items.IRON_CHESTPLATE) {
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.PROTECTION), ModUtil.randomIntInclusive(3, 4));
-                    stack.enchant(ModUtil.enchantment(player, Enchantments.UNBREAKING), ModUtil.randomIntInclusive(1, 3));
-                    stack.setDamageValue(world.getRandom().nextInt(50));
-                } else if (item == Items.GOLDEN_APPLE) {
-                    stack = new ItemStack(item, ModUtil.randomIntInclusive(1, 3));
-                } else if (item == Items.FIRE_CHARGE) {
-                    stack = new ItemStack(item, ModUtil.randomIntInclusive(2, 5));
-                } else if (item == ModItems.DRAGONS_FIREBALL) {
-                    stack = new ItemStack(item, ModUtil.randomIntInclusive(1, 3));
-                } else if (item == Items.ELYTRA) {
-                    stack = ModUtil.ofUnbreakable(item);
-                } else if (item == Items.POTION) {
-                    stack.set(DataComponents.POTION_CONTENTS, new PotionContents(ModPotions.DRAGONS_AURA));
-                } else if (item == Items.MACE) {
-                    if (world.getRandom().nextFloat() < 0.35F) {
-                        stack.enchant(ModUtil.enchantment(player, Enchantments.WIND_BURST), ModUtil.randomIntInclusive(1, 3));
-                    }
+                for (ItemStack stack : serverLevel.getServer().reloadableRegistries().getLootTable(ModLootTables.DOOM_BLOCK_LOOT)
+                        .getRandomItems(lootParams.create(LootContextParamSets.BLOCK))) {
+                    ModUtil.spawnFloatingItemEntity(world, pos, stack, player, true);
                 }
-
-                ModUtil.spawnFloatingItemEntity(world, pos, stack, player, true);
             }
         }
     }

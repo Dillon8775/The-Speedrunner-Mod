@@ -1,7 +1,0 @@
-### §cKills §fall nearby §7raiders §r§fwithin a §a300 block radius.
-
-#### All nearby §6villagers §r§fwill §eglow, §r§fand be given §dregeneration §r§fand §7resistance§r§f for §a§l30 §r§aseconds.
-
-### §eEvokers §rwon't be §ckilled, §r§finstead, they will §dteleport §r§fto the player.
-
-!image:textures/gui/features/recipes/raid_eradicator_crafting_recipe.png scale=.55

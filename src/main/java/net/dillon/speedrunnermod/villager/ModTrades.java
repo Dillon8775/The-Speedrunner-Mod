@@ -19,7 +19,7 @@ public class ModTrades {
     public static final ResourceKey<VillagerTrade> RETIRED_SPEEDRUNNER_2_GOLDEN_UPGRADE_SMITHING_TEMPLATE = resourceKey("retired_speedrunner/2/golden_upgrade_smithing_template");
 
     public static final ResourceKey<VillagerTrade> RETIRED_SPEEDRUNNER_3_POTION = resourceKey("retired_speedrunner/3/potion");
-    public static final ResourceKey<VillagerTrade> RETIRED_SPEEDRUNNER_3_WITHERED_ENCHANTMENT = resourceKey("retired_speedrunner/3/withered_enchantment");
+    public static final ResourceKey<VillagerTrade> RETIRED_SPEEDRUNNER_3_OMINOUS_BOTTLE = resourceKey("retired_speedrunner/3/ominous_bottle");
 
     public static final ResourceKey<VillagerTrade> RETIRED_SPEEDRUNNER_4_GOLDEN_APPLE = resourceKey("retired_speedrunner/4/golden_apple");
     public static final ResourceKey<VillagerTrade> RETIRED_SPEEDRUNNER_4_ENCHANTED_BOOK = resourceKey("retired_speedrunner/4/enchanted_book");

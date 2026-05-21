@@ -1,7 +1,0 @@
-### Enable / disable §aMinecraft's annoying fog.
-
-# Default key = §lO.§r
-
-You can configure to whatever you'd like in the §l"Controls"§r menu.
-
-!image:textures/gui/features/keybinds/toggle_fog_keybind.png scale=.5

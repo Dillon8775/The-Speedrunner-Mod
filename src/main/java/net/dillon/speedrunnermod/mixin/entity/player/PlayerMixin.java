@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.player;
 
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.item.GoldenShieldItem;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerShieldItem;
@@ -73,7 +73,7 @@ public abstract class PlayerMixin extends LivingEntity {
      */
     @Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
     private void dragonsAuraDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.hasEffect(ModStatusEffects.DRAGONS_AURA)) {
+        if (this.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             cir.setReturnValue(SoundEvents.ENDER_DRAGON_HURT);
         }
     }

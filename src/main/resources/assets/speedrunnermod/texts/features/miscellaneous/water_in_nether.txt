@@ -1,3 +1,0 @@
-## §9Water §fcan be placed in §cthe nether.
-
-!image:textures/gui/features/screenshots/water_in_nether.png scale=.14

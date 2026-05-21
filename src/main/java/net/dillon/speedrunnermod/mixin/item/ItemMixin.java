@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -63,38 +64,36 @@ public abstract class ItemMixin {
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     private void appendTooltipsToOtherItems(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type, CallbackInfo ci) {
         if ((isEasyMode() || isDoomMode()) && stack.is(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.piglin_awakener_craftable.line1").withStyle(ChatFormatting.GOLD));
-            textConsumer.accept(Component.translatable("item.speedrunnermod.piglin_awakener_craftable.line2").withStyle(ChatFormatting.GOLD));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.piglin_awakener_craftable.tooltip"));
         }
         if (isDoomMode() && stack.is(ModItemTags.DOOM_STONE_SAFE_TOOLS)) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.doom_mode_safe_tools.tooltip").withStyle(ChatFormatting.RED));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.doom_mode_safe_tools.tooltip").withStyle(ChatFormatting.RED));
         }
         if (stack.is(ModItemTags.GOLDEN_SPEEDRUNNER_ARMOR)) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.golden_speedrunner_armor.tooltip").withStyle(ChatFormatting.YELLOW));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_speedrunner_armor.tooltip").withStyle(ChatFormatting.YELLOW), 35);
         }
         if (stack.is(Items.ENCHANTED_BOOK)) {
             ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(stack);
             for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemEnchantmentsComponent.entrySet()) {
                 if (entry.getKey().is(ModEnchantments.DASH)) {
-                    textConsumer.accept(Component.translatable("enchantment.speedrunnermod.dash.tooltip").withStyle(ChatFormatting.GRAY));
+                    SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.dash.tooltip").withStyle(ChatFormatting.GRAY));
                 }
                 if (entry.getKey().is(ModEnchantments.COOLDOWN)) {
-                    textConsumer.accept(Component.translatable("enchantment.speedrunnermod.cooldown.tooltip").withStyle(ChatFormatting.GRAY));
+                    SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.cooldown.tooltip").withStyle(ChatFormatting.GRAY));
                 }
                 if (entry.getKey().is(ModEnchantments.WITHERED)) {
-                    textConsumer.accept(Component.translatable("enchantment.speedrunnermod.withered.tooltip.line1").withStyle(ChatFormatting.GRAY));
-                    textConsumer.accept(Component.translatable("enchantment.speedrunnermod.withered.tooltip.line2").withStyle(ChatFormatting.GRAY));
+                    SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.withered.tooltip"), 40);
                 }
             }
         }
         if (stack.is(Items.FIRE_CHARGE) || stack.is(ModItems.DRAGONS_FIREBALL)) {
-            textConsumer.accept(Component.translatable("item.minecraft.fire_charge.throw").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.minecraft.fire_charge.throw").withStyle(ChatFormatting.GRAY));
         }
         if (options().main.lavaBoats.getCurrentValue() && (stack.is(ModItemTags.FIREPROOF_BOATS) || stack.is(ModItemTags.FIREPROOF_CHEST_BOATS))) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.boat.tooltip").withStyle(ChatFormatting.GOLD));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.boat.tooltip").withStyle(ChatFormatting.GOLD));
         }
         if (stack.is(ModItemTags.FASTER_BOATS) || stack.is(ModItemTags.FASTER_CHEST_BOATS)) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.boat.tooltip.fast").withStyle(ChatFormatting.GRAY));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.boat.tooltip.fast").withStyle(ChatFormatting.GRAY));
         }
     }
 }

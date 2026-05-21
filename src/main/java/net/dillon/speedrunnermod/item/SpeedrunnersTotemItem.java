@@ -31,9 +31,7 @@ public class SpeedrunnersTotemItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line3").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line4"));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line1"));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunners_totem.tooltip.line2").withStyle(ChatFormatting.WHITE));
     }
 }

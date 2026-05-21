@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
@@ -197,9 +198,24 @@ public class GoliathEntity extends Monster implements Goliath {
             return false;
         }
 
-        if (this.getHealth() <= this.getMaxHealth() / 2 && entity instanceof Projectile projectile) {
+        if (entity instanceof Player player && (
+                player.getMainHandItem().is(ItemTags.SPEARS)
+                        || player.getOffhandItem().is(ItemTags.SPEARS))) {
+            this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
+            player.hurtServer(world, player.damageSources().mobAttack(this), player.getHealth() / ModUtil.randomFloatInclusive(1.25F, 1.95F));
+        }
+
+        float maxHealth = this.getMaxHealth();
+        if (this.getHealth() <= maxHealth / 2 && entity instanceof Projectile projectile && projectile.getOwner() != null) {
             if (projectile.getOwner() != null) {
-                this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
+                if (projectile.getOwner() instanceof Player) {
+                    this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
+                    this.playSound(SoundEvents.GENERIC_EAT.value(), 5.0F, 1.0F);
+
+                    float missingHealth = maxHealth - this.getHealth();
+                    this.heal((float)Math.sqrt(missingHealth));
+                }
+
                 projectile.getOwner().hurtServer(world, projectile.getOwner().damageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
             }
             return false;

@@ -26,7 +26,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 /**
  * A weapon that {@code one-shots} the {@code ender dragon.}
  */
-public class DragonsSwordItem extends Item implements EyeItem {
+public class DragonsSwordItem extends Item implements SpeedrunnerItem {
 
     public DragonsSwordItem(Item.Properties settings) {
         super(settings.sword(ModToolMaterials.DRAGONS_SWORD, 6, -2.4F).rarity(Rarity.EPIC));
@@ -66,10 +66,10 @@ public class DragonsSwordItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.dragons_sword.tooltip")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.dragons_sword.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.WHITE).withStyle(ChatFormatting.GRAY));
         if (this.isDisabled()) {
-            textConsumer.accept(Component.translatable("item.speedrunnermod.dragons_sword.doom_mode").withStyle(ChatFormatting.RED));
+            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.dragons_sword.doom_mode").withStyle(ChatFormatting.RED));
         }
         this.addStateOfTheArtItemTooltip(textConsumer);
     }

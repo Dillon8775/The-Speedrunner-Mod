@@ -33,7 +33,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
  * <p>Additionally, this item allows the player to {@code teleport directly} to the nearest stronghold's {@code nearest portal room.}</p>
  */
-public class AnnulEyeItem extends Item implements EyeItem {
+public class AnnulEyeItem extends Item implements SpeedrunnerItem {
 
     public AnnulEyeItem(Properties settings) {
         super(settings.rarity(Rarity.EPIC));
@@ -209,9 +209,7 @@ public class AnnulEyeItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.eye_of_annul.tooltip.line1")
-                .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.eye_of_annul.tooltip.line2")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.eye_of_annul.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }

@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.mixin.entity.player.PlayerMixin;
 import net.dillon.speedrunnermod.mixin.item.component.BlocksAttacksMixin;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -52,6 +51,6 @@ public class SpeedrunnerShieldItem extends ShieldItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_shield.tooltip").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunner_shield.tooltip"));
     }
 }

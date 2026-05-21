@@ -1,7 +1,0 @@
-### Instantly set your brightness to §a1000% §fto see in the §7dark areas.
-
-# Default key is §lV.§r
-
-You can configure this keybind in the §lControl §fsettings.
-
-!image:textures/gui/features/keybinds/toggle_fullbright_keybind.png scale=.5

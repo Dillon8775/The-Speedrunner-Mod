@@ -1,4 +1,0 @@
-### §l§eEnchanted Golden Apples §r§f§ecan be crafted!
-
-!image:textures/gui/features/recipes/enchanted_golden_apple_crafting_recipe.png scale=.5
-#### §aWhy would you take this away from us, §cMojang...?

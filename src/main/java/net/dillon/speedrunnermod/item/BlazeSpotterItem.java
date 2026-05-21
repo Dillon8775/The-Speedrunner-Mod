@@ -36,7 +36,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.Mode;
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
  */
-public class BlazeSpotterItem extends Item implements EyeItem {
+public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
 
     public BlazeSpotterItem(Properties settings) {
         super(settings.stacksTo(16));
@@ -109,7 +109,7 @@ public class BlazeSpotterItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.blaze_spotter.tooltip")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.blaze_spotter.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }

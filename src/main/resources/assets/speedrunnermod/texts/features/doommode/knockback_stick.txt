@@ -1,3 +1,0 @@
-### It does exactly what it says it does. You can get it from mining §cdoom blocks.
-
-!image:textures/gui/features/screenshots/knockback_stick.png scale=.15

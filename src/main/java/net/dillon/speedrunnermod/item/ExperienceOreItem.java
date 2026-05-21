@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -22,7 +21,6 @@ public class ExperienceOreItem extends BlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("block.speedrunnermod.experience_ore.tooltip.line1").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("block.speedrunnermod.experience_ore.tooltip.line2").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("block.speedrunnermod.experience_ore.tooltip"));
     }
 }

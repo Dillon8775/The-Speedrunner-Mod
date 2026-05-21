@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity;
 
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.PowerParticleOption;
 import net.minecraft.server.level.ServerLevel;
@@ -57,6 +57,6 @@ public abstract class AreaEffectCloudMixin {
      */
     @Unique
     private boolean canIgnoreDamage(MobEffectInstance e, LivingEntity living) {
-        return living.hasEffect(ModStatusEffects.DRAGONS_AURA) && e.getEffect() == MobEffects.INSTANT_DAMAGE && this.getParticle() instanceof PowerParticleOption;
+        return living.hasEffect(ModMobEffects.DRAGONS_AURA) && e.getEffect() == MobEffects.INSTANT_DAMAGE && this.getParticle() instanceof PowerParticleOption;
     }
 }

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity;
 
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.InfiniPearlItem;
 import net.dillon.speedrunnermod.item.ModItems;
@@ -58,7 +58,7 @@ public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile {
             return false;
         }
 
-        if (isDoomMode() && !player.hasEffect(ModStatusEffects.DRAGONS_AURA) && !(player.isCreative() || player.isSpectator())) {
+        if (isDoomMode() && !player.hasEffect(ModMobEffects.DRAGONS_AURA) && !(player.isCreative() || player.isSpectator())) {
             player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, ModUtil.secondsAsTicks(3), 0));
         }
         return player.hurtServer(player.level(), this.damageSources().enderPearl(), ModUtil.getEnderPearlDamageValue());

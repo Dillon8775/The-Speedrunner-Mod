@@ -26,7 +26,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
  */
-public class DragonsPearlItem extends Item implements EyeItem {
+public class DragonsPearlItem extends Item implements SpeedrunnerItem {
 
     public DragonsPearlItem(Properties settings) {
         super(settings.stacksTo(16).rarity(Rarity.EPIC));
@@ -115,7 +115,7 @@ public class DragonsPearlItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.dragons_pearl.tooltip")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.dragons_pearl.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }

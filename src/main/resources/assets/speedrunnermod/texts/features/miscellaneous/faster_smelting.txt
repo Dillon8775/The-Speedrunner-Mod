@@ -1,2 +1,0 @@
-### §7All furnaces §r§fsmelt faster, and all §epotions §r§f§bbrew faster!
-!image:textures/gui/features/other/faster_smelting_and_brewing.png scale=.15

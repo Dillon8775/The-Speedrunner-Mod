@@ -1,3 +1,0 @@
-## §lAll villager trades §rhave been §bbuffed, §fwith §alower prices §fand §abetter items, §ffor §bevery villager profession.
-
-!image:textures/gui/features/gui/better_villager_trades.png scale=.4

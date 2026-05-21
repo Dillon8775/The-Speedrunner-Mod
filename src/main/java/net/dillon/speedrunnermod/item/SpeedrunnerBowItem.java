@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.item;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -98,7 +97,6 @@ public class SpeedrunnerBowItem extends BowItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_bow.tooltip.line1").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.speedrunner_bow.tooltip.line2").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.speedrunner_bow.tooltip"));
     }
 }

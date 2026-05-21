@@ -158,14 +158,6 @@ public class ModUtil {
     }
 
     /**
-     * Sends a message to the oldPlayer with the mod prefix.
-     */
-    @Deprecated(forRemoval = true)
-    public static void sendWithPrefix(String string, Player player) {
-        player.sendSystemMessage((ModTexts.BLANK).copy().append((Component.translatable("speedrunnermod.tutorial_mode.prefix"))).append("").append(Component.translatable(string)));
-    }
-
-    /**
      * Returns a specific type of formatting.
      */
     public static ChatFormatting toFormatting(UUID uuid, ChatFormatting actionbar, ChatFormatting chat) {
@@ -373,6 +365,10 @@ public class ModUtil {
      * @return true if dragon aura is found on potion contents.
      */
     public static boolean hasDragonsAura(ItemStack stack) {
+        if (stack.get(DataComponents.POTION_CONTENTS) == null) {
+            return false;
+        }
+
         for (MobEffectInstance slotEffect : stack.get(DataComponents.POTION_CONTENTS).getAllEffects()) {
             if (slotEffect.getEffect().is(ofSpeedrunnerMod("dragons_aura"))) {
                 return true;

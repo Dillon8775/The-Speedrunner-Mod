@@ -1,5 +1,0 @@
-## §aEnder eyes§r §lnever break.
-
-#### §oUnless you're playing on §c§oDoom Mode,§r§o then they will break §c§oevery time.
-
-!image:textures/gui/features/screenshots/ender_eyes_never_break.png scale=.14

@@ -1,6 +1,0 @@
-### §aA fragment of experience, §r§fwhich can be only be obtained from smelting §a§bexperience ores!
-
-## You can use these §afragments §r§fto craft §eBottles of Enchanting!
-
-!image:textures/gui/features/recipes/bottle_of_enchanting_crafting_recipe.png scale=.5
-!image:textures/gui/features/recipes/experience_fragment.png scale=.15

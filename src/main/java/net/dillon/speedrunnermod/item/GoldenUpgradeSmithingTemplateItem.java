@@ -54,8 +54,8 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip.line1"));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip.line2").withStyle(ChatFormatting.AQUA));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip.line1").withStyle(ChatFormatting.AQUA));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip.line2").withStyle(ChatFormatting.WHITE));
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 }

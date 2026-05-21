@@ -1,6 +1,0 @@
-### Similar to §lraw iron, §r§braw speedrunner§r§f can be smelted into §bspeedrunner ingots.
-
-#### It randomly generates throughout the §b§lSpeedrunner's Wasteland §r§f§bbiome.
-
-!image:textures/gui/features/items/raw_speedrunner.png scale=.2
-!image:textures/gui/features/screenshots/raw_speedrunner_patches.png scale=.14

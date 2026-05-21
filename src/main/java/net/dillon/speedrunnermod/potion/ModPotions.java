@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.potion;
 
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -20,8 +20,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * Stores all speedrunner mod potions.
  */
 public class ModPotions {
-    public static final Holder<Potion> DRAGONS_AURA = registerPotion("dragons_aura", ModStatusEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(2), 0);
-    public static final Holder<Potion> LONG_DRAGONS_AURA = registerPotion("long_dragons_aura", ModStatusEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(6), 0);
+    public static final Holder<Potion> DRAGONS_AURA = registerPotion("dragons_aura", ModMobEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(2), 0);
+    public static final Holder<Potion> LONG_DRAGONS_AURA = registerPotion("long_dragons_aura", ModMobEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(6), 0);
 
     /**
      * Registers a potion.

@@ -1,3 +1,0 @@
-## §dThrow those annoying §d§lDragon fireballs §r§dright back at the ender dragon!
-
-!image:textures/gui/features/recipes/dragons_fireball_crafting_recipe.png scale=.5

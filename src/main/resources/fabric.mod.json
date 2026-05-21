@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "speedrunnermod",
-  "version": "1.12.1+mc26.1.2",
+  "version": "1.12.2+mc26.1.2",
   "name": "The Speedrunner Mod",
   "description": "A mod that makes speedrunning, easier.",
   "accessWidener": "speedrunnermod.accessWidener",
@@ -22,13 +22,13 @@
       "net.dillon.speedrunnermod.main.SpeedrunnerMod"
     ],
     "client": [
-      "net.dillon.speedrunnermod.client.main.SpeedrunnerModClient"
+      "net.dillon.speedrunnermod.main.SpeedrunnerModClient"
     ],
     "fabric-datagen": [
-      "net.dillon.speedrunnermod.client.data.generator.SpeedrunnerModDataGenerator"
+      "net.dillon.speedrunnermod.data.generator.SpeedrunnerModDataGenerator"
     ],
     "modmenu": [
-      "net.dillon.speedrunnermod.client.impl.ModMenuImpl"
+      "net.dillon.speedrunnermod.impl.ModMenuImpl"
     ]
   },
   "mixins": [

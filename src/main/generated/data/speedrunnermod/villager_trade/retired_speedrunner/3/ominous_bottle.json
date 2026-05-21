@@ -1,0 +1,13 @@
+{
+  "additional_wants": {
+    "id": "speedrunnermod:annul_eye"
+  },
+  "gives": {
+    "id": "minecraft:ominous_bottle"
+  },
+  "wants": {
+    "count": 3.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 12.0
+}

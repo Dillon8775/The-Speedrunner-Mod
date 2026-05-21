@@ -93,7 +93,8 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:enchant_randomly",
+              "function": "minecraft:enchant_with_levels",
+              "levels": 27,
               "options": [
                 "minecraft:sharpness",
                 "minecraft:looting",
@@ -113,7 +114,8 @@
           "type": "minecraft:item",
           "functions": [
             {
-              "function": "minecraft:enchant_randomly",
+              "function": "minecraft:enchant_with_levels",
+              "levels": 30,
               "options": [
                 "minecraft:riptide",
                 "minecraft:loyalty",

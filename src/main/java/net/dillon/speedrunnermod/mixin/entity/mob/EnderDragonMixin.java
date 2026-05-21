@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.dillon.speedrunnermod.effect.ModStatusEffects;
+import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -67,7 +67,7 @@ public class EnderDragonMixin extends Mob {
      */
     @Inject(method = "hurt(Lnet/minecraft/server/level/ServerLevel;Ljava/util/List;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/damagesource/DamageSources;mobAttack(Lnet/minecraft/world/entity/LivingEntity;)Lnet/minecraft/world/damagesource/DamageSource;"), cancellable = true)
     private void changeEnderDragonDamageValue(ServerLevel world, List<Entity> entities, CallbackInfo ci, @Local Entity entity) {
-        boolean bl = entity instanceof Player playerEntity && playerEntity.hasEffect(ModStatusEffects.DRAGONS_AURA);
+        boolean bl = entity instanceof Player playerEntity && playerEntity.hasEffect(ModMobEffects.DRAGONS_AURA);
         DamageSource damageSource = this.damageSources().mobAttack(this);
         entity.hurtServer(world, damageSource, ModUtil.getEnderDragonDamageValue() / (bl ? 2 : 1));
         EnchantmentHelper.doPostAttackEffects(world, entity, damageSource);

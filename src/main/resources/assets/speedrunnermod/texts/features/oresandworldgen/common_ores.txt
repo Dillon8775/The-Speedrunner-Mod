@@ -1,7 +1,0 @@
-### Certain ores, including §bdiamonds§f and §9lapis,§f will §agenerate more commonly §fall throughout the §aoverworld.
-
-§o(even more commonly in the §b§l§oSpeedrunner's Wasteland §r§b§obiome!)
-
-#### §oConfigurable in the §bspeedrunner mod options menu.
-
-!image:textures/gui/features/screenshots/common_ores.png scale=.14

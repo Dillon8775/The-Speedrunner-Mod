@@ -35,7 +35,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 /**
  * An item that kills all nearby {@link Raider}s.
  */
-public class RaidEradicatorItem extends Item implements EyeItem {
+public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
 
     public RaidEradicatorItem(Properties settings) {
         super(settings.rarity(Rarity.EPIC).stacksTo(16));
@@ -108,7 +108,7 @@ public class RaidEradicatorItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.raid_eradicator.tooltip")
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.raid_eradicator.tooltip")
                 .withStyle(this.isDisabled() ? ChatFormatting.STRIKETHROUGH : ChatFormatting.RESET).withStyle(ChatFormatting.GRAY));
         this.addStateOfTheArtItemTooltip(textConsumer);
     }

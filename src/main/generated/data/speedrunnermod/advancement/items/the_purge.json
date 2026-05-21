@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:adventure/goliath",
+  "parent": "speedrunnermod:adventure/david_and_goliath",
   "criteria": {
     "used_item": {
       "conditions": {

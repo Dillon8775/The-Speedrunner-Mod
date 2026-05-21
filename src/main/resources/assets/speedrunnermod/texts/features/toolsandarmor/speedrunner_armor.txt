@@ -1,7 +1,0 @@
-### The §bspeedrunner armor§r is slightly more powerful than §liron armor.
-
-#### It applies more protection and has more durability, and can be crafted just like any other armor piece would, using §bspeedrunner ingots.
-
-### It is §cnot §r§fstronger than §bdiamond, §r§fbut it does have more benefits.
-
-!image:textures/gui/features/other/speedrunner_armor.png scale=.15

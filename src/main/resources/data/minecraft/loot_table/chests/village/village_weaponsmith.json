@@ -15,6 +15,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "speedrunnermod:speedrunner_spear"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
           "name": "minecraft:flint_and_steel"
         }
       ]

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "#speedrunnermod:sticks",
+    "X": "#speedrunnermod:speedrunner_tool_materials"
+  },
+  "pattern": [
+    "  X",
+    " # ",
+    "#  "
+  ],
+  "result": {
+    "id": "speedrunnermod:speedrunner_spear"
+  }
+}

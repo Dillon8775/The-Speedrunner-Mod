@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 /**
  * An {@code eye of ender} item that locates nearby {@code nether fortresses} and {@code bastions.}
  */
-public class InfernoEyeItem extends Item implements EyeItem {
+public class InfernoEyeItem extends Item implements SpeedrunnerItem {
 
     public InfernoEyeItem(Properties settings) {
         super(settings.component(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.FORTRESSES).fireResistant());
@@ -66,7 +66,7 @@ public class InfernoEyeItem extends Item implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.eye_of_inferno.tooltip").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.eye_of_inferno.tooltip"));
         textConsumer.accept(Component.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))).withStyle(ChatFormatting.BOLD));
     }
 

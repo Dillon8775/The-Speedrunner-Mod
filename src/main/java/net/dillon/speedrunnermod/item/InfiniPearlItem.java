@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -24,7 +23,7 @@ import java.util.function.Consumer;
 /**
  * An {@code ender pearl} like item that does not get consumed nor do damage upon use.
  */
-public class InfiniPearlItem extends EnderpearlItem implements EyeItem {
+public class InfiniPearlItem extends EnderpearlItem implements SpeedrunnerItem {
 
     public InfiniPearlItem(Properties settings) {
         super(settings.rarity(Rarity.RARE).stacksTo(1).durability(571));
@@ -65,8 +64,7 @@ public class InfiniPearlItem extends EnderpearlItem implements EyeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        textConsumer.accept(Component.translatable("item.speedrunnermod.infini_pearl.tooltip.line1").withStyle(ChatFormatting.GRAY));
-        textConsumer.accept(Component.translatable("item.speedrunnermod.infini_pearl.tooltip.line2").withStyle(ChatFormatting.GRAY));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.infini_pearl.tooltip"));
     }
 
     @Override
