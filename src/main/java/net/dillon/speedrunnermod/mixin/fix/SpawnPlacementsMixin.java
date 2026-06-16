@@ -2,10 +2,7 @@ package net.dillon.speedrunnermod.mixin.fix;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -23,7 +20,7 @@ public class SpawnPlacementsMixin {
 
     static {
         if (isDoomMode()) {
-            SpawnPlacements.register(EntityType.PIGLIN_BRUTE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpawnPlacementsMixin::canPiglinBruteSpawn);
+            SpawnPlacements.register(EntityTypes.PIGLIN_BRUTE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpawnPlacementsMixin::canPiglinBruteSpawn);
         }
     }
 

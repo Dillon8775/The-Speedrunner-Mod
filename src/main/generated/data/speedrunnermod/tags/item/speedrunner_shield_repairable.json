@@ -1,6 +1,9 @@
 {
   "values": [
-    "#minecraft:planks",
+    {
+      "id": "#minecraft:planks",
+      "required": false
+    },
     "speedrunnermod:speedrunner_ingot"
   ]
 }

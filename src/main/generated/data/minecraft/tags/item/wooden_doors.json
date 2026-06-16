@@ -1,6 +1,6 @@
 {
   "values": [
-    "speedrunnermod:wooden_speedrunner_door",
-    "speedrunnermod:dead_wooden_speedrunner_door"
+    "speedrunnermod:speedrunner_door",
+    "speedrunnermod:dead_speedrunner_door"
   ]
 }

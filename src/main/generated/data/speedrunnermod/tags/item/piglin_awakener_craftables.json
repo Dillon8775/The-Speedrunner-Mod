@@ -1,6 +1,9 @@
 {
   "values": [
-    "#speedrunnermod:golden_food_items",
+    {
+      "id": "#speedrunnermod:golden_food_items",
+      "required": false
+    },
     "minecraft:ender_pearl",
     "minecraft:blaze_powder"
   ]

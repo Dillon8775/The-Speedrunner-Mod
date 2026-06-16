@@ -15,6 +15,6 @@ public class BrewingStandScreenMixin {
      */
     @ModifyConstant(method = "extractBackground", constant = @Constant(floatValue = 400.0F))
     private static float changeBrewDisplayTime(float original) {
-        return options().main.fasterBrewing.getCurrentValue() ? 100.0F : original;
+        return options().general.fasterBrewing.getCurrentValue() ? 100.0F : original;
     }
 }

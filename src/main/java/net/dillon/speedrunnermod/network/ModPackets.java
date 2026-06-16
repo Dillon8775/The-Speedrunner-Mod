@@ -11,7 +11,7 @@ import net.dillon.speedrunnermod.network.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.network.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.server.ServerStorage;
+import net.dillon.speedrunnermod.server.DedicatedServerStorage;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -40,9 +40,9 @@ public class ModPackets {
 
         ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
             UUID playerUuid = context.player().getUUID();
-            ServerStorage.setActionbarPref(playerUuid, packet.actionbar());
-            ServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
-            ServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
+            DedicatedServerStorage.setActionbarPref(playerUuid, packet.actionbar());
+            DedicatedServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
+            DedicatedServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
         });
     }
 
@@ -68,7 +68,7 @@ public class ModPackets {
         ServerPlayNetworking.registerGlobalReceiver(MatchServerOptionsWithClientC2SPacket.PACKET, (packet, context) -> {
             ModOptions clientOptions = packet.toOptions();
             String player = packet.playerName();
-            ServerStorage.storePendingSyncRequest(player, clientOptions);
+            DedicatedServerStorage.storePendingSyncRequest(player, clientOptions);
             context.server().sendSystemMessage(Component.translatable("speedrunnermod.client_options_request_received", player, player));
         });
     }
@@ -101,11 +101,11 @@ public class ModPackets {
                         @Override
                         public void run() {
                             UUID playerUuid = handler.getPlayer().getUUID();
-                            int iCarusFireworksInventorySlot = ServerStorage.getIcarusFireworkSlot(playerUuid);
-                            int infiniPearlInventorySlot = ServerStorage.getInfiniPearlSlot(playerUuid);
+                            int iCarusFireworksInventorySlot = DedicatedServerStorage.getIcarusFireworkSlot(playerUuid);
+                            int infiniPearlInventorySlot = DedicatedServerStorage.getInfiniPearlSlot(playerUuid);
 
                             ItemStack item;
-                            if (options().main.iCarusMode.getCurrentValue()) {
+                            if (options().general.iCarusMode.getCurrentValue()) {
                                 item = ModUtil.ofUnbreakable(Items.ELYTRA);
                                 ItemStack fireworks = ModUtil.fireworkWithFlightDuration(64);
 
@@ -113,15 +113,15 @@ public class ModPackets {
                                 player.getInventory().getNonEquipmentItems().set(iCarusFireworksInventorySlot - 1, fireworks);
                             }
 
-                            if (options().main.infiniPearlMode.getCurrentValue()) {
+                            if (options().general.infiniPearlMode.getCurrentValue()) {
                                 ItemStack infiniPearl = ModUtil.ofUnbreakable(ModItems.INFINI_PEARL);
                                 int slot = infiniPearlInventorySlot - 1;
 
-                                if (options().main.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
+                                if (options().general.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
                                     slot += 1;
                                 }
 
-                                if (options().main.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot && infiniPearlInventorySlot >= 36) {
+                                if (options().general.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot && infiniPearlInventorySlot >= 36) {
                                     slot -= 2;
                                 }
 
@@ -134,14 +134,14 @@ public class ModPackets {
         });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
-            ServerStorage.clearPrefs(handler.getPlayer().getUUID());
+            DedicatedServerStorage.clearPrefs(handler.getPlayer().getUUID());
         });
 
         if (isEnvironmentTypeServer()) {
             // Make sure each player's playing mode always matches each tick
             ServerTickEvents.END_SERVER_TICK.register(server -> {
                 for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                    ServerPlayNetworking.send(player, new CheckModeS2CPacket(options().main.mode.getCurrentValue()));
+                    ServerPlayNetworking.send(player, new CheckModeS2CPacket(options().general.mode.getCurrentValue()));
                 }
             });
         }

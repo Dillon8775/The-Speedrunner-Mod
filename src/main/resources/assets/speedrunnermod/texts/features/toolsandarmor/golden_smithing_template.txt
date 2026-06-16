@@ -1,0 +1,12 @@
+### Used to convert §egolden tools §finto §6golden §b§lspeedrunner tools.
+
+### To use it, place the §6template §fin the template slot, then place in your §egolden tool §fand §bspeedrunner ingot §fto get the §6§lgolden speedrunner tool!
+
+!image:textures/gui/features/recipes/golden_speedrunner_smithing_template_smithing.png scale=.35
+### These templates can §lonly be found §rin §druined portal chests §rand §6bastion remnant chests.
+
+!image:textures/gui/features/gui/golden_speedrunner_smithing_template_ruined_portal.png scale=.3
+#### You can also §aduplicate them §f(just like you can with §8netherite smithing templates)§f by using a §6§l7 §r§6gold ingots, §6§l1 §r§6gold block, §rand the §6template item.
+
+!image:textures/gui/features/recipes/golden_speedrunner_smithing_template_crafting_recipe.png scale=.4
+#### Additionally, you can §aright-click §fwith the §6template §fto view §ball speedrunner mod features!

@@ -27,5 +27,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/magma_cube"
 }

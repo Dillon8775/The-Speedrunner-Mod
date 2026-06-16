@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.render;
 
-import net.dillon.speedrunnermod.block.sign.TerraformSignBlockHelper;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.object.boat.BoatModel;
@@ -32,17 +32,11 @@ public class ModRenderers {
     private static final ModelLayerLocation FIREPROOF_WARPED_CHEST = chestBoatModelLayer("fireproof/warped");
 
     /**
-     * @return the texture path for a {@code normal boat.}
+     * Registers all speedrunner mod renderers.
      */
-    private static ModelLayerLocation boatModelLayer(String id) {
-        return new ModelLayerLocation(ofSpeedrunnerMod("boat/" + id), "main");
-    }
-
-    /**
-     * @return the texture path for a {@code chest boat.}
-     */
-    private static ModelLayerLocation chestBoatModelLayer(String id) {
-        return new ModelLayerLocation(ofSpeedrunnerMod("chest_boat/" + id), "main");
+    public static void registerRenderers() {
+        registerEntityRenderers();
+        registerModelLayers();
     }
 
     /**
@@ -65,6 +59,8 @@ public class ModRenderers {
         EntityRenderers.register(ModEntityTypes.FIREPROOF_CRIMSON_CHEST_BOAT, context -> new BoatRenderer(context, FIREPROOF_CRIMSON_CHEST));
         EntityRenderers.register(ModEntityTypes.FIREPROOF_WARPED_BOAT, context -> new BoatRenderer(context, FIREPROOF_WARPED));
         EntityRenderers.register(ModEntityTypes.FIREPROOF_WARPED_CHEST_BOAT, context -> new BoatRenderer(context, FIREPROOF_WARPED_CHEST));
+
+        SpeedrunnerMod.debug("Registered boat entity renderers.");
     }
 
     /**
@@ -87,21 +83,21 @@ public class ModRenderers {
         ModelLayerRegistry.registerModelLayer(FIREPROOF_CRIMSON_CHEST, BoatModel::createChestBoatModel);
         ModelLayerRegistry.registerModelLayer(FIREPROOF_WARPED, BoatModel::createBoatModel);
         ModelLayerRegistry.registerModelLayer(FIREPROOF_WARPED_CHEST, BoatModel::createChestBoatModel);
+
+        SpeedrunnerMod.debug("Registered boat model layers.");
     }
 
     /**
-     * Registers miscellaneous renderers.
+     * @return the texture path for a {@code normal boat.}
      */
-    private static void registerOtherRenderers() {
-        TerraformSignBlockHelper.registerDefaultWoodType(ofSpeedrunnerMod("speedrunner"));
+    private static ModelLayerLocation boatModelLayer(String id) {
+        return new ModelLayerLocation(ofSpeedrunnerMod("boat/" + id), "main");
     }
 
     /**
-     * Registers all speedrunner mod renderers.
+     * @return the texture path for a {@code chest boat.}
      */
-    public static void registerRenderers() {
-        registerEntityRenderers();
-        registerModelLayers();
-        registerOtherRenderers();
+    private static ModelLayerLocation chestBoatModelLayer(String id) {
+        return new ModelLayerLocation(ofSpeedrunnerMod("chest_boat/" + id), "main");
     }
 }

@@ -32,7 +32,7 @@ public class SafeBootScreen extends AbstractModScreen {
         }).bounds(this.getButtonsMiddle(), this.getCustomButtonsHeight(), 100, 20).build());
         this.proceedAnywayButton = this.addRenderableWidget(Button.builder(ModTexts.PROCEED_ANYWAY, (buttonWidget) -> {
             warn("Proceeding. Due to corrupt options, you may experience issues. Re-launch the game to fix options.");
-            this.minecraft.setScreen(new TitleScreen(false));
+            this.minecraft.gui.setScreen(new TitleScreen(false));
         }).bounds(this.getButtonsRightSide(), this.getCustomButtonsHeight(), 100, 20).build());
     }
 

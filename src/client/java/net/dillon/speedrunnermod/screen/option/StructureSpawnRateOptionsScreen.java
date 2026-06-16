@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.screen.option;
 
-import net.dillon.speedrunnermod.option.ModListOptions;
+import net.dillon.speedrunnermod.option.ListOptions;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
@@ -25,16 +25,16 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
      */
     private List<AbstractWidget> structures() {
         return List.of(
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.VILLAGE).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.ANCIENT_CITY).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.DESERT_PYRAMID).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.JUNGLE_PYRAMID).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.PILLAGER_OUTPOST).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.END_CITY).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.WOODLAND_MANSION).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.RUINED_PORTAL).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.SHIPWRECK).createButton(this.options),
-                ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.TRIAL_CHAMBER).createButton(this.options)
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.VILLAGE).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.ANCIENT_CITY).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.DESERT_PYRAMID).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.JUNGLE_PYRAMID).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.PILLAGER_OUTPOST).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.END_CITY).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.WOODLAND_MANSION).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.RUINED_PORTAL).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.SHIPWRECK).createButton(this.options),
+                ListOptions.createStructureSpawnRateOption(TranslationStringKeys.TRIAL_CHAMBER).createButton(this.options)
         );
     }
 
@@ -43,7 +43,7 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
         this.initializeCustomButtonListWidget();
 
         this.buttonList.addAll(structures());
-        this.buttonList.addSingleOptionEntry(ModListOptions.createStructureSpawnRateOption(TranslationStringKeys.NETHER_COMPLEXES));
+        this.buttonList.addSingleOptionEntry(createOption(ListOptions.createStructureSpawnRateOption(TranslationStringKeys.NETHER_COMPLEXES)));
 
         super.init();
         this.configFile = configHandler().getConfigFile();
@@ -61,7 +61,7 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
 
     @Override
     protected boolean shouldRenderVersionText() {
-        return false;
+        return true;
     }
 
     @Override

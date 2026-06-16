@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.screen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
@@ -46,8 +45,7 @@ public class CustomButtonListWidget extends ContainerObjectSelectionList<CustomB
      * <p>Adds a single button to the list of buttons.</p>
      * This button will take up a whole "row" space.
      */
-    public void addSingleOptionEntry(OptionInstance<?> option) {
-        AbstractWidget button = option.createButton(Minecraft.getInstance().options);
+    public void addSingleOptionEntry(AbstractWidget button) {
         button.setX(this.width / 2 - 155);
         button.setWidth(310);
         List<AbstractWidget> buttons = new ArrayList<>();

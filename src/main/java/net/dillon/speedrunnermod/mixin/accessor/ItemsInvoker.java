@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.accessor;
 
+import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -13,23 +14,23 @@ import java.util.function.Function;
 @Mixin(Items.class)
 public interface ItemsInvoker {
     @Invoker("registerItem")
-    static Item invokeRegisterItem(final ResourceKey<Item> key, final Function<Item.Properties, Item> itemFactory) {
+    static Item registerModItem(final ResourceKey<Item> key, final Function<Item.Properties, Item> itemFactory) {
         throw new AssertionError();
     }
     @Invoker("registerItem")
-    static Item invokeRegisterItem(final ResourceKey<Item> key, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
+    static Item registerModItem(final ResourceKey<Item> key, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
         throw new AssertionError();
     }
     @Invoker("registerBlock")
-    static Item invokeRegisterBlock(final Block block) {
+    static Item registerModBlock(final BlockItemId id, final Block block) {
         throw new AssertionError();
     }
     @Invoker("registerBlock")
-    static Item invokeRegisterBlock(final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory) {
+    static Item registerModBlock(final BlockItemId id, final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory) {
         throw new AssertionError();
     }
     @Invoker("registerBlock")
-    static Item invokeRegisterBlock(final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory, final Item.Properties properties) {
+    static Item registerModBlock(final BlockItemId id, final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory, final Item.Properties properties) {
         throw new AssertionError();
     }
 }

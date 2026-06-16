@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.item;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
@@ -47,11 +47,11 @@ public abstract class ItemMixin {
         if (entity instanceof ServerPlayer player) {
             int j = 0;
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-                if (player.getInventory().getItem(i).is(Items.LIME_WOOL)) {
+                if (player.getInventory().getItem(i).is(Items.WOOL.lime())) {
                     j += player.getInventory().getItem(i).getCount();
                 }
                 if (j >= 64) {
-                    ModCriterions.TRIGGERED_BY_ITEM.trigger(player, Items.LIME_WOOL.getDefaultInstance());
+                    ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, Items.WOOL.lime().getDefaultInstance());
                     break;
                 }
             }
@@ -86,10 +86,14 @@ public abstract class ItemMixin {
                 }
             }
         }
-        if (stack.is(Items.FIRE_CHARGE) || stack.is(ModItems.DRAGONS_FIREBALL)) {
+        boolean dragonFireball = stack.is(ModItems.DRAGONS_FIREBALL);
+        if ((dragonFireball || options().general.throwableFireballs.getCurrentValue()) && (stack.is(Items.FIRE_CHARGE) || stack.is(ModItems.DRAGONS_FIREBALL))) {
             SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.minecraft.fire_charge.throw").withStyle(ChatFormatting.GRAY));
+            if (isDoomMode()) {
+                SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.minecraft.fire_charge.warning").withStyle(ChatFormatting.RED));
+            }
         }
-        if (options().main.lavaBoats.getCurrentValue() && (stack.is(ModItemTags.FIREPROOF_BOATS) || stack.is(ModItemTags.FIREPROOF_CHEST_BOATS))) {
+        if (options().general.lavaBoats.getCurrentValue() && (stack.is(ModItemTags.FIREPROOF_BOATS) || stack.is(ModItemTags.FIREPROOF_CHEST_BOATS))) {
             SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.boat.tooltip").withStyle(ChatFormatting.GOLD));
         }
         if (stack.is(ModItemTags.FASTER_BOATS) || stack.is(ModItemTags.FASTER_CHEST_BOATS)) {

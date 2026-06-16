@@ -41,7 +41,7 @@ public abstract class AreaEffectCloudMixin {
     /**
      * Prevents the instant applied damage from being applied to entities with the {@code Dragon's Aura} effect.
      */
-    @Redirect(method = "serverTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;applyInstantenousEffect(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/LivingEntity;ID)V"))
+    @Redirect(method = "serverTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffect;applyInstantaneousEffect(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/LivingEntity;ID)V"))
     private void immuneWithDragonsAuraInstant(MobEffect instance, ServerLevel world, Entity effectEntity, Entity attacker, LivingEntity target, int amplifier, double proximity) {
         for (MobEffectInstance e : this.potionContents.getAllEffects()) {
             if (this.canIgnoreDamage(e, target)) {
@@ -49,7 +49,7 @@ public abstract class AreaEffectCloudMixin {
             }
         }
 
-        instance.applyInstantenousEffect(world, effectEntity, attacker, target, amplifier, proximity);
+        instance.applyInstantaneousEffect(world, effectEntity, attacker, target, amplifier, proximity);
     }
 
     /**

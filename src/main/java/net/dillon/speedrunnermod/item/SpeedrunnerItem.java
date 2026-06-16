@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
@@ -162,8 +162,8 @@ public interface SpeedrunnerItem {
      * Adds the tooltips for {@code State-Of-The-Art} items.
      */
     default void addStateOfTheArtItemTooltip(Consumer<Component> textConsumer) {
-        for (ModOptions.Mode mode : this.disabledModes()) {
-            if (options().main.mode.getCurrentValue() == mode) {
+        for (Mode mode : this.disabledModes()) {
+            if (options().general.mode.getCurrentValue() == mode) {
                 textConsumer.accept(ModTexts.stateOfTheArtItemDisabledTooltip(mode));
             }
         }
@@ -205,8 +205,8 @@ public interface SpeedrunnerItem {
      * @return if the item is disabled.
      */
     default boolean isDisabled() {
-        for (ModOptions.Mode mode : this.disabledModes()) {
-            if (options().main.mode.getCurrentValue() == mode) {
+        for (Mode mode : this.disabledModes()) {
+            if (options().general.mode.getCurrentValue() == mode) {
                 return true;
             }
         }
@@ -215,7 +215,7 @@ public interface SpeedrunnerItem {
 
     /**
      * All disabled modes.<p>
-     * Return {@code ModOptions.Mode[]{}} if there are no disabled modes.
+     * Return {@code Mode[]{}} if there are no disabled modes.
      */
-    ModOptions.Mode[] disabledModes();
+    Mode[] disabledModes();
 }

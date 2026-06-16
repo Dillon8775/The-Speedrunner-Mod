@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.mixin.entity.mob;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;

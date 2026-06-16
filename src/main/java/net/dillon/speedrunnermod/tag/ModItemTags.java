@@ -34,6 +34,10 @@ public class ModItemTags {
     public static TagKey<Item> SPEEDRUNNER_TOOL_MATERIALS = of("speedrunner_tool_materials");
     public static TagKey<Item> SPEEDRUNNER_TOOLS = of("speedrunner_tools");
     public static TagKey<Item> SPEEDRUNNER_SWORDS = of("speedrunner_swords");
+    public static TagKey<Item> SPEEDRUNNER_HARNESSES = of("speedrunner_harnesses");
+    public static TagKey<Item> SPEEDRUNNER_NAUTILUSES = of("speedrunner_nautiluses");
+    public static TagKey<Item> SPEEDRUNNERS_WORKBENCH_CONVERTABLE = of("speedrunners_workbench_convertable");
+    public static TagKey<Item> SPEEDRUNNERS_WORKBENCH_UPGRADEABLE = of("speedrunners_workbench_upgradeable");
     public static TagKey<Item> STATE_OF_THE_ART_ITEMS = of("state_of_the_art_items");
     public static TagKey<Item> STICKS = of("sticks");
     public static TagKey<Item> SPEEDRUNNER_STICKS = of("speedrunner_sticks");
@@ -71,7 +75,6 @@ public class ModItemTags {
         public static TagKey<Item> SPEEDRUNNER_ORES = of("speedrunner_ores");
         public static TagKey<Item> SPEEDRUNNER_PLANKS = of("speedrunner_planks");
         public static TagKey<Item> SPEEDRUNNER_SAPLING_PLACEABLES = of("speedrunner_sapling_placeables");
-        public static TagKey<Item> SPEEDRUNNER_SIGNS = of("speedrunner_signs");
     }
 
     /**

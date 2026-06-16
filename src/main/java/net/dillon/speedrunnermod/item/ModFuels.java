@@ -37,18 +37,18 @@ public class ModFuels {
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_SLAB, 400);
             builder.add(ModBlocks.SPEEDRUNNER_STAIRS, 400);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_STAIRS, 500);
-            builder.add(ModBlocks.WOODEN_SPEEDRUNNER_TRAPDOOR, 400);
-            builder.add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_TRAPDOOR, 500);
-            builder.add(ModBlocks.WOODEN_SPEEDRUNNER_PRESSURE_PLATE, 400);
-            builder.add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_PRESSURE_PLATE, 500);
+            builder.add(ModBlocks.SPEEDRUNNER_TRAPDOOR, 400);
+            builder.add(ModBlocks.DEAD_SPEEDRUNNER_TRAPDOOR, 500);
+            builder.add(ModBlocks.SPEEDRUNNER_PRESSURE_PLATE, 400);
+            builder.add(ModBlocks.DEAD_SPEEDRUNNER_PRESSURE_PLATE, 500);
             builder.add(ModBlocks.SPEEDRUNNER_FENCE, 400);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_FENCE, 500);
             builder.add(ModBlocks.SPEEDRUNNER_FENCE_GATE, 400);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE, 500);
-            builder.add(ModBlocks.WOODEN_SPEEDRUNNER_DOOR, 300);
-            builder.add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_DOOR, 400);
-            builder.add(ModBlocks.WOODEN_SPEEDRUNNER_BUTTON, 200);
-            builder.add(ModBlocks.DEAD_WOODEN_SPEEDRUNNER_BUTTON, 300);
+            builder.add(ModBlocks.SPEEDRUNNER_DOOR, 300);
+            builder.add(ModBlocks.DEAD_SPEEDRUNNER_DOOR, 400);
+            builder.add(ModBlocks.SPEEDRUNNER_BUTTON, 200);
+            builder.add(ModBlocks.DEAD_SPEEDRUNNER_BUTTON, 300);
             builder.add(ModBlocks.DEAD_SPEEDRUNNER_BUSH, 200);
         });
 

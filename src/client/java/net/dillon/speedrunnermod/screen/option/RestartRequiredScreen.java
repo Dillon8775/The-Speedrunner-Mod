@@ -42,7 +42,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
         this.addRenderableWidget(Button.builder(ModTexts.REVERT_CHANGES, (buttonWidget) -> {
             revertChanges();
             info("Changes reverted.");
-            this.minecraft.setScreen(this.parent);
+            this.minecraft.gui.setScreen(this.parent);
             if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
                 this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
             }
@@ -56,7 +56,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
     public void onClose() {
         saveAllChanges();
         restartRequired = true;
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
         if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
             this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
         }

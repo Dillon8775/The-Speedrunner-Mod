@@ -1,0 +1,24 @@
+### The §a§lGiant§r (known as §aGoliath)§r will target §c§oanything §r§fin it's path, and §cslowly regenerate §r§fat all times.
+
+#### §cIt cannot be killed from the void. §r§fIf it gets knocked into the void, it will §dteleport §r§fto the §r§dmiddle of the end island.
+
+Once §a§lGoliath§r§f reaches half health, §branged weapons §r§fare §cno good.
+
+Every time §a§lGoliath §r§chits you, §r§fyou will receive §r§7slowness, weakness, §r§fand §enausea. §r§fOnce he reaches §c1/3 health, §r§fhe can't do this anymore.
+
+§a§lGoliath§r§f will randomly spawn §c§lTNT§r around itself when §ctaking damage, §r§fand also drop §6rotten§r§f and §ecooked§r§f flesh randomly.
+
+If §a§lGoliath§r§f reaches §c1/3 health, §r§fhe will appear §cangry, §r§fand §oalways §r§fspawn §c§lTNT §r§fwhen taking damage.
+
+§a§lGoliath§r§f is §c§ocompletely immune §r§fto §cexplosives, §afall damage, §r§fand §6fire and lava damage.
+
+!image:textures/gui/features/screenshots/goliath.png scale=.14
+§a§lGoliath§r§f can also be summoned with §e2 flesh blocks§r§f and a §azombie head.
+##### This also works on §bother modes §r§fbesides §cdoom mode!
+
+!image:textures/gui/features/screenshots/summon_goliath.png scale=.14
+In order to craft a §eflesh block, §r§fyou will need §b9 pieces§r§f of §6rotten§r§f/§ecooked§r§f flesh.
+
+!image:textures/gui/features/recipes/flesh_block_crafting_recipe.png scale=.5
+
+!image:textures/gui/features/other/goliath.png scale=.20

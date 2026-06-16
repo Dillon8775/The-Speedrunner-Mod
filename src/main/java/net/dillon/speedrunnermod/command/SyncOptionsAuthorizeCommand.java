@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.server.ServerStorage;
+import net.dillon.speedrunnermod.server.DedicatedServerStorage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -25,13 +25,13 @@ public class SyncOptionsAuthorizeCommand {
                                     String player = StringArgumentType.getString(context, "player");
                                     String action = StringArgumentType.getString(context, "action");
 
-                                    if (!ServerStorage.hasPendingSyncRequest(player)) {
+                                    if (!DedicatedServerStorage.hasPendingSyncRequest(player)) {
                                         context.getSource().sendFailure(Component.literal("No pending sync request from " + player + "."));
                                         return 0;
                                     }
 
                                     if (action.equalsIgnoreCase("accept")) {
-                                        ModOptions clientOptions = ServerStorage.getPendingSyncRequest(player);
+                                        ModOptions clientOptions = DedicatedServerStorage.getPendingSyncRequest(player);
                                         configHandler().match(clientOptions);
 
                                         // Disconnect all players
@@ -51,7 +51,7 @@ public class SyncOptionsAuthorizeCommand {
                                         context.getSource().sendSystemMessage(Component.translatable("speedrunnermod.denied_sync_options_request", player));
                                     }
 
-                                    ServerStorage.removePendingSyncRequest(player);
+                                    DedicatedServerStorage.removePendingSyncRequest(player);
                                     return 1;
                                 }))));
     }

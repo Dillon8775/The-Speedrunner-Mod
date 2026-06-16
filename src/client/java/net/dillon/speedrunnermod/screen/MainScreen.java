@@ -1,13 +1,14 @@
 package net.dillon.speedrunnermod.screen;
 
 import net.dillon.speedrunnermod.option.Leaderboards;
+import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
+import net.dillon.speedrunnermod.screen.feature.secretdoommode.AbstractSecretDoomModeScreen;
+import net.dillon.speedrunnermod.screen.feature.secretdoommode.UmScreen;
+import net.dillon.speedrunnermod.screen.feature.secretdoommode.YouArentReadyForThisScreen;
 import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsScreen;
-import net.dillon.speedrunnermod.screen.misc.ExternalScreen;
+import net.dillon.speedrunnermod.screen.misc.LinksScreen;
 import net.dillon.speedrunnermod.screen.misc.ResourcesScreen;
 import net.dillon.speedrunnermod.screen.option.ModOptionsScreen;
-import net.dillon.speedrunnermod.screen.secretdoommode.AbstractSecretDoomModeScreen;
-import net.dillon.speedrunnermod.screen.secretdoommode.UmScreen;
-import net.dillon.speedrunnermod.screen.secretdoommode.YouArentReadyForThisScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -48,39 +49,39 @@ public class MainScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.optionsButton = Button.builder(Component.translatable("menu.options").withStyle(getOptionsTextColor()), (button) -> {
+        this.optionsButton = Button.builder(Component.translatable("speedrunnermod.configure").withStyle(getOptionsTextColor()).withStyle(ChatFormatting.UNDERLINE), (button) -> {
             Leaderboards.getCurrentLeaderboardsMode();
-            if (options().main.leaderboardsMode.getCurrentValue()) {
+            if (options().general.leaderboardsMode.getCurrentValue()) {
                 Leaderboards.getCurrentOptions();
             }
-            this.minecraft.setScreen(new ModOptionsScreen(this));
+            this.minecraft.gui.setScreen(new ModOptionsScreen(this));
         }).build();
         this.featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
+            this.minecraft.gui.setScreen(new FeaturesScreen(this));
         }).build();
-        this.featuresButton.active = false;
 
         this.resourcesButton = Button.builder(ModTexts.MENU_RESOURCES, (button) -> {
-            this.minecraft.setScreen(new ResourcesScreen(this));
+            this.minecraft.gui.setScreen(new ResourcesScreen(this));
         }).build();
 
-        this.externalButton = Button.builder(ModTexts.MENU_EXTERNAL, (button) -> {
-            this.minecraft.setScreen(new ExternalScreen(this));
+        this.externalButton = Button.builder(ModTexts.MENU_LINKS, (button) -> {
+            this.minecraft.gui.setScreen(new LinksScreen(this));
         }).build();
 
         this.creditsButton = Button.builder(ModTexts.MENU_CREDITS, (button) -> {
-            this.minecraft.setScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> this.minecraft.setScreen(this)));
+            this.minecraft.gui.setScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> this.minecraft.gui.setScreen(this)));
         }).build();
 
         this.leaderboardsButton = Button.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
-            this.minecraft.setScreen(new LeaderboardsScreen(this));
+            this.minecraft.gui.setScreen(new LeaderboardsScreen(this));
         }).build();
         this.leaderboardsButton.active = false;
 
         this.doomModeButton = Button.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
             if (AbstractSecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
-                this.minecraft.setScreen(new UmScreen(this.parent));
+                this.minecraft.gui.setScreen(new UmScreen(this.parent));
             } else {
-                this.minecraft.setScreen(new YouArentReadyForThisScreen(this.parent));
+                this.minecraft.gui.setScreen(new YouArentReadyForThisScreen(this.parent));
             }
         }).build();
         this.doomModeButton.visible = isDoomMode();
@@ -91,7 +92,7 @@ public class MainScreen extends AbstractModScreen {
     @Override
     protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.optionsButton.isHovered()) {
-            if (options().main.leaderboardsMode.getCurrentValue()) {
+            if (options().general.leaderboardsMode.getCurrentValue()) {
                 if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                     this.renderBasicTooltip(ModTexts.MENU_OPTIONS_ACTION_NEEDED, context, mouseX, mouseY);
                 } else {
@@ -125,7 +126,7 @@ public class MainScreen extends AbstractModScreen {
      * Sets the color of the options button, depending on if leaderboards mode is on, and if the options meet the leaderboards criteria.
      */
     private static ChatFormatting getOptionsTextColor() {
-        if (options().main.leaderboardsMode.getCurrentValue()) {
+        if (options().general.leaderboardsMode.getCurrentValue()) {
             if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 return ChatFormatting.RED;
             } else {

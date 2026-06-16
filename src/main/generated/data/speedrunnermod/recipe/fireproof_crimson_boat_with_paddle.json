@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "boat",
   "ingredients": [
     "speedrunnermod:speedrunner_paddle",

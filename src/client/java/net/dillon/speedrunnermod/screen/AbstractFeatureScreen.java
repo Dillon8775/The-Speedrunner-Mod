@@ -1,6 +1,12 @@
 package net.dillon.speedrunnermod.screen;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.screen.feature.*;
+import net.dillon.speedrunnermod.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
+import net.dillon.speedrunnermod.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
+import net.dillon.speedrunnermod.screen.feature.toolsandarmor.SpeedrunnerArmorScreen;
+import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
+import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -17,6 +23,7 @@ import org.lwjgl.glfw.GLFW;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create {@code feature screens}, for the soul purpose of displaying some of Speedrunner Mod's features.
@@ -75,7 +82,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             // consists of only a "Next" and "Done" button
             if (this.getScreenType() != ScreenType.LAST_PAGE && this.getScreenType() != ScreenType.END && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
                 this.nextButton = this.addRenderableWidget(Button.builder(ModTexts.NEXT_ARROW, button -> {
-                    this.minecraft.setScreen(this.getNextScreen());
+                    this.minecraft.gui.setScreen(this.getNextScreen());
                 }).bounds(this.getButtonsRightSide() + 100, this.getDoneButtonHeight(), 20, 20).build());
             }
 
@@ -83,19 +90,39 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             // consists of a "Next", "Previous" and "Done" button
             if (this.getScreenType() != ScreenType.FIRST_PAGE && this.getScreenType() != ScreenType.FIRST_TIME_PLAYING) {
                 this.previousButton = this.addRenderableWidget(Button.builder(ModTexts.PREVIOUS, button -> {
-                    this.minecraft.setScreen(this.getPreviousScreen());
+                    this.minecraft.gui.setScreen(this.getPreviousScreen());
                 }).bounds(this.getButtonsLeftSide() + 30, this.getDoneButtonHeight(), 20, 20).build());
             }
 
             // A final feature screen (the last page of a certain category of features),
             // Consists of all the other remaining categories to explore, along with a "Previous" and "Done" button.
             if (this.getScreenType() == ScreenType.LAST_PAGE) {
-                this.addButtonObject(Button.builder(this.category1Text, button -> this.minecraft.setScreen(this.category1Screen)).build());
-                this.addButtonObject(Button.builder(this.category2Text, button -> this.minecraft.setScreen(this.category2Screen)).build());
-                this.addButtonObject(Button.builder(this.category3Text, button -> this.minecraft.setScreen(this.category3Screen)).build());
+                this.addButtonObject(Button.builder(this.category1Text, button -> this.minecraft.gui.setScreen(this.category1Screen)).build());
+                this.addButtonObject(Button.builder(this.category2Text, button -> this.minecraft.gui.setScreen(this.category2Screen)).build());
+                this.addButtonObject(Button.builder(this.category3Text, button -> this.minecraft.gui.setScreen(this.category3Screen)).build());
                 if (this.hasFourthCategory) {
-                    this.addButtonObject(Button.builder(this.category4Text, button -> this.minecraft.setScreen(this.category4Screen)).build());
+                    this.addButtonObject(Button.builder(this.category4Text, button -> this.minecraft.gui.setScreen(this.category4Screen)).build());
                 }
+            }
+
+            // An "end" feature screen, which is only used for the last page of a certain category and the last actual category,
+            // Consists of all the other categories to re-explore, as well as a "Previous" and "Done" button.
+            if (this.getScreenType() == ScreenType.END) {
+                this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.menu.features.learn_more"), button -> {
+                    this.openLink(ModLinks.MODRINTH, true);
+                }).build());
+
+                this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.menu.features.blocks_and_items"), button -> {
+                    this.minecraft.gui.setScreen(new SpeedrunnerIngotsScreen(this.parent));
+                }).build());
+
+                this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.menu.features.tools_and_armor"), button -> {
+                    this.minecraft.gui.setScreen(new SpeedrunnerArmorScreen(this.parent));
+                }).build());
+
+                this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.menu.features.ores_and_worldgen"), button -> {
+                    this.minecraft.gui.setScreen(new SpeedrunnersWastelandBiomeScreen(this.parent));
+                }).build());
             }
         }
     }
@@ -106,12 +133,9 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     @Override
     public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         super.extractRenderState(context, mouseX, mouseY, delta);
-        int leftSide = this.width / 2 - 155;
-        int rightSide = leftSide + 160;
-        int farRightSide = rightSide + 273;
         int height = this.height - 24;
         if (this.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) {
-            context.centeredText(this.font, Component.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : farRightSide, height, CommonColors.WHITE);
+            context.centeredText(this.font, Component.literal("§lPage:§r " + getPageNumber() + "/" + this.getMaxPages()), this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING ? this.width / 2 : this.width - 37, height, CommonColors.WHITE);
         }
 
         if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING) {
@@ -129,8 +153,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     @Override
     public void onClose() {
         switch (this.getScreenCategory()) {
+            case BLOCKS_AND_ITEMS -> this.minecraft.gui.setScreen(new BlocksAndItemsScreen(this.parent));
+            case TOOLS_AND_ARMOR -> this.minecraft.gui.setScreen(new ToolsAndArmorScreen(this.parent));
+            case ORES_AND_WORLDGEN -> this.minecraft.gui.setScreen(new OresAndWorldgenScreen(this.parent));
+            case MISCELLANEOUS -> this.minecraft.gui.setScreen(new MiscellaneousScreen(this.parent));
+            case DOOM_MODE -> this.minecraft.gui.setScreen(new DoomModeScreen(this.parent));
+            case SECRET_DOOM_MODE -> this.minecraft.gui.setScreen(new MainScreen(this.parent));
             case FIRST_TIME_PLAYING -> warn("Cannot close this screen!");
-            default -> this.minecraft.setScreen(new MainScreen(this.parent));
+            default -> this.minecraft.gui.setScreen(new FeaturesScreen(this.parent));
         }
     }
 
@@ -141,14 +171,14 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     public boolean keyPressed(KeyEvent input) {
         if (input.key() == GLFW.GLFW_KEY_LEFT || input.key() == GLFW.GLFW_KEY_A) {
             if (this.getPageNumber() != 1) {
-                this.minecraft.setScreen(this.getPreviousScreen());
+                this.minecraft.gui.setScreen(this.getPreviousScreen());
             }
             return true;
         } else if (input.key() == GLFW.GLFW_KEY_RIGHT || input.key() == GLFW.GLFW_KEY_D) {
             if (this.getScreenCategory() == ScreenCategory.FIRST_TIME_PLAYING && !(this.getPageNumber() < 3)) {
                 warn("Please choose an option!");
             } else if (this.getPageNumber() != this.getMaxPages()) {
-                this.minecraft.setScreen(this.getNextScreen());
+                this.minecraft.gui.setScreen(this.getNextScreen());
             }
             return true;
         }
@@ -169,11 +199,26 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
     @Override
     protected String getTextFile() {
         switch (this.getScreenCategory()) {
+            case BLOCKS_AND_ITEMS -> {
+                return this.inBlocksAndItemsFolder(this.linesKey());
+            }
+            case DOOM_MODE -> {
+                return this.inDoomModeFolder(this.linesKey());
+            }
             case SECRET_DOOM_MODE -> {
                 return this.inSecretDoomModeFolder(this.linesKey());
             }
             case FIRST_TIME_PLAYING -> {
                 return this.inTextsFolder(this.linesKey());
+            }
+            case MISCELLANEOUS -> {
+                return this.inMiscellaneousFolder(this.linesKey());
+            }
+            case ORES_AND_WORLDGEN -> {
+                return this.inOresAndWorldgenFolder(this.linesKey());
+            }
+            case TOOLS_AND_ARMOR -> {
+                return this.inToolsAndArmor(this.linesKey());
             }
             default -> {
                 return this.linesKey();
@@ -201,6 +246,21 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     private Screen page(int pageNumber) {
         switch (this.getScreenCategory()) {
+            case BLOCKS_AND_ITEMS -> {
+                return determineScreen(pageNumber, ScreenCategory.BLOCKS_AND_ITEMS);
+            }
+            case TOOLS_AND_ARMOR -> {
+                return determineScreen(pageNumber, ScreenCategory.TOOLS_AND_ARMOR);
+            }
+            case ORES_AND_WORLDGEN -> {
+                return determineScreen(pageNumber, ScreenCategory.ORES_AND_WORLDGEN);
+            }
+            case MISCELLANEOUS -> {
+                return determineScreen(pageNumber, ScreenCategory.MISCELLANEOUS);
+            }
+            case DOOM_MODE -> {
+                return determineScreen(pageNumber, ScreenCategory.DOOM_MODE);
+            }
             case SECRET_DOOM_MODE -> {
                 return determineScreen(pageNumber, ScreenCategory.SECRET_DOOM_MODE);
             }
@@ -208,7 +268,7 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
                 return determineScreen(pageNumber, ScreenCategory.FIRST_TIME_PLAYING);
             }
             default -> {
-                return new MainScreen(this.parent);
+                return new FeaturesScreen(this.parent);
             }
         }
     }
@@ -218,6 +278,21 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
      */
     private List<Class<? extends AbstractFeatureScreen>> getCategoryScreenClasses(ScreenCategory category) {
         switch (category) {
+            case BLOCKS_AND_ITEMS -> {
+                return this.blocksAndItemsScreens();
+            }
+            case TOOLS_AND_ARMOR -> {
+                return this.toolsAndArmorScreens();
+            }
+            case ORES_AND_WORLDGEN -> {
+                return this.oresAndWorldGenFeatureScreens();
+            }
+            case MISCELLANEOUS -> {
+                return this.miscellaneousFeatureScreens();
+            }
+            case DOOM_MODE -> {
+                return this.doomModeFeatureScreens();
+            }
             case SECRET_DOOM_MODE -> {
                 return this.secretDoomModeScreens();
             }
@@ -292,11 +367,63 @@ public abstract class AbstractFeatureScreen extends AbstractScrollableScreen {
             }
         }
     }
+
+    /**
+     * Toggles a feature when pressing the enable/disable button.
+     */
+    protected void refreshNonRestartableFeature() {
+        saveAllChanges();
+        this.refreshFeatureScreen(this.getPageNumber(), this.getScreenCategory());
+    }
+
+    /**
+     * Toggles a feature that requires a restart when pressing the enable/disable button.
+     */
+    protected void refreshRestartableFeature(Screen screen) {
+        RestartRequiredScreen.getCurrentOptions();
+        this.minecraft.gui.setScreen(screen);
+    }
+
+    /**
+     * Helper for referencing file paths in features/blocksanditems directory.
+     */
+    protected String inBlocksAndItemsFolder(String fileName) {
+        return "texts/features/blocksanditems/" + fileName + ".txt";
+    }
+
+    /**
+     * Helper for referencing file paths in features/doommode directory.
+     */
+    protected String inDoomModeFolder(String fileName) {
+        return "texts/features/doommode/" + fileName + ".txt";
+    }
+
     /**
      * Helper for referencing file paths in features/secretdoommode directory.
      */
     protected String inSecretDoomModeFolder(String fileName) {
-        return "texts/secretdoommode/" + fileName + ".txt";
+        return "texts/features/secretdoommode/" + fileName + ".txt";
+    }
+
+    /**
+     * Helper for referencing file paths in features/miscellaneous directory.
+     */
+    protected String inMiscellaneousFolder(String fileName) {
+        return "texts/features/miscellaneous/" + fileName + ".txt";
+    }
+
+    /**
+     * Helper for referencing file paths in features/oresandworldgen directory.
+     */
+    protected String inOresAndWorldgenFolder(String fileName) {
+        return "texts/features/oresandworldgen/" + fileName + ".txt";
+    }
+
+    /**
+     * Helper for referencing file paths in features/toolsandarmor directory.
+     */
+    protected String inToolsAndArmor(String fileName) {
+        return "texts/features/toolsandarmor/" + fileName + ".txt";
     }
 
     /**

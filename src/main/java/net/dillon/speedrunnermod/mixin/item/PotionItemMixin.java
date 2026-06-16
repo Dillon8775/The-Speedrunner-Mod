@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -41,7 +41,7 @@ public abstract class PotionItemMixin extends Item {
     @Override
     public void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot) {
         if (entity instanceof ServerPlayer player && ModUtil.hasDragonsAura(stack)) {
-            ModCriterions.TRIGGERED_BY_ITEM.trigger(player, new ItemStack(Items.POTION));
+            ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(Items.POTION));
         }
     }
 }

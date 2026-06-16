@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.screen;
 
 import net.dillon.speedrunnermod.menu.WorkbenchMenu;
 import net.dillon.speedrunnermod.tag.ModItemTags;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
@@ -13,10 +14,12 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
+import java.util.Optional;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.minecraft.resources.Identifier.withDefaultNamespace;
@@ -88,6 +91,26 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
         super.containerTick();
     }
 
+    /**
+     * Renders helpful tooltips on enchantment transferrer slots.
+     */
+    private void renderSlotTooltip(GuiGraphicsExtractor context, int mouseX, int mouseY) {
+        Optional<Component> optional = Optional.empty();
+
+        if (this.hoveredSlot != null) {
+            ItemStack focusedSlotStack = this.hoveredSlot.getItem();
+            if (focusedSlotStack.isEmpty()) {
+                switch (this.hoveredSlot.index) {
+                    case 0 -> optional = Optional.of(Component.translatable("block.speedrunnermod.speedrunners_workbench.enchanted_tool").withStyle(ChatFormatting.AQUA));
+                    case 1 -> optional = Optional.of(Component.translatable("block.speedrunnermod.speedrunners_workbench.unenchanted_tool_or_book").withStyle(ChatFormatting.LIGHT_PURPLE));
+                    case 2 -> optional = Optional.of(Component.translatable("block.speedrunnermod.speedrunners_workbench.smithing_template"));
+                }
+            }
+        }
+
+        optional.ifPresent(text -> context.setTooltipForNextFrame(this.font, this.font.split(text, 115), mouseX, mouseY));
+    }
+
     @Override
     public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
         this.inputSlotIcon.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
@@ -95,6 +118,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
         if (this.menu.getInputSlot().hasItem()) {
             this.transferToSlotIcon.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
         }
+        this.renderSlotTooltip(context, mouseX, mouseY);
         super.extractRenderState(context, mouseX, mouseY, delta);
     }
 

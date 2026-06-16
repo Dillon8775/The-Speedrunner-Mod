@@ -16,8 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-
 @Mixin(DragonFireball.class)
 public class DragonFireballMixin {
 
@@ -43,7 +41,7 @@ public class DragonFireballMixin {
                     areaEffectCloudEntity.getX(),
                     areaEffectCloudEntity.getY(),
                     areaEffectCloudEntity.getZ(),
-                    options().advanced.fireballExplosionPower.getCurrentValue() * 1.5F,
+                    ModUtil.getFireballExplosionPower(true),
                     Level.ExplosionInteraction.BLOCK);
         }
     }

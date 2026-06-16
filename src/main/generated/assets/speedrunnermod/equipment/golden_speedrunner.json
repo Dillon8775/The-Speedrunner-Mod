@@ -14,6 +14,11 @@
       {
         "texture": "speedrunnermod:golden_speedrunner"
       }
+    ],
+    "nautilus_body": [
+      {
+        "texture": "speedrunnermod:golden_speedrunner"
+      }
     ]
   }
 }

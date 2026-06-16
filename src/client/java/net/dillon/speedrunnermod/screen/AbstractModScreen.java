@@ -7,9 +7,9 @@ import net.dillon.speedrunnermod.network.ClientModPackets;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsIneligibleScreen;
 import net.dillon.speedrunnermod.screen.option.AdvancedOptionsScreen;
-import net.dillon.speedrunnermod.screen.option.FastWorldCreationOptionsScreen;
 import net.dillon.speedrunnermod.screen.option.ResetOptionsConfirmScreen;
 import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
+import net.dillon.speedrunnermod.screen.option.WorldCreationOptionsScreen;
 import net.dillon.speedrunnermod.screen.synced.MatchSettingsWithServerScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -17,7 +17,10 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -73,14 +76,14 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).bounds(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.resetOptionsButton = this.addRenderableWidget(Button.builder(ModTexts.RESET, (button) -> {
-                this.minecraft.setScreen(new ResetOptionsConfirmScreen(this.parent));
+                this.minecraft.gui.setScreen(new ResetOptionsConfirmScreen(this.parent));
             }).bounds(this.getButtonsRightSide(), this.getDoneButtonHeight(), 100, 20).build());
 
             this.helpButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (button) -> {
                 this.openLink(ModLinks.MODRINTH, true);
             }).bounds(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (button) -> {
-                this.minecraft.setScreen(new MatchSettingsWithServerScreen(this.parent));
+                this.minecraft.gui.setScreen(new MatchSettingsWithServerScreen(this.parent));
             }).bounds(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer.active = this.isOnServer();
         } else {
@@ -102,11 +105,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
         this.renderCustomText(context);
 
         if (this.shouldRenderVersionText()) {
-            int leftSide = this.width / 2 - 155;
-            int rightSide = leftSide + 160;
-            int farRightSide = rightSide + 267;
-            int height = this.height - 24;
-            context.centeredText(this.font, SpeedrunnerMod.VERSION, farRightSide, height, CommonColors.WHITE);
+            int textWidth = this.width - 20;
+            int textHeight = this.height - 21;
+            int imageWidth = this.width - (SpeedrunnerModClient.getVersionType() == VersionType.RELEASE ? 53 : 55);
+            int imageHeight = this.height - 26;
+            context.centeredText(this.font, Component.literal(MOD_VERSION).withStyle(ChatFormatting.AQUA), textWidth, textHeight, CommonColors.WHITE);
+            context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/icon.png"), imageWidth, imageHeight, 0.0F, 0.0F, 18, 18, 18, 18);
         }
 
         if (this.searchField != null) {
@@ -197,26 +201,30 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * @param disabledTooltip the tooltip to render when the option is disabled/locked.
      */
     protected void lockOptionWithTooltip(
-            OptionInstance<?> option,
+            AbstractWidget option,
             boolean bl,
             Component defaultTooltip,
-            Component disabledTooltip
+            Component disabledTooltip,
+            GuiGraphicsExtractor graphics,
+            int mouseX,
+            int mouseY
     ) throws NullPointerException {
         try {
             if (this.buttonList != null) {
-                if (this.getSimpleOption(option) == null) {
+                if (option == null) {
                     SpeedrunnerMod.error("No widget found with option: " + option.toString());
                 } else {
-                    AbstractWidget widget = this.getSimpleOption(option);
                     if (this.searchField.getValue().isEmpty()) {
-                        widget.active = bl;
+                        option.active = bl;
                     } else {
-                        widget.active = widget.getMessage().getString().toLowerCase().contains(this.searchField.getValue().toLowerCase());
-                        if (widget.isHovered() && !bl) {
-                            widget.active = false;
+                        option.active = option.getMessage().getString().toLowerCase().contains(this.searchField.getValue().toLowerCase());
+                        if (option.isHovered() && !bl) {
+                            option.active = false;
                         }
                     }
-                    this.getSimpleOption(option).setTooltip(Tooltip.create(bl ? defaultTooltip : disabledTooltip));
+                    if (option.isHovered()) {
+                        renderBasicTooltip(bl ? defaultTooltip : disabledTooltip, graphics, mouseX, mouseY);
+                    }
                 }
             } else {
                 throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
@@ -245,12 +253,19 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
+     * Creates an option using a {@link OptionInstance}.
+     */
+    protected static AbstractWidget createOption(OptionInstance<?> option) {
+        return option.createButton(Minecraft.getInstance().options);
+    }
+
+    /**
      * Sets the screen to the {@code parent} screen and resizes it correctly.
      */
     protected void setParentAndResize() {
         if (this.parent != null) {
             this.parent.resize(this.width, this.height);
-            this.minecraft.setScreen(this.parent);
+            this.minecraft.gui.setScreen(this.parent);
         } else {
             super.onClose();
         }
@@ -273,7 +288,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
                 if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
                     this.featureButtons.add(Button.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
-                        this.minecraft.setScreen(screen);
+                        this.minecraft.gui.setScreen(screen);
                     }).build());
                 }
             }
@@ -288,7 +303,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             boolean bl2 = this.minecraft.level != null;
             if (bl || bl2) {
                 ClientModPackets.sendNewC2SOptions();
-                if (bl2 && this instanceof FastWorldCreationOptionsScreen) {
+                if (bl2 && this instanceof WorldCreationOptionsScreen) {
                     ClientModPackets.syncFwc(this.minecraft, 0);
                 }
             }
@@ -297,26 +312,26 @@ public abstract class AbstractModScreen extends BaseModScreen {
             LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = false;
             this.alreadySettingToIneligibleScreen = false;
 
-            if (options().main.leaderboardsMode.getCurrentValue()) {
+            if (options().general.leaderboardsMode.getCurrentValue()) {
                 if (Leaderboards.wasLeaderboardsModeChanged()) {
                     LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = true;
                 }
 
                 if (LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode) {
-                    this.minecraft.setScreen(new LeaderboardsIneligibleScreen(this.parent));
+                    this.minecraft.gui.setScreen(new LeaderboardsIneligibleScreen(this.parent));
                 } else if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                     if (RestartRequiredScreen.needsRestart()) {
                         LeaderboardsIneligibleScreen.needsRestart = true;
                     }
                     this.alreadySettingToIneligibleScreen = true;
-                    this.minecraft.setScreen(new LeaderboardsIneligibleScreen(this.parent));
+                    this.minecraft.gui.setScreen(new LeaderboardsIneligibleScreen(this.parent));
                 } else if (!this.alreadySettingToIneligibleScreen && Leaderboards.wasLeaderboardsModeChanged() || RestartRequiredScreen.needsRestart()) {
-                    this.minecraft.setScreen(new RestartRequiredScreen(this.parent));
+                    this.minecraft.gui.setScreen(new RestartRequiredScreen(this.parent));
                 } else {
                     this.setParentAndResize();
                 }
             } else if (RestartRequiredScreen.needsRestart()) {
-                this.minecraft.setScreen(new RestartRequiredScreen(this.parent));
+                this.minecraft.gui.setScreen(new RestartRequiredScreen(this.parent));
             } else {
                 this.setParentAndResize();
             }
@@ -337,7 +352,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && !this.searchField.isFocused() && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
                 double scrollY = advancedOptionsScreen.buttonList.scrollAmount();
                 this.refreshScreen(this.pageId());
-                AbstractModScreen modScreen = (AdvancedOptionsScreen) Minecraft.getInstance().screen;
+                AbstractModScreen modScreen = (AdvancedOptionsScreen) Minecraft.getInstance().gui.screen();
                 modScreen.buttonList.setScrollAmount(scrollY);
                 return true;
             }

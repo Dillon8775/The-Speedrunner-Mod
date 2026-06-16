@@ -26,7 +26,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
             ClientModOptions.resetAllClientOptions();
             saveAllChanges();
             info("Successfully reset all options. Restart the game to take full effect.");
-            this.minecraft.setScreen(new ResetOptionsScreen(this.parent));
+            this.minecraft.gui.setScreen(new ResetOptionsScreen(this.parent));
         }).bounds(this.getButtonsLeftSide(), height, 150, 20).build());
         this.addRenderableWidget(Button.builder(ModTexts.NOT_NOW, (buttonWidget) -> {
             this.onClose();
@@ -35,7 +35,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(new ModOptionsScreen(this.parent));
+        this.minecraft.gui.setScreen(new ModOptionsScreen(this.parent));
     }
 
     @Override

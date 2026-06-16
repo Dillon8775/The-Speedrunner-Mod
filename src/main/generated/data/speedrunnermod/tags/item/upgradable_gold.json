@@ -9,6 +9,8 @@
     "minecraft:golden_chestplate",
     "minecraft:golden_leggings",
     "minecraft:golden_boots",
-    "minecraft:golden_spear"
+    "minecraft:golden_spear",
+    "minecraft:golden_nautilus_armor",
+    "speedrunnermod:speedrunner_nautilus_armor"
   ]
 }

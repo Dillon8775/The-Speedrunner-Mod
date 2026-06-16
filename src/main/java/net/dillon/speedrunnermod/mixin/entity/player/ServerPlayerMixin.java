@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.player;
 
 import com.mojang.authlib.GameProfile;
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.effect.ModMobEffects;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -77,14 +77,14 @@ public abstract class ServerPlayerMixin extends Player {
                 this.randomTeleport(0.5, y, 0.5, true);
                 this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 10.0F, 1.0F);
                 this.hurtServer(this.level(), this.damageSources().generic(), Integer.MAX_VALUE);
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
             } else if (this.hasEffect(ModMobEffects.DRAGONS_AURA)) {
                 if (!this.effectsAdded && this.canAddEffects) {
                     this.addEffect(new MobEffectInstance(MobEffects.GLOWING, ModUtil.secondsAsTicks(10)));
                     this.addEffect(new MobEffectInstance(MobEffects.LEVITATION, ModUtil.secondsAsTicks(10), 19));
                     this.level().playSound(null, this.blockPosition(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 5.0F, 1.0F);
                     this.level().playSound(null, this.blockPosition(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 5.0F, 1.0F);
-                    ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
+                    ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
                     this.sendSystemMessage(Component.translatable("effect.speedrunnermod.dragons_aura.used_void"));
                     TaskScheduler.schedule(ModUtil.secondsAsTicks(10), () -> {
                         this.removeEffect(ModMobEffects.DRAGONS_AURA);
@@ -130,7 +130,7 @@ public abstract class ServerPlayerMixin extends Player {
      */
     @Inject(method = "die", at = @At("TAIL"))
     private void sendDeathCords(DamageSource source, CallbackInfo ci) {
-        if (options().main.showDeathCords.getCurrentValue() && this.level().getGameRules().get(GameRules.SHOW_DEATH_MESSAGES)) {
+        if (options().general.showDeathCords.getCurrentValue() && this.level().getGameRules().get(GameRules.SHOW_DEATH_MESSAGES)) {
             ModUtil.latestDeathCords = new double[]{this.getX(), this.getY(), this.getZ()};
             this.sendSystemMessage(ModUtil.deathCords(ModUtil.latestDeathCords[0], ModUtil.latestDeathCords[1], ModUtil.latestDeathCords[2]));
         }

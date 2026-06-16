@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.dillon.speedrunnermod.util.VillagerGlowCountdown;
@@ -89,7 +89,7 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
                         }
                     }
 
-                    ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, ModItems.RAID_ERADICATOR.getDefaultInstance());
+                    ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(serverPlayer, ModItems.RAID_ERADICATOR.getDefaultInstance());
 
                     Component purgedText = Component.translatable("item.speedrunnermod.raid_eradicator.purged").withStyle(ChatFormatting.RED);
                     player.sendSystemMessage(purgedText);
@@ -114,9 +114,9 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{
-                ModOptions.Mode.BALANCED
+    public Mode[] disabledModes() {
+        return new Mode[]{
+                Mode.BALANCED
         };
     }
 }

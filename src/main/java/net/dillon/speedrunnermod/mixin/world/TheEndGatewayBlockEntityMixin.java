@@ -19,6 +19,6 @@ public class TheEndGatewayBlockEntityMixin {
      */
     @Redirect(method = "findValidSpawnInChunk", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;END_STONE:Lnet/minecraft/world/level/block/Block;"))
     private static Block changeEndGatewayBaseBlock() {
-        return options().main.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
+        return options().worldGen.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

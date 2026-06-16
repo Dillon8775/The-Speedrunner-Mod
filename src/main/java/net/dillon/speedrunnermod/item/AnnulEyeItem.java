@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModStatuses;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
@@ -70,7 +70,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
                 world.broadcastEntityEvent(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
                 this.playWorldSound(SoundEvents.END_PORTAL_SPAWN, world, player);
                 this.playTeleportSound(world, player);
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)player, stack);
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
                 player.awardStat(Stats.ITEM_USED.get(this));
                 player.swing(hand, true);
@@ -215,9 +215,9 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{
-                ModOptions.Mode.BALANCED
+    public Mode[] disabledModes() {
+        return new Mode[]{
+                Mode.BALANCED
         };
     }
 }

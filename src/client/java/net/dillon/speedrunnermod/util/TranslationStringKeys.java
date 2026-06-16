@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.option.ModListOptions;
+import net.dillon.speedrunnermod.option.ListOptions;
 
 /**
- * Certain translation keys used in {@link ModListOptions}.
+ * Certain translation keys used in {@link ListOptions}.
  */
 public class TranslationStringKeys {
     public static final String ANCIENT_CITY = "ancient_city";

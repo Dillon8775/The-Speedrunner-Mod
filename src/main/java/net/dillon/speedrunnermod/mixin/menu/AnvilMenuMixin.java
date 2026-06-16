@@ -34,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40))
     private int mixinLimitInt(int i) {
-        if (options().main.betterAnvil.getCurrentValue()) {
+        if (options().general.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;
         } else {
             return 40;
@@ -46,7 +46,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @ModifyConstant(method = "createResult", constant = @Constant(intValue = 39))
     private int mixinMaxInt(int i) {
-        if (options().main.betterAnvil.getCurrentValue()) {
+        if (options().general.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE - 1;
         } else {
             return 39;
@@ -58,17 +58,17 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @Inject(method = "createResult", at = @At("TAIL"))
     private void setLevelCostIfTooHigh(CallbackInfo ci) {
-        if (options().main.anvilCostLimit.getCurrentValue() != 50 && this.cost.get() > options().main.anvilCostLimit.getCurrentValue()) {
-            this.cost.set(options().main.anvilCostLimit.getCurrentValue());
+        if (options().general.anvilCostLimit.getCurrentValue() != 50 && this.cost.get() > options().general.anvilCostLimit.getCurrentValue()) {
+            this.cost.set(options().general.anvilCostLimit.getCurrentValue());
         }
     }
 
     /**
-     * Allows the combination of two maximum level enchanted items to go above the enchantment level cap.
+     * Allows the combination of two maximum level enchanted items to go above the enchantment level cap (cap = 10).
      */
     @Redirect(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/Enchantment;getMaxLevel()I"))
     private int countOverMaxLevel(Enchantment enchantment) {
-        if (!options().main.higherEnchantmentLevels.getCurrentValue()) {
+        if (!options().general.higherEnchantmentLevels.getCurrentValue()) {
             return enchantment.getMaxLevel();
         }
 
@@ -97,6 +97,6 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
             newLevel = Math.max(firstLevel, secondLevel);
         }
 
-        return Math.min(newLevel, 100);
+        return Math.min(newLevel, 10);
     }
 }

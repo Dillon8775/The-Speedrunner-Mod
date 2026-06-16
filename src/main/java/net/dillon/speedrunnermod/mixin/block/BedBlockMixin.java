@@ -23,7 +23,7 @@ public class BedBlockMixin {
     @Inject(method = "useWithoutItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;Lnet/minecraft/world/phys/Vec3;FZLnet/minecraft/world/level/Level$ExplosionInteraction;)V"), cancellable = true)
     private void changeBedExplosionPower(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
         cir.cancel();
-        Vec3 vec3d = pos.getCenter();
+        Vec3 vec3d = Vec3.atCenterOf(pos);
         world.explode(null, world.damageSources().badRespawnPointExplosion(vec3d), null, vec3d, ModUtil.getBedBlockExplosionPower(world), true, Level.ExplosionInteraction.BLOCK);
         cir.setReturnValue(InteractionResult.SUCCESS);
     }

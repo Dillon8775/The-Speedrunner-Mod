@@ -1,0 +1,43 @@
+{
+  "parent": "speedrunnermod:adventure/speedy_harness",
+  "criteria": {
+    "has_golden_speedrunner_nautilus": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:golden_speedrunner_nautilus_armor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_speedrunner_nautilus": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_nautilus_armor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.speedy_slosh.description"
+    },
+    "icon": {
+      "id": "speedrunnermod:speedrunner_nautilus_armor"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.speedy_slosh.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_speedrunner_nautilus",
+      "has_golden_speedrunner_nautilus"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -7,7 +7,7 @@
           "items": "minecraft:potion"
         }
       },
-      "trigger": "minecraft:triggered_by_item_criterion"
+      "trigger": "minecraft:itemlike_trigger"
     }
   },
   "display": {

@@ -25,7 +25,7 @@ public class ResetOptionsScreen extends AbstractModScreen {
             this.minecraft.stop();
         }).bounds(this.getButtonsLeftSide(), height, 150, 20).build());
         this.addRenderableWidget(Button.builder(ModTexts.RESTART_LATER, (buttonWidget) -> {
-            this.minecraft.setScreen(this.parent);
+            this.minecraft.gui.setScreen(this.parent);
         }).bounds(this.getButtonsRightSide(), height, 150, 20).build());
     }
 

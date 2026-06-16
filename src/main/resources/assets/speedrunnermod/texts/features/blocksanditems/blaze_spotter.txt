@@ -1,0 +1,3 @@
+## §dTeleports the player §b§odirectly §r§fto the nearest §6blaze spawner.
+
+!image:textures/gui/features/recipes/blaze_spotter_crafting_recipe.png scale=.5

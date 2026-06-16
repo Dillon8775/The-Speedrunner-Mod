@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -71,13 +71,15 @@ public class DragonsSwordItem extends Item implements SpeedrunnerItem {
         if (this.isDisabled()) {
             SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.dragons_sword.doom_mode").withStyle(ChatFormatting.RED));
         }
-        this.addStateOfTheArtItemTooltip(textConsumer);
+        if (!isDoomMode()) {
+            this.addStateOfTheArtItemTooltip(textConsumer);
+        }
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{
-                ModOptions.Mode.DOOM
+    public Mode[] disabledModes() {
+        return new Mode[]{
+                Mode.DOOM
         };
     }
 }

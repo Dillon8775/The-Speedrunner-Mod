@@ -1,0 +1,8 @@
+### Almost §a§lall§f§r §aloot tables§r have been §bbuffed.
+
+#### This includes §7bastion chests, §6village chests, §cnether fortress chests, §3ancient city chests, §bburied treasure chests, §fand §lmuch more!
+
+!image:textures/gui/features/gui/better_loot_tables_bastion.png scale=.4
+!image:textures/gui/features/gui/better_loot_tables_ruined_portal.png scale=.4
+!image:textures/gui/features/gui/better_loot_tables_shipwreck.png scale=.4
+!image:textures/gui/features/gui/better_loot_tables_desert_pyramid.png scale=.4

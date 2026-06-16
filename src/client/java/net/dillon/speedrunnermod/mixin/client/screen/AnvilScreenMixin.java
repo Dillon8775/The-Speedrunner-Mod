@@ -18,7 +18,7 @@ public class AnvilScreenMixin {
      */
     @ModifyConstant(method = "extractLabels", constant = @Constant(intValue = 40))
     private int removeTooExpensiveText(int i) {
-        if (options().main.betterAnvil.getCurrentValue()) {
+        if (options().general.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;
         } else {
             return 40;

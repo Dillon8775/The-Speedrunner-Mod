@@ -86,5 +86,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:chests/stronghold_library"
 }

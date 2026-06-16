@@ -2,10 +2,10 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
-import net.dillon.speedrunnermod.world.feature.ModConfiguredFeatures;
-import net.dillon.speedrunnermod.world.feature.ModPlacedFeatures;
-import net.dillon.speedrunnermod.world.feature.WastelandConfiguredFeatures;
-import net.dillon.speedrunnermod.world.feature.WastelandPlacedFeatures;
+import net.dillon.speedrunnermod.world.feature.ModWorldFeatures;
+import net.dillon.speedrunnermod.world.feature.ModWorldPlacements;
+import net.dillon.speedrunnermod.world.feature.WastelandFeatures;
+import net.dillon.speedrunnermod.world.feature.WastelandPlacements;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
@@ -22,21 +22,26 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
         SpeedrunnerMod.info("Initializing speedrunner mod data generator!");
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
-        pack.addProvider(ModWorldGenerator::new);
-        pack.addProvider(ModVillagerTradeGenerator::new);
-        pack.addProvider(ModBlockTagGenerator::new);
-        pack.addProvider(ModBlockLootTableGenerator::new);
-        pack.addProvider(ModEnchantmentGenerator::new);
-        pack.addProvider(ModEnchantmentTagGenerator::new);
-        pack.addProvider(ModItemTagGenerator::new);
-        pack.addProvider(ModFluidTagGenerator::new);
-        pack.addProvider(DoomBlockLoot::new);
-        pack.addProvider(ModAdvancementTabGenerator::new);
-        pack.addProvider(ModRecipeGenerator::new);
-        pack.addProvider(ModPoiTypeTagGenerator::new);
-        pack.addProvider(ModPotionTagGenerator::new);
-        pack.addProvider(ModTradeTagGenerator::new);
-        pack.addProvider(ModModelGenerator::new);
+        pack.addProvider(ModModelProvider::new);
+
+        pack.addProvider(ModBlockTagProvider::new);
+        pack.addProvider(ModItemTagProvider::new);
+        pack.addProvider(ModFluidTagProvider::new);
+        pack.addProvider(ModPotionTagProvider::new);
+        pack.addProvider(ModEnchantmentTagProvider::new);
+        pack.addProvider(ModBiomeTagProvider::new);
+        pack.addProvider(ModTradeTagProvider::new);
+        pack.addProvider(ModPoiTypeTagProvider::new);
+
+        pack.addProvider(ModRecipeProvider::new);
+        pack.addProvider(ModAdvancementTabProvider::new);
+
+        pack.addProvider(ModBlockLootTableProvider::new);
+        pack.addProvider(DoomBlockLootProvider::new);
+
+        pack.addProvider(ModEnchantmentProvider::new);
+        pack.addProvider(ModVillagerTradeProvider::new);
+        pack.addProvider(ModWorldProvider::new);
 
         DataGenerator.PackGenerator secondPack = fabricDataGenerator.createPack();
         secondPack.addProvider(ModEquipmentAssetProvider::new);
@@ -49,13 +54,13 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
      */
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
-        registryBuilder.add(Registries.TRADE_SET, ModTradeSetGenerator::bootstrap);
-        registryBuilder.add(Registries.VILLAGER_TRADE, ModTradesGenerator::bootstrap);
+        registryBuilder.add(Registries.TRADE_SET, ModTradeSetProvider::bootstrap);
+        registryBuilder.add(Registries.VILLAGER_TRADE, ModTradesProvider::bootstrap);
 
         registryBuilder.add(Registries.BIOME, ModBiomes::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModConfiguredFeatures::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, WastelandConfiguredFeatures::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, ModPlacedFeatures::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, WastelandPlacedFeatures::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModWorldFeatures::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, WastelandFeatures::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, ModWorldPlacements::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, WastelandPlacements::bootstrap);
     }
 }

@@ -2,19 +2,6 @@
   "values": [
     "minecraft:basalt",
     "minecraft:polished_basalt",
-    "minecraft:smooth_basalt",
-    "#speedrunnermod:speedrunner_signs",
-    "#speedrunnermod:speedrunner_logs",
-    "#speedrunnermod:dead_speedrunner_logs",
-    "#speedrunnermod:doom_logs",
-    "#speedrunnermod:speedrunner_planks",
-    "speedrunnermod:speedrunner_slab",
-    "speedrunnermod:dead_speedrunner_slab",
-    "speedrunnermod:speedrunner_stairs",
-    "speedrunnermod:dead_speedrunner_stairs",
-    "speedrunnermod:speedrunner_fence",
-    "speedrunnermod:dead_speedrunner_fence",
-    "speedrunnermod:speedrunner_fence_gate",
-    "speedrunnermod:dead_speedrunner_fence_gate"
+    "minecraft:smooth_basalt"
   ]
 }

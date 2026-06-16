@@ -64,8 +64,8 @@ This type of wood can be used as a fuel source, but it does not burn from nearby
 ### Speedrunner Paddle
 A paddle, which is used to craft **lava boats.**
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/paddle%20recipe.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/paddle%20recipe.png?raw=true" width="228" height="104" alt="Speedrunner paddle recipe.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_paddle_crafting_recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_paddle_crafting_recipe.png?raw=true" width="228" height="104" alt="Speedrunner paddle recipe.">
 </a>
 
 ---
@@ -141,6 +141,15 @@ Comes with more durability than a normal shield, and has a faster cooldown when 
 
 <a href="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Recipes/speedrunner%20shield%20recipe%20UGH.png" target="_blank">
   <img src="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Recipes/speedrunner%20shield%20recipe%20UGH.png" width="228" height="104" alt="Speedrunner shield.">
+</a>
+
+---
+
+### The Speedrunner Spear
+Has more reach than normal spears, with increased momentum and lowered exhaustion when using lunge.
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_spear_crafting_recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_spear_crafting_recipe.png?raw=true" width="228" height="104" alt="Speedrunner shield.">
 </a>
 
 ---
@@ -249,8 +258,8 @@ Points to the nearest nether fortress or bastion.
 ### Eye of Annul
 Teleports the player *directly* to the nearest stronghold portal room.
 
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/annul%20eye%20recipe.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/annul%20eye%20recipe.png?raw=true" width="228" height="104" alt="Eye of annul recipe.">
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/eye_of_annul_crafting_recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/eye_of_annul_crafting_recipe.png?raw=true" width="228" height="104" alt="Eye of annul recipe.">
 </a>
 
 ---
@@ -1028,6 +1037,22 @@ Obtain a piece of golden speedrunner armor.
 </a>
 
 Use a golden upgrade smithing template to view all speedrunner mod features.
+
+---
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy%20slosh.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy%20slosh.png?raw=true" width="240" height="48" alt="Speedy slosh advancement.">
+</a>
+
+Obtain a piece of speedrunner nautilus armor.
+
+---
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy_ghast.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Advancements/speedy_ghast.png?raw=true" width="240" height="48" alt="Speedy ghast advancement.">
+</a>
+
+Obtain a speedrunner harness.
 
 ---
 

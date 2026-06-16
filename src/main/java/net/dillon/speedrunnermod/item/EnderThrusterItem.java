@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModStatuses;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -59,7 +59,7 @@ public class EnderThrusterItem extends Item implements SpeedrunnerItem {
             } else {
                 player.getCooldowns().addCooldown(this.getDefaultInstance(), ModUtil.secondsAsTicks(10));
 
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)player, stack);
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
                 this.decrementIfPossible(player, stack);
 
@@ -94,9 +94,9 @@ public class EnderThrusterItem extends Item implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{
-                ModOptions.Mode.BALANCED
+    public Mode[] disabledModes() {
+        return new Mode[]{
+                Mode.BALANCED
         };
     }
 }

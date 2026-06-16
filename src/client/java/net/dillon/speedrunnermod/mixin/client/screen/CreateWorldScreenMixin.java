@@ -30,50 +30,56 @@ public abstract class CreateWorldScreenMixin {
     }
 
     /**
-     * Reworks how the create world button works, and allows the {@code fast world creation} feature to work accordingly.
+     * Reworks how the create world button works, and allows the {@code instant world creation} feature to work accordingly.
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void fastWorldCreationButtonFunction(CallbackInfo ci) {
-        if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
-
-            Difficulty difficulty = null;
-            switch (clientOptions().client.difficulty.getCurrentValue()) {
-                case PEACEFUL:
-                    difficulty = Difficulty.PEACEFUL;
-                    break;
-                case EASY:
-                    difficulty = Difficulty.EASY;
-                    break;
-                case NORMAL:
-                    difficulty = Difficulty.NORMAL;
-                    break;
-                case HARD:
-                    difficulty = Difficulty.HARD;
-                    break;
-            }
-
-            WorldCreationUiState.SelectedGameMode gameMode = null;
-            switch (clientOptions().client.gameMode.getCurrentValue()) {
-                case SURVIVAL:
-                    gameMode = WorldCreationUiState.SelectedGameMode.SURVIVAL;
-                    break;
-                case CREATIVE:
-                    gameMode = WorldCreationUiState.SelectedGameMode.CREATIVE;
-                    break;
-                case HARDCORE:
-                    gameMode = WorldCreationUiState.SelectedGameMode.HARDCORE;
-                    break;
-                case SPECTATOR:
-                    gameMode = WorldCreationUiState.SelectedGameMode.DEBUG;
-                    break;
-            }
-
-            assert gameMode != null;
-            assert difficulty != null;
-            this.uiState.setGameMode(gameMode);
-            this.uiState.setDifficulty(difficulty);
-            this.uiState.setAllowCommands(clientOptions().client.allowCheats.getCurrentValue());
-            onCreate();
+        if (!clientOptions().client.instantWorldCreation.getCurrentValue()) {
+            return;
         }
+
+        Difficulty difficulty = null;
+        switch (clientOptions().client.difficulty.getCurrentValue()) {
+            case PEACEFUL:
+                difficulty = Difficulty.PEACEFUL;
+                break;
+            case EASY:
+                difficulty = Difficulty.EASY;
+                break;
+            case NORMAL:
+                difficulty = Difficulty.NORMAL;
+                break;
+            case HARD:
+                difficulty = Difficulty.HARD;
+                break;
+        }
+
+        WorldCreationUiState.SelectedGameMode gameMode = null;
+        switch (clientOptions().client.gameMode.getCurrentValue()) {
+            case SURVIVAL:
+                gameMode = WorldCreationUiState.SelectedGameMode.SURVIVAL;
+                break;
+            case CREATIVE:
+                gameMode = WorldCreationUiState.SelectedGameMode.CREATIVE;
+                break;
+            case HARDCORE:
+                gameMode = WorldCreationUiState.SelectedGameMode.HARDCORE;
+                break;
+            case SPECTATOR:
+                gameMode = WorldCreationUiState.SelectedGameMode.DEBUG;
+                break;
+        }
+
+        assert gameMode != null;
+        assert difficulty != null;
+        this.uiState.setGameMode(gameMode);
+        if (!clientOptions().client.gameMode.getCurrentValue().hardcore()) {
+            this.uiState.setDifficulty(difficulty);
+            this.uiState.setAllowCommands(clientOptions().client.allowCommands.getCurrentValue());
+        }
+        if (!clientOptions().client.seed.getCurrentValue().isEmpty()) {
+            this.uiState.setSeed(clientOptions().client.seed.getCurrentValue());
+        }
+        onCreate();
     }
 }

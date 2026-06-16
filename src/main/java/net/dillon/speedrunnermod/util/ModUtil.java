@@ -1,15 +1,15 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.accessor.AbstractBoatAccessor;
-import net.dillon.speedrunnermod.server.ServerStorage;
+import net.dillon.speedrunnermod.server.DedicatedServerStorage;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -29,6 +29,7 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -124,7 +125,7 @@ public class ModUtil {
                 ((InventoryPreserver)newPlayer).removeInventoryPreserver();
                 TaskScheduler.schedule(1, () -> {
                     newPlayer.level().playSound(null, newPlayer.getX(), newPlayer.getY(), newPlayer.getZ(), SoundEvents.RESPAWN_ANCHOR_DEPLETE.value(), SoundSource.PLAYERS, 3.0F, 1.0F);
-                    ModCriterions.TRIGGERED_BY_ITEM.trigger(newPlayer, new ItemStack(ModItems.INVENTORY_PRESERVER));
+                    ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(newPlayer, new ItemStack(ModItems.INVENTORY_PRESERVER));
                 });
             }
         });
@@ -161,14 +162,14 @@ public class ModUtil {
      * Returns a specific type of formatting.
      */
     public static ChatFormatting toFormatting(UUID uuid, ChatFormatting actionbar, ChatFormatting chat) {
-        return ServerStorage.shouldShowInActionbar(uuid) ? actionbar : chat;
+        return DedicatedServerStorage.shouldShowInActionbar(uuid) ? actionbar : chat;
     }
 
     /**
      * Sends a oldPlayer message with the actionbar preference and formatting.
      */
     public static void sendMessageWithActionbarPref(Player player, Component text) {
-        if (ServerStorage.shouldShowInActionbar(player.getUUID())) {
+        if (DedicatedServerStorage.shouldShowInActionbar(player.getUUID())) {
             player.sendOverlayMessage(text);
         } else {
             player.sendSystemMessage(text);
@@ -180,7 +181,7 @@ public class ModUtil {
      */
     public static void sendMessageWithActionbarPref(Player player, Component text, ChatFormatting actionbar, ChatFormatting chat) {
         Component style = text.copy().withStyle(ModUtil.toFormatting(player.getUUID(), actionbar, chat));
-        if (ServerStorage.shouldShowInActionbar(player.getUUID())) {
+        if (DedicatedServerStorage.shouldShowInActionbar(player.getUUID())) {
             player.sendOverlayMessage(style);
         } else {
             player.sendSystemMessage(style);
@@ -338,12 +339,9 @@ public class ModUtil {
         ItemStack stack = player.getItemInHand(hand);
         if (!world.isClientSide()) {
             Vec3 lookVec = player.getViewVector(1.0F);
-            AbstractHurtingProjectile fireball = new LargeFireball(world, player, lookVec.normalize(), options().advanced.fireballExplosionPower.getCurrentValue());
-            if (dragon) {
-                fireball = new DragonFireball(world, player, lookVec.normalize());
-            } else {
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer) player, stack);
-            }
+            AbstractHurtingProjectile fireball = dragon ? new DragonFireball(world, player, lookVec.normalize()) : new LargeFireball(world, player, lookVec.normalize(), getFireballExplosionPower(dragon));
+            ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer) player, new ItemStack(Items.FIRE_CHARGE));
+
             fireball.absSnapTo(player.getX(), player.getEyeY() - 0.235, player.getZ());
             fireball.setOwner(player);
             world.addFreshEntity(fireball);
@@ -375,6 +373,13 @@ public class ModUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * @return a body item on an entity.
+     */
+    public static Item getBodyItem(LivingEntity livingEntity) {
+        return livingEntity.getItemBySlot(EquipmentSlot.BODY).getItem();
     }
 
     /**
@@ -460,6 +465,15 @@ public class ModUtil {
     public static void modifyKnockbackResistance(LivingEntity entity, double resistance) {
         if (entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE) != null) {
             entity.getAttribute(Attributes.KNOCKBACK_RESISTANCE).setBaseValue(resistance);
+        }
+    }
+
+    /**
+     * Modifies the {@code flying speed} of an entity.
+     */
+    public static void modifyFlyingSpeed(LivingEntity entity, double flyingSpeed) {
+        if (entity.getAttribute(Attributes.FLYING_SPEED) != null) {
+            entity.getAttribute(Attributes.FLYING_SPEED).setBaseValue(flyingSpeed);
         }
     }
 
@@ -664,7 +678,20 @@ public class ModUtil {
      * @return how much damage a fireball does when hitting an entity (each 0.5 = half a heart).
      */
     public static float getFireballDamageValue() {
-        return isDoomMode() ? 5.0F : 1.0F;
+        return isDoomMode() ? ModUtil.randomIntInclusive(3, 5) : 1.0F;
+    }
+
+    /**
+     * @return the explosion power when a fireball impacts the ground.
+     */
+    public static int getFireballExplosionPower(boolean dragon) {
+        int power = isDoomMode() ? ModUtil.randomIntInclusive(1, 11) : options().advanced.fireballExplosionPower.getCurrentValue();
+
+        if (power == 11) {
+            power = 50;
+        }
+
+        return dragon ? (int)(power * 1.5F) : power;
     }
 
     /**

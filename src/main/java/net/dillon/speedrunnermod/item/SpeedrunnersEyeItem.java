@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
@@ -99,7 +99,7 @@ public class SpeedrunnersEyeItem extends Item implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{};
+    public Mode[] disabledModes() {
+        return new Mode[]{};
     }
 }

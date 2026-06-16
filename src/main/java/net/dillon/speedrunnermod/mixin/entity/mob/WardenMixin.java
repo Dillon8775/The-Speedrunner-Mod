@@ -33,7 +33,7 @@ public class WardenMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeWardenAttributes(EntityType<? extends Warden> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyMaxHealth(this, isDoomMode() ? 400.0D : 200.0D);
+        ModUtil.modifyMaxHealth(this, isDoomMode() ? 500.0D : 200.0D);
         ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.4D : 0.2D);
         ModUtil.modifyKnockbackResistance(this, isDoomMode() ? 1.0D : 0.65D);
         ModUtil.modifyAttackKnockback(this, isDoomMode() ? 2.0D : 1.0D);

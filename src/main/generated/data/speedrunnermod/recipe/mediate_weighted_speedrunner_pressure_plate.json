@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": "speedrunnermod:speedrunner_ingot"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "id": "speedrunnermod:mediate_weighted_speedrunner_pressure_plate"
+  }
+}

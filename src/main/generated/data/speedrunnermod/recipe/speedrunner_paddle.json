@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "I": "speedrunnermod:speedrunner_nugget",
+    "I": "speedrunnermod:speedrunner_planks",
     "S": "#speedrunnermod:speedrunner_sticks"
   },
   "pattern": [

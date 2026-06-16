@@ -1,0 +1,11 @@
+## §7Anvils§f have been §bimproved...
+
+#### Say goodbye to that annoying §c§l"Too Expensive!" §r§ffeature! Now, you can combine §5items/add enchantments§f to §bany item, §fand §anever have a §ccost limit.
+
+!image:textures/gui/features/gui/no_more_too_expensive.png scale=.4
+#### Additionally, you can §bcap §fthe §ccost limit §fin the §bspeedrunner mod options menu, §fso the §ccost §fwill §onot §rgo over a capped value.
+
+!image:textures/gui/features/gui/anvil_cost_limit_option.png scale=.4
+#### §lFinally,§r you can go §oover §rthe §lmaximum enchant level§r for §dany enchantment.§f This means if you have §dtwo sharpness 5 books,§f you can combine the books to get §5§lSharpness 6.
+
+!image:textures/gui/features/gui/break_enchantment_level_cap.png scale=.3

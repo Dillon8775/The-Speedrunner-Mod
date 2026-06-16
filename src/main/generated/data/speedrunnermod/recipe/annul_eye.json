@@ -1,9 +1,7 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "ingredients": [
-    "minecraft:ender_pearl",
-    "minecraft:blaze_powder",
+    "speedrunnermod:ender_matter",
     "minecraft:ender_eye"
   ],
   "result": {

@@ -217,7 +217,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "minecraft:leather_helmet",
+          "name": "minecraft:iron_helmet",
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -227,7 +227,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "minecraft:leather_chestplate",
+          "name": "minecraft:iron_chestplate",
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -237,7 +237,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "minecraft:leather_leggings",
+          "name": "minecraft:iron_leggings",
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
@@ -247,14 +247,70 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "minecraft:leather_boots",
+          "name": "minecraft:iron_boots",
           "functions": [
             {
               "function": "minecraft:enchant_randomly"
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:copper_nautilus_armor",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:iron_nautilus_armor",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:golden_nautilus_armor",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:diamond_nautilus_armor",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "speedrunnermod:speedrunner_nautilus_armor",
+          "weight": 10
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:chests/shipwreck_supply"
 }

@@ -1,0 +1,7 @@
+### These §cdoom blocks§r§f replace the default end stone blocks in the end.
+
+### If broken, they will spawn §cvarious hostile mobs, §r§falong with some §6lava.
+
+### You can avoid these things if you break these blocks with a §bspeedrunner §r§for §6golden speedrunner tool §r§f§b§l§o(OR §r§dif you have the §d§lDragon's Aura §r§deffect), §r§fand if you do use one of these §btools§r§f/§deffects, §r§fthey will drop a §avariety §r§fof §ahelpful items §r§fto make the end fight a §alittle bit easier,§r§f including §barmor, §6crossbows, §r§fetc.
+
+!image:textures/gui/features/screenshots/doom_block.png scale=.14

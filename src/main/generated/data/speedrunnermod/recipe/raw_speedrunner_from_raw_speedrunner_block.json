@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
   "group": "raw_speedrunner",
   "ingredients": [
     "speedrunnermod:raw_speedrunner_block"

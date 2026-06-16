@@ -16,7 +16,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
  * The {@code options} screen for the Speedrunner Mod, consisting of all the option categories.
  */
 public class ModOptionsScreen extends AbstractModScreen {
-    private Button mainOptionsButton, fwcOptionsButton, clientOptionsButton, ssrOptionsButton, advancedOptionsButton, mixinOptionsButton, resetOptionsButton;
+    private Button mainOptionsButton, worldGenOptionsButton, clientOptionsButton, fwcOptionsButton, advancedOptionsButton, ssrOptionsButton, mixinOptionsButton, resetOptionsButton;
 
     public ModOptionsScreen(Screen parent) {
         super(parent, Component.translatable("speedrunnermod.title.options"));
@@ -28,17 +28,20 @@ public class ModOptionsScreen extends AbstractModScreen {
         if (this.mainOptionsButton != null) {
             widgets.add(this.mainOptionsButton);
         }
-        if (this.fwcOptionsButton != null) {
-            widgets.add(this.fwcOptionsButton);
+        if (this.worldGenOptionsButton != null) {
+            widgets.add(this.worldGenOptionsButton);
         }
         if (this.clientOptionsButton != null) {
             widgets.add(this.clientOptionsButton);
         }
-        if (this.ssrOptionsButton != null) {
-            widgets.add(this.ssrOptionsButton);
+        if (this.fwcOptionsButton != null) {
+            widgets.add(this.fwcOptionsButton);
         }
         if (this.advancedOptionsButton != null) {
             widgets.add(this.advancedOptionsButton);
+        }
+        if (this.ssrOptionsButton != null) {
+            widgets.add(this.ssrOptionsButton);
         }
         if (this.mixinOptionsButton != null) {
             widgets.add(this.mixinOptionsButton);
@@ -52,23 +55,27 @@ public class ModOptionsScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.mainOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_MAIN, (button) -> {
-            this.openOptionsScreen(new MainOptionsScreen(this));
+            this.openOptionsScreen(new GeneralOptionsScreen(this));
         }).build();
 
-        this.fwcOptionsButton = Button.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
-            this.openOptionsScreen(new FastWorldCreationOptionsScreen(this));
+        this.worldGenOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_WORLDGEN, (button) -> {
+            this.openOptionsScreen(new WorldGenOptionsScreen(this));
         }).build();
 
         this.clientOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_CLIENT, (button) -> {
             this.openOptionsScreen(new ClientOptionsScreen(this));
         }).build();
 
-        this.ssrOptionsButton = Button.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
-            this.openOptionsScreen(new StructureSpawnRateOptionsScreen(this));
+        this.fwcOptionsButton = Button.builder(ModTexts.MENU_FAST_WORLD_CREATION, (button) -> {
+            this.openOptionsScreen(new WorldCreationOptionsScreen(this));
         }).build();
 
         this.advancedOptionsButton = Button.builder(ModTexts.MENU_ADVANCED_OPTIONS, (button) -> {
             this.openOptionsScreen(new AdvancedOptionsScreen(this));
+        }).build();
+
+        this.ssrOptionsButton = Button.builder(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS, (button) -> {
+            this.openOptionsScreen(new StructureSpawnRateOptionsScreen(this));
         }).build();
 
         this.mixinOptionsButton = Button.builder(ModTexts.MENU_MIXIN_OPTIONS, (button) -> {
@@ -76,7 +83,7 @@ public class ModOptionsScreen extends AbstractModScreen {
         }).build();
 
         this.resetOptionsButton = Button.builder(ModTexts.MENU_OPTIONS_RESET, (button) -> {
-            this.minecraft.setScreen(new ResetOptionsConfirmScreen(this));
+            this.minecraft.gui.setScreen(new ResetOptionsConfirmScreen(this));
         }).build();
 
         super.init();
@@ -87,7 +94,7 @@ public class ModOptionsScreen extends AbstractModScreen {
      */
     private void openOptionsScreen(AbstractModScreen screen) {
         RestartRequiredScreen.getCurrentOptions();
-        this.minecraft.setScreen(screen);
+        this.minecraft.gui.setScreen(screen);
     }
 
     @Override
@@ -101,11 +108,17 @@ public class ModOptionsScreen extends AbstractModScreen {
         if (this.mainOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_MAIN_TOOLTIP, context, mouseX, mouseY);
         }
-        if (this.fwcOptionsButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_FAST_WORLD_CREATION_TOOLTIP, context, mouseX, mouseY);
+        if (this.worldGenOptionsButton.isHovered()) {
+            this.renderBasicTooltip(ModTexts.MENU_OPTIONS_WORLDGEN_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.clientOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_OPTIONS_CLIENT_TOOLTIP, context, mouseX, mouseY);
+        }
+        if (this.fwcOptionsButton.isHovered()) {
+            this.renderBasicTooltip(ModTexts.MENU_FAST_WORLD_CREATION_TOOLTIP, context, mouseX, mouseY);
+        }
+        if (this.advancedOptionsButton.isHovered()) {
+            this.renderBasicTooltip(ModTexts.MENU_ADVANCED_OPTIONS_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.ssrOptionsButton.isHovered()) {
             if (isSsrCustom()) {
@@ -113,9 +126,6 @@ public class ModOptionsScreen extends AbstractModScreen {
             } else {
                 this.renderBasicTooltip(ModTexts.MENU_STRUCTURE_SPAWN_RATE_OPTIONS_NEEDS_CUSTOM_TOOLTIP, context, mouseX, mouseY);
             }
-        }
-        if (this.advancedOptionsButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_ADVANCED_OPTIONS_TOOLTIP, context, mouseX, mouseY);
         }
         if (this.mixinOptionsButton.isHovered()) {
             this.renderBasicTooltip(ModTexts.MENU_MIXIN_OPTIONS_TOOLTIP, context, mouseX, mouseY);
@@ -139,7 +149,7 @@ public class ModOptionsScreen extends AbstractModScreen {
 
     @Override
     protected boolean shouldRenderVersionText() {
-        return false;
+        return true;
     }
 
     @Override

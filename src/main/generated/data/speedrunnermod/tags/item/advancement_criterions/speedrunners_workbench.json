@@ -1,6 +1,9 @@
 {
   "values": [
-    "#speedrunnermod:speedrunner_planks",
+    {
+      "id": "#speedrunnermod:speedrunner_planks",
+      "required": false
+    },
     "speedrunnermod:speedrunner_ingot"
   ]
 }

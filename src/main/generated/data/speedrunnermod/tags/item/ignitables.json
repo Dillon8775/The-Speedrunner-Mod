@@ -1,6 +1,9 @@
 {
   "values": [
-    "#c:tools/igniter",
+    {
+      "id": "#c:tools/igniter",
+      "required": false
+    },
     "minecraft:fire_charge"
   ]
 }

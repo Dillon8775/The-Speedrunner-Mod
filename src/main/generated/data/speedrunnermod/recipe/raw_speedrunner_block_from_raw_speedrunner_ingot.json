@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "group": "raw_speedrunner_block",
   "key": {
     "#": "speedrunnermod:raw_speedrunner"

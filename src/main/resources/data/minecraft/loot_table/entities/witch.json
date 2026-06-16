@@ -152,5 +152,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/witch"
 }

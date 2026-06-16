@@ -46,7 +46,7 @@ public abstract class PlayerMixin extends LivingEntity {
      * Makes the Giant disable player's shields.
      */
     @Inject(method = "blockUsingItem", at = @At("TAIL"))
-    private void allowSpeedrunnerShieldToTakeHit(ServerLevel world, LivingEntity attacker, CallbackInfo ci) {
+    private void allowSpeedrunnerShieldToTakeHit(final ServerLevel level, final LivingEntity attacker, final DamageSource source, final float damage, CallbackInfo ci) {
         if (isDoomMode() && attacker instanceof Giant) {
             int cooldownLevel = (ModUtil.getItemCooldown((Player)(Object)this) * 5) * 2 /* Doubled cooldown because it's Giant >:) */;
             this.getCooldowns().addCooldown(Items.SHIELD.getDefaultInstance(), cooldownLevel);

@@ -30,7 +30,7 @@ public class ResourcesScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.modsButton = Button.builder(ModTexts.MENU_MODS, (button) -> {
-            this.minecraft.setScreen(new ModsScreen(this.parent));
+            this.minecraft.gui.setScreen(new OtherModsScreen(this.parent));
         }).build();
 
         this.questionsAndIssuesButton = Button.builder(ModTexts.QUESTIONS_AND_ISSUES, (button) -> {
@@ -38,7 +38,7 @@ public class ResourcesScreen extends AbstractModScreen {
         }).build();
 
         this.tutorialsButton = Button.builder(ModTexts.MENU_TUTORIALS, (button) -> {
-            this.minecraft.setScreen(new TutorialsScreen(this.parent));
+            this.minecraft.gui.setScreen(new TutorialsScreen(this.parent));
         }).build();
 
         this.showcaseVideoButton = Button.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
@@ -64,7 +64,7 @@ public class ResourcesScreen extends AbstractModScreen {
 
     @Override
     protected boolean shouldRenderVersionText() {
-        return false;
+        return true;
     }
 
     @Override

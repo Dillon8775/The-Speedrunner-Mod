@@ -8,27 +8,26 @@ import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.effect.MobEffect;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-
 /**
  * Stores all speedrunner mod potions.
  */
 public class ModPotions {
-    public static final Holder<Potion> DRAGONS_AURA = registerPotion("dragons_aura", ModMobEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(2), 0);
-    public static final Holder<Potion> LONG_DRAGONS_AURA = registerPotion("long_dragons_aura", ModMobEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(6), 0);
+    public static final Holder<Potion> DRAGONS_AURA = registerModPotion(ModPotionIds.DRAGONS_AURA, new Potion("dragons_aura",
+            new MobEffectInstance(ModMobEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(2), 0)));
+    public static final Holder<Potion> LONG_DRAGONS_AURA = registerModPotion(ModPotionIds.LONG_DRAGONS_AURA, new Potion("long_dragons_aura",
+            new MobEffectInstance(ModMobEffects.DRAGONS_AURA, ModUtil.minutesAsTicks(6), 0)));
 
     /**
      * Registers a potion.
      */
-    private static Holder<Potion> registerPotion(String name, Holder<MobEffect> effect, int duration, int amplifier) {
-        return Registry.registerForHolder(BuiltInRegistries.POTION, ofSpeedrunnerMod(name),
-                new Potion(name, new MobEffectInstance(effect, duration, amplifier)));
+    private static Holder<Potion> registerModPotion(final ResourceKey<Potion> key, final Potion potion) {
+        return Registry.registerForHolder(BuiltInRegistries.POTION, key, potion);
     }
 
     /**

@@ -1,6 +1,9 @@
 {
   "values": [
-    "#minecraft:sand",
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
     "minecraft:netherrack",
     "minecraft:crimson_nylium",
     "minecraft:warped_nylium"

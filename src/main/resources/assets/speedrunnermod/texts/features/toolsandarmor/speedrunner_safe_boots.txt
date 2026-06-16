@@ -1,0 +1,3 @@
+### §bSpeedrunner boots§r (§oand §r§6golden speedrunner boots)§r give §a§l+20% §r§bspeed §fand also protects the player from sensing off §bsculk sensor blocks.
+
+!image:textures/gui/features/screenshots/speedrunner_safe_boots.png scale=.12

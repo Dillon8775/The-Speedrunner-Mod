@@ -1,6 +1,9 @@
 {
   "values": [
-    "#c:tools/shield",
+    {
+      "id": "#c:tools/shield",
+      "required": false
+    },
     "minecraft:ender_pearl",
     "speedrunnermod:infini_pearl",
     "minecraft:chorus_fruit"

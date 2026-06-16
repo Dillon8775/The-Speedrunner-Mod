@@ -1,5 +1,8 @@
 {
   "values": [
-    "#speedrunnermod:speedrunner_armor"
+    {
+      "id": "#speedrunnermod:speedrunner_armor",
+      "required": false
+    }
   ]
 }

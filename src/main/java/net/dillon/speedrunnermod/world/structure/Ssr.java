@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.world.structure;
 
 import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.option.OptionValue;
+import net.dillon.speedrunnermod.option.StructureSpawnRate;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

@@ -1,11 +1,10 @@
 package net.dillon.speedrunnermod.menu;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -52,8 +51,8 @@ public class WorkbenchMenu extends ItemCombinerMenu {
      */
     private static ItemCombinerMenuSlotDefinition getForgingSlotsManager() {
         return ItemCombinerMenuSlotDefinition.create()
-                .withSlot(0, 27, 37, stack -> stack.is(ConventionalItemTags.ENCHANTABLES))
-                .withSlot(1, 76, 37, stack -> stack.is(ConventionalItemTags.ENCHANTABLES) || stack.is(Items.BOOK) || stack.is(ModItems.SPEEDRUNNER_INGOT))
+                .withSlot(0, 27, 37, stack -> stack.is(ModItemTags.SPEEDRUNNERS_WORKBENCH_UPGRADEABLE))
+                .withSlot(1, 76, 37, stack -> stack.is(ModItemTags.SPEEDRUNNERS_WORKBENCH_CONVERTABLE))
                 .withSlot(2, 76, 60, stack -> stack.is(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE))
                 .withResultSlot(3, 134, 37).build();
     }
@@ -159,10 +158,8 @@ public class WorkbenchMenu extends ItemCombinerMenu {
                     // If all enchantments are compatible with each other and can be combined, OR can be upgraded
                     // Try to transfer enchantments
                     if ((allIsCompatible && enchantment.canEnchant(secondSlot)) || alreadyPresentButUpgradable) {
-                        if (secondSlotBuilder.getLevel(entry.getKey()) <= firstSlotBuilder.getLevel(entry.getKey())) {
-                            int slotBuilder = firstSlotBuilder.getLevel(entry.getKey());
-                            System.out.println(secondSlotBuilder.getLevel(entry.getKey()) == slotBuilder
-                                    ? slotBuilder + 1 : slotBuilder);
+                        int slotBuilder = firstSlotBuilder.getLevel(entry.getKey());
+                        if (!(slotBuilder + 1 > 10) && secondSlotBuilder.getLevel(entry.getKey()) <= firstSlotBuilder.getLevel(entry.getKey())) {
                             enchantmentsToTransfer.put(entry, secondSlotBuilder.getLevel(entry.getKey()) == slotBuilder
                                     ? slotBuilder + 1 : slotBuilder);
                             enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
@@ -230,7 +227,7 @@ public class WorkbenchMenu extends ItemCombinerMenu {
         player.playSound(SoundEvents.SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.giveExperienceLevels(this.levelCost.get());
         if (!upgraded && player instanceof ServerPlayer serverPlayer) {
-            ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH));
+            ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(serverPlayer, new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH));
         }
     }
 
@@ -267,6 +264,10 @@ public class WorkbenchMenu extends ItemCombinerMenu {
             return ModItems.GOLDEN_SPEEDRUNNER_BOOTS;
         } else if (s.is(Items.GOLDEN_SPEAR)) {
             return ModItems.GOLDEN_SPEEDRUNNER_SPEAR;
+        } else if (s.is(ModItems.SPEEDRUNNER_HARNESS)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_HARNESS;
+        } else if (s.is(Items.GOLDEN_NAUTILUS_ARMOR)) {
+            return ModItems.GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR;
         }
         return null;
     }

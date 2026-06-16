@@ -89,5 +89,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/rabbit"
 }

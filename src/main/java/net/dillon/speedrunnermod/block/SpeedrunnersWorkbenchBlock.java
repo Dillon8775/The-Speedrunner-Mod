@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.menu.WorkbenchMenu;
-import net.dillon.speedrunnermod.option.ModOptions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -35,7 +34,7 @@ public class SpeedrunnersWorkbenchBlock extends SmithingTableBlock {
     }
 
     /**
-     * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link ModOptions.Mode} is {@link ModOptions.Mode#BALANCED}.
+     * The method to open the screen for the {@code Speedrunner's Workbench.}, doesn't open if {@link Mode} is {@link Mode#BALANCED}.
      */
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level world, BlockPos pos, Player player, BlockHitResult hit) {

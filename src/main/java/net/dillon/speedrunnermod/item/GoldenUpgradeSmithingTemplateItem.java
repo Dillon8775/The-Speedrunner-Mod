@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.mixin.accessor.SmithingTemplateItemInvoker;
 import net.dillon.speedrunnermod.network.client.OpenFeaturesScreenS2CPacket;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -26,8 +26,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * The {@code golden speedrunner upgrade smithing template item.}
  */
 public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
-    private static final Component GOLDEN_UPGRADE_APPLIES_TO_TEXT = Component.translatable(Util.makeDescriptionId("item", ofSpeedrunnerMod("smithing_template.golden_upgrade.applies_to"))).withStyle(ChatFormatting.GOLD);
-    private static final Component GOLDEN_INGREDIENTS_TEXT = Component.translatable(Util.makeDescriptionId("item", ofSpeedrunnerMod("smithing_template.golden_upgrade.ingredients"))).withStyle(ChatFormatting.AQUA);
+    private static final Component GOLDEN_UPGRADE_APPLIES_TO_TEXT = Component.translatable(Util.makeDescriptionId("item", ofSpeedrunnerMod("smithing_template.golden_upgrade.applies_to")));
+    private static final Component GOLDEN_INGREDIENTS_TEXT = Component.translatable(Util.makeDescriptionId("item", ofSpeedrunnerMod("smithing_template.golden_upgrade.ingredients")));
     private static final Component GOLDEN_BASE_SLOT_DESCRIPTION_TEXT = Component.translatable(Util.makeDescriptionId("item", ofSpeedrunnerMod("smithing_template.golden_upgrade.base_slot_description")));
     private static final Component GOLDEN_ADDITIONS_SLOT_DESCRIPTION_TEXT = Component.translatable(Util.makeDescriptionId("item", ofSpeedrunnerMod("smithing_template.golden_upgrade.additions_slot_description")));
 
@@ -47,15 +47,14 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
             ServerPlayNetworking.send(serverPlayer, new OpenFeaturesScreenS2CPacket());
-            ModCriterions.TRIGGERED_BY_ITEM.trigger(serverPlayer, this.getDefaultInstance());
+            ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(serverPlayer, this.getDefaultInstance());
         }
         return super.use(world, player, hand);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
-        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip.line1").withStyle(ChatFormatting.AQUA));
-        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip.line2").withStyle(ChatFormatting.WHITE));
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip").withStyle(ChatFormatting.WHITE));
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }
 }

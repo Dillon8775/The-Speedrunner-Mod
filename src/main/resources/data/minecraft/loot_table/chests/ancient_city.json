@@ -159,7 +159,7 @@
             }
           ],
           "name": "speedrunnermod:ender_matter",
-          "weight": 9
+          "weight": 12
         },
         {
           "type": "minecraft:item",

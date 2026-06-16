@@ -1,0 +1,5 @@
+#### §a§lCongratulations!§r You are now an official §bSpeedrunner Mod pro,§r and you know about all of it's §amain features!§r
+
+!image:textures/gui/logo.png scale=.08
+##### For more info, refer to §l"Learn More..."§r button below, or go back and re-read some things if you didn't fully understand everything!
+

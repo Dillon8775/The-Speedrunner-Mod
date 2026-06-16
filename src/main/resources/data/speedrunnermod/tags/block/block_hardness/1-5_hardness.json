@@ -2,13 +2,8 @@
   "values": [
     "minecraft:chest",
     "minecraft:crafting_table",
-    "minecraft:oak_door",
-    "minecraft:oak_trapdoor",
-    "minecraft:spruce_trapdoor",
-    "minecraft:birch_trapdoor",
-    "minecraft:jungle_trapdoor",
-    "minecraft:acacia_trapdoor",
-    "minecraft:dark_oak_trapdoor",
+    "#minecraft:wooden_trapdoors",
+    "#minecraft:wooden_doors",
     "minecraft:nether_bricks",
     "minecraft:nether_brick_fence",
     "minecraft:nether_brick_stairs",
@@ -17,11 +12,6 @@
     "minecraft:beacon",
     "minecraft:trapped_chest",
     "minecraft:nether_brick_slab",
-    "minecraft:spruce_door",
-    "minecraft:birch_door",
-    "minecraft:jungle_door",
-    "minecraft:acacia_door",
-    "minecraft:dark_oak_door",
     "minecraft:end_stone_bricks",
     "minecraft:red_nether_bricks",
     "minecraft:bone_block",
@@ -38,13 +28,7 @@
     "minecraft:fletching_table",
     "minecraft:grindstone",
     "minecraft:lectern",
-    "minecraft:crimson_trapdoor",
-    "minecraft:warped_trapdoor",
-    "minecraft:crimson_door",
-    "minecraft:warped_door",
     "minecraft:chiseled_nether_bricks",
-    "minecraft:cracked_nether_bricks",
-    "speedrunnermod:doom_stone",
-    "speedrunnermod:thrusted_block"
+    "minecraft:cracked_nether_bricks"
   ]
 }

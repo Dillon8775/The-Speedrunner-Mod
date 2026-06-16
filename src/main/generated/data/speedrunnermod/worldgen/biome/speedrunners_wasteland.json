@@ -77,6 +77,8 @@
       "speedrunnermod:patch_raw_speedrunner_block",
       "speedrunnermod:wasteland_default_speedrunner_placed",
       "speedrunnermod:wasteland_fancy_speedrunner_placed",
+      "speedrunnermod:flower_speedrunner",
+      "speedrunnermod:sugar_cane_wasteland",
       "minecraft:patch_pumpkin",
       "minecraft:patch_sugar_cane",
       "minecraft:patch_firefly_bush_near_water"
@@ -97,7 +99,50 @@
       }
     ],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "minecraft:cow",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:pig",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 100
+      },
+      {
+        "type": "minecraft:sheep",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 85
+      },
+      {
+        "type": "minecraft:chicken",
+        "maxCount": 8,
+        "minCount": 4,
+        "weight": 75
+      },
+      {
+        "type": "minecraft:horse",
+        "maxCount": 6,
+        "minCount": 2,
+        "weight": 40
+      },
+      {
+        "type": "minecraft:donkey",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 20
+      },
+      {
+        "type": "minecraft:sniffer",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 10
+      }
+    ],
     "misc": [],
     "monster": [
       {
@@ -127,6 +172,12 @@
       {
         "type": "minecraft:creeper",
         "maxCount": 4,
+        "minCount": 1,
+        "weight": 25
+      },
+      {
+        "type": "minecraft:slime",
+        "maxCount": 3,
         "minCount": 1,
         "weight": 25
       },

@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.mixin.block;
 
 import net.dillon.speedrunnermod.tag.ModBlockTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.spongepowered.asm.mixin.Final;
@@ -23,119 +24,124 @@ public class BlockStateBaseMixin {
      */
     @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
     private void applyFasterBlockBreaking(BlockGetter world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
-        if (options().main.fasterBlockBreaking.getCurrentValue()) {
-            int multiplier = options().main.blockBreakingMultiplier.getCurrentValue();
+        if (options().general.fasterBlockBreaking.getCurrentValue()) {
+            int multiplier = options().general.blockBreakingMultiplier.getCurrentValue();
             cir.setReturnValue(this.destroySpeed / multiplier);
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_HARDNESS)) {
+            // Speedrunner mod blocks do not get modified block hardness values. They are instead hard-coded.
+            if (BuiltInRegistries.BLOCK.getKey(world.getBlockState(pos).getBlock()).getNamespace().equals("speedrunnermod")) {
+                return;
+            }
+
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.INSTABREAK)) {
                 cir.setReturnValue(0.0F);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_ONE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_1)) {
                 cir.setReturnValue(0.1F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_TWO_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_2)) {
                 cir.setReturnValue(0.2F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_THREE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_3)) {
                 cir.setReturnValue(0.3F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_THREEFIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_35)) {
                 cir.setReturnValue(0.35F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_THREESEVEN_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_37)) {
                 cir.setReturnValue(0.37F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_FOUR_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_4)) {
                 cir.setReturnValue(0.4F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_FIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_5)) {
                 cir.setReturnValue(0.5F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_SIX_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_6)) {
                 cir.setReturnValue(0.6F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_SIXFIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_65)) {
                 cir.setReturnValue(0.65F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_SEVEN_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_7)) {
                 cir.setReturnValue(0.7F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ZERO_EIGHT_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_0_8)) {
                 cir.setReturnValue(0.8F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ONE_HARDNESS)) {
-                cir.setReturnValue(1.0F / multiplier);
-            }
-
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ONE_THREE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_1_3)) {
                 cir.setReturnValue(1.3F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ONE_FOUR_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_1_4)) {
                 cir.setReturnValue(1.4F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ONE_FIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_1_5)) {
                 cir.setReturnValue(1.5F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.ONE_SIX_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_1_6)) {
                 cir.setReturnValue(1.6F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.TWO_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_2)) {
                 cir.setReturnValue(2.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.TWO_FIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_2_5)) {
                 cir.setReturnValue(2.5F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.THREE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_3)) {
                 cir.setReturnValue(3.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.FOUR_FIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_4)) {
+                cir.setReturnValue(4.0F / multiplier);
+            }
+
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_4_5)) {
                 cir.setReturnValue(4.5F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.FIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_5)) {
                 cir.setReturnValue(5.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.SIX_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_6)) {
                 cir.setReturnValue(6.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.SEVEN_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_7)) {
                 cir.setReturnValue(7.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.EIGHT_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_8)) {
                 cir.setReturnValue(8.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.NINE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_9)) {
                 cir.setReturnValue(9.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.TEN_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_10)) {
                 cir.setReturnValue(10.0F / multiplier);
             }
 
-            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.TWENTY_FIVE_HARDNESS)) {
+            if (world.getBlockState(pos).is(ModBlockTags.BlockHardness.HARDNESS_25)) {
                 cir.setReturnValue(25.0F / multiplier);
             }
         }

@@ -21,9 +21,9 @@ public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     @Override
     public void onClose() {
         if (fromInitialBoot) {
-            this.minecraft.setScreen(new LeaderboardsSafeScreen(this.parent));
+            this.minecraft.gui.setScreen(new LeaderboardsSafeScreen(this.parent));
         } else {
-            this.minecraft.setScreen(new LeaderboardsIneligibleScreen(this.parent));
+            this.minecraft.gui.setScreen(new LeaderboardsIneligibleScreen(this.parent));
         }
     }
 

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "speedrunnermod:item/dead_speedrunner_hanging_sign"
-  }
-}

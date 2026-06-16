@@ -1,0 +1,8 @@
+### Found in bastion chests.
+
+#### Crafted using §b9 speedrunner ingots.
+
+Acts like an §liron block§r§f in any crafting recipe.
+
+!image:textures/gui/features/blocks/speedrunner_block.png scale=.1
+!image:textures/gui/features/recipes/speedrunner_block_crafting_recipe.png scale=.4

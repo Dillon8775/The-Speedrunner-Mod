@@ -22,7 +22,7 @@ public class BlockMixin {
     @Overwrite
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         float fallDamage;
-        if (!options().main.fallDamage.getCurrentValue()) {
+        if (!options().general.fallDamage.getCurrentValue()) {
             fallDamage = 0.0F;
         } else {
             fallDamage = isDoomMode() ? 1.0F : 0.7F;

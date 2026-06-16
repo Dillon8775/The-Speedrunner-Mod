@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.world.structure.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * Contains all of the {@code structure modifications,} making them generate more commonly.
@@ -81,9 +82,11 @@ public class StructuresLoader {
      * <p>Count - the total amount of strongholds that are allowed to create in a single Minecraft world.</p>
      */
     public static void modifyStrongholds(JsonElement jsonElement) {
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", options().main.strongholdDistance.getCurrentValue());
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", options().main.strongholdSpread.getCurrentValue());
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", options().main.strongholdCount.getCurrentValue());
+        if (!isDoomMode()) {
+            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", options().worldGen.strongholdDistance.getCurrentValue());
+            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", options().worldGen.strongholdSpread.getCurrentValue());
+        }
+        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", options().worldGen.strongholdCount.getCurrentValue());
     }
 
     /**

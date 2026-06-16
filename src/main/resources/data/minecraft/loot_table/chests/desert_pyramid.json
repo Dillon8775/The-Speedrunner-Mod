@@ -363,5 +363,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:chests/desert_pyramid"
 }

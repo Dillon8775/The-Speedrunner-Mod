@@ -1,6 +1,9 @@
 {
   "values": [
-    "#speedrunnermod:piglin_awakener_craftables",
+    {
+      "id": "#speedrunnermod:piglin_awakener_craftables",
+      "required": false
+    },
     "minecraft:gold_ingot"
   ]
 }

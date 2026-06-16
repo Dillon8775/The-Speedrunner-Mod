@@ -158,21 +158,6 @@ public class RecipeGeneratorHelper extends RecipeProvider {
     }
 
     /**
-     * Creates a {@code sign} recipe.
-     */
-    protected void createSign(ItemLike sign, ItemLike plank) {
-        this.shaped(RecipeCategory.DECORATIONS, sign, 3)
-                .define('#', plank)
-                .define('X', ModItemTags.STICKS)
-                .group("wooden_sign")
-                .pattern("###")
-                .pattern("###")
-                .pattern(" X ")
-                .unlockedBy("has_plank", this.has(plank))
-                .save(this.output);
-    }
-
-    /**
      * Creates a {@code fence recipe} with speedrunner sticks.
      */
     public void createModdedFenceRecipe(ItemLike output, ItemLike input) {

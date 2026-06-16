@@ -1,0 +1,7 @@
+### Gives the player §bincreased speed §fbased on the §alevel §fof the §denchantment.
+
+#### Found in various different §bloot chests§f and via §6piglin bartering.
+
+Only applicable on boots.
+
+!image:textures/gui/features/items/enchanted_book.png scale=.2

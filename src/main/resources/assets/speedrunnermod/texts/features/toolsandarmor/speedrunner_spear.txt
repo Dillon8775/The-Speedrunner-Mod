@@ -1,0 +1,6 @@
+### Has §amore reach§f than §7normal spears,§r§f with §bincreased momentum§r§f and §2lowered exhaustion§r§f when using §alunge.§r§f
+
+!image:textures/gui/features/recipes/speedrunner_spear_crafting_recipe.png scale=.5
+### §6The Golden Speedrunner Spear §r§fhas §aeven more reach!
+
+!image:textures/gui/features/recipes/golden_speedrunner_spear_crafting_recipe.png scale=.35

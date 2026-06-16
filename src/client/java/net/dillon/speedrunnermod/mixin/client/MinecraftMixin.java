@@ -1,13 +1,7 @@
 package net.dillon.speedrunnermod.mixin.client;
 
 import net.dillon.speedrunnermod.keybind.ModKeyMappings;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
-import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.screen.SafeBootScreen;
-import net.dillon.speedrunnermod.screen.firsttimeplaying.FirstTimePlayingScreen;
-import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsSafeScreen;
-import net.dillon.speedrunnermod.screen.misc.SpeedrunIGTMissingScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
@@ -30,13 +24,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
-import java.util.function.Function;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
@@ -52,15 +40,11 @@ public abstract class MinecraftMixin {
     @Shadow
     public abstract void disconnect(Screen disconnectionScreen, boolean transferring, boolean bl);
     @Shadow
-    public abstract void setScreen(@Nullable Screen screen);
-    @Shadow
     public abstract boolean isLocalServer();
     @Shadow
     public abstract @Nullable ServerData getCurrentServer();
     @Shadow @Final
     public Options options;
-    @Shadow
-    protected abstract boolean addInitialScreens(List<Function<Runnable, Screen>> list);
 
     /**
      * Ensures that the {@code fullbright} option is correctly initialized when launching the game.
@@ -78,16 +62,16 @@ public abstract class MinecraftMixin {
     private void implementSpeedrunnerModKeybindFunctions(CallbackInfo info) {
         while (ModKeyMappings.RESET.consumeClick()) {
             if (this.isLocalServer() && this.getCurrentServer() == null) {
-                if (clientOptions().client.fastWorldCreation.getCurrentValue()) {
+                if (clientOptions().client.instantWorldCreation.getCurrentValue()) {
                     if (this.gui != null) {
-                        this.gui.getChat().clearMessages(false);
+                        this.gui.hud.getChat().clearMessages(false);
                     }
                     assert this.level != null;
                     this.level.disconnect(Component.translatable("menu.savingLevel"));
                     this.disconnect(new GenericMessageScreen(Component.translatable("speedrunnermod.menu.generating_new_world")), false, false);
                     CreateWorldScreen.openFresh(Minecraft.getInstance(), null);
                 } else {
-                    debugWarn("\"Fast World Creation\" is OFF, please enable to use this feature.");
+                    debugWarn("Instant World Creation is OFF!");
                 }
             } else {
                 debugWarn("You must be in singleplayer to create new worlds.");
@@ -104,7 +88,7 @@ public abstract class MinecraftMixin {
             } else {
                 clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
                 saveClientChanges();
-                Minecraft.getInstance().levelRenderer.allChanged();
+                Minecraft.getInstance().levelExtractor.allChanged();
             }
         }
 
@@ -145,31 +129,6 @@ public abstract class MinecraftMixin {
      */
     @Unique
     private void debugWarn(String string, Object... objects) {
-        this.gui.getChat().addClientSystemMessage((ModTexts.BLANK).copy().append((Component.translatable("debug.prefix")).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD)).append(" ").append(Component.translatable(string, objects)));
-    }
-
-    /**
-     * Adds the {@code Safe Mode} feature.
-     * <p>If the speedrunner mod detects broken options, then the game will load into the {@link SafeBootScreen}.</p>
-     */
-    @Inject(method = "buildInitialScreens", at = @At("RETURN"), cancellable = true)
-    private void openSpeedrunnerModScreens(Minecraft.GameLoadCookie cookie, CallbackInfoReturnable<Runnable> cir) {
-        Runnable vanillaFlow = cir.getReturnValue();
-        cir.setReturnValue(() -> {
-            if (SpeedrunnerMod.safeBoot) {
-                this.setScreen(new SafeBootScreen(null));
-                warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
-            } else if (clientOptions().storedValues.firstTimePlaying.getCurrentValue()) {
-                this.setScreen(new FirstTimePlayingScreen(null));
-            } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().main.leaderboardsMode.getCurrentValue()) {
-                this.setScreen(new LeaderboardsSafeScreen(null));
-                warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");
-            } else if (options().main.leaderboardsMode.getCurrentValue() && SpeedrunnerModClient.speedrunIGTMissing) {
-                this.setScreen(new SpeedrunIGTMissingScreen(null));
-                warn("SpeedrunIGT mod is missing, please download to submit speedruns.");
-            } else {
-                vanillaFlow.run();
-            }
-        });
+        this.gui.hud.getChat().addClientSystemMessage((ModTexts.BLANK).copy().append((Component.translatable("debug.prefix")).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD)).append(" ").append(Component.translatable(string, objects)));
     }
 }

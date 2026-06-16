@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#speedrunnermod:speedrunner_tool_materials",
+  "base": "speedrunnermod:speedrunner_harness",
+  "result": {
+    "id": "speedrunnermod:golden_speedrunner_harness"
+  },
+  "template": "speedrunnermod:golden_upgrade_smithing_template"
+}

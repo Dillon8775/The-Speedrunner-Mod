@@ -31,6 +31,6 @@ public class GhastMixin {
      */
     @Inject(method = "getExplosionPower", at = @At("RETURN"), cancellable = true)
     private void modifyExplosionPower(CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue(isDoomMode() ? 5 : cir.getReturnValue());
+        cir.setReturnValue((int)(ModUtil.getFireballDamageValue()));
     }
 }

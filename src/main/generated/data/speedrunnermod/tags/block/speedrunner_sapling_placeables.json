@@ -1,7 +1,13 @@
 {
   "values": [
-    "#minecraft:sand",
-    "#minecraft:soul_speed_blocks",
+    {
+      "id": "#minecraft:sand",
+      "required": false
+    },
+    {
+      "id": "#minecraft:soul_speed_blocks",
+      "required": false
+    },
     "minecraft:netherrack",
     "minecraft:crimson_nylium",
     "minecraft:warped_nylium"

@@ -1,6 +1,12 @@
 {
   "values": [
-    "#speedrunnermod:speedrunner_logs",
-    "#speedrunnermod:doom_logs"
+    {
+      "id": "#speedrunnermod:speedrunner_logs",
+      "required": false
+    },
+    {
+      "id": "#speedrunnermod:doom_logs",
+      "required": false
+    }
   ]
 }

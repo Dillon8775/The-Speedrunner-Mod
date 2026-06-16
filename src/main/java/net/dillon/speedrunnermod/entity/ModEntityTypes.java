@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.entity;
 import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.mixin.accessor.EntityTypeInvoker;
+import net.dillon.speedrunnermod.mixin.accessor.EntityTypesInvoker;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.Registry;
@@ -27,28 +27,28 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModEntityTypes {
     public static final EntityType<Boat> SPEEDRUNNER_BOAT = register("speedrunner_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.SPEEDRUNNER_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.SPEEDRUNNER_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<Boat> FIREPROOF_SPEEDRUNNER_BOAT = register("fireproof_speedrunner_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> SPEEDRUNNER_CHEST_BOAT = register("speedrunner_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> FIREPROOF_SPEEDRUNNER_CHEST_BOAT = register("fireproof_speedrunner_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
@@ -56,70 +56,70 @@ public class ModEntityTypes {
                     .clientTrackingRange(10));
 
     public static final EntityType<Boat> DEAD_SPEEDRUNNER_BOAT = register("dead_speedrunner_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.DEAD_SPEEDRUNNER_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.DEAD_SPEEDRUNNER_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> DEAD_SPEEDRUNNER_CHEST_BOAT = register("dead_speedrunner_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<Boat> CRIMSON_BOAT = register("crimson_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.CRIMSON_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.CRIMSON_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<Boat> FIREPROOF_CRIMSON_BOAT = register("fireproof_crimson_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> CRIMSON_CHEST_BOAT = register("crimson_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.CRIMSON_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.CRIMSON_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> FIREPROOF_CRIMSON_CHEST_BOAT = register("fireproof_crimson_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<Boat> WARPED_BOAT = register("warped_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.WARPED_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.WARPED_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<Boat> FIREPROOF_WARPED_BOAT = register("fireproof_warped_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_WARPED_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_WARPED_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> WARPED_CHEST_BOAT = register("warped_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.WARPED_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.WARPED_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)
                     .clientTrackingRange(10));
 
     public static final EntityType<ChestBoat> FIREPROOF_WARPED_CHEST_BOAT = register("fireproof_warped_chest_boat",
-            EntityType.Builder.of(EntityTypeInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_WARPED_CHEST_BOAT), MobCategory.MISC)
+            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_WARPED_CHEST_BOAT), MobCategory.MISC)
                     .noLootTable()
                     .sized(1.375F, 0.5625F)
                     .eyeHeight(0.5625F)

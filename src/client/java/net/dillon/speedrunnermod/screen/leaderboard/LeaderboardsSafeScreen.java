@@ -41,21 +41,21 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
         }).bounds(this.getButtonsMiddle(), height, 100, 20).build());
         this.rightButton = this.addRenderableWidget(Button.builder(ModTexts.IGNORE, (buttonWidget) -> {
             Leaderboards.sendIgnoreWarning();
-            this.minecraft.setScreen(new TitleScreen(false));
+            this.minecraft.gui.setScreen(new TitleScreen(false));
         }).bounds(this.getButtonsRightSide(), height, 100, 20).build());
 
         height += 36;
         this.viewIneligibleOptionsButton = this.addRenderableWidget(Button.builder(ModTexts.VIEW_INELIGIBLE_OPTIONS, (buttonWidget) -> {
             Leaderboards.checkForIneligibleOptions();
-            this.minecraft.setScreen(new LeaderboardsIneligibleOptionsScreen(null));
+            this.minecraft.gui.setScreen(new LeaderboardsIneligibleOptionsScreen(null));
         }).bounds(this.width / 2 - 100, height, 200, 20).build());
 
         this.viewSubmissionPageButton = this.addRenderableWidget(Button.builder(ModTexts.VISIT_SUBMISSION_PAGE, (button) -> {
-            this.minecraft.setScreen(new ConfirmLinkScreen(openInBrowser -> {
+            this.minecraft.gui.setScreen(new ConfirmLinkScreen(openInBrowser -> {
                 if (openInBrowser) {
                     Util.getPlatform().openUri(ModLinks.LEADERBOARDS_SUBMISSION);
                 }
-                this.minecraft.setScreen(this);
+                this.minecraft.gui.setScreen(this);
             }, ModLinks.LEADERBOARDS_SUBMISSION, true));
         }).bounds(this.width / 2 - 100, this.height - 29, 200, 20).build());
     }

@@ -4,22 +4,25 @@ import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-
 public class TimedScreen extends AbstractModScreen {
+    private final Screen parent;
     private final boolean server;
     public int countdown;
+    private boolean canceled;
     private Timer timer;
 
     public TimedScreen(Screen parent, int countdown, boolean server) {
         super(parent, ModTexts.BLANK);
+        this.parent = parent;
         this.countdown = countdown + 1;
         this.server = server;
     }
@@ -29,11 +32,15 @@ public class TimedScreen extends AbstractModScreen {
      */
     @Override
     protected void init() {
+        this.canceled = false;
         this.timer = new Timer();
         this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Minecraft.getInstance().execute(() -> {
+                    if (canceled) {
+                        timer.cancel();
+                    }
                     countdown--;
                     if (countdown <= 0) {
                         timer.cancel();
@@ -42,6 +49,10 @@ public class TimedScreen extends AbstractModScreen {
                 });
             }
         }, 0, 1000);
+
+        this.addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), (buttonWidget) -> {
+            this.onClose();
+        }).bounds(this.getButtonsMiddle() - 27, this.getCustomButtonsHeight(), 150, 20).build());
     }
 
     @Override
@@ -55,7 +66,8 @@ public class TimedScreen extends AbstractModScreen {
 
     @Override
     public void onClose() {
-        warn("Cannot close this screen.");
+        this.minecraft.gui.setScreen(this.minecraft.level == null ? new TitleScreen() : this.parent);
+        this.canceled = true;
     }
 
     /**

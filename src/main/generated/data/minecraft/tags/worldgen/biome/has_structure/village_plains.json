@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "speedrunnermod:speedrunners_wasteland",
+      "required": false
+    },
+    "minecraft:sunflower_plains",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:meadow"
+  ]
+}

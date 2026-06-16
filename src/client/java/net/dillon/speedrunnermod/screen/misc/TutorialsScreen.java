@@ -47,7 +47,7 @@ public class TutorialsScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.bastionRoutesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes"), (button) -> {
-            this.minecraft.setScreen(new BastionRoutesScreen(this.parent));
+            this.minecraft.gui.setScreen(new BastionRoutesScreen(this.parent));
         }).build();
 
         this.netherFortressesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.nether_fortresses"), (button) -> {
@@ -55,7 +55,7 @@ public class TutorialsScreen extends AbstractModScreen {
         }).build();
 
         this.microlensingButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.microlensing"), (button) -> {
-            this.minecraft.setScreen(new MicrolensingScreen(this.parent));
+            this.minecraft.gui.setScreen(new MicrolensingScreen(this.parent));
         }).build();
 
         this.blindTravelButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.blind_travel"), (button) -> {
@@ -135,7 +135,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
     @Override
     public void onClose() {
-        this.minecraft.setScreen(new ResourcesScreen(this.parent));
+        this.minecraft.gui.setScreen(new ResourcesScreen(this.parent));
     }
 
     @Override
@@ -145,7 +145,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
     @Override
     protected boolean shouldRenderVersionText() {
-        return false;
+        return true;
     }
 
     @Override
@@ -198,7 +198,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         public void onClose() {
-            this.minecraft.setScreen(new TutorialsScreen(this.parent));
+            this.minecraft.gui.setScreen(new TutorialsScreen(this.parent));
         }
 
         @Override
@@ -213,7 +213,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         protected boolean shouldRenderVersionText() {
-            return false;
+            return true;
         }
 
         @Override
@@ -257,7 +257,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         public void onClose() {
-            this.minecraft.setScreen(new TutorialsScreen(this.parent));
+            this.minecraft.gui.setScreen(new TutorialsScreen(this.parent));
         }
 
         @Override
@@ -272,7 +272,7 @@ public class TutorialsScreen extends AbstractModScreen {
 
         @Override
         protected boolean shouldRenderVersionText() {
-            return false;
+            return true;
         }
 
         @Override

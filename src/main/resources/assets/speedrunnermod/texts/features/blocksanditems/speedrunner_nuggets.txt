@@ -1,0 +1,8 @@
+### Found in loot chests §oand §r§ffrom mining §cnether §bspeedrunner ores.§f
+
+#### Crafted using §b9 speedrunner ingots.
+
+Acts like a §liron nugget§r§f in any crafting recipe.
+
+!image:textures/gui/features/items/speedrunner_nugget.png scale=.5
+!image:textures/gui/features/recipes/speedrunner_nugget_crafting_recipe.png scale=.3

@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.entity.ModStatuses;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
@@ -16,7 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.Mode;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
@@ -73,7 +72,7 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
                 this.playWorldSound(SoundEvents.BLAZE_AMBIENT, 3.0F, 0.6F, world, player);
                 this.playThrowSound(world, player);
 
-                ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)player, stack);
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
                 player.awardStat(Stats.ITEM_USED.get(this));
                 player.swing(hand, true);
@@ -96,7 +95,7 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof SpawnerBlockEntity) {
                     SpawnerBlockEntity spawnerBlockEntity = (SpawnerBlockEntity) blockEntity;
-                    if (spawnerBlockEntity.getSpawner().getOrCreateDisplayEntity(world, pos).getType() == EntityType.BLAZE) {
+                    if (spawnerBlockEntity.getSpawner().getOrCreateDisplayEntity(world, pos).getType() == EntityTypes.BLAZE) {
                         this.removeObstructions(world, pos);
                         return pos.immutable();
                     }
@@ -115,8 +114,8 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{
+    public Mode[] disabledModes() {
+        return new Mode[]{
                 Mode.BALANCED
         };
     }

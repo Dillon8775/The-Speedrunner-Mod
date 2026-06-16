@@ -20,13 +20,13 @@ import java.util.List;
 public class SpeedrunnerShearsItem extends ShearsItem {
 
     public static Tool createSpeedrunnerShears() {
-        HolderGetter<Block> registryEntryLookup = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
+        HolderGetter<Block> registrationLookup = BuiltInRegistries.acquireBootstrapRegistrationLookup(BuiltInRegistries.BLOCK);
         return new Tool(
                 List.of(
                         Tool.Rule.minesAndDrops(HolderSet.direct(Blocks.COBWEB.builtInRegistryHolder()), 17.0F),
-                        Tool.Rule.overrideSpeed(registryEntryLookup.getOrThrow(BlockTags.LEAVES), 17.0F),
-                        Tool.Rule.overrideSpeed(registryEntryLookup.getOrThrow(BlockTags.WOOL), 7.5F),
-                        Tool.Rule.overrideSpeed(HolderSet.direct(Blocks.VINE.builtInRegistryHolder(), Blocks.GLOW_LICHEN.builtInRegistryHolder()), 2.0F)
+                        Tool.Rule.overrideSpeed(registrationLookup.getOrThrow(BlockTags.SHEARS_EXTREME_BREAKING_SPEED), 17.0F),
+                        Tool.Rule.overrideSpeed(registrationLookup.getOrThrow(BlockTags.SHEARS_MAJOR_BREAKING_SPEED), 7.5F),
+                        Tool.Rule.overrideSpeed(registrationLookup.getOrThrow(BlockTags.SHEARS_MINOR_BREAKING_SPEED), 2.0F)
                 ),
                 1.0F,
                 1,

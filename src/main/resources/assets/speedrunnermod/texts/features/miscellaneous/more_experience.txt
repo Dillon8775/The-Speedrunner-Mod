@@ -1,0 +1,4 @@
+### §aMobs§f and §bores§f drop §amore experience §fbased on if the player has the §b§llooting§r or §d§lfortune §r§f§denchantment on their weapon/tool.
+
+!image:textures/gui/features/screenshots/more_experience_from_mobs.png scale=.11
+!image:textures/gui/features/screenshots/more_experience_from_ores.png scale=.11

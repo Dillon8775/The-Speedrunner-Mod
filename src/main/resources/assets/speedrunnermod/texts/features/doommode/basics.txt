@@ -1,0 +1,7 @@
+### §c§lDoom mode§r§f is a §bspecial mode, §r§fwhich makes the game §c§oextremely difficult §r§fto beat.
+
+### §aMobs §r§fhave §cmore health, §bspeed, §r§fand §cdo more damage.
+
+#### §lEverything§r does §cbasically double damage, §r§fand upon entering §dthe end, §r§fnot only will the §dEnder Dragon§r spawn, but along with a §7Wither§r and a §aGiant (known as §a§lGoliath).
+
+!image:textures/gui/features/gui/difficulty_doom.png

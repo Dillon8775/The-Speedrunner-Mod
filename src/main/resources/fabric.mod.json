@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "speedrunnermod",
-  "version": "1.12.2+mc26.1.2",
+  "version": "${mod_version}+${mc_version}",
   "name": "The Speedrunner Mod",
-  "description": "A mod that makes speedrunning, easier.",
+  "description": "A Fabric mod that makes Minecraft speedrunning, easier.",
   "accessWidener": "speedrunnermod.accessWidener",
   "authors": [
     "Dillon8775",
@@ -41,7 +41,7 @@
   "depends": {
     "fabricloader": ">=0.19.2",
     "fabric-api": "*",
-    "minecraft": ">=26.1",
+    "minecraft": ">=26.2-rc.1",
     "java": ">=25"
   },
   "custom": {

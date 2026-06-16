@@ -1,0 +1,5 @@
+## §bRide §afaster §r§bon §f§lhappy ghasts! §r§6The Golden Speedrunner Harness §brides §a§oeven faster!
+
+!image:textures/gui/features/screenshots/speedrunner_harness.png scale=.12
+!image:textures/gui/features/recipes/speedrunner_harness_crafting_recipe.png scale=.5
+!image:textures/gui/features/recipes/golden_speedrunner_harness_crafting_recipe.png scale=.35

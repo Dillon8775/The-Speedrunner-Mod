@@ -8,10 +8,6 @@
     "minecraft:redstone_block",
     "minecraft:iron_trapdoor",
     "minecraft:coal_block",
-    "minecraft:bell",
-    "speedrunnermod:speedrunner_ore",
-    "speedrunnermod:nether_speedrunner_ore",
-    "speedrunnermod:igneous_ore",
-    "speedrunnermod:nether_igneous_ore"
+    "minecraft:bell"
   ]
 }

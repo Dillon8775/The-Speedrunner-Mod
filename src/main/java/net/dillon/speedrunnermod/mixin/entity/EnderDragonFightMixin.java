@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -44,10 +44,10 @@ public abstract class EnderDragonFightMixin {
             });
         }
         if (isDoomMode()) {
-            WitherBoss witherEntity = EntityType.WITHER.create(this.level, EntitySpawnReason.EVENT);
+            WitherBoss witherEntity = EntityTypes.WITHER.create(this.level, EntitySpawnReason.EVENT);
             witherEntity.snapTo(0.0D, 196.0D, 0.0D, this.level.getRandom().nextFloat() * 360.0F, 0.0F);
             this.level.addFreshEntity(witherEntity);
-            Giant giantEntity = EntityType.GIANT.create(this.level, EntitySpawnReason.EVENT);
+            Giant giantEntity = EntityTypes.GIANT.create(this.level, EntitySpawnReason.EVENT);
             giantEntity.snapTo(0.0D, 96.0D, 0.0D, this.level.getRandom().nextFloat() * 240.0F, 0.0F);
             this.level.addFreshEntity(giantEntity);
         }

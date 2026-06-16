@@ -1,0 +1,3 @@
+## The §6magma cube spawners §fat the bottom of §7treasure bastions §fhave been replaced with §eblaze spawners.
+
+!image:textures/gui/features/screenshots/blaze_spawners_in_bastions.png scale=.14

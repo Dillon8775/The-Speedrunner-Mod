@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#speedrunnermod:speedrunner_tool_materials",
+  "base": "minecraft:golden_nautilus_armor",
+  "result": {
+    "id": "speedrunnermod:golden_speedrunner_nautilus_armor"
+  },
+  "template": "speedrunnermod:golden_upgrade_smithing_template"
+}

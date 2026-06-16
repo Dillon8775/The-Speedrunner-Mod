@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.mixin.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
+import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -44,7 +44,7 @@ public class DropExperienceBlockMixin extends Block {
     @Override
     public InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!world.isClientSide() && itemStack.isCorrectToolForDrops(state) && EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), itemStack) > 0 && options().main.rightClickToRemoveSilkTouch.getCurrentValue()) {
+        if (!world.isClientSide() && itemStack.isCorrectToolForDrops(state) && EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), itemStack) > 0 && options().general.rightClickToRemoveSilkTouch.getCurrentValue()) {
             ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.updateEnchantments(itemStack, builder -> builder.removeIf(enchantmentRegistryEntry -> enchantmentRegistryEntry.is(Enchantments.SILK_TOUCH)));
             EnchantmentHelper.setEnchantments(itemStack, itemEnchantmentsComponent);
             world.playSound(null, pos, SoundEvents.WARDEN_HEARTBEAT, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -69,7 +69,7 @@ public class DropExperienceBlockMixin extends Block {
         if (player != null && EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;
             int i;
-            if (world.getBiome(pos) == ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY) {
+            if (world.getBiome(pos).is(ModBiomes.SPEEDRUNNERS_WASTELAND)) {
                 if (state.is(Blocks.GOLD_ORE)) {
                     f = EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 58;
                     i = 10 + world.getRandom().nextInt(20) + f;

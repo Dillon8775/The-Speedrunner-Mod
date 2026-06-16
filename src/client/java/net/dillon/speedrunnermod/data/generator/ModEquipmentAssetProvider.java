@@ -28,12 +28,39 @@ public class ModEquipmentAssetProvider extends EquipmentAssetProvider {
     }
 
     public static void bootstrap(BiConsumer<ResourceKey<EquipmentAsset>, EquipmentClientInfo> consumer) {
-        consumer.accept(ModEquipmentAssetKeys.SPEEDRUNNER, createHumanoidOnlyModel("speedrunner"));
-        consumer.accept(ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, createHumanoidOnlyModel("golden_speedrunner"));
+        consumer.accept(ModEquipmentAssetKeys.SPEEDRUNNER, createHumanoidAndNautilusArmor("speedrunner"));
+        consumer.accept(ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, createHumanoidAndNautilusArmor("golden_speedrunner"));
+        consumer.accept(ModEquipmentAssetKeys.SPEEDRUNNER_HARDNESS, createHarnessModel("speedrunner_harness"));
+        consumer.accept(ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER_HARDNESS, createHarnessModel("golden_speedrunner_harness"));
     }
 
+    /**
+     * Creates humanoid only armor models.
+     */
+    @Deprecated
     private static EquipmentClientInfo createHumanoidOnlyModel(String id) {
         return EquipmentClientInfo.builder().addHumanoidLayers(ofSpeedrunnerMod(id)).build();
+    }
+
+    /**
+     * Creates humanoid and nautilus armor models.
+     */
+    private static EquipmentClientInfo createHumanoidAndNautilusArmor(String id) {
+        return EquipmentClientInfo.builder()
+                .addHumanoidLayers(ofSpeedrunnerMod(id))
+                .addLayers(EquipmentClientInfo.LayerType.NAUTILUS_BODY, EquipmentClientInfo.Layer.leatherDyeable(ofSpeedrunnerMod(id), false))
+                .build();
+    }
+
+    /**
+     * Creates harness models.
+     */
+    private static EquipmentClientInfo createHarnessModel(String id) {
+        return EquipmentClientInfo.builder()
+                .addLayers(
+                        EquipmentClientInfo.LayerType.HAPPY_GHAST_BODY,
+                        EquipmentClientInfo.Layer.onlyIfDyed(ofSpeedrunnerMod(id), false))
+                .build();
     }
 
     @Override

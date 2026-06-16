@@ -32,5 +32,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/vindicator"
 }

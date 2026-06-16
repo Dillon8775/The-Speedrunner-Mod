@@ -60,9 +60,9 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
         this.rightButton = this.addRenderableWidget(Button.builder(ModTexts.IGNORE, (buttonWidget) -> {
             Leaderboards.sendIgnoreWarning();
             if (needsRestart && !needsRestartFromEnablingLeaderboardsMode) {
-                this.minecraft.setScreen(new RestartRequiredScreen(this.parent));
+                this.minecraft.gui.setScreen(new RestartRequiredScreen(this.parent));
             } else {
-                this.minecraft.setScreen(new MainScreen(this.parent));
+                this.minecraft.gui.setScreen(new MainScreen(this.parent));
             }
         }).bounds(this.getButtonsRightSide(), this.getButtonsHeight(), 100, 20).build());
 
@@ -71,15 +71,15 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
             this.viewIneligibleOptionsButton = this.addRenderableWidget(Button.builder(ModTexts.VIEW_INELIGIBLE_OPTIONS, (buttonWidget) -> {
                 LeaderboardsIneligibleOptionsScreen.fromInitialBoot = false;
                 Leaderboards.checkForIneligibleOptions();
-                this.minecraft.setScreen(new LeaderboardsIneligibleOptionsScreen(this.parent));
+                this.minecraft.gui.setScreen(new LeaderboardsIneligibleOptionsScreen(this.parent));
             }).bounds(this.width / 2 - 100, height, 200, 20).build());
 
             this.visitSubmissionPageButton = this.addRenderableWidget(Button.builder(ModTexts.VISIT_SUBMISSION_PAGE, (button) -> {
-                this.minecraft.setScreen(new ConfirmLinkScreen(openInBrowser -> {
+                this.minecraft.gui.setScreen(new ConfirmLinkScreen(openInBrowser -> {
                     if (openInBrowser) {
                         Util.getPlatform().openUri(ModLinks.LEADERBOARDS_SUBMISSION);
                     }
-                    this.minecraft.setScreen(this);
+                    this.minecraft.gui.setScreen(this);
                 }, ModLinks.LEADERBOARDS_SUBMISSION, true));
             }).bounds(this.width / 2 - 100, this.height - 29, 200, 20).build());
         }
@@ -136,7 +136,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
         Leaderboards.revertChanges();
         saveAllChanges();
         info("Changes reverted.");
-        this.minecraft.setScreen(this.parent);
+        this.minecraft.gui.setScreen(this.parent);
     }
 
     @Override

@@ -2,13 +2,13 @@ package net.dillon.speedrunnermod.mixin.block;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.block.SkullBlockInvoker;
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Giant;
 import net.minecraft.world.item.ItemStack;
@@ -68,7 +68,7 @@ public abstract class SkullBlockMixin extends AbstractSkullBlock implements Skul
             if (bl && pos.getY() >= world.getMinY() && world.getDifficulty() != Difficulty.PEACEFUL) {
                 BlockPattern.BlockPatternMatch result = getGoliathBossPattern().find(world, pos);
                 if (result != null) {
-                    Giant giant = EntityType.GIANT.create(world, EntitySpawnReason.TRIGGERED);
+                    Giant giant = EntityTypes.GIANT.create(world, EntitySpawnReason.TRIGGERED);
                     if (giant != null) {
                         CarvedPumpkinBlock.clearPatternBlocks(world, result);
                         BlockPos blockPos = result.getBlock(1, 2, 0).getPos();

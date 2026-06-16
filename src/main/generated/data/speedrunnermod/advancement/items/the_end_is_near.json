@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "parent": "speedrunnermod:items/the_end_of_the_matter",
   "criteria": {
     "used_item": {
       "conditions": {
@@ -7,7 +7,7 @@
           "items": "speedrunnermod:annul_eye"
         }
       },
-      "trigger": "minecraft:triggered_by_item_criterion"
+      "trigger": "minecraft:itemlike_trigger"
     }
   },
   "display": {

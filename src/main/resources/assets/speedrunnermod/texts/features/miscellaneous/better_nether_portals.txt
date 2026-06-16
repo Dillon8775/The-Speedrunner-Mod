@@ -1,0 +1,3 @@
+## §dNether portals§f can be built with §7obsidian§f§o and §r§5crying obsidian!
+
+!image:textures/gui/features/screenshots/better_nether_portals.png scale=.14

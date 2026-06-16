@@ -13,6 +13,8 @@ import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -37,49 +40,53 @@ public class DoomBlock {
      * Does... stuff.
      */
     private static void whenBroken(Level world, BlockPos pos, Player player) {
+        if (player.getMainHandItem().is(ModItemTags.DOOM_STONE_SAFE_TOOLS) && EnchantmentHelper.getEnchantmentLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), player) > 0) {
+            return;
+        }
+
         if (!player.getAbilities().instabuild && !player.getMainHandItem().is(ModItemTags.DOOM_STONE_SAFE_TOOLS) && !player.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             if (world.getRandom().nextFloat() < 0.50F) {
                 world.setBlockAndUpdate(pos, Blocks.LAVA.defaultBlockState());
             }
 
             List<EntityType<?>> possibleEntities = List.of(
-                    EntityType.ZOMBIE,
-                    EntityType.VINDICATOR,
-                    EntityType.RAVAGER,
-                    EntityType.PIGLIN_BRUTE,
-                    EntityType.GHAST
+                    EntityTypes.ZOMBIE,
+                    EntityTypes.VINDICATOR,
+                    EntityTypes.RAVAGER,
+                    EntityTypes.PIGLIN_BRUTE,
+                    EntityTypes.GHAST
             );
             if (world.getRandom().nextFloat() < 0.35F) {
-                Mob entity = EntityType.ZOMBIE.create(world, EntitySpawnReason.MOB_SUMMONED);
+                Mob entity = EntityTypes.ZOMBIE.create(world, EntitySpawnReason.MOB_SUMMONED);
                 EntityType<?> entityType = possibleEntities.get(ModUtil.randomIntInclusive(0, possibleEntities.size() - 1));
-                if (entityType == EntityType.VINDICATOR) {
-                    entity = EntityType.VINDICATOR.create(world, EntitySpawnReason.MOB_SUMMONED);
+                if (entityType == EntityTypes.VINDICATOR) {
+                    entity = EntityTypes.VINDICATOR.create(world, EntitySpawnReason.MOB_SUMMONED);
                     ItemStack axe = new ItemStack(Items.IRON_AXE);
                     axe.setDamageValue(world.getRandom().nextInt(100));
                     entity.setItemSlot(EquipmentSlot.MAINHAND, axe);
-                } else if (entityType == EntityType.RAVAGER) {
-                    entity = EntityType.RAVAGER.create(world, EntitySpawnReason.MOB_SUMMONED);
-                } else if (entityType == EntityType.PIGLIN_BRUTE) {
-                    entity = EntityType.PIGLIN_BRUTE.create(world, EntitySpawnReason.MOB_SUMMONED);
+                } else if (entityType == EntityTypes.RAVAGER) {
+                    entity = EntityTypes.RAVAGER.create(world, EntitySpawnReason.MOB_SUMMONED);
+                } else if (entityType == EntityTypes.PIGLIN_BRUTE) {
+                    entity = EntityTypes.PIGLIN_BRUTE.create(world, EntitySpawnReason.MOB_SUMMONED);
                     ItemStack axe = new ItemStack(Items.GOLDEN_AXE);
                     axe.setDamageValue(world.getRandom().nextInt(24));
                     entity.setItemSlot(EquipmentSlot.MAINHAND, axe);
                     if (entity instanceof PiglinBrute brute) {
                         brute.setImmuneToZombification(true);
                     }
-                } else if (entityType == EntityType.GHAST) {
-                    entity = EntityType.GHAST.create(world, EntitySpawnReason.MOB_SUMMONED);
+                } else if (entityType == EntityTypes.GHAST) {
+                    entity = EntityTypes.GHAST.create(world, EntitySpawnReason.MOB_SUMMONED);
                 }
                 entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, ModUtil.secondsAsTicks(30), 0, false, true, false));
                 entity.snapTo(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, world.getRandom().nextFloat() * 360.0F, 0.0F);
-                for (int i = 0; i < (entityType == EntityType.ZOMBIE ? 3 : 1); i++) {
+                for (int i = 0; i < (entityType == EntityTypes.ZOMBIE ? 3 : 1); i++) {
                     world.addFreshEntity(entity);
                 }
             }
         } else if (!player.getAbilities().instabuild) {
-            if (world.getRandom().nextFloat() < ModUtil.randomFloatInclusive(0.22F, 0.32F) && world instanceof ServerLevel serverLevel) {
+            if (world.getRandom().nextFloat() < ModUtil.randomFloatInclusive(0.12F, 0.16F) && world instanceof ServerLevel serverLevel) {
                 LootParams.Builder lootParams = new LootParams.Builder(serverLevel)
-                        .withParameter(LootContextParams.ORIGIN, pos.getCenter())
+                        .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
                         .withParameter(LootContextParams.BLOCK_STATE, world.getBlockState(pos))
                         .withOptionalParameter(LootContextParams.THIS_ENTITY, player)
                         .withOptionalParameter(LootContextParams.TOOL, player.getMainHandItem());
@@ -97,7 +104,7 @@ public class DoomBlock {
      */
     private static void fallDamage(Entity entity, double fallDistance) {
         float fallDamage;
-        if (!options().main.fallDamage.getCurrentValue()) {
+        if (!options().general.fallDamage.getCurrentValue()) {
             fallDamage = 0.0F;
         } else {
             fallDamage = isDoomMode() ? 1.15F : 1.0F;
@@ -151,7 +158,7 @@ public class DoomBlock {
     protected static class Leaves extends TintedParticleLeavesBlock {
 
         protected Leaves(Properties settings) {
-            super(0.01F, settings);
+            super(0.00F, settings);
         }
 
         @Override

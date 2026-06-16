@@ -29,7 +29,7 @@ public class FirechargeItemMixin extends Item {
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void throwFireballWhenShifting(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = context.getPlayer();
-        if (options().main.throwableFireballs.getCurrentValue()) {
+        if (options().general.throwableFireballs.getCurrentValue()) {
             if (!options().advanced.shiftToThrowFireball.getCurrentValue()) {
                 this.throwAndSetReturnValue(context, player, cir);
             } else {
@@ -45,7 +45,7 @@ public class FirechargeItemMixin extends Item {
      */
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
-        if (options().main.throwableFireballs.getCurrentValue()) {
+        if (options().general.throwableFireballs.getCurrentValue()) {
             return this.throwFireball(world, player, hand);
         }
         return super.use(world, player, hand);

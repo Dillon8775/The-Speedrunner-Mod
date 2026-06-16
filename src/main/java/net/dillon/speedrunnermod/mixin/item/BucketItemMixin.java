@@ -17,6 +17,6 @@ public abstract class BucketItemMixin {
      */
     @Redirect(method = "emptyContents", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Fluid;is(Lnet/minecraft/tags/TagKey;)Z"))
     private boolean allowWaterInNether(Fluid instance, TagKey<Fluid> tag) {
-        return !options().main.netherWater.getCurrentValue();
+        return !options().worldGen.netherWater.getCurrentValue();
     }
 }

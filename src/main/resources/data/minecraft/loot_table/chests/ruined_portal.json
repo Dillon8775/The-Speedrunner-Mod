@@ -338,5 +338,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:chests/ruined_portal"
 }

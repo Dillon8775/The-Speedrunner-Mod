@@ -1,5 +1,8 @@
 {
   "values": [
-    "#minecraft:axes"
+    {
+      "id": "#minecraft:axes",
+      "required": false
+    }
   ]
 }

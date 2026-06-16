@@ -1,0 +1,3 @@
+### The §bmod§f comes with a new built-in panorama!
+
+!image:textures/gui/features/gui/custom_panorama.png scale=.14

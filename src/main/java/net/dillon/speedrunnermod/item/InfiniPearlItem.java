@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.enchantment.ModEnchantments;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -68,7 +68,7 @@ public class InfiniPearlItem extends EnderpearlItem implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{};
+    public Mode[] disabledModes() {
+        return new Mode[]{};
     }
 }

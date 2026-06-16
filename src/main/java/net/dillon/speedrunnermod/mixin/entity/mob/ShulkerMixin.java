@@ -6,6 +6,7 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.golem.AbstractGolem;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
@@ -63,7 +64,7 @@ public abstract class ShulkerMixin extends AbstractGolem {
         } else {
             if (source.is(DamageTypeTags.IS_PROJECTILE)) {
                 entity2 = source.getDirectEntity();
-                if (entity2 != null && entity2.getType() == EntityType.SHULKER_BULLET) {
+                if (entity2 != null && entity2.getType() == EntityTypes.SHULKER_BULLET) {
                     this.hitByShulkerBullet();
                 }
             }

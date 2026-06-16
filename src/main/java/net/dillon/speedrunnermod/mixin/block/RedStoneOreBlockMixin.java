@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.block;
 
 import net.dillon.speedrunnermod.util.ModUtil;
-import net.dillon.speedrunnermod.world.biome.ModBiomeKeys;
+import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
@@ -34,7 +34,7 @@ public class RedStoneOreBlockMixin extends Block {
         if (player != null && EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;
             int i;
-            if (world.getBiome(pos) == ModBiomeKeys.SPEEDRUNNERS_WASTELAND_KEY) {
+            if (world.getBiome(pos).is(ModBiomes.SPEEDRUNNERS_WASTELAND)) {
                 if (state.is(Blocks.REDSTONE_ORE)) {
                     f = EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 52;
                     i = 4 + world.getRandom().nextInt(11) + f;

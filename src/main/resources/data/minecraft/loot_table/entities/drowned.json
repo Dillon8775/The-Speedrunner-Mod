@@ -66,5 +66,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/drowned"
 }

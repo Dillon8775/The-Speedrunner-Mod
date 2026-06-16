@@ -107,5 +107,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/zombified_piglin"
 }

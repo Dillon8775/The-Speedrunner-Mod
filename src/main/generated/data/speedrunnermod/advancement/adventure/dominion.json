@@ -8,7 +8,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "minecraft:ender_dragon"
+              "minecraft:entity_type": "minecraft:ender_dragon"
             }
           }
         ]
@@ -22,7 +22,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "minecraft:giant"
+              "minecraft:entity_type": "minecraft:giant"
             }
           }
         ]
@@ -36,7 +36,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "minecraft:warden"
+              "minecraft:entity_type": "minecraft:warden"
             }
           }
         ]
@@ -50,7 +50,7 @@
             "condition": "minecraft:entity_properties",
             "entity": "this",
             "predicate": {
-              "type": "minecraft:wither"
+              "minecraft:entity_type": "minecraft:wither"
             }
           }
         ]

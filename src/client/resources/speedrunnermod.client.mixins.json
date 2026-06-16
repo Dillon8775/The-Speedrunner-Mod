@@ -4,6 +4,7 @@
   "plugin": "net.dillon.speedrunnermod.mixin.client.plugin.ClientConditionalMixinPlugin",
   "compatibilityLevel": "JAVA_25",
   "client": [
+    "GuiMixin",
     "MinecraftMixin",
     "OptionInstanceMixin",
     "fix.AbstractClientPlayerMixin",
@@ -11,7 +12,7 @@
     "fix.ItemInHandRendererMixin",
     "network.ClientPacketListenerMixin",
     "render.FogRendererMixin",
-    "render.GuiMixin",
+    "render.HudMixin",
     "render.LavaFogEnvironmentMixin",
     "render.LevelEventHandlerMixin",
     "render.SpecialModelRenderersMixin",
@@ -21,10 +22,10 @@
     "screen.CreateWorldScreenMixin",
     "screen.DeathScreenMixin",
     "screen.LogoRendererMixin",
-    "screen.OptionsScreenMixin",
     "screen.PauseScreenMixin",
     "screen.TitleScreenMixin",
-    "screen.WinScreenMixin"
+    "screen.WinScreenMixin",
+    "screen.WorldOptionsScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

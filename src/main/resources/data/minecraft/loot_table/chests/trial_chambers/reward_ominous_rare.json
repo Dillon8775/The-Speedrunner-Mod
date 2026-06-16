@@ -58,9 +58,7 @@
             {
               "function": "minecraft:enchant_with_levels",
               "levels": 27,
-              "options": [
-                "#speedrunnermod:on_random_speedrunner_loot"
-              ]
+              "options": "#speedrunnermod:on_random_speedrunner_loot"
             }
           ],
           "name": "minecraft:book",

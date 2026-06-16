@@ -1,0 +1,5 @@
+### Basically §aeverything§f drops §bx3 more §fof what it would normally drop.
+
+#### This includes §aexperience from ores and mobs,§f §1mob drops,§f and more!
+
+!image:textures/gui/features/screenshots/tripled_drops.png scale=.14

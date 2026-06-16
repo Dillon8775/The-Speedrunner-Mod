@@ -10,6 +10,7 @@ import net.dillon.speedrunnermod.network.server.MatchServerOptionsWithClientC2SP
 import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
 import net.dillon.speedrunnermod.util.ModTexts;
@@ -41,7 +42,7 @@ public class ClientModPackets {
         PayloadTypeRegistry.clientboundPlay().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
-            if (options().main.mode.getCurrentValue() != packet.serverSideMode()) {
+            if (options().general.mode.getCurrentValue() != packet.serverSideMode()) {
                 context.client().getConnection().getConnection().disconnect(ModTexts.MODE_DOESNT_MATCH_SERVER_SETTING);
                 context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()), false, false);
             }
@@ -70,6 +71,7 @@ public class ClientModPackets {
 
         ClientPlayNetworking.registerGlobalReceiver(OpenFeaturesScreenS2CPacket.PACKET, (payload, context) -> {
             context.player().swing(InteractionHand.MAIN_HAND, true);
+            context.client().gui.setScreen(new FeaturesScreen(null));
         });
     }
 
@@ -140,7 +142,7 @@ public class ClientModPackets {
     public static void syncFwc(Minecraft client, int delayTicks) {
         IntegratedServer integratedServer = client.getSingleplayerServer();
         if (integratedServer != null) {
-            integratedServer.getPlayerList().setAllowCommandsForAllPlayers(clientOptions().client.allowCheats.getCurrentValue());
+            integratedServer.getPlayerList().setAllowCommandsForAllPlayers(clientOptions().client.allowCommands.getCurrentValue());
             PermissionSet permissionPredicate = integratedServer.getProfilePermissions(client.player.nameAndId());
             client.player.setPermissions(permissionPredicate);
 

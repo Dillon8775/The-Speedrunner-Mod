@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
-import net.dillon.speedrunnermod.mixin.entity.goliath.GoliathEntity;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -12,7 +11,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * See {@link GoliathEntity} for more.
+ * See {@link net.dillon.speedrunnermod.mixin.entity.goliath.Goliath} for more.
  */
 public interface Goliath {
 

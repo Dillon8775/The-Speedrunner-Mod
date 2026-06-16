@@ -270,7 +270,7 @@
         {
           "type": "minecraft:item",
           "name": "speedrunnermod:ender_matter",
-          "weight": 8,
+          "weight": 10,
           "conditions": [
             {
               "condition": "minecraft:killed_by_player"

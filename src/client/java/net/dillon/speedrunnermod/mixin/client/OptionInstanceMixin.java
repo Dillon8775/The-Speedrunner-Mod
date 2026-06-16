@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -32,17 +31,19 @@ public class OptionInstanceMixin {
     @Shadow @Final @Mutable
     private Codec<Double> codec;
     @Shadow @Final @Mutable
-    private Consumer<Double> onValueUpdate;
+    private OptionInstance.ValueUpdateListener<? super Double> onValueUpdate;
 
     @Inject(at = @At("RETURN"), method = "<init>*")
     private void init(CallbackInfo info) {
         ComponentContents content = this.caption.getContents();
-        if (!(content instanceof TranslatableContents))
+        if (!(content instanceof TranslatableContents)) {
             return;
+        }
 
         String key = ((TranslatableContents) content).getKey();
-        if (!key.equals("options.gamma"))
+        if (!key.equals("options.gamma")) {
             return;
+        }
 
         this.toString = this::textGetter;
         this.values = IncreasedBrightnessSliderCallbacks.INSTANCE;

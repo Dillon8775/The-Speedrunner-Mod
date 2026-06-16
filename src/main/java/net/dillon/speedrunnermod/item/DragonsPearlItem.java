@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
+import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -61,7 +61,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
                     this.playWorldSound(SoundEvents.ENDER_EYE_LAUNCH, 2.0F, 0.3F, world, player);
                     player.getCooldowns().addCooldown(this.getDefaultInstance(), ModUtil.secondsAsTicks(30));
 
-                    ModCriterions.TRIGGERED_BY_ITEM.trigger((ServerPlayer)player, stack);
+                    ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
                     this.decrementIfPossible(player, stack);
 
@@ -121,9 +121,9 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
     }
 
     @Override
-    public ModOptions.Mode[] disabledModes() {
-        return new ModOptions.Mode[]{
-                ModOptions.Mode.BALANCED
+    public Mode[] disabledModes() {
+        return new Mode[]{
+                Mode.BALANCED
         };
     }
 }

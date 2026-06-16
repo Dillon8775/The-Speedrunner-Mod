@@ -1,6 +1,5 @@
 {
   "type": "speedrunnermod:crafting_piglin_awakener",
-  "category": "misc",
   "group": "piglin_awakener",
   "key": {
     "#": "minecraft:gold_ingot",

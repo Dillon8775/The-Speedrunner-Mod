@@ -20,8 +20,8 @@ public class NetherPortalBlockMixin {
     @Inject(method = "getPortalTransitionTime", at = @At("RETURN"), cancellable = true)
     private void applyNetherPortalDelay(ServerLevel world, Entity entity, CallbackInfoReturnable<Integer> cir) {
         if (entity instanceof Player playerEntity) {
-            if (options().main.netherPortalDelay.getCurrentValue() >= 0) {
-                cir.setReturnValue(playerEntity.getAbilities().invulnerable ? 1 : options().main.netherPortalDelay.getCurrentValue() * 20);
+            if (options().worldGen.netherPortalDelay.getCurrentValue() >= 0) {
+                cir.setReturnValue(playerEntity.getAbilities().invulnerable ? 1 : options().worldGen.netherPortalDelay.getCurrentValue() * 20);
             }
         }
     }

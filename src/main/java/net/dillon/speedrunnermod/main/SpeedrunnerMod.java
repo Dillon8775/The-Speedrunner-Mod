@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.main;
 
-import net.dillon.speedrunnermod.advancement.criterion.ModCriterions;
-import net.dillon.speedrunnermod.block.ModBlockFamilies;
+import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.command.ModCommands;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
@@ -24,7 +23,7 @@ import net.dillon.speedrunnermod.util.ModUtil;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.dillon.speedrunnermod.villager.ModPoiTypes;
 import net.dillon.speedrunnermod.villager.ModVillagers;
-import net.dillon.speedrunnermod.world.ModWorldGen;
+import net.dillon.speedrunnermod.world.ModWorldGeneration;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -42,9 +41,11 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    public static final String MOD_VERSION = "v1.12.2";
-    public static final String MC_VERSION = "26.1.2";
-    public static final String VERSION = "Version: " + MOD_VERSION;
+    public static final String MOD_VERSION = FabricLoader.getInstance()
+            .getModContainer("speedrunnermod")
+            .map(c -> c.getMetadata().getVersion().getFriendlyString().split("\\+", 2)[0])
+            .orElse("unknown");
+    public static final String MC_VERSION = FabricLoader.getInstance().getRawGameVersion();
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
     public static final String OPTIONS_WARNING_MESSAGE = "Found an unusual value in the speedrunner mod settings.";
@@ -64,7 +65,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModParticleTypes.registerParticles();
 
-        ModWorldGen.initializeWorldGenFeatures();
+        ModWorldGeneration.initializeWorldGenFeatures();
 
         ModEntityTypes.initializeEntityTypes();
 
@@ -74,11 +75,10 @@ public class SpeedrunnerMod implements ModInitializer {
         ModPoiTypes.initializeModPois();
         ModVillagers.initializeVillagerProfessions();
 
-        ModCriterions.initializeCriterions();
+        ModPredicates.initializeCriterions();
         ModDataComponentTypes.initializeDataComponents();
 
         ModBlocks.initializeBlocks();
-        ModBlockFamilies.initializeBlockFamilies();
         ModItems.initializeItems();
         ModItemGroups.registerModifiedItemGroups();
 
@@ -125,7 +125,7 @@ public class SpeedrunnerMod implements ModInitializer {
         }
         configHandler().save();
 
-        if (options().main.mode != null && isDoomMode()) {
+        if (options().general.mode != null && isDoomMode()) {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 
@@ -166,14 +166,14 @@ public class SpeedrunnerMod implements ModInitializer {
      * Returns the Speedrunner Mod {@code options.}
      */
     public static ModOptions options() {
-        return ModOptions.OPTIONS.getInstance();
+        return ModOptions.INSTANCE.getInstance();
     }
 
     /**
      * Returns the Speedrunner Mod {@code options handler} (for saving/loading config).
      */
-    public static ModOptions.Handler configHandler() {
-        return ModOptions.OPTIONS;
+    public static ModOptions.ModOptionsHandler configHandler() {
+        return ModOptions.INSTANCE;
     }
 
     /**

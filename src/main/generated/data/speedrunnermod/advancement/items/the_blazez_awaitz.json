@@ -7,7 +7,7 @@
           "items": "speedrunnermod:blaze_spotter"
         }
       },
-      "trigger": "minecraft:triggered_by_item_criterion"
+      "trigger": "minecraft:itemlike_trigger"
     }
   },
   "display": {

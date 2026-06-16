@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.world;
 
-import net.dillon.speedrunnermod.world.ModWorldGen;
+import net.dillon.speedrunnermod.world.ModWorldGeneration;
 import net.minecraft.world.level.levelgen.structure.structures.NetherFortressPieces;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,7 +11,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 
 /**
- * Makes nether fortress smaller and easier to navigate, see {@link ModWorldGen} for more.
+ * Makes nether fortress smaller and easier to navigate, see {@link ModWorldGeneration} for more.
  */
 @Mixin(NetherFortressPieces.class)
 public class NetherFortressPiecesMixin {
@@ -21,7 +21,7 @@ public class NetherFortressPiecesMixin {
     private static  NetherFortressPieces.PieceWeight[] CASTLE_PIECE_WEIGHTS;
 
     static {
-        if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedNetherFortressGeneration.getCurrentValue() && !isBalancedMode()) {
+        if (options().worldGen.customDataGeneration.getCurrentValue() && options().advanced.modifiedNetherFortressGeneration.getCurrentValue() && !isBalancedMode()) {
             BRIDGE_PIECE_WEIGHTS = new NetherFortressPieces.PieceWeight[]{
                     new NetherFortressPieces.PieceWeight(NetherFortressPieces.BridgeStraight.class, 10, 1),
                     new NetherFortressPieces.PieceWeight(NetherFortressPieces.BridgeCrossing.class, 10, 2),

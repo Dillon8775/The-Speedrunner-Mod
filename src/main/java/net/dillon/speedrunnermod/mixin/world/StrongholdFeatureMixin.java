@@ -20,7 +20,7 @@ public abstract class StrongholdFeatureMixin {
      */
     @ModifyArgs(method = "generatePieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/pieces/StructurePiecesBuilder;moveBelowSeaLevel(IILnet/minecraft/util/RandomSource;I)I"))
     private static void changeStrongholdMinAndMaxY(Args args) {
-        if (options().main.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdYGeneration.getCurrentValue()) {
+        if (options().worldGen.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdYGeneration.getCurrentValue()) {
             args.set(1, ModUtil.getStrongholdMinY());
             args.set(0, ModUtil.getStrongholdMaxY());
         }

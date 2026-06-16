@@ -33,7 +33,7 @@ public class ItemInHandRendererMixin {
         return false;
     }
 
-    @Redirect(method = "renderArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 0))
+    @Redirect(method = "submitArmWithItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Ljava/lang/Object;)Z", ordinal = 0))
     private boolean redirectRenderFirstPersonItem(ItemStack stack, Object o) {
         return stack.is(ConventionalItemTags.CROSSBOW_TOOLS);
     }

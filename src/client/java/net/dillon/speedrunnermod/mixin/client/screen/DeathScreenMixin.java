@@ -35,12 +35,12 @@ public class DeathScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z"))
     private void addResetButton(CallbackInfo ci) {
-        if (clientOptions().client.fastWorldCreation.getCurrentValue() &&
+        if (clientOptions().client.instantWorldCreation.getCurrentValue() &&
                 clientOptions().client.showResetButton.getCurrentValue() &&
                 this.minecraft.isLocalServer() && this.minecraft.getCurrentServer() == null) {
             this.exitButtons.add(this.addRenderableWidget(Button.builder(Component.translatable("speedrunnermod.new_run"), button -> {
                 if (this.minecraft.gui != null) {
-                    this.minecraft.gui.getChat().clearMessages(false);
+                    this.minecraft.gui.hud.getChat().clearMessages(false);
                 }
                 this.minecraft.level.disconnect(Component.translatable("menu.savingLevel"));
                 this.minecraft.disconnect(new GenericMessageScreen(Component.translatable("speedrunnermod.menu.generating_new_world")), false, false);
@@ -54,7 +54,7 @@ public class DeathScreenMixin extends Screen {
      */
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void displayDeathCords(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (options().main.showDeathCords.getCurrentValue()) {
+        if (options().general.showDeathCords.getCurrentValue()) {
             context.centeredText(this.font, ModUtil.deathCords(ModUtil.latestDeathCords[0], ModUtil.latestDeathCords[1], ModUtil.latestDeathCords[2]), this.width / 2, 115, CommonColors.WHITE);
         }
     }

@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.CreatureSpawnRate;
 
 import java.util.Map;
 
@@ -28,13 +28,13 @@ public class LoaderMain {
             if (creatureValues.containsKey(mobType)) {
                 Integer[] values = creatureValues.get(mobType);
                 spawner.addProperty("weight", values[0]);
-                if (options().main.creatureSpawnRate.getCurrentValue().equals(ModOptions.CreatureSpawnRate.LOW)) {
+                if (options().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.LOW)) {
                     spawner.addProperty("minCount", values[1]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().main.creatureSpawnRate.getCurrentValue().equals(ModOptions.CreatureSpawnRate.NORMAL)) {
+                } else if (options().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.NORMAL)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().main.creatureSpawnRate.getCurrentValue().equals(ModOptions.CreatureSpawnRate.HIGH)) {
+                } else if (options().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.HIGH)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[3]);
                 }

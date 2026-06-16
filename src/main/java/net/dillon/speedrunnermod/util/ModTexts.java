@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.Mode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
@@ -34,13 +34,16 @@ public class ModTexts {
     public static final Component TITLE = Component.translatable("speedrunnermod.title");
     public static final Component MENU_OPTIONS_ACTION_NEEDED = Component.translatable("speedrunnermod.leaderboards.action_needed");
     public static final Component MENU_OPTIONS_SAFE = Component.translatable("speedrunnermod.leaderboards.safe");
-    public static final Component TITLE_OPTIONS_MAIN = Component.translatable("speedrunnermod.title.options.main");
+    public static final Component TITLE_OPTIONS_GENERAL = Component.translatable("speedrunnermod.title.options.general");
+    public static final Component TITLE_OPTIONS_WORLDGEN = Component.translatable("speedrunnermod.title.options.worldgen");
     public static final Component TITLE_OPTIONS_CLIENT = Component.translatable("speedrunnermod.title.options.client");
     public static final Component MENU_OPTIONS_RESET = Component.translatable("speedrunnermod.menu.options.reset");
     public static final Component TITLE_OPTIONS_RESET = Component.translatable("speedrunnermod.title.options.reset");
     public static final Component MENU_OPTIONS_TOOLTIP = Component.translatable("speedrunnermod.menu.options.tooltip");
-    public static final Component MENU_OPTIONS_MAIN = Component.translatable("speedrunnermod.menu.options.main");
-    public static final Component MENU_OPTIONS_MAIN_TOOLTIP = Component.translatable("speedrunnermod.menu.options.main.tooltip");
+    public static final Component MENU_OPTIONS_MAIN = Component.translatable("speedrunnermod.menu.options.general");
+    public static final Component MENU_OPTIONS_MAIN_TOOLTIP = Component.translatable("speedrunnermod.menu.options.general.tooltip");
+    public static final Component MENU_OPTIONS_WORLDGEN = Component.translatable("speedrunnermod.menu.options.worldgen");
+    public static final Component MENU_OPTIONS_WORLDGEN_TOOLTIP = Component.translatable("speedrunnermod.menu.options.worldgen.tooltip");
     public static final Component MENU_FAST_WORLD_CREATION = Component.translatable("speedrunnermod.menu.options.fast_world_creation");
     public static final Component MENU_FAST_WORLD_CREATION_TOOLTIP = Component.translatable("speedrunnermod.menu.options.fast_world_creation.tooltip");
     public static final Component TITLE_FAST_WORLD_CREATION = Component.translatable("speedrunnermod.title.options.fast_world_creation");
@@ -59,8 +62,8 @@ public class ModTexts {
     public static final Component TITLE_ADVANCED_OPTIONS = Component.translatable("speedrunnermod.title.options.advanced");
     public static final Component MENU_CREDITS = Component.translatable("speedrunnermod.menu.credits");
     public static final Component MENU_CREDITS_TOOLIP = Component.translatable("speedrunnermod.menu.credits.tooltip");
-    public static final Component MENU_EXTERNAL = Component.translatable("speedrunnermod.menu.external").withStyle(ChatFormatting.RED);
-    public static final Component TITLE_EXTERNAL = Component.translatable("speedrunnermod.external");
+    public static final Component MENU_LINKS = Component.translatable("speedrunnermod.menu.links").withStyle(ChatFormatting.GOLD);
+    public static final Component TITLE_LINKS = Component.translatable("speedrunnermod.links");
     public static final Component MENU_FEATURES_TOOLTIP = Component.translatable("speedrunnermod.menu.features.tooltip");
     public static final Component MENU_FEATURES = Component.translatable("speedrunnermod.menu.features").withStyle(ChatFormatting.AQUA);
     public static final Component TITLE_FEATURES = Component.translatable("speedrunnermod.title.features");
@@ -140,10 +143,13 @@ public class ModTexts {
     public static final Component TITLE_FEATURE_DASH_ENCHANTMENT = Component.translatable("speedrunnermod.title.features.tools_and_armor.dash_enchantment");
     public static final Component TITLE_FEATURE_WITHERED_ENCHANTMENT = Component.translatable("speedrunnermod.title.features.tools_and_armor.withered_enchantment");
     public static final Component TITLE_FEATURE_DRAGONS_SWORD = Component.translatable("speedrunnermod.title.features.tools_and_armor.dragons_sword");
+    public static final Component TITLE_FEATURE_SPEEDRUNNER_SPEAR = Component.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_spear");
     public static final Component TITLE_FEATURE_GOLDEN_SPEEDRUNNER_ARMOR = Component.translatable("speedrunnermod.title.features.tools_and_armor.golden_speedrunner_armor");
     public static final Component TITLE_FEATURE_GOLDEN_SMITHING_TEMPLATE = Component.translatable("speedrunnermod.title.features.tools_and_armor.golden_smithing_template");
     public static final Component TITLE_FEATURE_SPEEDRUNNER_ARMOR = Component.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_armor");
     public static final Component TITLE_FEATURE_SPEEDRUNNER_SAFE_BOOTS = Component.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_safe_boots");
+    public static final Component TITLE_FEATURE_SPEEDRUNNER_NAUTILUS_ARMOR = Component.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_nautilus_armor");
+    public static final Component TITLE_FEATURE_SPEEDRUNNER_HARNESS = Component.translatable("speedrunnermod.title.features.tools_and_armor.speedrunner_harness");
 
     // Ores and worldgen feature screens
     public static final Component TITLE_FEATURE_COMMON_ORES = Component.translatable("speedrunnermod.title.features.ores_and_worldgen.common_ores");
@@ -203,12 +209,12 @@ public class ModTexts {
     public static final Component TITLE_FEATURE_DOOM_MODE_OTHER_THINGS_TO_KNOW = Component.translatable("speedrunnermod.title.features.doom_mode.other_things_to_know");
 
     // Socials
-    public static final Component CURSEFORGE = Component.translatable("speedrunnermod.menu.external.curseforge").withStyle(ChatFormatting.GOLD);
-    public static final Component MODRINTH = Component.translatable("speedrunnermod.menu.external.modrinth").withStyle(ChatFormatting.GREEN);
-    public static final Component GITHUB = Component.translatable("speedrunnermod.menu.external.github").withStyle(ChatFormatting.GRAY);
-    public static final Component MOD_SHOWCASE_VIDEO = Component.translatable("speedrunnermod.menu.external.mod_showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE);
-    public static final Component MOD_RELEASE_TRAILER = Component.translatable("speedrunnermod.menu.external.mod_release_trailer").withStyle(ChatFormatting.AQUA);
-    public static final Component MENU_LEADERBOARDS = Component.translatable("speedrunnermod.menu.external.leaderboards").withStyle(ChatFormatting.GREEN);
+    public static final Component CURSEFORGE = Component.translatable("speedrunnermod.menu.links.curseforge").withStyle(ChatFormatting.GOLD);
+    public static final Component MODRINTH = Component.translatable("speedrunnermod.menu.links.modrinth").withStyle(ChatFormatting.GREEN);
+    public static final Component GITHUB = Component.translatable("speedrunnermod.menu.links.github").withStyle(ChatFormatting.GRAY);
+    public static final Component MOD_SHOWCASE_VIDEO = Component.translatable("speedrunnermod.menu.links.mod_showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE);
+    public static final Component MOD_RELEASE_TRAILER = Component.translatable("speedrunnermod.menu.links.mod_release_trailer").withStyle(ChatFormatting.AQUA);
+    public static final Component MENU_LEADERBOARDS = Component.translatable("speedrunnermod.menu.links.leaderboards").withStyle(ChatFormatting.GREEN);
     public static final Component MENU_LEADERBOARDS_DISABLED = Component.translatable("speedrunnermod.menu.leaderboards.disabled");
     public static final Component MENU_LEADERBOARDS_VIEW = Component.translatable("speedrunnermod.menu.leaderboards.view");
     public static final Component MENU_LEADERBOARDS_SPREADSHEET = Component.translatable("speedrunnermod.menu.leaderboards.spreadsheet");
@@ -292,7 +298,7 @@ public class ModTexts {
     /**
      * @return the text for disabled items.
      */
-    public static Component stateOfTheArtItemDisabledTooltip(ModOptions.Mode mode) {
+    public static Component stateOfTheArtItemDisabledTooltip(Mode mode) {
         Component modeText;
         switch (mode) {
             case DOOM -> modeText = Component.literal("doom").withStyle(ChatFormatting.RED);

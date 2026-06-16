@@ -24,9 +24,16 @@ public abstract class AbstractArrowMixin extends Projectile {
         super(type, level);
     }
 
+    /**
+     * Makes beds explode in any dimension other than the overworld.
+     */
     @Inject(method = "onHitBlock", at = @At("TAIL"))
     private void arrowExplodeBed(BlockHitResult hitResult, CallbackInfo ci) {
-        if (options().main.arrowsDestroyBeds.getCurrentValue() && !(this.level().dimension() == Level.OVERWORLD) && hitResult.getType() == HitResult.Type.BLOCK) {
+        if (!options().worldGen.arrowsDestroyBeds.getCurrentValue()) {
+            return;
+        }
+
+        if (!(this.level().dimension() == Level.OVERWORLD) && hitResult.getType() == HitResult.Type.BLOCK) {
             BlockPos blockPos = hitResult.getBlockPos();
             BlockState blockState = this.level().getBlockState(blockPos);
 

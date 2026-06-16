@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "minecraft:cornflower"
+          },
+          "weight": 3
+        },
+        {
+          "data": {
+            "Name": "minecraft:blue_orchid"
+          },
+          "weight": 2
+        },
+        {
+          "data": {
+            "Name": "minecraft:wildflowers",
+            "Properties": {
+              "facing": "north",
+              "flower_amount": "1"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

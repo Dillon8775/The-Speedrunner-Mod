@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_speedrunner_ingot": {
+    "has_speedrunner_planks": {
       "conditions": {
         "items": [
           {
-            "items": "speedrunnermod:speedrunner_ingot"
+            "items": "speedrunnermod:speedrunner_planks"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_speedrunner_ingot"
+      "has_speedrunner_planks"
     ]
   ],
   "rewards": {

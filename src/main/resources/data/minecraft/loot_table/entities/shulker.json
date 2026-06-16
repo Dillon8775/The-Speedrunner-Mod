@@ -17,5 +17,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:entities/shulker"
 }

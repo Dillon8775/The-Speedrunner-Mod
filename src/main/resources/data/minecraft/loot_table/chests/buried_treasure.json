@@ -143,7 +143,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 5,
           "name": "minecraft:tnt",
           "functions": [
             {
@@ -155,6 +155,72 @@
               }
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
+          "name": "speedrunnermod:ender_matter",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:copper_nautilus_armor",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:iron_nautilus_armor",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "speedrunnermod:speedrunner_nautilus_armor",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:golden_nautilus_armor",
+          "weight": 9
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": 1.0,
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:diamond_nautilus_armor",
+          "weight": 7
         }
       ]
     },
@@ -178,5 +244,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:chests/buried_treasure"
 }

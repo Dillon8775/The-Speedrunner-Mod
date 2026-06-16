@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.main;
 
-import net.dillon.speedrunnermod.gui.hud.debug.ModDebugHudEntries;
 import net.dillon.speedrunnermod.keybind.ModKeyMappings;
 import net.dillon.speedrunnermod.network.ClientModPackets;
 import net.dillon.speedrunnermod.option.ClientModOptions;
@@ -10,8 +9,9 @@ import net.dillon.speedrunnermod.particle.ModParticleManager;
 import net.dillon.speedrunnermod.render.ModRenderers;
 import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.screen.ModHandledScreens;
-import net.dillon.speedrunnermod.screen.secretdoommode.AbstractSecretDoomModeScreen;
+import net.dillon.speedrunnermod.screen.ModMenus;
+import net.dillon.speedrunnermod.screen.VersionType;
+import net.dillon.speedrunnermod.screen.feature.secretdoommode.AbstractSecretDoomModeScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screens.Screen;
@@ -43,20 +43,19 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         ModParticleManager.registerDefaults();
         ModRenderers.registerRenderers();
-        ModHandledScreens.registerScreens();
-        ModDebugHudEntries.registerDebugHudEntries();
+        ModMenus.registerScreens();
         ModKeyMappings.initializeKeybinds();
 
         clientConfigHandler().load();
 
-        if (options().main.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
+        if (options().general.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
             speedrunIGTMissing = true;
             warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
         }
 
         // For adding all screens to a list, without having to manually add them all
-        Reflections modScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen", Scanners.SubTypes);
-        Reflections featureScreenDirectory = new Reflections("net.dillon.speedrunnermod.client.screen.feature", Scanners.SubTypes);
+        Reflections modScreenDirectory = new Reflections("net.dillon.speedrunnermod.screen", Scanners.SubTypes);
+        Reflections featureScreenDirectory = new Reflections("net.dillon.speedrunnermod.screen.feature", Scanners.SubTypes);
         Set<Class<? extends AbstractModScreen>> modScreenClasses = modScreenDirectory.getSubTypesOf(AbstractModScreen.class);
         Set<Class<? extends AbstractFeatureScreen>> featureScreenClasses = featureScreenDirectory.getSubTypesOf(AbstractFeatureScreen.class);
 
@@ -108,12 +107,19 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     }
 
     /**
+     * @return the version type for speedrunner mod.
+     */
+    public static VersionType getVersionType() {
+        return VersionType.PATCH;
+    }
+
+    /**
      * Returns the {@code client} Speedrunner Mod {@code options.}
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
 
     public static ClientModOptions clientOptions() {
-        return ClientModOptions.CLIENT_OPTIONS.getInstance();
+        return ClientModOptions.CLIENT_INSTANCE.getInstance();
     }
 
     /**
@@ -121,8 +127,8 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
 
-    public static ClientModOptions.Handler clientConfigHandler() {
-        return ClientModOptions.CLIENT_OPTIONS;
+    public static ClientModOptions.ModClientOptionsHandler clientConfigHandler() {
+        return ClientModOptions.CLIENT_INSTANCE;
     }
 
     /**

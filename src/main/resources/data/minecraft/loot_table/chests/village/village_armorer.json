@@ -72,5 +72,6 @@
         }
       ]
     }
-  ]
+  ],
+  "random_sequence": "minecraft:chests/village/village_armorer"
 }

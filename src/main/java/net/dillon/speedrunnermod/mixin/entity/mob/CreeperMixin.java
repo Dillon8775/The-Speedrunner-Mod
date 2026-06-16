@@ -22,9 +22,9 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 @Mixin(Creeper.class)
 public abstract class CreeperMixin extends Monster {
     @Shadow
-    private int explosionRadius;
-    @Shadow
     public abstract boolean isPowered();
+    @Shadow
+    private int explosionRadius;
 
     public CreeperMixin(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);

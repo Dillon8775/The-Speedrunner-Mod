@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "G": "minecraft:glass",
+    "I": "speedrunnermod:speedrunner_ingot",
+    "L": "minecraft:light_blue_wool"
+  },
+  "pattern": [
+    "III",
+    "GLG"
+  ],
+  "result": {
+    "id": "speedrunnermod:speedrunner_harness"
+  }
+}

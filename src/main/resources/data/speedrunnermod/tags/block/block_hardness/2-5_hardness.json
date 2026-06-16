@@ -21,8 +21,6 @@
     "minecraft:deepslate_brick_wall",
     "minecraft:chiseled_deepslate",
     "minecraft:cracked_deepslate_bricks",
-    "minecraft:cracked_deepslate_tiles",
-    "speedrunnermod:speedrunner_trapdoor",
-    "speedrunnermod:speedrunner_door"
+    "minecraft:cracked_deepslate_tiles"
   ]
 }

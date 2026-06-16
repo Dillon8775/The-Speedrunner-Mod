@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_trapdoor_open",
-  "textures": {
-    "texture": "speedrunnermod:block/dead_wooden_speedrunner_trapdoor"
-  }
-}

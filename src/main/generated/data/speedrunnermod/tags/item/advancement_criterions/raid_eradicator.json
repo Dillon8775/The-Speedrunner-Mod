@@ -1,6 +1,9 @@
 {
   "values": [
-    "#speedrunnermod:totems",
+    {
+      "id": "#speedrunnermod:totems",
+      "required": false
+    },
     "minecraft:enchanted_golden_apple"
   ]
 }
