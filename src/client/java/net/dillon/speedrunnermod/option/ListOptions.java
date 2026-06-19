@@ -420,6 +420,15 @@ public class ListOptions {
         );
     }
 
+    public static OptionInstance<Boolean> abstractClientPlayerMixin() {
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.abstract_client_player_mixin",
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.abstract_client_player_mixin.tooltip")),
+                clientOptions().mixins.abstractClientPlayerMixin,
+                false
+        );
+    }
+
     public static OptionInstance<Boolean> simpleOptionMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.option_instance_mixin",

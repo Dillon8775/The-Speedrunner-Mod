@@ -185,6 +185,15 @@ You can also right-click it to view all features in the mod!
 
 ---
 
+### Speedrunner Harness
+A harness that makes ghasts fly faster.
+
+<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_harness_crafting_recipe.png?raw=true" target="_blank">
+  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_harness_crafting_recipe.png?raw=true" width="228" height="104" alt="Speedrunner harness.">
+</a>
+
+---
+
 ### Raw Speedrunner
 Kind of like raw iron, but it can only be found randomly in the Speedrunner's Wasteland biome. Smelting the raw speedrunner will give you speedrunner ingots.
 
@@ -434,12 +443,10 @@ Piglins now drop food, similar to porkchop.
 ---
 
 ## Fully configurable with different modes and options:
-
 ### The Mode
 The mode determines what features and items are enabled.
 
-There are 3 different types of modes:
-### Easy, Balanced, and Doom.
+There are 3 different modes:
 
 ### Easy Mode
 Easy mode has no limitations and enables *all* speedrunner mod features.
@@ -1353,49 +1360,7 @@ Leaderboards are currently disabled, due to lack of activity.
 ---
 
 # Credits and License
-### [All rights reserved](https://en.wikipedia.org/wiki/All_rights_reserved) unless explicitly stated below.
-
-## Textures and Assets
-
-### [MannyQUESO](https://www.youtube.com/@MannyQUESO)
-- Speedrunner's Edition Logo
-- Speedrunner's Workbench Texture
-- Piglin Awakener Texture
-- Blaze Spotter Texture
-- Raid Eradicator Texture (+me, [Dillon8775](https://www.youtube.com/@dillon8775))
-- Thrusted Block Texture
-
-### Vaplayk
-- Panorama Screen
-
-### [krevikus](https://www.curseforge.com/members/krevikus/projects)
-- Experience Ore Textures
-
-### [Anxietie](https://github.com/Anxietie)
-- Lava Paddling Sound
-
-## Code and Functionality
-
-### [DuncanRuns](https://github.com/DuncanRuns)
-- Original creator of the InfiniPearl™ and iCarus Mod.
-
-### [Anxietie](https://github.com/Anxietie)
-- Fireproof Boats
-
-### [Adam Viola](https://github.com/adamviola)
-- Fullbright
-
-### [MaxenceDC](https://github.com/MaxenceDC)
-- Custom Data Generation
-
-### [Yeleefff](https://github.com/Yeleefff)
-- Speedrunner's Totem Functionality
-
-### [TerraformersMC](https://github.com/TerraformersMC)
-- Custom Signs API
-
-### [ChatGPT](https://chatgpt.com/)
-- Lots of other stuff...
+### [All rights reserved](https://en.wikipedia.org/wiki/All_rights_reserved) unless explicitly stated.
 
 ---
 

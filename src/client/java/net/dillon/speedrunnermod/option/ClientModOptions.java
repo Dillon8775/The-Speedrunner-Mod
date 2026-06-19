@@ -104,6 +104,12 @@ public class ClientModOptions {
         public OptionValue<Boolean> fogMixins = new OptionValue<>(true, true);
 
         /**
+         * Applies fov modifications into the game, for speedrunner bows
+         * <p>Disable this if you are experiencing compatibility issues with other mods..</p>
+         */
+        public OptionValue<Boolean> abstractClientPlayerMixin = new OptionValue<>(true, true);
+
+        /**
          * Applies the simple option mixin into the game, which controls the brightness option slider.
          * <p>Disable this if you are experiencing compatibility issues with other mods, or if you don't want the new brightness slider.</p>
          */

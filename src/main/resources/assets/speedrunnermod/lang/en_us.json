@@ -645,6 +645,8 @@
   "speedrunnermod.options.fog_mixins": "client.render.FogRendererMixin",
   "speedrunnermod.options.fog_mixins.tooltip": "Applies fog changes into the game.\n\nDisable this if you are experiencing compatibility issues with other mods that may also mess with fog settings.",
   "speedrunnermod.options.fog_mixins_must_be_enabled.tooltip": "§l\"Fog Mixins\"§r must be §aenabled§r to modify this option.\n\nSee §amixin options.",
+  "speedrunnermod.options.abstract_client_player_mixin": "client.player.AbstractClientPlayerMixin",
+  "speedrunnermod.options.abstract_client_player_mixin.tooltip": "Applies a fov modification for speedrunner bows to work correctly.\n\nDisable this if you are experiencing compatibility issues with other mods.",
   "speedrunnermod.options.option_instance_mixin": "client.OptionInstanceMixin",
   "speedrunnermod.options.option_instance_mixin.tooltip": "Controls the brightness option slider.\n\nDisable this if you are experiencing compatibility issues with other mods, or if you don't want the new brightness slider.",
   "speedrunnermod.options.logo_renderer_mixin": "client.render.LogoRendererMixin",

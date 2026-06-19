@@ -16,25 +16,25 @@ public class ClientMixinPluginUtil extends AbstractMixinPluginUtil {
             this.setReason("Mod \"Quality of Queso\" is loaded, not applying speedrunner mod's fog function, as Quality of Queso adds this already, with more configuration.");
             return false;
         }
-        if (isQualityOfQuesoLoaded()
+        if (!this.readOptionAsBoolean("mixins", "abstract_client_player_mixin")
                 && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.fix.AbstractClientPlayerMixin")) {
-            this.setReason("Mod \"Quality of Queso\" is loaded, not applying speedrunner mod's FOV effects, as Quality of Queso completely overwrites it.");
+            this.setReason("\"abstract_client_player_mixin\" is disabled.");
             return false;
         }
 
         if (!this.readOptionAsBoolean("mixins", "fog_mixins")
                 && (mixinClassName.equals(FOG_RENDERER_MIXIN) || mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.LavaFogEnvironmentMixin"))) {
-            this.setReason("\"fog_mixins\" function is disabled.");
+            this.setReason("\"fog_mixins\" is disabled.");
             return false;
         }
         if (!this.readOptionAsBoolean("mixins", "option_instance_mixin")
                 && mixinClassName.equals(OPTION_INSTANCE_MIXIN)) {
-            this.setReason("\"option_instance_mixin\" function is disabled.");
+            this.setReason("\"option_instance_mixin\" is disabled.");
             return false;
         }
         if (!this.readOptionAsBoolean("mixins", "logo_renderer_mixin")
                 && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.screen.LogoRendererMixin")) {
-            this.setReason("\"logo_renderer_mixin\" function is disabled.");
+            this.setReason("\"logo_renderer_mixin\" is disabled.");
             return false;
         }
         return true;

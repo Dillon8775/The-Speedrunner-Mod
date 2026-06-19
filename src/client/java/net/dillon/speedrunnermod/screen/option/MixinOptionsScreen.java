@@ -20,6 +20,7 @@ public class MixinOptionsScreen extends AbstractModScreen {
 
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.theEndGatewayBlockEntityMixin()));
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.fogMixins()));
+        this.buttonList.addSingleOptionEntry(createOption(ListOptions.abstractClientPlayerMixin()));
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.simpleOptionMixin()));
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.logoDrawerMixin()));
 

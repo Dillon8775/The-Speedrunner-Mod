@@ -116,13 +116,13 @@
         "type": "minecraft:sheep",
         "maxCount": 8,
         "minCount": 4,
-        "weight": 85
+        "weight": 100
       },
       {
         "type": "minecraft:chicken",
         "maxCount": 8,
         "minCount": 4,
-        "weight": 75
+        "weight": 100
       },
       {
         "type": "minecraft:horse",

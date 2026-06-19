@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import static net.dillon.speedrunnermod.util.ModUtil.isQualityOfQuesoLoaded;
+
 @Mixin(AbstractClientPlayer.class)
 public abstract class AbstractClientPlayerMixin extends Player {
 
@@ -35,6 +37,6 @@ public abstract class AbstractClientPlayerMixin extends Player {
     @ModifyConstant(method = "getFieldOfViewModifier", constant = @Constant(floatValue = 20.0F))
     private float changePullbackTime(float constant) {
         ItemStack heldItem = this.getUseItem();
-        return heldItem.is(ModItems.SPEEDRUNNER_BOW) ? 15.0F : constant;
+        return !isQualityOfQuesoLoaded() && heldItem.is(ModItems.SPEEDRUNNER_BOW) ? 15.0F : constant;
     }
 }

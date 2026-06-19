@@ -1,5 +1,8 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
+import com.llamalad7.mixinextras.expression.Definition;
+import com.llamalad7.mixinextras.expression.Expression;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
@@ -8,15 +11,13 @@ import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.SpriteIconButton;
-import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.social.PlayerSocialManager;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Final;
@@ -26,7 +27,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 
@@ -44,8 +44,10 @@ public class PauseScreenMixin extends Screen {
     /**
      * Adds the reset button to the pause screen.
      */
-    @Inject(method = "createPauseMenu", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/LinearLayout;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;", ordinal = 2), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-    private void addResetWorldButton(CallbackInfo ci, GridLayout gridLayout, GridLayout.RowHelper helper, LinearLayout iconButtonRow, SpriteIconButton reportBugsButton, SpriteIconButton feedbackButton, PlayerSocialManager playerSocialManager) {
+    @Definition(id = "integratedServer", local = @Local(type = IntegratedServer.class, name = "integratedServer"))
+    @Expression("integratedServer = ?")
+    @Inject(method = "createPauseMenu", at = @At("MIXINEXTRAS:EXPRESSION"))
+    private void addResetWorldButton(CallbackInfo ci, @Local(name = "iconButtonRow") LinearLayout iconButtonRow) {
         if (!this.showPauseMenu || !clientOptions().client.showResetButton.getCurrentValue()) {
             return;
         }
@@ -91,22 +93,24 @@ public class PauseScreenMixin extends Screen {
      */
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void renderSpeedrunnerModButtonTextures(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (this.showPauseMenu) {
-            ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton);
-
-            context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/gui/speedrunner_mod.png"), this.width / 2 - 4 - 58 - 2, this.height / 4 - 26 + 2, 0.0F, 0.0F, 129, 16, 129, 16);
-
-            if (clientOptions().client.showResetButton.getCurrentValue()) {
-                context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-            }
-
-            ClientModUtil.renderModIcon(context, this.optionsButton);
-            if (this.restartButton != null) {
-                ClientModUtil.renderSyncIcon(context, this.restartButton);
-            }
-
-            this.renderTooltips(context, mouseX, mouseY);
+        if (!this.showPauseMenu) {
+            return;
         }
+
+        ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton);
+
+        context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/gui/speedrunner_mod.png"), this.width / 2 - 4 - 58 - 2, this.height / 4 - 26 + 2, 0.0F, 0.0F, 129, 16, 129, 16);
+
+        if (clientOptions().client.showResetButton.getCurrentValue()) {
+            context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
+        }
+
+        ClientModUtil.renderModIcon(context, this.optionsButton);
+        if (this.restartButton != null) {
+            ClientModUtil.renderSyncIcon(context, this.restartButton);
+        }
+
+        this.renderTooltips(context, mouseX, mouseY);
     }
 
     /**

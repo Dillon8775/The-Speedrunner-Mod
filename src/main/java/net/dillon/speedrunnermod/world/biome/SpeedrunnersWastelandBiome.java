@@ -112,8 +112,8 @@ public class SpeedrunnersWastelandBiome {
     public static void addSpeedrunnersWastelandFarmAnimals(final MobSpawnSettings.Builder builder) {
         builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.COW, 4, 8));
         builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.PIG, 4, 8));
-        builder.addSpawn(MobCategory.CREATURE, 85, new MobSpawnSettings.SpawnerData(EntityTypes.SHEEP, 4, 8));
-        builder.addSpawn(MobCategory.CREATURE, 75, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 8));
+        builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SHEEP, 4, 8));
+        builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 8));
         builder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.HORSE, 2, 6));
         builder.addSpawn(MobCategory.CREATURE, 20, new MobSpawnSettings.SpawnerData(EntityTypes.DONKEY, 2, 3));
         builder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.SNIFFER, 1, 1));

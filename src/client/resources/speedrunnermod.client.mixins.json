@@ -1,8 +1,12 @@
 {
   "required": true,
+  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.4"
+  },
+  "compatibilityLevel": "JAVA_25",
   "package": "net.dillon.speedrunnermod.mixin.client",
   "plugin": "net.dillon.speedrunnermod.mixin.client.plugin.ClientConditionalMixinPlugin",
-  "compatibilityLevel": "JAVA_25",
   "client": [
     "GuiMixin",
     "MinecraftMixin",
