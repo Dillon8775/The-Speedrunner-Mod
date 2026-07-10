@@ -1,0 +1,10 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:leaves",
+      "required": false
+    },
+    "minecraft:snow_block",
+    "minecraft:vine"
+  ]
+}

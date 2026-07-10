@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.data.generator;
 
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.tag.ModTradeTags;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.villager.ModTrades;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -24,26 +24,27 @@ public class ModTradeTagProvider extends FabricTagsProvider<VillagerTrade> {
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        this.tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_1)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_1_BOOK)
+        tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_1)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_1_EMERALD)
                 .add(ModTrades.RETIRED_SPEEDRUNNER_1_ENCHANTED_BOOK);
 
-        this.tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_2)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_2_EMERALD)
+        tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_2)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_2_GOLDEN_APPLE)
                 .add(ModTrades.RETIRED_SPEEDRUNNER_2_GOLDEN_UPGRADE_SMITHING_TEMPLATE);
 
-        this.tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_3)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_3_POTION)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_3_OMINOUS_BOTTLE);
+        tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_3)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_3_SPEEDRUNNER_HARNESS)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_3_SPEEDRUNNER_NAUTILUS_ARMOR)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_3_ENCHANTED_GOLDEN_APPLE);
 
-        this.tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_4)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_4_GOLDEN_APPLE)
+        tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_4)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_4_DRAGONS_FIREBALL)
                 .add(ModTrades.RETIRED_SPEEDRUNNER_4_ENCHANTED_BOOK)
                 .add(ModTrades.RETIRED_SPEEDRUNNER_4_INFINI_PEARL);
 
-        this.tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_5)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_5_NETHERITE_UPGRADE_SMITHING_TEMPLATE)
-                .add(ModTrades.RETIRED_SPEEDRUNNER_5_DRAGONS_AURA)
+        tag(ModTradeTags.RETIRED_SPEEDRUNNER_LEVEL_5)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_5_SPECIAL_ARROW)
+                .add(ModTrades.RETIRED_SPEEDRUNNER_5_SPECIAL_POTION)
                 .add(ModTrades.RETIRED_SPEEDRUNNER_5_NETHERITE_CHESTPLATE);
     }
 }

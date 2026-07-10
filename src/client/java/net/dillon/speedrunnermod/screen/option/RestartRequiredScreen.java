@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.screen.option;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.screen.FeatureScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -43,8 +43,8 @@ public class RestartRequiredScreen extends AbstractModScreen {
             revertChanges();
             info("Changes reverted.");
             this.minecraft.gui.setScreen(this.parent);
-            if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
-                this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
+            if (this.parent instanceof FeatureScreen featureScreen) {
+                featureScreen.refreshFeatureScreen(featureScreen.getPageNumber(), featureScreen.featurePage.getCategory());
             }
         }).bounds(this.getButtonsMiddle(), this.getButtonsHeight(), 100, 20).build());
         this.addRenderableWidget(Button.builder(ModTexts.NOT_NOW, (buttonWidget) -> {
@@ -57,8 +57,8 @@ public class RestartRequiredScreen extends AbstractModScreen {
         saveAllChanges();
         restartRequired = true;
         this.minecraft.gui.setScreen(this.parent);
-        if (this.parent instanceof AbstractFeatureScreen abstractFeatureScreen) {
-            this.refreshFeatureScreen(abstractFeatureScreen.getPageNumber(), abstractFeatureScreen.getScreenCategory());
+        if (this.parent instanceof FeatureScreen featureScreen) {
+            featureScreen.refreshFeatureScreen(featureScreen.getPageNumber(), featureScreen.featurePage.getCategory());
         }
         super.onClose();
     }

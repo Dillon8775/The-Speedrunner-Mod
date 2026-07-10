@@ -1,20 +1,34 @@
 {
-  "anvil_cost": 6,
+  "anvil_cost": 3,
   "description": {
     "translate": "enchantment.speedrunnermod.withered"
   },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 1.0,
+          "per_level_above_first": 1.0
+        },
+        "attribute": "speedrunnermod:withered_effect",
+        "id": "speedrunnermod:withered_effect_withered_enchantment",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
-    "base": 2,
-    "per_level_above_first": 5
+    "base": 23,
+    "per_level_above_first": 4
   },
   "max_level": 5,
   "min_cost": {
     "base": 1,
-    "per_level_above_first": 2
+    "per_level_above_first": 10
   },
   "slots": [
     "mainhand"
   ],
   "supported_items": "#minecraft:swords",
-  "weight": 9
+  "weight": 4
 }

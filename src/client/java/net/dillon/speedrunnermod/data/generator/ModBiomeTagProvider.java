@@ -31,29 +31,29 @@ public class ModBiomeTagProvider extends FabricTagsProvider<Biome> {
     @Override
     protected void addTags(HolderLookup.Provider registries) {
         tag(BiomeTags.ALLOWS_SURFACE_SLIME_SPAWNS)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND);
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND);
 
         tag(BiomeTags.HAS_MINESHAFT)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND);
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND);
 
         tag(BiomeTags.HAS_RUINED_PORTAL_DESERT)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND);
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND);
 
         tag(BiomeTags.HAS_RUINED_PORTAL_MOUNTAIN)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND);
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND);
 
         tag(BiomeTags.HAS_RUINED_PORTAL_STANDARD)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND);
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND);
 
         tag(BiomeTags.HAS_VILLAGE_PLAINS)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND)
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND)
                 .add(Biomes.SUNFLOWER_PLAINS)
                 .add(Biomes.FOREST)
                 .add(Biomes.FLOWER_FOREST)
                 .add(Biomes.MEADOW);
 
         tag(BiomeTags.HAS_VILLAGE_TAIGA)
-                .addOptional(ModBiomes.SPEEDRUNNERS_WASTELAND)
+                .add(ModBiomes.SPEEDRUNNERS_WASTELAND)
                 .add(Biomes.WINDSWEPT_HILLS);
     }
 }

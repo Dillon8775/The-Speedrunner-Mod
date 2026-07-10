@@ -31,7 +31,7 @@
               "type": "minecraft:model",
               "model": "speedrunnermod:item/speedrunner_crossbow_pulling_1"
             },
-            "threshold": 0.58
+            "threshold": 0.5
           },
           {
             "model": {

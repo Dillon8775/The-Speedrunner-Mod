@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
@@ -26,10 +27,10 @@ public abstract class HoglinMixin extends Animal {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeHoglinAttributes(EntityType<? extends Hoglin> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyMaxHealth(this, isDoomMode() ? 60.0D : 25.0D);
-        ModUtil.modifyKnockbackResistance(this, isDoomMode() ? 0.7000000238518589D : 0.6000000238418579D);
-        ModUtil.modifyAttackKnockback(this, isDoomMode() ? 1.2D : 0.5D);
-        ModUtil.modifyAttackDamage(this, isDoomMode() ? 8.0D : 4.0D);
+        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 60.0D : 25.0D);
+        ModAttributeHelper.modifyKnockbackResistance(this, isDoomMode() ? 0.7000000238518589D : 0.6000000238418579D);
+        ModAttributeHelper.modifyAttackKnockback(this, isDoomMode() ? 1.2D : 0.5D);
+        ModAttributeHelper.modifyAttackDamage(this, isDoomMode() ? 8.0D : 4.0D);
     }
 
     /**
@@ -38,7 +39,7 @@ public abstract class HoglinMixin extends Animal {
     @Inject(method = "getBaseExperienceReward", at = @At("HEAD"))
     private void modifyExperienceToDrop(ServerLevel world, CallbackInfoReturnable<Integer> cir) {
         if (this.getLastHurtByMob() != null) {
-            this.xpReward = ModUtil.modifyExperiencePoints(this, this.getLastHurtByMob(), 5, 36);
+            this.xpReward = ModHelper.modifyDroppedExperiencePoints(this, this.getLastHurtByMob(), 5, 36);
         }
     }
 }

@@ -1,19 +1,16 @@
 package net.dillon.speedrunnermod.screen.feature.miscellaneous;
 
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
-public class WaterInNetherScreen extends AbstractFeatureScreen {
+public class WaterInNetherScreen extends DefaultMiscellaneousFeatureFactory {
 
-    public WaterInNetherScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_WATER_IN_NETHER);
+    public WaterInNetherScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
@@ -24,20 +21,5 @@ public class WaterInNetherScreen extends AbstractFeatureScreen {
             options().worldGen.netherWater.set(!options().worldGen.netherWater.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
-    }
-
-    @Override
-    public @NotNull String linesKey() {
-        return "water_in_nether";
-    }
-
-    @Override
-    public @NotNull ScreenCategory getScreenCategory() {
-        return ScreenCategory.MISCELLANEOUS;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.DEFAULT;
     }
 }

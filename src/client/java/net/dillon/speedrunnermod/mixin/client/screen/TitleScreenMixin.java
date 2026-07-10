@@ -1,17 +1,16 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
 import net.dillon.speedrunnermod.util.ClientModUtil;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -57,9 +56,9 @@ public class TitleScreenMixin extends Screen {
         }).bounds(this.optionsButton.getX(), this.optionsButton.getY() - 48, 20, 20).build());
 
         if (clientOptions().client.showResetButton.getCurrentValue()) {
-            this.createWorldButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (buttonWidget) -> {
-                CreateWorldScreen.openFresh(this.minecraft, null);
-            }).bounds(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20).build());
+            this.createWorldButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (buttonWidget) -> ClientModUtil.createNewWorld(this.minecraft))
+                    .bounds(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20)
+                    .build());
             this.createWorldButton.active = clientOptions().client.instantWorldCreation.getCurrentValue();
         }
     }
@@ -81,7 +80,7 @@ public class TitleScreenMixin extends Screen {
         }
 
         this.renderTooltips(context, mouseX, mouseY);
-        context.text(this.font, SpeedrunnerMod.THE_SPEEDRUNNER_MOD_STRING + " " + SpeedrunnerMod.MOD_VERSION, 2, this.height - 20, ARGB.color(f, 0x55FFFF));
+        context.text(this.font, ModConstants.THE_SPEEDRUNNER_MOD_STRING + " " + ModConstants.MOD_VERSION, 2, this.height - 20, ARGB.color(f, 0x55FFFF));
     }
 
     /**

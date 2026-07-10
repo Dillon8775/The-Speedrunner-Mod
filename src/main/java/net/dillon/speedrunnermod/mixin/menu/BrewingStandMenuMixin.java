@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.menu;
 
 import net.dillon.speedrunnermod.advancement.ModPredicates;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModComponentHelper;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.BrewingStandMenu;
@@ -21,7 +21,7 @@ public class BrewingStandMenuMixin {
     @Inject(method = "onTake", at = @At("TAIL"))
     private void triggerDragonsAuraAdvancement(Player player, ItemStack stack, CallbackInfo ci) {
         if (player instanceof ServerPlayer serverPlayerEntity) {
-            if (ModUtil.hasDragonsAura(stack)) {
+            if (ModComponentHelper.hasDragonsAura(stack)) {
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(serverPlayerEntity, new ItemStack(Items.POTION));
             }
         }

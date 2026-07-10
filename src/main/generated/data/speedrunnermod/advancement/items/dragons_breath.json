@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/dragons_aura",
+  "parent": "speedrunnermod:potions/dragons_aura",
   "criteria": {
     "has_item": {
       "conditions": {

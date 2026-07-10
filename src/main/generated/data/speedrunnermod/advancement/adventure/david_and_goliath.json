@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/perch_already",
+  "parent": "speedrunnermod:adventure/doomed_to_luck",
   "criteria": {
     "killed_goliath": {
       "conditions": {
@@ -35,7 +35,7 @@
     ]
   ],
   "rewards": {
-    "experience": 200
+    "experience": 250
   },
   "sends_telemetry_event": true
 }

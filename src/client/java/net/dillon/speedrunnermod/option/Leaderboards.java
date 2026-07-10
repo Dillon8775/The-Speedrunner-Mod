@@ -89,7 +89,7 @@ public class Leaderboards {
 
         if (!isStrongholdCountEligible()) {
             warnIneligible("Stronghold Count");
-            addIneligible("stronghold_count", withFormatting(worldGen.strongholdCount.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
+            addIneligible("stronghold_count", withFormatting(worldGen.totalStrongholds.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isStrongholdDistanceEligible()) {
@@ -104,12 +104,12 @@ public class Leaderboards {
 
         if (!isStrongholdPortalRoomsEligible()) {
             warnIneligible("Stronghold Portal Room Count");
-            addIneligible("stronghold_portal_room_count", withFormatting(worldGen.strongholdPortalRoomCount.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
+            addIneligible("stronghold_portal_room_count", withFormatting(worldGen.totalPortamRooms.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isStrongholdLibrariesEligible()) {
             warnIneligible("Stronghold Library Count");
-            addIneligible("stronghold_library_count", withFormatting(worldGen.strongholdLibraryCount.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
+            addIneligible("stronghold_library_count", withFormatting(worldGen.totalLibraries.getCurrentValue(), ChatFormatting.RED, ChatFormatting.BOLD));
         }
 
         if (!isAnvilCostLimitEligible()) {
@@ -166,11 +166,11 @@ public class Leaderboards {
         currentBlockBreakingMultiplier = general.blockBreakingMultiplier.getCurrentValue();
         currentDragonPerchTime = general.dragonPerchTime.getCurrentValue();
         currentDifficulty = cloptions.difficulty.getCurrentValue();
-        currentStrongholdCount = worldGen.strongholdCount.getCurrentValue();
+        currentStrongholdCount = worldGen.totalStrongholds.getCurrentValue();
         currentStrongholdDistance = worldGen.strongholdDistance.getCurrentValue();
         currentStrongholdSpread = worldGen.strongholdSpread.getCurrentValue();
-        currentStrongholdPortalRoomCount = worldGen.strongholdPortalRoomCount.getCurrentValue();
-        currentStrongholdLibrariesCount = worldGen.strongholdLibraryCount.getCurrentValue();
+        currentStrongholdPortalRoomCount = worldGen.totalPortamRooms.getCurrentValue();
+        currentStrongholdLibrariesCount = worldGen.totalLibraries.getCurrentValue();
         currentAnvilCostLimit = general.anvilCostLimit.getCurrentValue();
         currentNetherPortalCooldown = worldGen.netherPortalDelay.getCurrentValue();
     }
@@ -197,11 +197,11 @@ public class Leaderboards {
                 currentDragonPerchTime == general.dragonPerchTime.getCurrentValue() &&
                 currentBlockBreakingMultiplier == general.blockBreakingMultiplier.getCurrentValue() &&
                 currentDifficulty == cloptions.difficulty.getCurrentValue() &&
-                currentStrongholdCount == worldGen.strongholdCount.getCurrentValue() &&
+                currentStrongholdCount == worldGen.totalStrongholds.getCurrentValue() &&
                 currentStrongholdDistance == worldGen.strongholdDistance.getCurrentValue() &&
                 currentStrongholdSpread == worldGen.strongholdSpread.getCurrentValue() &&
-                currentStrongholdPortalRoomCount == worldGen.strongholdPortalRoomCount.getCurrentValue() &&
-                currentStrongholdLibrariesCount == worldGen.strongholdLibraryCount.getCurrentValue() &&
+                currentStrongholdPortalRoomCount == worldGen.totalPortamRooms.getCurrentValue() &&
+                currentStrongholdLibrariesCount == worldGen.totalLibraries.getCurrentValue() &&
                 currentAnvilCostLimit == general.anvilCostLimit.getCurrentValue() &&
                 currentNetherPortalCooldown == worldGen.netherPortalDelay.getCurrentValue();
     }
@@ -227,7 +227,7 @@ public class Leaderboards {
         }
 
         if (!isStrongholdCountEligible()) {
-            worldGen.strongholdCount.reset();
+            worldGen.totalStrongholds.reset();
         }
 
         if (!isStrongholdDistanceEligible()) {
@@ -239,11 +239,11 @@ public class Leaderboards {
         }
 
         if (!isStrongholdPortalRoomsEligible()) {
-            worldGen.strongholdPortalRoomCount.reset();
+            worldGen.totalPortamRooms.reset();
         }
 
         if (!isStrongholdLibrariesEligible()) {
-            worldGen.strongholdLibraryCount.reset();
+            worldGen.totalLibraries.reset();
         }
 
         if (!isAnvilCostLimitEligible()) {
@@ -286,7 +286,7 @@ public class Leaderboards {
         }
 
         if (!isStrongholdCountEligible()) {
-            worldGen.strongholdCount.set(currentStrongholdCount);
+            worldGen.totalStrongholds.set(currentStrongholdCount);
         }
 
         if (!isStrongholdDistanceEligible()) {
@@ -298,11 +298,11 @@ public class Leaderboards {
         }
 
         if (!isStrongholdPortalRoomsEligible()) {
-            worldGen.strongholdPortalRoomCount.set(currentStrongholdPortalRoomCount);
+            worldGen.totalPortamRooms.set(currentStrongholdPortalRoomCount);
         }
 
         if (!isStrongholdLibrariesEligible()) {
-            worldGen.strongholdLibraryCount.set(currentStrongholdLibrariesCount);
+            worldGen.totalLibraries.set(currentStrongholdLibrariesCount);
         }
 
         if (!isAnvilCostLimitEligible()) {
@@ -414,7 +414,7 @@ public class Leaderboards {
     }
 
     private static boolean isStrongholdCountEligible() {
-        return isInBounds(worldGen.strongholdCount.getCurrentValue(), 128, 156);
+        return isInBounds(worldGen.totalStrongholds.getCurrentValue(), 128, 156);
     }
 
     private static boolean isStrongholdDistanceEligible() {
@@ -426,11 +426,11 @@ public class Leaderboards {
     }
 
     private static boolean isStrongholdPortalRoomsEligible() {
-        return isInBounds(worldGen.strongholdPortalRoomCount.getCurrentValue(), 1, 3);
+        return isInBounds(worldGen.totalPortamRooms.getCurrentValue(), 1, 3);
     }
 
     private static boolean isStrongholdLibrariesEligible() {
-        return isInBounds(worldGen.strongholdLibraryCount.getCurrentValue(), 1, 4);
+        return isInBounds(worldGen.totalLibraries.getCurrentValue(), 1, 4);
     }
 
     private static boolean isAnvilCostLimitEligible() {

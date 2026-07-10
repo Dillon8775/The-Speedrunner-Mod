@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;

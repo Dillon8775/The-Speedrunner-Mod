@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.item;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.item.ThrowableFireball;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -64,7 +64,7 @@ public class FirechargeItemMixin extends Item {
      */
     @Unique
     private InteractionResult throwFireball(Level world, Player player, InteractionHand hand) {
-        if (ModUtil.createFireball(this, world, player, hand, false)) {
+        if (ThrowableFireball.createFireballEntity(false, player)) {
             return InteractionResult.SUCCESS_SERVER;
         }
         return super.use(world, player, hand);

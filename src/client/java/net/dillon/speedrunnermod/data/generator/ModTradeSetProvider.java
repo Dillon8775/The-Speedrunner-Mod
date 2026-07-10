@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.data.generator;
 
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.tag.ModTradeTags;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.dillon.speedrunnermod.villager.ModTradeSets;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;

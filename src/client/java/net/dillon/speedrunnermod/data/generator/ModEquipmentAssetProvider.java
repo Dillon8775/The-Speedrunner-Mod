@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.data.generator;
 
-import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
+import net.dillon.speedrunnermod.item.material.ModEquipmentAssetKeys;
 import net.minecraft.client.data.models.EquipmentAssetProvider;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.data.CachedOutput;

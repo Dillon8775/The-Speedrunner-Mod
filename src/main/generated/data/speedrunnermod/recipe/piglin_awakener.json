@@ -3,13 +3,7 @@
   "group": "piglin_awakener",
   "key": {
     "#": "minecraft:gold_ingot",
-    "O": [
-      "minecraft:ender_pearl",
-      "minecraft:blaze_powder",
-      "minecraft:golden_apple",
-      "minecraft:enchanted_golden_apple",
-      "minecraft:golden_carrot"
-    ]
+    "O": "#speedrunnermod:piglin_awakener_craftables"
   },
   "pattern": [
     "###",

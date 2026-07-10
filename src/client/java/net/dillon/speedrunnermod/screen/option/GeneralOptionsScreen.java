@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.screen.option;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.option.ListOptions;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
@@ -17,7 +17,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The Speedrunner Mod's {@code general options.}
  */
 public class GeneralOptionsScreen extends AbstractModScreen {
-    private AbstractWidget mode, blockBreakingMultiplier, fireballExplosionPower;
+    private AbstractWidget mode, blockBreakingMultiplier, fireballExplosionPower, increasedOxygen;
 
     public GeneralOptionsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_OPTIONS_GENERAL);
@@ -31,6 +31,7 @@ public class GeneralOptionsScreen extends AbstractModScreen {
         this.mode = createOption(ListOptions.mode());
         this.blockBreakingMultiplier = createOption(ListOptions.blockBreakingMultiplier());
         this.fireballExplosionPower = createOption(ListOptions.fireballExplosionPower());
+        this.increasedOxygen = createOption(ListOptions.increasedOxygen());
 
         return List.of(
                 this.mode,
@@ -38,9 +39,6 @@ public class GeneralOptionsScreen extends AbstractModScreen {
 
                 createOption(ListOptions.dragonPerchTime()),
                 createOption(ListOptions.infiniPearlMode()),
-
-                createOption(ListOptions.fireproofItems()),
-                createOption(ListOptions.lavaBoats()),
 
                 createOption(ListOptions.throwableFireballs()),
                 this.fireballExplosionPower,
@@ -58,18 +56,19 @@ public class GeneralOptionsScreen extends AbstractModScreen {
                 createOption(ListOptions.showDeathCords()),
 
                 createOption(ListOptions.betterFoods()),
-                createOption(ListOptions.higherBreathTime()),
+                this.increasedOxygen,
 
                 createOption(ListOptions.betterAnvil()),
                 createOption(ListOptions.anvilCostLimit()),
 
-                createOption(ListOptions.higherEnchantmentLevels())
+                createOption(ListOptions.higherEnchantmentLevels()),
+                createOption(ListOptions.killGhastOnFireball())
         );
     }
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
+        this.initializeModButtonListWidget();
 
         this.buttonList.addAll(mainOptions());
 
@@ -79,7 +78,7 @@ public class GeneralOptionsScreen extends AbstractModScreen {
     @Override
     protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         this.lockOptionWithTooltip(this.mode, !this.isOnServer(),
-                Component.translatable("speedrunnermod.options.mode.tooltip"),
+                ListOptions.ofRestartable(Component.translatable("speedrunnermod.options.mode.tooltip")),
                 Component.translatable("speedrunnermod.options.mode.server.tooltip"),
                 graphics,
                 mouseX,
@@ -99,6 +98,14 @@ public class GeneralOptionsScreen extends AbstractModScreen {
                 isDoomMode()
                         ? Component.translatable("speedrunnermod.options.mode_easy_or_balanced_required.tooltip")
                         : Component.translatable("speedrunnermod.options.throwable_fireballs_must_be_enabled.tooltip"),
+                graphics,
+                mouseX,
+                mouseY
+        );
+
+        this.lockOptionWithTooltip(this.increasedOxygen, !isDoomMode(),
+                Component.translatable("speedrunnermod.options.increased_oxygen.tooltip"),
+                Component.translatable("speedrunnermod.options.mode_easy_or_balanced_required.tooltip"),
                 graphics,
                 mouseX,
                 mouseY

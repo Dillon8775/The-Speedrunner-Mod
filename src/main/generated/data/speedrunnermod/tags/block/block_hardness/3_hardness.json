@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:anvil",
+      "required": false
+    },
+    "minecraft:iron_door",
+    "minecraft:iron_trapdoor",
+    "minecraft:iron_bars",
+    "minecraft:iron_chain",
+    "minecraft:redstone_block",
+    "minecraft:coal_block",
+    "minecraft:enchanting_table",
+    "minecraft:bell"
+  ]
+}

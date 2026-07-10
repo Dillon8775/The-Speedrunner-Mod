@@ -1,10 +1,14 @@
 package net.dillon.speedrunnermod.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.network.ClientModPackets;
 import net.dillon.speedrunnermod.option.Leaderboards;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
+import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsIneligibleScreen;
 import net.dillon.speedrunnermod.screen.option.AdvancedOptionsScreen;
 import net.dillon.speedrunnermod.screen.option.ResetOptionsConfirmScreen;
@@ -12,7 +16,6 @@ import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.screen.option.WorldCreationOptionsScreen;
 import net.dillon.speedrunnermod.screen.synced.MatchSettingsWithServerScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
@@ -34,7 +37,6 @@ import org.lwjgl.glfw.GLFW;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
@@ -49,7 +51,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     protected final Screen parent;
     protected Button helpButton, saveButton, openOptionsFileButton, doneButton, matchSettingsWithServer;
     public Button resetOptionsButton;
-    public CustomButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
+    public ModButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<AbstractWidget> featureButtons = new ArrayList<>();
 
     public AbstractModScreen(Screen parent, Component title) {
@@ -60,8 +62,17 @@ public abstract class AbstractModScreen extends BaseModScreen {
     @Override
     protected void init() {
         if (!this.isOptionsScreen()) {
-            this.initializeCustomButtonListWidget();
+            this.initializeModButtonListWidget();
             this.buttonList.addAll(this.buttons());
+            if (this.isCentered()) {
+                int defaultY = this.buttonList.getY();
+                int defaultHeight = this.buttonList.getHeight();
+                int listHeight = Math.min(this.buttonList.getEntryContentHeight(), defaultHeight);
+                int y = Math.max((this.height - listHeight) / 2, defaultY);
+
+                this.buttonList.updateSizeAndPosition(this.width, listHeight, 0, y);
+                this.buttonList.layoutButtons(true);
+            }
         }
         this.addWidget(this.buttonList);
         if (isOptionsScreen()) {
@@ -87,12 +98,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
             }).bounds(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer.active = this.isOnServer();
         } else {
-            if ((this instanceof AbstractFeatureScreen featureScreen && featureScreen.getScreenCategory() != ScreenCategory.FIRST_TIME_PLAYING && featureScreen.getScreenCategory() != ScreenCategory.SECRET_DOOM_MODE) || !(this instanceof AbstractFeatureScreen)) {
+            if ((this instanceof FeatureScreen featureScreen && featureScreen.featurePage.getCategory() != FeatureScreenCategory.FIRST_TIME_PLAYING && featureScreen.featurePage.getCategory() != FeatureScreenCategory.SECRET_DOOM_MODE) || !(this instanceof FeatureScreen)) {
                 this.doneButton = this.addRenderableWidget(Button.builder(this.getDoneText(), (button) -> this.onClose()).bounds(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
             }
         }
         if (this.hasSearchField()) {
-            this.searchField = new EditBox(this.font, this.width / 2 + 15, 10, 90, 15, null);
+            int y = !this.isCentered() ? 10 : this.buttonList.getY() - 23;
+            this.searchField = new EditBox(this.font, this.width / 2 + 17, y, 100, 15, null);
             this.searchField.setMaxLength(50);
             this.searchField.setHint(Component.translatable(isOptionsScreen() ? "speedrunnermod.search_field_options_screen.placeholder" : "speedrunnermod.search_field_features_screen.placeholder").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
             this.addWidget(this.searchField);
@@ -109,7 +121,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             int textHeight = this.height - 21;
             int imageWidth = this.width - (SpeedrunnerModClient.getVersionType() == VersionType.RELEASE ? 53 : 55);
             int imageHeight = this.height - 26;
-            context.centeredText(this.font, Component.literal(MOD_VERSION).withStyle(ChatFormatting.AQUA), textWidth, textHeight, CommonColors.WHITE);
+            context.centeredText(this.font, Component.literal(ModConstants.MOD_VERSION).withStyle(ChatFormatting.AQUA), textWidth, textHeight, CommonColors.WHITE);
             context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/icon.png"), imageWidth, imageHeight, 0.0F, 0.0F, 18, 18, 18, 18);
         }
 
@@ -120,7 +132,16 @@ public abstract class AbstractModScreen extends BaseModScreen {
         this.lockOptionsAndRenderTooltips(context, mouseX, mouseY);
 
         if (this.shouldRenderTitleText()) {
-            context.centeredText(this.font, this.title, this.hasSearchField() ? this.width / 2 - 45 : this.width / 2, 13, CommonColors.WHITE);
+            Component title = this.title;
+            if (this instanceof FeatureScreen abstractFeatureScreen) {
+                FeatureScreenCategory category = abstractFeatureScreen.featurePage.getCategory();
+                String key = abstractFeatureScreen.featurePage.getKey().toLowerCase();
+                title = FeatureScreen.featureTitleText(category, key);
+            }
+
+            int x = this.hasSearchField() ? this.width / 2 - 47 : this.width / 2;
+            int y = !this.isCentered() ? 13 : this.buttonList.getY() - 19;
+            context.centeredText(this.font, title, x, y, CommonColors.WHITE);
         }
 
         if (this.isOptionsScreen()) {
@@ -172,7 +193,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     private void search(boolean lock) {
         if (this.buttonList != null) {
-            for (CustomButtonListWidget.ModWidgetEntry entry : this.buttonList.children()) {
+            for (ModButtonListWidget.ModWidgetEntry entry : this.buttonList.children()) {
                 for (AbstractWidget widget : entry.widgets) {
                     this.filter(widget, lock);
                 }
@@ -236,23 +257,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * @return the widget containing {@link OptionInstance} {@code (option).}
-     */
-    private AbstractWidget getSimpleOption(OptionInstance<?> option) {
-        for (CustomButtonListWidget.ModWidgetEntry entry : this.buttonList.children()) {
-            for (AbstractWidget widget : entry.widgets) {
-                String messageText = widget.getMessage().getString();
-                messageText = messageText.substring(0, messageText.indexOf(":"));
-                if (messageText.equals(option.toString())) {
-                    return widget;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Creates an option using a {@link OptionInstance}.
      */
     protected static AbstractWidget createOption(OptionInstance<?> option) {
@@ -272,27 +276,27 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Iterate through all {@link AbstractFeatureScreen}s to add to the main feature screen lists.
+     * Iterate through all {@link FeatureScreen}s to add to the main feature screen lists.
      */
-    protected void addButtonsIteratively(ScreenCategory screenCategory) {
+    protected void addButtonsIteratively(FeatureScreenCategory screenCategory) {
         this.featureButtons.clear();
-        int maxPageNumber = SpeedrunnerModClient.ALL_FEATURE_SCREENS.stream()
-                .map(constructor -> constructor.apply(this.parent))
-                .filter(screen -> screen.getScreenCategory() == screenCategory)
-                .mapToInt(AbstractFeatureScreen::getPageNumber)
-                .max()
-                .orElse(0);
 
-        for (int pageNum = 1; pageNum <= maxPageNumber; pageNum++) {
-            for (Function<Screen, AbstractFeatureScreen> featureScreenConstructor : SpeedrunnerModClient.ALL_FEATURE_SCREENS) {
-                AbstractFeatureScreen screen = featureScreenConstructor.apply(this.parent);
-                if (screen.getScreenCategory() == screenCategory && screen.getPageNumber() == pageNum) {
-                    this.featureButtons.add(Button.builder(featureTitleText(screenCategory, screen.linesKey()), button -> {
-                        this.minecraft.gui.setScreen(screen);
-                    }).build());
-                }
+        for (FeaturePage page : FeaturePage.values()) {
+            if (page.getCategory() == screenCategory) {
+                FeatureScreen screen = this.createFeatureScreen(page);
+
+                this.featureButtons.add(Button.builder(
+                        FeatureScreen.featureTitleText(screenCategory, page.getKey()), b -> this.minecraft.gui.setScreen(screen)
+                ).build());
             }
         }
+    }
+
+    /**
+     * Creates every feature screen based on its category.
+     */
+    private FeatureScreen createFeatureScreen(FeaturePage page) {
+        return page.createScreen(this);
     }
 
     @Override
@@ -351,7 +355,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
         if (this.isOptionsScreen()) {
             if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && !this.searchField.isFocused() && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
                 double scrollY = advancedOptionsScreen.buttonList.scrollAmount();
-                this.refreshScreen(this.pageId());
+                this.minecraft.gui.setScreen(new AdvancedOptionsScreen(this.parent));
                 AbstractModScreen modScreen = (AdvancedOptionsScreen) Minecraft.getInstance().gui.screen();
                 modScreen.buttonList.setScrollAmount(scrollY);
                 return true;
@@ -363,25 +367,18 @@ public abstract class AbstractModScreen extends BaseModScreen {
     /**
      * Initializes the custom button list widget. Used similarly to an {@link OptionsList}, but for normal buttons. Also see {@link AbstractScrollableScreen} for the top Y.
      */
-    protected void initializeCustomButtonListWidget() {
-        this.buttonList = this.addRenderableWidget(new CustomButtonListWidget(this.minecraft, this.width, this));
+    protected void initializeModButtonListWidget() {
+        this.buttonList = this.addRenderableWidget(new ModButtonListWidget(this.minecraft, this.width, this));
     }
 
     /**
      * The list of buttons to add.
      * @return {@code featureButtons list} (if it's not empty, for feature screen categories), otherwise returns an empty list.
-     * <p>Override this method to create a screen with a {@link CustomButtonListWidget}, and add the buttons to this list to display them.</p>
+     * <p>Override this method to create a screen with a {@link ModButtonListWidget}, and add the buttons to this list to display them.</p>
      * <p>Avoid using booleans to return different lists, doing so could result in crashes.</p>
      */
     protected List<AbstractWidget> buttons() {
         return !this.featureButtons.isEmpty() ? this.featureButtons : List.of();
-    }
-
-    /**
-     * Used to build title text.
-     */
-    private static Component featureTitleText(ScreenCategory category, String lang) {
-        return Component.translatable("speedrunnermod.title.features." + category.toString().toLowerCase() + "." + lang);
     }
 
     /**
@@ -509,6 +506,13 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Renders all {@link OptionInstance} tooltips.
      */
     protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
+    }
+
+    /**
+     * @return if the screen should be centered.
+     */
+    public boolean isCentered() {
+        return false;
     }
 
     /**

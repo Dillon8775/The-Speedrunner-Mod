@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "speedrunnermod:additional_boat_movement_speed",
+      "required": false
+    },
+    {
+      "id": "speedrunnermod:lava_invulnerability",
+      "required": false
+    }
+  ]
+}

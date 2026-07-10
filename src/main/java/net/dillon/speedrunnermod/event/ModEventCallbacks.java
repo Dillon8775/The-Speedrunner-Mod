@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.event;
 
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.world.entity.player.Player;
 

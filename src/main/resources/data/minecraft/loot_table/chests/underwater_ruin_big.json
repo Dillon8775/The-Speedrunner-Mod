@@ -11,6 +11,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:luck"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 8
+        },
+        {
+          "type": "minecraft:item",
           "weight": 4,
           "name": "minecraft:coal",
           "functions": [

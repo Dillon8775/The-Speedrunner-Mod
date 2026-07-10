@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -27,7 +27,7 @@ public abstract class AbstractCubeMobMixin extends AgeableMob {
     @Inject(method = "getJumpDelay", at = @At("HEAD"), cancellable = true)
     private void modifyJumpTime(CallbackInfoReturnable<Integer> cir) {
         if (this.isHostileCube()) {
-            cir.setReturnValue(ModUtil.getSlimeJumpTime());
+            cir.setReturnValue(ModConstants.getSlimeJumpTime());
         }
     }
 
@@ -37,7 +37,7 @@ public abstract class AbstractCubeMobMixin extends AgeableMob {
     @Inject(method = "getAttackDamage", at = @At("HEAD"), cancellable = true)
     private void modifyAttackDamage(CallbackInfoReturnable<Float> cir) {
         if (this.isHostileCube()) {
-            cir.setReturnValue((float)this.getAttributeValue(Attributes.ATTACK_DAMAGE) * ModUtil.getSlimeDamageMultiplier());
+            cir.setReturnValue((float)this.getAttributeValue(Attributes.ATTACK_DAMAGE) * ModConstants.getSlimeDamageMultiplier());
         }
     }
 

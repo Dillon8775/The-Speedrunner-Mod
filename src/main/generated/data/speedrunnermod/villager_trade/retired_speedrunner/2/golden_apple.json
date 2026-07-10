@@ -1,0 +1,13 @@
+{
+  "gives": {
+    "count": 2,
+    "id": "minecraft:golden_apple"
+  },
+  "max_uses": 8.0,
+  "reputation_discount": 0.1,
+  "wants": {
+    "count": 3.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 11.0
+}

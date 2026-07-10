@@ -3,13 +3,11 @@
   "criteria": {
     "has_item": {
       "conditions": {
-        "items": [
-          {
-            "items": "speedrunnermod:speedrunner_crossbow"
-          }
-        ]
+        "item": {
+          "items": "speedrunnermod:speedrunner_crossbow"
+        }
       },
-      "trigger": "minecraft:inventory_changed"
+      "trigger": "minecraft:itemlike_trigger"
     }
   },
   "display": {

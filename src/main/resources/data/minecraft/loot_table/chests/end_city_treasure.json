@@ -11,7 +11,18 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "weight": 12,
+          "weight": 11,
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:luck"
+            }
+          ],
+          "name": "minecraft:potion"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 10,
           "name": "minecraft:diamond_axe",
           "functions": [
             {
@@ -24,14 +35,14 @@
         {
           "type": "minecraft:item",
           "weight": 8,
-          "name": "speedrunnermod:speedrunner_ingot",
+          "name": "speedrunnermod:speedrunner_block",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4,
-                "max": 9
+                "min": 2,
+                "max": 7
               }
             }
           ]
@@ -62,15 +73,15 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 10,
+          "weight": 15,
           "name": "minecraft:diamond",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 7
+                "min": 6,
+                "max": 23
               },
               "add": false
             }
@@ -79,13 +90,13 @@
         {
           "type": "minecraft:item",
           "weight": 7,
-          "name": "minecraft:iron_ingot",
+          "name": "minecraft:iron_block",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 4,
+                "min": 3,
                 "max": 9
               },
               "add": false
@@ -110,15 +121,15 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:emerald",
+          "weight": 6,
+          "name": "minecraft:emerald_block",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 2,
-                "max": 6
+                "min": 3,
+                "max": 7
               },
               "add": false
             }
@@ -126,21 +137,49 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 1,
+          "weight": 5,
           "name": "minecraft:saddle"
         },
         {
           "type": "minecraft:item",
+          "weight": 4,
           "name": "minecraft:diamond_horse_armor"
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
+          "weight": 8,
           "name": "speedrunnermod:dragons_pearl"
         },
         {
           "type": "minecraft:item",
-          "weight": 15,
+          "weight": 5,
+          "name": "speedrunnermod:knockback_stick"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 7,
+          "name": "speedrunnermod:dragon_upgrade_smithing_template"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:elytra",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:set_components",
+              "components": {
+                "minecraft:item_name": {
+                  "translate": "item.speedrunnermod.icarus_wings"
+                },
+                "minecraft:unbreakable": {
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 11,
           "name": "minecraft:diamond_sword",
           "functions": [
             {
@@ -152,7 +191,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 14,
+          "weight": 9,
           "name": "minecraft:diamond_boots",
           "functions": [
             {
@@ -164,7 +203,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 14,
+          "weight": 10,
           "name": "minecraft:diamond_chestplate",
           "functions": [
             {
@@ -176,7 +215,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 14,
+          "weight": 9,
           "name": "minecraft:diamond_leggings",
           "functions": [
             {
@@ -188,7 +227,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 14,
+          "weight": 8,
           "name": "minecraft:diamond_helmet",
           "functions": [
             {
@@ -200,7 +239,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 11,
+          "weight": 8,
           "name": "minecraft:diamond_pickaxe",
           "functions": [
             {
@@ -212,7 +251,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 6,
+          "weight": 5,
           "name": "minecraft:diamond_shovel",
           "functions": [
             {
@@ -224,86 +263,14 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 4,
-          "name": "minecraft:iron_sword",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 30,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:iron_boots",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 30,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:iron_chestplate",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 30,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:iron_leggings",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 30,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:iron_helmet",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 30,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 2,
-          "name": "minecraft:iron_pickaxe",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": 30,
-              "options": "#speedrunnermod:on_random_speedrunner_loot"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
+          "weight": 10,
           "functions": [
             {
               "function": "minecraft:set_potion",
               "id": "speedrunnermod:dragons_aura"
             }
           ],
-          "name": "minecraft:potion",
-          "weight": 9
+          "name": "minecraft:potion"
         }
       ]
     },

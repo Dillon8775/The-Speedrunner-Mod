@@ -13,14 +13,14 @@
             "type": "minecraft:model",
             "model": "speedrunnermod:item/speedrunner_bow_pulling_1"
           },
-          "threshold": 0.65
+          "threshold": 0.45
         },
         {
           "model": {
             "type": "minecraft:model",
             "model": "speedrunnermod:item/speedrunner_bow_pulling_2"
           },
-          "threshold": 0.9
+          "threshold": 0.65
         }
       ],
       "fallback": {

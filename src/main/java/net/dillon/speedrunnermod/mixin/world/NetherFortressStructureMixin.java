@@ -23,7 +23,7 @@ public class NetherFortressStructureMixin {
     private static WeightedList<MobSpawnSettings.SpawnerData> FORTRESS_ENEMIES;
 
     static {
-        if (options().worldGen.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
+        if (options().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
             if (isDoomMode()) {
                 FORTRESS_ENEMIES = WeightedList.<MobSpawnSettings.SpawnerData>builder()
                         .add(new MobSpawnSettings.SpawnerData(EntityTypes.BLAZE, 1, 4), 50)

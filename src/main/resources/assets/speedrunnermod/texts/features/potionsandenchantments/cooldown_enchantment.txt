@@ -1,0 +1,5 @@
+### Decreases the §acooldown §fon certain items, such as §9ender pearls, §7shields, §dchorus fruit, §fetc.
+
+#### Found in §avarious different §bloot tables §r§f§oand §r§ffrom §atrading §r§fwith the §b§lRetired Speedrunner §r§fvillager.
+
+!image:textures/gui/features/gui/cooldown_enchantment_on_ender_pearl.png scale=.4

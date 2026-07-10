@@ -30,6 +30,10 @@ public class WorldOptionsScreenMixin extends Screen {
             this.difficultyButtons.lockButton().setLocked(true);
             this.difficultyButtons.lockButton().active = false;
             this.difficultyButtons.difficultyButton().active = false;
+
+            if (this.difficultyButtons.lockButton().isHovered() || this.difficultyButtons.difficultyButton().isHovered()) {
+                graphics.setTooltipForNextFrame(this.font, this.font.split(Component.translatable("speedrunnermod.options.difficulty_locked.tooltip"), 200), mouseX, mouseY);
+            }
         }
     }
 }

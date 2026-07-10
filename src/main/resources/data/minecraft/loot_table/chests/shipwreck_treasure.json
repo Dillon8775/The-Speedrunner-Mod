@@ -10,6 +10,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:luck"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
           "weight": 7,
           "name": "speedrunnermod:speedrunner_bulk",
           "functions": [
@@ -134,6 +145,17 @@
         "max": 3
       },
       "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:luck"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 6
+        },
         {
           "type": "minecraft:item",
           "weight": 7,

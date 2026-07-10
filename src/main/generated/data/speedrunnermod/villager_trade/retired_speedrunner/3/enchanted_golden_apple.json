@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "id": "minecraft:enchanted_golden_apple"
+  },
+  "max_uses": 3.0,
+  "reputation_discount": 0.1,
+  "wants": {
+    "count": 9.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 15.0
+}

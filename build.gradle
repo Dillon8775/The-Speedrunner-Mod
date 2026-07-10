@@ -23,6 +23,13 @@ repositories {
 	maven {
 		url "https://maven.terraformersmc.com/releases/"
 	}
+	maven {
+		url "https://maven.twelveiterations.com/repository/maven-public/"
+
+		content {
+			includeGroup "net.blay09.mods"
+		}
+	}
 	mavenCentral()
 }
 
@@ -49,22 +56,29 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	implementation "org.reflections:reflections:${project.reflections_verison}"
-	include "org.reflections:reflections:${project.reflections_verison}"
-
-	implementation "org.javassist:javassist:${project.javassist_version}"
-	include "org.javassist:javassist:${project.javassist_version}"
+	// Kuma Keybind API
+	implementation "net.blay09.mods:kuma-api-common:$kuma_version"
+	include "net.blay09.mods:kuma-api-fabric:$kuma_version"
 
 	// Fabric API
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Mod Menu
 	implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	// Reflections (no longer required)
+	// implementation "org.reflections:reflections:${project.reflections_verison}"
+	// include "org.reflections:reflections:${project.reflections_verison}"
+
+	// Java Assist (no longer required)
+	// implementation "org.javassist:javassist:${project.javassist_version}"
+	// include "org.javassist:javassist:${project.javassist_version}"
 }
 
 shadowJar {
-	relocate 'org.reflections', 'net.dillon.shadowed.reflections'
-	relocate 'javassist', 'net.dillon.shadowed.javassist'
+	// No longer required
+	// relocate 'org.reflections', 'net.dillon.shadowed.reflections'
+	// relocate 'javassist', 'net.dillon.shadowed.javassist'
 }
 
 processResources {

@@ -1,0 +1,191 @@
+{
+  "parent": "speedrunnermod:challenges/shepherd",
+  "criteria": {
+    "has_barrel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:barrel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_blast_furnace": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:blast_furnace"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_brewing_stand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:brewing_stand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_cartography_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:cartography_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_cauldron": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:cauldron"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_composter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:composter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_fletching_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:fletching_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_grindstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:grindstone"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_lectern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:lectern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_loom": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:loom"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_smithing_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:smithing_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_smoker": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:smoker"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_stonecutter": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:stonecutter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.artisan.description"
+    },
+    "icon": {
+      "id": "minecraft:fletching_table"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.artisan.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_blast_furnace"
+    ],
+    [
+      "has_smoker"
+    ],
+    [
+      "has_cartography_table"
+    ],
+    [
+      "has_brewing_stand"
+    ],
+    [
+      "has_composter"
+    ],
+    [
+      "has_barrel"
+    ],
+    [
+      "has_fletching_table"
+    ],
+    [
+      "has_cauldron"
+    ],
+    [
+      "has_lectern"
+    ],
+    [
+      "has_stonecutter"
+    ],
+    [
+      "has_loom"
+    ],
+    [
+      "has_smithing_table"
+    ],
+    [
+      "has_grindstone"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  },
+  "sends_telemetry_event": true
+}

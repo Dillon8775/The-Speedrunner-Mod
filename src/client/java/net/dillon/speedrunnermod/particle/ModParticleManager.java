@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.particle;
 
+import net.dillon.speedrunnermod.entity.ModParticleTypes;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 

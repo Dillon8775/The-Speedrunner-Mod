@@ -1,3 +1,4 @@
-### It does exactly what it says it does. You can get it from mining §cdoom blocks.
+### It does exactly what it says it does. You can get it from mining §cdoom blocks, §for §dend cities.
 
 !image:textures/gui/features/screenshots/knockback_stick.png scale=.15
+!image:textures/gui/features/loot/knockback_stick_end_city.png scale=.14

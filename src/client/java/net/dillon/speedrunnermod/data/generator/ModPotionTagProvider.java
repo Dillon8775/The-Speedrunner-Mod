@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
+import net.dillon.speedrunnermod.component.ModPotionIds;
 import net.dillon.speedrunnermod.tag.ModPotionsTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -21,14 +22,21 @@ public class ModPotionTagProvider extends FabricTagsProvider<Potion> {
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        this.tag(ModPotionsTags.RETIRED_SPEEDRUNNER_POTIONS)
-                .add(PotionIds.STRENGTH)
+        tag(ModPotionsTags.RETIRED_SPEEDRUNNER_ARROW_EFFECTS)
+                .add(PotionIds.LUCK)
+                .add(PotionIds.HARMING)
+                .add(ModPotionIds.WITHERED);
+
+        tag(ModPotionsTags.RETIRED_SPEEDRUNNER_POTION_EFFECTS)
+                .add(PotionIds.LUCK)
+                .add(ModPotionIds.WITHERED)
+                .add(ModPotionIds.DRAGONS_AURA);
+
+        tag(ModPotionsTags.DOOM_BLOCK_POTIONS)
+                .addOptionalTag(ModPotionsTags.RETIRED_SPEEDRUNNER_ARROW_EFFECTS)
                 .add(PotionIds.LONG_STRENGTH)
-                .add(PotionIds.STRONG_STRENGTH)
-                .add(PotionIds.STRONG_REGENERATION)
-                .add(PotionIds.LONG_FIRE_RESISTANCE)
-                .add(PotionIds.INVISIBILITY)
                 .add(PotionIds.LONG_INVISIBILITY)
-                .add(PotionIds.STRONG_HARMING);
+                .add(PotionIds.LONG_SWIFTNESS)
+                .add(PotionIds.LONG_TURTLE_MASTER);
     }
 }

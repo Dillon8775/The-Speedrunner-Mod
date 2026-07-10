@@ -6,4 +6,6 @@ package net.dillon.speedrunnermod.item;
 public interface FireproofBoat {
     void setFireproof(boolean fireproof);
     boolean isFireproof();
+    void setBoatSpeed(float boatSpeed);
+    float getBoatSpeed();
 }

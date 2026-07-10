@@ -1,12 +1,11 @@
 package net.dillon.speedrunnermod.mixin.entity.boat;
 
-import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModFluidTags;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,23 +17,17 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import java.util.function.Supplier;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * A mixin to register, control, and fix modded boats.
@@ -44,62 +37,13 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 public abstract class AbstractBoatMixin extends Entity implements FireproofBoat {
     @Shadow
     public abstract InteractionResult interact(final Player player, final InteractionHand hand, final Vec3 location);
-    @Shadow @Final
-    private Supplier<Item> dropItem;
     @Unique
     private static final EntityDataAccessor<Boolean> FIREPROOF = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.BOOLEAN);
+    @Unique
+    private static final EntityDataAccessor<Float> BOAT_SPEED = SynchedEntityData.defineId(AbstractBoat.class, EntityDataSerializers.FLOAT);
 
     public AbstractBoatMixin(EntityType<?> type, Level world) {
         super(type, world);
-    }
-
-    /**
-     * Makes all boats slightly slower in lava.
-     */
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void applySpeedrunnerModBoatProperties(CallbackInfo ci) {
-        AbstractBoat abstractBoat = (AbstractBoat)(Object)this;
-
-        if (abstractBoat.isInLava()) {
-            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModUtil.LAVA_BOAT_VELOCITY_MULTIPLIER));
-        }
-
-        if (ModEntityTypes.isFastBoat(this.dropItem)) {
-            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModUtil.FAST_BOAT_VELOCITY_MULTIPLIER));
-        }
-    }
-
-    /**
-     * Allows the paddling in lava sound to play when paddling a boat in lava.
-     */
-    @Inject(method = "getPaddleSound", at = @At("HEAD"), cancellable = true)
-    public void lavaPaddleSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.isInLava()) {
-            cir.setReturnValue(ModSoundEvents.ENTITY_BOAT_PADDLE_LAVA);
-        }
-    }
-
-    /**
-     * Makes fireproof boats float higher, to make their rendering appear correct.
-     */
-    @ModifyConstant(method = "floatBoat", constant = @Constant(doubleValue = 0.65D))
-    private double floatFireproofBoofHigher(double constant) {
-        if (ModEntityTypes.isFireproofBoat((AbstractBoat)(Object)this)) {
-            return 0.30D;
-        }
-        return constant;
-    }
-
-    /**
-     * Makes fireproof boats fire immune.
-     */
-    @Override
-    public boolean fireImmune() {
-        if (options().general.lavaBoats.getCurrentValue()) {
-            return ModEntityTypes.isFireproofBoat((AbstractBoat)(Object)this) || super.fireImmune();
-        } else {
-            return super.fireImmune();
-        }
     }
 
     /**
@@ -119,11 +63,28 @@ public abstract class AbstractBoatMixin extends Entity implements FireproofBoat 
     }
 
     /**
+     * Sets the boat's speed.
+     */
+    @Override
+    public void setBoatSpeed(float boatSpeed) {
+        this.entityData.set(BOAT_SPEED, boatSpeed);
+    }
+
+    /**
+     * @return the boat's sped.
+     */
+    @Override
+    public float getBoatSpeed() {
+        return this.entityData.get(BOAT_SPEED);
+    }
+
+    /**
      * Creates the {@code fireproof data tracker.}
      */
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void writeFireproofTracker(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(FIREPROOF, false);
+        builder.define(BOAT_SPEED, 0.0F);
     }
 
     /**
@@ -132,6 +93,7 @@ public abstract class AbstractBoatMixin extends Entity implements FireproofBoat 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void writeFireproofToNbt(ValueOutput view, CallbackInfo ci) {
         view.putBoolean("Fireproof", this.isFireproof());
+        view.putFloat("BoatSpeed", this.getBoatSpeed());
     }
 
     /**
@@ -140,6 +102,49 @@ public abstract class AbstractBoatMixin extends Entity implements FireproofBoat 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readFireproofFromNbt(ValueInput view, CallbackInfo ci) {
         this.setFireproof(view.getBooleanOr("Fireproof", false));
+        this.setBoatSpeed(view.getFloatOr("BoatSpeed", 0.0F));
+    }
+
+    /**
+     * Makes all boats slightly slower in lava.
+     */
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void applySpeedrunnerModBoatProperties(CallbackInfo ci) {
+        AbstractBoat abstractBoat = (AbstractBoat)(Object)this;
+
+        if (abstractBoat.isInLava()) {
+            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModHelper.LAVA_BOAT_VELOCITY_MULTIPLIER));
+        }
+
+        if (this.getBoatSpeed() > 0.0F) {
+            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(1.0F + (this.getBoatSpeed() / 10.0F)));
+        }
+    }
+
+    /**
+     * Allows the paddling in lava sound to play when paddling a boat in lava.
+     */
+    @Inject(method = "getPaddleSound", at = @At("HEAD"), cancellable = true)
+    public void lavaPaddleSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (this.isInLava()) {
+            cir.setReturnValue(ModSoundEvents.ENTITY_BOAT_PADDLE_LAVA);
+        }
+    }
+
+    /**
+     * Makes fireproof boats float higher, to make their rendering appear correct.
+     */
+    @ModifyConstant(method = "floatBoat", constant = @Constant(doubleValue = 0.65D))
+    private double floatFireproofBoofHigher(double constant) {
+        return this.isFireproof() ? 0.30F : constant;
+    }
+
+    /**
+     * Makes fireproof boats fire immune.
+     */
+    @Override
+    public boolean fireImmune() {
+        return this.isFireproof() || super.fireImmune();
     }
 
     /**

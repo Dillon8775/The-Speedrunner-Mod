@@ -1,0 +1,309 @@
+{
+  "parent": "speedrunnermod:challenges/artisan",
+  "criteria": {
+    "has_disc_11": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_11"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_13": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_13"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_5": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_5"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_blocks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_blocks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_bounce": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_bounce"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_cat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_cat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_chirp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_chirp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_creator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_creator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_creator_music_box": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_creator_music_box"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_far": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_far"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_lava_chicken": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_lava_chicken"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_mall": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_mall"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_mellohi": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_mellohi"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_otherside": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_otherside"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_pigstep": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_pigstep"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_precipice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_precipice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_relic": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_relic"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_stal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_stal"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_strad": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_strad"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_tears": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_tears"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_wait": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_wait"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_disc_ward": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:music_disc_ward"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.music_enthusiast.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:music_disc_creator"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.music_enthusiast.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_disc_13"
+    ],
+    [
+      "has_disc_cat"
+    ],
+    [
+      "has_disc_blocks"
+    ],
+    [
+      "has_disc_bounce"
+    ],
+    [
+      "has_disc_chirp"
+    ],
+    [
+      "has_disc_creator"
+    ],
+    [
+      "has_disc_creator_music_box"
+    ],
+    [
+      "has_disc_far"
+    ],
+    [
+      "has_disc_lava_chicken"
+    ],
+    [
+      "has_disc_mall"
+    ],
+    [
+      "has_disc_mellohi"
+    ],
+    [
+      "has_disc_stal"
+    ],
+    [
+      "has_disc_strad"
+    ],
+    [
+      "has_disc_ward"
+    ],
+    [
+      "has_disc_11"
+    ],
+    [
+      "has_disc_wait"
+    ],
+    [
+      "has_disc_otherside"
+    ],
+    [
+      "has_disc_relic"
+    ],
+    [
+      "has_disc_5"
+    ],
+    [
+      "has_disc_pigstep"
+    ],
+    [
+      "has_disc_precipice"
+    ],
+    [
+      "has_disc_tears"
+    ]
+  ],
+  "rewards": {
+    "experience": 2000
+  },
+  "sends_telemetry_event": true
+}

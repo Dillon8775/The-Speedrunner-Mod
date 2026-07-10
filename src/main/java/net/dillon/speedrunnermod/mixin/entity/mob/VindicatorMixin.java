@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -29,8 +30,8 @@ public abstract class VindicatorMixin extends AbstractIllager {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeVindicatorAttributes(EntityType<? extends Vindicator> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyFollowRange(this, isDoomMode() ? 48.0D : 12.0D);
-        ModUtil.modifyMaxHealth(this, isDoomMode() ? 20.0D : 24.0D);
+        ModAttributeHelper.modifyFollowRange(this, isDoomMode() ? 48.0D : 12.0D);
+        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 20.0D : 24.0D);
     }
 
     /**
@@ -42,7 +43,7 @@ public abstract class VindicatorMixin extends AbstractIllager {
             return false;
         } else {
             if (isDoomMode() && target instanceof Player) {
-                ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
+                ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(10), 0));
             }
 
             return true;

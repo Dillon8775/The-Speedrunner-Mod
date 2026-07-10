@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.block;
 
-import net.dillon.speedrunnermod.tag.ModBlockTags;
+import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -31,6 +31,6 @@ public class SpeedrunnerSaplingBlock extends SaplingBlock {
      */
     @Override
     protected boolean mayPlaceOn(BlockState floor, BlockGetter world, BlockPos pos) {
-        return floor.is(ModBlockTags.SPEEDRUNNER_SAPLING_PLACEABLES) || super.mayPlaceOn(floor, world, pos);
+        return floor.is(ModBlockItemTags.SPEEDRUNNER_SAPLING_PLACEABLES.block()) || super.mayPlaceOn(floor, world, pos);
     }
 }

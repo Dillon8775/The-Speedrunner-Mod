@@ -1,18 +1,15 @@
 package net.dillon.speedrunnermod.screen.feature.miscellaneous;
 
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
+import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.option.GeneralOptionsScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
-public class FasterSmeltingScreen extends AbstractFeatureScreen {
+public class FasterSmeltingScreen extends DefaultMiscellaneousFeatureFactory {
 
-    public FasterSmeltingScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_FASTER_SMELTING);
+    public FasterSmeltingScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
@@ -23,20 +20,5 @@ public class FasterSmeltingScreen extends AbstractFeatureScreen {
             this.refreshRestartableFeature(new GeneralOptionsScreen(this));
             ((GeneralOptionsScreen)this.minecraft.gui.screen()).searchField.setValue("faster");
         }).build());
-    }
-
-    @Override
-    public @NotNull String linesKey() {
-        return "faster_smelting";
-    }
-
-    @Override
-    public @NotNull ScreenCategory getScreenCategory() {
-        return ScreenCategory.MISCELLANEOUS;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.DEFAULT;
     }
 }

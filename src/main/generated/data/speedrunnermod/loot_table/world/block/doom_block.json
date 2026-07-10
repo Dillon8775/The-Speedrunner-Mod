@@ -152,6 +152,16 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.45,
+                "min": 0.18
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
           "name": "minecraft:elytra"
         },
         {
@@ -163,7 +173,7 @@
           "functions": [
             {
               "function": "minecraft:set_random_potion",
-              "options": "#speedrunnermod:retired_speedrunner_potions"
+              "options": "#speedrunnermod:doom_block_potions"
             }
           ],
           "name": "minecraft:potion",
@@ -201,6 +211,16 @@
         },
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.23,
+                "min": 0.12
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
           "name": "minecraft:mace"
         }
       ],

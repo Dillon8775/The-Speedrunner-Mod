@@ -1,0 +1,3 @@
+## §9 Ender pearls§r are much more common, along with string, §egolden apples, §bspeedrunner ingots, §6wood,§f and §amuch more!
+
+!image:textures/gui/features/loot/better_piglin_bartering.png scale=.4

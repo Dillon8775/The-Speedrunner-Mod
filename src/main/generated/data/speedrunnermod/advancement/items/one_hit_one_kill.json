@@ -1,7 +1,7 @@
 {
-  "parent": "speedrunnermod:items/perch_already",
+  "parent": "speedrunnermod:items/the_final_treasure",
   "criteria": {
-    "used_dragons_sword": {
+    "obtained_dragons_sword": {
       "conditions": {
         "items": [
           {
@@ -17,6 +17,7 @@
       "translate": "advancements.speedrunnermod.one_hit_one_kill.description"
     },
     "frame": "challenge",
+    "hidden": true,
     "icon": {
       "id": "speedrunnermod:dragons_sword"
     },
@@ -26,11 +27,11 @@
   },
   "requirements": [
     [
-      "used_dragons_sword"
+      "obtained_dragons_sword"
     ]
   ],
   "rewards": {
-    "experience": 100
+    "experience": 500
   },
   "sends_telemetry_event": true
 }

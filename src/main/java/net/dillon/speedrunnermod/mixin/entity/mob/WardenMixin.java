@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
@@ -33,11 +33,11 @@ public class WardenMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeWardenAttributes(EntityType<? extends Warden> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyMaxHealth(this, isDoomMode() ? 500.0D : 200.0D);
-        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.4D : 0.2D);
-        ModUtil.modifyKnockbackResistance(this, isDoomMode() ? 1.0D : 0.65D);
-        ModUtil.modifyAttackKnockback(this, isDoomMode() ? 2.0D : 1.0D);
-        ModUtil.modifyAttackDamage(this, isDoomMode() ? 30.0D : 15.0D);
+        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 500.0D : 200.0D);
+        ModAttributeHelper.modifyMovementSpeed(this, isDoomMode() ? 0.4D : 0.2D);
+        ModAttributeHelper.modifyKnockbackResistance(this, isDoomMode() ? 1.0D : 0.65D);
+        ModAttributeHelper.modifyAttackKnockback(this, isDoomMode() ? 2.0D : 1.0D);
+        ModAttributeHelper.modifyAttackDamage(this, isDoomMode() ? 30.0D : 15.0D);
     }
 
     /**

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.villager;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.trading.TradeSet;
@@ -17,9 +18,16 @@ public class ModTradeSets {
     public static final ResourceKey<TradeSet> RETIRED_SPEEDRUNNER_LEVEL_5 = createTradeSet("retired_speedrunner/level_5");
 
     /**
-     * Creates a villager trade set.
+     * Registers a {@code trade set tag.}
      */
     private static ResourceKey<TradeSet> createTradeSet(String name) {
         return ResourceKey.create(Registries.TRADE_SET, ofSpeedrunnerMod(name));
+    }
+
+    /**
+     * Initializes all speedrunner mod trade sets.
+     */
+    public static void initializeTradeSets() {
+        SpeedrunnerMod.debug("Initialized trade sets.");
     }
 }

@@ -1,22 +1,18 @@
 package net.dillon.speedrunnermod.screen.feature.firsttimeplaying;
 
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
 
+public class FTPRestartRequiredScreen extends FTPFeatureScreen {
 
-public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
-
-    public FTPRestartRequiredScreen(Screen parent) {
-        super(parent, ModTexts.BLANK);
+    public FTPRestartRequiredScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
@@ -33,20 +29,5 @@ public class FTPRestartRequiredScreen extends AbstractFeatureScreen {
             saveClientChanges();
             this.minecraft.stop();
         }).build());
-    }
-
-    @Override
-    public @NotNull String linesKey() {
-        return "restart_required";
-    }
-
-    @Override
-    public @NotNull ScreenCategory getScreenCategory() {
-        return ScreenCategory.FIRST_TIME_PLAYING;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FIRST_TIME_PLAYING;
     }
 }

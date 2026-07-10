@@ -1,5 +1,5 @@
 ### Found in §6deserts, §cbadlands, §fand §7soul sand valleys.
 
-#### Acts pretty much like normal wood. §aHowever,§f it §ois §r§f§6burnable.
+#### Acts pretty much like normal wood. §aHowever,§f it §ocan §r§f§catch fire.
 
 !image:textures/gui/features/blocks/dead_speedrunner_wood.png scale=.1

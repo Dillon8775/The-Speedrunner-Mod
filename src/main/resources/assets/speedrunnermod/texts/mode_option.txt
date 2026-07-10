@@ -1,10 +1,13 @@
-### There are §a§lthree§r§f §adifferent modes§f in this mod, §b§lEasy,§r§f §e§lBalanced,§r§f and §c§lDoom.
+### There are §a§l3§r§f §adifferent modes§f in this mod.
 
-#### §b§lEasy§r§b mode§f enables all features, making the game beatable in just a couple of minutes.
+## §b§lEasy§r§b Mode§f
+#### The §adefault mode, §fmaking the game §dbeatable §fin §ajust a couple of minutes.
 
-#### §e§lBalanced§r§e mode§f limits some features, making the game a little more balanced but still easier to speedrun.
+## §e§lBalanced§r§e Mode§f
+#### Limits §esome features, §fmaking things a §elittle more balanced, §fbut §bstill easy to speedrun.
 
-#### §c§lDoom§r§c mode§r flips this mod's description upside-down, and makes the game extremely difficult in various different ways, resuling in longer runs.
+## §c§lDoom§r§c Mode§r
+#### §cMakes the game extremely difficult to beat in various different ways.
 
-## §a§lWhich mode do you want to play on?
+# §aWhich mode would you like to play?
 

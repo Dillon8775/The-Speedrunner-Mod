@@ -20,17 +20,6 @@
     "minecraft:infinity",
     "minecraft:mending",
     "minecraft:frost_walker",
-    {
-      "id": "speedrunnermod:cooldown",
-      "required": false
-    },
-    {
-      "id": "speedrunnermod:dash",
-      "required": false
-    },
-    {
-      "id": "speedrunnermod:withered",
-      "required": false
-    }
+    "#speedrunnermod:speedrunner_enchantments"
   ]
 }

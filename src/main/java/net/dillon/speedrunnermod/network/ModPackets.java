@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.network;
 
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.accessor.LivingEntityAccessor;
@@ -11,24 +12,38 @@ import net.dillon.speedrunnermod.network.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.network.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.server.DedicatedServerStorage;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TaskScheduler;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
+import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 public class ModPackets {
 
@@ -41,6 +56,7 @@ public class ModPackets {
         ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
             UUID playerUuid = context.player().getUUID();
             DedicatedServerStorage.setActionbarPref(playerUuid, packet.actionbar());
+            DedicatedServerStorage.setWarningMessages(playerUuid, packet.warningMessages());
             DedicatedServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
             DedicatedServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
         });
@@ -106,15 +122,15 @@ public class ModPackets {
 
                             ItemStack item;
                             if (options().general.iCarusMode.getCurrentValue()) {
-                                item = ModUtil.ofUnbreakable(Items.ELYTRA);
-                                ItemStack fireworks = ModUtil.fireworkWithFlightDuration(64);
+                                item = ModHelper.ofUnbreakable(Items.ELYTRA);
+                                ItemStack fireworks = ModHelper.fireworkWithFlightDuration(64);
 
                                 ((LivingEntityAccessor)player).getEquipment().set(EquipmentSlot.CHEST, item);
                                 player.getInventory().getNonEquipmentItems().set(iCarusFireworksInventorySlot - 1, fireworks);
                             }
 
                             if (options().general.infiniPearlMode.getCurrentValue()) {
-                                ItemStack infiniPearl = ModUtil.ofUnbreakable(ModItems.INFINI_PEARL);
+                                ItemStack infiniPearl = ModHelper.ofUnbreakable(ModItems.INFINI_PEARL);
                                 int slot = infiniPearlInventorySlot - 1;
 
                                 if (options().general.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
@@ -129,6 +145,49 @@ public class ModPackets {
                             }
                         }
                     }, 150); // this is the delay that works to ensure that the server has time to receive the slots
+
+                    // Everything after this point is doom mode exclusive
+                    if (!isDoomMode()) {
+                        return;
+                    }
+
+                    // Create doom mode tasks
+                    TaskScheduler.schedule(TickCalculator.seconds(1), () -> {
+                        ServerLevel serverLevel = server.getLevel(ServerLevel.OVERWORLD);
+                        player.connection.send(
+                                new ClientboundSetTitleTextPacket(Component.translatable("speedrunnermod.doom_mode",
+                                                player.getName())
+                                        .withStyle(ChatFormatting.RED)
+                                        .withStyle(ChatFormatting.BOLD)
+                                )
+                        );
+                        player.connection.send(
+                                new ClientboundSetSubtitleTextPacket(Component.translatable("speedrunnermod.doom_mode.desc")
+                                        .withStyle(ChatFormatting.RED)
+                                )
+                        );
+                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, TickCalculator.minutes(2)));
+                        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, TickCalculator.minutes(2)));
+
+                        serverLevel.playSound(null, player.getOnPos(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.HOSTILE);
+
+                        Vec3 look = player.getLookAngle();
+                        double distance = 5.0;
+
+                        double x = player.getX() + look.x * distance;
+                        double z = player.getZ() + look.z * distance;
+                        int y = serverLevel.getHeight(
+                                Heightmap.Types.MOTION_BLOCKING,
+                                (int) x,
+                                (int) z
+                        );
+                        Vec3 spawnPos = new Vec3(x, y, z);
+
+                        LightningBolt lightningBolt =
+                                EntityTypes.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.NATURAL);
+                        lightningBolt.snapTo(spawnPos);
+                        serverLevel.addFreshEntity(lightningBolt);
+                    });
                 }
             }
         });

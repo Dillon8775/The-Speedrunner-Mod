@@ -1,0 +1,19 @@
+{
+  "values": [
+    "minecraft:iron_golem",
+    "minecraft:ravager",
+    "minecraft:vindicator",
+    "minecraft:zombie",
+    "minecraft:zombie_villager",
+    "minecraft:zombified_piglin",
+    "minecraft:vex",
+    "minecraft:evoker",
+    "minecraft:evoker_fangs",
+    "minecraft:warden",
+    "minecraft:wither_skull",
+    "minecraft:wither",
+    "minecraft:enderman",
+    "minecraft:ender_dragon",
+    "minecraft:area_effect_cloud"
+  ]
+}

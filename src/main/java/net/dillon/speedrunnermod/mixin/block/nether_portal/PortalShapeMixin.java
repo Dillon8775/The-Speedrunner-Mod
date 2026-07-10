@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.block.nether_portal;
 
-import net.dillon.speedrunnermod.tag.ModBlockTags;
+import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.portal.PortalShape;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +14,6 @@ public class PortalShapeMixin {
      */
     @Shadow
     private static final BlockBehaviour.StatePredicate FRAME = (state, world, pos) -> {
-        return state.is(ModBlockTags.NETHER_PORTAL_BASE_BLOCKS);
+        return state.is(ModBlockItemTags.NETHER_PORTAL_BASE_BLOCKS.block());
     };
 }

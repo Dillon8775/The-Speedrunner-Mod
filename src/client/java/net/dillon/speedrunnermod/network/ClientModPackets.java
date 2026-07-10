@@ -1,5 +1,7 @@
 package net.dillon.speedrunnermod.network;
 
+import net.dillon.speedrunnermod.helper.ModHelper;
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.network.client.CheckModeS2CPacket;
 import net.dillon.speedrunnermod.network.client.MatchClientOptionsWithServerS2CPacket;
@@ -13,8 +15,6 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -104,7 +104,7 @@ public class ClientModPackets {
      */
     private static void registerClientJoinAndDisconnectEvents() {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            ModUtil.errorMessagesSent = 0;
+            ModHelper.errorMessagesSent = 0;
             sendNewC2SOptions();
 
             LocalPlayer player = client.player;
@@ -160,7 +160,7 @@ public class ClientModPackets {
     public static void sendNewC2SOptions() {
         ClientModOptions.Client options = clientOptions().client;
         ClientPlayNetworking.send(new ClientPreferencesC2SPacket(
-                isActionbar(), options.iCarusFireworksInventorySlot.getCurrentValue(), options.infiniPearlInventorySlot.getCurrentValue()
+                isActionbar(), options.warningMessages.getCurrentValue(), options.iCarusFireworksInventorySlot.getCurrentValue(), options.infiniPearlInventorySlot.getCurrentValue()
         ));
     }
 }

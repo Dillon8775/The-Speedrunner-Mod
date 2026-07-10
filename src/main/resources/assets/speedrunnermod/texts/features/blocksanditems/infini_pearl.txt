@@ -1,5 +1,8 @@
 ### Acts like a regular §9ender pearl, §fbut does not get consumed upon use, and does not do §cany damage§f to the player upon landing.
 
-#### It also shoots §afaster §fand §9further §fthan regular §9ender pearls.
+#### It also shoots §afaster §fand §9further §fthan regular §9ender pearls, §fwith §bincreased inertia in water.
+
+#### These can §aalso §fbe obtained from the §b§lRetired Speedrunner §r§bvillager profession.
 
 !image:textures/gui/features/recipes/infini_pearl_crafting_recipe.png scale=.5
+!image:textures/gui/features/loot/infini_pearl_retired_speedrunner.png scale=.15

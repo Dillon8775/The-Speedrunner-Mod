@@ -1,0 +1,30 @@
+{
+  "parent": "speedrunnermod:items/perch_already",
+  "criteria": {
+    "yes_the_end": {
+      "conditions": {
+        "from": "minecraft:the_end",
+        "to": "minecraft:overworld"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.yes_the_end.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "id": "minecraft:dragon_head"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.yes_the_end.title"
+    }
+  },
+  "requirements": [
+    [
+      "yes_the_end"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

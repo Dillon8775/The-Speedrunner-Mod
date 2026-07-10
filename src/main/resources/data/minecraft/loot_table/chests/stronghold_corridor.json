@@ -155,22 +155,18 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "minecraft:saddle"
-        },
-        {
-          "type": "minecraft:item",
-          "weight": 3,
-          "name": "minecraft:diamond_horse_armor"
-        },
-        {
-          "type": "minecraft:item",
           "weight": 4,
           "name": "speedrunnermod:inventory_preserver"
         },
         {
           "type": "minecraft:item",
+          "weight": 5,
           "name": "minecraft:music_disc_otherside"
+        },
+        {
+          "type": "minecraft:item",
+          "weight": 4,
+          "name": "speedrunnermod:dragon_upgrade_smithing_template"
         },
         {
           "type": "minecraft:item",

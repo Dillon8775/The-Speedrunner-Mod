@@ -1,0 +1,18 @@
+## Inflicts §7wither §fon targets.
+
+!image:textures/gui/features/gui/withered_enchantment_on_speedrunner_sword.png scale=.5
+### The §7withered §denchantment §fcan be found in §cnether fortresses, §fand from §atrading §r§fwith the §b§lRetired Speedrunner §r§fvillager.
+
+### Additionally, the §7withered §denchantment gives an §aincreased chance §ffor §7wither skeletons §r§fto drop a §7wither skeleton skull.
+
+## You can also §e§lbrew §r§fa §7withered §5potion.
+
+!image:textures/gui/features/potions/withered.png scale=.2
+### Unlike the §denchantment, §fthe §5potion §fdoes §c§onot §r§fincrease §7wither skull drop rates. §fIt only §c§oinflicts wither §r§fon targets.
+
+### The §5potion §fcan be §ebrewed §fwith either a §7wither skeleton skull, §for a §7wither rose. §fIt does §crequire §9awkward potions§f to §ebrew.
+
+### You can also §aobtain §fthe §epotion §ffrom §atrading §fwith the §b§lRetired Speedrunner §r§bvillager.
+
+!image:textures/gui/features/recipes/withered_potion_wither_skeleton_skull.png scale=.14
+!image:textures/gui/features/recipes/withered_potion_wither_rose.png scale=.14

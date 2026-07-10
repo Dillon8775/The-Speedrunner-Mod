@@ -8,14 +8,15 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 public class ModEnchantmentTags {
-    public static TagKey<Enchantment> ON_RANDOM_SPEEDRUNNER_LOOT = of("on_random_speedrunner_loot");
-    public static TagKey<Enchantment> RETIRED_SPEEDRUNNER_TRADES = of("retired_speedrunner_trades");
-    public static TagKey<Enchantment> WITHERED_ENCHANTMENTS = of("withered_enchantments");
+    public static final TagKey<Enchantment> SPEEDRUNNER_ENCHANTMENTS = createEnchantmentTag("speedrunner_enchantments");
+    public static final TagKey<Enchantment> ON_RANDOM_SPEEDRUNNER_LOOT = createEnchantmentTag("on_random_speedrunner_loot");
+    public static final TagKey<Enchantment> RETIRED_SPEEDRUNNER_TRADES = createEnchantmentTag("retired_speedrunner_trades");
+    public static final TagKey<Enchantment> WITHERED_ENCHANTMENTS = createEnchantmentTag("withered_enchantments");
 
     /**
      * Registers an {@code enchantment tag.}
      */
-    private static TagKey<Enchantment> of(String path) {
+    private static TagKey<Enchantment> createEnchantmentTag(String path) {
         return TagKey.create(Registries.ENCHANTMENT, ofSpeedrunnerMod(path));
     }
 

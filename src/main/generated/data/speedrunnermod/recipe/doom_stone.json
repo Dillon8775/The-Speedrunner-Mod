@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "E": "minecraft:end_stone",
+    "F": "speedrunnermod:flesh_block"
+  },
+  "pattern": [
+    "EEE",
+    "EFE",
+    "EEE"
+  ],
+  "result": {
+    "count": 8,
+    "id": "speedrunnermod:doom_stone"
+  }
+}

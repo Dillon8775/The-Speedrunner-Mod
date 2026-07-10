@@ -1,45 +1,25 @@
 package net.dillon.speedrunnermod.screen.feature.oresandworldgen;
 
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
-public class SpeedrunnersWastelandBiomeScreen extends AbstractFeatureScreen {
+public class SpeedrunnersWastelandBiomeScreen extends DefaultOresAndWorldGenFeatureFactory {
 
-    public SpeedrunnersWastelandBiomeScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_SPEEDRUNNERS_WASTELAND);
+    public SpeedrunnersWastelandBiomeScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(options().general.customBiomesAndCustomBiomeFeatures.getCurrentValue() ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
-            options().general.customBiomesAndCustomBiomeFeatures.set(!options().general.customBiomesAndCustomBiomeFeatures.getCurrentValue());
+        this.addButtonObject(Button.builder(options().worldGen.generateSpeedrunnersWasteland.getCurrentValue() ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
+            options().worldGen.generateSpeedrunnersWasteland.set(!options().worldGen.generateSpeedrunnersWasteland.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
-    }
-
-    @Override
-    @NotNull
-    public String linesKey() {
-        return "speedrunners_wasteland_biome";
-    }
-
-    @Override
-    @NotNull
-    public ScreenCategory getScreenCategory() {
-        return ScreenCategory.ORES_AND_WORLDGEN;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FIRST_PAGE;
     }
 }

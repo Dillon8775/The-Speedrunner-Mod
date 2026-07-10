@@ -1,8 +1,5 @@
 {
   "values": [
-    {
-      "id": "speedrunnermod:withered",
-      "required": false
-    }
+    "speedrunnermod:withered"
   ]
 }

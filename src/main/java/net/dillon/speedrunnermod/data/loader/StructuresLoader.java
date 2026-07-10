@@ -3,9 +3,6 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.world.structure.*;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
-
 /**
  * Contains all of the {@code structure modifications,} making them generate more commonly.
  */
@@ -16,7 +13,7 @@ public class StructuresLoader {
      */
     public static void modifyAncientCities(JsonElement jsonElement) {
         AncientCityConfig config = new AncientCityConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -24,7 +21,7 @@ public class StructuresLoader {
      */
     public static void modifyDesertPyramids(JsonElement jsonElement) {
         DesertPyramidConfig config = new DesertPyramidConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -32,7 +29,7 @@ public class StructuresLoader {
      */
     public static void modifyEndCities(JsonElement jsonElement) {
         EndCityConfig config = new EndCityConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -40,7 +37,23 @@ public class StructuresLoader {
      */
     public static void modifyJungleTemples(JsonElement jsonElement) {
         JunglePyramidConfig config = new JunglePyramidConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
+    }
+
+    /**
+     * Changes the {@code frequency} value for {@code mineshafts.}
+     */
+    public static void modifyMineshafts(JsonElement jsonElement) {
+        MineshaftConfig config = new MineshaftConfig();
+        config.configure(jsonElement);
+    }
+
+    /**
+     * Changes the {@code frequency} value for {@code igloos.}
+     */
+    public static void modifyIgloos(JsonElement jsonElement) {
+        IglooConfig config = new IglooConfig();
+        config.configure(jsonElement);
     }
 
     /**
@@ -48,7 +61,7 @@ public class StructuresLoader {
      */
     public static void modifyNetherComplexes(JsonElement jsonElement) {
         NetherComplexesConfig config = new NetherComplexesConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -56,7 +69,7 @@ public class StructuresLoader {
      */
     public static void modifyPillagerOutposts(JsonElement jsonElement) {
         PillagerOutpostConfig config = new PillagerOutpostConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -64,7 +77,7 @@ public class StructuresLoader {
      */
     public static void modifyRuinedPortals(JsonElement jsonElement) {
         RuinedPortalConfig config = new RuinedPortalConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -72,21 +85,31 @@ public class StructuresLoader {
      */
     public static void modifyShipwrecks(JsonElement jsonElement) {
         ShipwreckConfig config = new ShipwreckConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
+    }
+
+    /**
+     * Changes the {@code spacing} and {@code separation} values for {@code ocean ruins.}
+     */
+    public static void modifyOceanRuins(JsonElement jsonElement) {
+        OceanRuinConfig config = new OceanRuinConfig();
+        config.configure(jsonElement);
+    }
+
+    /**
+     * Changes the {@code spacing} and {@code separation} values for {@code swamp huts.}
+     */
+    public static void modifySwampHuts(JsonElement jsonElement) {
+        SwampHutConfig config = new SwampHutConfig();
+        config.configure(jsonElement);
     }
 
     /**
      * Changes the {@code distance,} {@code spread,} and {@code count} values for {@code strongholds.}
-     * <p>Distance - how close strongholds can generate to spawn. </p>
-     * <p>Spread - how far apart strongholds can generate from each other.</p>
-     * <p>Count - the total amount of strongholds that are allowed to create in a single Minecraft world.</p>
      */
     public static void modifyStrongholds(JsonElement jsonElement) {
-        if (!isDoomMode()) {
-            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", options().worldGen.strongholdDistance.getCurrentValue());
-            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", options().worldGen.strongholdSpread.getCurrentValue());
-        }
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", options().worldGen.strongholdCount.getCurrentValue());
+        StrongholdConfig config = new StrongholdConfig();
+        config.configure(jsonElement);
     }
 
     /**
@@ -94,7 +117,15 @@ public class StructuresLoader {
      */
     public static void modifyTrialChambers(JsonElement jsonElement) {
         TrialChamberConfig config = new TrialChamberConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
+    }
+
+    /**
+     * Changes the {@code spacing} and {@code separation} values for {@code trail ruins.}
+     */
+    public static void modifyTrailRuins(JsonElement jsonElement) {
+        TrailRuinConfig config = new TrailRuinConfig();
+        config.configure(jsonElement);
     }
 
     /**
@@ -102,7 +133,7 @@ public class StructuresLoader {
      */
     public static void modifyVillages(JsonElement jsonElement) {
         VillageConfig config = new VillageConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 
     /**
@@ -110,6 +141,6 @@ public class StructuresLoader {
      */
     public static void modifyWoodlandMansions(JsonElement jsonElement) {
         WoodlandMansionConfig config = new WoodlandMansionConfig();
-        config.configurate(jsonElement);
+        config.configure(jsonElement);
     }
 }

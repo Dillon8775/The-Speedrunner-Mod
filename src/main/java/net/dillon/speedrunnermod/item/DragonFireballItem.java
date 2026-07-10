@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +21,7 @@ public class DragonFireballItem extends Item {
      */
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
-        if (ModUtil.createFireball(this, world, player, hand, true)) {
+        if (ThrowableFireball.createFireballEntity(true, player)) {
             return InteractionResult.SUCCESS_SERVER;
         }
         return super.use(world, player, hand);

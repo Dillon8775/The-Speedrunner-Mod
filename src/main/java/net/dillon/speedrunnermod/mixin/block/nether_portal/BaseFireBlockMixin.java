@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.block.nether_portal;
 
-import net.dillon.speedrunnermod.tag.ModBlockTags;
+import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,7 +19,7 @@ public class BaseFireBlockMixin {
      */
     @Redirect(method = "isPortal", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Ljava/lang/Object;)Z"))
     private static boolean newNetherPortalBaseBlocks(BlockState state, Object o) {
-        return state.is(ModBlockTags.NETHER_PORTAL_BASE_BLOCKS);
+        return state.is(ModBlockItemTags.NETHER_PORTAL_BASE_BLOCKS.block());
     }
 
     /**

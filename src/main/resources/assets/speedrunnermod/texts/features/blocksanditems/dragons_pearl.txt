@@ -1,3 +1,3 @@
-## Forces the §dender dragon §fto perch in the end, removing those long, last few minutes in §bevery speedrun.
+## Forces the §dender dragon §fto §aperch, §fremoving those long, last few minutes in §bevery speedrun.
 
 !image:textures/gui/features/recipes/dragons_pearl_crafting_recipe.png scale=.5

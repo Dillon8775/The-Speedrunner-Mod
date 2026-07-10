@@ -1,7 +1,6 @@
 {
   "values": [
-    "minecraft:ender_pearl",
-    "minecraft:fire_charge",
+    "speedrunnermod:inferno_eye",
     "minecraft:lava_bucket"
   ]
 }

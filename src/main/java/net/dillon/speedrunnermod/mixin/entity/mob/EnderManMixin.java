@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -21,8 +21,8 @@ public class EnderManMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeEndermanAttributes(EntityType<? extends EnderMan> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
-        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
-        ModUtil.modifyFollowRange(dis, isDoomMode() ? 64.0D : 12.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
+        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
+        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 64.0D : 12.0D);
     }
 }

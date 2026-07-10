@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.mixin.accessor.OrePlacementsInvoker;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -79,8 +79,8 @@ public class WastelandPlacements {
         PlacementUtils.register(context, ORE_EXPERIENCE, registryEntryLookup.getOrThrow(WastelandFeatures.ORE_EXPERIENCE),
                 OrePlacementsInvoker.invokeCommonOrePlacement(18, HeightRangePlacement.uniform(VerticalAnchor.bottom(), VerticalAnchor.absolute(62))));
         PlacementUtils.register(context, ORE_DIAMOND, registryEntryLookup.getOrThrow(WastelandFeatures.ORE_DIAMOND),
-                OrePlacementsInvoker.invokeCommonOrePlacement(ModUtil.DIAMOND_ORE_SPAWN_CHANCE - 1, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(ModHelper.DIAMOND_ORE_SPAWN_CHANCE - 1, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
         PlacementUtils.register(context, ORE_DIAMOND_BURIED, registryEntryLookup.getOrThrow(WastelandFeatures.ORE_DIAMOND_BURIED),
-                OrePlacementsInvoker.invokeCommonOrePlacement(ModUtil.BURIED_DIAMOND_ORE_SPAWN_CHANCE - 2, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
+                OrePlacementsInvoker.invokeCommonOrePlacement(ModHelper.BURIED_DIAMOND_ORE_SPAWN_CHANCE - 2, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80))));
     }
 }

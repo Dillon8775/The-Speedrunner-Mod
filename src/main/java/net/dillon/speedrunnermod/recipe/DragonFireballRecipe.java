@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModComponentHelper;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -51,7 +51,7 @@ public class DragonFireballRecipe extends CustomRecipe {
                         if (!(itemStack.getItem() instanceof PotionItem)) {
                             return false;
                         } else {
-                            if (!ModUtil.hasDragonsAura(itemStack)) {
+                            if (!ModComponentHelper.hasDragonsAura(itemStack)) {
                                 return false;
                             }
                         }

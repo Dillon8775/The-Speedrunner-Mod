@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Zoglin;
@@ -21,9 +21,9 @@ public class ZoglinMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeZoglinAttributes(EntityType<? extends Zoglin> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
-        ModUtil.modifyKnockbackResistance(dis, isDoomMode() ? 0.7D : 0.6D);
-        ModUtil.modifyAttackKnockback(dis, isDoomMode() ? 1.2D : 0.5D);
-        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
+        ModAttributeHelper.modifyKnockbackResistance(dis, isDoomMode() ? 0.7D : 0.6D);
+        ModAttributeHelper.modifyAttackKnockback(dis, isDoomMode() ? 1.2D : 0.5D);
+        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
     }
 }

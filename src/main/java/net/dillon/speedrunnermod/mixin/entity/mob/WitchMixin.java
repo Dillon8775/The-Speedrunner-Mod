@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Witch;
@@ -21,7 +21,7 @@ public class WitchMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeWitchAttributes(EntityType<? extends Witch> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 26.0D : 14.0D);
-        ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.35D : 0.25D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 26.0D : 14.0D);
+        ModAttributeHelper.modifyMovementSpeed(dis, isDoomMode() ? 0.35D : 0.25D);
     }
 }

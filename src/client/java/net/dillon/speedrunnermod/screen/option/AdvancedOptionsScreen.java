@@ -1,14 +1,15 @@
 package net.dillon.speedrunnermod.screen.option;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.option.ListOptions;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.option.ListOptions.ofRestartable;
 import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -16,7 +17,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * A screen for some of the {@code advanced speedrunner mod options.}
  */
 public class AdvancedOptionsScreen extends AbstractModScreen {
-    private AbstractWidget modifiedStrongholdGeneration, modifiedStrongholdYGeneration, modifiedNetherFortressGeneration, generateSpeedrunnerWood, piglinAwakenerPiglinCount, icarusFireworksInventorySlot, infiniPearlInventorySlot, dragonImmunityFromGoliathAndWither, annulEyeSearchRadius, piglinAwakenerSearchRadius, blazeSpotterSearchRadius, raidEradicatorSearchRadius, dragonsPearlSearchRadius, dragonImmunityDetectionRadiusForGoliath, dragonImmunityDetectionRadiusForWither;
+    private AbstractWidget modifiedStrongholdGeneration, modifiedStrongholdYGeneration, modifiedNetherFortressGeneration, piglinAwakenerPiglinCount, icarusFireworksInventorySlot, infiniPearlInventorySlot, dragonImmunityFromGoliathAndWither, annulEyeSearchRadius, piglinAwakenerSearchRadius, blazeSpotterSearchRadius, raidEradicatorSearchRadius, dragonsPearlSearchRadius, dragonImmunityDetectionRadiusForGoliath, dragonImmunityDetectionRadiusForWither;
 
     public AdvancedOptionsScreen(Screen parent) {
         super(parent, ModTexts.TITLE_ADVANCED_OPTIONS);
@@ -24,13 +25,12 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget();
+        this.initializeModButtonListWidget();
 
         this.modifiedStrongholdGeneration = createOption(ListOptions.modifiedStrongholdGeneration());
         this.modifiedStrongholdYGeneration = createOption(ListOptions.modifiedStrongholdYGeneration());
         this.modifiedNetherFortressGeneration = createOption(ListOptions.modifiedNetherFortressGeneration());
-        this.generateSpeedrunnerWood = createOption(ListOptions.generateSpeedrunnerWood());
-        this.piglinAwakenerPiglinCount = createOption(ListOptions.generateSpeedrunnerWood());
+        this.piglinAwakenerPiglinCount = createOption(ListOptions.piglinAwakenerPiglinCount());
         this.icarusFireworksInventorySlot = createOption(ListOptions.icarusFireworksInventorySlot());
         this.infiniPearlInventorySlot = createOption(ListOptions.infiniPearlInventorySlot());
         this.dragonImmunityFromGoliathAndWither = createOption(ListOptions.dragonImmunityFromGoliathAndWither());
@@ -45,11 +45,11 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.buttonList.addSingleOptionEntry(this.modifiedStrongholdGeneration);
         this.buttonList.addSingleOptionEntry(this.modifiedStrongholdYGeneration);
         this.buttonList.addSingleOptionEntry(this.modifiedNetherFortressGeneration);
-        this.buttonList.addSingleOptionEntry(this.generateSpeedrunnerWood);
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.enderEyeBreakingCooldown()));
+        this.buttonList.addSingleOptionEntry(this.piglinAwakenerPiglinCount);
+        this.buttonList.addSingleOptionEntry(createOption(ListOptions.shiftToThrowFireball()));
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.longerDragonPerchStayTime()));
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.decreasedZombifiedPiglinScareDistance()));
-        this.buttonList.addSingleOptionEntry(this.piglinAwakenerPiglinCount);
         this.buttonList.addSingleOptionEntry(this.icarusFireworksInventorySlot);
         this.buttonList.addSingleOptionEntry(this.infiniPearlInventorySlot);
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.dragonKillsNearbyHostileEntities()));
@@ -62,55 +62,38 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
         this.buttonList.addSingleOptionEntry(createOption(ListOptions.dragonMassKillRadius(this.hasXDown(), this.hasYDown(), this.hasZDown())));
         this.buttonList.addSingleOptionEntry(this.dragonImmunityDetectionRadiusForGoliath);
         this.buttonList.addSingleOptionEntry(this.dragonImmunityDetectionRadiusForWither);
+        this.buttonList.addSingleOptionEntry(createOption(ListOptions.goliathAndZombieEntityDetectionRadius(this.hasXDown(), this.hasYDown(), this.hasZDown())));
 
         super.init();
     }
 
     @Override
     protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-        boolean customDataGen = options().worldGen.customDataGeneration.getCurrentValue();
-        boolean customDataGenAndBalancedMode = customDataGen && !isBalancedMode();
-        boolean customDataGenAndCustomBiomesAndCustomBiomeFeatures = customDataGen && options().general.customBiomesAndCustomBiomeFeatures.getCurrentValue();
+        boolean balancedMode = !isBalancedMode();
 
-        this.lockOptionWithTooltip(this.modifiedStrongholdGeneration, customDataGenAndBalancedMode,
-                Component.translatable("speedrunnermod.options.modified_stronghold_generation.tooltip"),
-                !options().worldGen.customDataGeneration.getCurrentValue() ?
-                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
-                        Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip"),
+        this.lockOptionWithTooltip(this.modifiedStrongholdGeneration, balancedMode,
+                ofRestartable(Component.translatable("speedrunnermod.options.modified_stronghold_generation.tooltip")),
+                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip"),
                 graphics,
                 mouseX,
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.modifiedStrongholdYGeneration, customDataGenAndBalancedMode,
-                Component.translatable("speedrunnermod.options.modified_stronghold_y_generation.tooltip"),
-                !options().worldGen.customDataGeneration.getCurrentValue() ?
-                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
-                        Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip"),
+        this.lockOptionWithTooltip(this.modifiedStrongholdYGeneration, balancedMode,
+                ofRestartable(Component.translatable("speedrunnermod.options.modified_stronghold_y_generation.tooltip")),
+                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip"),
                 graphics,
                 mouseX,
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.modifiedNetherFortressGeneration, customDataGenAndBalancedMode,
-                Component.translatable("speedrunnermod.options.modified_nether_fortress_generation.tooltip"),
-                !options().worldGen.customDataGeneration.getCurrentValue() ?
-                Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
-                        Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip"),
+        this.lockOptionWithTooltip(this.modifiedNetherFortressGeneration, balancedMode,
+                ofRestartable(Component.translatable("speedrunnermod.options.modified_nether_fortress_generation.tooltip")),
+                Component.translatable("speedrunnermod.options.balanced_mode_conflicting.tooltip"),
                 graphics,
                 mouseX,
                 mouseY
         );
-
-        this.lockOptionWithTooltip(this.generateSpeedrunnerWood, customDataGenAndCustomBiomesAndCustomBiomeFeatures,
-                Component.translatable("speedrunnermod.options.generate_speedrunner_wood.tooltip"),
-                !options().worldGen.customDataGeneration.getCurrentValue() ?
-                        Component.translatable("speedrunnermod.options.custom_data_generation_must_be_enabled.tooltip") :
-                        Component.translatable("speedrunnermod.options.custom_biomes_and_custom_biome_features_must_be_enabled.tooltip"),
-                graphics,
-                mouseX,
-                mouseY
-                );
 
         this.lockOptionWithTooltip(this.piglinAwakenerPiglinCount, !isBalancedMode(),
                 Component.translatable("speedrunnermod.options.piglin_awakener_piglin_count.tooltip"),

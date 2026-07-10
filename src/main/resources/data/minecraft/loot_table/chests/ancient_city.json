@@ -152,21 +152,6 @@
             {
               "count": {
                 "type": "minecraft:uniform",
-                "max": 7,
-                "min": 3
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "speedrunnermod:ender_matter",
-          "weight": 12
-        },
-        {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
                 "max": 4,
                 "min": 1
               },
@@ -276,7 +261,12 @@
         {
           "type": "minecraft:item",
           "name": "speedrunnermod:speedrunners_totem",
-          "weight": 2
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "name": "speedrunnermod:dragon_upgrade_smithing_template",
+          "weight": 3
         },
         {
           "type": "minecraft:item",
@@ -337,6 +327,21 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 7,
+                "min": 3
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "speedrunnermod:ender_matter",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:golden_apple",
           "functions": [
             {
@@ -352,11 +357,6 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:enchanted_golden_apple",
-          "weight": 4
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:diamond",
           "functions": [
             {
@@ -368,7 +368,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "weight": 5
+          "weight": 6
         },
         {
           "type": "minecraft:item",
@@ -387,8 +387,13 @@
         },
         {
           "type": "minecraft:item",
+          "name": "minecraft:enchanted_golden_apple",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
           "name": "minecraft:diamond_block",
-          "weight": 2
+          "weight": 4
         }
       ],
       "rolls": 1.0

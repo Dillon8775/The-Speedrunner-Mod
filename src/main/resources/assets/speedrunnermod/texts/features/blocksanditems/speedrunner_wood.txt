@@ -1,5 +1,5 @@
-### A new type of wood, which can §oonly §r§fbe found §rin the §b§lSpeedrunner's Wasteland's§r §bbiome.
+### A new type of wood, which can be found §rin the §b§lSpeedrunner's Wasteland's§r §bbiome, §r§fand from §6piglin bartering.
 
-#### Acts like any other type of wood; it §ocan §r§fbe used as a §7§lfuel source,§r but §6cannot burn from fire or lava.
+#### Acts like any other type of wood; it §ocan §r§fbe used as a §7fuel source,§r but it §6cannot catch fire from fire or lava.
 
 !image:textures/gui/features/blocks/speedrunner_wood.png scale=.1

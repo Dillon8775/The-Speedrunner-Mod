@@ -1,8 +1,0 @@
-### Inflicts §7wither §r§fon targets, with an §a§oincreased chance §r§ffor §7§lwither skeletons §r§fto drop a §7wither skeleton skull.
-
-#### Found in §cnether fortress §r§fchests.
-#### You can also get it from §atrading §r§fwith the §b§lRetired Speedrunner §r§fvillager.
-
-Applicable on swords.
-
-!image:textures/gui/features/items/enchanted_book.png scale=.2

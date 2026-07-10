@@ -1,20 +1,57 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TickCalculator;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * See {@link net.dillon.speedrunnermod.mixin.entity.goliath.Goliath} for more.
+ * See {@link net.dillon.speedrunnermod.mixin.entity.goliath.Goliath} for the actual Goliath code.
  */
 public interface Goliath {
+    void setSpawnedZombies(boolean value);
+    boolean hasSpawnedZombies();
 
+    /**
+     * Spawns angry particles around Goliath, or a zombie.
+     */
+    static void addAngryParticles(Mob mob) {
+        for (int i = 0; i < 5; i++) {
+            double d = mob.getRandom().nextGaussian() * 0.02;
+            double e = mob.getRandom().nextGaussian() * 0.02;
+            double f = mob.getRandom().nextGaussian() * 0.02;
+            mob.level().addParticle(ParticleTypes.ANGRY_VILLAGER, mob.getRandomX(1.0), mob.getRandomY() + 1.0, mob.getRandomZ(1.0), d, e, f);
+        }
+    }
+
+    /**
+     * Makes Goliath and minions safe from the void.
+     */
+    static void safeFromVoid(Mob mob) {
+        if (mob.level() instanceof ServerLevel && mob.level().dimension() == Level.END) {
+            if (mob.getY() < (double)(mob.level().getMinY() - 64)) {
+                mob.randomTeleport(0, 96, 0, true);
+                if (!mob.isSilent()) {
+                    mob.level().playSound(null, mob.getX(), mob.getEyeY(), mob.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.HOSTILE, 10.0F, 1.0F);
+                    mob.playSound(SoundEvents.ENDERMAN_TELEPORT, 10.0F, 1.0F);
+                }
+            }
+        }
+    }
+
+    /**
+     * Attacks a target.
+     */
     static boolean tryAttack(ServerLevel world, LivingEntity attacker, LivingEntity target) {
         float f = (float)attacker.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float g;
@@ -29,9 +66,9 @@ public interface Goliath {
         if (bl) {
             EnchantmentHelper.doPostAttackEffects(world, target, damageSource);
             if (!(attacker.getHealth() < attacker.getMaxHealth() / 3)) {
-                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(3)));
-                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, ModUtil.secondsAsTicks(3)));
-                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, ModUtil.secondsAsTicks(7)));
+                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, TickCalculator.seconds(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, TickCalculator.seconds(7)));
             }
             if (!attacker.isBaby()) {
                 knockback(attacker, target);
@@ -41,6 +78,9 @@ public interface Goliath {
         return bl;
     }
 
+    /**
+     * Knocks back a target.
+     */
     static void knockback(LivingEntity attacker, LivingEntity target) {
         double d = attacker.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         double e = target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);

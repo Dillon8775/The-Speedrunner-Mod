@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 @Mixin(TheEndGatewayBlockEntity.class)
@@ -19,6 +18,6 @@ public class TheEndGatewayBlockEntityMixin {
      */
     @Redirect(method = "findValidSpawnInChunk", at = @At(value = "FIELD", target = "Lnet/minecraft/world/level/block/Blocks;END_STONE:Lnet/minecraft/world/level/block/Block;"))
     private static Block changeEndGatewayBaseBlock() {
-        return options().worldGen.customDataGeneration.getCurrentValue() && isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
+        return isDoomMode() ? ModBlocks.DOOM_STONE : Blocks.END_STONE;
     }
 }

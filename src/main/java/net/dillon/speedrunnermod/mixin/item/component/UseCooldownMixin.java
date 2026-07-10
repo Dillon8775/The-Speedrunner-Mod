@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.item.component;
 
+import net.dillon.speedrunnermod.helper.ModComponentHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -20,8 +20,10 @@ public class UseCooldownMixin {
      */
     @Inject(method = "apply", at = @At("TAIL"))
     private void implementCooldownEnchantmentChorusFruit(ItemStack stack, LivingEntity user, CallbackInfo ci) {
-        if (user instanceof Player player && stack.is(ModItemTags.COOLDOWN_ENCHANTMENT_ITEMS) && !stack.is(ModItems.INFINI_PEARL)) {
-            ModUtil.applyItemCooldown(player, stack);
+        if (!(user instanceof Player player) || !stack.is(ModItemTags.COOLDOWN_ENCHANTMENT_ITEMS) || stack.is(ModItems.INFINI_PEARL)) {
+            return;
         }
+
+        ModComponentHelper.applyNewItemCooldown(player, stack);
     }
 }

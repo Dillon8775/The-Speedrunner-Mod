@@ -50,7 +50,7 @@ public class OverworldBiomeBuilderMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (!options().worldGen.customDataGeneration.getCurrentValue() || !options().general.customBiomesAndCustomBiomeFeatures.getCurrentValue()) {
+        if (!options().worldGen.generateSpeedrunnersWasteland.getCurrentValue()) {
             this.MIDDLE_BIOMES = VANILLA_MIDDLE_BIOMES;
             return;
         }

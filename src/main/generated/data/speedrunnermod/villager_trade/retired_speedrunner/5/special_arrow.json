@@ -1,0 +1,22 @@
+{
+  "additional_wants": {
+    "id": "minecraft:arrow"
+  },
+  "given_item_modifiers": [
+    {
+      "function": "minecraft:set_random_potion",
+      "options": "#speedrunnermod:retired_speedrunner_arrow_effects"
+    }
+  ],
+  "gives": {
+    "count": 5,
+    "id": "minecraft:tipped_arrow"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.4,
+  "wants": {
+    "count": 3.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 34.0
+}

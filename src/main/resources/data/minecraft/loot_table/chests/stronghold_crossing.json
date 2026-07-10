@@ -115,8 +115,13 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "speedrunnermod:inventory_preserver"
+          "name": "speedrunnermod:dragon_upgrade_smithing_template",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "speedrunnermod:inventory_preserver",
+          "weight": 3
         },
         {
           "type": "minecraft:item",

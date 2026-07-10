@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.animal;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,5 +12,5 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(Dolphin.class)
 public class DolphinMixin {
     @Shadow
-    static final TargetingConditions SWIM_WITH_PLAYER_TARGETING = TargetingConditions.forNonCombat().range(ModUtil.DOLPHIN_PREDICATE_RANGE).ignoreLineOfSight();
+    static final TargetingConditions SWIM_WITH_PLAYER_TARGETING = TargetingConditions.forNonCombat().range(ModHelper.DOLPHIN_PREDICATE_RANGE).ignoreLineOfSight();
 }

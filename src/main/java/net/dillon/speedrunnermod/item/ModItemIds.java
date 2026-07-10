@@ -42,6 +42,7 @@ public class ModItemIds {
     public static final ResourceKey<Item> GOLDEN_SPEEDRUNNER_LEGGINGS = create("golden_speedrunner_leggings");
     public static final ResourceKey<Item> GOLDEN_SPEEDRUNNER_BOOTS = create("golden_speedrunner_boots");
     public static final ResourceKey<Item> GOLDEN_UPGRADE_SMITHING_TEMPLATE = create("golden_upgrade_smithing_template");
+    public static final ResourceKey<Item> DRAGON_UPGRADE_SMITHING_TEMPLATE = create("dragon_upgrade_smithing_template");
     public static final ResourceKey<Item> GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR = create("golden_speedrunner_nautilus_armor");
     public static final ResourceKey<Item> GOLDEN_SPEEDRUNNER_HARNESS = create("golden_speedrunner_harness");
     public static final ResourceKey<Item> SPEEDRUNNER_BULK = create("speedrunner_bulk");
@@ -82,7 +83,7 @@ public class ModItemIds {
     public static final ResourceKey<Item> INFINI_PEARL = create("infini_pearl");
     public static final ResourceKey<Item> KNOCKBACK_STICK = create("knockback_stick");
     public static final ResourceKey<Item> SPEEDRUNNERS_TOTEM = create("speedrunners_totem");
-    public static final ResourceKey<Item> DRAGONS_FIREBALL = create("dragon_fireball");
+    public static final ResourceKey<Item> DRAGON_FIREBALL = create("dragon_fireball");
 
     /**
      * Creates an {@code item id.}

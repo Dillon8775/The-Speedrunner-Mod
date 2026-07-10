@@ -28,7 +28,7 @@
     "id": "minecraft:netherite_chestplate"
   },
   "max_uses": 3.0,
-  "reputation_discount": 0.75,
+  "reputation_discount": 0.5,
   "wants": {
     "count": 12.0,
     "id": "minecraft:emerald"

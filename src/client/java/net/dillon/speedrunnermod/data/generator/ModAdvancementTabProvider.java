@@ -1,16 +1,15 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.advancement.ItemLikeTrigger;
+import net.dillon.speedrunnermod.component.ModPotions;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.potion.ModPotions;
+import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementHolder;
-import net.minecraft.advancements.AdvancementRequirements;
-import net.minecraft.advancements.AdvancementType;
-import net.minecraft.advancements.predicates.LocationPredicate;
+import net.minecraft.advancements.*;
+import net.minecraft.advancements.predicates.*;
+import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.ChangeDimensionTrigger;
 import net.minecraft.advancements.triggers.InventoryChangeTrigger;
@@ -18,16 +17,19 @@ import net.minecraft.advancements.triggers.KilledTrigger;
 import net.minecraft.advancements.triggers.PlayerTrigger;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentExactPredicate;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 
@@ -76,7 +78,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_INGOT))
-                .save(exporter, "speedrunnermod:items/speedrunning_time");
+                .save(exporter, ofItemAdvancement("speedrunning_time"));
 
         Advancement.Builder.advancement()
                 .parent(speedrunningTime)
@@ -91,9 +93,9 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE))
-                .save(exporter, "speedrunnermod:items/speedrunning_pro");
+                .save(exporter, ofItemAdvancement("speedrunning_pro"));
 
-        AdvancementHolder whatAWasteland = requireSpeedrunnersWasteland(Advancement.Builder.advancement(), wrapperLookup)
+        requireSpeedrunnersWasteland(Advancement.Builder.advancement(), wrapperLookup)
                 .parent(speedrunningTime)
                 .display(
                         ModItems.SPEEDRUNNER_SAPLING,
@@ -105,9 +107,9 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .save(exporter, "speedrunnermod:adventure/what_a_wasteland");
+                .save(exporter, ofItemAdvancement("what_a_wasteland"));
 
-        Advancement.Builder.advancement()
+        AdvancementHolder hardestRock = Advancement.Builder.advancement()
                 .parent(speedrunningTime)
                 .display(
                         ModItems.IGNEOUS_ROCK,
@@ -120,7 +122,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.IGNEOUS_ROCK))
-                .save(exporter, "speedrunnermod:items/hardest_rock");
+                .save(exporter, ofItemAdvancement("hardest_rock"));
 
         AdvancementHolder eyeOfTheStructures = Advancement.Builder.advancement()
                 .parent(speedrunningTime)
@@ -135,7 +137,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNERS_EYE))
-                .save(exporter, "speedrunnermod:items/eye_of_the_structures");
+                .save(exporter, ofItemAdvancement("eye_of_the_structures"));
 
         Advancement.Builder.advancement()
                 .parent(eyeOfTheStructures)
@@ -150,10 +152,10 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         true
                 )
                 .addCriterion("has_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.INVENTORY_PRESERVER))
-                .save(exporter, "speedrunnermod:items/i_lost_my_stuff");
+                .save(exporter, ofItemAdvancement("i_lost_my_stuff"));
 
         Advancement.Builder.advancement()
-                .parent(eyeOfTheStructures)
+                .parent(hardestRock)
                 .display(
                         ModItems.SPEEDRUNNER_BULK,
                         Component.translatable("advancements.speedrunnermod.bulky.title"),
@@ -165,7 +167,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_BULK))
-                .save(exporter, "speedrunnermod:items/bulked");
+                .save(exporter, ofItemAdvancement("bulked"));
 
         AdvancementHolder quickerPick = Advancement.Builder.advancement()
                 .parent(speedrunningTime)
@@ -180,7 +182,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_PICKAXE))
-                .save(exporter, "speedrunnermod:items/quicker_pick");
+                .save(exporter, ofItemAdvancement("quicker_pick"));
 
         AdvancementHolder suitedForSpeedrunning = Advancement.Builder.advancement()
                 .parent(quickerPick)
@@ -199,9 +201,9 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("has_speedrunner_chestplate", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_CHESTPLATE))
                 .addCriterion("has_speedrunner_leggings", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_LEGGINGS))
                 .addCriterion("has_speedrunner_boots", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_BOOTS))
-                .save(exporter, "speedrunnermod:items/suited_for_speedrunning");
+                .save(exporter, ofItemAdvancement("suited_for_speedrunning"));
 
-        Advancement.Builder.advancement()
+        AdvancementHolder oneStepAhead = Advancement.Builder.advancement()
                 .parent(suitedForSpeedrunning)
                 .display(
                         ModItems.SPEEDRUNNERS_WORKBENCH,
@@ -215,7 +217,53 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 )
                 .requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("used_workbench", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.SPEEDRUNNERS_WORKBENCH))
-                .save(exporter, "speedrunnermod:blocks/one_step_ahead");
+                .save(exporter, ofBlockAdvancement("one_step_ahead"));
+
+        Advancement.Builder.advancement()
+                .parent(oneStepAhead)
+                .display(
+                        Items.ENCHANTED_BOOK,
+                        Component.translatable("advancements.speedrunnermod.speedy.title"),
+                        Component.translatable("advancements.speedrunnermod.speedy.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("obtained_dash_enchantment", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.SPEEDRUNNER_LOG))
+                .save(exporter, ofEnchantmentAdvancement("speedy"));
+
+        Advancement.Builder.advancement()
+                .parent(oneStepAhead)
+                .display(
+                        Items.ENCHANTED_BOOK,
+                        Component.translatable("advancements.speedrunnermod.that_was_fast.title"),
+                        Component.translatable("advancements.speedrunnermod.that_was_fast.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("obtained_cooldown_enchantment", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.SPEEDRUNNER_WOOD))
+                .save(exporter, ofEnchantmentAdvancement("that_was_fast"));
+
+        Advancement.Builder.advancement()
+                .parent(oneStepAhead)
+                .display(
+                        Items.ENCHANTED_BOOK,
+                        Component.translatable("advancements.speedrunnermod.withers_secret.title"),
+                        Component.translatable("advancements.speedrunnermod.withers_secret.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .requirements(AdvancementRequirements.Strategy.OR)
+                .addCriterion("obtained_withered_enchantment", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.STRIPPED_SPEEDRUNNER_LOG))
+                .save(exporter, ofEnchantmentAdvancement("wither_glore"));
 
         AdvancementHolder betterSafeThanSorry = Advancement.Builder.advancement()
                 .parent(suitedForSpeedrunning)
@@ -234,7 +282,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("has_golden_speedrunner_chestplate", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE))
                 .addCriterion("has_golden_speedrunner_leggings", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS))
                 .addCriterion("has_golden_speedrunner_boots", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_SPEEDRUNNER_BOOTS))
-                .save(exporter, "speedrunnermod:items/better_safe_than_sorry");
+                .save(exporter, ofItemAdvancement("better_safe_than_sorry"));
 
         AdvancementHolder speedyGhast = Advancement.Builder.advancement()
                 .parent(betterSafeThanSorry)
@@ -251,7 +299,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("has_speedrunner_harness", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_HARNESS))
                 .addCriterion("has_golden_speedrunner_harness", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_SPEEDRUNNER_HARNESS))
-                .save(exporter, "speedrunnermod:adventure/speedy_harness");
+                .save(exporter, ofItemAdvancement("speedy_harness"));
 
         Advancement.Builder.advancement()
                 .parent(speedyGhast)
@@ -268,7 +316,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .requirements(AdvancementRequirements.Strategy.OR)
                 .addCriterion("has_speedrunner_nautilus", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_NAUTILUS_ARMOR))
                 .addCriterion("has_golden_speedrunner_nautilus", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR))
-                .save(exporter, "speedrunnermod:adventure/speedy_slosh");
+                .save(exporter, ofItemAdvancement("speedy_slosh"));
 
         AdvancementHolder rangedSpeedrunning = Advancement.Builder.advancement()
                 .parent(suitedForSpeedrunning)
@@ -283,7 +331,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_BOW))
-                .save(exporter, "speedrunnermod:items/ranged_speedrunning");
+                .save(exporter, ofItemAdvancement("ranged_speedrunning"));
 
         Advancement.Builder.advancement()
                 .parent(rangedSpeedrunning)
@@ -297,8 +345,8 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_CROSSBOW))
-                .save(exporter, "speedrunnermod:items/speedy_betsy");
+                .addCriterion("has_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.SPEEDRUNNER_CROSSBOW))
+                .save(exporter, ofItemAdvancement("speedy_betsy"));
 
         AdvancementHolder theEndOfTheMatter = Advancement.Builder.advancement()
                 .parent(eyeOfTheStructures)
@@ -313,7 +361,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.ENDER_MATTER))
-                .save(exporter, "speedrunnermod:items/the_end_of_the_matter");
+                .save(exporter, ofItemAdvancement("the_end_of_the_matter"));
 
         AdvancementHolder theEndIsNear = Advancement.Builder.advancement()
                 .parent(theEndOfTheMatter)
@@ -328,7 +376,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.ANNUL_EYE))
-                .save(exporter, "speedrunnermod:items/the_end_is_near");
+                .save(exporter, ofItemAdvancement("the_end_is_near"));
 
         Advancement.Builder.advancement()
                 .parent(eyeOfTheStructures)
@@ -343,7 +391,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.ENDER_THRUSTER))
-                .save(exporter, "speedrunnermod:items/back_to_the_surface");
+                .save(exporter, ofItemAdvancement("back_to_the_surface"));
 
         AdvancementHolder infernalGaze = Advancement.Builder.advancement()
                 .parent(eyeOfTheStructures)
@@ -358,9 +406,9 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.INFERNO_EYE))
-                .save(exporter, "speedrunnermod:items/infernal_gaze");
+                .save(exporter, ofItemAdvancement("infernal_gaze"));
 
-        Advancement.Builder.advancement()
+        AdvancementHolder youShouldAddAFeature = Advancement.Builder.advancement()
                 .parent(infernalGaze)
                 .display(
                         Items.FIRE_CHARGE,
@@ -373,7 +421,42 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", ItemLikeTrigger.Conditions.item(itemLookup, Items.FIRE_CHARGE))
-                .save(exporter, "speedrunnermod:items/you_should_add_a_feature");
+                .save(exporter, ofItemAdvancement("you_should_add_a_feature"));
+
+        Advancement.Builder.advancement()
+                .parent(youShouldAddAFeature)
+                .display(
+                        Items.ZOMBIE_SPAWN_EGG,
+                        Component.translatable("advancements.speedrunnermod.spare_me.title"),
+                        Component.translatable("advancements.speedrunnermod.spare_me.description"),
+                        null,
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion(
+                        "killed_zombielike_holding_fireball",
+                        KilledTrigger.TriggerInstance.playerKilledEntity(
+                                EntityPredicate.Builder.entity()
+                                        .of(entityLookup, ModEntityTypeTags.SPARE_ME_ADVANCEMENT_MOBS)
+                                        .equipment(
+                                                EntityEquipmentPredicate.Builder.equipment()
+                                                        .mainhand(
+                                                                ItemPredicate.Builder.item()
+                                                                        .of(itemLookup, Items.FIRE_CHARGE)
+                                                        )
+                                        ),
+                                DamageSourcePredicate.Builder.damageType()
+                                        .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                                        .direct(
+                                                EntityPredicate.Builder.entity()
+                                                        .of(entityLookup, EntityTypes.FIREBALL)
+                                        )
+                        )
+                )
+                .rewards(AdvancementRewards.Builder.experience(300))
+                .save(exporter, ofAdventureAdvancement("spare_me"));
 
         AdvancementHolder perchAlready = Advancement.Builder.advancement()
                 .parent(theEndIsNear)
@@ -388,7 +471,22 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.DRAGONS_PEARL))
-                .save(exporter, "speedrunnermod:items/perch_already");
+                .save(exporter, ofItemAdvancement("perch_already"));
+
+       AdvancementHolder theFinalTreasure = Advancement.Builder.advancement()
+                .parent(perchAlready)
+                .display(
+                        ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE,
+                        Component.translatable("advancements.speedrunnermod.the_final_treasure.title"),
+                        Component.translatable("advancements.speedrunnermod.the_final_treasure.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        true
+                )
+                .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE))
+                .save(exporter, ofItemAdvancement("the_final_treasure"));
 
         PotionContents dragonsAuraEffect = new PotionContents(ModPotions.DRAGONS_AURA);
         ItemStackTemplate dragonsAuraPotion = new ItemStackTemplate(
@@ -409,12 +507,70 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("obtain_item", ItemLikeTrigger.Conditions.item(itemLookup, Items.POTION))
-                .save(exporter, "speedrunnermod:items/dragons_aura");
+                .save(exporter, ofPotionAdvancement("dragons_aura"));
+
+        PotionContents luckEffect = new PotionContents(Potions.LUCK);
+        ItemStackTemplate luckPotion = new ItemStackTemplate(
+                Items.POTION.builtInRegistryHolder(),
+                1,
+                DataComponentPatch.builder().set(DataComponents.POTION_CONTENTS, luckEffect).build()
+        );
+        AdvancementHolder luckyYou = Advancement.Builder.advancement()
+                .parent(dragonsAura)
+                .display(
+                        luckPotion,
+                        Component.translatable("advancements.speedrunnermod.lucky_you.title"),
+                        Component.translatable("advancements.speedrunnermod.lucky_you.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("obtain_item", ItemLikeTrigger.Conditions.item(itemLookup, Items.LINGERING_POTION))
+                .save(exporter, ofPotionAdvancement("lucky_you"));
+
+        AdvancementHolder doomedToLuck = Advancement.Builder.advancement()
+                .parent(luckyYou)
+                .display(
+                        ModItems.DOOM_STONE,
+                        Component.translatable("advancements.speedrunnermod.doom_luck.title"),
+                        Component.translatable("advancements.speedrunnermod.doom_luck.description"),
+                        null,
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        true
+                )
+                .addCriterion("obtain_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.DOOM_STONE))
+                .rewards(AdvancementRewards.Builder.experience(200))
+                .save(exporter, ofAdventureAdvancement("doomed_to_luck"));
+
+        PotionContents witheredEffect = new PotionContents(ModPotions.WITHERED);
+        ItemStackTemplate witheredPotion = new ItemStackTemplate(
+                Items.POTION.builtInRegistryHolder(),
+                1,
+                DataComponentPatch.builder().set(DataComponents.POTION_CONTENTS, witheredEffect).build()
+        );
+        Advancement.Builder.advancement()
+                .parent(dragonsAura)
+                .display(
+                        witheredPotion,
+                        Component.translatable("advancements.speedrunnermod.the_black_plaque.title"),
+                        Component.translatable("advancements.speedrunnermod.the_black_plaque.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("obtain_item", ItemLikeTrigger.Conditions.item(itemLookup, Items.SPLASH_POTION))
+                .save(exporter, ofPotionAdvancement("the_black_plaque"));
 
         Advancement.Builder.advancement()
                 .parent(dragonsAura)
                 .display(
-                        ModItems.DRAGONS_FIREBALL,
+                        ModItems.DRAGON_FIREBALL,
                         Component.translatable("advancements.speedrunnermod.dragons_breath.title"),
                         Component.translatable("advancements.speedrunnermod.dragons_breath.description"),
                         null,
@@ -423,8 +579,8 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DRAGONS_FIREBALL))
-                .save(exporter, "speedrunnermod:items/dragons_breath");
+                .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DRAGON_FIREBALL))
+                .save(exporter, ofItemAdvancement("dragons_breath"));
 
         AdvancementHolder piglinRally = Advancement.Builder.advancement()
                 .parent(infernalGaze)
@@ -439,7 +595,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.PIGLIN_AWAKENER))
-                .save(exporter, "speedrunnermod:items/piglin_rally");
+                .save(exporter, ofItemAdvancement("piglin_rally"));
 
         Advancement.Builder.advancement()
                 .parent(piglinRally)
@@ -454,10 +610,10 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.BLAZE_SPOTTER))
-                .save(exporter, "speedrunnermod:items/the_blazez_awaitz");
+                .save(exporter, ofItemAdvancement("the_blazez_awaitz"));
 
-        AdvancementHolder davidAndGoliath = Advancement.Builder.advancement()
-                .parent(perchAlready)
+        Advancement.Builder.advancement()
+                .parent(doomedToLuck)
                 .display(
                         Items.ZOMBIE_HEAD,
                         Component.translatable("advancements.speedrunnermod.david_and_goliath.title"),
@@ -471,11 +627,11 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("killed_goliath", KilledTrigger.TriggerInstance.playerKilledEntity(
                         EntityPredicate.Builder.entity()
                                 .of(entityLookup, EntityTypes.GIANT)))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(200))
-                .save(exporter,"speedrunnermod:adventure/david_and_goliath");
+                .rewards(AdvancementRewards.Builder.experience(250))
+                .save(exporter,ofAdventureAdvancement("david_and_goliath"));
 
         Advancement.Builder.advancement()
-                .parent(davidAndGoliath)
+                .parent(doomedToLuck)
                 .display(
                         ModItems.RAID_ERADICATOR,
                         Component.translatable("advancements.speedrunnermod.the_purge.title"),
@@ -487,10 +643,10 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.RAID_ERADICATOR))
-                .save(exporter, "speedrunnermod:items/the_purge");
+                .save(exporter, ofItemAdvancement("the_purge"));
 
         AdvancementHolder oneHitOneKill = Advancement.Builder.advancement()
-                .parent(perchAlready)
+                .parent(theFinalTreasure)
                 .display(
                         ModItems.DRAGONS_SWORD,
                         Component.translatable("advancements.speedrunnermod.one_hit_one_kill.title"),
@@ -499,14 +655,30 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         AdvancementType.CHALLENGE,
                         true,
                         true,
-                        false
+                        true
                 )
-                .addCriterion("used_dragons_sword", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DRAGONS_SWORD))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(100))
-                .save(exporter, "speedrunnermod:items/one_hit_one_kill");
+                .addCriterion("obtained_dragons_sword", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DRAGONS_SWORD))
+                .rewards(AdvancementRewards.Builder.experience(500))
+                .save(exporter, ofItemAdvancement("one_hit_one_kill"));
+
+        Advancement.Builder.advancement()
+                .parent(oneHitOneKill)
+                .display(
+                        Items.DRAGON_HEAD,
+                        Component.translatable("advancements.speedrunnermod.your_majesty.title"),
+                        Component.translatable("advancements.speedrunnermod.your_majesty.description"),
+                        null,
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        true
+                )
+                .addCriterion("used_dragons_sword", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.DRAGONS_SWORD))
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .save(exporter, ofAdventureAdvancement("your_majesty"));
 
         AdvancementHolder yesTheEnd = Advancement.Builder.advancement()
-                .parent(oneHitOneKill)
+                .parent(perchAlready)
                 .display(
                         Items.DRAGON_HEAD,
                         Component.translatable("advancements.speedrunnermod.yes_the_end.title"),
@@ -517,10 +689,10 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         true,
                         false
                 )
-                .addCriterion("exited_end", ChangeDimensionTrigger.TriggerInstance.changedDimension(Level.END, Level.OVERWORLD))
-                .save(exporter, "speedrunnermod:adventure/exited_end");
+                .addCriterion("yes_the_end", ChangeDimensionTrigger.TriggerInstance.changedDimension(Level.END, Level.OVERWORLD))
+                .save(exporter, ofAdventureAdvancement("yes_the_end"));
 
-        Advancement.Builder.advancement()
+        AdvancementHolder toInfiniAndBeyond = Advancement.Builder.advancement()
                 .parent(theEndOfTheMatter)
                 .display(
                         ModItems.INFINI_PEARL,
@@ -533,8 +705,46 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.INFINI_PEARL))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(300))
-                .save(exporter, "speedrunnermod:items/to_infini_and_beyond");
+                .rewards(AdvancementRewards.Builder.experience(300))
+                .save(exporter, ofItemAdvancement("to_infini_and_beyond"));
+
+        Advancement.Builder.advancement()
+                .parent(toInfiniAndBeyond)
+                .display(
+                        ModItems.KNOCKBACK_STICK,
+                        Component.translatable("advancements.speedrunnermod.boing.title"),
+                        Component.translatable("advancements.speedrunnermod.boing.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("used_knockback_stick", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.KNOCKBACK_STICK))
+                .rewards(AdvancementRewards.Builder.experience(50))
+                .save(exporter, ofItemAdvancement("boing"));
+
+        Advancement.Builder.advancement()
+                .parent(toInfiniAndBeyond)
+                .display(
+                        Items.ELYTRA,
+                        Component.translatable("advancements.speedrunnermod.forever_flight.title"),
+                        Component.translatable("advancements.speedrunnermod.forever_flight.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("has_item", InventoryChangeTrigger.TriggerInstance.hasItems(ItemPredicate.Builder.item()
+                        .of(itemLookup, Items.ELYTRA)
+                        .withComponents(DataComponentMatchers.Builder.components()
+                                .exact(DataComponentExactPredicate.expect(DataComponents.ITEM_NAME, Component.translatable("item.speedrunnermod.icarus_wings")))
+                                .any(DataComponents.UNBREAKABLE)
+                                .build()))
+                )
+                .rewards(AdvancementRewards.Builder.experience(300))
+                .save(exporter, ofItemAdvancement("forever_flying"));
 
         Advancement.Builder.advancement()
                 .parent(theEndOfTheMatter)
@@ -549,8 +759,8 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("used_item", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.SPEEDRUNNERS_TOTEM))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(500))
-                .save(exporter, "speedrunnermod:adventure/immortal");
+                .rewards(AdvancementRewards.Builder.experience(500))
+                .save(exporter, ofAdventureAdvancement("immortal"));
 
         AdvancementHolder killWarden = Advancement.Builder.advancement()
                 .parent(yesTheEnd)
@@ -567,8 +777,8 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("killed_warden", KilledTrigger.TriggerInstance.playerKilledEntity(
                         EntityPredicate.Builder.entity()
                                 .of(entityLookup, EntityTypes.WARDEN)))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(250))
-                .save(exporter, "speedrunnermod:adventure/deep_dark");
+                .rewards(AdvancementRewards.Builder.experience(250))
+                .save(exporter, ofAdventureAdvancement("deep_dark"));
 
         Advancement.Builder.advancement()
                 .parent(killWarden)
@@ -595,36 +805,11 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("killed_warden", KilledTrigger.TriggerInstance.playerKilledEntity(
                         EntityPredicate.Builder.entity()
                                 .of(entityLookup, EntityTypes.WARDEN)))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(1000))
-                .save(exporter, "speedrunnermod:adventure/dominion");
+                .rewards(AdvancementRewards.Builder.experience(1000))
+                .save(exporter, ofAdventureAdvancement("dominion"));
 
-        Advancement.Builder.advancement()
-                .parent(quickerPick)
-                .display(
-                        Items.DIAMOND_SWORD,
-                        Component.translatable("advancements.speedrunnermod.sword_collector.title"),
-                        Component.translatable("advancements.speedrunnermod.sword_collector.description"),
-                        null,
-                        AdvancementType.CHALLENGE,
-                        true,
-                        true,
-                        true
-                )
-                .requirements(AdvancementRequirements.Strategy.AND)
-                .addCriterion("has_wood_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WOODEN_SWORD))
-                .addCriterion("has_stone_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.STONE_SWORD))
-                .addCriterion("has_copper_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_SWORD))
-                .addCriterion("has_golden_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOLDEN_SWORD))
-                .addCriterion("has_diamond_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.DIAMOND_SWORD))
-                .addCriterion("has_netherite_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SWORD))
-                .addCriterion("has_speedrunner_sword", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_SWORD))
-                .addCriterion("has_golden_speedrunner_sword", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.GOLDEN_SPEEDRUNNER_SWORD))
-                .addCriterion("has_dragons_sword", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DRAGONS_SWORD))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(50))
-                .save(exporter, "speedrunnermod:items/sword_collector");
-
-        Advancement.Builder.advancement()
-                .parent(whatAWasteland)
+        AdvancementHolder lumberjack = Advancement.Builder.advancement()
+                .parent(root)
                 .display(
                         Items.OAK_LOG,
                         Component.translatable("advancements.speedrunnermod.lumberjack.title"),
@@ -633,7 +818,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         AdvancementType.TASK,
                         true,
                         true,
-                        true
+                        false
                 )
                 .requirements(AdvancementRequirements.Strategy.AND)
                 .addCriterion("has_oak_log", InventoryChangeTrigger.TriggerInstance.hasItems(Items.OAK_LOG))
@@ -645,13 +830,60 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("has_mangrove_log", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MANGROVE_LOG))
                 .addCriterion("has_pale_oak_log", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PALE_OAK_LOG))
                 .addCriterion("has_spruce_log", InventoryChangeTrigger.TriggerInstance.hasItems(Items.SPRUCE_LOG))
-                .addCriterion("has_speedrunner_log", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SPEEDRUNNER_LOG))
-                .addCriterion("has_dead_speedrunner_log", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DEAD_SPEEDRUNNER_LOG))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(25))
-                .save(exporter, "speedrunnermod:items/lumberjack");
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .save(exporter, ofChallengeAdvancement("lumberjack"));
+
+        AdvancementHolder mineralSprings = Advancement.Builder.advancement()
+                .parent(lumberjack)
+                .display(
+                        Items.QUARTZ,
+                        Component.translatable("advancements.speedrunnermod.mineral_springs.title"),
+                        Component.translatable("advancements.speedrunnermod.mineral_springs.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .requirements(AdvancementRequirements.Strategy.AND)
+                .addCriterion("has_coal", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COAL))
+                .addCriterion("has_iron_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_INGOT))
+                .addCriterion("has_copper_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_INGOT))
+                .addCriterion("has_gold_ingot", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOLD_INGOT))
+                .addCriterion("has_redstone_dust", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE))
+                .addCriterion("has_lapis_lazuli", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LAPIS_LAZULI))
+                .addCriterion("has_diamond", InventoryChangeTrigger.TriggerInstance.hasItems(Items.DIAMOND))
+                .addCriterion("has_emerald", InventoryChangeTrigger.TriggerInstance.hasItems(Items.EMERALD))
+                .addCriterion("has_quartz", InventoryChangeTrigger.TriggerInstance.hasItems(Items.QUARTZ))
+                .addCriterion("has_amethest_shard", InventoryChangeTrigger.TriggerInstance.hasItems(Items.AMETHYST_SHARD))
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .save(exporter, ofChallengeAdvancement("mineral_springs"));
+
+        AdvancementHolder swordCollector = Advancement.Builder.advancement()
+                .parent(mineralSprings)
+                .display(
+                        Items.DIAMOND_SWORD,
+                        Component.translatable("advancements.speedrunnermod.sword_collector.title"),
+                        Component.translatable("advancements.speedrunnermod.sword_collector.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .requirements(AdvancementRequirements.Strategy.AND)
+                .addCriterion("has_wood_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WOODEN_SWORD))
+                .addCriterion("has_stone_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.STONE_SWORD))
+                .addCriterion("has_copper_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COPPER_SWORD))
+                .addCriterion("has_iron_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.IRON_SWORD))
+                .addCriterion("has_golden_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GOLDEN_SWORD))
+                .addCriterion("has_diamond_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.DIAMOND_SWORD))
+                .addCriterion("has_netherite_sword", InventoryChangeTrigger.TriggerInstance.hasItems(Items.NETHERITE_SWORD))
+                .rewards(AdvancementRewards.Builder.experience(100))
+                .save(exporter, ofChallengeAdvancement("sword_collector"));
 
         AdvancementHolder shepherd = Advancement.Builder.advancement()
-                .parent(speedrunningTime)
+                .parent(swordCollector)
                 .display(
                         Items.WOOL.white(),
                         Component.translatable("advancements.speedrunnermod.shepherd.title"),
@@ -660,7 +892,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         AdvancementType.TASK,
                         true,
                         true,
-                        true
+                        false
                 )
                 .requirements(AdvancementRequirements.Strategy.AND)
                 .addCriterion("has_white_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WOOL.white()))
@@ -679,8 +911,8 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                 .addCriterion("has_magenta_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WOOL.magenta()))
                 .addCriterion("has_purple_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WOOL.purple()))
                 .addCriterion("has_pink_wool", InventoryChangeTrigger.TriggerInstance.hasItems(Items.WOOL.pink()))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(50))
-                .save(exporter, "speedrunnermod:items/shepherd");
+                .rewards(AdvancementRewards.Builder.experience(50))
+                .save(exporter, ofChallengeAdvancement("shepherd"));
 
         Advancement.Builder.advancement()
                 .parent(shepherd)
@@ -692,15 +924,124 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         AdvancementType.TASK,
                         true,
                         true,
-                        true
+                        false
                 )
                 .addCriterion("has_stack_of_lime_wool", ItemLikeTrigger.Conditions.item(itemLookup, Items.WOOL.lime()))
-                .rewards(net.minecraft.advancements.AdvancementRewards.Builder.experience(25))
-                .save(exporter, "speedrunnermod:items/expert_shepherd");
+                .rewards(AdvancementRewards.Builder.experience(50))
+                .save(exporter, ofChallengeAdvancement("expert_shepherd"));
+
+        AdvancementHolder artisan = Advancement.Builder.advancement()
+                .parent(shepherd)
+                .display(
+                        Items.FLETCHING_TABLE,
+                        Component.translatable("advancements.speedrunnermod.artisan.title"),
+                        Component.translatable("advancements.speedrunnermod.artisan.description"),
+                        null,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .requirements(AdvancementRequirements.Strategy.AND)
+                .addCriterion("has_blast_furnace", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BLAST_FURNACE))
+                .addCriterion("has_smoker", InventoryChangeTrigger.TriggerInstance.hasItems(Items.SMOKER))
+                .addCriterion("has_cartography_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CARTOGRAPHY_TABLE))
+                .addCriterion("has_brewing_stand", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BREWING_STAND))
+                .addCriterion("has_composter", InventoryChangeTrigger.TriggerInstance.hasItems(Items.COMPOSTER))
+                .addCriterion("has_barrel", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BARREL))
+                .addCriterion("has_fletching_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.FLETCHING_TABLE))
+                .addCriterion("has_cauldron", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CAULDRON))
+                .addCriterion("has_lectern", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LECTERN))
+                .addCriterion("has_stonecutter", InventoryChangeTrigger.TriggerInstance.hasItems(Items.STONECUTTER))
+                .addCriterion("has_loom", InventoryChangeTrigger.TriggerInstance.hasItems(Items.LOOM))
+                .addCriterion("has_smithing_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.SMITHING_TABLE))
+                .addCriterion("has_grindstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.GRINDSTONE))
+                .rewards(AdvancementRewards.Builder.experience(300))
+                .save(exporter, ofChallengeAdvancement("artisan"));
+
+        Advancement.Builder.advancement()
+                .parent(artisan)
+                .display(
+                        Items.MUSIC_DISC_CREATOR,
+                        Component.translatable("advancements.speedrunnermod.music_enthusiast.title"),
+                        Component.translatable("advancements.speedrunnermod.music_enthusiast.description"),
+                        null,
+                        AdvancementType.CHALLENGE,
+                        true,
+                        true,
+                        false
+                )
+                .requirements(AdvancementRequirements.Strategy.AND)
+                .addCriterion("has_disc_13", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_13))
+                .addCriterion("has_disc_cat", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_CAT))
+                .addCriterion("has_disc_blocks", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_BLOCKS))
+                .addCriterion("has_disc_bounce", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_BOUNCE))
+                .addCriterion("has_disc_chirp", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_CHIRP))
+                .addCriterion("has_disc_creator", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_CREATOR))
+                .addCriterion("has_disc_creator_music_box", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_CREATOR_MUSIC_BOX))
+                .addCriterion("has_disc_far", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_FAR))
+                .addCriterion("has_disc_lava_chicken", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_LAVA_CHICKEN))
+                .addCriterion("has_disc_mall", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_MALL))
+                .addCriterion("has_disc_mellohi", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_MELLOHI))
+                .addCriterion("has_disc_stal", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_STAL))
+                .addCriterion("has_disc_strad", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_STRAD))
+                .addCriterion("has_disc_ward", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_WARD))
+                .addCriterion("has_disc_11", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_11))
+                .addCriterion("has_disc_wait", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_WAIT))
+                .addCriterion("has_disc_otherside", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_OTHERSIDE))
+                .addCriterion("has_disc_relic", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_RELIC))
+                .addCriterion("has_disc_5", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_5))
+                .addCriterion("has_disc_pigstep", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_PIGSTEP))
+                .addCriterion("has_disc_precipice", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_PRECIPICE))
+                .addCriterion("has_disc_tears", InventoryChangeTrigger.TriggerInstance.hasItems(Items.MUSIC_DISC_TEARS))
+                .rewards(AdvancementRewards.Builder.experience(2000))
+                .save(exporter, ofChallengeAdvancement("music_enthusiast"));
     }
 
     /**
-     * For the "What A Wasteland!" advancement.
+     * @return a {@code speedrunnermod/item} advancement.
+     */
+    private static String ofItemAdvancement(String id) {
+        return "speedrunnermod:items/"+id;
+    }
+
+    /**
+     * @return a {@code speedrunnermod/adventure} advancement.
+     */
+    private static String ofAdventureAdvancement(String id) {
+        return "speedrunnermod:adventure/"+id;
+    }
+
+    /**
+     * @return a {@code speedrunnermod/blocks} advancement.
+     */
+    private static String ofBlockAdvancement(String id) {
+        return "speedrunnermod:blocks/"+id;
+    }
+
+    /**
+     * @return a {@code speedrunnermod/enchantments} advancement.
+     */
+    private static String ofEnchantmentAdvancement(String id) {
+        return "speedrunnermod:enchantments/"+id;
+    }
+
+    /**
+     * @return a {@code speedrunnermod/potions} advancement.
+     */
+    private static String ofPotionAdvancement(String id) {
+        return "speedrunnermod:potions/"+id;
+    }
+
+    /**
+     * @return a {@code speedrunnermod/challenges} advancement.
+     */
+    private static String ofChallengeAdvancement(String id) {
+        return "speedrunnermod:challenges/"+id;
+    }
+
+    /**
+     * @return the advancement criterion for the {@code What A Wasteland} advancement.
      */
     private static Advancement.Builder requireSpeedrunnersWasteland(Advancement.Builder builder, HolderLookup.Provider registries) {
         HolderGetter<Biome> registryEntryLookup = registries.lookupOrThrow(Registries.BIOME);

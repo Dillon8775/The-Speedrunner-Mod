@@ -1,6 +1,9 @@
-## §bRide §afaster §r§bon §b§lnautiluses, §r§fand §adash faster! §r§6Golden Speedrunner Nautilus armor §brides §aeven faster §r§band §adashes §o§aeven faster!
+## §bRide §afaster §r§bon §b§lnautiluses, §r§fand §adash faster!
 
-### §bSpeedrunner Nautiluses §r§acan be found in §a§lshipwrecks, §r§f§9ocean ruins, §r§fand §bburied treasures.
+### §r§6Golden Speedrunner Nautilus armor §brides §aeven faster §r§band §adashes §o§aeven faster!
+
+### §bSpeedrunner Nautiluses §r§acan be found in §a§lshipwrecks, §r§f§9ocean ruins, §r§fand §bburied treasures, §for from the §b§lRetired Speedrunner §r§bvillager profession.
 
 !image:textures/gui/features/screenshots/speedrunner_nautilus_armor.png scale=.12
 !image:textures/gui/features/recipes/golden_speedrunner_nautilus_armor_crafting_recipe.png scale=.35
+!image:textures/gui/features/loot/speedrunner_nautilus_armor_retired_speedrunner.png scale=.12

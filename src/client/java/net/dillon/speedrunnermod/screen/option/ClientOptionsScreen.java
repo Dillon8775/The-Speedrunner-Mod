@@ -1,16 +1,16 @@
 package net.dillon.speedrunnermod.screen.option;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.ListOptions;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybindsLoaded;
+import java.util.List;
 
 /**
  * The Speedrunner Mod's {@code client options screen.}
@@ -22,18 +22,33 @@ public class ClientOptionsScreen extends AbstractModScreen {
         super(parent, ModTexts.TITLE_OPTIONS_CLIENT);
     }
 
-    @Override
-    protected void init() {
+    /**
+     * All of the {@code client options.}
+     * <p>These are displayed in order.</p>
+     */
+    private List<AbstractWidget> clientOptions() {
         this.fog = createOption(ListOptions.fog());
         this.increasedLavaVision = createOption(ListOptions.increasedLavaVision());
 
-        this.initializeCustomButtonListWidget();
+        return List.of(
+                this.fog,
+                createOption(ListOptions.itemMessages()),
 
-        this.buttonList.addRow(this.fog, createOption(ListOptions.itemMessages()));
-        this.buttonList.addRow(this.increasedLavaVision, createOption(ListOptions.showResetButton()));
-        if (!isSimpleKeybindsLoaded()) {
-            this.buttonList.addRow(createOption(Minecraft.getInstance().options.gamma()), createOption(ListOptions.fullbrightAmount()));
-        }
+                this.increasedLavaVision,
+                createOption(ListOptions.warningMessages()),
+
+                createOption(Minecraft.getInstance().options.gamma()),
+                createOption(ListOptions.showResetButton()),
+
+                createOption(ListOptions.fullbrightAmount())
+        );
+    }
+
+    @Override
+    protected void init() {
+        this.initializeModButtonListWidget();
+
+        this.buttonList.addAll(clientOptions());
 
         super.init();
     }

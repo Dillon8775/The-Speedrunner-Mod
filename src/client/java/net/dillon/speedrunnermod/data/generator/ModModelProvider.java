@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.item.equipment.ModEquipmentAssetKeys;
+import net.dillon.speedrunnermod.item.material.ModEquipmentAssetKeys;
 import net.dillon.speedrunnermod.render.GoldenShieldModelRenderer;
 import net.dillon.speedrunnermod.render.SpeedrunnerShieldModelRenderer;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -11,8 +11,12 @@ import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.item.ItemModel;
+import net.minecraft.client.renderer.item.properties.numeric.CrossbowPull;
+import net.minecraft.client.renderer.item.properties.numeric.UseDuration;
+import net.minecraft.client.renderer.item.properties.select.Charge;
 import net.minecraft.client.renderer.special.ShieldSpecialRenderer;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
+import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -97,6 +101,7 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
         itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_INGOT, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.INVENTORY_PRESERVER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.RAW_SPEEDRUNNER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_NUGGET, ModelTemplates.FLAT_ITEM);
@@ -115,8 +120,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("leggings"), false);
         itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("boots"), false);
 
-        itemModelGenerator.generateBow(ModItems.SPEEDRUNNER_BOW);
-        itemModelGenerator.generateCrossbow(ModItems.SPEEDRUNNER_CROSSBOW);
+        this.generateModdedBow(itemModelGenerator, ModItems.SPEEDRUNNER_BOW);
+        this.generateModdedCrossbow(itemModelGenerator, ModItems.SPEEDRUNNER_CROSSBOW);
         this.registerModdedShield(itemModelGenerator, ModItems.SPEEDRUNNER_SHIELD, new SpeedrunnerShieldModelRenderer.Unbaked());
         this.registerModdedShield(itemModelGenerator, ModItems.GOLDEN_SHIELD, new GoldenShieldModelRenderer.Unbaked());
 
@@ -160,7 +165,7 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.RAID_ERADICATOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.ENDER_THRUSTER, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.DRAGONS_PEARL, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ModItems.DRAGONS_FIREBALL, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ModItems.DRAGON_FIREBALL, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.EXPERIENCE_FRAGMENT, ModelTemplates.FLAT_ITEM);
 
         itemModelGenerator.generateSpear(ModItems.SPEEDRUNNER_SPEAR);
@@ -178,18 +183,59 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_AXE, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_HOE, ModelTemplates.FLAT_HANDHELD_ITEM);
 
-        itemModelGenerator.generateFlatItem(ModItems.DRAGONS_SWORD, ModelTemplates.FLAT_HANDHELD_ITEM);
-
         itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_STICK, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.KNOCKBACK_STICK, Items.STICK, ModelTemplates.FLAT_HANDHELD_ITEM);
+    }
 
-        // Speedrunner Bow, Crossbow, shield, and wither bone are done separately.
+    /**
+     * Generates a modded bow model.
+     */
+    public final void generateModdedBow(final ItemModelGenerators itemModelGenerator, final Item item) {
+        ItemModel.Unbaked bowModel = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
+        ItemModel.Unbaked pulling0 = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_pulling_0", ModelTemplates.BOW));
+        ItemModel.Unbaked pulling1 = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_pulling_1", ModelTemplates.BOW));
+        ItemModel.Unbaked pulling2 = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_pulling_2", ModelTemplates.BOW));
+        itemModelGenerator.itemModelOutput
+                .accept(
+                        item,
+                        ItemModelUtils.conditional(
+                                ItemModelUtils.isUsingItem(),
+                                ItemModelUtils.rangeSelect(new UseDuration(false), 0.05F, pulling0, ItemModelUtils.override(pulling1, 0.45F), ItemModelUtils.override(pulling2, 0.65F)),
+                                bowModel
+                        )
+                );
+    }
+
+    /**
+     * Generates a modded crossbow model.
+     */
+    public final void generateModdedCrossbow(final ItemModelGenerators itemModelGenerator, final Item item) {
+        ItemModel.Unbaked crossbowModel = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item));
+        ItemModel.Unbaked pulling0 = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_pulling_0", ModelTemplates.CROSSBOW));
+        ItemModel.Unbaked pulling1 = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_pulling_1", ModelTemplates.CROSSBOW));
+        ItemModel.Unbaked pulling2 = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_pulling_2", ModelTemplates.CROSSBOW));
+        ItemModel.Unbaked loadedArrow = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_arrow", ModelTemplates.CROSSBOW));
+        ItemModel.Unbaked loadedFirework = ItemModelUtils.plainModel(itemModelGenerator.createFlatItemModel(item, "_firework", ModelTemplates.CROSSBOW));
+        itemModelGenerator.itemModelOutput
+                .accept(
+                        item,
+                        ItemModelUtils.select(
+                                new Charge(),
+                                ItemModelUtils.conditional(
+                                        ItemModelUtils.isUsingItem(),
+                                        ItemModelUtils.rangeSelect(new CrossbowPull(), pulling0, ItemModelUtils.override(pulling1, 0.50F), ItemModelUtils.override(pulling2, 1.0F)),
+                                        crossbowModel
+                                ),
+                                ItemModelUtils.when(CrossbowItem.ChargeType.ARROW, loadedArrow),
+                                ItemModelUtils.when(CrossbowItem.ChargeType.ROCKET, loadedFirework)
+                        )
+                );
     }
 
     /**
      * Registers a {@code speedrunner shield renderer.}
      */
-    private void registerModdedShield(ItemModelGenerators itemModelGenerator, Item item, SpecialModelRenderer.Unbaked unbakedModel) {
+    private void registerModdedShield(final ItemModelGenerators itemModelGenerator, Item item, SpecialModelRenderer.Unbaked unbakedModel) {
         ItemModel.Unbaked normal = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item), unbakedModel);
         ItemModel.Unbaked blocking = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item, "_blocking"), unbakedModel);
         itemModelGenerator.itemModelOutput.accept(item, ItemModelUtils.conditional(ShieldSpecialRenderer.DEFAULT_TRANSFORMATION, ItemModelUtils.isUsingItem(), blocking, normal));

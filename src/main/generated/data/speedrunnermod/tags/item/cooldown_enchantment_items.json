@@ -4,8 +4,13 @@
       "id": "#c:tools/shield",
       "required": false
     },
+    {
+      "id": "#speedrunnermod:throwable_fireballs",
+      "required": false
+    },
     "minecraft:ender_pearl",
     "speedrunnermod:infini_pearl",
-    "minecraft:chorus_fruit"
+    "minecraft:chorus_fruit",
+    "minecraft:wind_charge"
   ]
 }

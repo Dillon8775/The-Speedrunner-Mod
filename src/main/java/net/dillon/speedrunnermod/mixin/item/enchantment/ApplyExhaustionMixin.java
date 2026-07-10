@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.item.enchantment;
 
-import net.dillon.speedrunnermod.item.SpeedrunnerSpearItem;
+import net.dillon.speedrunnermod.component.ModAttributes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -23,7 +23,7 @@ public class ApplyExhaustionMixin {
      */
     @Inject(method = "apply", at = @At("HEAD"), cancellable = true)
     private void cancelExhaustionForSpeedrunnerSpear(ServerLevel serverLevel, int enchantmentLevel, EnchantedItemInUse enchantedItem, Entity entity, Vec3 position, CallbackInfo ci) {
-        if (!(enchantedItem.itemStack().getItem() instanceof SpeedrunnerSpearItem)) {
+        if (!(entity instanceof Player player)) {
             return;
         }
 
@@ -32,9 +32,12 @@ public class ApplyExhaustionMixin {
             return;
         }
 
-        if (entity instanceof Player livingEntity) {
-            livingEntity.causeFoodExhaustion(2.0F + ((float) level / 10));
+        float additionalExhaustion = (float)player.getAttributeValue(ModAttributes.BONUS_SPEAR_LUNGE_EXHAUSTION);
+        if (additionalExhaustion == 0.0F) {
+            return;
         }
+        float finalExhaustion = (Math.abs(additionalExhaustion / 3.5F)) * 10;
+        player.causeFoodExhaustion(finalExhaustion + ((float) level / 10));
         ci.cancel();
     }
 }

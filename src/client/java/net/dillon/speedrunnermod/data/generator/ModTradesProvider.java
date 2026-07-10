@@ -1,11 +1,10 @@
 package net.dillon.speedrunnermod.data.generator;
 
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.potion.ModPotions;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.dillon.speedrunnermod.tag.ModPotionsTags;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.minecraft.advancements.predicates.DataComponentMatchers;
 import net.minecraft.advancements.predicates.EnchantmentPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
@@ -13,8 +12,6 @@ import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
 import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
@@ -25,7 +22,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
@@ -47,16 +43,16 @@ public class ModTradesProvider {
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
         HolderSet<Enchantment> enchantmentsForBooks = enchantments.getOrThrow(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES);
         HolderSet<Enchantment> doubleTradePrice = enchantments.getOrThrow(EnchantmentTags.TREASURE);
-        HolderSet<Potion> potions = context.lookup(Registries.POTION).getOrThrow(ModPotionsTags.RETIRED_SPEEDRUNNER_POTIONS);
+        HolderGetter<Potion> potions = context.lookup(Registries.POTION);
         register(
                 context,
-                RETIRED_SPEEDRUNNER_1_BOOK,
+                RETIRED_SPEEDRUNNER_1_EMERALD,
                 ofBasic(
+                        ModItems.SPEEDRUNNER_INGOT, 3,
                         Items.EMERALD, 1,
-                        Items.BOOK, 3,
                         12,
                         3,
-                        5
+                        0.6F
                 )
         );
         register(
@@ -66,7 +62,7 @@ public class ModTradesProvider {
                         3,
                         12,
                         4,
-                        0.2F,
+                        1.5F,
                         items,
                         enchantmentsForBooks,
                         doubleTradePrice
@@ -74,13 +70,13 @@ public class ModTradesProvider {
         );
         register(
                 context,
-                RETIRED_SPEEDRUNNER_2_EMERALD,
+                RETIRED_SPEEDRUNNER_2_GOLDEN_APPLE,
                 ofBasic(
-                        ModItems.SPEEDRUNNER_INGOT, 3,
                         Items.EMERALD, 3,
-                        12,
-                        10,
-                        0.0F
+                        Items.GOLDEN_APPLE, 2,
+                        8,
+                        11,
+                        0.1F
                 )
         );
         register(
@@ -91,46 +87,57 @@ public class ModTradesProvider {
                         ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE, 1,
                         12,
                         12,
-                        0.0F
+                        0.4F
                 )
         );
         register(
                 context,
-                RETIRED_SPEEDRUNNER_3_POTION,
+                RETIRED_SPEEDRUNNER_3_SPEEDRUNNER_HARNESS,
                 new VillagerTrade(
-                        new TradeCost(ModItems.SPEEDRUNNER_INGOT, 5),
-                        Optional.of(new TradeCost(Items.BLAZE_POWDER, 1)),
-                        new ItemStackTemplate(Items.POTION, 1),
-                        8,
-                        12,
-                        0.0F,
-                        Optional.empty(),
-                        List.of(SetRandomPotionFunction.fromTagKey(potions).build())
-                )
-        );
-        register(
-                context,
-                RETIRED_SPEEDRUNNER_3_OMINOUS_BOTTLE,
-                new VillagerTrade(
-                        new TradeCost(Items.EMERALD, 3),
-                        Optional.of(new TradeCost(ModItems.ANNUL_EYE, 1)),
-                        new ItemStackTemplate(Items.OMINOUS_BOTTLE, 1),
-                        4,
-                        12,
-                        0.0F,
+                        new TradeCost(Items.EMERALD, 7),
+                        Optional.of(new TradeCost(ModItems.SPEEDRUNNER_INGOT, 1)),
+                        new ItemStackTemplate(ModItems.SPEEDRUNNER_HARNESS, 1),
+                        6,
+                        14,
+                        0.3F,
                         Optional.empty(),
                         List.of()
                 )
         );
         register(
                 context,
-                RETIRED_SPEEDRUNNER_4_GOLDEN_APPLE,
+                RETIRED_SPEEDRUNNER_3_SPEEDRUNNER_NAUTILUS_ARMOR,
+                new VillagerTrade(
+                        new TradeCost(Items.EMERALD, 5),
+                        Optional.of(new TradeCost(ModItems.SPEEDRUNNER_INGOT, 1)),
+                        new ItemStackTemplate(ModItems.SPEEDRUNNER_NAUTILUS_ARMOR, 1),
+                        6,
+                        14,
+                        0.4F,
+                        Optional.empty(),
+                        List.of()
+                )
+        );
+        register(
+                context,
+                RETIRED_SPEEDRUNNER_3_ENCHANTED_GOLDEN_APPLE,
                 ofBasic(
-                        Items.EMERALD, 4,
-                        Items.GOLDEN_APPLE, 2,
-                        16,
-                        18,
-                        0.04F
+                        Items.EMERALD, 9,
+                        Items.ENCHANTED_GOLDEN_APPLE, 1,
+                        3,
+                        15,
+                        0.1F
+                )
+        );
+        register(
+                context,
+                RETIRED_SPEEDRUNNER_4_DRAGONS_FIREBALL,
+                ofBasic(
+                        ModItems.DRAGONS_PEARL, 1,
+                        ModItems.DRAGON_FIREBALL, 3,
+                        6,
+                        20,
+                        0.3F
                 )
         );
         register(
@@ -151,7 +158,7 @@ public class ModTradesProvider {
                         3,
                         12,
                         20,
-                        0.2F,
+                        0.3F,
                         items,
                         enchantmentsForBooks,
                         doubleTradePrice
@@ -159,28 +166,29 @@ public class ModTradesProvider {
         );
         register(
                 context,
-                RETIRED_SPEEDRUNNER_5_NETHERITE_UPGRADE_SMITHING_TEMPLATE,
-                ofBasic(
-                        Items.EMERALD, 3,
-                        Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 1,
-                        4,
-                        28,
-                        0.2F
+                RETIRED_SPEEDRUNNER_5_SPECIAL_ARROW,
+                new VillagerTrade(
+                        new TradeCost(Items.EMERALD, 3),
+                        Optional.of(new TradeCost(Items.ARROW, 1)),
+                        new ItemStackTemplate(Items.TIPPED_ARROW, 5),
+                        6,
+                        34,
+                        0.4F,
+                        Optional.empty(),
+                        List.of(SetRandomPotionFunction.fromTagKey(potions.getOrThrow(ModPotionsTags.RETIRED_SPEEDRUNNER_ARROW_EFFECTS)).build())
                 )
         );
         register(
                 context,
-                RETIRED_SPEEDRUNNER_5_DRAGONS_AURA,
+                RETIRED_SPEEDRUNNER_5_SPECIAL_POTION,
                 new VillagerTrade(
-                        new TradeCost(ModItems.SPEEDRUNNER_INGOT, 5),
-                        Optional.of(new TradeCost(Items.BLAZE_POWDER, 1)),
-                        new ItemStackTemplate(
-                                Items.POTION.builtInRegistryHolder(), 1, DataComponentPatch.builder().set(DataComponents.POTION_CONTENTS, new PotionContents(ModPotions.DRAGONS_AURA)).build()),
-                        3,
+                        new TradeCost(Items.BLAZE_POWDER, 12),
+                        new ItemStackTemplate(Items.POTION, 1),
+                        1,
                         35,
                         0.05F,
                         Optional.empty(),
-                        List.of()
+                        List.of(SetRandomPotionFunction.fromTagKey(potions.getOrThrow(ModPotionsTags.RETIRED_SPEEDRUNNER_POTION_EFFECTS)).build())
                 )
         );
         register(
@@ -191,7 +199,7 @@ public class ModTradesProvider {
                         Items.NETHERITE_CHESTPLATE, 1,
                         3,
                         40,
-                        0.75F,
+                        0.5F,
                         ModTradesProvider.enchantedItem(items, enchantmentsForBooks, Items.NETHERITE_CHESTPLATE)
                 )
         );

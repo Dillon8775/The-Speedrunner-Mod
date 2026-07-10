@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:adventure/exited_end",
+  "parent": "speedrunnermod:adventure/yes_the_end",
   "criteria": {
     "killed_warden": {
       "conditions": {

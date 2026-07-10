@@ -1,28 +1,17 @@
 package net.dillon.speedrunnermod.screen.feature.secretdoommode;
 
-import net.dillon.speedrunnermod.screen.ScreenType;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.NotNull;
 
-public class ImReadyScreen extends AbstractSecretDoomModeScreen {
+public class ImReadyScreen extends SecretDoomModeFeatureScreen {
 
-    public ImReadyScreen(Screen parent) {
-        super(parent);
+    public ImReadyScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
     protected Component getButtonText() {
         return Component.translatable("speedrunnermod.doom_mode_screen.line3.reply");
-    }
-
-    @Override
-    public @NotNull String linesKey() {
-        return "im_ready";
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.DEFAULT;
     }
 }

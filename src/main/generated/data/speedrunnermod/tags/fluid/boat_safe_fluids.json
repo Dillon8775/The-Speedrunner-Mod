@@ -1,6 +1,12 @@
 {
   "values": [
-    "#minecraft:water",
-    "#minecraft:lava"
+    {
+      "id": "#minecraft:water",
+      "required": false
+    },
+    {
+      "id": "#minecraft:lava",
+      "required": false
+    }
   ]
 }

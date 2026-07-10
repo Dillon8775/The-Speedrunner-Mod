@@ -1,5 +1,7 @@
 ### §dTeleports §6all §6§lpiglin §f§rwithin a §a100 block radius §fto the player.
 
-#### If you §lshift, §r§fthe §6piglin §fwill be teleported §b§odirectly §r§ftowards the player.
+#### If you §oshift, §r§fthe §6piglin §fwill teleport §b§odirectly on top §r§fof the player.
+
+### §aCan be crafted §fwith §emost "piglin loved" items, §fan §9ender pearl, §for §6blaze powder.
 
 !image:textures/gui/features/recipes/piglin_awakener_crafting_recipe.png scale=.5

@@ -4,9 +4,8 @@
     "#": "speedrunnermod:igneous_rock"
   },
   "pattern": [
-    "###",
-    "###",
-    "###"
+    "##",
+    "##"
   ],
   "result": {
     "id": "minecraft:obsidian"

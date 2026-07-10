@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -31,7 +32,7 @@ public class WitherSkeletonMixin {
      */
     @ModifyArg(method = "doHurtTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;<init>(Lnet/minecraft/core/Holder;I)V"), index = 1)
     private int changeWitherEffectDuration(int x) {
-        return ModUtil.getWitherSkeletonWitherEffectDuration();
+        return ModConstants.getWitherSkeletonWitherEffectDuration();
     }
 
     /**
@@ -40,7 +41,7 @@ public class WitherSkeletonMixin {
     @Inject(method = "doHurtTarget", at = @At("RETURN"))
     private void inflictSlowness(ServerLevel world, Entity target, CallbackInfoReturnable<?> cir) {
         if (isDoomMode() && target instanceof Player player) {
-            player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
+            player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(10), 0));
         }
     }
 }

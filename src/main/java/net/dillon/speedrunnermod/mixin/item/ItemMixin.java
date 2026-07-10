@@ -1,13 +1,11 @@
 package net.dillon.speedrunnermod.mixin.item;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
-import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.component.ModEnchantments;
+import net.dillon.speedrunnermod.helper.ModComponentHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,9 +16,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,9 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
+import static net.dillon.speedrunnermod.helper.ModComponentHelper.hasEnchantment;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
@@ -40,10 +33,10 @@ public abstract class ItemMixin {
     public abstract ItemStack getDefaultInstance();
 
     /**
-     * For the {@code Expert Shepherd} advancement.
+     * Ticks advancement criterions.
      */
     @Inject(method = "inventoryTick", at = @At("HEAD"))
-    private void modifiedInventoryTick(ItemStack stack, ServerLevel world, Entity entity, @Nullable EquipmentSlot slot, CallbackInfo ci) {
+    private void modifiedInventoryTick(ItemStack stack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot slot, CallbackInfo ci) {
         if (entity instanceof ServerPlayer player) {
             int j = 0;
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
@@ -55,6 +48,30 @@ public abstract class ItemMixin {
                     break;
                 }
             }
+
+            if (ModComponentHelper.hasDragonsAura(stack)) {
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(Items.POTION));
+            }
+
+            if (ModComponentHelper.hasWithered(stack)) {
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(Items.SPLASH_POTION));
+            }
+
+            if (ModComponentHelper.hasLuck(stack)) {
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(Items.LINGERING_POTION));
+            }
+
+            if (hasEnchantment(stack, ModEnchantments.DASH)) {
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(ModItems.SPEEDRUNNER_LOG)); // Placeholder item for triggered instance
+            }
+
+            if (hasEnchantment(stack, ModEnchantments.WITHERED)) {
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(ModItems.STRIPPED_SPEEDRUNNER_LOG)); // Placeholder item for triggered instance
+            }
+
+            if (hasEnchantment(stack, ModEnchantments.COOLDOWN)) {
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(ModItems.SPEEDRUNNER_WOOD)); // Placeholder item for triggered instance
+            }
         }
     }
 
@@ -63,41 +80,16 @@ public abstract class ItemMixin {
      */
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     private void appendTooltipsToOtherItems(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type, CallbackInfo ci) {
-        if ((isEasyMode() || isDoomMode()) && stack.is(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)) {
-            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.piglin_awakener_craftable.tooltip"));
-        }
-        if (isDoomMode() && stack.is(ModItemTags.DOOM_STONE_SAFE_TOOLS)) {
-            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.doom_mode_safe_tools.tooltip").withStyle(ChatFormatting.RED));
-        }
-        if (stack.is(ModItemTags.GOLDEN_SPEEDRUNNER_ARMOR)) {
-            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_speedrunner_armor.tooltip").withStyle(ChatFormatting.YELLOW), 35);
-        }
         if (stack.is(Items.ENCHANTED_BOOK)) {
-            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(stack);
-            for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemEnchantmentsComponent.entrySet()) {
-                if (entry.getKey().is(ModEnchantments.DASH)) {
-                    SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.dash.tooltip").withStyle(ChatFormatting.GRAY));
-                }
-                if (entry.getKey().is(ModEnchantments.COOLDOWN)) {
-                    SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.cooldown.tooltip").withStyle(ChatFormatting.GRAY));
-                }
-                if (entry.getKey().is(ModEnchantments.WITHERED)) {
-                    SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.withered.tooltip"), 40);
-                }
+            if (hasEnchantment(stack, ModEnchantments.DASH)) {
+                SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.dash.tooltip").withStyle(ChatFormatting.AQUA));
             }
-        }
-        boolean dragonFireball = stack.is(ModItems.DRAGONS_FIREBALL);
-        if ((dragonFireball || options().general.throwableFireballs.getCurrentValue()) && (stack.is(Items.FIRE_CHARGE) || stack.is(ModItems.DRAGONS_FIREBALL))) {
-            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.minecraft.fire_charge.throw").withStyle(ChatFormatting.GRAY));
-            if (isDoomMode()) {
-                SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.minecraft.fire_charge.warning").withStyle(ChatFormatting.RED));
+            if (hasEnchantment(stack, ModEnchantments.COOLDOWN)) {
+                SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.cooldown.tooltip").withStyle(ChatFormatting.AQUA));
             }
-        }
-        if (options().general.lavaBoats.getCurrentValue() && (stack.is(ModItemTags.FIREPROOF_BOATS) || stack.is(ModItemTags.FIREPROOF_CHEST_BOATS))) {
-            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.boat.tooltip").withStyle(ChatFormatting.GOLD));
-        }
-        if (stack.is(ModItemTags.FASTER_BOATS) || stack.is(ModItemTags.FASTER_CHEST_BOATS)) {
-            SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.boat.tooltip.fast").withStyle(ChatFormatting.GRAY));
+            if (hasEnchantment(stack, ModEnchantments.WITHERED)) {
+                SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("enchantment.speedrunnermod.withered.tooltip").withStyle(ChatFormatting.LIGHT_PURPLE), 40);
+            }
         }
     }
 }

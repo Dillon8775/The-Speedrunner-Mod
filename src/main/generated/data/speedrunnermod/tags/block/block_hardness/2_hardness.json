@@ -1,0 +1,14 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:lanterns",
+      "required": false
+    },
+    "minecraft:furnace",
+    "minecraft:blast_furnace",
+    "minecraft:smoker",
+    "minecraft:dropper",
+    "minecraft:dispenser",
+    "minecraft:cobweb"
+  ]
+}

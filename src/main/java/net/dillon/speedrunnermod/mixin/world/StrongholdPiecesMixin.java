@@ -20,7 +20,7 @@ public class StrongholdPiecesMixin {
     private static StrongholdPieces.PieceWeight[] STRONGHOLD_PIECE_WEIGHTS;
 
     static {
-        if (options().worldGen.customDataGeneration.getCurrentValue() && options().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
+        if (options().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
             if (isDoomMode()) {
                 STRONGHOLD_PIECE_WEIGHTS = new StrongholdPieces.PieceWeight[]{
                         new StrongholdPieces.PieceWeight(StrongholdPieces.Straight.class, 25, 5),
@@ -32,7 +32,7 @@ public class StrongholdPiecesMixin {
                         new StrongholdPieces.PieceWeight(StrongholdPieces.StairsDown.class, 50, 5),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.FiveCrossing.class, 50, 5),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.ChestCorridor.class, 25, 5),
-                        new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 100, options().worldGen.strongholdLibraryCount.getCurrentValue() * 2) {
+                        new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 100, options().worldGen.totalLibraries.getCurrentValue() * 2) {
 
                             @Override
                             public boolean doPlace(int chainLength) {
@@ -55,13 +55,13 @@ public class StrongholdPiecesMixin {
                         new StrongholdPieces.PieceWeight(StrongholdPieces.StairsDown.class, 10, 1),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.FiveCrossing.class, 10, 2),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.ChestCorridor.class, 25, 2),
-                        new StrongholdPieces.PieceWeight(StrongholdPieces.PortalRoom.class, 200, options().worldGen.strongholdPortalRoomCount.getCurrentValue()) {
+                        new StrongholdPieces.PieceWeight(StrongholdPieces.PortalRoom.class, 200, options().worldGen.totalPortamRooms.getCurrentValue()) {
 
                             @Override
                             public boolean doPlace(int chainLength) {
                                 return super.doPlace(chainLength);
                             }
-                        }, new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 200, options().worldGen.strongholdLibraryCount.getCurrentValue()) {
+                        }, new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 200, options().worldGen.totalLibraries.getCurrentValue()) {
 
                     @Override
                     public boolean doPlace(int chainLength) {

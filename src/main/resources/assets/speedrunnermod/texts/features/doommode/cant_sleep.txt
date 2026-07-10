@@ -1,0 +1,5 @@
+# §cDon't try to sleep!
+
+## You §5must §dkill the ender dragon §fin order to §asleep §fin a §cdoom world.
+
+!image:textures/gui/features/doom_mode/cant_sleep.png scale=.14

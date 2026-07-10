@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:adventure/david_and_goliath",
+  "parent": "speedrunnermod:adventure/doomed_to_luck",
   "criteria": {
     "used_item": {
       "conditions": {

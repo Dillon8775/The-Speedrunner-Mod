@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.VillagerGlowCountdown;
+import net.dillon.speedrunnermod.helper.VillagerGlowCountdown;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;

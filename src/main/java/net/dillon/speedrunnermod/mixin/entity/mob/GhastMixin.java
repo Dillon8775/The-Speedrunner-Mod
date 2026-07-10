@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Ghast;
@@ -22,8 +23,8 @@ public class GhastMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeGhastAttributes(EntityType<? extends Ghast> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 20.0D : 5.0D);
-        ModUtil.modifyFollowRange(dis, isDoomMode() ? 100.0D : 50.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 20.0D : 5.0D);
+        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 100.0D : 50.0D);
     }
 
     /**
@@ -31,6 +32,6 @@ public class GhastMixin {
      */
     @Inject(method = "getExplosionPower", at = @At("RETURN"), cancellable = true)
     private void modifyExplosionPower(CallbackInfoReturnable<Integer> cir) {
-        cir.setReturnValue((int)(ModUtil.getFireballDamageValue()));
+        cir.setReturnValue((int)(ModConstants.getSmallFireballDamageValue()));
     }
 }

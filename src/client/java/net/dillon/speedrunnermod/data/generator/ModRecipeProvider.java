@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.recipe.*;
+import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -66,6 +67,16 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(Items.GOLDEN_BOOTS, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(ModItems.SPEEDRUNNER_HARNESS, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_HARNESS);
                 helper.offerGoldenSpeedrunnerUpgradeRecipe(Items.GOLDEN_NAUTILUS_ARMOR, RecipeCategory.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR);
+
+                SmithingTransformRecipeBuilder.smithing(
+                                Ingredient.of(ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE),
+                                Ingredient.of(ModItems.SPEEDRUNNER_SWORD),
+                                Ingredient.of(ModItems.DRAGONS_PEARL),
+                                RecipeCategory.COMBAT,
+                                ModItems.DRAGONS_SWORD
+                        )
+                        .unlocks("has_speedrunner_sword", this.has(ModItems.SPEEDRUNNER_SWORD))
+                        .save(this.output, "dragons_sword_smithing");
 
                 helper.offerBurnableMaterial(IGNEOUS_ORES, ModItems.IGNEOUS_ROCK, 0.6F, "igneous_rock");
                 helper.offerBurnableMaterial(EXPERIENCE_ORES, ModItems.EXPERIENCE_FRAGMENT, 3.0F, "experience_fragment");
@@ -192,8 +203,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("wooden_pressure_plate")
                         .save(this.output);
 
-                this.planksFromLogs(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, ModItemTags.Block.DEAD_SPEEDRUNNER_LOGS, 4);
-                this.planksFromLogs(ModBlocks.SPEEDRUNNER_PLANKS, ModItemTags.Block.SPEEDRUNNER_LOGS, 4);
+                this.planksFromLogs(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, ModBlockItemTags.DEAD_SPEEDRUNNER_LOGS.item(), 4);
+                this.planksFromLogs(ModBlocks.SPEEDRUNNER_PLANKS, ModBlockItemTags.SPEEDRUNNER_LOGS.item(), 4);
 
                 this.woodFromLogs(ModBlocks.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_LOG);
                 this.woodFromLogs(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
@@ -265,8 +276,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .save(this.output);
 
                 this.shapeless(RecipeCategory.MISC, ModItems.BLAZE_SPOTTER)
-                        .requires(Items.ENDER_PEARL)
-                        .requires(Items.FIRE_CHARGE)
+                        .requires(ModItems.INFERNO_EYE)
                         .requires(Items.LAVA_BUCKET)
                         .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER))
                         .save(this.output);
@@ -275,13 +285,6 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .requires(Items.BLAZE_POWDER)
                         .requires(ModItems.SPEEDRUNNERS_EYE)
                         .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.DRAGONS_PEARL))
-                        .save(this.output);
-
-                this.shapeless(RecipeCategory.COMBAT, ModItems.DRAGONS_SWORD)
-                        .requires(ModItems.SPEEDRUNNER_SWORD)
-                        .requires(ModItems.DRAGONS_PEARL)
-                        .requires(ModItems.ENDER_MATTER)
-                        .unlockedBy("has_items", this.has(ModItemTags.AdvancementCriterions.DRAGONS_SWORD))
                         .save(this.output);
 
                 this.shapeless(RecipeCategory.MISC, ModItems.ENDER_THRUSTER)
@@ -338,7 +341,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SPEEDRUNNERS_WORKBENCH)
                         .define('I', ModItems.SPEEDRUNNER_INGOT)
                         .define('B', ModItems.SPEEDRUNNER_BLOCK)
-                        .define('P', ModItemTags.Block.SPEEDRUNNER_PLANKS)
+                        .define('P', ModBlockItemTags.SPEEDRUNNER_PLANKS.item())
                         .pattern("III")
                         .pattern("PBP")
                         .pattern("PPP")
@@ -404,6 +407,15 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                         .group("shields")
                         .save(this.output);
 
+                this.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DOOM_STONE, 8)
+                        .define('E', Blocks.END_STONE)
+                        .define('F', ModBlocks.FLESH_BLOCK)
+                        .pattern("EEE")
+                        .pattern("EFE")
+                        .pattern("EEE")
+                        .unlockedBy("has_end_stone", this.has(Blocks.END_STONE))
+                        .save(this.output);
+
                 SpecialRecipeBuilder.special(
                         () -> new SpeedrunnerShieldDecorationRecipe(
                                 this.tag(ItemTags.BANNERS), Ingredient.of(ModItems.SPEEDRUNNER_SHIELD), new ItemStackTemplate(ModItems.SPEEDRUNNER_SHIELD))
@@ -418,35 +430,29 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 RecipeBuilder.createCraftingBookInfo(RecipeCategory.MISC, "piglin_awakener"),
                                 ShapedRecipePattern.of(
                                         Map.of('#', Ingredient.of(Items.GOLD_INGOT),
-                                                'O', Ingredient.of(
-                                                        Items.ENDER_PEARL,
-                                                        Items.BLAZE_POWDER,
-                                                        Items.GOLDEN_APPLE,
-                                                        Items.ENCHANTED_GOLDEN_APPLE,
-                                                        Items.GOLDEN_CARROT
-                                                )),
+                                                'O', Ingredient.of(this.registries.getOrThrow(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES))),
                                         "###",
                                         "#O#",
                                         "###"
                                 ),
                                 new ItemStackTemplate(ModItems.PIGLIN_AWAKENER))
-                ).save(this.output, "piglin_awakener");
+                )
+                        .unlockedBy("has_item", this.has(ModItemTags.AdvancementCriterions.PIGLIN_AWAKENER))
+                        .save(this.output, "piglin_awakener");
                 SpecialRecipeBuilder.special(
                         () -> new DragonFireballRecipe(
-                                new ItemStackTemplate(ModItems.DRAGONS_FIREBALL, 8)
+                                new ItemStackTemplate(ModItems.DRAGON_FIREBALL, 8)
                         )
-                ).save(this.output, "dragons_fireball");
+                )
+                        .unlockedBy("has_fireball", this.has(Items.FIRE_CHARGE))
+                        .save(this.output, "dragons_fireball");
                 SpecialRecipeBuilder.special(
                         () -> new InventoryPreserverRecipe(
                                 new ItemStackTemplate(ModItems.INVENTORY_PRESERVER)
                         )
-                ).save(this.output, "inventory_preserver");
-
-//                SpecialRecipeBuilder.special(SpeedrunnerShieldDecorationRecipe::new).save(this.output, "speedrunner_shield_decoration");
-//                SpecialRecipeBuilder.special(GoldenShieldDecorationRecipe::new).save(this.output, "golden_shield_decoration");
-//                SpecialRecipeBuilder.special(PiglinAwakenerRecipe::new).save(this.output, "piglin_awakener");
-//                SpecialRecipeBuilder.special(DragonFireballRecipe::new).save(this.output, "dragons_fireball");
-//                SpecialRecipeBuilder.special(InventoryPreserverRecipe::new).save(this.output, "inventory_preserver");
+                )
+                        .unlockedBy("has_other_preserver", this.has(ModItems.INVENTORY_PRESERVER))
+                        .save(this.output, "inventory_preserver");
 
                 helper.createStickRecipe(true, "speedrunner_stick_from_dead_speedrunner_planks");
                 helper.createStickRecipe(false, "speedrunner_stick_from_speedrunner_planks");
@@ -471,9 +477,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
                 this.shaped(RecipeCategory.MISC, Blocks.OBSIDIAN)
                         .define('#', ModItems.IGNEOUS_ROCK)
-                        .pattern("###")
-                        .pattern("###")
-                        .pattern("###")
+                        .pattern("##")
+                        .pattern("##")
                         .unlockedBy("has_igneous_rock", this.has(ModItems.IGNEOUS_ROCK))
                         .save(this.output, helper.speedrunnerModRecipe("obsidian_from_igneous_rocks"));
 

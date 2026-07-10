@@ -1,0 +1,9 @@
+## The §avanilla Minecraft §2luck §feffect, but it §dactually has a use!
+
+!image:textures/gui/features/potions/luck.png scale=.2
+!image:textures/gui/features/recipes/luck_potion.png scale=.15
+### The main use for this §apotion §fcomes in the §cfinal battle. §fWhen you mine a §cdoom block §fwith §athe effect, §fyou have a §ahigher chance §fof §breceiving loot!
+
+### You can also §aobtain §fthis §epotion §ffrom §atrading §fwith the §b§lRetired Speedrunner §r§bvillager.
+
+!image:textures/gui/features/screenshots/luck_doom_stone.png scale=.15

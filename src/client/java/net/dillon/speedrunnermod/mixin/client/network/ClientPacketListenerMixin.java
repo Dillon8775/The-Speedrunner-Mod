@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.mixin.client.network;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
+import net.dillon.speedrunnermod.entity.ModParticleTypes;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.particle.ModParticleTypes;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.client.multiplayer.ClientLevel;

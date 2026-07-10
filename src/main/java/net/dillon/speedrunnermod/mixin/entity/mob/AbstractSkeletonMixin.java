@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
@@ -26,7 +26,7 @@ public class AbstractSkeletonMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeSkeletonMovementSpeed(EntityType<? extends AbstractSkeleton> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
+        ModAttributeHelper.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
     /**

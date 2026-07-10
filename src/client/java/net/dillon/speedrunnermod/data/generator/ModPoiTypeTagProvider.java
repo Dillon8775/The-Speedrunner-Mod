@@ -15,13 +15,13 @@ import java.util.concurrent.CompletableFuture;
  */
 public class ModPoiTypeTagProvider extends FabricTagsProvider<PoiType> {
 
-    protected ModPoiTypeTagProvider(final FabricPackOutput output, final CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public ModPoiTypeTagProvider(final FabricPackOutput output, final CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, Registries.POINT_OF_INTEREST_TYPE, lookupProvider);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        this.tag(PoiTypeTags.ACQUIRABLE_JOB_SITE)
+        tag(PoiTypeTags.ACQUIRABLE_JOB_SITE)
                 .addOptional(ModPoiTypes.RETIRED_SPEEDRUNNER);
     }
 }

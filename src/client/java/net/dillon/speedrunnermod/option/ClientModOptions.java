@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.option;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
@@ -32,6 +32,11 @@ public class ClientModOptions {
          * Determines whether certain player messages should be sent to the player's chat or actionbar (the area above the hotbar).
          */
         public OptionValue<ItemMessages> itemMessages = new OptionValue<>(ItemMessages.ACTIONBAR, false);
+
+        /**
+         * Determines whether warning messages are send to the player's chat.
+         */
+        public OptionValue<Boolean> warningMessages = new OptionValue<>(true, false);
 
         /**
          * Create a new world with just one click.
@@ -66,7 +71,7 @@ public class ClientModOptions {
         /**
          * The amount that the brightness should be set to when fullbright is turned on.
          */
-        public IntegerOptionValue fullbrightAmount = new IntegerOptionValue(1200, false, 300, 1200);
+        public IntegerOptionValue fullBrightAmount = new IntegerOptionValue(1200, false, 300, 1200);
 
         /**
          * Sets the inventory slot that the flight duration 3 firework rockets should be given to when iCarus Mode is enabled.
@@ -131,6 +136,11 @@ public class ClientModOptions {
          * Determines if the first-time playing screens should load.
          */
         public OptionValue<Boolean> firstTimePlaying = new OptionValue<>(true, false);
+
+        /**
+         * Determines if the user should load into feature screens.
+         */
+        public OptionValue<Boolean> viewFeatures = new OptionValue<>(true, false);
     }
 
     /**
@@ -160,7 +170,7 @@ public class ClientModOptions {
     public static class ModClientOptionsHandler extends BaseOptions<ClientModOptions> {
 
         protected ModClientOptionsHandler() {
-            super(ModUtil.CLIENT_CONFIG_FILE_NAME);
+            super(ModHelper.CLIENT_CONFIG_FILE_NAME);
         }
 
         @Override

@@ -1,5 +1,11 @@
 # §aOne-shots §fthe §dender dragon.
 
-§c§oUnless you're on §c§l§oDoom Mode...
+!image:textures/gui/features/items/dragons_sword.png scale=.5
+## The only way to §aobtain §fthis §5ancient weapon §fis to find a §dDragon Smithing Template.
+
+### §dDragon Smithing Templates §fcan be §5§orarely §r§ffound in §3ancient cities, §dend cities, §6bastion treasure chests, §bburied treasures, §7strongholds, §fand from §3killing the §bwarden.
 
 !image:textures/gui/features/recipes/dragons_sword_crafting_recipe.png scale=.3
+### When §aholding §fthis §5weapon, §rthe player receives §aextra armor §fand §aarmor toughness points, §fand just like the §bspeedrunner sword, §fdeals §a§l+10% §r§abonus damage §fto §bSpeedrunner-Imperative mobs.
+
+!image:textures/gui/features/screenshots/dragons_sword_in_action.png scale=.14

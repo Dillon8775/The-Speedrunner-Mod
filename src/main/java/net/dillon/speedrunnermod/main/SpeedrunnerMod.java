@@ -3,37 +3,34 @@ package net.dillon.speedrunnermod.main;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.command.ModCommands;
-import net.dillon.speedrunnermod.component.ModDataComponentTypes;
-import net.dillon.speedrunnermod.effect.ModMobEffects;
-import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.component.*;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.entity.ModParticleTypes;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModFuels;
 import net.dillon.speedrunnermod.item.ModItemGroups;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.menu.ModMenus;
 import net.dillon.speedrunnermod.network.ModPackets;
 import net.dillon.speedrunnermod.option.ModOptions;
-import net.dillon.speedrunnermod.particle.ModParticleTypes;
-import net.dillon.speedrunnermod.potion.ModPotions;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
-import net.dillon.speedrunnermod.tag.*;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.tag.ModTags;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.dillon.speedrunnermod.villager.ModPoiTypes;
+import net.dillon.speedrunnermod.villager.ModTradeSets;
+import net.dillon.speedrunnermod.villager.ModTrades;
 import net.dillon.speedrunnermod.villager.ModVillagers;
 import net.dillon.speedrunnermod.world.ModWorldGeneration;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.resources.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.List;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -41,15 +38,6 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    public static final String MOD_VERSION = FabricLoader.getInstance()
-            .getModContainer("speedrunnermod")
-            .map(c -> c.getMetadata().getVersion().getFriendlyString().split("\\+", 2)[0])
-            .orElse("unknown");
-    public static final String MC_VERSION = FabricLoader.getInstance().getRawGameVersion();
-    public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
-    public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
-    public static final String OPTIONS_WARNING_MESSAGE = "Found an unusual value in the speedrunner mod settings.";
-    public static boolean safeBoot;
     private static final Logger LOGGER = LogManager.getLogger("Speedrunner Mod");
 
     /**
@@ -57,7 +45,9 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Override
     public void onInitialize() {
-        safeBoot = false;
+        ModConstants.initConstants();
+
+        ModConstants.safeBoot = false;
         configHandler().load();
 
         ModPackets.registerPackets();
@@ -73,9 +63,14 @@ public class SpeedrunnerMod implements ModInitializer {
         ModPotions.registerPotions();
 
         ModPoiTypes.initializeModPois();
+        ModTrades.initializeTrades();
+        ModTradeSets.initializeTradeSets();
         ModVillagers.initializeVillagerProfessions();
 
         ModPredicates.initializeCriterions();
+
+        ModAttributeKeys.initializeAttributeKeys();
+        ModAttributes.initializeAttributes();
         ModDataComponentTypes.initializeDataComponents();
 
         ModBlocks.initializeBlocks();
@@ -84,11 +79,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModEventCallbacks.registerEventCallbacks();
 
-        ModBlockTags.initializeBlockTags();
-        ModEnchantmentTags.initializeEnchantmentTags();
-        ModFluidTags.initializeFluidTags();
-        ModItemTags.initializeItemTags();
-        ModStructureTags.initializeStructureTags();
+        ModTags.initializeAllTags();
 
         ModSoundEvents.initializeSoundEvents();
 
@@ -99,37 +90,15 @@ public class SpeedrunnerMod implements ModInitializer {
         ModMenus.initializeScreenHandlers();
 
         ServerTickEvents.END_SERVER_TICK.register(TaskScheduler::tick);
-        ModUtil.registerInventoryPreserver();
+        ModHelper.registerInventoryPreserver();
 
-        // Get all mod ids, add and sort
-        options().advanced.modIds.getCurrentValue().clear();
-        for (ModContainer mod : FabricLoader.getInstance().getAllMods()) {
-            String modId = mod.getMetadata().getId();
-            boolean exclude = false;
-            List<String> excludedMods = List.of(
-                    "fabric-",
-                    "fabricloader",
-                    "java",
-                    "mixinextras"
-            );
-            for (String excludedMod : excludedMods) {
-                if (modId.startsWith(excludedMod)) {
-                    exclude = true;
-                    break;
-                }
-            }
-
-            if (!exclude) {
-                options().advanced.modIds.getCurrentValue().add(modId);
-            }
-        }
         configHandler().save();
 
         if (options().general.mode != null && isDoomMode()) {
             info("You dare to attempt Doom Mode? Good luck...");
         }
 
-        info("The Speedrunner Mod " + MOD_VERSION + " (for fabric) loaded successfully!");
+        info("The Speedrunner Mod " + ModConstants.MOD_VERSION + " (for fabric) loaded successfully!");
     }
 
     /**

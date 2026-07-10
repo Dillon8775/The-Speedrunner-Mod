@@ -1,26 +1,22 @@
 package net.dillon.speedrunnermod.screen.feature.firsttimeplaying;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.option.Mode;
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.NotNull;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
-
-public class ModeOptionScreen extends AbstractFeatureScreen {
+public class ModeOptionScreen extends FTPFeatureScreen {
     private AbstractWidget easyButton, balancedButton, doomButton;
 
-    public ModeOptionScreen(Screen parent) {
-        super(parent, ModTexts.BLANK);
+    public ModeOptionScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
@@ -62,22 +58,7 @@ public class ModeOptionScreen extends AbstractFeatureScreen {
     }
 
     @Override
-    public @NotNull String linesKey() {
-        return "mode_option";
-    }
-
-    @Override
     public int getPageNumber() {
         return 3;
-    }
-
-    @Override
-    public @NotNull ScreenCategory getScreenCategory() {
-        return ScreenCategory.FIRST_TIME_PLAYING;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.FIRST_TIME_PLAYING;
     }
 }

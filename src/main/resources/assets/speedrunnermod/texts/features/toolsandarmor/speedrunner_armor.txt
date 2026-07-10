@@ -1,7 +1,23 @@
 ### The §bspeedrunner armor§r is slightly more powerful than §liron armor.
 
-#### It applies more protection and has more durability, and can be crafted just like any other armor piece would, using §bspeedrunner ingots.
+#### It applies §amore protection §fand has §bmore durability, §fand can be crafted just like any other armor piece, using §bspeedrunner ingots.
 
-### It is §cnot §r§fstronger than §bdiamond, §r§fbut it does have more benefits.
+### It is §c§onot §r§fstronger than §bdiamond armor, §r§fbut §aeach piece has a special buff.
 
-!image:textures/gui/features/other/speedrunner_armor.png scale=.15
+!image:textures/gui/features/other/speedrunner_armor.png scale=.17
+## §bSpeedrunner Helmets §fgive:
+#### §b● increased air recovery from water
+#### §9● increased submerged mining speed
+#### §9● increased underwater vision
+
+## §bSpeedrunner Chestplates §fgive:
+### §a● §l+20% §r§aprotection §ffrom §bSpeedrunner-Imperative §fmobs
+
+#### §b"Speedrunner-Imperative" §fmobs §finclude §eblazes, §denderman, §6piglins §fand §6piglin brutes, §2zombie villagers §fand §a§lGoliath.
+
+## §bSpeedrunner Leggings §fgive §bincreased sneaking speed.
+
+## §bSpeedrunner Boots §fgive:
+### §a● §l+20% §r§aspeed
+### §b● increased speed §fin §9water §fand §6lava
+### §a● completely protects you from sounding off §bsculk shriekers

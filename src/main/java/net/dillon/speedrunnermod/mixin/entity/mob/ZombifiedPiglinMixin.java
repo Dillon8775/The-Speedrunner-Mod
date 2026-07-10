@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.zombie.ZombifiedPiglin;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +19,7 @@ public class ZombifiedPiglinMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeZombifiedPiglinAttributes(CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMovementSpeed(dis, isDoomMode() ? 0.33D : 0.23D);
-        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 2.0D);
+        ModAttributeHelper.modifyMovementSpeed(dis, isDoomMode() ? 0.33D : 0.23D);
+        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 2.0D);
     }
 }

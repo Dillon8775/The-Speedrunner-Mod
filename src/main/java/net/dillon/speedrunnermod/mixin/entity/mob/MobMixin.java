@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -47,17 +47,17 @@ public abstract class MobMixin extends LivingEntity {
                     dis instanceof Phantom ||
                     dis instanceof Spider ||
                     dis instanceof Zombie) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 5, 32);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 5, 32);
             } else if (dis instanceof Blaze ||
                     dis instanceof Breeze ||
                     dis instanceof EnderMan) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 10, 48);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 10, 48);
             } else if (dis instanceof ElderGuardian) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 15, 88);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 15, 88);
             } else if (dis instanceof Endermite || dis instanceof Silverfish) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 5, 16);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 5, 16);
             } else if (dis instanceof Evoker) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 5, 63);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 5, 63);
             } else if (dis instanceof Ghast ||
                     dis instanceof Pillager ||
                     dis instanceof Shulker ||
@@ -67,15 +67,15 @@ public abstract class MobMixin extends LivingEntity {
                     dis instanceof Witch ||
                     dis instanceof WitherSkeleton ||
                     dis instanceof Zoglin) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 5, 36);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 5, 36);
             } else if (dis instanceof Guardian) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 10, 36);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 10, 36);
             } else if (dis instanceof PiglinBrute) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 20, 72);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 20, 72);
             } else if (dis instanceof Ravager) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 5, 72);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 5, 72);
             } else if (dis instanceof WitherBoss) {
-                this.xpReward = ModUtil.modifyExperiencePoints(dis, attacker, 50, 150);
+                this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 50, 150);
             }
         }
     }

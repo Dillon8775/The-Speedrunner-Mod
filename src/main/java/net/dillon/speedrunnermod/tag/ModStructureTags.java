@@ -11,16 +11,20 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All Speedrunner Mod {@code structure tags.} These are only really used because vanilla Minecraft doesn't have a tag for these structures.
  */
 public class ModStructureTags {
-    public static final TagKey<Structure> ANCIENT_CITIES = of("ancient_cities");
-    public static final TagKey<Structure> BASTIONS = of("bastions");
-    public static final TagKey<Structure> DESERT_PYRAMIDS = of("desert_pyramids");
-    public static final TagKey<Structure> FORTRESSES = of("fortresses");
-    public static final TagKey<Structure> STRONGHOLDS = of("strongholds");
+    public static final TagKey<Structure> ANCIENT_CITIES = createStructureTag("ancient_cities");
+    public static final TagKey<Structure> BASTIONS = createStructureTag("bastions");
+    public static final TagKey<Structure> DESERT_PYRAMIDS = createStructureTag("desert_pyramids");
+    public static final TagKey<Structure> FORTRESSES = createStructureTag("fortresses");
+    public static final TagKey<Structure> STRONGHOLDS = createStructureTag("strongholds");
+    public static final TagKey<Structure> END_CITIES = createStructureTag("end_cities");
+    public static final TagKey<Structure> IGLOOS = createStructureTag("igloos");
+    public static final TagKey<Structure> PILLAGER_OUTPOSTS = createStructureTag("pillager_outposts");
+    public static final TagKey<Structure> TRAIL_RUINS = createStructureTag("trail_ruins");
 
     /**
      * Registers a {@code structure tag.}
      */
-    private static TagKey<Structure> of(String path) {
+    private static TagKey<Structure> createStructureTag(String path) {
         return TagKey.create(Registries.STRUCTURE, ofSpeedrunnerMod(path));
     }
 

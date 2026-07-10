@@ -1,5 +1,5 @@
-### Structures of almost §aall types, §fincluding §6villages, §cnether fortresses, §7bastions, §6buried treasures, §bshipwrecks, §druined portals, §5end cities, §6desert pyramids, §7pillager outposts, §ajungle temples, §6woodland mansions§f and §atrial chambers §a§lgenerate §a§l§omore commonly!
+### Structures of almost §aall types, §fincluding §6villages, §cnether fortresses, §7bastions, §6buried treasures, §bshipwrecks, §druined portals, §5end cities, §6desert pyramids, §7pillager outposts, §ajungle temples, §6woodland mansions§f and §atrial chambers §r§fgenerate §a§omore commonly!
 
-#### §oConfigurable in the §bspeedrunner mod options menu.
+#### §oConfigurable in the §bSpeedrunner Mod options menu.
 
 !image:textures/gui/features/screenshots/structures.png scale=.14

@@ -1,0 +1,56 @@
+{
+  "parent": "speedrunnermod:items/you_should_add_a_feature",
+  "criteria": {
+    "killed_zombielike_holding_fireball": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "minecraft:entity_type": "#speedrunnermod:spare_me_advancement_mobs",
+              "minecraft:equipment": {
+                "mainhand": {
+                  "items": "minecraft:fire_charge"
+                }
+              }
+            }
+          }
+        ],
+        "killing_blow": {
+          "direct_entity": {
+            "minecraft:entity_type": "minecraft:fireball"
+          },
+          "tags": [
+            {
+              "expected": true,
+              "id": "minecraft:is_projectile"
+            }
+          ]
+        }
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.spare_me.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "id": "minecraft:zombie_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.spare_me.title"
+    }
+  },
+  "requirements": [
+    [
+      "killed_zombielike_holding_fireball"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  },
+  "sends_telemetry_event": true
+}

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
-import net.dillon.speedrunnermod.effect.ModMobEffects;
+import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Hud;
 import net.minecraft.client.player.LocalPlayer;
@@ -26,7 +26,11 @@ public class HudMixin {
     @ModifyArg(method = "extractHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"), index = 1)
     private Identifier modifyToDragonsAuraHeart(Identifier original) {
         LocalPlayer player = this.minecraft.player;
-        if (player != null && player.hasEffect(ModMobEffects.DRAGONS_AURA)) {
+        if (player == null) {
+            return original;
+        }
+
+        if (player.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             return this.dragonsAuraHeart(original);
         }
         return original;

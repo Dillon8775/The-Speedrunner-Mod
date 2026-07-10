@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.world.structure;
 
+import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.option.OptionValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,6 +9,12 @@ import java.util.List;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 public class PillagerOutpostConfig extends Ssr {
+
+    @Override
+    public void configure(JsonElement element) {
+        super.configure(element);
+        element.getAsJsonObject().getAsJsonObject("placement").getAsJsonObject("exclusion_zone").addProperty("chunk_count", 5);
+    }
 
     @Override
     public int[] everywhere() {

@@ -1,14 +1,13 @@
 package net.dillon.speedrunnermod.mixin.entity.core;
 
-import net.dillon.speedrunnermod.entity.ModEntityTypes;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
@@ -19,8 +18,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -38,7 +35,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "lavaIgnite", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;igniteForSeconds(F)V"))
     private float changeFireFromLavaTime(float x) {
-        return ModUtil.getFireDamageFromLavaDuration();
+        return ModConstants.getFireDamageFromLavaDuration();
     }
 
     /**
@@ -46,7 +43,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "lavaHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private float changeLavaDamageAmount(float x) {
-        return ModUtil.getLavaDamageValue();
+        return ModConstants.getLavaDamageValue();
     }
 
     /**
@@ -56,14 +53,14 @@ public abstract class EntityMixin {
     @Inject(method = {"lavaHurt", "igniteForSeconds"}, at = @At("HEAD"), cancellable = true)
     private void setOnFireFromLava(CallbackInfo ci) {
         Entity vehicle = getVehicle();
-        if (options().general.lavaBoats.getCurrentValue()) {
-            if (vehicle instanceof AbstractBoat abstractBoat && ModEntityTypes.isFireproofBoat(abstractBoat)) {
-                if (this.remainingFireTicks > 0 && this.remainingFireTicks % 20 == 0) {
-                    ((Entity)(Object)this).hurtServer((ServerLevel)this.level(), this.damageSources().onFire(), 1.0F);
-                }
-                ci.cancel();
-            }
+        if (!(vehicle instanceof FireproofBoat fireproofBoat && fireproofBoat.isFireproof())) {
+            return;
         }
+
+        if (this.remainingFireTicks > 0 && this.remainingFireTicks % 20 == 0) {
+            ((Entity)(Object)this).hurtServer((ServerLevel)this.level(), this.damageSources().onFire(), 1.0F);
+        }
+        ci.cancel();
     }
 
     /**

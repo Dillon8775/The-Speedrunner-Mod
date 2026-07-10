@@ -1,11 +1,8 @@
 package net.dillon.speedrunnermod.entity;
 
-import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.mixin.accessor.EntityTypesInvoker;
-import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -13,12 +10,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
-import net.minecraft.world.item.Item;
-
-import java.util.function.Supplier;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
@@ -144,20 +137,6 @@ public class ModEntityTypes {
      */
     private static ResourceKey<EntityType<?>> keyOf(String id) {
         return ResourceKey.create(Registries.ENTITY_TYPE, ofSpeedrunnerMod(id));
-    }
-
-    /**
-     * @return {@code fireproof boats.}
-     */
-    public static boolean isFireproofBoat(AbstractBoat boat) {
-        return ((FireproofBoat)boat).isFireproof() && (ModUtil.droppedItem(boat).get().getDefaultInstance().is(ModItemTags.FIREPROOF_BOATS) || ModUtil.droppedItem(boat).get().getDefaultInstance().is(ModItemTags.FIREPROOF_CHEST_BOATS));
-    }
-
-    /**
-     * @return {@code "faster"} boats, which ride slightly faster than normal boats.
-     */
-    public static boolean isFastBoat(Supplier<Item> itemSupplier) {
-        return itemSupplier.get().getDefaultInstance().is(ModItemTags.FASTER_BOATS) || itemSupplier.get().getDefaultInstance().is(ModItemTags.FASTER_CHEST_BOATS);
     }
 
     /**

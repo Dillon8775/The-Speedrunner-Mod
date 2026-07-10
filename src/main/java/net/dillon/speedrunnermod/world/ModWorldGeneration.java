@@ -2,6 +2,8 @@ package net.dillon.speedrunnermod.world;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
+import net.dillon.speedrunnermod.world.feature.ModStructureSets;
+import net.dillon.speedrunnermod.world.feature.ModStructures;
 import net.dillon.speedrunnermod.world.feature.ModWorldPlacements;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -23,12 +25,14 @@ public class ModWorldGeneration {
      */
     public static void initializeWorldGenFeatures() {
         ModBiomes.initializeBiomes();
+        ModStructures.initializeStructures();
+        ModStructureSets.initializeStructureSets();
 
         addOres();
         addVegetalDecoration();
 
-        if (isDoomMode() && options().worldGen.strongholdLibraryCount.getCurrentValue() > 5) {
-            options().worldGen.strongholdLibraryCount.set(5);
+        if (isDoomMode() && options().worldGen.totalLibraries.getCurrentValue() > 5) {
+            options().worldGen.totalLibraries.set(5);
             warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
         }
 
@@ -74,7 +78,7 @@ public class ModWorldGeneration {
      * All Speedrunner Mod {@code vegetation decoration features.}
      */
     private static void addVegetalDecoration() {
-        if (options().advanced.generateSpeedrunnerWood.getCurrentValue()) {
+        if (options().worldGen.generateSpeedrunnerWood.getCurrentValue()) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                             Biomes.DESERT,
                             Biomes.BADLANDS),

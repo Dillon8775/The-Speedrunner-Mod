@@ -1,7 +1,15 @@
 {
+  "fabric:remove": [
+    "minecraft:gold_ingot",
+    "minecraft:raw_gold",
+    "minecraft:gold_block",
+    "minecraft:raw_gold_block",
+    "minecraft:gilded_blackstone",
+    "#minecraft:gold_ores"
+  ],
   "values": [
     {
-      "id": "#speedrunnermod:golden_food_items",
+      "id": "#minecraft:piglin_loved",
       "required": false
     },
     "minecraft:ender_pearl",

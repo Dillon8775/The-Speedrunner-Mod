@@ -1,10 +1,9 @@
 package net.dillon.speedrunnermod.mixin.world;
 
-import net.dillon.speedrunnermod.tag.ModItemTags;
+import net.dillon.speedrunnermod.component.ModAttributes;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,13 +15,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface VibrationsCallbackMixin {
 
     /**
-     * Allows players to safely run by or across {@code sculk sensor blocks} if the player is wearing {@code speedrunner boots.}
+     * Allows players to safely run by or across {@code sculk sensor blocks} if the player has the sculk shrieker protection attribute.
      */
     @Inject(method = "isValidVibration", at = @At("RETURN"), cancellable = true)
-    private void playerIsSafeWithSpeedrunnerBoots(Holder<GameEvent> gameEvent, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> cir) {
+    private void entityIsSafeSculkShrieker(Holder<GameEvent> gameEvent, GameEvent.Context emitter, CallbackInfoReturnable<Boolean> cir) {
         Entity entity = emitter.sourceEntity();
-        if (entity instanceof Player player && player.getItemBySlot(EquipmentSlot.FEET).is(ModItemTags.SCULK_SENSOR_SAFE_BOOTS)) {
-            cir.setReturnValue(false);
+        if (entity instanceof LivingEntity living) {
+            float sculkShriekerProtection = (float)living.getAttributeValue(ModAttributes.SHRIEKER_STEALTH);
+            if (sculkShriekerProtection > 1.0F) {
+                cir.setReturnValue(false);
+            }
         }
     }
 }

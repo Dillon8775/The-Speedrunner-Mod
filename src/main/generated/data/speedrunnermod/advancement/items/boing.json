@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/to_infini_and_beyond",
+  "criteria": {
+    "used_knockback_stick": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:knockback_stick"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.boing.description"
+    },
+    "icon": {
+      "id": "speedrunnermod:knockback_stick"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.boing.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_knockback_stick"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

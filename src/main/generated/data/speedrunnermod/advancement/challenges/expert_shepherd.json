@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:challenges/shepherd",
+  "criteria": {
+    "has_stack_of_lime_wool": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:lime_wool"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.expert_shepherd.description"
+    },
+    "icon": {
+      "id": "minecraft:lime_wool"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.expert_shepherd.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_stack_of_lime_wool"
+    ]
+  ],
+  "rewards": {
+    "experience": 50
+  },
+  "sends_telemetry_event": true
+}

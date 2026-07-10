@@ -1,3 +1,5 @@
 ## §dTeleports the player §b§odirectly§r§f to the nearest §astronghold portal room.
 
+### Also locates §dend cities §fin §dthe end.
+
 !image:textures/gui/features/recipes/eye_of_annul_crafting_recipe.png scale=.5

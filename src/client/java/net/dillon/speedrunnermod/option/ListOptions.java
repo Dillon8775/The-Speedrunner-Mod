@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.option;
 
 import com.mojang.serialization.Codec;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -16,7 +16,8 @@ import java.util.function.BiFunction;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * All {@code "list"} options, which are used on the actual options screens to allow changing of these options.
@@ -47,7 +48,7 @@ public class ListOptions {
 
     public static OptionInstance<CreatureSpawnRate> creatureSpawningRate() {
         return new OptionInstance<>("speedrunnermod.options.creature_spawn_rate",
-                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.creature_spawn_rate.tooltip")),
+                OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.creature_spawn_rate.tooltip"))),
                 (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(CreatureSpawnRate.values()),
                         Codec.INT.xmap(CreatureSpawnRate::byId, CreatureSpawnRate::getId)),
@@ -73,6 +74,14 @@ public class ListOptions {
                         Codec.INT.xmap(Difficulty::byId, Difficulty::getId)),
                 isDoomMode() ? Difficulty.HARD : clientOptions().client.difficulty.getCurrentValue(),
                 value -> clientOptions().client.difficulty.set(value));
+    }
+
+    public static OptionInstance<Boolean> warningMessages() {
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.warning_messages",
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.warning_messages.tooltip")),
+                clientOptions().client.warningMessages
+        );
     }
 
     public static OptionInstance<Boolean> fasterBlockBreaking() {
@@ -137,14 +146,6 @@ public class ListOptions {
         );
     }
 
-    public static OptionInstance<Boolean> fireproofItems() {
-        return createSimpleBooleanOption(
-                "speedrunnermod.options.fireproof_items",
-                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fireproof_items.tooltip")),
-                options().general.fireproofItems
-        );
-    }
-
     public static OptionInstance<Boolean> fasterSpawners() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_spawners",
@@ -172,32 +173,40 @@ public class ListOptions {
     public static OptionInstance<Boolean> betterBiomes() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_biomes",
-                OptionInstance.noTooltip(),
+                OptionInstance.cachedConstantTooltip(ofRestartable(Component.translatable("speedrunnermod.options.better_biomes.tooltip"))),
                 options().worldGen.betterBiomes
         );
     }
 
-    public static OptionInstance<Boolean> customBiomesAndCustomBiomeFeatures() {
+    public static OptionInstance<Boolean> generateSpeedrunnersWasteland() {
         return createSimpleBooleanOption(
-                "speedrunnermod.options.custom_biomes_and_custom_biome_features",
-                OptionInstance.noTooltip(),
-                options().general.customBiomesAndCustomBiomeFeatures
+                "speedrunnermod.options.generate_speedrunners_wasteland",
+                OptionInstance.cachedConstantTooltip(ofRestartable(Component.translatable("speedrunnermod.options.generate_speedrunners_wasteland.tooltip"))),
+                options().worldGen.generateSpeedrunnersWasteland
+        );
+    }
+
+    public static OptionInstance<Boolean> generateSpeedrunnerWood() {
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.generate_speedrunner_wood",
+                OptionInstance.cachedConstantTooltip(ofRestartable(Component.translatable("speedrunnermod.options.generate_speedrunner_wood.tooltip"))),
+                options().worldGen.generateSpeedrunnerWood
+        );
+    }
+
+    public static OptionInstance<Boolean> commonPlainTrees() {
+        return createSimpleBooleanOption(
+                "speedrunnermod.options.common_plain_trees",
+                OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.common_plain_trees.tooltip"))),
+                options().worldGen.commonPlainTrees
         );
     }
 
     public static OptionInstance<Boolean> commonOres() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.common_ores",
-                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.common_ores.tooltip")),
+                OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.common_ores.tooltip"))),
                 options().worldGen.commonOres
-        );
-    }
-
-    public static OptionInstance<Boolean> lavaBoats() {
-        return createSimpleBooleanOption(
-                "speedrunnermod.options.lava_boats",
-                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.lava_boats.tooltip")),
-                options().general.lavaBoats
         );
     }
 
@@ -289,14 +298,6 @@ public class ListOptions {
         );
     }
 
-    public static OptionInstance<Boolean> customDataGeneration() {
-        return createSimpleBooleanOption(
-                "speedrunnermod.options.custom_data_generation",
-                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.custom_data_generation.tooltip")),
-                options().worldGen.customDataGeneration
-        );
-    }
-
     public static OptionInstance<Boolean> instantWorldCreation() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.fast_world_creation",
@@ -369,19 +370,11 @@ public class ListOptions {
         );
     }
 
-    public static OptionInstance<Boolean> higherBreathTime() {
+    public static OptionInstance<Boolean> increasedOxygen() {
         return createSimpleBooleanOption(
-                "speedrunnermod.options.higher_breath_time",
-                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.higher_breath_time.tooltip")),
-                options().advanced.higherBreathTime
-        );
-    }
-
-    public static OptionInstance<Boolean> generateSpeedrunnerWood() {
-        return createSimpleBooleanOption(
-                "speedrunnermod.options.generate_speedrunner_wood",
+                "speedrunnermod.options.increased_oxygen",
                 OptionInstance.noTooltip(),
-                options().advanced.generateSpeedrunnerWood
+                options().advanced.increasedOxygen
         );
     }
 
@@ -402,11 +395,29 @@ public class ListOptions {
         );
     }
 
+    public static OptionInstance<Boolean> viewFeatures() {
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.view_features",
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.view_features.tooltip")),
+                clientOptions().storedValues.viewFeatures,
+                true
+        );
+    }
+
     public static OptionInstance<Boolean> theEndGatewayBlockEntityMixin() {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.the_end_gateway_block_entity_mixin",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.the_end_gateway_block_entity_mixin.tooltip")),
                 options().mixins.theEndGatewayBlockEntityMixin,
+                false
+        );
+    }
+
+    public static OptionInstance<Boolean> itemStackMixin() {
+        return createSimpleBooleanOptionWithCustomSwitch(
+                "speedrunnermod.options.item_stack_mixin",
+                OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.item_stack_mixin.tooltip")),
+                options().mixins.itemStackMixin,
                 false
         );
     }
@@ -503,27 +514,27 @@ public class ListOptions {
         );
     }
 
-    public static OptionInstance<Integer> strongholdCount() {
+    public static OptionInstance<Integer> totalStrongholds() {
         return createSimpleIntegerOption(
-                "speedrunnermod.options.stronghold_count",
+                "speedrunnermod.options.total_strongholds",
                 OptionInstance.noTooltip(),
-                options().worldGen.strongholdCount
+                options().worldGen.totalStrongholds
         );
     }
 
-    public static OptionInstance<Integer> strongholdPortalRoomCount() {
+    public static OptionInstance<Integer> totalPortalRooms() {
         return createSimpleIntegerOption(
-                "speedrunnermod.options.stronghold_portal_room_count",
+                "speedrunnermod.options.total_portal_rooms",
                 OptionInstance.noTooltip(),
-                options().worldGen.strongholdPortalRoomCount
+                options().worldGen.totalPortamRooms
         );
     }
 
-    public static OptionInstance<Integer> strongholdLibraryCount() {
+    public static OptionInstance<Integer> totalLibraries() {
         return createSimpleIntegerOption(
-                "speedrunnermod.options.stronghold_library_count",
+                "speedrunnermod.options.total_libraries",
                 OptionInstance.noTooltip(),
-                options().worldGen.strongholdLibraryCount
+                options().worldGen.totalLibraries
         );
     }
 
@@ -582,7 +593,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.fullbright_amount",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fullbright_amount.tooltip")),
-                clientOptions().client.fullbrightAmount
+                clientOptions().client.fullBrightAmount
         );
     }
 
@@ -624,7 +635,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.fireball_explosion_power",
                 OptionInstance.noTooltip(),
-                options().advanced.fireballExplosionPower
+                options().general.fireballExplosionPower
         );
     }
 
@@ -732,6 +743,19 @@ public class ListOptions {
         );
     }
 
+    public static OptionInstance<Integer> goliathAndZombieEntityDetectionRadius(boolean x, boolean y, boolean z) {
+        return ofIntegerList(
+                "speedrunnermod.options.goliath_and_zombie_entity_detection_radius",
+                OptionInstance.cachedConstantTooltip(listIntegerTooltip(Component.translatable("speedrunnermod.options.goliath_and_zombie_entity_detection_radius.tooltip"))),
+                options().advanced.goliathAndZombieEntityDetectionRadius,
+                50,
+                400,
+                x,
+                y,
+                z
+        );
+    }
+
     /**
      * Creates a new {@code simple boolean option.}
      */
@@ -792,12 +816,44 @@ public class ListOptions {
     }
 
     /**
+     * Creates a new {@code mineshaft option}.
+     */
+    public static OptionInstance<Integer> createMineshaftFrequencyOption() {
+        return createSimpleIntegerOption(
+                "speedrunnermod.options.structure_spawn_rates.mineshafts",
+                OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.structure_spawn_rates.mineshafts.tooltip"))),
+                options().customStructureSpawnRates.mineshafts,
+                (optionText, value) -> {
+                    return Options.genericValueLabel(optionText, Component.literal(value + "%"));
+                });
+    }
+
+    /**
      * Creates a new {@code Structure Spawn Rate option.}
      */
     public static OptionInstance<Integer> createStructureSpawnRateOption(String structure) {
-        return new OptionInstance<>("speedrunnermod.options.structure_spawn_rates." + structure, isSsrCustom() ? OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.structure_spawn_rates_description.tooltip")) : OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.structure_spawn_rates.custom_required")),
+        return new OptionInstance<>("speedrunnermod.options.structure_spawn_rates." + structure,
+                OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.structure_spawn_rates_description.tooltip"))),
                 (optionText, value) -> ListOptions.listIntegerText(optionText, structure),
                 new OptionInstance.IntRange(3, 24), defaultStructureValue(structure), value -> determineValue(structure, value));
+    }
+
+    /**
+     * @return an option that requires a restart to take effect.
+     */
+    public static Component ofRestartable(Component component) {
+        return component
+                .copy().append("\n\n")
+                .copy().append(Component.translatable("speedrunnermod.option.requires_restart"));
+    }
+
+    /**
+     * @return an option that requires a world reload to take effect.
+     */
+    public static Component ofWorldReload(Component component) {
+        return component
+                .copy().append("\n\n")
+                .copy().append(Component.translatable("speedrunnermod.option.requires_world_reload"));
     }
 
     /**
@@ -862,11 +918,15 @@ public class ListOptions {
             case TranslationStringKeys.DESERT_PYRAMID -> setValue(options().customStructureSpawnRates.desertPyramids.getCurrentValue(), value);
             case TranslationStringKeys.JUNGLE_PYRAMID -> setValue(options().customStructureSpawnRates.junglePyramids.getCurrentValue(), value);
             case TranslationStringKeys.PILLAGER_OUTPOST -> setValue(options().customStructureSpawnRates.pillagerOutposts.getCurrentValue(), value);
+            case TranslationStringKeys.IGLOO -> setValue(options().customStructureSpawnRates.igloos.getCurrentValue(), value);
+            case TranslationStringKeys.OCEAN_RUIN -> setValue(options().customStructureSpawnRates.oceanRuins.getCurrentValue(), value);
+            case TranslationStringKeys.SWAMP_HUT -> setValue(options().customStructureSpawnRates.swampHuts.getCurrentValue(), value);
             case TranslationStringKeys.END_CITY -> setValue(options().customStructureSpawnRates.endCities.getCurrentValue(), value);
             case TranslationStringKeys.WOODLAND_MANSION -> setValue(options().customStructureSpawnRates.woodlandMansions.getCurrentValue(), value);
             case TranslationStringKeys.RUINED_PORTAL -> setValue(options().customStructureSpawnRates.ruinedPortals.getCurrentValue(), value);
             case TranslationStringKeys.SHIPWRECK -> setValue(options().customStructureSpawnRates.shipwrecks.getCurrentValue(), value);
             case TranslationStringKeys.TRIAL_CHAMBER -> setValue(options().customStructureSpawnRates.trialChambers.getCurrentValue(), value);
+            case TranslationStringKeys.TRAIL_RUIN -> setValue(options().customStructureSpawnRates.trailRuins.getCurrentValue(), value);
             case TranslationStringKeys.NETHER_COMPLEXES -> setValue(options().customStructureSpawnRates.netherComplexes.getCurrentValue(), value);
         }
     }
@@ -896,6 +956,15 @@ public class ListOptions {
             case TranslationStringKeys.PILLAGER_OUTPOST -> {
                 return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().get(1)));
             }
+            case TranslationStringKeys.IGLOO -> {
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.igloos.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.igloos.getCurrentValue().get(1)));
+            }
+            case TranslationStringKeys.OCEAN_RUIN -> {
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.oceanRuins.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.oceanRuins.getCurrentValue().get(1)));
+            }
+            case TranslationStringKeys.SWAMP_HUT -> {
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.swampHuts.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.swampHuts.getCurrentValue().get(1)));
+            }
             case TranslationStringKeys.END_CITY -> {
                 return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.endCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.endCities.getCurrentValue().get(1)));
             }
@@ -910,6 +979,9 @@ public class ListOptions {
             }
             case TranslationStringKeys.TRIAL_CHAMBER -> {
                 return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.trialChambers.getCurrentValue().get(1)));
+            }
+            case TranslationStringKeys.TRAIL_RUIN -> {
+                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.trailRuins.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.trailRuins.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.NETHER_COMPLEXES -> {
                 return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.netherComplexes.getCurrentValue().get(1)));
@@ -937,6 +1009,15 @@ public class ListOptions {
             case TranslationStringKeys.PILLAGER_OUTPOST -> {
                 return options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst();
             }
+            case TranslationStringKeys.IGLOO -> {
+                return options().customStructureSpawnRates.igloos.getCurrentValue().getFirst();
+            }
+            case TranslationStringKeys.OCEAN_RUIN -> {
+                return options().customStructureSpawnRates.oceanRuins.getCurrentValue().getFirst();
+            }
+            case TranslationStringKeys.SWAMP_HUT -> {
+                return options().customStructureSpawnRates.swampHuts.getCurrentValue().getFirst();
+            }
             case TranslationStringKeys.END_CITY -> {
                 return options().customStructureSpawnRates.endCities.getCurrentValue().getFirst();
             }
@@ -951,6 +1032,9 @@ public class ListOptions {
             }
             case TranslationStringKeys.TRIAL_CHAMBER -> {
                 return options().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst();
+            }
+            case TranslationStringKeys.TRAIL_RUIN -> {
+                return options().customStructureSpawnRates.trailRuins.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.NETHER_COMPLEXES -> {
                 return options().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst();
@@ -976,10 +1060,10 @@ public class ListOptions {
             case CUSTOM -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.custom.tooltip");
             default -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.default.tooltip");
         }
-        return Component.translatable("speedrunnermod.options.structure_spawn_rates.tooltip")
+        return ofWorldReload(Component.translatable("speedrunnermod.options.structure_spawn_rates.tooltip")
                 .copy()
                 .append("\n\n")
-                .append(structureSpawnRate);
+                .append(structureSpawnRate));
     }
 
     /**

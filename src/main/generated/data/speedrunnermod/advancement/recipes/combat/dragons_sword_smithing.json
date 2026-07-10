@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_speedrunner_sword": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:speedrunner_sword"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "speedrunnermod:dragons_sword_smithing"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_speedrunner_sword"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "speedrunnermod:dragons_sword_smithing"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "parent": "speedrunnermod:potions/lucky_you",
+  "criteria": {
+    "obtain_item": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:doom_stone"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.doom_luck.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "speedrunnermod:doom_stone"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.doom_luck.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_item"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  },
+  "sends_telemetry_event": true
+}

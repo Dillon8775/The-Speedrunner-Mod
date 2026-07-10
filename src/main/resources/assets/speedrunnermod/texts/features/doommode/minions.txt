@@ -1,0 +1,13 @@
+## Beware of §a§lGoliath's §r§eminions, §azombies §fthat spawn §baround the world §fwith the ability to §6throw fireballs.
+
+!image:textures/gui/features/doom_mode/minions.png scale=.14
+### §6Thrown fireballs §fhave §crandom explosion powers §fon §c§lDoom §r§cmode, §fso §cbe careful!
+
+## Additionally, §aonce §a§lGoliath §r§freaches §c§l1/3 §r§chealth, he will summon §e§l3 §r§epowerful §e§lminions, §rwhom are immune to §cexplosives, §afall damage §fand §6fire.
+
+### As long as §ahis §eminions §fare §calive, §fthey will §bcommand §call surrounding mobs §fto §ctarget §fthe §ccloset player.
+
+!image:textures/gui/features/doom_mode/goliaths_minions.png scale=.14
+### Each §eminion §fhas §c§l25 §r§chealth points, §fand §6throws §afewer §6fireballs.
+
+## The only way §ahis §eminions §fcan be §ckilled §fis by §bplayer damage.

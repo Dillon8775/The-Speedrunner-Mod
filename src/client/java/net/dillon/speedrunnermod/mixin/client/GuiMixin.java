@@ -1,12 +1,13 @@
 package net.dillon.speedrunnermod.mixin.client;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.SafeBootScreen;
-import net.dillon.speedrunnermod.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsSafeScreen;
 import net.dillon.speedrunnermod.screen.misc.SpeedrunIGTMissingScreen;
+import net.dillon.speedrunnermod.util.Overrides;
 import net.minecraft.client.GameLoadCookie;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
@@ -34,11 +35,11 @@ public abstract class GuiMixin {
     private void openSpeedrunnerModScreens(GameLoadCookie cookie, CallbackInfoReturnable<Runnable> cir) {
         Runnable vanillaFlow = cir.getReturnValue();
         cir.setReturnValue(() -> {
-            if (SpeedrunnerMod.safeBoot) {
+            if (ModConstants.safeBoot) {
                 this.setScreen(new SafeBootScreen(null));
                 warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
-            } else if (clientOptions().storedValues.firstTimePlaying.getCurrentValue()) {
-                this.setScreen(new FirstTimePlayingScreen(null));
+            } else if (clientOptions().storedValues.firstTimePlaying.getCurrentValue() || Overrides.firstTimePlaying()) {
+                this.setScreen(FeaturePage.FIRST_TIME_PLAYING.createScreen(null));
             } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().general.leaderboardsMode.getCurrentValue()) {
                 this.setScreen(new LeaderboardsSafeScreen(null));
                 warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");

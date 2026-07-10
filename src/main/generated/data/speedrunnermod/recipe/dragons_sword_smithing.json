@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "speedrunnermod:dragons_pearl",
+  "base": "speedrunnermod:speedrunner_sword",
+  "result": {
+    "id": "speedrunnermod:dragons_sword"
+  },
+  "template": "speedrunnermod:dragon_upgrade_smithing_template"
+}

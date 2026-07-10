@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.mixin.item;
 
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.StructureTags;
@@ -28,8 +28,8 @@ public class EnderEyeItemMixin implements SpeedrunnerItem {
     private void locateExactDistance(Level world, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         BlockPos blockPos = ((ServerLevel)world).findNearestMapStructure(StructureTags.EYE_OF_ENDER_LOCATED, player.blockPosition(), 100, false);
         BlockPos playerpos = player.blockPosition();
-        int structureDistance = Mth.floor(ModUtil.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
-        ModUtil.sendMessageWithActionbarPref(player, this.locationText(structureDistance, this.structureTexts(ModStructureTags.STRONGHOLDS)));
+        int structureDistance = Mth.floor(ModHelper.getDistance(playerpos.getX(), playerpos.getZ(), blockPos.getX(), blockPos.getZ()));
+        ModHelper.sendMessageWithActionbarPref(player, this.locationText(structureDistance, this.structureTexts(ModStructureTags.STRONGHOLDS)));
     }
 
     @Override

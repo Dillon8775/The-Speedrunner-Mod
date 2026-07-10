@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.block;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
@@ -37,6 +37,6 @@ public class AbstractFurnaceBlockEntityMixin {
         }
 
         boolean fastSmeltingBlock = furnace instanceof BlastFurnaceBlockEntity || furnace instanceof SmokerBlockEntity;
-        ((AbstractFurnaceBlockEntityMixin)(Object)furnace).cookingTotalTime = ModUtil.secondsAsTicks(fastSmeltingBlock ? 1 : 2);
+        ((AbstractFurnaceBlockEntityMixin)(Object)furnace).cookingTotalTime = TickCalculator.seconds(fastSmeltingBlock ? 1 : 2);
     }
 }

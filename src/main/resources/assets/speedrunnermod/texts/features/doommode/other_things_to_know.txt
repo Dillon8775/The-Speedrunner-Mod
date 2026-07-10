@@ -1,30 +1,32 @@
-### The §cdifficulty §r§fis §b§olocked §r§fon §c§lHard.
+### The §cdifficulty §r§fis §c§llocked §r§fon §cHard.
 
-#### §7§lVindicators §r§fspawn all across the §aoverworld§r§f and §dthe end.
-
-#### §e§lEvokers,§r§f §9§lBreezes,§r§b§l Phantoms §r§fand §7§lRavagers§r§f spawn in §dthe end.
+### §7Vindicators §r§fspawn §call across §fthe §aoverworld§r§f and §dthe end.
 
 #### §6§lPiglin Brutes§r§f spawn all across §cthe nether.
 
-#### §cHostile mobs§r inflict the player with §7slowness§r when attacking.
+#### §e§lEvokers,§r§f §9§lBreezes,§r§b§l Phantoms §r§fand §7§lRavagers§r§f spawn in §dthe end.
+
+#### §cHostile mobs§r inflict players with §7slowness.
 
 #### §lSkeletons§r§f shoot §9slowness arrows,§r§f and shoot §cquicker.
 
-#### §lGhasts§r§f shoot §6fireballs§r §6§oextremely fast, §r§fand their §6fireballs §r§fare §c§oextremely powerful.
+#### §lGhasts§r§f shoot §6fireballs§r §6§oextremely fast, §r§fand their §6fireballs §r§fare §cextremely powerful.
 
-#### §9Ender pearls§r give the player §lblindness§r when landing §o(unless you have the §d§oDragon's Aura §r§oeffect).
+#### §9Ender pearls§r give the player §cblindness§r when landing.
+##### §o(unless you have §d§lDragon's Aura§r§d)
 
-#### §dEnd crystal explosions§r§f do more damage.
+#### §dEnd crystal explosions§r§f do §cmore damage.
 
-#### §lBed explosions§r§f do more damage in §dthe end.
+#### §cExplosions §ffrom §bbeds §fdo §cmore damage §fin §dthe end.
 
 #### §aEnder eyes§f always break.
 
-#### §7§lStrongholds§r§f are extremely large,§f and generate close to the bottom of the world, making them §cdifficult §r§fto §afind§r§f and §7navigate.
+#### §aCreepers§r§f §cinstantly explode §fif §bmanually ignited.
 
-#### §aCreepers§r§f §linstantly explode.
+#### You §bdrown faster.
 
-#### You drown §bfast.
+#### §aStrongholds§r§f are extremely large,§f and generate close to the bottom of the world, making them §cdifficult §r§fto §anavigate.
 
-## §c§oIf you're up for the challenge, I wish you luck.
+## §cIf you're up for the challenge, §c§oI wish you luck.
 
+!image:textures/gui/features/doom_mode/hardest_difficulty.png scale=.14

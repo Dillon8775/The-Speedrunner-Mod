@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.accessor;
 
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import org.spongepowered.asm.mixin.Final;

@@ -1,8 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -60,30 +61,50 @@ public interface SpeedrunnerItem {
         Component structure;
 
         if (structureType.equals(StructureTags.RUINED_PORTAL)) {
-            structure = Component.literal("§dRuined Portal");
+            structure = Component.translatable("speedrunnermod.structure.ruined_portal").withStyle(ChatFormatting.LIGHT_PURPLE);
         } else if (structureType.equals(StructureTags.SHIPWRECK)) {
-            structure = Component.literal("§bShipwreck");
+            structure = Component.translatable("speedrunnermod.structure.shipwreck").withStyle(ChatFormatting.AQUA);
+        } else if (structureType.equals(StructureTags.MINESHAFT)) {
+            structure = Component.translatable("speedrunnermod.structure.mineshaft").withStyle(ChatFormatting.GOLD);
         } else if (structureType.equals(StructureTags.ON_OCEAN_EXPLORER_MAPS)) {
-            structure = Component.literal("§9Ocean Monument");
+            structure = Component.translatable("speedrunnermod.structure.ocean_monument").withStyle(ChatFormatting.BLUE);
         } else if (structureType.equals(StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
-            structure = Component.literal("§7Woodland Mansion");
-        } else if (structureType.equals(ModStructureTags.DESERT_PYRAMIDS)) {
-            structure = Component.literal("§eDesert Pyramid");
+            structure = Component.translatable("speedrunnermod.structure.woodland_mansion").withStyle(ChatFormatting.GRAY);
+        } else if (structureType.equals(ModStructureTags.PILLAGER_OUTPOSTS)) {
+            structure = Component.translatable("speedrunnermod.structure.pillager_outpost").withStyle(ChatFormatting.GOLD);
+        } else if (structureType.equals(ModStructureTags.IGLOOS)) {
+            structure = Component.translatable("speedrunnermod.structure.igloo").withStyle(ChatFormatting.WHITE);
+        }  else if (structureType.equals(ModStructureTags.DESERT_PYRAMIDS)) {
+            structure = Component.translatable("speedrunnermod.structure.desert_pyramid").withStyle(ChatFormatting.YELLOW);
+        } else if (structureType.equals(StructureTags.ON_JUNGLE_EXPLORER_MAPS)) {
+            structure = Component.translatable("speedrunnermod.structure.jungle_temple").withStyle(ChatFormatting.DARK_GREEN);
         } else if (structureType.equals(ModStructureTags.ANCIENT_CITIES)) {
-            structure = Component.literal("§9Ancient City");
+            structure = Component.translatable("speedrunnermod.structure.ancient_city").withStyle(ChatFormatting.DARK_BLUE);
         } else if (structureType.equals(StructureTags.ON_TRIAL_CHAMBERS_MAPS)) {
-            structure = Component.literal("§aTrial Chamber");
+            structure = Component.translatable("speedrunnermod.structure.trial_chamber").withStyle(ChatFormatting.GREEN);
+        } else if (structureType.equals(ModStructureTags.TRAIL_RUINS)) {
+            structure = Component.translatable("speedrunnermod.structure.trial_ruin").withStyle(ChatFormatting.DARK_GREEN);
         } else if (structureType.equals(ModStructureTags.FORTRESSES)) {
-            structure = Component.literal("§cNether Fortress");
+            structure = Component.translatable("speedrunnermod.structure.nether_fortress").withStyle(ChatFormatting.RED);
         } else if (structureType.equals(ModStructureTags.BASTIONS)) {
-            structure = Component.literal("§6Bastion");
+            structure = Component.translatable("speedrunnermod.structure.bastion").withStyle(ChatFormatting.GOLD);
         } else if (structureType.equals(ModStructureTags.STRONGHOLDS)) {
-            structure = Component.literal("§aStronghold");
+            structure = Component.translatable("speedrunnermod.structure.stronghold").withStyle(ChatFormatting.GREEN);
+        } else if (structureType.equals(ModStructureTags.END_CITIES)) {
+            structure = Component.translatable("speedrunnermod.structure.end_city").withStyle(ChatFormatting.LIGHT_PURPLE);
         } else {
-            structure = Component.literal("§6Village");
+            structure = Component.translatable("speedrunnermod.structure.village").withStyle(ChatFormatting.GOLD);
         }
 
         return structure;
+    }
+
+    /**
+     * Adds a structure tooltip to an eye item.
+     */
+    default void addStructureTooltip(ItemStack stack, Consumer<Component> textConsumer) {
+        textConsumer.accept(Component.translatable("item.speedrunnermod.eye.looking_for.tooltip", this.structureTexts(stack.get(ModDataComponentTypes.LOCATING_STRUCTURE))));
+        textConsumer.accept(Component.translatable("item.speedrunnermod.eye.looking_for.tooltip.shift"));
     }
 
     /**

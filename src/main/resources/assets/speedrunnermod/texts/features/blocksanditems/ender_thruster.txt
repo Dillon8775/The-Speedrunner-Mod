@@ -1,5 +1,5 @@
-### §dTeleports the player§f to the §asurface of the world §f(or the highest available air block near, or on the surface).§r
+### §dTeleports the player§f to the §asurface of the world §f(or the highest available air block).§r
 
-#### Especially useful when underground, or in a cave that doesn't have an exit.
+#### Especially useful when §7underground §for in a §acave §fthat doesn't have a §bclear exit.
 
 !image:textures/gui/features/recipes/ender_thruster_crafting_recipe.png scale=.5

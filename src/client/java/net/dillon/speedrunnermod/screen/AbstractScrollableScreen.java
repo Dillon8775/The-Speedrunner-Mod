@@ -259,7 +259,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @Override
     protected void init() {
-        this.initializeCustomButtonListWidget(); // Gets the top Y (the top line) for the screen
+        this.initializeModButtonListWidget(); // Gets the top Y (the top line) for the screen
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
         loadAndPrintText(ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
@@ -537,13 +537,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     protected AbstractWidget addButtonObject(AbstractWidget button) {
         this.objectsToDisplay.add(new LineObject(null, 1.0F, null, 0, 0, button));
         return button;
-    }
-
-    /**
-     * Helper for referencing file paths in texts directory.
-     */
-    protected String inTextsFolder(String fileName) {
-        return "texts/" + fileName + ".txt";
     }
 
     /**

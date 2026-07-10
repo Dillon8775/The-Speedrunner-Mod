@@ -1,0 +1,30 @@
+{
+  "parent": "speedrunnermod:blocks/one_step_ahead",
+  "criteria": {
+    "obtained_withered_enchantment": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:stripped_speedrunner_log"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.withers_secret.description"
+    },
+    "icon": {
+      "id": "minecraft:enchanted_book"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.withers_secret.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_withered_enchantment"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

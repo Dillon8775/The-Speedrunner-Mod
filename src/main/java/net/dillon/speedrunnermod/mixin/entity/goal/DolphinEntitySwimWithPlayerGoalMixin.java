@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.goal;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.minecraft.world.entity.animal.dolphin.Dolphin;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +14,6 @@ public class DolphinEntitySwimWithPlayerGoalMixin {
      */
     @ModifyArg(method = "start", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;<init>(Lnet/minecraft/core/Holder;I)V"), index = 1)
     private int increaseDolphinsRangePlayerDetectionRadius(int x) {
-        return ModUtil.DOLPHIN_RANGE;
+        return ModHelper.DOLPHIN_RANGE;
     }
 }

@@ -1,0 +1,9 @@
+{
+  "values": [
+    {
+      "id": "#minecraft:planks",
+      "required": false
+    },
+    "minecraft:gold_ingot"
+  ]
+}

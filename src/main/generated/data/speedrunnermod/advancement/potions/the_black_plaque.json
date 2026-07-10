@@ -1,0 +1,35 @@
+{
+  "parent": "speedrunnermod:potions/dragons_aura",
+  "criteria": {
+    "obtain_item": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:splash_potion"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.the_black_plaque.description"
+    },
+    "icon": {
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "speedrunnermod:withered"
+        }
+      },
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.the_black_plaque.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

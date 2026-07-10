@@ -3,19 +3,17 @@ package net.dillon.speedrunnermod.mixin.client.screen;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
 import net.dillon.speedrunnermod.util.ClientModUtil;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
-import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
@@ -52,14 +50,9 @@ public class PauseScreenMixin extends Screen {
             return;
         }
 
-        this.createWorldButton = Button.builder(ModTexts.BLANK, (buttonWidget) -> {
-            if (this.minecraft.gui != null) {
-                this.minecraft.gui.hud.getChat().clearMessages(false);
-            }
-            this.minecraft.level.disconnect(Component.translatable("menu.savingLevel"));
-            this.minecraft.disconnect(new GenericMessageScreen(Component.translatable("speedrunnermod.menu.generating_new_world")), false, false);
-            CreateWorldScreen.openFresh(this.minecraft, null);
-        }).width(20).build();
+        this.createWorldButton = Button.builder(ModTexts.BLANK, (buttonWidget) -> ClientModUtil.createNewWorld(this.minecraft))
+                .width(20)
+                .build();
         this.createWorldButton.active = clientOptions().client.instantWorldCreation.getCurrentValue();
         iconButtonRow.addChild(this.createWorldButton);
     }

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -36,7 +36,7 @@ public abstract class ShulkerMixin extends AbstractGolem {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeShulkerAttributes(EntityType<? extends Shulker> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyMaxHealth(this, isDoomMode() ? 32.0D : 20.0D);
+        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 32.0D : 20.0D);
     }
 
     /**

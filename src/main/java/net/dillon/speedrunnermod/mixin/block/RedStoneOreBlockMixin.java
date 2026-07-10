@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.block;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -31,25 +31,25 @@ public class RedStoneOreBlockMixin extends Block {
     @Inject(method = "spawnAfterBreak", at = @At("TAIL"))
     private void increasedExperienceDroppedFromRedstoneOreWithFortune(BlockState state, ServerLevel world, BlockPos pos, ItemStack stack, boolean dropExperience, CallbackInfo ci) {
         Player player = world.getNearestPlayer(pos.getX(), pos.getY(), pos.getZ(), 20, true);
-        if (player != null && EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
+        if (player != null && EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.SILK_TOUCH), stack) == 0) {
             int f;
             int i;
             if (world.getBiome(pos).is(ModBiomes.SPEEDRUNNERS_WASTELAND)) {
                 if (state.is(Blocks.REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 52;
+                    f = EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.FORTUNE), stack) * 52;
                     i = 4 + world.getRandom().nextInt(11) + f;
                     this.popExperience(world, pos, i);
                 } else if (state.is(Blocks.DEEPSLATE_REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 76;
+                    f = EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.FORTUNE), stack) * 76;
                     i = 4 + world.getRandom().nextInt(11) + f;
                     this.popExperience(world, pos, i);
                 }
             } else {
                 if (state.is(Blocks.REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 48;
+                    f = EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.FORTUNE), stack) * 48;
                     this.popExperience(world, pos, f);
                 } else if (state.is(Blocks.DEEPSLATE_REDSTONE_ORE)) {
-                    f = EnchantmentHelper.getItemEnchantmentLevel(ModUtil.enchantment(player, Enchantments.FORTUNE), stack) * 72;
+                    f = EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.FORTUNE), stack) * 72;
                     this.popExperience(world, pos, f);
                 }
             }

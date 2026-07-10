@@ -47,6 +47,8 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
         dropSelf(ModBlocks.RAW_SPEEDRUNNER_BLOCK);
         dropSelf(ModBlocks.SPEEDRUNNER_BLOCK);
         dropSelf(ModBlocks.SPEEDRUNNER_FENCE);
+        dropSelf(ModBlocks.SPEEDRUNNER_PLANKS);
+        dropSelf(ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
         dropSelf(ModBlocks.DEAD_SPEEDRUNNER_FENCE);
         dropSelf(ModBlocks.SPEEDRUNNER_FENCE_GATE);
         dropSelf(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE);

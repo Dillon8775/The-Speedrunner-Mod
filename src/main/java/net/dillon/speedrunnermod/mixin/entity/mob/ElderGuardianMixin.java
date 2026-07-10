@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ElderGuardian;
@@ -23,9 +24,9 @@ public class ElderGuardianMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeElderGuardianAttributes(EntityType<? extends ElderGuardian> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMovementSpeed(dis, 0.30000001192092896D);
-        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 50.0D : 25.0D);
+        ModAttributeHelper.modifyMovementSpeed(dis, 0.30000001192092896D);
+        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 50.0D : 25.0D);
     }
 
     /**
@@ -41,7 +42,7 @@ public class ElderGuardianMixin {
      */
     @ModifyConstant(method = "customServerAiStep", constant = @Constant(intValue = 6000))
     private int changeMiningFatigueDuration(int constant) {
-        return isDoomMode() ? ModUtil.minutesAsTicks(5) : ModUtil.secondsAsTicks(30);
+        return isDoomMode() ? TickCalculator.minutes(5) : TickCalculator.seconds(30);
     }
 
     /**

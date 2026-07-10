@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.component.ModEnchantments;
+import net.dillon.speedrunnermod.component.ModPotions;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.potion.ModPotions;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
@@ -15,6 +15,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
@@ -89,20 +90,34 @@ public class ModItemGroups {
                         entries.accept(Items.ENDER_PEARL);
                         entries.accept(Items.GOLD_INGOT);
                         entries.accept(Items.BLAZE_POWDER);
-                        entries.accept(ModItems.DRAGONS_PEARL);
-                        entries.accept(ModItems.DRAGONS_FIREBALL);
                         entries.accept(Items.FIRE_CHARGE);
                         entries.accept(ModItems.INFINI_PEARL);
                         entries.accept(ModItems.ENDER_MATTER);
                         entries.accept(ModItems.INVENTORY_PRESERVER);
+                        entries.accept(ModItems.DRAGON_FIREBALL);
+                        entries.accept(ModItems.DRAGONS_PEARL);
+                        entries.accept(ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE);
+                        entries.accept(ModItems.DRAGONS_SWORD);
+                        entries.accept(ModHelper.ofUnbreakable(Items.ELYTRA));
+                        entries.accept(ModItems.KNOCKBACK_STICK);
                         displayContext.holders().lookup(Registries.POTION).ifPresent(registryWrapper -> {
                             addAllPotions(entries, registryWrapper, ModPotions.DRAGONS_AURA);
                             addAllPotions(entries, registryWrapper, ModPotions.LONG_DRAGONS_AURA);
+                            addAllArrows(entries, registryWrapper, ModPotions.DRAGONS_AURA);
+                            addAllArrows(entries, registryWrapper, ModPotions.LONG_DRAGONS_AURA);
+
+                            addAllPotions(entries, registryWrapper, ModPotions.WITHERED);
+                            addAllPotions(entries, registryWrapper, ModPotions.LONG_WITHERED);
+                            addAllPotions(entries, registryWrapper, ModPotions.STRONG_WITHERED);
+                            addAllArrows(entries, registryWrapper, ModPotions.WITHERED);
+                            addAllArrows(entries, registryWrapper, ModPotions.LONG_WITHERED);
+                            addAllArrows(entries, registryWrapper, ModPotions.STRONG_WITHERED);
+
+                            addAllPotions(entries, registryWrapper, Potions.LUCK);
+                            addAllPotions(entries, registryWrapper, ModPotions.STRONG_LUCK);
+                            addAllArrows(entries, registryWrapper, Potions.LUCK);
+                            addAllArrows(entries, registryWrapper, ModPotions.STRONG_LUCK);
                         });
-                        entries.accept(ModItems.DRAGONS_SWORD);
-                        entries.accept(ModUtil.ofUnbreakable(Items.ELYTRA));
-                        entries.accept(ModUtil.fireworkWithFlightDuration(1));
-                        entries.accept(ModItems.KNOCKBACK_STICK);
                         displayContext.holders().lookup(Registries.ENCHANTMENT).ifPresent(registryWrapper -> {
                             addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.DASH);
                             addAllLevelEnchantedBook(entries, registryWrapper, ModEnchantments.COOLDOWN);
@@ -200,6 +215,13 @@ public class ModItemGroups {
     }
 
     /**
+     * Adds all arrows of potion type.
+     */
+    private static void addAllArrows(CreativeModeTab.Output entries, HolderLookup<Potion> registryWrapper, Holder<Potion> potion) {
+        addPotions(entries, registryWrapper, Items.TIPPED_ARROW, potion);
+    }
+
+    /**
      * Adds all the potions of inputted potions to the item group.
      */
     private static void addPotions(CreativeModeTab.Output entries, HolderLookup<Potion> registryWrapper, Item item, Holder<Potion> potion) {
@@ -226,6 +248,7 @@ public class ModItemGroups {
         addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.SPEEDRUNNER_BLOCK);
         addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.RAW_SPEEDRUNNER_BLOCK);
         addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE);
+        addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE);
         addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.IGNEOUS_ROCK);
         addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.SPEEDRUNNER_STICK);
         addToItemGroup(CreativeModeTabs.INGREDIENTS, ModItems.ENDER_MATTER);
@@ -248,7 +271,7 @@ public class ModItemGroups {
         addToItemGroup(CreativeModeTabs.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS);
         addToItemGroup(CreativeModeTabs.COMBAT, ModItems.GOLDEN_SPEEDRUNNER_BOOTS);
         addToItemGroup(CreativeModeTabs.COMBAT, ModItems.DRAGONS_SWORD);
-        addToItemGroup(CreativeModeTabs.COMBAT, ModItems.DRAGONS_FIREBALL);
+        addToItemGroup(CreativeModeTabs.COMBAT, ModItems.DRAGON_FIREBALL);
         if (options().general.throwableFireballs.getCurrentValue()) {
             addToItemGroup(CreativeModeTabs.COMBAT, Items.FIRE_CHARGE);
         }

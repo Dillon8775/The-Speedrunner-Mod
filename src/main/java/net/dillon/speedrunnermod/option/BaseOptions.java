@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.OPTIONS_ERROR_MESSAGE;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.error;
 import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 
@@ -63,7 +63,7 @@ public abstract class BaseOptions<T> {
      * Sets an option to be broken and logs it.
      */
     public void setBroken(OptionValue<?> option, String value) {
-        error(OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options."+value);
+        error(ModConstants.OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options."+value);
         isSafe(false);
         option.setBroken();
     }

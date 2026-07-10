@@ -20,7 +20,7 @@ public class ModFluidTagProvider extends FabricTagsProvider.FluidTagsProvider {
     @Override
     protected void addTags(HolderLookup.Provider arg) {
         tag(ModFluidTags.BOAT_SAFE_FLUIDS)
-                .forceAddTag(FluidTags.WATER)
-                .forceAddTag(FluidTags.LAVA);
+                .addOptionalTag(FluidTags.WATER)
+                .addOptionalTag(FluidTags.LAVA);
     }
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "speedrunnermod:items/eye_of_the_structures",
+  "parent": "speedrunnermod:items/hardest_rock",
   "criteria": {
     "has_item": {
       "conditions": {

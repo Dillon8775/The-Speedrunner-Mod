@@ -1,5 +1,8 @@
 {
   "values": [
-    "#speedrunnermod:speedrunner_nautiluses"
+    {
+      "id": "#speedrunnermod:speedrunner_nautiluses",
+      "required": false
+    }
   ]
 }

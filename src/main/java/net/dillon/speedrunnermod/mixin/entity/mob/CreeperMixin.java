@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -35,7 +35,7 @@ public abstract class CreeperMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeCreeperMaxHealth(EntityType<? extends Creeper> entityType, Level world, CallbackInfo ci) {
-        ModUtil.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
+        ModAttributeHelper.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
     }
 
     /**

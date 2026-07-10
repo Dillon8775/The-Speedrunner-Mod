@@ -37,7 +37,8 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
                 GOLDEN_BASE_SLOT_DESCRIPTION_TEXT,
                 GOLDEN_ADDITIONS_SLOT_DESCRIPTION_TEXT,
                 SmithingTemplateItemInvoker.invokeNetheriteUpgradeIconList(),
-                SmithingTemplateItemInvoker.invokeNetheriteUpgradeMaterialList(), settings);
+                SmithingTemplateItemInvoker.invokeNetheriteUpgradeMaterialList(),
+                settings);
     }
 
     /**
@@ -54,6 +55,7 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay displayComponent, Consumer<Component> textConsumer, TooltipFlag type) {
+        SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.help").withStyle(ChatFormatting.GREEN));
         SpeedrunnerItem.addWrappedTooltip(textConsumer, Component.translatable("item.speedrunnermod.golden_upgrade_smithing_template.tooltip").withStyle(ChatFormatting.WHITE));
         super.appendHoverText(stack, context, displayComponent, textConsumer, type);
     }

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob.piglin;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
@@ -21,6 +21,6 @@ public class PiglinBruteMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changePiglinBruteAttributes(EntityType<? extends PiglinBrute> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 25.0D : 50.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 25.0D : 50.0D);
     }
 }

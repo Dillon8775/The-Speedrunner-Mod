@@ -11,83 +11,64 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All Speedrunner Mod {@code item tags.}
  */
 public class ModItemTags {
-    public static TagKey<Item> COOLDOWN_ENCHANTMENT_ITEMS = of("cooldown_enchantment_items");
-    public static TagKey<Item> DOOM_STONE_SAFE_TOOLS = of("doom_stone_safe_tools");
-    public static TagKey<Item> DRAGON_TOOL_MATERIALS = of("dragon_tool_materials");
-    public static TagKey<Item> EXPERIENCE_BOTTLE_CRAFTABLES = of("experience_bottle_craftables");
-    public static TagKey<Item> FASTER_BOATS = of("faster_boats");
-    public static TagKey<Item> FASTER_CHEST_BOATS = of("faster_chest_boats");
-    public static TagKey<Item> FLESH = of("flesh");
-    public static TagKey<Item> FIREPROOF_BOATS = of("fireproof_boats");
-    public static TagKey<Item> FIREPROOF_CHEST_BOATS = of("fireproof_chest_boats");
-    public static TagKey<Item> FIREPROOF_ITEMS = of("fireproof_items");
-    public static TagKey<Item> GOLDEN_FOOD_ITEMS = of("golden_food_items");
-    public static TagKey<Item> GOLDEN_SPEEDRUNNER_ARMOR = of("golden_speedrunner_armor");
-    public static TagKey<Item> GOLDEN_SPEEDRUNNER_TOOL_MATERIALS = of("golden_speedrunner_tool_materials");
-    public static TagKey<Item> IGNITABLES = of("ignitables");
-    public static TagKey<Item> INCREASED_LUNGE_MOMENTUM = of("increased_lunge_momentum");
-    public static TagKey<Item> PIGLIN_AWAKENER_CRAFTABLES = of("piglin_awakener_craftables");
-    public static TagKey<Item> SCULK_SENSOR_SAFE_BOOTS = of("sculk_sensor_safe_boots");
-    public static TagKey<Item> SPEED_BOOTS = of("speed_boots");
-    public static TagKey<Item> SPEEDRUNNER_ARMOR = of("speedrunner_armor");
-    public static TagKey<Item> SPEEDRUNNER_SHIELD_REPAIRABLE = of("speedrunner_shield_repairable");
-    public static TagKey<Item> SPEEDRUNNER_TOOL_MATERIALS = of("speedrunner_tool_materials");
-    public static TagKey<Item> SPEEDRUNNER_TOOLS = of("speedrunner_tools");
-    public static TagKey<Item> SPEEDRUNNER_SWORDS = of("speedrunner_swords");
-    public static TagKey<Item> SPEEDRUNNER_HARNESSES = of("speedrunner_harnesses");
-    public static TagKey<Item> SPEEDRUNNER_NAUTILUSES = of("speedrunner_nautiluses");
-    public static TagKey<Item> SPEEDRUNNERS_WORKBENCH_CONVERTABLE = of("speedrunners_workbench_convertable");
-    public static TagKey<Item> SPEEDRUNNERS_WORKBENCH_UPGRADEABLE = of("speedrunners_workbench_upgradeable");
-    public static TagKey<Item> STATE_OF_THE_ART_ITEMS = of("state_of_the_art_items");
-    public static TagKey<Item> STICKS = of("sticks");
-    public static TagKey<Item> SPEEDRUNNER_STICKS = of("speedrunner_sticks");
-    public static TagKey<Item> TOTEMS = of("totems");
-    public static TagKey<Item> UPGRADEABLE_GOLD = of("upgradable_gold");
+    public static final TagKey<Item> COOLDOWN_ENCHANTMENT_ITEMS = createItemTag("cooldown_enchantment_items");
+    public static final TagKey<Item> DRAGON_TOOL_MATERIALS = createItemTag("dragon_tool_materials");
+    public static final TagKey<Item> DRAGON_PARTICLE_ITEMS = createItemTag("dragon_particle_items");
+    public static final TagKey<Item> EXPERIENCE_BOTTLE_CRAFTABLES = createItemTag("experience_bottle_craftables");
+    public static final TagKey<Item> FIREPROOF_BOATS = createItemTag("fireproof_boats");
+    public static final TagKey<Item> FIREPROOF_CHEST_BOATS = createItemTag("fireproof_chest_boats");
+    public static final TagKey<Item> FIREPROOF_ITEMS = createItemTag("fireproof_items");
+    public static final TagKey<Item> FLESH = createItemTag("flesh");
+    public static final TagKey<Item> GOLDEN_SPEEDRUNNER_TOOL_MATERIALS = createItemTag("golden_speedrunner_tool_materials");
+    public static final TagKey<Item> SPEEDRUNNER_TOOL_MATERIALS = createItemTag("speedrunner_tool_materials");
+    public static final TagKey<Item> GOLDEN_SHIELD_REPAIRABLE = createItemTag("golden_shield_repairable");
+    public static final TagKey<Item> SPEEDRUNNER_SHIELD_REPAIRABLE = createItemTag("speedrunner_shield_repairable");
+    public static final TagKey<Item> SPEEDRUNNER_ARMOR = createItemTag("speedrunner_armor");
+    public static final TagKey<Item> SPEEDRUNNER_HARNESSES = createItemTag("speedrunner_harnesses");
+    public static final TagKey<Item> SPEEDRUNNER_NAUTILUSES = createItemTag("speedrunner_nautiluses");
+    public static final TagKey<Item> SPEEDRUNNERS_WORKBENCH_CONVERTABLE = createItemTag("speedrunners_workbench_convertable");
+    public static final TagKey<Item> SPEEDRUNNERS_WORKBENCH_UPGRADEABLE = createItemTag("speedrunners_workbench_upgradeable");
+    public static final TagKey<Item> IGNITABLES = createItemTag("ignitables");
+    public static final TagKey<Item> THROWABLE_FIREBALLS = createItemTag("throwable_fireballs");
+    public static final TagKey<Item> ENDER_EYE_DEATH_SOUND = createItemTag("ender_eye_death_sound_items");
+    public static final TagKey<Item> FIRECHARGE_SOUND = createItemTag("firecharge_sound_items");
+    public static final TagKey<Item> PURPLE_EYE_PARTICLES = createItemTag("purple_eye_particles");
+    public static final TagKey<Item> SMOKE_EYE_PARTICLES = createItemTag("smoke_eye_particles");
+    public static final TagKey<Item> BLUE_EYE_PARTICLES = createItemTag("blue_eye_particles");
+    public static final TagKey<Item> PIGLIN_AWAKENER_CRAFTABLES = createItemTag("piglin_awakener_craftables");
+    public static final TagKey<Item> SPEED_BOOTS = createItemTag("speed_boots");
+    public static final TagKey<Item> STICKS = createItemTag("sticks");
+    public static final TagKey<Item> SPEEDRUNNER_STICKS = createItemTag("speedrunner_sticks");
+    public static final TagKey<Item> TOTEMS = createItemTag("totems");
+    public static final TagKey<Item> UPGRADEABLE_GOLD = createItemTag("upgradable_gold");
 
     /**
      * Item tags specifically for advancement criterions.
      */
     public static class AdvancementCriterions {
-        public static TagKey<Item> EYE_OF_ANNUL = ofAdvancement("eye_of_annul");
-        public static TagKey<Item> BLAZE_SPOTTER = ofAdvancement("blaze_spotter");
-        public static TagKey<Item> DRAGONS_PEARL = ofAdvancement("dragons_pearl");
-        public static TagKey<Item> DRAGONS_SWORD = ofAdvancement("dragons_sword");
-        public static TagKey<Item> ENDER_THRUSTER = ofAdvancement("ender_thruster");
-        public static TagKey<Item> INFERNO_EYE = ofAdvancement("inferno_eye");
-        public static TagKey<Item> RAID_ERADICATOR = ofAdvancement("raid_eradicator");
-        public static TagKey<Item> PIGLIN_AWAKENER = ofAdvancement("piglin_awakener");
-        public static TagKey<Item> SPEEDRUNNER_FLINT_AND_STEEL = ofAdvancement("speedrunner_flint_and_steel");
-        public static TagKey<Item> SPEEDRUNNERS_WORKBENCH = ofAdvancement("speedrunners_workbench");
-    }
-
-    /**
-     * Item tags that also have a block tag.
-     */
-    public static class Block {
-        public static TagKey<Item> DEAD_SPEEDRUNNER_LOGS = of("dead_speedrunner_logs");
-        public static TagKey<Item> DOOM_LOGS = of("doom_logs");
-        public static TagKey<Item> EXPERIENCE_ORES = of("experience_ores");
-        public static TagKey<Item> IGNEOUS_ORES = of("igneous_ores");
-        public static TagKey<Item> IRON_BLOCKS = of("iron_blocks");
-        public static TagKey<Item> NETHER_PORTAL_BASE_BLOCKS = of("nether_portal_base_blocks");
-        public static TagKey<Item> SPEEDRUNNER_FUELS = of("speedrunner_fuels");
-        public static TagKey<Item> SPEEDRUNNER_LOGS = of("speedrunner_logs");
-        public static TagKey<Item> SPEEDRUNNER_ORES = of("speedrunner_ores");
-        public static TagKey<Item> SPEEDRUNNER_PLANKS = of("speedrunner_planks");
-        public static TagKey<Item> SPEEDRUNNER_SAPLING_PLACEABLES = of("speedrunner_sapling_placeables");
+        public static final TagKey<Item> EYE_OF_ANNUL = createAdvancementItemTag("eye_of_annul");
+        public static final TagKey<Item> BLAZE_SPOTTER = createAdvancementItemTag("blaze_spotter");
+        public static final TagKey<Item> DRAGONS_PEARL = createAdvancementItemTag("dragons_pearl");
+        public static final TagKey<Item> DRAGONS_SWORD = createAdvancementItemTag("dragons_sword");
+        public static final TagKey<Item> ENDER_THRUSTER = createAdvancementItemTag("ender_thruster");
+        public static final TagKey<Item> INFERNO_EYE = createAdvancementItemTag("inferno_eye");
+        public static final TagKey<Item> RAID_ERADICATOR = createAdvancementItemTag("raid_eradicator");
+        public static final TagKey<Item> PIGLIN_AWAKENER = createAdvancementItemTag("piglin_awakener");
+        public static final TagKey<Item> SPEEDRUNNER_FLINT_AND_STEEL = createAdvancementItemTag("speedrunner_flint_and_steel");
+        public static final TagKey<Item> SPEEDRUNNERS_WORKBENCH = createAdvancementItemTag("speedrunners_workbench");
     }
 
     /**
      * Registers an {@code item tag.}
      */
-    private static TagKey<Item> of(String path) {
+    private static TagKey<Item> createItemTag(String path) {
         return TagKey.create(Registries.ITEM, ofSpeedrunnerMod(path));
     }
 
     /**
      * Registers an {@code item tag,} specifically for advancement unlocks.
      */
-    private static TagKey<Item> ofAdvancement(String path) {
+    private static TagKey<Item> createAdvancementItemTag(String path) {
         return TagKey.create(Registries.ITEM, ofSpeedrunnerMod("advancement_criterions/"+path));
     }
 

@@ -11,12 +11,12 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All Speedrunner Mod {@code fluid tags.}
  */
 public class ModFluidTags {
-    public static TagKey<Fluid> BOAT_SAFE_FLUIDS = of("boat_safe_fluids");
+    public static final TagKey<Fluid> BOAT_SAFE_FLUIDS = createFluidTag("boat_safe_fluids");
 
     /**
      * Registers a {@code fluid tag.}
      */
-    private static TagKey<Fluid> of(String path) {
+    private static TagKey<Fluid> createFluidTag(String path) {
         return TagKey.create(Registries.FLUID, ofSpeedrunnerMod(path));
     }
 

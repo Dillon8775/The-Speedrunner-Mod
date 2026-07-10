@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "speedrunnermod:additional_range",
+      "required": false
+    },
+    {
+      "id": "speedrunnermod:additional_inertia",
+      "required": false
+    },
+    {
+      "id": "speedrunnermod:additional_target_damage",
+      "required": false
+    }
+  ]
+}

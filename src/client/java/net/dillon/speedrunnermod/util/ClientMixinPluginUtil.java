@@ -1,5 +1,7 @@
 package net.dillon.speedrunnermod.util;
 
+import net.dillon.speedrunnermod.helper.ModHelper;
+
 public class ClientMixinPluginUtil extends AbstractMixinPluginUtil {
     private static final String FOG_RENDERER_MIXIN = "net.dillon.speedrunnermod.mixin.client.render.FogRendererMixin";
     private static final String OPTION_INSTANCE_MIXIN = "net.dillon.speedrunnermod.mixin.client.OptionInstanceMixin";
@@ -42,6 +44,6 @@ public class ClientMixinPluginUtil extends AbstractMixinPluginUtil {
 
     @Override
     public String configFileName() {
-        return ModUtil.CLIENT_CONFIG_FILE_NAME;
+        return ModHelper.CLIENT_CONFIG_FILE_NAME;
     }
 }

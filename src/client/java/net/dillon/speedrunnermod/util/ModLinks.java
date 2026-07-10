@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.helper.ModConstants;
 
 /**
  * All Speedrunner Mod {@code external links.}
@@ -26,7 +26,7 @@ public class ModLinks {
      * Returns a {@code link} with correct version filtering.
      */
     private static String link(String url) {
-        return url + "/versions?g=" + SpeedrunnerMod.MC_VERSION + "&l=fabric";
+        return url + "/versions?g=" + ModConstants.MC_VERSION + "&l=fabric";
     }
 
     public static final String QUESTIONS_AND_ISSUES = "https://discord.gg/vfqEAn4YFy";

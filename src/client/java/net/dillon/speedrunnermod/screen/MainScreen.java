@@ -1,15 +1,14 @@
 package net.dillon.speedrunnermod.screen;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.option.Leaderboards;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
-import net.dillon.speedrunnermod.screen.feature.secretdoommode.AbstractSecretDoomModeScreen;
-import net.dillon.speedrunnermod.screen.feature.secretdoommode.UmScreen;
-import net.dillon.speedrunnermod.screen.feature.secretdoommode.YouArentReadyForThisScreen;
+import net.dillon.speedrunnermod.screen.feature.secretdoommode.SecretDoomModeFeatureScreen;
 import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsScreen;
 import net.dillon.speedrunnermod.screen.misc.LinksScreen;
 import net.dillon.speedrunnermod.screen.misc.ResourcesScreen;
 import net.dillon.speedrunnermod.screen.option.ModOptionsScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -78,10 +77,10 @@ public class MainScreen extends AbstractModScreen {
         this.leaderboardsButton.active = false;
 
         this.doomModeButton = Button.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
-            if (AbstractSecretDoomModeScreen.doomModeButtonAlreadyClicked > 0) {
-                this.minecraft.gui.setScreen(new UmScreen(this.parent));
+            if (SecretDoomModeFeatureScreen.doomModeButtonAlreadyClicked > 0) {
+                this.minecraft.gui.setScreen(FeaturePage.UM.createScreen(this.parent));
             } else {
-                this.minecraft.gui.setScreen(new YouArentReadyForThisScreen(this.parent));
+                this.minecraft.gui.setScreen(FeaturePage.YOU_ARENT_READY_FOR_THIS.createScreen(this.parent));
             }
         }).build();
         this.doomModeButton.visible = isDoomMode();

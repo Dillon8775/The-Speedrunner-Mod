@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.item.ModBlockItemIds;
 import net.dillon.speedrunnermod.item.ModItemIds;
+import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
@@ -47,7 +48,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItemIds.SPEEDRUNNER_SHIELD);
 
         tag(ConventionalItemTags.NAUTILUS_ARMORS)
-                .addTag(ModItemTags.SPEEDRUNNER_NAUTILUSES);
+                .addOptionalTag(ModItemTags.SPEEDRUNNER_NAUTILUSES);
 
         tag(ModItemTags.SPEED_BOOTS)
                 .add(ModItemIds.SPEEDRUNNER_BOOTS)
@@ -55,41 +56,24 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
         tag(ModItemTags.COOLDOWN_ENCHANTMENT_ITEMS)
                 .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS)
+                .addOptionalTag(ModItemTags.THROWABLE_FIREBALLS)
                 .add(ItemIds.ENDER_PEARL)
                 .add(ModItemIds.INFINI_PEARL)
-                .add(ItemIds.CHORUS_FRUIT);
-
-        tag(ModItemTags.SPEEDRUNNER_TOOLS)
-                .add(ModItemIds.SPEEDRUNNER_SWORD)
-                .add(ModItemIds.SPEEDRUNNER_SHOVEL)
-                .add(ModItemIds.SPEEDRUNNER_PICKAXE)
-                .add(ModItemIds.SPEEDRUNNER_AXE)
-                .add(ModItemIds.SPEEDRUNNER_HOE)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_SWORD)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_SHOVEL)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_PICKAXE)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_AXE)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_HOE);
-
-        tag(ModItemTags.DOOM_STONE_SAFE_TOOLS)
-                .addOptionalTag(ModItemTags.SPEEDRUNNER_TOOLS);
+                .add(ItemIds.CHORUS_FRUIT)
+                .add(ItemIds.WIND_CHARGE);
 
         tag(ModItemTags.DRAGON_TOOL_MATERIALS)
                 .add(ModItemIds.DRAGONS_PEARL);
 
+        tag(ModItemTags.DRAGON_PARTICLE_ITEMS)
+                .add(ModItemIds.DRAGONS_PEARL)
+                .add(ModItemIds.DRAGON_FIREBALL)
+                .add(ModItemIds.DRAGON_UPGRADE_SMITHING_TEMPLATE)
+                .add(ModItemIds.DRAGONS_SWORD);
+
         tag(ModItemTags.EXPERIENCE_BOTTLE_CRAFTABLES)
                 .add(ItemIds.GLASS_BOTTLE)
                 .add(ModItemIds.EXPERIENCE_FRAGMENT);
-
-        tag(ModItemTags.FASTER_BOATS)
-                .add(ModItemIds.SPEEDRUNNER_BOAT)
-                .add(ModItemIds.FIREPROOF_SPEEDRUNNER_BOAT)
-                .add(ModItemIds.DEAD_SPEEDRUNNER_BOAT);
-
-        tag(ModItemTags.FASTER_CHEST_BOATS)
-                .add(ModItemIds.SPEEDRUNNER_CHEST_BOAT)
-                .add(ModItemIds.FIREPROOF_SPEEDRUNNER_CHEST_BOAT)
-                .add(ModItemIds.DEAD_SPEEDRUNNER_CHEST_BOAT);
 
         tag(ModItemTags.FLESH)
                 .add(ModItemIds.COOKED_FLESH)
@@ -106,40 +90,53 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItemIds.FIREPROOF_WARPED_CHEST_BOAT);
 
         tag(ModItemTags.FIREPROOF_ITEMS)
+                .addOptionalTag(ModItemTags.FIREPROOF_BOATS)
+                .addOptionalTag(ModItemTags.FIREPROOF_CHEST_BOATS)
                 .add(ItemIds.BLAZE_ROD)
                 .add(ItemIds.BLAZE_POWDER)
                 .add(ItemIds.FIRE_CHARGE);
 
-        tag(ModItemTags.GOLDEN_FOOD_ITEMS)
-                .add(ItemIds.GOLDEN_APPLE)
-                .add(ItemIds.ENCHANTED_GOLDEN_APPLE)
-                .add(ItemIds.GOLDEN_CARROT);
-
-        tag(ModItemTags.GOLDEN_SPEEDRUNNER_ARMOR)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_HELMET)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_CHESTPLATE)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_LEGGINGS)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_BOOTS);
-
         tag(ModItemTags.GOLDEN_SPEEDRUNNER_TOOL_MATERIALS)
+                .add(ItemIds.GOLD_INGOT);
+
+        tag(ModItemTags.SPEEDRUNNER_SHIELD_REPAIRABLE)
                 .add(ItemIds.GOLD_INGOT);
 
         tag(ModItemTags.IGNITABLES)
                 .addOptionalTag(ConventionalItemTags.IGNITER_TOOLS)
                 .add(ItemIds.FIRE_CHARGE);
 
-        tag(ModItemTags.INCREASED_LUNGE_MOMENTUM)
-                .add(ModItemIds.SPEEDRUNNER_SPEAR)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_SPEAR);
+        tag(ModItemTags.THROWABLE_FIREBALLS)
+                .add(ItemIds.FIRE_CHARGE)
+                .add(ModItemIds.DRAGON_FIREBALL);
+
+        tag(ModItemTags.ENDER_EYE_DEATH_SOUND)
+                .add(ItemIds.ENDER_EYE)
+                .add(ModItemIds.ANNUL_EYE)
+                .add(ModItemIds.SPEEDRUNNERS_EYE);
+
+        tag(ModItemTags.FIRECHARGE_SOUND)
+                .add(ModItemIds.INFERNO_EYE);
+
+        tag(ModItemTags.PURPLE_EYE_PARTICLES)
+                .add(ModItemIds.ANNUL_EYE);
+
+        tag(ModItemTags.SMOKE_EYE_PARTICLES)
+                .add(ModItemIds.INFERNO_EYE);
+
+        tag(ModItemTags.BLUE_EYE_PARTICLES)
+                .add(ModItemIds.SPEEDRUNNERS_EYE);
 
         tag(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES)
-                .addOptionalTag(ModItemTags.GOLDEN_FOOD_ITEMS)
+                .addOptionalTag(ItemTags.PIGLIN_LOVED)
                 .add(ItemIds.ENDER_PEARL)
-                .add(ItemIds.BLAZE_POWDER);
-
-        tag(ModItemTags.SCULK_SENSOR_SAFE_BOOTS)
-                .add(ModItemIds.SPEEDRUNNER_BOOTS)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_BOOTS);
+                .add(ItemIds.BLAZE_POWDER)
+                .remove(ItemIds.GOLD_INGOT)
+                .remove(ItemIds.RAW_GOLD)
+                .remove(BlockItemIds.GOLD_BLOCK.item())
+                .remove(BlockItemIds.RAW_GOLD_BLOCK.item())
+                .remove(BlockItemIds.GILDED_BLACKSTONE.item())
+                .removeTag(ItemTags.GOLD_ORES);
 
         tag(ModItemTags.SPEED_BOOTS)
                 .add(ModItemIds.SPEEDRUNNER_BOOTS)
@@ -159,12 +156,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .addOptionalTag(ItemTags.PLANKS)
                 .add(ModItemIds.SPEEDRUNNER_INGOT);
 
+        tag(ModItemTags.GOLDEN_SHIELD_REPAIRABLE)
+                .addOptionalTag(ItemTags.PLANKS)
+                .add(ItemIds.GOLD_INGOT);
+
         tag(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS)
                 .add(ModItemIds.SPEEDRUNNER_INGOT);
-
-        tag(ModItemTags.SPEEDRUNNER_SWORDS)
-                .add(ModItemIds.SPEEDRUNNER_SWORD)
-                .add(ModItemIds.GOLDEN_SPEEDRUNNER_SWORD);
 
         tag(ModItemTags.SPEEDRUNNER_HARNESSES)
                 .add(ModItemIds.SPEEDRUNNER_HARNESS)
@@ -173,15 +170,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
         tag(ModItemTags.SPEEDRUNNER_NAUTILUSES)
                 .add(ModItemIds.SPEEDRUNNER_NAUTILUS_ARMOR)
                 .add(ModItemIds.GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR);
-
-        tag(ModItemTags.STATE_OF_THE_ART_ITEMS)
-                .add(ModItemIds.ANNUL_EYE)
-                .add(ModItemIds.BLAZE_SPOTTER)
-                .add(ModItemIds.DRAGONS_PEARL)
-                .add(ModItemIds.DRAGONS_SWORD)
-                .add(ModItemIds.ENDER_THRUSTER)
-                .add(ModItemIds.PIGLIN_AWAKENER)
-                .add(ModItemIds.RAID_ERADICATOR);
 
         tag(ModItemTags.STICKS)
                 .add(ItemIds.STICK)
@@ -218,45 +206,45 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIds.GOLDEN_NAUTILUS_ARMOR)
                 .add(ModItemIds.SPEEDRUNNER_NAUTILUS_ARMOR);
 
-        tag(ModItemTags.Block.DOOM_LOGS)
+        tag(ModBlockItemTags.DOOM_LOGS.item())
                 .add(ModBlockItemIds.DOOM_LOG.item());
 
-        tag(ModItemTags.Block.EXPERIENCE_ORES)
+        tag(ModBlockItemTags.EXPERIENCE_ORES.item())
                 .add(ModBlockItemIds.EXPERIENCE_ORE.item())
                 .add(ModBlockItemIds.DEEPSLATE_EXPERIENCE_ORE.item())
                 .add(ModBlockItemIds.NETHER_EXPERIENCE_ORE.item());
 
-        tag(ModItemTags.Block.IGNEOUS_ORES)
+        tag(ModBlockItemTags.IGNEOUS_ORES.item())
                 .add(ModBlockItemIds.IGNEOUS_ORE.item())
                 .add(ModBlockItemIds.DEEPSLATE_IGNEOUS_ORE.item())
                 .add(ModBlockItemIds.NETHER_IGNEOUS_ORE.item());
 
-        tag(ModItemTags.Block.IRON_BLOCKS)
+        tag(ModBlockItemTags.IRON_BLOCKS.item())
                 .add(BlockItemIds.IRON_BLOCK.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_BLOCK.item());
 
-        tag(ModItemTags.Block.NETHER_PORTAL_BASE_BLOCKS)
+        tag(ModBlockItemTags.NETHER_PORTAL_BASE_BLOCKS.item())
                 .add(BlockItemIds.OBSIDIAN.item())
                 .add(BlockItemIds.CRYING_OBSIDIAN.item());
 
-        tag(ModItemTags.Block.SPEEDRUNNER_LOGS)
+        tag(ModBlockItemTags.SPEEDRUNNER_LOGS.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_LOG.item())
                 .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_LOG.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_WOOD.item())
                 .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_WOOD.item());
 
-        tag(ModItemTags.Block.DEAD_SPEEDRUNNER_LOGS)
+        tag(ModBlockItemTags.DEAD_SPEEDRUNNER_LOGS.item())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_LOG.item())
                 .add(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_LOG.item())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD.item())
                 .add(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_WOOD.item());
 
-        tag(ModItemTags.Block.SPEEDRUNNER_PLANKS)
+        tag(ModBlockItemTags.SPEEDRUNNER_PLANKS.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_PLANKS.item())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_PLANKS.item());
 
-        tag(ModItemTags.Block.SPEEDRUNNER_FUELS)
-                .addOptionalTag(ModItemTags.Block.SPEEDRUNNER_LOGS)
+        tag(ModBlockItemTags.SPEEDRUNNER_FUELS.item())
+                .addOptionalTag(ModBlockItemTags.SPEEDRUNNER_LOGS.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_SAPLING.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_SLAB.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_STAIRS.item())
@@ -267,12 +255,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModBlockItemIds.SPEEDRUNNER_BUTTON.item())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_BUSH.item());
 
-        tag(ModItemTags.Block.SPEEDRUNNER_ORES)
+        tag(ModBlockItemTags.SPEEDRUNNER_ORES.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_ORE.item())
                 .add(ModBlockItemIds.DEEPSLATE_SPEEDRUNNER_ORE.item())
                 .add(ModBlockItemIds.NETHER_SPEEDRUNNER_ORE.item());
 
-        tag(ModItemTags.Block.SPEEDRUNNER_SAPLING_PLACEABLES)
+        tag(ModBlockItemTags.SPEEDRUNNER_SAPLING_PLACEABLES.item())
                 .addOptionalTag(ItemTags.SAND)
                 .add(BlockItemIds.NETHERRACK.item())
                 .add(BlockItemIds.CRIMSON_NYLIUM.item())
@@ -283,8 +271,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIds.ENDER_EYE);
 
         tag(ModItemTags.AdvancementCriterions.BLAZE_SPOTTER)
-                .add(ItemIds.ENDER_PEARL)
-                .add(ItemIds.FIRE_CHARGE)
+                .add(ModItemIds.INFERNO_EYE)
                 .add(ItemIds.LAVA_BUCKET);
 
         tag(ModItemTags.AdvancementCriterions.DRAGONS_PEARL)
@@ -317,7 +304,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItemIds.SPEEDRUNNER_INGOT);
 
         tag(ModItemTags.AdvancementCriterions.SPEEDRUNNERS_WORKBENCH)
-                .addOptionalTag(ModItemTags.Block.SPEEDRUNNER_PLANKS)
+                .addOptionalTag(ModBlockItemTags.SPEEDRUNNER_PLANKS.item())
                 .add(ModItemIds.SPEEDRUNNER_INGOT);
 
         tag(ItemTags.BOATS)
@@ -362,8 +349,8 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModBlockItemIds.DOOM_LEAVES.item());
 
         tag(ItemTags.LOGS)
-                .addOptionalTag(ModItemTags.Block.SPEEDRUNNER_LOGS)
-                .addOptionalTag(ModItemTags.Block.DOOM_LOGS);
+                .addOptionalTag(ModBlockItemTags.SPEEDRUNNER_LOGS.item())
+                .addOptionalTag(ModBlockItemTags.DOOM_LOGS.item());
 
         tag(ItemTags.PIGLIN_FOOD)
                 .add(ModItemIds.PIGLIN_PORK)
@@ -432,6 +419,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItemIds.SPEEDRUNNER_CROSSBOW)
                 .add(ModItemIds.SPEEDRUNNER_SHIELD)
                 .add(ModItemIds.GOLDEN_SHIELD)
+                .add(ModItemIds.KNOCKBACK_STICK)
                 .add(ModItemIds.INFINI_PEARL);
 
         tag(ItemTags.BOW_ENCHANTABLE)
@@ -482,10 +470,6 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItemIds.GOLDEN_SPEEDRUNNER_BOOTS);
 
         tag(ItemTags.PIGLIN_SAFE_ARMOR)
-                .add(ItemIds.GOLDEN_HELMET)
-                .add(ItemIds.GOLDEN_CHESTPLATE)
-                .add(ItemIds.GOLDEN_LEGGINGS)
-                .add(ItemIds.GOLDEN_BOOTS)
                 .add(ModItemIds.GOLDEN_SPEEDRUNNER_HELMET)
                 .add(ModItemIds.GOLDEN_SPEEDRUNNER_CHESTPLATE)
                 .add(ModItemIds.GOLDEN_SPEEDRUNNER_LEGGINGS)

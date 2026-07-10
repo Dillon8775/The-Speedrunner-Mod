@@ -2,6 +2,6 @@
 
 ##§6Piglin brutes§f §lno longer spawn§r in §7bastions!§r
 
-§c§oUnless you're on doom mode...
+§c§oUnless you're on doom mode... then they spawn everywhere.
 
-!image:textures/gui/features/other/piglin_brute.png scale=.15
+!image:textures/gui/features/other/piglin_brute.png scale=.18

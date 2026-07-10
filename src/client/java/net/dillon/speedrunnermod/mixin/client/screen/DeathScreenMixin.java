@@ -1,12 +1,11 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
+import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.DeathScreen;
-import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 import org.spongepowered.asm.mixin.Final;
@@ -38,14 +37,9 @@ public class DeathScreenMixin extends Screen {
         if (clientOptions().client.instantWorldCreation.getCurrentValue() &&
                 clientOptions().client.showResetButton.getCurrentValue() &&
                 this.minecraft.isLocalServer() && this.minecraft.getCurrentServer() == null) {
-            this.exitButtons.add(this.addRenderableWidget(Button.builder(Component.translatable("speedrunnermod.new_run"), button -> {
-                if (this.minecraft.gui != null) {
-                    this.minecraft.gui.hud.getChat().clearMessages(false);
-                }
-                this.minecraft.level.disconnect(Component.translatable("menu.savingLevel"));
-                this.minecraft.disconnect(new GenericMessageScreen(Component.translatable("speedrunnermod.menu.generating_new_world")), false, false);
-                CreateWorldScreen.openFresh(this.minecraft, null);
-            }).bounds(this.width / 2 - 100, this.height / 4 + 120, 200, 20).build()));
+            this.exitButtons.add(this.addRenderableWidget(Button.builder(Component.translatable("speedrunnermod.new_run"), button ->  ClientModUtil.createNewWorld(this.minecraft))
+                    .bounds(this.width / 2 - 100, this.height / 4 + 120, 200, 20)
+                    .build()));
         }
     }
 
@@ -55,7 +49,7 @@ public class DeathScreenMixin extends Screen {
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void displayDeathCords(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (options().general.showDeathCords.getCurrentValue()) {
-            context.centeredText(this.font, ModUtil.deathCords(ModUtil.latestDeathCords[0], ModUtil.latestDeathCords[1], ModUtil.latestDeathCords[2]), this.width / 2, 115, CommonColors.WHITE);
+            context.centeredText(this.font, ModHelper.deathCords(ModHelper.latestDeathCords[0], ModHelper.latestDeathCords[1], ModHelper.latestDeathCords[2]), this.width / 2, 115, CommonColors.WHITE);
         }
     }
 }

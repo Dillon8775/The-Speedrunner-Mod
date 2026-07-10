@@ -1,0 +1,15 @@
+{
+  "additional_wants": {
+    "id": "speedrunnermod:speedrunner_ingot"
+  },
+  "gives": {
+    "id": "speedrunnermod:speedrunner_harness"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.3,
+  "wants": {
+    "count": 7.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 14.0
+}

@@ -7,7 +7,37 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
-public class JunglePyramidConfig extends PillagerOutpostConfig {
+public class JunglePyramidConfig extends Ssr {
+
+    @Override
+    public int[] everywhere() {
+        return new int[]{3, 2};
+    }
+
+    @Override
+    public int[] veryCommon() {
+        return new int[]{8, 7};
+    }
+
+    @Override
+    public int[] common() {
+        return new int[]{10, 8};
+    }
+
+    @Override
+    public int[] normal() {
+        return new int[]{20, 8};
+    }
+
+    @Override
+    public int[] rare() {
+        return new int[]{40, 10};
+    }
+
+    @Override
+    public int[] veryRare() {
+        return new int[]{50, 12};
+    }
 
     @Override
     public @NotNull OptionValue<List<Integer>> custom() {

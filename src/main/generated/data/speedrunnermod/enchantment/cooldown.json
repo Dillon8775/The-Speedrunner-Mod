@@ -3,18 +3,32 @@
   "description": {
     "translate": "enchantment.speedrunnermod.cooldown"
   },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": -0.5,
+          "per_level_above_first": -0.5
+        },
+        "attribute": "speedrunnermod:bonus_cooldown",
+        "id": "speedrunnermod:additional_cooldown_cooldown_enchantment",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
-    "base": 1,
-    "per_level_above_first": 3
+    "base": 11,
+    "per_level_above_first": 7
   },
   "max_level": 3,
   "min_cost": {
     "base": 1,
-    "per_level_above_first": 1
+    "per_level_above_first": 7
   },
   "slots": [
-    "hand"
+    "mainhand"
   ],
   "supported_items": "#speedrunnermod:cooldown_enchantment_items",
-  "weight": 10
+  "weight": 8
 }

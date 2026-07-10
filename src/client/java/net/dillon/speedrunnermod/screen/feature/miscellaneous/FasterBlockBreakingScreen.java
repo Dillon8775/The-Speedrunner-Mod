@@ -1,18 +1,15 @@
 package net.dillon.speedrunnermod.screen.feature.miscellaneous;
 
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
+import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.option.GeneralOptionsScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
-public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
+public class FasterBlockBreakingScreen extends DefaultMiscellaneousFeatureFactory {
 
-    public FasterBlockBreakingScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_FASTER_BLOCK_BREAKING);
+    public FasterBlockBreakingScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
@@ -23,22 +20,5 @@ public class FasterBlockBreakingScreen extends AbstractFeatureScreen {
             this.refreshRestartableFeature(new GeneralOptionsScreen(this));
             ((GeneralOptionsScreen)this.minecraft.gui.screen()).searchField.setValue("block breaking");
         }).build());
-    }
-
-    @Override
-    @NotNull
-    public String linesKey() {
-        return "faster_block_breaking";
-    }
-
-    @Override
-    @NotNull
-    public ScreenCategory getScreenCategory() {
-        return ScreenCategory.MISCELLANEOUS;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.DEFAULT;
     }
 }

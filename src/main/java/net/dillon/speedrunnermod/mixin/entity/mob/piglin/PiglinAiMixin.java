@@ -1,10 +1,9 @@
 package net.dillon.speedrunnermod.mixin.entity.mob.piglin;
 
+import net.dillon.speedrunnermod.component.ModAttributes;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.mixin.accessor.PiglinAiInvoker;
-import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
@@ -26,7 +25,7 @@ public abstract class PiglinAiMixin {
      */
     @Inject(method = "angerNearbyPiglins", at = @At("HEAD"), cancellable = true)
     private static void playerSafeGoldenSpeedrunner(ServerLevel world, Player player, boolean blockOpen, CallbackInfo ci) {
-        if (isWearingGoldenSpeedrunnerArmor(player)) {
+        if (hasPiglinSafeAttribute(player, false)) {
             ci.cancel();
         }
     }
@@ -37,7 +36,7 @@ public abstract class PiglinAiMixin {
     @Inject(method = "updateActivity", at = @At("HEAD"))
     private static void forgetThePlayer(Piglin piglin, CallbackInfo ci) {
         for (Player player : piglin.level().players()) {
-            if (isWearingGoldenSpeedrunnerArmor(player) && !hasBeenHitByPlayer(piglin)) {
+            if (hasPiglinSafeAttribute(player, true) && !hasBeenHitByPlayer(piglin)) {
                 piglin.getBrain().eraseMemory(MemoryModuleType.ANGRY_AT);
             }
         }
@@ -51,17 +50,15 @@ public abstract class PiglinAiMixin {
     }
 
     /**
-     * @return if the player is wearing golden speedrunner armor.
+     * @return if the player has the piglin safe attribute.
      */
     @Unique
-    private static boolean isWearingGoldenSpeedrunnerArmor(Player player) {
-        EquipmentSlot[] slots = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
-        for (EquipmentSlot s : slots) {
-            if (player.getItemBySlot(s).is(ModItemTags.GOLDEN_SPEEDRUNNER_ARMOR)) {
-                return true;
-            }
+    private static boolean hasPiglinSafeAttribute(Player player, boolean mustBeFull) {
+        float piglinSafety = (float)player.getAttributeValue(ModAttributes.PIGLIN_STEALTH);
+        if (mustBeFull) {
+            return piglinSafety >= 2.0F;
         }
-        return false;
+        return piglinSafety > 1.0F && player.getRandom().nextFloat() < (piglinSafety - 1.0F);
     }
 
     /**
@@ -78,6 +75,6 @@ public abstract class PiglinAiMixin {
      */
     @ModifyArg(method = "isNearZombified", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/piglin/Piglin;closerThan(Lnet/minecraft/world/entity/Entity;D)Z"), index = 1)
     private static double changeNearestPiglinDistance(double radius) {
-        return ModUtil.getZombifiedPiglinRunawayDistance();
+        return ModConstants.getZombifiedPiglinRunawayDistance();
     }
 }

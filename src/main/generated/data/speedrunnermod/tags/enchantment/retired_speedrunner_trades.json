@@ -10,9 +10,6 @@
     "minecraft:power",
     "minecraft:infinity",
     "minecraft:mending",
-    {
-      "id": "speedrunnermod:cooldown",
-      "required": false
-    }
+    "speedrunnermod:cooldown"
   ]
 }

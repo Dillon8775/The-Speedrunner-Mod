@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.world.structure;
 import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.option.StructureSpawnRate;
+import net.minecraft.data.worldgen.StructureSets;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -11,13 +12,14 @@ import static net.dillon.speedrunnermod.option.ModOptions.*;
 
 /**
  * The abstract class for configurating {@code Structure Spawn Rate} options.
+ * <p>See {@link StructureSets} for more.</p>
  */
 abstract class Ssr {
 
     /**
-     * Configurates the {@code structure spawn rate spacing and separation values}.
+     * Configures the {@code structure spawn rate spacing and separation values}.
      */
-    public final void configurate(JsonElement element) {
+    public void configure(JsonElement element) {
         element.getAsJsonObject().getAsJsonObject("placement").addProperty("spacing", this.getSpacing());
         element.getAsJsonObject().getAsJsonObject("placement").addProperty("separation", this.getSeparation());
     }

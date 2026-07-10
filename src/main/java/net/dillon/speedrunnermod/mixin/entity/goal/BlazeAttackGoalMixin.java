@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.goal;
 
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.mixin.accessor.BlazeAttackGoalAccessor;
-import net.dillon.speedrunnermod.util.ModUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Blaze;
@@ -18,7 +18,7 @@ public class BlazeAttackGoalMixin {
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/monster/Blaze$BlazeAttackGoal;attackTime:I", ordinal = 4, opcode = Opcodes.PUTFIELD))
     private void changeBlazeFireballCooldown(Blaze.BlazeAttackGoal blaze, int value) {
-        ((BlazeAttackGoalAccessor)blaze).setAttackTime(ModUtil.getBlazeFireballCooldown());
+        ((BlazeAttackGoalAccessor)blaze).setAttackTime(ModConstants.getBlazeFireballCooldown());
     }
 
     /**

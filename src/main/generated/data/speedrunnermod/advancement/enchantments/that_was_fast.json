@@ -1,0 +1,30 @@
+{
+  "parent": "speedrunnermod:blocks/one_step_ahead",
+  "criteria": {
+    "obtained_cooldown_enchantment": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:speedrunner_wood"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.that_was_fast.description"
+    },
+    "icon": {
+      "id": "minecraft:enchanted_book"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.that_was_fast.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtained_cooldown_enchantment"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

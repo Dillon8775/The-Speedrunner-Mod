@@ -1,5 +1,6 @@
 {
   "values": [
+    "minecraft:gold_ingot",
     {
       "id": "#minecraft:planks",
       "required": false

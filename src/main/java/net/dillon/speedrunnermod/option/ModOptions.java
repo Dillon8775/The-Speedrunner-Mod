@@ -1,13 +1,12 @@
 package net.dillon.speedrunnermod.option;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.mixin.fix.ItemArgumentMixin;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.helper.ModHelper;
+import net.dillon.speedrunnermod.util.TickCalculator;
 
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
+import static net.dillon.speedrunnermod.helper.ModConstants.OPTIONS_WARNING_MESSAGE;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 
 /**
@@ -67,21 +66,6 @@ public class ModOptions {
         public OptionValue<Boolean> killGhastOnFireball = new OptionValue<>(false, false);
 
         /**
-         * Allows certain items to be fireproof.
-         */
-        public OptionValue<Boolean> fireproofItems = new OptionValue<>(true, false);
-
-        /**
-         * Allows the Speedrunner's Wasteland biome to generate, and allows some additional worldgen features to be added to different biomes.
-         */
-        public OptionValue<Boolean> customBiomesAndCustomBiomeFeatures = new OptionValue<>(true, true);
-
-        /**
-         * Allows certain boats to be fireproof.
-         */
-        public OptionValue<Boolean> lavaBoats = new OptionValue<>(true, false);
-
-        /**
          * Improves most vanilla food items to restore more hunger bars and give more saturation.
          */
         public OptionValue<Boolean> betterFoods = new OptionValue<>(true, false);
@@ -100,6 +84,11 @@ public class ModOptions {
          * Allows fireballs to be thrown.
          */
         public OptionValue<Boolean> throwableFireballs = new OptionValue<>(true, false);
+
+        /**
+         * Determines the explosion power for fireballs when thrown with a fire charge.
+         */
+        public IntegerOptionValue fireballExplosionPower = new IntegerOptionValue(2, false, 1, 10);
 
         /**
          * Removes the "too expensive" feature from anvils, and also lowers the maximum cost for block use.
@@ -175,6 +164,21 @@ public class ModOptions {
         public OptionValue<Boolean> betterBiomes = new OptionValue<>(true, true);
 
         /**
+         * Allows the Speedrunner's Wasteland biome to generate.
+         */
+        public OptionValue<Boolean> generateSpeedrunnersWasteland = new OptionValue<>(true, true);
+
+        /**
+         * Allow all types/variants of speedrunner wood to generate across the world. This includes the different variants of speedrunner trees, dead speedrunner trees, and dead speedrunner bushes.
+         */
+        public OptionValue<Boolean> generateSpeedrunnerWood = new OptionValue<>(true, true);
+
+        /**
+         * Allows plain trees to generate more commonly in plains biomes.
+         */
+        public OptionValue<Boolean> commonPlainTrees = new OptionValue<>(true, false);
+
+        /**
          * Allows nether portals to be built in the end.
          */
         public OptionValue<Boolean> globalNetherPortals = new OptionValue<>(true, false);
@@ -195,11 +199,6 @@ public class ModOptions {
         public OptionValue<Boolean> arrowsDestroyBeds = new OptionValue<>(true, false);
 
         /**
-         * This allows all world modifications to be applied, which includes making structures more common, modifying mob/creature spawn rates, doom mode features, and more.
-         */
-        public OptionValue<Boolean> customDataGeneration = new OptionValue<>(true, false);
-
-        /**
          * Determines how far from spawn strongholds can generate.
          */
         public IntegerOptionValue strongholdDistance = new IntegerOptionValue(4, true, 3, 64);
@@ -212,17 +211,17 @@ public class ModOptions {
         /**
          * Determines the total amount of strongholds that can generate in a singular Minecraft world.
          */
-        public IntegerOptionValue strongholdCount = new IntegerOptionValue(128, true, 4, 156);
+        public IntegerOptionValue totalStrongholds = new IntegerOptionValue(128, true, 4, 156);
 
         /**
          * Determines how many stronghold portal rooms can generate per stronghold.
          */
-        public IntegerOptionValue strongholdPortalRoomCount = new IntegerOptionValue(3, true, 1, 3);
+        public IntegerOptionValue totalPortamRooms = new IntegerOptionValue(3, true, 1, 3);
 
         /**
          * Determines how many libraries can generate per stronghold.
          */
-        public IntegerOptionValue strongholdLibraryCount = new IntegerOptionValue(2, true, 1, 8);
+        public IntegerOptionValue totalLibraries = new IntegerOptionValue(2, true, 1, 8);
     }
 
     /**
@@ -248,12 +247,7 @@ public class ModOptions {
         /**
          * Allows the player to breath for a longer period of time while underwater, and also allows the player to regain oxygen when coming out of water blocks.
          */
-        public OptionValue<Boolean> higherBreathTime = new OptionValue<>(true, true);
-
-        /**
-         * Allow all types/variants of speedrunner wood to generate across the world. This includes the different variants of speedrunner trees, dead speedrunner trees, and dead speedrunner bushes.
-         */
-        public OptionValue<Boolean> generateSpeedrunnerWood = new OptionValue<>(true, false);
+        public OptionValue<Boolean> increasedOxygen = new OptionValue<>(true, false);
 
         /**
          * In vanilla Minecraft, the ender dragon will fly away after perching when it takes so much damage. However, this option extends that damage amount, to allow the dragon to stay perched for a longer period of time, even after taking a large amount of damage.
@@ -276,11 +270,6 @@ public class ModOptions {
         public IntegerOptionValue piglinAwakenerPiglinCount = new IntegerOptionValue(10, false, 3, 25);
 
         /**
-         * Determines the explosion power for fireballs when thrown with a fire charge.
-         */
-        public IntegerOptionValue fireballExplosionPower = new IntegerOptionValue(2, false, 1, 10);
-
-        /**
          * Determines if -- while the player is looking at a block, if they need to be shifting to throw a fireball. Disable this if you want to do things like fireball jump.
          */
         public OptionValue<Boolean> shiftToThrowFireball = new OptionValue<>(true, false);
@@ -298,49 +287,48 @@ public class ModOptions {
         /**
          * When using the eye of annul stronghold portal room teleporter feature, it iterates through [-X, -Y, -Z, X, Y, Z] all blocks in this location to locate the portal room block. Negative values go below the player, positive values go above.
          */
-        public OptionValue<List<Integer>> annulEyeSearchRadius = new OptionValue<>(ModUtil.createListOption(128, 128, 128), false);
+        public OptionValue<List<Integer>> annulEyeSearchRadius = new OptionValue<>(ModHelper.createListOption(128, 128, 128), false);
 
         /**
          * When using the piglin awakener, the game will search around the player [X_Y_Z] blocks to find nearby piglin. The higher these numbers, the farther out the game looks. Increasing these numbers however is not recommended, as it could create extreme amounts of lag.
          */
-        public OptionValue<List<Integer>> piglinAwakenerSearchRadius = new OptionValue<>(ModUtil.createListOption(100, 100, 100), false);
+        public OptionValue<List<Integer>> piglinAwakenerSearchRadius = new OptionValue<>(ModHelper.createListOption(100, 100, 100), false);
 
         /**
          * Determines the distance that the blaze spotter will use to determine the nearest blaze spawner.
          */
-        public OptionValue<List<Integer>> blazeSpotterSearchRadius = new OptionValue<>(ModUtil.createListOption(156, 72, 156), false);
+        public OptionValue<List<Integer>> blazeSpotterSearchRadius = new OptionValue<>(ModHelper.createListOption(156, 72, 156), false);
 
         /**
          * When using the raid eradicator, the item will search a distance to search for the nearest raider entities.
          */
-        public OptionValue<List<Integer>> raidEradicatorSearchRadius = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
+        public OptionValue<List<Integer>> raidEradicatorSearchRadius = new OptionValue<>(ModHelper.createListOption(300, 300, 300), false);
 
         /**
          * The dragon's pearl item will look in the radius of [X_Y_Z] for the nearest ender dragon, and choose that dragon to control perching.
          */
-        public OptionValue<List<Integer>> dragonsPearlSearchRadius = new OptionValue<>(ModUtil.createListOption(150, 150, 150), false);
+        public OptionValue<List<Integer>> dragonsPearlSearchRadius = new OptionValue<>(ModHelper.createListOption(150, 150, 150), false);
 
         /**
          * Determines the entities in range that will be killed upon the ender dragon's death.
          * <p>This option is redundant if the option Dragon Kills Nearby Hostile Entities is OFF.</p>
          */
-        public OptionValue<List<Integer>> dragonMassKillRadius = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
+        public OptionValue<List<Integer>> dragonMassKillRadius = new OptionValue<>(ModHelper.createListOption(300, 300, 300), false);
 
         /**
          * When on doom mode, the dragon cannot die if there is a nearby Goliath. This option specifies the range that the Goliath has to be in from the dragon in order for it to be immune.
          */
-        public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForGoliath = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
+        public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForGoliath = new OptionValue<>(ModHelper.createListOption(300, 300, 300), false);
 
         /**
          * When on doom mode, the dragon cannot die if there is a nearby wither. This option specifies the range that the wither has to be in from the dragon in order for it to be immune.
          */
-        public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForWither = new OptionValue<>(ModUtil.createListOption(300, 300, 300), false);
+        public OptionValue<List<Integer>> dragonImmunityDetectionRadiusForWither = new OptionValue<>(ModHelper.createListOption(300, 300, 300), false);
 
         /**
-         * A list of all {@code mod IDS} loaded into Minecraft. Add another mod ID to this list if you are running additional mods with the speedrunner mod. This will allow certain commands to work properly. See {@link ItemArgumentMixin}.
-         * <p>Do NOT remove "minecraft" from this list, whatever you do.</p>
+         * The detection for Goliath and zombie entity detection.
          */
-        public OptionValue<Set<String>> modIds = new OptionValue<>(new TreeSet<>(), false);
+        public OptionValue<List<Integer>> goliathAndZombieEntityDetectionRadius = new OptionValue<>(ModHelper.createListOption(300, 300, 300), false);
     }
 
     /**
@@ -351,17 +339,22 @@ public class ModOptions {
      * <p>The {@code separation value} should NEVER be greater than or equal to the spacing value. The game will crash if this happens.
      */
     public static class CustomStructureSpawnRates {
-        public OptionValue<List<Integer>> ancientCities = new OptionValue<>(ModUtil.createStructureSpawnRateOption(16, 8), false);
-        public OptionValue<List<Integer>> villages = new OptionValue<>(ModUtil.createStructureSpawnRateOption(16, 8), false);
-        public OptionValue<List<Integer>> desertPyramids = new OptionValue<>(ModUtil.createStructureSpawnRateOption(10, 5), false);
-        public OptionValue<List<Integer>> junglePyramids = new OptionValue<>(ModUtil.createStructureSpawnRateOption(10, 5), false);
-        public OptionValue<List<Integer>> pillagerOutposts = new OptionValue<>(ModUtil.createStructureSpawnRateOption(10, 5), false);
-        public OptionValue<List<Integer>> endCities = new OptionValue<>(ModUtil.createStructureSpawnRateOption(7, 3), false);
-        public OptionValue<List<Integer>> woodlandMansions = new OptionValue<>(ModUtil.createStructureSpawnRateOption(25, 12), false);
-        public OptionValue<List<Integer>> ruinedPortals = new OptionValue<>(ModUtil.createStructureSpawnRateOption(9, 4), false);
-        public OptionValue<List<Integer>> shipwrecks = new OptionValue<>(ModUtil.createStructureSpawnRateOption(10, 5), false);
-        public OptionValue<List<Integer>> trialChambers = new OptionValue<>(ModUtil.createStructureSpawnRateOption(12, 6), false);
-        public OptionValue<List<Integer>> netherComplexes = new OptionValue<>(ModUtil.createStructureSpawnRateOption(8, 4), false);
+        public OptionValue<List<Integer>> ancientCities = new OptionValue<>(ModHelper.createStructureSpawnRateOption(16, 8), false);
+        public OptionValue<List<Integer>> villages = new OptionValue<>(ModHelper.createStructureSpawnRateOption(16, 8), false);
+        public OptionValue<List<Integer>> shipwrecks = new OptionValue<>(ModHelper.createStructureSpawnRateOption(10, 5), false);
+        public OptionValue<List<Integer>> ruinedPortals = new OptionValue<>(ModHelper.createStructureSpawnRateOption(9, 4), false);
+        public OptionValue<List<Integer>> desertPyramids = new OptionValue<>(ModHelper.createStructureSpawnRateOption(10, 5), false);
+        public OptionValue<List<Integer>> junglePyramids = new OptionValue<>(ModHelper.createStructureSpawnRateOption(10, 5), false);
+        public OptionValue<List<Integer>> igloos = new OptionValue<>(ModHelper.createStructureSpawnRateOption(9, 6), false);
+        public OptionValue<List<Integer>> swampHuts = new OptionValue<>(ModHelper.createStructureSpawnRateOption(12, 6), false);
+        public OptionValue<List<Integer>> oceanRuins = new OptionValue<>(ModHelper.createStructureSpawnRateOption(10, 5), false);
+        public OptionValue<List<Integer>> pillagerOutposts = new OptionValue<>(ModHelper.createStructureSpawnRateOption(10, 5), false);
+        public OptionValue<List<Integer>> endCities = new OptionValue<>(ModHelper.createStructureSpawnRateOption(7, 3), false);
+        public OptionValue<List<Integer>> woodlandMansions = new OptionValue<>(ModHelper.createStructureSpawnRateOption(25, 12), false);
+        public OptionValue<List<Integer>> trialChambers = new OptionValue<>(ModHelper.createStructureSpawnRateOption(12, 6), false);
+        public OptionValue<List<Integer>> trailRuins = new OptionValue<>(ModHelper.createStructureSpawnRateOption(12, 6), false);
+        public OptionValue<List<Integer>> netherComplexes = new OptionValue<>(ModHelper.createStructureSpawnRateOption(8, 4), false);
+        public IntegerOptionValue mineshafts = new IntegerOptionValue(14, false, 2, 50);
     }
 
     /**
@@ -374,6 +367,12 @@ public class ModOptions {
          * <p>Disable this if you do not want doom stone to generate throughout the end when doom mode is enabled, or if another mod is trying to generate other blocks.</p>
          */
         public OptionValue<Boolean> theEndGatewayBlockEntityMixin = new OptionValue<>(true, true);
+
+        /**
+         * Applies the item stack mixin into the game
+         * <p>Disable this if you do not want modded attributes to be grouped correctly.</p>
+         */
+        public OptionValue<Boolean> itemStackMixin = new OptionValue<>(true, true);
     }
 
     /**
@@ -408,7 +407,7 @@ public class ModOptions {
      * Returns the current {@code Ender Eye Breaking Cooldown} option in ticks.
      */
     public int getEnderEyeBreakingCooldown() {
-        return ModUtil.secondsAsTicks(options().advanced.enderEyeBreakingCooldown.getCurrentValue());
+        return TickCalculator.seconds(options().advanced.enderEyeBreakingCooldown.getCurrentValue());
     }
 
     /**
@@ -513,7 +512,7 @@ public class ModOptions {
      * The game is safe to run if the {@code safe} parameter returns true.
      */
     public static void isSafe(boolean safe) {
-        SpeedrunnerMod.safeBoot = !safe;
+        ModConstants.safeBoot = !safe;
     }
 
     /**
@@ -522,7 +521,7 @@ public class ModOptions {
     public static class ModOptionsHandler extends BaseOptions<ModOptions> {
 
         protected ModOptionsHandler() {
-            super(ModUtil.CONFIG_FILE_NAME);
+            super(ModHelper.CONFIG_FILE_NAME);
         }
 
         @Override
@@ -600,33 +599,33 @@ public class ModOptions {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
             }
 
-            if (options().worldGen.strongholdCount.getCurrentValue() < 1) {
+            if (options().worldGen.totalStrongholds.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Count");
                 } else {
-                    this.setBroken(options().worldGen.strongholdCount, "strongholdCount");
+                    this.setBroken(options().worldGen.totalStrongholds, "strongholdCount");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.strongholdCount)) {
+            } else if (!isIntegerOptionValid(options().worldGen.totalStrongholds)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
             }
 
-            if (options().worldGen.strongholdPortalRoomCount.getCurrentValue() < 1) {
+            if (options().worldGen.totalPortamRooms.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Portal Room Count");
                 } else {
-                    this.setBroken(options().worldGen.strongholdPortalRoomCount, "strongholdPortalRoomCount");
+                    this.setBroken(options().worldGen.totalPortamRooms, "strongholdPortalRoomCount");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.strongholdPortalRoomCount)) {
+            } else if (!isIntegerOptionValid(options().worldGen.totalPortamRooms)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
             }
 
-            if (options().worldGen.strongholdLibraryCount.getCurrentValue() < 1) {
+            if (options().worldGen.totalLibraries.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Library Count");
                 } else {
-                    this.setBroken(options().worldGen.strongholdLibraryCount, "strongholdLibraryCount");
+                    this.setBroken(options().worldGen.totalLibraries, "strongholdLibraryCount");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.strongholdLibraryCount)) {
+            } else if (!isIntegerOptionValid(options().worldGen.totalLibraries)) {
                 warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
             }
 

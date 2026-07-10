@@ -481,12 +481,14 @@
       "bonus_rolls": 0.0,
       "entries": [
         {
-          "type": "minecraft:empty",
-          "weight": 9
+          "type": "minecraft:item",
+          "name": "speedrunnermod:golden_upgrade_smithing_template",
+          "weight": 10
         },
         {
           "type": "minecraft:item",
-          "name": "speedrunnermod:golden_upgrade_smithing_template"
+          "name": "speedrunnermod:dragon_upgrade_smithing_template",
+          "weight": 1
         }
       ],
       "rolls": 1.0

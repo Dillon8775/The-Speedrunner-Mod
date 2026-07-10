@@ -1,0 +1,35 @@
+{
+  "parent": "speedrunnermod:items/one_hit_one_kill",
+  "criteria": {
+    "used_dragons_sword": {
+      "conditions": {
+        "item": {
+          "items": "speedrunnermod:dragons_sword"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.your_majesty.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "id": "minecraft:dragon_head"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.your_majesty.title"
+    }
+  },
+  "requirements": [
+    [
+      "used_dragons_sword"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  },
+  "sends_telemetry_event": true
+}

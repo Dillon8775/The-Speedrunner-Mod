@@ -1,0 +1,12 @@
+{
+  "gives": {
+    "count": 3,
+    "id": "speedrunnermod:dragon_fireball"
+  },
+  "max_uses": 6.0,
+  "reputation_discount": 0.3,
+  "wants": {
+    "id": "speedrunnermod:dragons_pearl"
+  },
+  "xp": 20.0
+}

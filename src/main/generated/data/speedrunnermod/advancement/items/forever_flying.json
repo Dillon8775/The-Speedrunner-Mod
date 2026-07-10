@@ -1,0 +1,43 @@
+{
+  "parent": "speedrunnermod:items/to_infini_and_beyond",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "components": {
+              "minecraft:item_name": {
+                "translate": "item.speedrunnermod.icarus_wings"
+              }
+            },
+            "items": "minecraft:elytra",
+            "predicates": {
+              "minecraft:unbreakable": {}
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.forever_flight.description"
+    },
+    "icon": {
+      "id": "minecraft:elytra"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.forever_flight.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  },
+  "sends_telemetry_event": true
+}

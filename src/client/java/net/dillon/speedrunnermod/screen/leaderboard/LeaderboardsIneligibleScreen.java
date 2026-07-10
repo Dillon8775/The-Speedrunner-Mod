@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.screen.leaderboard;
 
+import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
-import net.dillon.speedrunnermod.util.ModTexts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;

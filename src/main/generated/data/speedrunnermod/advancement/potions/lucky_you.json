@@ -1,0 +1,35 @@
+{
+  "parent": "speedrunnermod:potions/dragons_aura",
+  "criteria": {
+    "obtain_item": {
+      "conditions": {
+        "item": {
+          "items": "minecraft:lingering_potion"
+        }
+      },
+      "trigger": "minecraft:itemlike_trigger"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.lucky_you.description"
+    },
+    "icon": {
+      "components": {
+        "minecraft:potion_contents": {
+          "potion": "minecraft:luck"
+        }
+      },
+      "id": "minecraft:potion"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.lucky_you.title"
+    }
+  },
+  "requirements": [
+    [
+      "obtain_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

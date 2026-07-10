@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -27,10 +28,10 @@ public class RavagerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeRavagerAttributes(EntityType<? extends Ravager> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModUtil.modifyMaxHealth(dis, isDoomMode() ? 100.0D : 50.0D);
-        ModUtil.modifyAttackDamage(dis, isDoomMode() ? 16.0D : 10.0D);
-        ModUtil.modifyAttackKnockback(dis, isDoomMode() ? 1.6D : 1.1D);
-        ModUtil.modifyFollowRange(dis, isDoomMode() ? 48.0D : 32.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 100.0D : 50.0D);
+        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 16.0D : 10.0D);
+        ModAttributeHelper.modifyAttackKnockback(dis, isDoomMode() ? 1.6D : 1.1D);
+        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 48.0D : 32.0D);
     }
 
     /**
@@ -39,7 +40,7 @@ public class RavagerMixin {
     @Inject(method = "doHurtTarget", at = @At("RETURN"))
     private void ravagerInflictsSlowness(ServerLevel world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (isDoomMode() && target instanceof Player) {
-            ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, ModUtil.secondsAsTicks(10), 0));
+            ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(10), 0));
         }
     }
 }

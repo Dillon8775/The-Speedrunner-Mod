@@ -1,11 +1,12 @@
 package net.dillon.speedrunnermod.data.generator;
 
-import net.dillon.speedrunnermod.enchantment.ModEnchantments;
+import net.dillon.speedrunnermod.component.ModEnchantments;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
@@ -22,7 +23,12 @@ public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
-        this.tag(ModEnchantmentTags.ON_RANDOM_SPEEDRUNNER_LOOT)
+        tag(ModEnchantmentTags.SPEEDRUNNER_ENCHANTMENTS)
+                .add(ModEnchantments.DASH)
+                .add(ModEnchantments.COOLDOWN)
+                .add(ModEnchantments.WITHERED);
+
+        tag(ModEnchantmentTags.ON_RANDOM_SPEEDRUNNER_LOOT)
                 .add(Enchantments.PROTECTION)
                 .add(Enchantments.FIRE_PROTECTION)
                 .add(Enchantments.BLAST_PROTECTION)
@@ -43,11 +49,9 @@ public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
                 .add(Enchantments.INFINITY)
                 .add(Enchantments.MENDING)
                 .add(Enchantments.FROST_WALKER)
-                .addOptional(ModEnchantments.COOLDOWN)
-                .addOptional(ModEnchantments.DASH)
-                .addOptional(ModEnchantments.WITHERED);
+                .addTag(ModEnchantmentTags.SPEEDRUNNER_ENCHANTMENTS);
 
-        this.tag(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
+        tag(ModEnchantmentTags.RETIRED_SPEEDRUNNER_TRADES)
                 .add(Enchantments.PROTECTION)
                 .add(Enchantments.FEATHER_FALLING)
                 .add(Enchantments.THORNS)
@@ -58,9 +62,12 @@ public class ModEnchantmentTagProvider extends FabricTagsProvider<Enchantment> {
                 .add(Enchantments.POWER)
                 .add(Enchantments.INFINITY)
                 .add(Enchantments.MENDING)
-                .addOptional(ModEnchantments.COOLDOWN);
+                .add(ModEnchantments.COOLDOWN);
 
-        this.tag(ModEnchantmentTags.WITHERED_ENCHANTMENTS)
-                .addOptional(ModEnchantments.WITHERED);
+        tag(ModEnchantmentTags.WITHERED_ENCHANTMENTS)
+                .add(ModEnchantments.WITHERED);
+
+        tag(EnchantmentTags.NON_TREASURE)
+                .addTag(ModEnchantmentTags.SPEEDRUNNER_ENCHANTMENTS);
     }
 }

@@ -4,9 +4,9 @@ import com.google.gson.JsonElement;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Decoder;
+import net.dillon.speedrunnermod.author.Author;
+import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.data.loader.*;
-import net.dillon.speedrunnermod.util.Author;
-import net.dillon.speedrunnermod.util.Authors;
 import net.minecraft.resources.RegistryLoadTask;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
@@ -30,10 +30,6 @@ public class RegistryLoadTaskPendingRegistrationMixin {
     @Author(Authors.MAXENCEDC)
     @Inject(method = "loadFromResource", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private static <T> void customDataGeneration(Decoder<T> elementDecoder, RegistryOps<JsonElement> ops, ResourceKey<T> elementKey, Resource thunk, CallbackInfoReturnable<Either<T, Exception>> cir, @Local JsonElement jsonElement) {
-        if (!options().worldGen.customDataGeneration.getCurrentValue()) {
-            return;
-        }
-
         String registryPath = elementKey.registry().getPath();
         String elementPath = elementKey.identifier().getPath();
         String fileName = registryPath + "/" + elementPath + ".json";
@@ -102,7 +98,7 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             }
         }
 
-        if (options().general.customBiomesAndCustomBiomeFeatures.getCurrentValue()) {
+        if (options().worldGen.commonPlainTrees.getCurrentValue()) {
             if (fileName.equals(JsonIdentifiers.TREES_PLAINS)) {
                 PlacedFeaturesLoader.modifyTreePlains(jsonElement);
             }
@@ -125,6 +121,14 @@ public class RegistryLoadTaskPendingRegistrationMixin {
                 StructuresLoader.modifyJungleTemples(jsonElement);
             }
 
+            if (fileName.equals(JsonIdentifiers.MINESHAFTS)) {
+                StructuresLoader.modifyMineshafts(jsonElement);
+            }
+
+            if (fileName.equals(JsonIdentifiers.IGLOOS)) {
+                StructuresLoader.modifyIgloos(jsonElement);
+            }
+
             if (fileName.equals(JsonIdentifiers.NETHER_COMPLEXES)) {
                 StructuresLoader.modifyNetherComplexes(jsonElement);
             }
@@ -141,12 +145,24 @@ public class RegistryLoadTaskPendingRegistrationMixin {
                 StructuresLoader.modifyShipwrecks(jsonElement);
             }
 
+            if (fileName.equals(JsonIdentifiers.OCEAN_RUINS)) {
+                StructuresLoader.modifyOceanRuins(jsonElement);
+            }
+
+            if (fileName.equals(JsonIdentifiers.SWAMP_HUTS)) {
+                StructuresLoader.modifySwampHuts(jsonElement);
+            }
+
             if (fileName.equals(JsonIdentifiers.STRONGHOLDS)) {
                 StructuresLoader.modifyStrongholds(jsonElement);
             }
 
             if (fileName.equals(JsonIdentifiers.TRIAL_CHAMBERS)) {
                 StructuresLoader.modifyTrialChambers(jsonElement);
+            }
+
+            if (fileName.equals(JsonIdentifiers.TRAIL_RUINS)) {
+                StructuresLoader.modifyTrailRuins(jsonElement);
             }
 
             if (fileName.equals(JsonIdentifiers.VILLAGES)) {

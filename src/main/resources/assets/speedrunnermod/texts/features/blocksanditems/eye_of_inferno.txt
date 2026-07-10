@@ -1,5 +1,5 @@
 ### Locates nearby §cnether fortresses §fand §7bastions.
 
-#### §aShift + right click§f to swap between the two structures.
+#### §aShift + click§f to cycle structures.
 
 !image:textures/gui/features/recipes/eye_of_inferno_crafting_recipe.png scale=.5

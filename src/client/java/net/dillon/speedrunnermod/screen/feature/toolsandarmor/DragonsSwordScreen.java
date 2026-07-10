@@ -1,38 +1,37 @@
 package net.dillon.speedrunnermod.screen.feature.toolsandarmor;
 
-import net.dillon.speedrunnermod.screen.AbstractFeatureScreen;
-import net.dillon.speedrunnermod.screen.ScreenCategory;
-import net.dillon.speedrunnermod.screen.ScreenType;
-import net.dillon.speedrunnermod.screen.feature.blocksanditems.SpeedrunnerIngotsScreen;
-import net.dillon.speedrunnermod.screen.feature.miscellaneous.ICarusModeScreen;
-import net.dillon.speedrunnermod.screen.feature.oresandworldgen.SpeedrunnersWastelandBiomeScreen;
-import net.dillon.speedrunnermod.util.ModTexts;
+import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
+import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
 
-public class DragonsSwordScreen extends AbstractFeatureScreen {
+public class DragonsSwordScreen extends DefaultToolsAndArmorFeatureFactory {
 
-    public DragonsSwordScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_FEATURE_DRAGONS_SWORD,
-                new SpeedrunnersWastelandBiomeScreen(parent), ModTexts.MENU_ORES_AND_WORLDGEN,
-                new ICarusModeScreen(parent), ModTexts.MENU_MISCELLANEOUS,
-                new SpeedrunnerIngotsScreen(parent), ModTexts.MENU_BLOCKS_AND_ITEMS, false, null, null);
+    /**
+     * A basic feature screen constructor.
+     *
+     * @param parent
+     * @param featurePage
+     */
+    public DragonsSwordScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
-    @NotNull
-    public String linesKey() {
-        return "dragons_sword";
-    }
-
-    @Override
-    @NotNull
-    public ScreenCategory getScreenCategory() {
-        return ScreenCategory.TOOLS_AND_ARMOR;
-    }
-
-    @Override
-    protected @NotNull ScreenType getScreenType() {
-        return ScreenType.LAST_PAGE;
+    protected void init() {
+        super.init();
+        this.addButtonObject(Button.builder(ModTexts.MENU_POTIONS_AND_ENCHANTMENTS, b -> {
+            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.POTIONS_AND_ENCHANTMENTS).createScreen(this));
+        }).build());
+        this.addButtonObject(Button.builder(ModTexts.MENU_ORES_AND_WORLDGEN, b -> {
+            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.ORES_AND_WORLDGEN).createScreen(this));
+        }).build());
+        this.addButtonObject(Button.builder(ModTexts.MENU_FEATURE_DOOM_MODE, b -> {
+            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.DOOM_MODE).createScreen(this));
+        }).build());
+        this.addButtonObject(Button.builder(ModTexts.MENU_BLOCKS_AND_ITEMS, b -> {
+            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.BLOCKS_AND_ITEMS).createScreen(this));
+        }).build());
     }
 }

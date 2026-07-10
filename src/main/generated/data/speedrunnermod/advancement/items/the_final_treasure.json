@@ -1,0 +1,33 @@
+{
+  "parent": "speedrunnermod:items/perch_already",
+  "criteria": {
+    "has_item": {
+      "conditions": {
+        "items": [
+          {
+            "items": "speedrunnermod:dragon_upgrade_smithing_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.speedrunnermod.the_final_treasure.description"
+    },
+    "hidden": true,
+    "icon": {
+      "id": "speedrunnermod:dragon_upgrade_smithing_template"
+    },
+    "title": {
+      "translate": "advancements.speedrunnermod.the_final_treasure.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

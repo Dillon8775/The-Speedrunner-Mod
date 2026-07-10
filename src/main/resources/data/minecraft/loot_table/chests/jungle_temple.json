@@ -11,6 +11,17 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_potion",
+              "id": "minecraft:luck"
+            }
+          ],
+          "name": "minecraft:potion",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
           "weight": 11,
           "name": "speedrunnermod:speedrunner_ingot",
           "functions": [

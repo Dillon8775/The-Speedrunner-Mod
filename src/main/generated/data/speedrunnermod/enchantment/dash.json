@@ -24,21 +24,31 @@
         "attribute": "minecraft:water_movement_efficiency",
         "id": "speedrunnermod:dash_increased_water_movement",
         "operation": "add_value"
+      },
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.06,
+          "per_level_above_first": 0.06
+        },
+        "attribute": "speedrunnermod:lava_movement_efficiency",
+        "id": "speedrunnermod:dash_increased_lava_movement",
+        "operation": "add_value"
       }
     ]
   },
   "max_cost": {
-    "base": 1,
-    "per_level_above_first": 3
+    "base": 12,
+    "per_level_above_first": 8
   },
   "max_level": 3,
   "min_cost": {
     "base": 1,
-    "per_level_above_first": 1
+    "per_level_above_first": 6
   },
   "slots": [
     "feet"
   ],
   "supported_items": "#minecraft:enchantable/foot_armor",
-  "weight": 11
+  "weight": 7
 }

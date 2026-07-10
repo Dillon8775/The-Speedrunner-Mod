@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-
 @Mixin(RuinedPortalStructure.class)
 public class RuinedPortalStructureMixin {
 
@@ -23,12 +21,10 @@ public class RuinedPortalStructureMixin {
      */
     @Inject(method = "findSuitableY", at = @At(value = "RETURN"), cancellable = true)
     private static void newFloorHeight(RandomSource random, ChunkGenerator chunkGenerator, RuinedPortalPiece.VerticalPlacement verticalPlacement, boolean airPocket, int height, int blockCountY, BoundingBox box, LevelHeightAccessor world, RandomState noiseConfig, CallbackInfoReturnable<Integer> cir) {
-        if (options().worldGen.customDataGeneration.getCurrentValue()) {
-            if (verticalPlacement == RuinedPortalPiece.VerticalPlacement.PARTLY_BURIED || verticalPlacement == RuinedPortalPiece.VerticalPlacement.UNDERGROUND) {
-                cir.setReturnValue(height);
-            } else if (verticalPlacement == RuinedPortalPiece.VerticalPlacement.IN_MOUNTAIN) {
-                cir.setReturnValue(height - blockCountY + Mth.randomBetweenInclusive(random, 2, 8));
-            }
+        if (verticalPlacement == RuinedPortalPiece.VerticalPlacement.PARTLY_BURIED || verticalPlacement == RuinedPortalPiece.VerticalPlacement.UNDERGROUND) {
+            cir.setReturnValue(height);
+        } else if (verticalPlacement == RuinedPortalPiece.VerticalPlacement.IN_MOUNTAIN) {
+            cir.setReturnValue(height - blockCountY + Mth.randomBetweenInclusive(random, 2, 8));
         }
     }
 }

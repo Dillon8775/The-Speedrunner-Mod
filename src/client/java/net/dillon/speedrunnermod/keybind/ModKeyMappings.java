@@ -1,25 +1,26 @@
 package net.dillon.speedrunnermod.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.blay09.mods.kuma.api.InputBinding;
+import net.blay09.mods.kuma.api.Kuma;
+import net.blay09.mods.kuma.api.ManagedKeyMapping;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.debug.DebugScreenEntries;
+import net.minecraft.network.chat.Component;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.isSimpleKeybindsLoaded;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.*;
 
 /**
  * All {@code Speedrunner Mod} keybindings.
  */
 public class ModKeyMappings {
-    public static final KeyMapping.Category SPEEDRUNNER_MOD_KEYBINDINGS = KeyMapping.Category.register(ofSpeedrunnerMod("speedrunnermod.keybinds"));
-
-    public static KeyMapping RESET = KeyMappingHelper.registerKeyMapping(new KeyMapping("speedrunnermod.create_new_world", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyMapping TOGGLE_FOG = KeyMappingHelper.registerKeyMapping(new KeyMapping("speedrunnermod.toggle_fog", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyMapping TOGGLE_FULLBRIGHT = KeyMappingHelper.registerKeyMapping(new KeyMapping("speedrunnermod.toggle_fullbright", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_V, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyMapping TOGGLE_HITBOXES = KeyMappingHelper.registerKeyMapping(new KeyMapping("speedrunnermod.toggle_hitboxes", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_X, SPEEDRUNNER_MOD_KEYBINDINGS));
-    public static KeyMapping TOGGLE_CHUNK_BORDERS = KeyMappingHelper.registerKeyMapping(new KeyMapping("speedrunnermod.toggle_chunk_borders", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, SPEEDRUNNER_MOD_KEYBINDINGS));
+    public static final KeyMapping.Category SPEEDRUNNER_MOD_KEY_CATEGORY = KeyMapping.Category.register(ofSpeedrunnerMod("speedrunnermod.keybinds"));
 
     /**
      * Initializes all {@code Speedrunner Mod} keybindings.
@@ -30,5 +31,100 @@ public class ModKeyMappings {
         if (isSimpleKeybindsLoaded()) {
             SpeedrunnerMod.debug("Simple Keybinds mod is loaded, compatibility has been added.");
         }
+    }
+
+    public static final ManagedKeyMapping RESET_WORLD = Kuma.createKeyMapping(ofSpeedrunnerMod("create_new_world"))
+            .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
+            .withDefault(InputBinding.key(InputConstants.KEY_R))
+            .handleWorldInput(input -> {
+                Minecraft minecraft = Minecraft.getInstance();
+                if (minecraft.isLocalServer() && minecraft.getCurrentServer() == null) {
+                    if (clientOptions().client.instantWorldCreation.getCurrentValue()) {
+                        ClientModUtil.createNewWorld(Minecraft.getInstance());
+                        return true;
+                    } else {
+                        debugWarn("key.speedrunnermod.create_new_world.disabled");
+                    }
+                } else {
+                    debugWarn("key.speedrunnermod.create_new_world.in_multiplayer");
+                }
+                return false;
+            })
+            .build();
+
+    public static final ManagedKeyMapping TOGGLE_FOG = Kuma.createKeyMapping(ofSpeedrunnerMod("toggle_fog"))
+            .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
+            .withDefault(InputBinding.key(InputConstants.KEY_O))
+            .handleWorldInput(input -> {
+                if (ModHelper.isQualityOfQuesoLoaded()) {
+                    debugWarn("key.speedrunnermod.toggle_fog.quality_of_queso_loaded");
+                } else if (ModHelper.isSimpleKeybindsLoaded()) {
+                    debugWarn("key.speedrunnermod.simple_keybinds_loaded");
+                } else if (!clientOptions().mixins.fogMixins.getCurrentValue()) {
+                    debugWarn("key.speedrunnermod.toggle_fog.mixin_disabled");
+                } else {
+                    clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
+                    saveClientChanges();
+                    Minecraft.getInstance().levelExtractor.allChanged();
+                    return true;
+                }
+                return false;
+            })
+            .build();
+
+    public static final ManagedKeyMapping TOGGLE_FULLBRIGHT = Kuma.createKeyMapping(ofSpeedrunnerMod("toggle_fullbright"))
+            .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
+            .withDefault(InputBinding.key(InputConstants.KEY_V))
+            .handleWorldInput(input -> {
+                if (ModHelper.isSimpleKeybindsLoaded()) {
+                    debugWarn("key.speedrunnermod.simple_keybinds_loaded");
+                } else if (!clientOptions().mixins.optionInstanceMixin.getCurrentValue()) {
+                    debugWarn("key.speedrunnermod.toggle_fullbright.mixin_disabled");
+                } else {
+                    clientOptions().client.fullBright.set(!clientOptions().client.fullBright.getCurrentValue());
+                    saveClientChanges();
+                    Minecraft.getInstance().options.gamma().set(clientOptions().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                    Minecraft.getInstance().options.save();
+                    return true;
+                }
+                return false;
+            })
+            .build();
+
+    public static final ManagedKeyMapping TOGGLE_HITBOXES = Kuma.createKeyMapping(ofSpeedrunnerMod("toggle_hitboxes"))
+            .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
+            .withDefault(InputBinding.key(InputConstants.KEY_X))
+            .handleWorldInput(input -> {
+                if (ModHelper.isSimpleKeybindsLoaded()) {
+                    debugWarn("key.speedrunnermod.simple_keybinds_loaded");
+                } else {
+                    boolean bl = Minecraft.getInstance().debugEntries.toggleStatus(DebugScreenEntries.ENTITY_HITBOXES);
+                    debugWarn(bl ? "debug.show_hitboxes.on" : "debug.show_hitboxes.off");
+                    return true;
+                }
+                return false;
+            })
+            .build();
+
+    public static final ManagedKeyMapping TOGGLE_CHUNK_BORDERS = Kuma.createKeyMapping(ofSpeedrunnerMod("toggle_chunk_borders"))
+            .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
+            .withDefault(InputBinding.key(InputConstants.KEY_K))
+            .handleWorldInput(input -> {
+                if (ModHelper.isSimpleKeybindsLoaded()) {
+                    debugWarn("key.speedrunnermod.simple_keybinds_loaded");
+                } else {
+                    boolean bl = Minecraft.getInstance().debugEntries.toggleStatus(DebugScreenEntries.ENTITY_HITBOXES);
+                    debugWarn(bl ? "debug.chunk_boundaries.on" : "debug.chunk_boundaries.off");
+                    return true;
+                }
+                return false;
+            })
+            .build();
+
+    /**
+     * Sends the player a message.
+     */
+    private static void debugWarn(String stringOrTranslation, Object... objects) {
+        Minecraft.getInstance().gui.hud.getChat().addClientSystemMessage(Component.translatable(stringOrTranslation, objects));
     }
 }

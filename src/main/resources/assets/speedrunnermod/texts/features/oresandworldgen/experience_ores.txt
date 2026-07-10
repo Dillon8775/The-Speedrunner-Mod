@@ -1,6 +1,8 @@
 ### Drops §alarge amounts of experience §fwhen mining.
 
-#### Found across §a§lall biomes§r§f in the §aoverworld§f §oand §r§fin §cthe nether. §fFound even §amore commonly in the §b§lSpeedrunner's Wasteland§r biome.
+#### Found across §a§oall biomes§r§f in the §aoverworld§f §oand §r§f§cthe nether.
+
+#### §fFound even §amore commonly in the §b§lSpeedrunner's Wasteland§r biome.
 
 ##### The §aamount of experience dropped§f can be increased with the §5fortune enchantment, §fand the block itself can be obtained with §bsilk touch.
 

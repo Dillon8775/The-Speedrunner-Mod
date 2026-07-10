@@ -1,16 +1,17 @@
 package net.dillon.speedrunnermod.screen.feature.secretdoommode;
 
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.screens.Screen;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.network.chat.Component;
 
-public class DotDotDotDotScreen extends DotDotDotScreen {
+public class DotDotDotDotScreen extends SecretDoomModeFeatureScreen {
 
-    public DotDotDotDotScreen(Screen parent) {
-        super(parent);
+    public DotDotDotDotScreen(Screen parent, FeaturePage featurePage) {
+        super(parent, featurePage);
     }
 
     @Override
-    public @NotNull String linesKey() {
-        return "dot_dot_dot_dot";
+    protected Component getButtonText() {
+        return Component.translatable("speedrunnermod.doom_mode_screen.line8.reply");
     }
 }

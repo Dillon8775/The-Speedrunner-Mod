@@ -1,8 +1,12 @@
 package net.dillon.speedrunnermod.util;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.GenericMessageScreen;
+import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
 
@@ -12,6 +16,20 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * Utility class for client-side features.
  */
 public class ClientModUtil {
+
+    /**
+     * Quickly creates a new world.
+     */
+    public static void createNewWorld(Minecraft minecraft) {
+        if (minecraft.gui != null) {
+            minecraft.gui.hud.getChat().clearMessages(false);
+        }
+        if (minecraft.level != null) {
+            minecraft.level.disconnect(Component.translatable("speedrunnermod.creating_new_world"));
+        }
+        minecraft.disconnect(new GenericMessageScreen(Component.translatable("speedrunnermod.creating_new_world")), false, false);
+        CreateWorldScreen.openFresh(minecraft, null);
+    }
 
     /**
      * Renders the {@code golden speedrunner smithing template} texture with a custom width and height.

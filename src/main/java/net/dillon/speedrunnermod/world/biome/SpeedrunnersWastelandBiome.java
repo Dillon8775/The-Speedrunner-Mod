@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.world.biome;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.world.feature.ModWorldPlacements;
 import net.dillon.speedrunnermod.world.feature.WastelandPlacements;
 import net.minecraft.core.registries.Registries;
@@ -15,6 +15,7 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -54,15 +55,15 @@ public class SpeedrunnersWastelandBiome {
         BiomeDefaultFeatures.addDefaultExtraVegetation(lookupBackedBuilder, true);
 
         return new Biome.BiomeBuilder()
-                .hasPrecipitation(true)
-                .temperature(0.3F)
-                .downfall(0.7F)
-                .specialEffects(new net.minecraft.world.level.biome.BiomeSpecialEffects.Builder()
-                        .waterColor(ModUtil.SPEEDRUNNER_WATER_COLOR)
+                .hasPrecipitation(false)
+                .temperature(0.7F)
+                .downfall(0.4F)
+                .specialEffects(new BiomeSpecialEffects.Builder()
+                        .waterColor(ModHelper.SPEEDRUNNER_WATER_COLOR)
                         .foliageColorOverride(0xAED6F1)
                         .grassColorOverride(0xAED6F1)
                         .build())
-                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, ModUtil.SPEEDRUNNER_WATER_FOG_COLOR)
+                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, ModHelper.SPEEDRUNNER_WATER_FOG_COLOR)
                 .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xEBF5FB)
                 .setAttribute(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.5F))
                 .mobSpawnSettings(spawnBuilder.build())

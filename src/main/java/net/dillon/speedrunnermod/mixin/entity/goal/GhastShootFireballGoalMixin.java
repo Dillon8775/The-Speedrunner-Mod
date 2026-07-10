@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.goal;
 
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Ghast;
 import org.objectweb.asm.Opcodes;
@@ -34,6 +34,6 @@ public abstract class GhastShootFireballGoalMixin extends Goal {
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/monster/Ghast$GhastShootFireballGoal;chargeTime:I", ordinal = 1, opcode = Opcodes.PUTFIELD))
     private void changeGhastFireballCooldown(Ghast.GhastShootFireballGoal ghast, int value) {
-        ghast.chargeTime = ModUtil.getGhastFireballCooldown();
+        ghast.chargeTime = ModConstants.getGhastFireballCooldown();
     }
 }

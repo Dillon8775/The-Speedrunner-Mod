@@ -1,12 +1,20 @@
 package net.dillon.speedrunnermod.mixin.entity.goliath;
 
 import net.dillon.speedrunnermod.entity.goliath.GoliathAttackGoal;
+import net.dillon.speedrunnermod.entity.goliath.Minion;
+import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
+import net.dillon.speedrunnermod.util.RandomChance;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -28,24 +36,22 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
-import net.minecraft.world.entity.animal.golem.IronGolem;
-import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.monster.*;
-import net.minecraft.world.entity.monster.illager.Evoker;
-import net.minecraft.world.entity.monster.illager.Vindicator;
+import net.minecraft.world.entity.monster.Giant;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,6 +59,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 /**
  * The {@code Goliath Boss (doom mode)} exclusive.
@@ -74,9 +84,39 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
     boolean targetingUnderwater;
     @Unique
     private ServerBossEvent bossBar;
+    @Unique
+    private static final EntityDataAccessor<Boolean> SPAWNED_ZOMBIES = SynchedEntityData.defineId(Giant.class, EntityDataSerializers.BOOLEAN);
 
     public Goliath(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
+    }
+
+    @Override
+    public void setSpawnedZombies(boolean value) {
+        this.entityData.set(SPAWNED_ZOMBIES, value);
+    }
+
+    @Override
+    public boolean hasSpawnedZombies() {
+        return this.entityData.get(SPAWNED_ZOMBIES);
+    }
+
+    @Override
+    protected void defineSynchedData(final SynchedEntityData.Builder entityData) {
+        super.defineSynchedData(entityData);
+        entityData.define(SPAWNED_ZOMBIES, false);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(final ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putBoolean("SpawnedZombies", this.hasSpawnedZombies());
+    }
+
+    @Override
+    protected void readAdditionalSaveData(final ValueInput input) {
+        super.readAdditionalSaveData(input);
+        this.setSpawnedZombies(input.getBooleanOr("SpawnedZombies", false));
     }
 
     /**
@@ -84,7 +124,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
      */
     @Override
     public int getBaseExperienceReward(ServerLevel world) {
-        int looting = this.getLastHurtByMob() != null ? EnchantmentHelper.getEnchantmentLevel(ModUtil.enchantment((Giant)(Object)this, Enchantments.LOOTING), this.getLastHurtByMob()) * 150 : 0;
+        int looting = this.getLastHurtByMob() != null ? EnchantmentHelper.getEnchantmentLevel(ModHelper.enchantment((Giant)(Object)this, Enchantments.LOOTING), this.getLastHurtByMob()) * 150 : 0;
         this.xpReward = 50 + looting;
         return super.getBaseExperienceReward(world);
     }
@@ -100,12 +140,12 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
         this.setPathfindingMalus(PathType.FIRE, 0.0F);
         this.waterNavigation = new WaterBoundPathNavigation(this, this.level());
         this.landNavigation = new GroundPathNavigation(this, this.level());
-        ModUtil.modifyFollowRange(this, 35.0D);
-        ModUtil.modifyMaxHealth(this, 400.0D);
-        ModUtil.modifyMovementSpeed(this, 0.35D);
-        ModUtil.modifyAttackDamage(this, 10.0D);
-        ModUtil.modifyAttackKnockback(this, 1.5D);
-        ModUtil.modifyKnockbackResistance(this, 0.7F);
+        ModAttributeHelper.modifyFollowRange(this, 35.0D);
+        ModAttributeHelper.modifyMaxHealth(this, 400.0D);
+        ModAttributeHelper.modifyMovementSpeed(this, 0.35D);
+        ModAttributeHelper.modifyAttackDamage(this, 10.0D);
+        ModAttributeHelper.modifyAttackKnockback(this, 1.5D);
+        ModAttributeHelper.modifyKnockbackResistance(this, 0.7F);
     }
 
     /**
@@ -134,15 +174,14 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
         }
 
         if (this.getHealth() <= this.getMaxHealth() / 3) {
-            for (int i = 0; i < 5; i++) {
-                double d = this.random.nextGaussian() * 0.02;
-                double e = this.random.nextGaussian() * 0.02;
-                double f = this.random.nextGaussian() * 0.02;
-                this.level().addParticle(ParticleTypes.ANGRY_VILLAGER, this.getRandomX(1.0), this.getRandomY() + 1.0, this.getRandomZ(1.0), d, e, f);
-            }
+            net.dillon.speedrunnermod.entity.goliath.Goliath.addAngryParticles(this);
         }
 
         this.bossBar.setProgress(this.getHealth() / this.getMaxHealth());
+
+        if (this.getTarget() instanceof Minion minion && minion.isGoliathMinion()) {
+            this.setTarget(null);
+        }
     }
 
     /**
@@ -150,15 +189,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
      */
     @Override
     public void checkBelowWorld() {
-        if (this.level() instanceof ServerLevel && this.level().dimension() == Level.END) {
-            if (this.getY() < (double)(this.level().getMinY() - 64)) {
-                this.randomTeleport(0, 96, 0, true);
-                if (!this.isSilent()) {
-                    this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.HOSTILE, 10.0F, 1.0F);
-                    this.playSound(SoundEvents.ENDERMAN_TELEPORT, 10.0F, 1.0F);
-                }
-            }
-        }
+        net.dillon.speedrunnermod.entity.goliath.Goliath.safeFromVoid(this);
     }
 
     /**
@@ -179,60 +210,47 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
      * Handles {@code damaging} for Goliath.
      */
     @Override
-    public boolean hurtServer(ServerLevel world, DamageSource source, float amount) {
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
         Entity entity = source.getDirectEntity();
 
-        if (entity instanceof WitherSkull ||
-                entity instanceof WitherBoss ||
-                entity instanceof IronGolem ||
-                entity instanceof Ravager ||
-                entity instanceof Vindicator ||
-                entity instanceof Zombie ||
-                entity instanceof EnderDragon ||
-                entity instanceof EnderMan ||
-                entity instanceof Vex ||
-                entity instanceof Evoker ||
-                entity instanceof EvokerFangs ||
-                entity instanceof AreaEffectCloud) {
+        if (entity != null && entity.is(ModEntityTypeTags.GOLIATH_IMMUNE_MOBS)) {
             return false;
         }
 
-        if (entity instanceof Player player && (
-                player.getMainHandItem().is(ItemTags.SPEARS)
-                        || player.getOffhandItem().is(ItemTags.SPEARS))) {
+        if (entity instanceof Player player && this.isHolding(heldItem -> heldItem.is(ItemTags.SPEARS))) {
             this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
-            player.hurtServer(world, player.damageSources().mobAttack(this), player.getHealth() / ModUtil.randomFloatInclusive(1.25F, 1.95F));
+            player.hurtServer(serverLevel, player.damageSources().mobAttack(this), player.getHealth() / RandomChance.floatInclusive(1.25F, 1.95F));
         }
 
         float maxHealth = this.getMaxHealth();
-        if (this.getHealth() <= maxHealth / 2 && entity instanceof Projectile projectile && projectile.getOwner() != null) {
-            if (projectile.getOwner() != null) {
-                if (projectile.getOwner() instanceof Player) {
-                    this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
-                    this.playSound(SoundEvents.GENERIC_EAT.value(), 5.0F, 1.0F);
+        boolean half = this.getHealth() <= maxHealth / 2;
+        boolean low = this.getHealth() <= this.getMaxHealth() / 3;
+        if (half) {
+            if (entity instanceof Projectile projectile && projectile.getOwner() != null) {
+                if (projectile.getOwner() != null) {
+                    if (projectile.getOwner() instanceof Player) {
+                        this.absorbDamage(maxHealth);
+                    }
 
-                    float missingHealth = maxHealth - this.getHealth();
-                    this.heal((float)Math.sqrt(missingHealth));
+                    projectile.getOwner().hurtServer(serverLevel, projectile.getOwner().damageSources().generic(), RandomChance.floatInclusive(1.0F, 3.0F));
                 }
-
-                projectile.getOwner().hurtServer(world, projectile.getOwner().damageSources().generic(), ModUtil.randomFloatInclusive(1.0F, 3.0F));
+                return false;
             }
-            return false;
         }
 
-        if (this.getHealth() <= this.getMaxHealth() / 3 && entity instanceof Player) {
-            this.heal(ModUtil.randomFloatInclusive(1.35F, 3.45F));
+        if (low && entity instanceof Player) {
+            this.heal(RandomChance.floatInclusive(1.35F, 3.45F));
         }
 
-        if ((this.random.nextFloat() < 0.15F || this.getHealth() <= this.getMaxHealth() / 3) && !source.is(DamageTypeTags.IS_FIRE)) {
-            this.onGoliathDamage();
+        if ((this.random.nextFloat() < 0.15F || low) && !source.is(DamageTypeTags.IS_FIRE)) {
+            this.onGoliathDamage(low);
         }
 
         if (this.random.nextFloat() < 0.05F && this.getHealth() <= 250) {
-            this.onGoliathDamageDropFood(world);
+            this.onGoliathDamageDropFood(serverLevel);
         }
 
-        return super.hurtServer(world, source, amount);
+        return super.hurtServer(serverLevel, source, amount);
     }
 
     /**
@@ -362,7 +380,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
     }
 
     /**
-     * Detects when the player gets {@code out of range} of the Goliath, and then {@code removes} the bossbar from that players screen.
+     * Detects when the player gets {@code out of range} of Goliath, and then {@code removes} the bossbar from that players screen.
      */
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
@@ -439,6 +457,18 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
     }
 
     /**
+     * Absorbs damage from a specific source.
+     */
+    @Unique
+    private void absorbDamage(float maxHealth) {
+        this.playSound(SoundEvents.SHIELD_BLOCK.value(), 5.0F, 1.0F);
+        this.playSound(SoundEvents.GENERIC_EAT.value(), 5.0F, 1.0F);
+
+        float missingHealth = maxHealth - this.getHealth();
+        this.heal((float)Math.sqrt(missingHealth));
+    }
+
+    /**
      * Drops rotten flesh randomly when Goliath is damaged.
      */
     @Unique
@@ -465,18 +495,63 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
     }
 
     /**
-     * Spawns four TNT entities around Goliath, randomly, when damaged.
+     * Spawns four TNT entities around Goliath, randomly, when damaged, and summons zombies as protection.
      */
     @Unique
-    private void onGoliathDamage() {
+    private void onGoliathDamage(boolean spawnZombies) {
+        Level level = this.level();
+
+        if (spawnZombies && !this.hasSpawnedZombies()) {
+            Vec3 forward = this.getLookAngle().normalize();
+            Vec3 right = forward.cross(new Vec3(0, 1, 0)).normalize();
+
+            double forwardDistance = 8.0;
+            double sideDistance = 4.0;
+
+            Vec3 frontPos = this.position().add(forward.scale(forwardDistance));
+            Vec3 rightPos = this.position().add(right.scale(sideDistance));
+            Vec3 leftPos = this.position().subtract(right.scale(sideDistance));
+
+            Vec3[] positions = {
+                    frontPos,
+                    rightPos,
+                    leftPos
+            };
+
+            for (Vec3 pos : positions) {
+                Zombie zombie = EntityTypes.ZOMBIE.create(level, EntitySpawnReason.TRIGGERED);
+
+                ModAttributeHelper.modifyMaxHealth(zombie, 25.0F);
+                zombie.setHealth(25.0F);
+                ItemStack stack = Minion.zombiesFireball(level.getRandom().nextFloat() < 0.15F ? ModItems.DRAGON_FIREBALL : Items.FIRE_CHARGE);
+                zombie.setItemSlot(EquipmentSlot.MAINHAND, stack);
+                ((Minion)zombie).setGoliathMinion(true);
+                ((Minion)zombie).setFireballChargeTime(ModConstants.DEFAULT_MINION_FIREBALL_CHARGE_SPEED);
+
+                zombie.setGlowingTag(true);
+                zombie.snapTo(pos.x, this.getY(), pos.z, this.getYRot(), 0.0F);
+
+                level.addFreshEntity(zombie);
+                level.playSound(null, zombie.getOnPos(), SoundEvents.ZOMBIE_AMBIENT, SoundSource.HOSTILE, 5.0F, 1.0F);
+                level.playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 5.0F, 1.0F);
+            }
+
+            List<ServerPlayer> players = ModHelper.getEntitiesWithinRange(this.level(), ServerPlayer.class, this, options().advanced.goliathAndZombieEntityDetectionRadius.getCurrentValue());
+            for (ServerPlayer player : players) {
+                player.sendSystemMessage(Component.translatable("speedrunnermod.doom_mode.minions.warning")
+                        .withStyle(ChatFormatting.YELLOW));
+            }
+            this.setSpawnedZombies(true);
+        }
+
         for (int i = 0; i < 4; i++) {
-            PrimedTnt tnt = EntityTypes.TNT.create(this.level(), EntitySpawnReason.TRIGGERED);
+            PrimedTnt tnt = EntityTypes.TNT.create(level, EntitySpawnReason.TRIGGERED);
             tnt.setFuse(100);
             int x = i == 0 || i == 2 ? 5 : -5;
             int z = i == 0 || i == 1 ? 5 : -5;
             tnt.snapTo(this.getX() + x, this.getY() + 25, this.getZ() + z, 0.0F, 0.0F);
-            this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.TNT_PRIMED, SoundSource.AMBIENT, 5.0F, 1.0F);
-            this.level().addFreshEntity(tnt);
+            level.playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.TNT_PRIMED, SoundSource.AMBIENT, 5.0F, 1.0F);
+            level.addFreshEntity(tnt);
         }
     }
 

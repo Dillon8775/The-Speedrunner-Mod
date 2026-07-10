@@ -1,9 +1,6 @@
 {
   "values": [
-    {
-      "id": "speedrunnermod:speedrunners_wasteland",
-      "required": false
-    },
+    "speedrunnermod:speedrunners_wasteland",
     "minecraft:windswept_hills"
   ]
 }

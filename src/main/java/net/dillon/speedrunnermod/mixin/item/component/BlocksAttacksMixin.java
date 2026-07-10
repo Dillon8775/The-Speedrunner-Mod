@@ -1,9 +1,7 @@
 package net.dillon.speedrunnermod.mixin.item.component;
 
-import net.dillon.speedrunnermod.item.GoldenShieldItem;
-import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.item.SpeedrunnerShieldItem;
-import net.dillon.speedrunnermod.util.ModUtil;
+import net.dillon.speedrunnermod.helper.ModComponentHelper;
+import net.dillon.speedrunnermod.item.equipment.ModShieldItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -17,17 +15,18 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class BlocksAttacksMixin {
 
     /**
-     * Applies the correct {@code shield cooldown,} with the cooldown enchantment.
+     * Applies the correct {@code shield cooldown}, with the cooldown enchantment.
      */
-    @ModifyVariable(method = "disable", at = @At("STORE"), ordinal = 0)
-    private int modifyCooldown(int originalCooldown, ServerLevel world, LivingEntity affectedEntity, float cooldownSeconds, ItemStack stack) {
-        if (affectedEntity instanceof Player player) {
-            int i = stack.is(ModItems.SPEEDRUNNER_SHIELD) ? (int)(ModUtil.getItemCooldown(player) / SpeedrunnerShieldItem.COOLDOWN_DIVIDER) :
-                    stack.is(ModItems.GOLDEN_SHIELD) ? (int)(((float) ModUtil.getItemCooldown(player) / 2.5) / GoldenShieldItem.COOLDOWN_DIVIDER) :
-                    ModUtil.getItemCooldown(player);
-            return i * (int)cooldownSeconds;
+    @ModifyVariable(method = "disable", at = @At("STORE"), name = "cooldownTicks")
+    private int modifyCooldown(int cooldownTicks, ServerLevel level, LivingEntity user, float baseSeconds, ItemStack blockingWith) {
+        if (!(user instanceof Player player)) {
+            return cooldownTicks;
         }
 
-        return originalCooldown;
+        int i = blockingWith.getItem() instanceof ModShieldItem modShieldItem ? (int)(ModComponentHelper.getItemCooldown(blockingWith, player) / modShieldItem.getCooldownDivider()) :
+                blockingWith.getItem() instanceof ModShieldItem modShieldItem ? (int)(((float) ModComponentHelper.getItemCooldown(blockingWith, player) / 2.5) / modShieldItem.getCooldownDivider()) :
+                        ModComponentHelper.getItemCooldown(blockingWith, player);
+
+        return i * (int) baseSeconds;
     }
 }

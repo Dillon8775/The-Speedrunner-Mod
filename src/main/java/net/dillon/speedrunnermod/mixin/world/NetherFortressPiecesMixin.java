@@ -21,7 +21,7 @@ public class NetherFortressPiecesMixin {
     private static  NetherFortressPieces.PieceWeight[] CASTLE_PIECE_WEIGHTS;
 
     static {
-        if (options().worldGen.customDataGeneration.getCurrentValue() && options().advanced.modifiedNetherFortressGeneration.getCurrentValue() && !isBalancedMode()) {
+        if (options().advanced.modifiedNetherFortressGeneration.getCurrentValue() && !isBalancedMode()) {
             BRIDGE_PIECE_WEIGHTS = new NetherFortressPieces.PieceWeight[]{
                     new NetherFortressPieces.PieceWeight(NetherFortressPieces.BridgeStraight.class, 10, 1),
                     new NetherFortressPieces.PieceWeight(NetherFortressPieces.BridgeCrossing.class, 10, 2),
