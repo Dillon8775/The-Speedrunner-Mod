@@ -42,7 +42,7 @@ public class ZombieAttackGoalMixin extends MeleeAttackGoal {
         minion.setFireballChargeTime(minion.getFireballChargeTime() + 1);
 
         if (minion.getFireballChargeTime() >= Minion.fireballChargeTime(minion)) {
-            ThrowableFireball.createFireballEntity(this.zombie.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.DRAGON_FIREBALL), this.zombie);
+            ThrowableFireball.createFireballEntity(this.zombie.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.DRAGON_FIREBALL), this.zombie, this.zombie.getUsedItemHand());
             minion.setFireballChargeTime(0);
         }
     }

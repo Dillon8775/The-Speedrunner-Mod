@@ -2,44 +2,41 @@ package net.dillon.speedrunnermod.util;
 
 import net.dillon.speedrunnermod.helper.ModHelper;
 
+import java.util.List;
+
 public class ClientMixinPluginUtil extends AbstractMixinPluginUtil {
-    private static final String FOG_RENDERER_MIXIN = "net.dillon.speedrunnermod.mixin.client.render.FogRendererMixin";
-    private static final String OPTION_INSTANCE_MIXIN = "net.dillon.speedrunnermod.mixin.client.OptionInstanceMixin";
+    private static final String FOG_RENDERER_MIXIN = "client.render.FogRendererMixin";
+    private static final String OPTION_INSTANCE_MIXIN = "client.OptionInstanceMixin";
 
     @Override
-    public boolean shouldApply(String mixinClassName) {
-        if (isSimpleKeybindsLoaded()
-                && mixinClassName.equals(OPTION_INSTANCE_MIXIN)) {
-            this.setReason("Mod \"Simple Keybinds\" is loaded, not applying increased brightness function, as Simple Keybinds adds this already.");
-            return false;
-        }
-        if (isQualityOfQuesoLoaded()
-                && mixinClassName.equals(FOG_RENDERER_MIXIN)) {
-            this.setReason("Mod \"Quality of Queso\" is loaded, not applying speedrunner mod's fog function, as Quality of Queso adds this already, with more configuration.");
-            return false;
-        }
-        if (!this.readOptionAsBoolean("mixins", "abstract_client_player_mixin")
-                && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.fix.AbstractClientPlayerMixin")) {
-            this.setReason("\"abstract_client_player_mixin\" is disabled.");
-            return false;
-        }
-
-        if (!this.readOptionAsBoolean("mixins", "fog_mixins")
-                && (mixinClassName.equals(FOG_RENDERER_MIXIN) || mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.render.LavaFogEnvironmentMixin"))) {
-            this.setReason("\"fog_mixins\" is disabled.");
-            return false;
-        }
-        if (!this.readOptionAsBoolean("mixins", "option_instance_mixin")
-                && mixinClassName.equals(OPTION_INSTANCE_MIXIN)) {
-            this.setReason("\"option_instance_mixin\" is disabled.");
-            return false;
-        }
-        if (!this.readOptionAsBoolean("mixins", "logo_renderer_mixin")
-                && mixinClassName.equals("net.dillon.speedrunnermod.mixin.client.screen.LogoRendererMixin")) {
-            this.setReason("\"logo_renderer_mixin\" is disabled.");
-            return false;
-        }
-        return true;
+    public List<PredicateEntry> entries() {
+        return List.of(
+                new PredicateEntry(
+                        new String[]{OPTION_INSTANCE_MIXIN},
+                        isSimpleKeybindsLoaded() || !this.readOptionAsBoolean("mixins", "option_instance_mixin"),
+                        "either mod \"Simple Keybinds\" mod is loaded, and already modifies what this mod does, or \"option_instance_mixin\" is disabled."
+                ),
+                new PredicateEntry(
+                        new String[]{FOG_RENDERER_MIXIN},
+                        isQualityOfQuesoLoaded(),
+                        "Quality of Queso mod is loaded, disabling because this mod adds more versatility and configuration."
+                ),
+                new PredicateEntry(
+                        new String[]{FOG_RENDERER_MIXIN, "client.render.LavaFogEnvironmentMixin"},
+                        !this.readOptionAsBoolean("mixins", "fog_mixins"),
+                        "\"fog_mixins\" are disabled."
+                ),
+                new PredicateEntry(
+                        new String[]{"fix.AbstractClientPlayerMixin"},
+                        !this.readOptionAsBoolean("mixins", "abstract_client_player_mixin"),
+                        "\"abstract_client_player_mixin\" is disabled."
+                ),
+                new PredicateEntry(
+                        new String[]{"client.screen.LogoRendererMixin"},
+                        !this.readOptionAsBoolean("mixins", "logo_renderer_mixin"),
+                        "\"logo_renderer_mixin\" is disabled."
+                )
+        );
     }
 
     @Override

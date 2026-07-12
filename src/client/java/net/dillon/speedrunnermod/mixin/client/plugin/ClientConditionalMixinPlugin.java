@@ -13,7 +13,7 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         ClientMixinPluginUtil clientMixinPluginUtil = new ClientMixinPluginUtil();
-        return clientMixinPluginUtil.shouldApplyMixin(targetClassName, mixinClassName);
+        return !clientMixinPluginUtil.shouldNotApply(targetClassName, mixinClassName);
     }
 
     // Other methods...

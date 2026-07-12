@@ -64,7 +64,7 @@ public class FirechargeItemMixin extends Item {
      */
     @Unique
     private InteractionResult throwFireball(Level world, Player player, InteractionHand hand) {
-        if (ThrowableFireball.createFireballEntity(false, player)) {
+        if (ThrowableFireball.createFireballEntity(false, player, hand)) {
             return InteractionResult.SUCCESS_SERVER;
         }
         return super.use(world, player, hand);

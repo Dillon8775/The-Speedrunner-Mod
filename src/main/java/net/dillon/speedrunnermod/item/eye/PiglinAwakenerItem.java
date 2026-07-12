@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.item.eye;
 
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.entity.Awakened;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
@@ -62,7 +63,12 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
         } else if (world.dimension() != Level.NETHER) {
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), ChatFormatting.RED, ChatFormatting.WHITE);
         } else {
-            List<Piglin> piglins = ModHelper.getEntitiesWithinRange(world, Piglin.class, player, options().advanced.piglinAwakenerSearchRadius.getCurrentValue());
+            List<Piglin> piglins = ModHelper.getEntitiesWithinRange(world, Piglin.class, player, options().advanced.piglinAwakenerSearchRadius.getCurrentValue(),
+                    e ->
+                            !e.hasCustomName()
+                                    && !e.isBaby()
+                                    && e instanceof Piglin piglin
+                                    && !((Awakened)piglin).isAwakened());
 
             if (piglins.isEmpty()) {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.piglin_awakener.couldnt_find_piglins"), ChatFormatting.RED, ChatFormatting.WHITE);
@@ -86,29 +92,30 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                 } else {
                     this.playThrowSound(world, player);
                     this.playWorldSound(SoundEvents.PIGLIN_ANGRY, 3.0F, 1.0F, world, player);
-                    player.getCooldowns().addCooldown(this.getDefaultInstance(), TickCalculator.minutes(1));
                     boolean sneakingWhenClicked = player.isShiftKeyDown();
 
                     ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
-                    this.decrementIfPossible(player, stack);
-
                     int piglinTeleported = 0;
                     for (Piglin piglin : piglins) {
-                        if (!piglin.hasCustomName() && !piglin.isBaby()) {
-                            if (world.getRandom().nextFloat() < 0.50F) {
-                                piglin.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.minutes(1), 0, false, true, false));
-                            }
-                            double x = !sneakingWhenClicked ? player.getX() + world.getRandom().nextInt(7) - 3 : player.getX();
-                            double y = !sneakingWhenClicked ? player.getY() + world.getRandom().nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
-                            double z = !sneakingWhenClicked ? player.getZ() + world.getRandom().nextInt(7) - 3 : player.getZ();
-                            piglin.randomTeleport(x, y, z, false);
-                            piglinTeleported++;
+                        if (world.getRandom().nextFloat() < 0.50F) {
+                            piglin.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.minutes(1), 0, false, true, false));
                         }
+                        double x = !sneakingWhenClicked ? player.getX() + world.getRandom().nextInt(7) - 3 : player.getX();
+                        double y = !sneakingWhenClicked ? player.getY() + world.getRandom().nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
+                        double z = !sneakingWhenClicked ? player.getZ() + world.getRandom().nextInt(7) - 3 : player.getZ();
+                        piglin.randomTeleport(x, y, z, false);
+                        piglinTeleported++;
+                        ((Awakened)piglin).setAwakened(true);
                         if (piglinTeleported >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
                             break;
                         }
                     }
+
+                    int teleportedPerTick = piglinTeleported * 200;
+                    player.getCooldowns().addCooldown(this.getDefaultInstance(), ModHelper.atMost(teleportedPerTick, 1200));
+                    this.decrementIfPossible(player, stack);
+
                     player.awardStat(Stats.ITEM_USED.get(this));
                     player.swing(hand, true);
                     return InteractionResult.SUCCESS;

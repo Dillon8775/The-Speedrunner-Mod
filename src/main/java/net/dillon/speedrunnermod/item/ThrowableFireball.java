@@ -31,9 +31,8 @@ public interface ThrowableFireball {
     /**
      * Creates a fireball entity.
      */
-    static boolean createFireballEntity(boolean dragon, LivingEntity thrower) {
+    static boolean createFireballEntity(boolean dragon, LivingEntity thrower, InteractionHand hand) {
         Level level = thrower.level();
-        InteractionHand hand = thrower.getUsedItemHand();
         ItemStack stack = thrower.getItemInHand(hand);
 
         boolean zombie = thrower instanceof Zombie;

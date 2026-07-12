@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.isEnvironmentTypeServer;
 import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
@@ -18,28 +19,39 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
  * Abstract representation of a mixin plugin utility class.
  */
 public abstract class AbstractMixinPluginUtil {
-    private final Logger logger = LoggerFactory.getLogger("Speedrunner Mod/Mixin");
-    private String reason = "";
+    private static final Logger LOGGER = LoggerFactory.getLogger("Speedrunner Mod/Mixin");
 
     /**
-     * @return the current mixin logger.
+     * @return the config.
      */
-    public Logger getLogger() {
-        return this.logger;
-    }
+    public abstract String configFileName();
 
     /**
-     * @return the reason a mixin should not be applied.
+     * @return the list of mapped mixin entries to be disabled.
      */
-    public String getReason() {
-        return this.reason;
-    }
+    public abstract List<PredicateEntry> entries();
 
     /**
-     * Sets the reason a mixin should not be applied.
+     * @return {@code false} if mixin should not apply.
      */
-    public void setReason(String reason) {
-        this.reason = reason;
+    public final boolean shouldNotApply(String targetClassName, String mixinClassName) {
+        for (PredicateEntry entry : entries()) {
+            if (entry.condition()) {
+                for (String s : entry.mixins()) {
+                    String name = "net.dillon.speedrunnermod.mixin." + s;
+                    if (name.equals(mixinClassName)) {
+                        LOGGER.warn("Skipping mixin {} for class {}: {}",
+                                mixinClassName,
+                                targetClassName,
+                                entry.reason()
+                        );
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -55,30 +67,6 @@ public abstract class AbstractMixinPluginUtil {
     public boolean isSimpleKeybindsLoaded() {
         return FabricLoader.getInstance().isModLoaded("simplekeybinds");
     }
-
-    /**
-     * @return {@code true} if a mixin should be applied to the game.
-     */
-    public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        boolean bl = shouldApply(mixinClassName);
-        if (!bl) {
-            this.getLogger().warn("Skipping mixin {} for target {} because it should not be applied. Reason: {}",
-                    mixinClassName,
-                    targetClassName,
-                    this.getReason().isEmpty() ? "null" : this.getReason());
-        }
-        return bl;
-    }
-
-    /**
-     * Returns mixins that should not apply based on certain conditions.
-     */
-    public abstract boolean shouldApply(String mixinClassName);
-
-    /**
-     * @return the config.
-     */
-    public abstract String configFileName();
 
     /**
      * Reads a boolean from the options file.
