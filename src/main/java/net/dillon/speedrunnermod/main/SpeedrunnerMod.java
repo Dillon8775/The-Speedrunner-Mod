@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.main;
 
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.command.ModCommands;
 import net.dillon.speedrunnermod.component.*;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.entity.ModParticleTypes;
@@ -51,7 +50,6 @@ public class SpeedrunnerMod implements ModInitializer {
         configHandler().load();
 
         ModPackets.registerPackets();
-        ModCommands.registerCommands();
 
         ModParticleTypes.registerParticles();
 
