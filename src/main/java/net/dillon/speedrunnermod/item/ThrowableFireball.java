@@ -90,10 +90,8 @@ public interface ThrowableFireball {
 
         final int maxDragonPower = 5;
         int maxPower = 10;
-        if (isMinion) {
-            maxPower = 4;
-        } else if (isZombie) {
-            maxPower = 5;
+        if (isMinion || isZombie) {
+            maxPower = 3;
         }
 
         int power = isDoomMode()

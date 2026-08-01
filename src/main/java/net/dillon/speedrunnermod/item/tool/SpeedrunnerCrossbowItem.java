@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item.tool;
 
+import net.dillon.dillonlib.factory.item.CrossbowFactory;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.mixin.accessor.CrossbowItemAccessor;
 import net.minecraft.core.component.DataComponents;
@@ -10,7 +11,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ChargedProjectiles;
@@ -23,7 +23,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * A crossbow which charges faster, shoots farther, and has more durability.
  */
-public class SpeedrunnerCrossbowItem extends CrossbowItem {
+public class SpeedrunnerCrossbowItem extends CrossbowFactory {
 
     public SpeedrunnerCrossbowItem(Properties settings) {
         super(settings

@@ -94,6 +94,9 @@
 
   "speedrunnermod.entity_boat_paddle_lava": "Rowing",
 
+  "workbench.gui.use_transfer": "Workbench Used",
+  "workbench.gui.use_book": "Workbench Used",
+
   "item.minecraft.fire_charge": "Fireball",
   "item.minecraft.fire_charge.zombie": "Zombie's Fireball",
 

@@ -13,6 +13,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
  * Constant variables and values for the Speedrunner Mod.
  */
 public class ModConstants {
+    public static final String MOD_ID = "speedrunnermod";
     public static final String MOD_VERSION = FabricLoader.getInstance()
             .getModContainer("speedrunnermod")
             .map(c -> c.getMetadata().getVersion().getFriendlyString().split("\\+", 2)[0])
@@ -24,8 +25,8 @@ public class ModConstants {
     public static boolean safeBoot;
 
     public static final int DEFAULT_DOOM_ZOMBIE_FIREBALL_CHARGE_SPEED = 40;
-    public static final int DEFAULT_ZOMBIE_FIREBALL_CHARGE_SPEED = 60;
-    public static final int DEFAULT_MINION_FIREBALL_CHARGE_SPEED = 80;
+    public static final int DEFAULT_ZOMBIE_FIREBALL_CHARGE_SPEED = 100;
+    public static final int DEFAULT_MINION_FIREBALL_CHARGE_SPEED = 120;
 
     /**
      * Initializes all constant variables.

@@ -1,13 +1,9 @@
 package net.dillon.speedrunnermod.mixin.entity.living;
 
-import net.dillon.speedrunnermod.author.Author;
-import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
-import net.dillon.speedrunnermod.event.SpeedrunnersTotemEvent;
 import net.dillon.speedrunnermod.helper.InventoryPreserver;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.item.SpeedrunnersTotemItem;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.dillon.speedrunnermod.util.TickCalculator;
@@ -28,7 +24,6 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.DeathProtection;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.material.Fluid;
@@ -45,7 +40,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.function.Predicate;
 
@@ -185,18 +179,6 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readInventoryPreserver(ValueInput view, CallbackInfo ci) {
         this.hadInventoryPreserver = view.getBooleanOr("HadInventoryPreserver", false);
-    }
-
-    // Calls the totemUse event if supposed to and not totem of undying, skipping vanilla setHealth stuff
-    @Author(Authors.YELEEFFF)
-    @Inject(method = "checkTotemDeathProtection", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setHealth(F)V"), locals = LocalCapture.CAPTURE_FAILEXCEPTION, cancellable = true)
-    private void applySpeedrunnersTotemEffects(DamageSource source, CallbackInfoReturnable<Boolean> cir, ItemStack stack, DeathProtection deathProtectionComponent) {
-        if (stack.getItem() instanceof SpeedrunnersTotemItem) {
-            deathProtectionComponent.applyEffects(stack, (LivingEntity)(Object)this);
-
-            SpeedrunnersTotemEvent.EVENT.invoker().invoke(((LivingEntity)(Object) this), stack, source);
-            cir.setReturnValue(stack != null);
-        }
     }
 
     /**

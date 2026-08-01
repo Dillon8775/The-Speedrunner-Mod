@@ -1,10 +1,12 @@
-package net.dillon.speedrunnermod.mixin.block.dispenser;
+package net.dillon.speedrunnermod.component;
 
+import net.dillon.dillonlib.factory.Factories;
 import net.dillon.speedrunnermod.block.SkullBlockInvoker;
+import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.EquipmentDispenseItemBehavior;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
@@ -17,25 +19,25 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.level.gameevent.GameEvent;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.jspecify.annotations.NonNull;
 
-@Mixin(DispenseItemBehavior.class)
-public interface DispenseItemBehaviorMixin {
+import java.util.List;
+import java.util.Map;
+
+/**
+ * All dispenser behaviors for the speedrunner mod.
+ */
+public class ModDispenserBehaviors {
 
     /**
-     * Registers dispenser behavior for summmoning Goliath.
-     * <p>See {@link DispenseItemBehavior#bootStrap()} for more.</p>
+     * Registers all Speedrunner Mod dispenser behaviors.
      */
-    @Inject(method = "bootStrap", at = @At("TAIL"))
-    private static void registerGoliathSummoning(CallbackInfo ci) {
+    public static void registerDispenserBehaviors() {
         DispenserBlock.registerBehavior(
                 Blocks.ZOMBIE_HEAD,
                 new OptionalDispenseItemBehavior() {
                     @Override
-                    protected ItemStack execute(BlockSource pointer, ItemStack stack) {
+                    protected @NonNull ItemStack execute(@NonNull BlockSource pointer, @NonNull ItemStack stack) {
                         Level world = pointer.level();
                         Direction direction = pointer.state().getValue(DispenserBlock.FACING);
                         BlockPos blockPos = pointer.pos().relative(direction);
@@ -62,5 +64,30 @@ public interface DispenseItemBehaviorMixin {
                     }
                 }
         );
+
+        Factories.registerBoatDispenserBehavior(List.of(
+                Map.of(ModItems.SPEEDRUNNER_BOAT, ModEntityTypes.SPEEDRUNNER_BOAT),
+                Map.of(ModItems.SPEEDRUNNER_CHEST_BOAT, ModEntityTypes.SPEEDRUNNER_CHEST_BOAT),
+                Map.of(ModItems.FIREPROOF_SPEEDRUNNER_BOAT, ModEntityTypes.FIREPROOF_SPEEDRUNNER_BOAT),
+                Map.of(ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT, ModEntityTypes.FIREPROOF_SPEEDRUNNER_CHEST_BOAT),
+                Map.of(ModItems.DEAD_SPEEDRUNNER_BOAT, ModEntityTypes.DEAD_SPEEDRUNNER_BOAT),
+                Map.of(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModEntityTypes.DEAD_SPEEDRUNNER_CHEST_BOAT),
+                Map.of(ModItems.CRIMSON_BOAT, ModEntityTypes.CRIMSON_BOAT),
+                Map.of(ModItems.CRIMSON_CHEST_BOAT, ModEntityTypes.CRIMSON_CHEST_BOAT),
+                Map.of(ModItems.FIREPROOF_CRIMSON_BOAT, ModEntityTypes.FIREPROOF_CRIMSON_CHEST_BOAT),
+                Map.of(ModItems.FIREPROOF_CRIMSON_CHEST_BOAT, ModEntityTypes.FIREPROOF_CRIMSON_CHEST_BOAT),
+                Map.of(ModItems.WARPED_BOAT, ModEntityTypes.WARPED_BOAT),
+                Map.of(ModItems.WARPED_CHEST_BOAT, ModEntityTypes.WARPED_CHEST_BOAT),
+                Map.of(ModItems.FIREPROOF_WARPED_BOAT, ModEntityTypes.FIREPROOF_WARPED_CHEST_BOAT),
+                Map.of(ModItems.FIREPROOF_WARPED_CHEST_BOAT, ModEntityTypes.FIREPROOF_WARPED_CHEST_BOAT)
+        ));
+
+        Factories.registerShearDispenserBehavior(List.of(
+                ModItems.SPEEDRUNNER_SHEARS
+        ));
+
+        Factories.registerFlintAndSteelDispenserBehavior(List.of(
+                ModItems.SPEEDRUNNER_FLINT_AND_STEEL
+        ));
     }
 }

@@ -10,10 +10,7 @@
   "client": [
     "GuiMixin",
     "MinecraftMixin",
-    "OptionInstanceMixin",
     "fix.AbstractClientPlayerFix",
-    "fix.AvatarRendererFix",
-    "fix.ItemInHandRendererFix",
     "fix.SpecialModelRenderersFix",
     "network.ClientPacketListenerMixin",
     "render.FogRendererMixin",

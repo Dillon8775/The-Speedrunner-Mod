@@ -2,6 +2,8 @@ package net.dillon.speedrunnermod.util;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.dillon.dillonlib.mixinplugin.MixinPluginUtil;
+import net.dillon.dillonlib.mixinplugin.PredicateEntry;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.BaseOptions;
 import net.fabricmc.loader.api.FabricLoader;
@@ -18,55 +20,25 @@ import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
 /**
  * Abstract representation of a mixin plugin utility class.
  */
-public abstract class AbstractMixinPluginUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger("Speedrunner Mod/Mixin");
+public abstract class AbstractMixinPluginUtil extends MixinPluginUtil {
 
     /**
-     * @return the config.
+     * @return the config file name used for this plugin.
      */
     public abstract String configFileName();
 
-    /**
-     * @return the list of mapped mixin entries to be disabled.
-     */
+    @Override
+    public Logger logger() {
+        return LoggerFactory.getLogger("SpeedrunnerMod/Mixin");
+    }
+
+    @Override
+    public String mixinDirectory() {
+        return "net.dillon.speedrunnermod.mixin.";
+    }
+
+    @Override
     public abstract List<PredicateEntry> entries();
-
-    /**
-     * @return {@code false} if mixin should not apply.
-     */
-    public final boolean shouldNotApply(String targetClassName, String mixinClassName) {
-        for (PredicateEntry entry : entries()) {
-            if (entry.condition()) {
-                for (String s : entry.mixins()) {
-                    String name = "net.dillon.speedrunnermod.mixin." + s;
-                    if (name.equals(mixinClassName)) {
-                        LOGGER.warn("Skipping mixin {} for class {}: {}",
-                                mixinClassName,
-                                targetClassName,
-                                entry.reason()
-                        );
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @return if the quality of queso mod is loaded.
-     */
-    public boolean isQualityOfQuesoLoaded() {
-        return FabricLoader.getInstance().isModLoaded("qualityofqueso");
-    }
-
-    /**
-     * @return if the simple keybinds is loaded.
-     */
-    public boolean isSimpleKeybindsLoaded() {
-        return FabricLoader.getInstance().isModLoaded("simplekeybinds");
-    }
 
     /**
      * Reads a boolean from the options file.

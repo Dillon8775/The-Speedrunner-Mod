@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
+import net.dillon.dillonlib.util.CommonSprites;
 import net.dillon.speedrunnermod.menu.WorkbenchMenu;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.ChatFormatting;
@@ -44,7 +45,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
             slotTexture("spear")
     );
     private static final List<Identifier> TRANSFER_SLOT_TEXTURES = List.of(
-            ofSpeedrunnerMod("container/slot/book"),
+            CommonSprites.BOOK,
             slotTexture("axe"),
             slotTexture("boots"),
             slotTexture("sword"),
@@ -52,11 +53,11 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
     );
     private static final List<Identifier> GOLD_UPGRADE_SLOT_TEXTURES = List.of(
             slotTexture("ingot"),
-            ofSpeedrunnerMod("container/slot/book"),
+            CommonSprites.BOOK,
             slotTexture("axe")
     );
     private static final List<Identifier> OUTPUT_SLOT_TEXTURES = List.of(
-            ofSpeedrunnerMod("container/slot/enchanted_book")
+            CommonSprites.ENCHANTED_BOOK
     );
     private final CyclingSlotBackground inputSlotIcon = new CyclingSlotBackground(this.menu.getInputSlot().index);
     private final CyclingSlotBackground transferToSlotIcon = new CyclingSlotBackground(this.menu.getTransferToSlot().index);

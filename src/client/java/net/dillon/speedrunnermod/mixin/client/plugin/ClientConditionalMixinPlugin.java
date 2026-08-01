@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.plugin;
 
-import net.dillon.speedrunnermod.util.ClientMixinPluginUtil;
+import net.dillon.speedrunnermod.util.ClientSpeedrunnerModMixinPlugin;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -12,7 +12,7 @@ public class ClientConditionalMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        ClientMixinPluginUtil clientMixinPluginUtil = new ClientMixinPluginUtil();
+        ClientSpeedrunnerModMixinPlugin clientMixinPluginUtil = new ClientSpeedrunnerModMixinPlugin();
         return !clientMixinPluginUtil.shouldNotApply(targetClassName, mixinClassName);
     }
 

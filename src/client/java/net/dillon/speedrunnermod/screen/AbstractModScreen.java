@@ -4,9 +4,9 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.network.ClientModPackets;
 import net.dillon.speedrunnermod.option.Leaderboards;
+import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsIneligibleScreen;
@@ -119,7 +119,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
         if (this.shouldRenderVersionText()) {
             int textWidth = this.width - 20;
             int textHeight = this.height - 21;
-            int imageWidth = this.width - (SpeedrunnerModClient.getVersionType() == VersionType.RELEASE ? 53 : 55);
+            int imageWidth = this.width - (SpeedrunnerModPlatforms.getPlatform().logoWidth().getWidthModifier());
             int imageHeight = this.height - 26;
             context.centeredText(this.font, Component.literal(ModConstants.MOD_VERSION).withStyle(ChatFormatting.AQUA), textWidth, textHeight, CommonColors.WHITE);
             context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/icon.png"), imageWidth, imageHeight, 0.0F, 0.0F, 18, 18, 18, 18);

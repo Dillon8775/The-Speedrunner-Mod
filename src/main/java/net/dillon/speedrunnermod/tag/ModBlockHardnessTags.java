@@ -1,17 +1,17 @@
 package net.dillon.speedrunnermod.tag;
 
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
+import static net.dillon.dillonlib.factory.Factories.createBlockTag;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod {@code block harness tags}.
  */
 public class ModBlockHardnessTags {
-    public static final TagKey<Block> INSTABREAK = ModBlockTags.createBlockTag("block_hardness/instabreak");
+    public static final TagKey<Block> INSTABREAK = createBlockTag(ofSpeedrunnerMod("block_hardness/instabreak"));
     public static final TagKey<Block> HARDNESS_0_1 = createBlockHardnessTag(0, 1);
     public static final TagKey<Block> HARDNESS_0_2 = createBlockHardnessTag(0, 2);
     public static final TagKey<Block> HARDNESS_0_3 = createBlockHardnessTag(0, 3);
@@ -45,14 +45,14 @@ public class ModBlockHardnessTags {
      * Registers a {@code block baseHardness tag} with a "double" value.
      */
     private static TagKey<Block> createBlockHardnessTag(int base, int decimal) {
-        return TagKey.create(Registries.BLOCK, ofSpeedrunnerMod("block_hardness/"+base+"-"+decimal+"_hardness"));
+        return createBlockTag(ofSpeedrunnerMod("block_hardness/"+base+"-"+decimal+"_hardness"));
     }
 
     /**
      * Registers a {@code block baseHardness tag} with an integer value.
      */
     private static TagKey<Block> createBlockHardnessTag(int baseHardness) {
-        return TagKey.create(Registries.BLOCK, ofSpeedrunnerMod("block_hardness/"+ baseHardness +"_hardness"));
+        return createBlockTag(ofSpeedrunnerMod("block_hardness/"+ baseHardness +"_hardness"));
     }
 
     /**

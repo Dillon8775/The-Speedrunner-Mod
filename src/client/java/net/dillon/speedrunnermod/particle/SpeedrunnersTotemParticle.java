@@ -27,7 +27,6 @@ public class SpeedrunnersTotemParticle extends SimpleAnimatedParticle {
         }
     }
 
-    
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteProvider;
 

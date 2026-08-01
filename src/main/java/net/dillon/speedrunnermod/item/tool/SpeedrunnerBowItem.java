@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item.tool;
 
+import net.dillon.dillonlib.factory.item.BowFactory;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -9,7 +10,6 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
@@ -21,7 +21,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * A bow that charges faster, shoots farther, does more damage, and has more durability.
  */
-public class SpeedrunnerBowItem extends BowItem {
+public class SpeedrunnerBowItem extends BowFactory {
     public static final float MAX_DRAW_DURATION = 15.0F;
 
     public SpeedrunnerBowItem(Properties settings) {

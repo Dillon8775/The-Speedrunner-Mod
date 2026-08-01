@@ -1,15 +1,9 @@
 package net.dillon.speedrunnermod.entity;
 
+import net.dillon.dillonlib.factory.Factories;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.mixin.accessor.EntityTypesInvoker;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.entity.vehicle.boat.ChestBoat;
 
@@ -19,125 +13,89 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * All different entity types for the speedrunner mod.
  */
 public class ModEntityTypes {
-    public static final EntityType<Boat> SPEEDRUNNER_BOAT = register("speedrunner_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.SPEEDRUNNER_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> SPEEDRUNNER_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("speedrunner_boat"),
+            () -> ModItems.SPEEDRUNNER_BOAT,
+            false
+    );
 
-    public static final EntityType<Boat> FIREPROOF_SPEEDRUNNER_BOAT = register("fireproof_speedrunner_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> FIREPROOF_SPEEDRUNNER_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("fireproof_speedrunner_boat"),
+            () -> ModItems.FIREPROOF_SPEEDRUNNER_BOAT,
+            false
+    );
 
-    public static final EntityType<ChestBoat> SPEEDRUNNER_CHEST_BOAT = register("speedrunner_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<ChestBoat> SPEEDRUNNER_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("speedrunner_chest_boat"),
+            () -> ModItems.SPEEDRUNNER_CHEST_BOAT,
+            true
+    );
 
-    public static final EntityType<ChestBoat> FIREPROOF_SPEEDRUNNER_CHEST_BOAT = register("fireproof_speedrunner_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .fireImmune()
-                    .clientTrackingRange(10));
+    public static final EntityType<ChestBoat> FIREPROOF_SPEEDRUNNER_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("fireproof_speedrunner_chest_boat"),
+            () -> ModItems.FIREPROOF_SPEEDRUNNER_CHEST_BOAT,
+            true
+    );
 
-    public static final EntityType<Boat> DEAD_SPEEDRUNNER_BOAT = register("dead_speedrunner_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.DEAD_SPEEDRUNNER_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> DEAD_SPEEDRUNNER_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("dead_speedrunner_boat"),
+            () -> ModItems.DEAD_SPEEDRUNNER_BOAT,
+            false
+    );
 
-    public static final EntityType<ChestBoat> DEAD_SPEEDRUNNER_CHEST_BOAT = register("dead_speedrunner_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<ChestBoat> DEAD_SPEEDRUNNER_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("dead_speedrunner_chest_boat"),
+            () -> ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT,
+            true
+    );
 
-    public static final EntityType<Boat> CRIMSON_BOAT = register("crimson_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.CRIMSON_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> CRIMSON_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("crimson_boat"),
+            () -> ModItems.CRIMSON_BOAT,
+            false
+    );
 
-    public static final EntityType<Boat> FIREPROOF_CRIMSON_BOAT = register("fireproof_crimson_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> FIREPROOF_CRIMSON_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("fireproof_crimson_boat"),
+            () -> ModItems.FIREPROOF_CRIMSON_BOAT,
+            false
+    );
 
-    public static final EntityType<ChestBoat> CRIMSON_CHEST_BOAT = register("crimson_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.CRIMSON_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<ChestBoat> CRIMSON_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("crimson_chest_boat"),
+            () -> ModItems.CRIMSON_CHEST_BOAT,
+            true
+    );
 
-    public static final EntityType<ChestBoat> FIREPROOF_CRIMSON_CHEST_BOAT = register("fireproof_crimson_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_CRIMSON_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<ChestBoat> FIREPROOF_CRIMSON_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("fireproof_crimson_chest_boat"),
+            () -> ModItems.FIREPROOF_CRIMSON_CHEST_BOAT,
+            true
+    );
 
-    public static final EntityType<Boat> WARPED_BOAT = register("warped_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.WARPED_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> WARPED_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("warped_boat"),
+            () -> ModItems.WARPED_BOAT,
+            false
+    );
 
-    public static final EntityType<Boat> FIREPROOF_WARPED_BOAT = register("fireproof_warped_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeBoatFactory(() -> ModItems.FIREPROOF_WARPED_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<Boat> FIREPROOF_WARPED_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("fireproof_warped_boat"),
+            () -> ModItems.FIREPROOF_WARPED_BOAT,
+            false
+    );
 
-    public static final EntityType<ChestBoat> WARPED_CHEST_BOAT = register("warped_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.WARPED_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
+    public static final EntityType<ChestBoat> WARPED_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("warped_chest_boat"),
+            () -> ModItems.WARPED_CHEST_BOAT,
+            true
+    );
 
-    public static final EntityType<ChestBoat> FIREPROOF_WARPED_CHEST_BOAT = register("fireproof_warped_chest_boat",
-            EntityType.Builder.of(EntityTypesInvoker.invokeChestBoatFactory(() -> ModItems.FIREPROOF_WARPED_CHEST_BOAT), MobCategory.MISC)
-                    .noLootTable()
-                    .sized(1.375F, 0.5625F)
-                    .eyeHeight(0.5625F)
-                    .clientTrackingRange(10));
-
-    /**
-     * Helper method for registering boat types.
-     */
-    private static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> type) {
-        return register(keyOf(id), type);
-    }
-
-    /**
-     * Helper method for registering boat types.
-     */
-    private static <T extends Entity> EntityType<T> register(ResourceKey<EntityType<?>> key, EntityType.Builder<T> type) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, type.build(key));
-    }
-
-    /**
-     * Returns a registry key with the speedrunner mod namespace.
-     */
-    private static ResourceKey<EntityType<?>> keyOf(String id) {
-        return ResourceKey.create(Registries.ENTITY_TYPE, ofSpeedrunnerMod(id));
-    }
+    public static final EntityType<ChestBoat> FIREPROOF_WARPED_CHEST_BOAT = Factories.registerBoatFactory(
+            ofSpeedrunnerMod("fireproof_warped_chest_boat"),
+            () -> ModItems.FIREPROOF_WARPED_CHEST_BOAT,
+            true
+    );
 
     /**
      * Initializes all {@code Speedrunner Mod entity types.}

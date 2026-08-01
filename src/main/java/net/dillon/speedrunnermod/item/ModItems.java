@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
@@ -19,8 +20,8 @@ import net.minecraft.world.item.component.TooltipDisplay;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.mixin.accessor.ItemsInvoker.registerModBlock;
-import static net.dillon.speedrunnermod.mixin.accessor.ItemsInvoker.registerModItem;
+import static net.dillon.dillonlib.mixin.accessor.ItemsInvoker.registerModBlock;
+import static net.dillon.dillonlib.mixin.accessor.ItemsInvoker.registerModItem;
 
 /**
  * All Speedrunner Mod {@code items.}
@@ -115,7 +116,7 @@ public class ModItems {
     public static final Item SPEEDRUNNER_BOW = registerModItem(ModItemIds.SPEEDRUNNER_BOW, SpeedrunnerBowItem::new);
     public static final Item SPEEDRUNNER_CROSSBOW = registerModItem(ModItemIds.SPEEDRUNNER_CROSSBOW, SpeedrunnerCrossbowItem::new);
     public static final Item SPEEDRUNNER_SHEARS = registerModItem(ModItemIds.SPEEDRUNNER_SHEARS, SpeedrunnerShearsItem::new);
-    public static final Item SPEEDRUNNER_FLINT_AND_STEEL = registerModItem(ModItemIds.SPEEDRUNNER_FLINT_AND_STEEL, FlintAndSteelItem::new,
+    public static final Item SPEEDRUNNER_FLINT_AND_STEEL = registerModItem(ModItemIds.SPEEDRUNNER_FLINT_AND_STEEL, IgnitableFactory.FlintAndSteel::new,
             new Item.Properties().stacksTo(1).durability(128));
 
     public static final Item SPEEDRUNNER_SHIELD = registerModItem(ModItemIds.SPEEDRUNNER_SHIELD, properties ->

@@ -6,9 +6,7 @@ import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.option.OptionValue;
 import net.dillon.speedrunnermod.particle.ModParticleManager;
-import net.dillon.speedrunnermod.render.ModRenderers;
 import net.dillon.speedrunnermod.screen.ModMenus;
-import net.dillon.speedrunnermod.screen.VersionType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -28,7 +26,6 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         ClientModPackets.registerClientPackets();
 
         ModParticleManager.registerDefaults();
-        ModRenderers.registerRenderers();
         ModMenus.registerScreens();
         ModKeyMappings.initializeKeybinds();
 
@@ -42,13 +39,6 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         Leaderboards.initializeLeaderboards();
 
         debug("The client-side for The Speedrunner Mod has successfully loaded.");
-    }
-
-    /**
-     * @return the version type for speedrunner mod.
-     */
-    public static VersionType getVersionType() {
-        return VersionType.PATCH;
     }
 
     /**

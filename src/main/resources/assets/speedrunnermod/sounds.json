@@ -4,5 +4,23 @@
     "sounds": [
       "speedrunnermod:entity_boat_paddle_lava"
     ]
+  },
+  "workbench.use_book": {
+    "subtitle": "workbench.gui.use_book",
+    "sounds": [
+      {
+        "name": "minecraft:block.enchantment_table.use",
+        "type": "event"
+      }
+    ]
+  },
+  "workbench.use_transfer": {
+    "subtitle": "workbench.gui.use_transfer",
+    "sounds": [
+      {
+        "name": "minecraft:block.smithing_table.use",
+        "type": "event"
+      }
+    ]
   }
 }

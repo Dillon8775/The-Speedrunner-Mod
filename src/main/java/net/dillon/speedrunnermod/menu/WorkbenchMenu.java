@@ -4,10 +4,10 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +19,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,7 @@ import java.util.Map;
  */
 public class WorkbenchMenu extends ItemCombinerMenu {
     private final DataSlot levelCost = DataSlot.standalone(); // Level cost variable
-    private final Map<Holder, Integer> enchantmentsToRemove = new HashMap<>(); // List of enchantments to remove from the item, with their respective level
+    private final Map<Holder<Enchantment>, Integer> enchantmentsToRemove = new HashMap<>(); // List of enchantments to remove from the item, with their respective level
     private final Map<Object2IntMap.Entry<Holder<Enchantment>>, Integer> enchantmentsToTransfer = new HashMap<>(); // List of enchantments to transfer over, with their respective level (mapped)
 
     /**
@@ -78,14 +79,14 @@ public class WorkbenchMenu extends ItemCombinerMenu {
      * Refresh the slots and give the player the item.
      */
     @Override
-    public void onTake(Player player, ItemStack stack) {
+    public void onTake(Player player, @NonNull ItemStack stack) {
         if (!player.getAbilities().instabuild) {
             player.giveExperienceLevels(-this.levelCost.get());
         }
 
         ItemStack newSlot1 = this.inputSlots.getItem(this.getInputSlot().index);
         // Remove the enchantment from the main hand item if it was transferred/upgraded to the offhand
-        for (Holder registryEntry : this.enchantmentsToRemove.keySet()) {
+        for (Holder<Enchantment> registryEntry : this.enchantmentsToRemove.keySet()) {
             EnchantmentHelper.updateEnchantments(newSlot1, builder -> builder.removeIf(enchantmentRegistryEntry -> enchantmentRegistryEntry.equals(registryEntry)));
         }
         this.inputSlots.setItem(this.getInputSlot().index, newSlot1);
@@ -95,7 +96,8 @@ public class WorkbenchMenu extends ItemCombinerMenu {
             this.inputSlots.setItem(this.getInputSlot().index, ItemStack.EMPTY);
             upgraded = true;
         }
-        if (this.inputSlots.getItem(this.getTransferToSlot().index).is(Items.BOOK) || ingot) {
+        boolean book = this.inputSlots.getItem(this.getTransferToSlot().index).is(Items.BOOK);
+        if (book || ingot) {
             this.inputSlots.setItem(this.getTransferToSlot().index, this.decrementedStack(this.inputSlots.getItem(this.getTransferToSlot().index).copy()));
             if (ingot) {
                 this.inputSlots.setItem(this.getSmithingTemplateSlot().index, this.decrementedStack(this.inputSlots.getItem(this.getSmithingTemplateSlot().index).copy()));
@@ -104,7 +106,7 @@ public class WorkbenchMenu extends ItemCombinerMenu {
             this.inputSlots.setItem(this.getTransferToSlot().index, ItemStack.EMPTY);
             this.inputSlots.setItem(this.getSmithingTemplateSlot().index, this.decrementedStack(this.inputSlots.getItem(this.getSmithingTemplateSlot().index).copy()));
         }
-        this.success(player, upgraded);
+        this.success(player, upgraded, book);
     }
 
     /**
@@ -132,8 +134,8 @@ public class WorkbenchMenu extends ItemCombinerMenu {
 
         // Run through all enchantments in the first slot
         for (Object2IntMap.Entry<Holder<Enchantment>> entry : slot1Enchantments.entrySet()) {
-            Holder registryEntry = entry.getKey();
-            Enchantment enchantment = (Enchantment)registryEntry.value();
+            Holder<Enchantment> registryEntry = entry.getKey();
+            Enchantment enchantment = registryEntry.value();
 
             // If second slot has no enchantments, and the enchantment wanting to be transferred is acceptable, transfer the enchantment
             if (!secondSlot.isEnchanted() && enchantment.canEnchant(secondSlot) || secondSlot.is(Items.BOOK)) {
@@ -159,9 +161,12 @@ public class WorkbenchMenu extends ItemCombinerMenu {
                     // Try to transfer enchantments
                     if ((allIsCompatible && enchantment.canEnchant(secondSlot)) || alreadyPresentButUpgradable) {
                         int slotBuilder = firstSlotBuilder.getLevel(entry.getKey());
-                        if (!(slotBuilder + 1 > 10) && secondSlotBuilder.getLevel(entry.getKey()) <= firstSlotBuilder.getLevel(entry.getKey())) {
-                            enchantmentsToTransfer.put(entry, secondSlotBuilder.getLevel(entry.getKey()) == slotBuilder
-                                    ? slotBuilder + 1 : slotBuilder);
+                        int maxLevel = 10;
+
+                        if (secondSlotBuilder.getLevel(entry.getKey()) <= slotBuilder) {
+                            int newLevel = secondSlotBuilder.getLevel(entry.getKey()) == slotBuilder ? slotBuilder + 1 : slotBuilder;
+                            newLevel = Math.min(newLevel, maxLevel);
+                            enchantmentsToTransfer.put(entry, newLevel);
                             enchantmentsToRemove.put(entry.getKey(), firstSlotBuilder.getLevel(entry.getKey()));
                             this.broadcastChanges();
                         }
@@ -203,7 +208,7 @@ public class WorkbenchMenu extends ItemCombinerMenu {
             // Additionally, divide output durability by (1.0 + (each enchantment level * 0.1))
             for (Map.Entry<Object2IntMap.Entry<Holder<Enchantment>>, Integer> entry : enchantmentsToTransfer.entrySet()) {
                 cost += entry.getValue(); // cost = (totalTransferredEnchantments + (eachEnchantmentsLevel))
-                outputDurability /= 1.0 + (entry.getValue() * 0.1); // outputDurability = (1.0 + (eachEnchantmentLevel * 0.1)) (ex. efficiency 5 would do -> outputDurability / 1.5, fortune 3 would do -> outputDurability / 1.3)
+                outputDurability /= 1.0 + (entry.getValue() * 0.06); // outputDurability = (1.0 + (eachEnchantmentLevel * 0.1)) (ex. efficiency 5 would do -> outputDurability / 1.5, fortune 3 would do -> outputDurability / 1.3)
             }
             // Set damage to output durability
             int newOutputDamage = output.getMaxDamage() - (int)outputDurability;
@@ -223,8 +228,8 @@ public class WorkbenchMenu extends ItemCombinerMenu {
     /**
      * A successful enchantment transfer.
      */
-    private void success(Player player, boolean upgraded) {
-        player.playSound(SoundEvents.SMITHING_TABLE_USE, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
+    private void success(Player player, boolean upgraded, boolean book) {
+        player.playSound(book ? ModSoundEvents.WORKBENCH_USE_BOOK : ModSoundEvents.WORKBENCH_USE_TRANSFER, 1.0F, this.player.getRandom().nextFloat() * 0.1F + 0.9F);
         player.giveExperienceLevels(this.levelCost.get());
         if (!upgraded && player instanceof ServerPlayer serverPlayer) {
             ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(serverPlayer, new ItemStack(ModItems.SPEEDRUNNERS_WORKBENCH));

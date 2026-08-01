@@ -1,10 +1,15 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.helper.ModHelper;
+import net.dillon.dillonlib.mixinplugin.PredicateEntry;
 
 import java.util.List;
 
-public class MixinPluginUtil extends AbstractMixinPluginUtil {
+public class SpeedrunnerModMixinPlugin extends AbstractMixinPluginUtil {
+
+    @Override
+    public String configFileName() {
+        return "speedrunnermod.json";
+    }
 
     @Override
     public List<PredicateEntry> entries() {
@@ -20,10 +25,5 @@ public class MixinPluginUtil extends AbstractMixinPluginUtil {
                         "\"the_end_gateway_block_entity_mixin\" is disabled."
                 )
         );
-    }
-
-    @Override
-    public String configFileName() {
-        return ModHelper.CONFIG_FILE_NAME;
     }
 }

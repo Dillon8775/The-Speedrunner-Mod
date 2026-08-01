@@ -29,8 +29,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
@@ -38,7 +38,7 @@ import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
  * The home initializer for the Speedrunner Mod.
  */
 public class SpeedrunnerMod implements ModInitializer {
-    private static final Logger LOGGER = LogManager.getLogger("Speedrunner Mod");
+    public static final Logger LOGGER = LoggerFactory.getLogger("Speedrunner Mod");
 
     /**
      * Initializes/registers all Speedrunner mod features, items, blocks, etc.
@@ -75,9 +75,10 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModBlocks.initializeBlocks();
         ModItems.initializeItems();
-        ModItemGroups.registerModifiedItemGroups();
+        ModItemGroups.initializeItemGroups();
 
         ModEventCallbacks.registerEventCallbacks();
+        ModDispenserBehaviors.registerDispenserBehaviors();
 
         ModTags.initializeAllTags();
 
