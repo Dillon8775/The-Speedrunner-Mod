@@ -80,20 +80,6 @@ public class ModHelper {
     public static double[] latestDeathCords = new double[]{0, 0, 0};
 
     /**
-     * @return if the quality of queso mod is loaded.
-     */
-    public static boolean isQualityOfQuesoLoaded() {
-        return FabricLoader.getInstance().isModLoaded("qualityofqueso");
-    }
-
-    /**
-     * @return if the simple keybinds is loaded.
-     */
-    public static boolean isSimpleKeybindsLoaded() {
-        return FabricLoader.getInstance().isModLoaded("simplekeybinds");
-    }
-
-    /**
      * Locates structures.
      */
     @Author(Authors.KWPUGH)

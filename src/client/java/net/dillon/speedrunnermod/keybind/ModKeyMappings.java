@@ -7,6 +7,7 @@ import net.blay09.mods.kuma.api.ManagedKeyMapping;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
+import net.dillon.speedrunnermod.platform.ModReferences;
 import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -56,9 +57,9 @@ public class ModKeyMappings {
             .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
             .withDefault(InputBinding.key(InputConstants.KEY_O))
             .handleWorldInput(input -> {
-                if (ModHelper.isQualityOfQuesoLoaded()) {
+                if (ModReferences.isModLoaded(ModReferences.QUALITY_OF_QUESO)) {
                     debugWarn("key.speedrunnermod.toggle_fog.quality_of_queso_loaded");
-                } else if (ModHelper.isSimpleKeybindsLoaded()) {
+                } else if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
                 } else if (!clientOptions().mixins.fogMixins.getCurrentValue()) {
                     debugWarn("key.speedrunnermod.toggle_fog.mixin_disabled");
@@ -76,7 +77,7 @@ public class ModKeyMappings {
             .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
             .withDefault(InputBinding.key(InputConstants.KEY_V))
             .handleWorldInput(input -> {
-                if (ModHelper.isSimpleKeybindsLoaded()) {
+                if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
                 } else if (!clientOptions().mixins.optionInstanceMixin.getCurrentValue()) {
                     debugWarn("key.speedrunnermod.toggle_fullbright.mixin_disabled");
@@ -95,7 +96,7 @@ public class ModKeyMappings {
             .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
             .withDefault(InputBinding.key(InputConstants.KEY_X))
             .handleWorldInput(input -> {
-                if (ModHelper.isSimpleKeybindsLoaded()) {
+                if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
                 } else {
                     boolean bl = Minecraft.getInstance().debugEntries.toggleStatus(DebugScreenEntries.ENTITY_HITBOXES);
@@ -110,7 +111,7 @@ public class ModKeyMappings {
             .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
             .withDefault(InputBinding.key(InputConstants.KEY_K))
             .handleWorldInput(input -> {
-                if (ModHelper.isSimpleKeybindsLoaded()) {
+                if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
                 } else {
                     boolean bl = Minecraft.getInstance().debugEntries.toggleStatus(DebugScreenEntries.ENTITY_HITBOXES);

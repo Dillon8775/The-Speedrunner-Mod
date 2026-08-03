@@ -143,5 +143,6 @@ modrinth {
 	loaders = ['fabric']
 	dependencies {
 		required.project "fabric-api"
+		required.project "dillonlib"
 	}
 }
