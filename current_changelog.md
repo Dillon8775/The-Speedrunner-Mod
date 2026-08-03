@@ -7,6 +7,7 @@
 - Fixed item group inconsistency.
 - Fixed dispenser behavior inconsistency.
 - Tweaked textures,
+- Reset world key is now defaulted to CTRL + R.
 - Speedrunner's workbench tweaks.
     - Slightly lowered the default durability damage when transferring enchantments.
     - Transferring enchantments to a book now plays the enchant book sound.

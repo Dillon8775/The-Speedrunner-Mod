@@ -1,9 +1,7 @@
 package net.dillon.speedrunnermod.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.blay09.mods.kuma.api.InputBinding;
-import net.blay09.mods.kuma.api.Kuma;
-import net.blay09.mods.kuma.api.ManagedKeyMapping;
+import net.blay09.mods.kuma.api.*;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
@@ -36,7 +34,7 @@ public class ModKeyMappings {
 
     public static final ManagedKeyMapping RESET_WORLD = Kuma.createKeyMapping(ofSpeedrunnerMod("create_new_world"))
             .overrideCategory(SPEEDRUNNER_MOD_KEY_CATEGORY)
-            .withDefault(InputBinding.key(InputConstants.KEY_R))
+            .withDefault(InputBinding.key(InputConstants.KEY_R, KeyModifiers.of(KeyModifier.CONTROL)))
             .handleWorldInput(input -> {
                 Minecraft minecraft = Minecraft.getInstance();
                 if (minecraft.isLocalServer() && minecraft.getCurrentServer() == null) {
