@@ -6,7 +6,8 @@
 - Logger now uses org.slf4j.
 - Fixed item group inconsistency.
 - Fixed dispenser behavior inconsistency.
-- Tweaked textures,
+- Tweaked textures.
+- Tweaked splash texts.
 - Reset world key is now defaulted to CTRL + R.
 - Speedrunner's workbench tweaks.
     - Slightly lowered the default durability damage when transferring enchantments.
