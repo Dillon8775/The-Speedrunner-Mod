@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.helper;
 
+import net.dillon.dillonlib.util.UpdateChecker;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.fabricmc.loader.api.FabricLoader;
@@ -18,6 +19,10 @@ public class ModConstants {
             .getModContainer("speedrunnermod")
             .map(c -> c.getMetadata().getVersion().getFriendlyString().split("\\+", 2)[0])
             .orElse("unknown");
+    public static boolean HAS_UPDATE = UpdateChecker.hasUpdate(UpdateChecker.checkForUpdate(
+            "speedrunner-mod",
+            MOD_VERSION)
+    );
     public static final String MC_VERSION = FabricLoader.getInstance().getRawGameVersion();
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";

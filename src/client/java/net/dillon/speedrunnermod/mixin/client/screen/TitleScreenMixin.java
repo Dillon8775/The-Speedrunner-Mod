@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
+import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.MainScreen;
@@ -78,6 +79,9 @@ public class TitleScreenMixin extends Screen {
         if (this.restartButton != null) {
             ClientModUtil.renderSyncIcon(context, this.restartButton, f);
         }
+        if (ModConstants.HAS_UPDATE && this.optionsButton != null) {
+            ClientTasks.drawUpdateSprite(context, this.optionsButton.getX() - 2, this.optionsButton.getY() - 2);
+        }
 
         this.renderTooltips(context, mouseX, mouseY);
         context.text(this.font, ModConstants.THE_SPEEDRUNNER_MOD_STRING + " " + ModConstants.MOD_VERSION, 2, this.height - 20, ARGB.color(f, 0x55FFFF));
@@ -97,7 +101,7 @@ public class TitleScreenMixin extends Screen {
         }
 
         if (this.optionsButton.isHovered()) {
-            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, this.font.split(ModConstants.HAS_UPDATE ? ModTexts.OPTIONS_UPDATE_TOOLTIP : ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.restartButton != null && this.restartButton.isHovered()) {

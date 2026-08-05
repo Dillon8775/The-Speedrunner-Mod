@@ -578,6 +578,7 @@
   "speedrunnermod.configure": "Configure...",
   "speedrunnermod.title.options": "Speedrunner Mod Options",
   "speedrunnermod.title.options.tooltip": "Speedrunner Mod Main Menu",
+  "speedrunnermod.title.update_available": "A newer version of the Speedrunner Mod is available",
   "speedrunnermod.menu.options.tooltip": "Configure the Speedrunner Mod...",
 
   "speedrunnermod.option.requires_restart": "§aRequires game restart.",

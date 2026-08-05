@@ -8,6 +8,7 @@ import net.dillon.speedrunnermod.helper.ModConstants;
 public class ModLinks {
     public static final String CURSEFORGE = "https://www.curseforge.com/minecraft/mc-mods/speedrunner-mod";
     public static final String MODRINTH = "https://modrinth.com/mod/speedrunner-mod";
+    public static final String MODRINTH_VERSIONS = "https://modrinth.com/mod/speedrunner-mod/versions";
     public static final String GITHUB = "https://github.com/Dillon8775/Speedrunner-Mod";
     public static final String SHOWCASE_VIDEO = "https://youtu.be/08z9VvnFacw";
     public static final String RELEASE_TRAILER = "https://youtu.be/u37ujBiCMCw";

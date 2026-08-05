@@ -186,6 +186,7 @@ public class ModTexts {
     public static final Component CREATE_WORLD_BUTTON_TOOLTIP = Component.translatable("speedrunnermod.create_world_button.desc");
     public static final Component CREATE_WORLD_BUTTON_DISABLED_TOOLTIP = Component.translatable("speedrunnermod.create_world_button.disabled");
     public static final Component OPTIONS_TOOLTIP = Component.translatable("speedrunnermod.title.options.tooltip");
+    public static final Component OPTIONS_UPDATE_TOOLTIP = Component.translatable("speedrunnermod.title.update_available");
     public static final Component RESTART_REQUIRED_TOOLTIP = Component.translatable("speedrunnermod.options.restart_required.tooltip");
 
     // Miscellaneous

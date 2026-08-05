@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.blay09.mods.kuma.api.*;
-import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.main.SpeedrunnerModClient;
 import net.dillon.speedrunnermod.platform.ModReferences;

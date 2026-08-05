@@ -1,5 +1,7 @@
 package net.dillon.speedrunnermod.network;
 
+import net.dillon.dillonlib.task.CommonTasks;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
@@ -15,13 +17,15 @@ import net.dillon.speedrunnermod.option.ModOptions;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
+import net.dillon.speedrunnermod.util.ModLinks;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.InteractionHand;
@@ -29,6 +33,7 @@ import net.minecraft.world.InteractionHand;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static net.dillon.dillonlib.task.ClientTasks.executeIfClientPlayer;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
 import static net.dillon.speedrunnermod.option.ClientModOptions.isActionbar;
@@ -107,8 +112,7 @@ public class ClientModPackets {
             ModHelper.errorMessagesSent = 0;
             sendNewC2SOptions();
 
-            LocalPlayer player = client.player;
-            if (player != null) {
+            executeIfClientPlayer(player -> {
                 int delayInTicks = 150;
                 new Timer().schedule(new TimerTask() {
                     @Override
@@ -116,7 +120,11 @@ public class ClientModPackets {
                         syncFwc(client, delayInTicks);
                     }
                 }, delayInTicks);
-            }
+
+                if (ModConstants.HAS_UPDATE) {
+                    CommonTasks.sendUpdateMessage(player, ModTexts.TITLE.copy().withStyle(ChatFormatting.AQUA), ModLinks.MODRINTH_VERSIONS, TextColor.AQUA.getValue());
+                }
+            });
         });
     }
 

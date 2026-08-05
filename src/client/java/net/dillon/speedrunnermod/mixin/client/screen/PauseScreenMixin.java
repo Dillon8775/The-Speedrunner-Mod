@@ -3,6 +3,8 @@ package net.dillon.speedrunnermod.mixin.client.screen;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.dillon.dillonlib.task.ClientTasks;
+import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
@@ -102,6 +104,9 @@ public class PauseScreenMixin extends Screen {
         if (this.restartButton != null) {
             ClientModUtil.renderSyncIcon(context, this.restartButton);
         }
+        if (ModConstants.HAS_UPDATE && this.optionsButton != null) {
+            ClientTasks.drawUpdateSprite(context, this.optionsButton.getX() - 2, this.optionsButton.getY() - 2);
+        }
 
         this.renderTooltips(context, mouseX, mouseY);
     }
@@ -116,7 +121,7 @@ public class PauseScreenMixin extends Screen {
         }
 
         if (this.optionsButton.isHovered()) {
-            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
+            context.setTooltipForNextFrame(this.font, this.font.split(ModConstants.HAS_UPDATE ? ModTexts.OPTIONS_UPDATE_TOOLTIP : ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
         }
         if (this.featuresButton.isHovered()) {
             context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);

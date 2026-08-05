@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
@@ -123,6 +124,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
             int imageHeight = this.height - 26;
             context.centeredText(this.font, Component.literal(ModConstants.MOD_VERSION).withStyle(ChatFormatting.AQUA), textWidth, textHeight, CommonColors.WHITE);
             context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/icon.png"), imageWidth, imageHeight, 0.0F, 0.0F, 18, 18, 18, 18);
+            if (ModConstants.HAS_UPDATE) {
+                ClientTasks.drawUpdateSprite(context, imageWidth - 3, imageHeight - 3);
+            }
         }
 
         if (this.searchField != null) {
