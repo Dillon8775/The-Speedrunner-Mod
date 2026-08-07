@@ -113,6 +113,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
 		mainFile.displayName = "[${mc_version.substring(2)}] $mod_name ${modVersionWithoutSuffix}"
 		mainFile.changelog = rootProject.file("${changelog_file}").text
 		mainFile.addRequirement("fabric-api")
+		mainFile.addRequirement("dillonlib")
 		def supportedVersions = supported_mc_versions
 				.split(",")
 				.collect { it.trim() }
@@ -121,6 +122,8 @@ tasks.register('curseforge', TaskPublishCurseForge) {
 		}
 		mainFile.releaseType = "release"
 		project.findProperty("curseforge_environments")?.split(",")?.toList()?.each { mainFile.addEnvironment(it) }
+		mainFile.addEnvironment("Client")
+		mainFile.addEnvironment("Server")
 	}
 }
 
@@ -143,6 +146,6 @@ modrinth {
 	loaders = ['fabric']
 	dependencies {
 		required.project "fabric-api"
-		required.project "dillonlib"
+		required.project "dillon-lib"
 	}
 }

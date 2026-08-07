@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item.eye;
 
+import net.dillon.dillonlib.task.CommonTasks;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.Awakened;
@@ -63,7 +64,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
         } else if (world.dimension() != Level.NETHER) {
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), ChatFormatting.RED, ChatFormatting.WHITE);
         } else {
-            List<Piglin> piglins = ModHelper.getEntitiesWithinRange(world, Piglin.class, player, options().advanced.piglinAwakenerSearchRadius.getCurrentValue(),
+            List<Piglin> piglins = CommonTasks.getEntitiesWithinRange(world, Piglin.class, player, options().advanced.piglinAwakenerSearchRadius.getCurrentValue(),
                     e ->
                             !e.hasCustomName()
                                     && !e.isBaby()

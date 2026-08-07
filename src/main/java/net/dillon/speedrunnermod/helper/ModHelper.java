@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.helper;
 
+import net.dillon.dillonlib.task.CommonTasks;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
@@ -52,7 +53,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
@@ -303,22 +303,7 @@ public class ModHelper {
      * @return a raw {@link List} of entities (excluding {@code named entities}) within a specified range.
      */
     public static List getEntitiesWithinRange(Level world, Class<? extends LivingEntity> entityListOf, LivingEntity startingPoint, List<Integer> xyz) {
-        return getEntitiesWithinRange(world, entityListOf, startingPoint, xyz, e -> !e.hasCustomName());
-    }
-
-    /**
-     * @return a raw {@link List} of entities (excluding {@code named entities}) within a specified range, and a custom predicate.
-     * @param world level reference
-     * @param entityListOf the list of entities to return, by class
-     * @param startingPoint the entity that the game should start searching from
-     * @param xyz an array of the maximum {@code x, y, and z} search radius
-     */
-    public static List getEntitiesWithinRange(Level world, Class<? extends LivingEntity> entityListOf, LivingEntity startingPoint, List<Integer> xyz, Predicate<? super LivingEntity> selector) {
-        return world.getEntitiesOfClass(entityListOf, startingPoint.getBoundingBox().inflate(
-                        xyz.getFirst(),
-                        xyz.get(1),
-                        xyz.get(2)),
-                selector);
+        return CommonTasks.getEntitiesWithinRange(world, entityListOf, startingPoint, xyz, e -> !e.hasCustomName());
     }
 
     /**
