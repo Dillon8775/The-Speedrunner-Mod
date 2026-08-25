@@ -38,7 +38,7 @@ public class ApplyEntityImpulseMixin {
 
         ApplyEntityImpulse self = (ApplyEntityImpulse) (Object) this;
         Vec3 extraImpulse = entity.getLookAngle()
-                .addLocalCoordinates(self.direction())
+                .add(self.direction())
                 .multiply(self.coordinateScale())
                 .scale(additionalLunge * enchantmentLevel);
         entity.addDeltaMovement(extraImpulse);

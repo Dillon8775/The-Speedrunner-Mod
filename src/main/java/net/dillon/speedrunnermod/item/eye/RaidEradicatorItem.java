@@ -25,6 +25,7 @@ import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
@@ -101,7 +102,7 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
                     this.playWorldSound(SoundEvents.RAVAGER_DEATH, 3.0F, 1.0F, world, player);
                 });
                 player.awardStat(Stats.ITEM_USED.get(this));
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 return InteractionResult.SUCCESS;
             }
         }

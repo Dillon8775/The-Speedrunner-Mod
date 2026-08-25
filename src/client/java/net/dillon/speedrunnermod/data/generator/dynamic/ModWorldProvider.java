@@ -22,7 +22,7 @@ public class ModWorldProvider extends FabricDynamicRegistryProvider {
         entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE));
         entries.addAll(registries.lookupOrThrow(Registries.STRUCTURE_SET));
         entries.addAll(registries.lookupOrThrow(Registries.TEMPLATE_POOL));
-        entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+        entries.addAll(registries.lookupOrThrow(Registries.FEATURE));
         entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
     }
 

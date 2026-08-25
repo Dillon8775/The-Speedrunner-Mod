@@ -67,8 +67,8 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
         registryBuilder.add(Registries.TEMPLATE_POOL, ModPools::bootstrap);
         registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
         registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, ModWorldFeatures::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, WastelandFeatures::bootstrap);
+        registryBuilder.add(Registries.FEATURE, ModWorldFeatures::bootstrap);
+        registryBuilder.add(Registries.FEATURE, WastelandFeatures::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, ModWorldPlacements::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, WastelandPlacements::bootstrap);
     }

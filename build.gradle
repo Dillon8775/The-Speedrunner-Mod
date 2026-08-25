@@ -1,10 +1,9 @@
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
-	id 'net.fabricmc.fabric-loom' version "${loom_version}"
 	id 'maven-publish'
-	id 'com.github.johnrengelman.shadow' version '8.1.1'
 
+	alias libs.plugins.fabricLoom
 	alias libs.plugins.curseForgeGradle apply(true)
 	alias libs.plugins.modrinthMinotaur apply(true)
 }
@@ -14,10 +13,6 @@ group = project.maven_group
 
 def modVersion = project.mod_version.toString()
 def modVersionWithoutSuffix = modVersion.contains("_") ? modVersion.substring(0, modVersion.indexOf("_")) : modVersion
-
-base {
-	archivesName = project.archives_base_name
-}
 
 loom {
 	splitEnvironmentSourceSets()
@@ -29,7 +24,28 @@ loom {
 		}
 	}
 
-	accessWidenerPath = file("src/main/resources/speedrunnermod.accessWidener")
+	def aw = file("src/main/resources/${mod_id}.accessWidener")
+	if (aw.exists()) {
+		accessWidenerPath.set(aw)
+	}
+	mixin {
+		defaultRefmapName.set("${mod_id}.refmap.json")
+	}
+
+	runs {
+		client {
+			client()
+			setConfigName('Minecraft Client')
+			ideConfigGenerated(true)
+
+			jvmArguments.add("-Ddevauth.enabled=" + "${devauth_enabled}")
+		}
+		server {
+			server()
+			setConfigName('Minecraft Server')
+			ideConfigGenerated(true)
+		}
+	}
 }
 
 fabricApi {
@@ -40,37 +56,17 @@ fabricApi {
 
 apply from: rootProject.file('repositories.gradle')
 apply from: 'dependencies.gradle'
-
-shadowJar {
-	// No longer required
-	// relocate 'org.reflections', 'net.dillon.shadowed.reflections'
-	// relocate 'javassist', 'net.dillon.shadowed.javassist'
-}
-
-processResources {
-	inputs.property "mod_version", modVersionWithoutSuffix
-	inputs.property "mc_version", project.mc_version
-	inputs.property "dillonlib_version", project.dillonlib_version
-
-	filesMatching("fabric.mod.json") {
-		expand "mod_version": modVersionWithoutSuffix,
-				"mc_version": project.mc_version,
-				"dillonlib_version": project.dillonlib_version
-	}
-}
+apply from: 'resources.gradle'
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
 }
 
 java {
-	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-	// if it is present.
-	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
 }
 
 jar {
@@ -79,11 +75,9 @@ jar {
 	}
 }
 
-// configure the maven publication
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
 			from components.java
 		}
 	}

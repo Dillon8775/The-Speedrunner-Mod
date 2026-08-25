@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.world.feature;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.mixin.accessor.OrePlacementsInvoker;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -13,7 +12,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 
 /**
@@ -36,20 +35,20 @@ public class WastelandPlacements {
      * See ModWorldGenerator for more.
      */
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> registryEntryLookup = context.lookup(Registries.CONFIGURED_FEATURE);
+        HolderGetter<Feature> registryEntryLookup = context.lookup(Registries.FEATURE);
 
         PlacementUtils.register(context, DEFAULT_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(WastelandFeatures.DEFAULT_SPEEDRUNNER),
                 PlacementUtils.countExtra(1, 0.05F, 1),
                 InSquarePlacement.spread(),
                 SurfaceWaterDepthFilter.forMaxDepth(0),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING)), BiomeFilter.biome());
         PlacementUtils.register(context, FANCY_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(WastelandFeatures.FANCY_SPEEDRUNNER),
                 PlacementUtils.countExtra(0, 0.20F, 1),
                 InSquarePlacement.spread(),
                 SurfaceWaterDepthFilter.forMaxDepth(0),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING)), BiomeFilter.biome());
         PlacementUtils.register(context, PATCH_RAW_SPEEDRUNNER_BLOCK_PLACED, registryEntryLookup.getOrThrow(WastelandFeatures.PATCH_RAW_SPEEDRUNNER_BLOCK),
                 RarityFilter.onAverageOnceEvery(20), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
         PlacementUtils.register(context, FLOWER_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(WastelandFeatures.FLOWER_SPEEDRUNNER),
@@ -58,7 +57,7 @@ public class WastelandPlacements {
                 PlacementUtils.HEIGHTMAP,
                 BiomeFilter.biome(),
                 CountPlacement.of(32),
-                RandomOffsetPlacement.ofTriangle(6, 2),
+                OffsetPlacement.ofTriangle(6, 2),
                 BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
         );
         PlacementUtils.register(context, SUGAR_CANE_WASTELAND, registryEntryLookup.getOrThrow(VegetationFeatures.SUGAR_CANE),
@@ -67,7 +66,7 @@ public class WastelandPlacements {
                 PlacementUtils.HEIGHTMAP,
                 BiomeFilter.biome(),
                 CountPlacement.of(64),
-                RandomOffsetPlacement.ofTriangle(3, 0),
+                OffsetPlacement.ofTriangle(3, 0),
                 VegetationFeatures.nearWaterPredicate(Blocks.SUGAR_CANE)
         );
         PlacementUtils.register(context, ORE_SPEEDRUNNER_UPPER, registryEntryLookup.getOrThrow(WastelandFeatures.ORE_SPEEDRUNNER),

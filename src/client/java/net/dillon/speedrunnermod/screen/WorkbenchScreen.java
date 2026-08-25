@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.dillonlib.util.CommonSprites;
 import net.dillon.speedrunnermod.menu.WorkbenchMenu;
 import net.dillon.speedrunnermod.tag.ModItemTags;
@@ -17,7 +18,6 @@ import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 import java.util.Optional;
@@ -128,7 +128,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
      */
     @Override
     public boolean keyPressed(KeyEvent input) {
-        if (input.key() == GLFW.GLFW_KEY_ESCAPE) {
+        if (input.key() == InputConstants.KEY_ESCAPE) {
             this.minecraft.player.closeContainer();
         }
 

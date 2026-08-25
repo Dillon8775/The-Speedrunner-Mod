@@ -5,10 +5,8 @@ import net.dillon.speedrunnermod.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -29,7 +27,6 @@ import java.util.concurrent.CompletableFuture;
 public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
     private static final float[] NEW_SAPLING_DROP_CHANCE = new float[]{0.075F, 0.0800F, 0.093333336F, 0.15F};
     private static final float[] NEW_LEAVES_STICK_DROP_CHANCE = new float[]{0.65F, 0.06555558F, 0.70F, 0.075F, 0.1F};
-    private final HolderLookup.RegistryLookup<Enchantment> impl = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
     protected ModBlockLootTableProvider(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(packOutput, registriesFuture);
@@ -82,7 +79,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
     private void addOreDrops() {
         add(ModBlocks.SPEEDRUNNER_ORE, (Block block) -> createOreDrop(block, ModItems.SPEEDRUNNER_INGOT));
         add(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, (Block block) -> createOreDrop(block, ModItems.SPEEDRUNNER_INGOT));
-        add(ModBlocks.NETHER_SPEEDRUNNER_ORE, (Block block) -> createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(ModItems.SPEEDRUNNER_NUGGET).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)))).apply(ApplyBonusCount.addOreBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
+        add(ModBlocks.NETHER_SPEEDRUNNER_ORE, (Block block) -> createSilkTouchDispatchTable(block, this.applyExplosionDecay(block, LootItem.lootTableItem(ModItems.SPEEDRUNNER_NUGGET).apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)))).apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))));
 
         add(ModBlocks.IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
         add(ModBlocks.DEEPSLATE_IGNEOUS_ORE, (Block block) -> igneousOreDrops(block, 2));
@@ -112,10 +109,10 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
     }
 
     private LootTable.Builder igneousOreDrops(Block dropWithSilkTouch, int min) {
-        return createSilkTouchDispatchTable(dropWithSilkTouch, applyExplosionDecay(dropWithSilkTouch, LootItem.lootTableItem(ModItems.IGNEOUS_ROCK).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, 6))).apply(ApplyBonusCount.addOreBonusCount(impl.getOrThrow(Enchantments.FORTUNE)))));
+        return createSilkTouchDispatchTable(dropWithSilkTouch, applyExplosionDecay(dropWithSilkTouch, LootItem.lootTableItem(ModItems.IGNEOUS_ROCK).apply(SetItemCountFunction.setCount(UniformGenerator.between(min, 6))).apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))));
     }
 
     private LootTable.Builder speedrunnerLeavesDrops(Block leaves, Item item, Block drop, boolean goldenApple, float ... chance) {
-        return createSilkTouchOrShearsDispatchTable(leaves, applyExplosionCondition(leaves, LootItem.lootTableItem(drop)).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), chance))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).when(doesNotHaveShearsOrSilkTouch()).add(applyExplosionCondition(leaves, LootItem.lootTableItem(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE))).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)).add(applyExplosionDecay(leaves, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))).when(BonusLevelTableCondition.bonusLevelFlatChance(impl.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
+        return createSilkTouchOrShearsDispatchTable(leaves, applyExplosionCondition(leaves, LootItem.lootTableItem(drop)).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), chance))).withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0f)).when(doesNotHaveShearsOrSilkTouch()).add(applyExplosionCondition(leaves, LootItem.lootTableItem(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE))).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)).add(applyExplosionDecay(leaves, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2))))).when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
     }
 }

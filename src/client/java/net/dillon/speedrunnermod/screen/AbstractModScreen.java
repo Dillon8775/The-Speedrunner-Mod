@@ -33,7 +33,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Util;
-import org.lwjgl.glfw.GLFW;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -455,28 +454,28 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * @return {@code true} if the {@code A} key is being held down.
      */
     protected boolean hasADown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_A);
+        return InputConstants.isKeyDown(InputConstants.KEY_A);
     }
 
     /**
      * @return {@code true} if the {@code X} key is being held down.
      */
     protected boolean hasXDown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_X);
+        return InputConstants.isKeyDown(InputConstants.KEY_X);
     }
 
     /**
      * @return {@code true} if the {@code Y} key is being held down.
      */
     protected boolean hasYDown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_Y);
+        return InputConstants.isKeyDown(InputConstants.KEY_Y);
     }
 
     /**
      * @return {@code true} if the {@code Z} key is being held down.
      */
     protected boolean hasZDown() {
-        return InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), GLFW.GLFW_KEY_Z);
+        return InputConstants.isKeyDown(InputConstants.KEY_Z);
     }
 
     /**

@@ -1,0 +1,25 @@
+def modVersion = project.mod_version.toString()
+def modVersionWithoutSuffix = modVersion.contains("_") ? modVersion.substring(0, modVersion.indexOf("_")) : modVersion
+
+project.extensions.add("modVersion", modVersion)
+project.extensions.add("modVersionWithoutSuffix", modVersionWithoutSuffix)
+
+processResources {
+    inputs.property "mod_id", project.mod_id
+    inputs.property "mod_version", modVersionWithoutSuffix
+    inputs.property "mc_version", project.mc_version
+    inputs.property "minecraft_version_range", project.minecraft_version_range
+    inputs.property "dillonlib_version", project.dillonlib_version
+    inputs.property "fabric_loader_version", project.fabric_loader_version
+    inputs.property "java_version", project.java_version
+
+    filesMatching("fabric.mod.json") {
+        expand "mod_id": mod_id,
+                "mod_version": modVersionWithoutSuffix,
+                "mc_version": project.mc_version,
+                "minecraft_version_range": project.minecraft_version_range,
+                "dillonlib_version": project.dillonlib_version,
+                "fabric_loader_version": project.fabric_loader_version,
+                "java_version": project.java_version
+    }
+}

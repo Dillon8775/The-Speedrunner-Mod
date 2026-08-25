@@ -20,3 +20,4 @@ accessible class net/minecraft/world/inventory/BrewingStandMenu$PotionSlot
 # Screens
 accessible class net/minecraft/client/OptionInstance$ValueSet
 accessible class net/minecraft/client/gui/Hud$HeartType
+accessible class net/minecraft/client/gui/screens/WorldOptionsScreen$DifficultyButtons

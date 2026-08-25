@@ -12,7 +12,6 @@ public enum Authors {
     KWPUGH,
     TURTYWURTY,
     TERRAFORMERSMC,
-    CECH12,
     BLOCKLEGEND001,
     YELEEFFF,
     SERILUM,

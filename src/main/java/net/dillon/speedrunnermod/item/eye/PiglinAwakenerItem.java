@@ -26,6 +26,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
@@ -55,7 +56,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
         } else if (this.isDisabled()) {
             this.playWorldSound(SoundEvents.PIGLIN_AMBIENT, 1.0F, world, player);
             player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled_twomode").withStyle(ChatFormatting.GOLD));
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             for (int i = 0; i < 8; i++) {
                 player.spawnAtLocation((ServerLevel)world, Items.GOLD_INGOT);
             }
@@ -118,7 +119,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                     this.decrementIfPossible(player, stack);
 
                     player.awardStat(Stats.ITEM_USED.get(this));
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                     return InteractionResult.SUCCESS;
                 }
             }

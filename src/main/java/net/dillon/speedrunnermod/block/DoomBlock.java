@@ -146,7 +146,7 @@ public class DoomBlock {
      */
     private static void spawnFloatingItemEntity(Level world, BlockPos pos, ItemStack stack, Player player, boolean playSound) {
         ItemEntity item = new ItemEntity(world, pos.getX() + 0.5F, pos.getY() + 3.0F, pos.getZ() + 0.5F, stack);
-        item.setInvulnerable(true);
+        item.setPermanentlyInvulnerable(true);
         item.setGlowingTag(true);
         item.setNoGravity(true);
         item.setUnlimitedLifetime();

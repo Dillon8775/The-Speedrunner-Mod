@@ -29,6 +29,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.permissions.PermissionSet;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.component.SwingAnimation;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -75,7 +76,7 @@ public class ClientModPackets {
         PayloadTypeRegistry.clientboundPlay().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(OpenFeaturesScreenS2CPacket.PACKET, (payload, context) -> {
-            context.player().swing(InteractionHand.MAIN_HAND, true);
+            context.player().swing(InteractionHand.MAIN_HAND, SwingAnimation.DEFAULT, true);
             context.client().gui.setScreen(new FeaturesScreen(null));
         });
     }

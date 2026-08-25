@@ -23,6 +23,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -51,7 +52,7 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
         } else if (this.isDisabled()) {
             this.playWorldSound(SoundEvents.BLAZE_SHOOT, world, player);
             player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled").withStyle(ChatFormatting.GOLD));
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             stack.shrink(1);
             player.spawnAtLocation((ServerLevel)world, Items.ENDER_PEARL);
             player.spawnAtLocation((ServerLevel)world, Items.FIRE_CHARGE);
@@ -76,7 +77,7 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
                 player.awardStat(Stats.ITEM_USED.get(this));
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 this.decrementIfPossible(player, stack);
                 return InteractionResult.SUCCESS;
             }
@@ -88,7 +89,7 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
      * Finds the nearest blaze spawner.
      */
     private BlockPos findNearestBlazeSpawner(ServerLevel world, BlockPos fortressPos) {
-        for (BlockPos pos : BlockPos.withinManhattan(fortressPos,
+        for (BlockPos pos : BlockPos.withinClippedManhattan(fortressPos,
                 options().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(),
                 options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1),
                 options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2))) {

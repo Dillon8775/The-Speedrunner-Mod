@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
@@ -15,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.CommonColors;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
 import java.util.List;
@@ -137,12 +137,12 @@ public class FeatureScreen extends AbstractScrollableScreen {
      */
     @Override
     public boolean keyPressed(KeyEvent input) {
-        if (input.key() == GLFW.GLFW_KEY_LEFT || input.key() == GLFW.GLFW_KEY_A) {
+        if (input.key() == InputConstants.KEY_LEFT || input.key() == InputConstants.KEY_A) {
             if (this.getPageNumber() != 1) {
                 this.minecraft.gui.setScreen(this.getPreviousScreen());
             }
             return true;
-        } else if (input.key() == GLFW.GLFW_KEY_RIGHT || input.key() == GLFW.GLFW_KEY_D) {
+        } else if (input.key() == InputConstants.KEY_RIGHT || input.key() == InputConstants.KEY_D) {
             if (featurePage.getCategory() == FeatureScreenCategory.FIRST_TIME_PLAYING && !(this.getPageNumber() < 3)) {
                 warn("Please choose an option!");
             } else if (this.getPageNumber() != this.getMaxPages()) {

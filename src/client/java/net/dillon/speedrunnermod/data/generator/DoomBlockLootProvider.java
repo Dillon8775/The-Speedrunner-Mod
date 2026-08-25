@@ -6,12 +6,17 @@ import net.dillon.speedrunnermod.loot.ModLootTables;
 import net.dillon.speedrunnermod.tag.ModPotionsTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableSubProvider;
+import net.fabricmc.fabric.impl.datagen.loot.FabricLootTableProviderImpl;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -41,6 +46,7 @@ public class DoomBlockLootProvider extends SimpleFabricLootTableSubProvider {
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
         HolderLookup.Provider lookup = this.registryLookupFuture.join();
+        HolderGetter<Enchantment> enchantments = lookup.lookupOrThrow(Registries.ENCHANTMENT);
         HolderSet<Potion> doomBlockPotions = lookup.getOrThrow(ModPotionsTags.DOOM_BLOCK_POTIONS);
         output.accept(ModLootTables.DOOM_BLOCK_LOOT, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
@@ -49,23 +55,23 @@ public class DoomBlockLootProvider extends SimpleFabricLootTableSubProvider {
                         )
                         .add(
                                 LootItem.lootTableItem(Items.DIAMOND_SWORD)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(lookup, UniformGenerator.between(20.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(20.0F, 33.0F)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.NETHERITE_CHESTPLATE)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(lookup, UniformGenerator.between(27.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(27.0F, 33.0F)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.BOW)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(lookup, UniformGenerator.between(30.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(30.0F, 33.0F)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.CROSSBOW)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(lookup, UniformGenerator.between(27.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(27.0F, 33.0F)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.IRON_CHESTPLATE)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(lookup, UniformGenerator.between(24.0F, 28.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(24.0F, 28.0F)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE)

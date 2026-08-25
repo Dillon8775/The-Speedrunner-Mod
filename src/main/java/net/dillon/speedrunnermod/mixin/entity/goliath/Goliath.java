@@ -581,7 +581,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
             if (tnt != null) {
                 tnt.setFuse(data[3]);
                 if (data[3] == 100) {
-                    tnt.setInvulnerable(true);
+                    tnt.setPermanentlyInvulnerable(true);
                 }
                 tnt.snapTo(
                         this.getX() + data[0],

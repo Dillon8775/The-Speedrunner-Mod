@@ -21,7 +21,6 @@ public class ModStructureTagGenerator extends FabricTagsProvider<Structure> {
      * <p>Common implementations of this class are provided.
      *
      * @param output               the {@link FabricPackOutput} instance
-     * @param registryKey
      * @param registryLookupFuture the backing registry for the tag type
      */
     public ModStructureTagGenerator(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {

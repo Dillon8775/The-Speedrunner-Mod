@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -53,7 +54,7 @@ public class DropExperienceBlockMixin extends Block {
             }
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("speedrunnermod.removed_silk_touch"), ChatFormatting.RED, ChatFormatting.WHITE);
             player.setItemInHand(hand, itemStack);
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             return InteractionResult.SUCCESS;
         } else {
             return super.useItemOn(stack, state, world, pos, player, hand, hit);

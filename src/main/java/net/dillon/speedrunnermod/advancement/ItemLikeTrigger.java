@@ -2,16 +2,16 @@ package net.dillon.speedrunnermod.advancement;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
@@ -34,10 +34,10 @@ public class ItemLikeTrigger extends SimpleCriterionTrigger<ItemLikeTrigger.Cond
     /**
      * The conditions for the item like trigger.
      */
-    public record Conditions(Optional<ContextAwarePredicate> player, Optional<ItemPredicate> item) implements SimpleCriterionTrigger.SimpleInstance {
+    public record Conditions(Optional<Holder<LootItemCondition>> player, Optional<ItemPredicate> item) implements SimpleCriterionTrigger.SimpleInstance {
         public static final Codec<ItemLikeTrigger.Conditions> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(
-                                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(ItemLikeTrigger.Conditions::player),
+                                LootItemCondition.CODEC.optionalFieldOf("player").forGetter(ItemLikeTrigger.Conditions::player),
                                 ItemPredicate.CODEC.optionalFieldOf("item").forGetter(ItemLikeTrigger.Conditions::item)
                         )
                         .apply(instance, ItemLikeTrigger.Conditions::new)

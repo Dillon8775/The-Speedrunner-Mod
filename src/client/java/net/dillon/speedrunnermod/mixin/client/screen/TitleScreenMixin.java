@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
@@ -17,7 +18,6 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.CommonColors;
-import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -114,7 +114,7 @@ public class TitleScreenMixin extends Screen {
      */
     @Override
     public boolean keyPressed(KeyEvent input) {
-        if (input.key() == GLFW.GLFW_KEY_R) {
+        if (input.key() == InputConstants.KEY_R) {
             this.minecraft.gui.setScreen(new TitleScreen());
         }
         return super.keyPressed(input);

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.menu.WorkbenchMenu;
+import net.dillon.speedrunnermod.option.Mode;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;

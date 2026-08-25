@@ -23,6 +23,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -65,7 +66,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
             this.playPitchedLaunchSound(0.4F, world, player);
 
             player.awardStat(Stats.ITEM_USED.get(this));
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
 
             this.decrementIfPossible(player, stack);
 
@@ -73,7 +74,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
         } else if (isBalancedMode()) {
             this.playWorldSound(SoundEvents.ENDER_EYE_LAUNCH, world, player);
             player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled_twomode").withStyle(ChatFormatting.LIGHT_PURPLE));
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             stack.shrink(1);
             player.spawnAtLocation((ServerLevel)world, Items.ENDER_PEARL);
             player.spawnAtLocation((ServerLevel)world, Items.ENDER_EYE);
@@ -98,7 +99,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 
                 player.awardStat(Stats.ITEM_USED.get(this));
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 this.playThrowSound(world, player);
 
                 this.decrementIfPossible(player, stack);
@@ -130,7 +131,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
      * Finds the nearest end portal frame block inside the stronghold.
      */
     private BlockPos findEndPortalFrame(Level world, BlockPos strongholdPos) {
-        for (BlockPos pos : BlockPos.withinManhattan(strongholdPos,
+        for (BlockPos pos : BlockPos.withinClippedManhattan(strongholdPos,
                 options().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
                 options().advanced.annulEyeSearchRadius.getCurrentValue().get(1),
                 options().advanced.annulEyeSearchRadius.getCurrentValue().get(2))) {

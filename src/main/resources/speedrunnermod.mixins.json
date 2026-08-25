@@ -15,7 +15,6 @@
     "accessor.OrePlacementsInvoker",
     "accessor.PiglinAiInvoker",
     "accessor.PoiTypesInvoker",
-    "accessor.RegistryEntryListDirectAccessor",
     "accessor.SmithingTemplateItemInvoker",
     "accessor.TreeFeaturesInvoker",
     "attribute.AttributeMixin",

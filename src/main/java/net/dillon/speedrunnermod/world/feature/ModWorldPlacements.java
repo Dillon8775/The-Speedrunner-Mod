@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.mixin.accessor.OrePlacementsInvoker;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
@@ -11,7 +10,7 @@ import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.placement.*;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
@@ -42,17 +41,17 @@ public class ModWorldPlacements {
      * See ModWorldGenerator for more.
      */
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> registryEntryLookup = context.lookup(Registries.CONFIGURED_FEATURE);
+        HolderGetter<Feature> registryEntryLookup = context.lookup(Registries.FEATURE);
 
         PlacementUtils.register(context, DEAD_SPEEDRUNNER_PLACED, registryEntryLookup.getOrThrow(ModWorldFeatures.DEAD_SPEEDRUNNER),
                 PlacementUtils.countExtra(0, 0.10F, 1),
                 InSquarePlacement.spread(),
                 SurfaceWaterDepthFilter.forMaxDepth(0),
                 PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.defaultBlockState(), BlockPos.ZERO)), BiomeFilter.biome());
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING)), BiomeFilter.biome());
         PlacementUtils.register(context, DEAD_SPEEDRUNNER_PLACED_NETHER, registryEntryLookup.getOrThrow(ModWorldFeatures.DEAD_SPEEDRUNNER),
                 CountOnEveryLayerPlacement.of(1),
-                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING.defaultBlockState(), BlockPos.ZERO)),
+                BlockPredicateFilter.forPredicate(BlockPredicate.wouldSurvive(ModBlocks.SPEEDRUNNER_SAPLING)),
                 BiomeFilter.biome());
         PlacementUtils.register(context, DOOM_TREE_PLACED, registryEntryLookup.getOrThrow(ModWorldFeatures.DOOM_TREE), VegetationPlacements.worldSurfaceSquaredWithCount(1));
         PlacementUtils.register(context, ORE_SPEEDRUNNER_UPPER, registryEntryLookup.getOrThrow(ModWorldFeatures.ORE_SPEEDRUNNER),

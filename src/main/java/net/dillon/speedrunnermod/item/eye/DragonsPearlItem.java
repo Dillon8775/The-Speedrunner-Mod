@@ -18,6 +18,7 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.enderdragon.phases.EnderDragonPhase;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
@@ -44,7 +45,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
             this.playWorldSound(SoundEvents.ENDER_EYE_DEATH, world, player);
             stack.shrink(1);
             player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled_twomode").withStyle(ChatFormatting.LIGHT_PURPLE));
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             player.spawnAtLocation((ServerLevel)world, Items.ENDER_PEARL);
             player.spawnAtLocation((ServerLevel)world, Items.BLAZE_POWDER);
             player.spawnAtLocation((ServerLevel)world, Items.FIRE_CHARGE);
@@ -72,7 +73,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
                     this.playWorldSound(SoundEvents.ENDER_DRAGON_GROWL, 3.0F, 0.65F, world, player);
 
                     player.awardStat(Stats.ITEM_USED.get(this));
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                     return InteractionResult.SUCCESS;
                 } else {
                     if (!isDragonDead(enderDragon)) {
@@ -85,7 +86,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
                         ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.dragons_pearl.dragon_dead").withStyle(ChatFormatting.LIGHT_PURPLE));
                     }
                     this.playPitchedLaunchSound(5.0F, world, player);
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                 }
             }
         }

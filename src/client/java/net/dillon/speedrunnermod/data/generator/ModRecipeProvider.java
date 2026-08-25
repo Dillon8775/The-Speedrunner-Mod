@@ -8,13 +8,16 @@ import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.ShapedRecipePattern;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
@@ -35,8 +38,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, RecipeOutput recipeExporter) {
-        return new RecipeProvider(wrapperLookup, recipeExporter) {
+    protected RecipeProvider createRecipeProvider(HolderLookup.Provider wrapperLookup, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
+        return new RecipeProvider(recipes, advancements) {
 
             @Override
             public void buildRecipes() {
@@ -430,7 +433,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                                 RecipeBuilder.createCraftingBookInfo(RecipeCategory.MISC, "piglin_awakener"),
                                 ShapedRecipePattern.of(
                                         Map.of('#', Ingredient.of(Items.GOLD_INGOT),
-                                                'O', Ingredient.of(this.registries.getOrThrow(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES))),
+                                                'O', Ingredient.of(wrapperLookup.getOrThrow(ModItemTags.PIGLIN_AWAKENER_CRAFTABLES))),
                                         "###",
                                         "#O#",
                                         "###"

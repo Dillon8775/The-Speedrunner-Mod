@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -45,7 +46,7 @@ public class EnderThrusterItem extends Item implements SpeedrunnerItem {
             this.playWorldSound(SoundEvents.ENDERMAN_AMBIENT, world, player);
             stack.shrink(1);
             player.sendSystemMessage(Component.translatable("item.speedrunnermod.item_disabled_twomode").withStyle(ChatFormatting.BLUE));
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             player.spawnAtLocation((ServerLevel)world, Items.ENDER_PEARL);
             player.spawnAtLocation((ServerLevel)world, ModItems.SPEEDRUNNERS_EYE);
         } else if (world.dimension() == Level.NETHER) {
@@ -78,7 +79,7 @@ public class EnderThrusterItem extends Item implements SpeedrunnerItem {
 
                 player.randomTeleport(topPos.getX() + 0.5F, topY, topPos.getZ() + 0.5F, false);
                 player.awardStat(Stats.ITEM_USED.get(this));
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 world.broadcastEntityEvent(player, ModStatuses.ADD_BLUE_PORTAL_PARTICLES);
                 this.playThrowSound(world, player);
                 this.playTeleportSound(world, player);

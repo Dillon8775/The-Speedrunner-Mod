@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.sounds.AmbientLeavesBlockSoundPlayer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -40,14 +41,14 @@ public class ModBlocks {
             .instrument(NoteBlockInstrument.BASS)
             .sound(SoundType.WOOD));
 
-    public static final Block SPEEDRUNNER_LEAVES = Blocks.register(ModBlockItemIds.SPEEDRUNNER_LEAVES.block(), settings -> new UntintedParticleLeavesBlock(0.00F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, ARGB.opaque(0xAED6F1)), settings), Block.Properties.of()
+    public static final Block SPEEDRUNNER_LEAVES = Blocks.register(ModBlockItemIds.SPEEDRUNNER_LEAVES.block(), settings -> new UntintedParticleLeavesBlock(0.00F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, ARGB.opaque(0xAED6F1)), AmbientLeavesBlockSoundPlayer.noAmbientSound(), settings), Block.Properties.of()
             .strength(0.1F)
             .noOcclusion()
             .randomTicks()
             .isValidSpawn(Blocks::ocelotOrParrot)
             .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never)
-            .pushReaction(PushReaction.DESTROY)
+            .isViewBlocking((state, level, pos, aabb) -> false)
+            .pushReaction(PushReaction.POPPED)
             .isRedstoneConductor(Blocks::never)
             .sound(SoundType.GRASS));
 
@@ -60,7 +61,7 @@ public class ModBlocks {
     public static final Block POTTED_SPEEDRUNNER_SAPLING = Blocks.register(ModBlockIds.POTTED_SPEEDRUNNER_SAPLING, settings -> new FlowerPotBlock(ModBlocks.SPEEDRUNNER_SAPLING, settings), Block.Properties.of()
             .instabreak()
             .noOcclusion()
-            .pushReaction(PushReaction.DESTROY));
+            .pushReaction(PushReaction.POPPED));
 
     public static final Block SPEEDRUNNER_PLANKS = Blocks.register(ModBlockItemIds.SPEEDRUNNER_PLANKS.block(), Block::new, Block.Properties.of()
             .strength(1.0F)
@@ -94,28 +95,28 @@ public class ModBlocks {
     public static final Block SPEEDRUNNER_BUTTON = Blocks.register(ModBlockItemIds.SPEEDRUNNER_BUTTON.block(), settings -> new ButtonBlock(BlockSetType.OAK, 30, settings), Block.Properties.of()
             .strength(0.35F)
             .noCollision()
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.WOOD));
 
     public static final Block SPEEDRUNNER_PRESSURE_PLATE = Blocks.register(ModBlockItemIds.SPEEDRUNNER_PRESSURE_PLATE.block(), settings -> new PressurePlateBlock(BlockSetType.OAK, settings), Block.Properties.of()
             .strength(0.35F)
             .noCollision()
             .instrument(NoteBlockInstrument.BASS)
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.WOOD));
 
     public static final Block SPEEDRUNNER_DOOR = Blocks.register(ModBlockItemIds.SPEEDRUNNER_DOOR.block(), settings -> new DoorBlock(BlockSetType.OAK, settings), Block.Properties.of()
             .strength(1.3F)
             .noOcclusion()
             .instrument(NoteBlockInstrument.BASS)
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.WOOD));
 
     public static final Block DEAD_SPEEDRUNNER_LOG = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_LOG.block(), RotatedPillarBlock::new, Block.Properties.ofFullCopy(ModBlocks.SPEEDRUNNER_LOG).ignitedByLava());
     public static final Block DEAD_STRIPPED_SPEEDRUNNER_LOG = Blocks.register(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_LOG.block(), RotatedPillarBlock::new, Block.Properties.ofFullCopy(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).ignitedByLava());
     public static final Block DEAD_SPEEDRUNNER_WOOD = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD.block(), RotatedPillarBlock::new, Block.Properties.ofFullCopy(ModBlocks.SPEEDRUNNER_WOOD).ignitedByLava());
     public static final Block DEAD_STRIPPED_SPEEDRUNNER_WOOD = Blocks.register(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_WOOD.block(), RotatedPillarBlock::new, Block.Properties.ofFullCopy(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD).ignitedByLava());
-    public static final Block DEAD_SPEEDRUNNER_LEAVES = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_LEAVES.block(), settings -> new UntintedParticleLeavesBlock(0.00F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, ARGB.opaque(0x8F9EA8)), settings), Block.Properties.ofFullCopy(ModBlocks.SPEEDRUNNER_LEAVES).ignitedByLava());
+    public static final Block DEAD_SPEEDRUNNER_LEAVES = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_LEAVES.block(), settings -> new UntintedParticleLeavesBlock(0.00F, ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, ARGB.opaque(0x8F9EA8)), AmbientLeavesBlockSoundPlayer.noAmbientSound(), settings), Block.Properties.ofFullCopy(ModBlocks.SPEEDRUNNER_LEAVES).ignitedByLava());
     public static final Block DEAD_SPEEDRUNNER_SAPLING = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_SAPLING.block(), settings -> new SpeedrunnerSaplingBlock(ModSaplingGenerators.DEAD_SPEEDRUNNER, settings), Block.Properties.ofFullCopy(ModBlocks.SPEEDRUNNER_SAPLING).ignitedByLava());
     public static final Block DEAD_POTTED_SPEEDRUNNER_SAPLING = Blocks.register(ModBlockIds.DEAD_POTTED_SPEEDRUNNER_SAPLING, settings -> new FlowerPotBlock(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, settings), Block.Properties.ofFullCopy(ModBlocks.DEAD_SPEEDRUNNER_SAPLING).ignitedByLava());
     public static final Block DEAD_SPEEDRUNNER_PLANKS = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_PLANKS.block(), Block::new, Block.Properties.ofFullCopy(ModBlocks.SPEEDRUNNER_PLANKS).ignitedByLava());
@@ -140,7 +141,7 @@ public class ModBlocks {
             .requiresCorrectToolForDrops()
             .strength(0.5F)
             .noCollision()
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.WOOD));
 
     public static final Block METAL_SPEEDRUNNER_DOOR = Blocks.register(ModBlockItemIds.METAL_SPEEDRUNNER_DOOR.block(), settings -> new DoorBlock(BlockSetType.IRON, settings), Block.Properties.of()
@@ -148,19 +149,19 @@ public class ModBlocks {
             .strength(2.5F)
             .noOcclusion()
             .instrument(NoteBlockInstrument.BASS)
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.METAL));
 
     public static final Block DEAD_SPEEDRUNNER_BUSH = Blocks.register(ModBlockItemIds.DEAD_SPEEDRUNNER_BUSH.block(), DryVegetationBlock::new, Block.Properties.of()
             .instabreak()
             .noCollision()
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.GRASS));
 
     public static final Block POTTED_DEAD_SPEEDRUNNER_BUSH = Blocks.register(ModBlockIds.DEAD_POTTED_SPEEDRUNNER_BUSH, settings -> new FlowerPotBlock(ModBlocks.DEAD_SPEEDRUNNER_BUSH, settings), Block.Properties.of()
             .instabreak()
             .noCollision()
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .sound(SoundType.GRASS));
 
     public static final Block SPEEDRUNNERS_WORKBENCH = Blocks.register(ModBlockItemIds.SPEEDRUNNERS_WORKBENCH.block(), SpeedrunnersWorkbenchBlock::new, Block.Properties.of()
@@ -259,8 +260,8 @@ public class ModBlocks {
             .noOcclusion()
             .randomTicks()
             .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never)
-            .pushReaction(PushReaction.DESTROY)
+            .isViewBlocking((state, level, pos, aabb) -> false)
+            .pushReaction(PushReaction.POPPED)
             .isRedstoneConductor(Blocks::never)
             .sound(SoundType.GRASS));
 
