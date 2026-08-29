@@ -64,24 +64,24 @@ public class SpeedrunnersEyeItem extends Item implements SpeedrunnerItem {
                     itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.DESERT_PYRAMIDS);
                     this.playWorldSound(SoundEvents.SAND_PLACE, 4.0F, 1.0F, world, player);
                 } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.DESERT_PYRAMIDS)) {
-                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_JUNGLE_EXPLORER_MAPS);
+                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_JUNGLE_PYRAMID_MAPS);
                     this.playWorldSound(SoundEvents.OCELOT_AMBIENT, 5.0F, 1.0F, world, player);
-                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_JUNGLE_EXPLORER_MAPS)) {
-                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_WOODLAND_EXPLORER_MAPS);
+                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_JUNGLE_PYRAMID_MAPS)) {
+                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_WOODLAND_MANSION_MAPS);
                     this.playWorldSound(SoundEvents.VINDICATOR_AMBIENT, world, player);
-                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
+                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_WOODLAND_MANSION_MAPS)) {
                     itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.PILLAGER_OUTPOSTS);
                     this.playWorldSound(SoundEvents.PILLAGER_AMBIENT, world, player);
                 } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.PILLAGER_OUTPOSTS)) {
-                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_OCEAN_EXPLORER_MAPS);
+                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_OCEAN_MONUMENT_MAPS);
                     this.playWorldSound(SoundEvents.ELDER_GUARDIAN_AMBIENT, world, player);
-                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_OCEAN_EXPLORER_MAPS)) {
+                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_OCEAN_MONUMENT_MAPS)) {
                     itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.ANCIENT_CITIES);
                     this.playWorldSound(SoundEvents.WARDEN_HEARTBEAT, world, player);
                 } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.ANCIENT_CITIES)) {
-                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_TRIAL_CHAMBERS_MAPS);
+                    itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, StructureTags.ON_BURIED_TRIAL_CHAMBERS_MAPS);
                     this.playWorldSound(SoundEvents.TRIAL_SPAWNER_DETECT_PLAYER, world, player);
-                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_TRIAL_CHAMBERS_MAPS)) {
+                } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(StructureTags.ON_BURIED_TRIAL_CHAMBERS_MAPS)) {
                     itemStack.set(ModDataComponentTypes.LOCATING_STRUCTURE, ModStructureTags.TRAIL_RUINS);
                     this.playWorldSound(SoundEvents.BRUSH_GRAVEL, 3.0F, 1.0F, world, player);
                 } else if (itemStack.get(ModDataComponentTypes.LOCATING_STRUCTURE).equals(ModStructureTags.TRAIL_RUINS)) {

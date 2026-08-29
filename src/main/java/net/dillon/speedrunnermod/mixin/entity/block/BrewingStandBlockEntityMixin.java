@@ -13,8 +13,8 @@ public class BrewingStandBlockEntityMixin {
     /**
      * Makes potions brew faster.
      */
-    @ModifyConstant(method = "serverTick", constant = @Constant(intValue = 400))
-    private static int changeBrewTime(int original) {
-        return options().general.fasterBrewing.getCurrentValue() ? 100 : original;
+    @ModifyConstant(method = "serverTick", constant = @Constant(floatValue = 400.0F))
+    private static float changeBrewTime(float original) {
+        return options().general.fasterBrewing.getCurrentValue() ? 100.0F : original;
     }
 }

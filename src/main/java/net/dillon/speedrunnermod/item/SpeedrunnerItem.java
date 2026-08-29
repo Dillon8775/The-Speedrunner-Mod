@@ -66,9 +66,9 @@ public interface SpeedrunnerItem {
             structure = Component.translatable("speedrunnermod.structure.shipwreck").withStyle(ChatFormatting.AQUA);
         } else if (structureType.equals(StructureTags.MINESHAFT)) {
             structure = Component.translatable("speedrunnermod.structure.mineshaft").withStyle(ChatFormatting.GOLD);
-        } else if (structureType.equals(StructureTags.ON_OCEAN_EXPLORER_MAPS)) {
+        } else if (structureType.equals(StructureTags.ON_OCEAN_MONUMENT_MAPS)) {
             structure = Component.translatable("speedrunnermod.structure.ocean_monument").withStyle(ChatFormatting.BLUE);
-        } else if (structureType.equals(StructureTags.ON_WOODLAND_EXPLORER_MAPS)) {
+        } else if (structureType.equals(StructureTags.ON_WOODLAND_MANSION_MAPS)) {
             structure = Component.translatable("speedrunnermod.structure.woodland_mansion").withStyle(ChatFormatting.GRAY);
         } else if (structureType.equals(ModStructureTags.PILLAGER_OUTPOSTS)) {
             structure = Component.translatable("speedrunnermod.structure.pillager_outpost").withStyle(ChatFormatting.GOLD);
@@ -76,11 +76,11 @@ public interface SpeedrunnerItem {
             structure = Component.translatable("speedrunnermod.structure.igloo").withStyle(ChatFormatting.WHITE);
         }  else if (structureType.equals(ModStructureTags.DESERT_PYRAMIDS)) {
             structure = Component.translatable("speedrunnermod.structure.desert_pyramid").withStyle(ChatFormatting.YELLOW);
-        } else if (structureType.equals(StructureTags.ON_JUNGLE_EXPLORER_MAPS)) {
+        } else if (structureType.equals(StructureTags.ON_JUNGLE_PYRAMID_MAPS)) {
             structure = Component.translatable("speedrunnermod.structure.jungle_temple").withStyle(ChatFormatting.DARK_GREEN);
         } else if (structureType.equals(ModStructureTags.ANCIENT_CITIES)) {
             structure = Component.translatable("speedrunnermod.structure.ancient_city").withStyle(ChatFormatting.DARK_BLUE);
-        } else if (structureType.equals(StructureTags.ON_TRIAL_CHAMBERS_MAPS)) {
+        } else if (structureType.equals(StructureTags.ON_BURIED_TRIAL_CHAMBERS_MAPS)) {
             structure = Component.translatable("speedrunnermod.structure.trial_chamber").withStyle(ChatFormatting.GREEN);
         } else if (structureType.equals(ModStructureTags.TRAIL_RUINS)) {
             structure = Component.translatable("speedrunnermod.structure.trial_ruin").withStyle(ChatFormatting.DARK_GREEN);

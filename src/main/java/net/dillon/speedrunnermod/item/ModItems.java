@@ -3,6 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
+import net.dillon.speedrunnermod.component.ModNumberProviders;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
 import net.dillon.speedrunnermod.item.equipment.*;
 import net.dillon.speedrunnermod.item.eye.*;
@@ -327,42 +328,39 @@ public class ModItems {
     public static final Item SPEEDRUNNERS_TOTEM = registerModItem(ModItemIds.SPEEDRUNNERS_TOTEM, SpeedrunnersTotemItem::new);
     public static final Item DRAGON_FIREBALL = registerModItem(ModItemIds.DRAGON_FIREBALL, DragonFireballItem::new);
 
-    public static final Item SPEEDRUNNER_LOG = registerModBlock(ModBlockItemIds.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LOG);
-    public static final Item STRIPPED_SPEEDRUNNER_LOG = registerModBlock(ModBlockItemIds.STRIPPED_SPEEDRUNNER_LOG, ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
-    public static final Item SPEEDRUNNER_WOOD = registerModBlock(ModBlockItemIds.SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_WOOD);
-    public static final Item STRIPPED_SPEEDRUNNER_WOOD = registerModBlock(ModBlockItemIds.STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
+    public static final Item SPEEDRUNNER_LOG = registerModBlock(ModBlockItemIds.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LOG, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_LOG));
+    public static final Item SPEEDRUNNER_WOOD = registerModBlock(ModBlockItemIds.SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_WOOD, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_WOOD));
     public static final Item SPEEDRUNNER_LEAVES = registerModBlock(ModBlockItemIds.SPEEDRUNNER_LEAVES, ModBlocks.SPEEDRUNNER_LEAVES);
-    public static final Item SPEEDRUNNER_SAPLING = registerModBlock(ModBlockItemIds.SPEEDRUNNER_SAPLING, ModBlocks.SPEEDRUNNER_SAPLING);
-    public static final Item SPEEDRUNNER_PLANKS = registerModBlock(ModBlockItemIds.SPEEDRUNNER_PLANKS, ModBlocks.SPEEDRUNNER_PLANKS);
-    public static final Item SPEEDRUNNER_SLAB = registerModBlock(ModBlockItemIds.SPEEDRUNNER_SLAB, ModBlocks.SPEEDRUNNER_SLAB);
-    public static final Item SPEEDRUNNER_STAIRS = registerModBlock(ModBlockItemIds.SPEEDRUNNER_STAIRS, ModBlocks.SPEEDRUNNER_STAIRS);
-    public static final Item SPEEDRUNNER_FENCE = registerModBlock(ModBlockItemIds.SPEEDRUNNER_FENCE, ModBlocks.SPEEDRUNNER_FENCE);
-    public static final Item SPEEDRUNNER_FENCE_GATE = registerModBlock(ModBlockItemIds.SPEEDRUNNER_FENCE_GATE, ModBlocks.SPEEDRUNNER_FENCE_GATE);
-    public static final Item SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.SPEEDRUNNER_TRAPDOOR, ModBlocks.SPEEDRUNNER_TRAPDOOR);
-    public static final Item SPEEDRUNNER_BUTTON = registerModBlock(ModBlockItemIds.SPEEDRUNNER_BUTTON, ModBlocks.SPEEDRUNNER_BUTTON);
-    public static final Item SPEEDRUNNER_PRESSURE_PLATE = registerModBlock(ModBlockItemIds.SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.SPEEDRUNNER_PRESSURE_PLATE);
-    public static final Item SPEEDRUNNER_DOOR = registerModBlock(ModBlockItemIds.SPEEDRUNNER_DOOR, ModBlocks.SPEEDRUNNER_DOOR, DoubleHighBlockItem::new);
+    public static final Item SPEEDRUNNER_SAPLING = registerModBlock(ModBlockItemIds.SPEEDRUNNER_SAPLING, ModBlocks.SPEEDRUNNER_SAPLING, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_SAPLING));
+    public static final Item SPEEDRUNNER_PLANKS = registerModBlock(ModBlockItemIds.SPEEDRUNNER_PLANKS, ModBlocks.SPEEDRUNNER_PLANKS, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_PLANKS));
+    public static final Item SPEEDRUNNER_SLAB = registerModBlock(ModBlockItemIds.SPEEDRUNNER_SLAB, ModBlocks.SPEEDRUNNER_SLAB, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_SLAB));
+    public static final Item SPEEDRUNNER_STAIRS = registerModBlock(ModBlockItemIds.SPEEDRUNNER_STAIRS, ModBlocks.SPEEDRUNNER_STAIRS, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_STAIRS));
+    public static final Item SPEEDRUNNER_FENCE = registerModBlock(ModBlockItemIds.SPEEDRUNNER_FENCE, ModBlocks.SPEEDRUNNER_FENCE, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_FENCE));
+    public static final Item SPEEDRUNNER_FENCE_GATE = registerModBlock(ModBlockItemIds.SPEEDRUNNER_FENCE_GATE, ModBlocks.SPEEDRUNNER_FENCE_GATE, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_FENCE_GATE));
+    public static final Item SPEEDRUNNER_BUTTON = registerModBlock(ModBlockItemIds.SPEEDRUNNER_BUTTON, ModBlocks.SPEEDRUNNER_BUTTON, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_BUTTON));
+    public static final Item SPEEDRUNNER_PRESSURE_PLATE = registerModBlock(ModBlockItemIds.SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.SPEEDRUNNER_PRESSURE_PLATE, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_PRESSURE_PLATE));
+    public static final Item SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.SPEEDRUNNER_TRAPDOOR, ModBlocks.SPEEDRUNNER_TRAPDOOR, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_TRAPDOOR));
+    public static final Item SPEEDRUNNER_DOOR = registerModBlock(ModBlockItemIds.SPEEDRUNNER_DOOR, ModBlocks.SPEEDRUNNER_DOOR, (block, properties) -> new DoubleHighBlockItem(block, properties.cookingFuel(ModNumberProviders.COOKING_TIME_SPEEDRUNNER_DOOR)));
 
-    public static final Item DEAD_SPEEDRUNNER_LOG = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LOG);
-    public static final Item DEAD_STRIPPED_SPEEDRUNNER_LOG = registerModBlock(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_LOG, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
-    public static final Item DEAD_SPEEDRUNNER_WOOD = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_WOOD);
-    public static final Item DEAD_STRIPPED_SPEEDRUNNER_WOOD = registerModBlock(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
+    public static final Item DEAD_SPEEDRUNNER_LOG = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LOG, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_LOG));
+    public static final Item DEAD_SPEEDRUNNER_WOOD = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_WOOD, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_WOOD));
     public static final Item DEAD_SPEEDRUNNER_LEAVES = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_LEAVES, ModBlocks.DEAD_SPEEDRUNNER_LEAVES);
-    public static final Item DEAD_SPEEDRUNNER_SAPLING = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_SAPLING, ModBlocks.DEAD_SPEEDRUNNER_SAPLING);
-    public static final Item DEAD_SPEEDRUNNER_PLANKS = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_PLANKS, ModBlocks.DEAD_SPEEDRUNNER_PLANKS);
-    public static final Item DEAD_SPEEDRUNNER_SLAB = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_SLAB, ModBlocks.DEAD_SPEEDRUNNER_SLAB);
-    public static final Item DEAD_SPEEDRUNNER_STAIRS = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_STAIRS, ModBlocks.DEAD_SPEEDRUNNER_STAIRS);
-    public static final Item DEAD_SPEEDRUNNER_FENCE = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_FENCE, ModBlocks.DEAD_SPEEDRUNNER_FENCE);
-    public static final Item DEAD_SPEEDRUNNER_FENCE_GATE = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_FENCE_GATE, ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE);
-    public static final Item DEAD_SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_TRAPDOOR, ModBlocks.DEAD_SPEEDRUNNER_TRAPDOOR);
-    public static final Item DEAD_SPEEDRUNNER_BUTTON = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_BUTTON, ModBlocks.DEAD_SPEEDRUNNER_BUTTON);
-    public static final Item DEAD_SPEEDRUNNER_PRESSURE_PLATE = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.DEAD_SPEEDRUNNER_PRESSURE_PLATE);
+    public static final Item DEAD_SPEEDRUNNER_SAPLING = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_SAPLING, ModBlocks.DEAD_SPEEDRUNNER_SAPLING, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_SAPLING));
+    public static final Item DEAD_SPEEDRUNNER_BUSH = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_BUSH, ModBlocks.DEAD_SPEEDRUNNER_BUSH);
+    public static final Item DEAD_SPEEDRUNNER_PLANKS = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_PLANKS, ModBlocks.DEAD_SPEEDRUNNER_PLANKS, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_PLANKS));
+    public static final Item DEAD_SPEEDRUNNER_SLAB = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_SLAB, ModBlocks.DEAD_SPEEDRUNNER_SLAB, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_SLAB));
+    public static final Item DEAD_SPEEDRUNNER_STAIRS = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_STAIRS, ModBlocks.DEAD_SPEEDRUNNER_STAIRS, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_STAIRS));
+    public static final Item DEAD_SPEEDRUNNER_FENCE = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_FENCE, ModBlocks.DEAD_SPEEDRUNNER_FENCE, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_FENCE));
+    public static final Item DEAD_SPEEDRUNNER_FENCE_GATE = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_FENCE_GATE, ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_FENCE_GATE));
+    public static final Item DEAD_SPEEDRUNNER_BUTTON = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_BUTTON, ModBlocks.DEAD_SPEEDRUNNER_BUTTON, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_BUTTON));
+    public static final Item DEAD_SPEEDRUNNER_PRESSURE_PLATE = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.DEAD_SPEEDRUNNER_PRESSURE_PLATE, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_PRESSURE_PLATE));
+    public static final Item DEAD_SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_TRAPDOOR, ModBlocks.DEAD_SPEEDRUNNER_TRAPDOOR, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_TRAPDOOR));
     public static final Item DEAD_SPEEDRUNNER_DOOR = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_DOOR, ModBlocks.DEAD_SPEEDRUNNER_DOOR, DoubleHighBlockItem::new);
 
-    public static final Item METAL_SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.METAL_SPEEDRUNNER_TRAPDOOR, ModBlocks.METAL_SPEEDRUNNER_TRAPDOOR);
     public static final Item SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE = registerModBlock(ModBlockItemIds.MEDIATE_WEIGHTED_SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.MEDIATE_WEIGHTED_SPEEDRUNNER_PRESSURE_PLATE);
+    public static final Item METAL_SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.METAL_SPEEDRUNNER_TRAPDOOR, ModBlocks.METAL_SPEEDRUNNER_TRAPDOOR);
     public static final Item METAL_SPEEDRUNNER_DOOR = registerModBlock(ModBlockItemIds.METAL_SPEEDRUNNER_DOOR, ModBlocks.METAL_SPEEDRUNNER_DOOR);
-    public static final Item DEAD_SPEEDRUNNER_BUSH = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_BUSH, ModBlocks.DEAD_SPEEDRUNNER_BUSH);
+
     public static final Item SPEEDRUNNERS_WORKBENCH = registerModBlock(ModBlockItemIds.SPEEDRUNNERS_WORKBENCH, ModBlocks.SPEEDRUNNERS_WORKBENCH, (block, properties) -> new BlockItem(ModBlocks.SPEEDRUNNERS_WORKBENCH,
             properties) {
 

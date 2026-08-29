@@ -42,7 +42,7 @@ public class ApplyEntityImpulseMixin {
                 .multiply(self.coordinateScale())
                 .scale(additionalLunge * enchantmentLevel);
         entity.addDeltaMovement(extraImpulse);
-        entity.hurtMarked = true;
+        entity.syncVelocity = true;
         entity.needsSync = true;
     }
 }

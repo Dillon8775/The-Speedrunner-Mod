@@ -40,7 +40,7 @@ public interface Goliath {
     static void safeFromVoid(Mob mob) {
         if (mob.level() instanceof ServerLevel && mob.level().dimension() == Level.END) {
             if (mob.getY() < (double)(mob.level().getMinY() - 64)) {
-                mob.randomTeleport(0, 96, 0, true);
+                mob.randomTeleport(0, 96, 0, false, state -> true);
                 if (!mob.isSilent()) {
                     mob.level().playSound(null, mob.getX(), mob.getEyeY(), mob.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.HOSTILE, 10.0F, 1.0F);
                     mob.playSound(SoundEvents.ENDERMAN_TELEPORT, 10.0F, 1.0F);
@@ -93,7 +93,7 @@ public interface Goliath {
             Vec3 vec3d = (new Vec3(g, (double)0.0F, h)).normalize().scale(j).yRot(i);
             double k = f * (double)attacker.level().getRandom().nextFloat() * (double)0.5F;
             target.push(vec3d.x, k, vec3d.z);
-            target.hurtMarked = true;
+            target.syncVelocity = true;
         }
     }
 }

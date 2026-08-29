@@ -8,7 +8,6 @@ import net.dillon.speedrunnermod.entity.ModParticleTypes;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModFuels;
 import net.dillon.speedrunnermod.item.ModItemGroups;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.menu.ModMenus;
@@ -55,10 +54,12 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModWorldGeneration.initializeWorldGenFeatures();
 
+        ModNumberProviders.initializeNumberProviders();
+
         ModEntityTypes.initializeEntityTypes();
 
         ModMobEffects.registerStatusEffects();
-        ModPotions.registerPotions();
+        ModPotions.initializePotions();
 
         ModPoiTypes.initializeModPois();
         ModTrades.initializeTrades();
@@ -84,7 +85,6 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModEnchantments.initializeEnchantments();
         ModRecipes.registerModSerializers();
-        ModFuels.registerFuels();
 
         ModMenus.initializeScreenHandlers();
 

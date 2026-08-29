@@ -17,6 +17,7 @@ import net.minecraft.world.entity.projectile.hurtingprojectile.DragonFireball;
 import net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -65,7 +66,7 @@ public interface ThrowableFireball {
                     stack.shrink(1);
                 }
             }
-            thrower.swing(hand);
+            thrower.swing(hand, SwingAnimation.DEFAULT, true);
 
             return true;
         }

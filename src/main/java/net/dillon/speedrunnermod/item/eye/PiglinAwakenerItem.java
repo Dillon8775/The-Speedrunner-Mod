@@ -106,7 +106,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                         double x = !sneakingWhenClicked ? player.getX() + world.getRandom().nextInt(7) - 3 : player.getX();
                         double y = !sneakingWhenClicked ? player.getY() + world.getRandom().nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
                         double z = !sneakingWhenClicked ? player.getZ() + world.getRandom().nextInt(7) - 3 : player.getZ();
-                        piglin.randomTeleport(x, y, z, false);
+                        piglin.randomTeleport(x, y, z, false, state -> true);
                         piglinTeleported++;
                         ((Awakened)piglin).setAwakened(true);
                         if (piglinTeleported >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {

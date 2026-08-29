@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
+import net.dillon.speedrunnermod.component.ModPotions;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.recipe.*;
 import net.dillon.speedrunnermod.tag.ModBlockItemTags;
@@ -15,6 +16,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -43,6 +45,30 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
             @Override
             public void buildRecipes() {
+                new BrewingProvider(output) {
+                    @Override
+                    protected void addContainers() {
+                    }
+
+                    @Override
+                    protected void addContainerTransformations() {
+                    }
+
+                    @Override
+                    protected void buildMixes() {
+                        this.buildMix(Potions.WATER, ModItems.ENDER_MATTER, ModPotions.DRAGONS_AURA);
+                        this.buildMix(ModPotions.DRAGONS_AURA, Items.REDSTONE, ModPotions.LONG_DRAGONS_AURA);
+
+                        this.buildMix(Potions.AWKWARD, Items.WITHER_SKELETON_SKULL, ModPotions.WITHERED);
+                        this.buildMix(Potions.AWKWARD, Items.WITHER_ROSE, ModPotions.WITHERED);
+                        this.buildMix(ModPotions.WITHERED, Items.REDSTONE, ModPotions.LONG_WITHERED);
+                        this.buildMix(ModPotions.WITHERED, Items.GLOWSTONE_DUST, ModPotions.STRONG_WITHERED);
+
+                        this.buildMix(Potions.WATER, Items.LILY_PAD, Potions.LUCK);
+                        this.buildMix(Potions.LUCK, Items.GLOWSTONE_DUST, ModPotions.STRONG_LUCK);
+                    }
+                }.buildRecipes();
+
                 RecipeGeneratorHelper helper = new RecipeGeneratorHelper(wrapperLookup, output);
 
                 helper.createAxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_AXE);

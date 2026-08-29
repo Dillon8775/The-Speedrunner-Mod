@@ -81,7 +81,7 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
                             raider.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(30), 2, false, true, false));
                             raider.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, TickCalculator.seconds(30), 1, false, true, false));
                             raider.addEffect(new MobEffectInstance(MobEffects.GLOWING, TickCalculator.minutes(2), 0, false, true, false));
-                            raider.randomTeleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false);
+                            raider.randomTeleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false, state -> true);
                         }
                     }
                     if (!villagers.isEmpty()) {

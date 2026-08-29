@@ -151,7 +151,7 @@ public class ClientModPackets {
     public static void syncFwc(Minecraft client, int delayTicks) {
         IntegratedServer integratedServer = client.getSingleplayerServer();
         if (integratedServer != null) {
-            integratedServer.getPlayerList().setAllowCommandsForAllPlayers(clientOptions().client.allowCommands.getCurrentValue());
+            integratedServer.setWorldAllowCommands(clientOptions().client.allowCommands.getCurrentValue());
             PermissionSet permissionPredicate = integratedServer.getProfilePermissions(client.player.nameAndId());
             client.player.setPermissions(permissionPredicate);
 

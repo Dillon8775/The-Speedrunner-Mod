@@ -1,12 +1,9 @@
 package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.world.feature.ModWorldFeatures;
-import net.dillon.speedrunnermod.world.feature.ModWorldPlacements;
 import net.dillon.speedrunnermod.world.feature.WastelandFeatures;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.grower.TreeGrower;
-
-import java.util.Optional;
 
 /**
  * All {@code Speedrunner Mod} sapling generators (configures tree growing).

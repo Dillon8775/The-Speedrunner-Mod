@@ -5,7 +5,8 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.block.Block;
 
@@ -47,32 +48,77 @@ public class SpeedrunnerToolItem {
     }
 
     /**
-     * Creates a speedrunner {@link AxeItem}.
+     * Creates a speedrunner axe.
      */
-    public static class Axe extends AxeItem {
+    public static class Axe extends Item {
 
-        public Axe(ToolMaterial toolMaterial, float attackDamageBaseline, float attackSpeedBaseline, Item.Properties properties) {
-            super(toolMaterial, attackDamageBaseline, attackSpeedBaseline, properties);
+        public Axe(
+                ToolMaterial toolMaterial,
+                float attackDamageBaseline,
+                float attackSpeedBaseline,
+                Item.Properties properties
+        ) {
+            super(properties
+                    .axe(toolMaterial, attackDamageBaseline, attackSpeedBaseline)
+                    .attributes(
+                            createDefaultAttributes(
+                                    toolMaterial,
+                                    attackDamageBaseline,
+                                    attackSpeedBaseline,
+                                    false
+                            )
+                    )
+            );
         }
     }
 
     /**
-     * Creates a speedrunner {@link ShovelItem}.
+     * Creates a speedrunner shovel.
      */
-    public static class Shovel extends ShovelItem {
+    public static class Shovel extends Item {
 
-        public Shovel(ToolMaterial toolMaterial, float attackDamageBaseline, float attackSpeedBaseline, Item.Properties properties) {
-            super(toolMaterial, attackDamageBaseline, attackSpeedBaseline, properties);
+        public Shovel(
+                ToolMaterial toolMaterial,
+                float attackDamageBaseline,
+                float attackSpeedBaseline,
+                Item.Properties properties
+        ) {
+            super(properties
+                    .shovel(toolMaterial, attackDamageBaseline, attackSpeedBaseline)
+                    .attributes(
+                            createDefaultAttributes(
+                                    toolMaterial,
+                                    attackDamageBaseline,
+                                    attackSpeedBaseline,
+                                    false
+                            )
+                    )
+            );
         }
     }
 
     /**
-     * Creates a speedrunner {@link HoeItem}.
+     * Creates a speedrunner hoe.
      */
-    public static class Hoe extends HoeItem {
+    public static class Hoe extends Item {
 
-        public Hoe(ToolMaterial toolMaterial, float attackDamageBaseline, float attackSpeedBaseline, Item.Properties properties) {
-            super(toolMaterial, attackDamageBaseline, attackSpeedBaseline, properties);
+        public Hoe(
+                ToolMaterial toolMaterial,
+                float attackDamageBaseline,
+                float attackSpeedBaseline,
+                Item.Properties properties
+        ) {
+            super(properties
+                    .hoe(toolMaterial, attackDamageBaseline, attackSpeedBaseline)
+                    .attributes(
+                            createDefaultAttributes(
+                                    toolMaterial,
+                                    attackDamageBaseline,
+                                    attackSpeedBaseline,
+                                    false
+                            )
+                    )
+            );
         }
     }
 

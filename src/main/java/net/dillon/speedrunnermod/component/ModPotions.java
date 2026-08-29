@@ -1,18 +1,14 @@
 package net.dillon.speedrunnermod.component;
 
-import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.util.TickCalculator;
-import net.fabricmc.fabric.api.registry.FabricPotionBrewingBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.Potions;
 
 /**
  * Stores all speedrunner mod potions.
@@ -39,22 +35,9 @@ public class ModPotions {
     }
 
     /**
-     * Registers potion and all potion recipes.
+     * Initializes all potions.
      */
-    public static void registerPotions() {
-        FabricPotionBrewingBuilder.BUILD.register(builder -> {
-            builder.addMix(Potions.WATER, ModItems.ENDER_MATTER, DRAGONS_AURA);
-            builder.addMix(DRAGONS_AURA, Items.REDSTONE, LONG_DRAGONS_AURA);
-
-            builder.addMix(Potions.AWKWARD, Items.WITHER_SKELETON_SKULL, WITHERED);
-            builder.addMix(Potions.AWKWARD, Items.WITHER_ROSE, WITHERED);
-            builder.addMix(WITHERED, Items.REDSTONE, LONG_WITHERED);
-            builder.addMix(WITHERED, Items.GLOWSTONE_DUST, STRONG_WITHERED);
-
-            builder.addMix(Potions.WATER, Items.LILY_PAD, Potions.LUCK);
-            builder.addMix(Potions.LUCK, Items.GLOWSTONE_DUST, STRONG_LUCK);
-        });
-
-        SpeedrunnerMod.debug("Registered potions.");
+    public static void initializePotions() {
+        SpeedrunnerMod.debug("Initialized potions.");
     }
 }

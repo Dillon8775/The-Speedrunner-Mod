@@ -76,7 +76,7 @@ public abstract class ServerPlayerMixin extends Player {
                     }
                 }
 
-                this.randomTeleport(0.5, y, 0.5, true);
+                this.randomTeleport(0.5, y, 0.5, true, state -> true);
                 this.level().playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 10.0F, 1.0F);
                 SpeedrunnersTotemEvent.EVENT.invoker().invoke(this, speedrunnersTotem, this.damageSources().generic());
                 speedrunnersTotem.shrink(1);

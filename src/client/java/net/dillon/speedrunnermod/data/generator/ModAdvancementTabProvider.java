@@ -22,7 +22,9 @@ import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
@@ -51,8 +53,9 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
     public void generateAdvancement(HolderLookup.Provider wrapperLookup, Consumer<AdvancementHolder> exporter) {
         HolderGetter<EntityType<?>> entityLookup = wrapperLookup.lookupOrThrow(Registries.ENTITY_TYPE);
         HolderGetter<Item> itemLookup = wrapperLookup.lookupOrThrow(Registries.ITEM);
+        HolderGetter<DamageType> damageType = wrapperLookup.lookupOrThrow(Registries.DAMAGE_TYPE);
         AdvancementHolder root = Advancement.Builder.advancement()
-                .display(
+                .rootDisplay(
                         ModItems.SPEEDRUNNERS_WORKBENCH,
                         Component.translatable("advancements.speedrunnermod.title"),
                         Component.translatable("advancements.speedrunnermod.description"),
@@ -63,7 +66,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("has_crafting_table", InventoryChangeTrigger.TriggerInstance.hasItems(Items.CRAFTING_TABLE))
-                .save(exporter, "speedrunnermod:root");
+                .save(exporter, ofSpeedrunnerMod("root"));
 
         AdvancementHolder speedrunningTime = Advancement.Builder.advancement()
                 .parent(root)
@@ -71,7 +74,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_INGOT,
                         Component.translatable("advancements.speedrunnermod.speedrunning_time.title"),
                         Component.translatable("advancements.speedrunnermod.speedrunning_time.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -86,7 +88,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.GOLDEN_UPGRADE_SMITHING_TEMPLATE,
                         Component.translatable("advancements.speedrunnermod.speedrunning_pro.title"),
                         Component.translatable("advancements.speedrunnermod.speedrunning_pro.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -101,7 +102,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_SAPLING,
                         Component.translatable("advancements.speedrunnermod.what_a_wasteland.title"),
                         Component.translatable("advancements.speedrunnermod.what_a_wasteland.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -115,7 +115,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.IGNEOUS_ROCK,
                         Component.translatable("advancements.speedrunnermod.hardest_rock.title"),
                         Component.translatable("advancements.speedrunnermod.hardest_rock.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -130,7 +129,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNERS_EYE,
                         Component.translatable("advancements.speedrunnermod.eye_of_the_structures.title"),
                         Component.translatable("advancements.speedrunnermod.eye_of_the_structures.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -145,7 +143,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.INVENTORY_PRESERVER,
                         Component.translatable("advancements.speedrunnermod.i_lost_my_stuff.title"),
                         Component.translatable("advancements.speedrunnermod.i_lost_my_stuff.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -160,7 +157,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_BULK,
                         Component.translatable("advancements.speedrunnermod.bulky.title"),
                         Component.translatable("advancements.speedrunnermod.bulky.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -175,7 +171,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_PICKAXE,
                         Component.translatable("advancements.speedrunnermod.quicker_pick.title"),
                         Component.translatable("advancements.speedrunnermod.quicker_pick.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -190,7 +185,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_CHESTPLATE,
                         Component.translatable("advancements.speedrunnermod.suited_for_speedrunning.title"),
                         Component.translatable("advancements.speedrunnermod.suited_for_speedrunning.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -209,7 +203,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNERS_WORKBENCH,
                         Component.translatable("advancements.speedrunnermod.one_step_ahead.title"),
                         Component.translatable("advancements.speedrunnermod.one_step_ahead.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -225,7 +218,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.ENCHANTED_BOOK,
                         Component.translatable("advancements.speedrunnermod.speedy.title"),
                         Component.translatable("advancements.speedrunnermod.speedy.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -240,7 +232,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.ENCHANTED_BOOK,
                         Component.translatable("advancements.speedrunnermod.that_was_fast.title"),
                         Component.translatable("advancements.speedrunnermod.that_was_fast.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -255,14 +246,13 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.ENCHANTED_BOOK,
                         Component.translatable("advancements.speedrunnermod.withers_secret.title"),
                         Component.translatable("advancements.speedrunnermod.withers_secret.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
                         false
                 )
                 .requirements(AdvancementRequirements.Strategy.OR)
-                .addCriterion("obtained_withered_enchantment", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.STRIPPED_SPEEDRUNNER_LOG))
+                .addCriterion("obtained_withered_enchantment", ItemLikeTrigger.Conditions.item(itemLookup, ModItems.DEAD_SPEEDRUNNER_LOG))
                 .save(exporter, ofEnchantmentAdvancement("wither_glore"));
 
         AdvancementHolder betterSafeThanSorry = Advancement.Builder.advancement()
@@ -271,7 +261,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.GOLDEN_SPEEDRUNNER_BOOTS,
                         Component.translatable("advancements.speedrunnermod.better_safe_than_sorry.title"),
                         Component.translatable("advancements.speedrunnermod.better_safe_than_sorry.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -290,7 +279,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_HARNESS,
                         Component.translatable("advancements.speedrunnermod.speedy_ghast.title"),
                         Component.translatable("advancements.speedrunnermod.speedy_ghast.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -307,7 +295,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_NAUTILUS_ARMOR,
                         Component.translatable("advancements.speedrunnermod.speedy_slosh.title"),
                         Component.translatable("advancements.speedrunnermod.speedy_slosh.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -324,7 +311,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_BOW,
                         Component.translatable("advancements.speedrunnermod.ranged_speedrunning.title"),
                         Component.translatable("advancements.speedrunnermod.ranged_speedrunning.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -339,7 +325,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNER_CROSSBOW,
                         Component.translatable("advancements.speedrunnermod.speedy_betsy.title"),
                         Component.translatable("advancements.speedrunnermod.speedy_betsy.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -354,7 +339,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.ENDER_MATTER,
                         Component.translatable("advancements.speedrunnermod.the_end_of_the_matter.title"),
                         Component.translatable("advancements.speedrunnermod.the_end_of_the_matter.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -369,7 +353,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.ANNUL_EYE,
                         Component.translatable("advancements.speedrunnermod.the_end_is_near.title"),
                         Component.translatable("advancements.speedrunnermod.the_end_is_near.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -384,7 +367,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.ENDER_THRUSTER,
                         Component.translatable("advancements.speedrunnermod.back_to_the_surface.title"),
                         Component.translatable("advancements.speedrunnermod.back_to_the_surface.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -399,7 +381,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.INFERNO_EYE,
                         Component.translatable("advancements.speedrunnermod.infernal_gaze.title"),
                         Component.translatable("advancements.speedrunnermod.infernal_gaze.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -414,7 +395,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.FIRE_CHARGE,
                         Component.translatable("advancements.speedrunnermod.you_should_add_a_feature.title"),
                         Component.translatable("advancements.speedrunnermod.you_should_add_a_feature.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -429,7 +409,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.ZOMBIE_SPAWN_EGG,
                         Component.translatable("advancements.speedrunnermod.spare_me.title"),
                         Component.translatable("advancements.speedrunnermod.spare_me.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -448,7 +427,7 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                                                         )
                                         ),
                                 DamageSourcePredicate.Builder.damageType()
-                                        .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                                        .tag(TagPredicate.is(damageType.getOrThrow(DamageTypeTags.IS_PROJECTILE)))
                                         .direct(
                                                 EntityPredicate.Builder.entity()
                                                         .of(entityLookup, EntityTypes.FIREBALL)
@@ -464,7 +443,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.DRAGONS_PEARL,
                         Component.translatable("advancements.speedrunnermod.perch_already.title"),
                         Component.translatable("advancements.speedrunnermod.perch_already.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -479,7 +457,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.DRAGON_UPGRADE_SMITHING_TEMPLATE,
                         Component.translatable("advancements.speedrunnermod.the_final_treasure.title"),
                         Component.translatable("advancements.speedrunnermod.the_final_treasure.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -500,7 +477,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         dragonsAuraPotion,
                         Component.translatable("advancements.speedrunnermod.dragons_aura.title"),
                         Component.translatable("advancements.speedrunnermod.dragons_aura.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -521,7 +497,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         luckPotion,
                         Component.translatable("advancements.speedrunnermod.lucky_you.title"),
                         Component.translatable("advancements.speedrunnermod.lucky_you.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -536,7 +511,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.DOOM_STONE,
                         Component.translatable("advancements.speedrunnermod.doom_luck.title"),
                         Component.translatable("advancements.speedrunnermod.doom_luck.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -558,7 +532,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         witheredPotion,
                         Component.translatable("advancements.speedrunnermod.the_black_plaque.title"),
                         Component.translatable("advancements.speedrunnermod.the_black_plaque.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -573,7 +546,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.DRAGON_FIREBALL,
                         Component.translatable("advancements.speedrunnermod.dragons_breath.title"),
                         Component.translatable("advancements.speedrunnermod.dragons_breath.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -588,7 +560,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.PIGLIN_AWAKENER,
                         Component.translatable("advancements.speedrunnermod.piglin_rally.title"),
                         Component.translatable("advancements.speedrunnermod.piglin_rally.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -603,7 +574,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.BLAZE_SPOTTER,
                         Component.translatable("advancements.speedrunnermod.the_blazez_awaitz.title"),
                         Component.translatable("advancements.speedrunnermod.the_blazez_awaitz.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -618,7 +588,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.ZOMBIE_HEAD,
                         Component.translatable("advancements.speedrunnermod.david_and_goliath.title"),
                         Component.translatable("advancements.speedrunnermod.david_and_goliath.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -636,7 +605,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.RAID_ERADICATOR,
                         Component.translatable("advancements.speedrunnermod.the_purge.title"),
                         Component.translatable("advancements.speedrunnermod.the_purge.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -651,7 +619,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.DRAGONS_SWORD,
                         Component.translatable("advancements.speedrunnermod.one_hit_one_kill.title"),
                         Component.translatable("advancements.speedrunnermod.one_hit_one_kill.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -667,7 +634,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.DRAGON_HEAD,
                         Component.translatable("advancements.speedrunnermod.your_majesty.title"),
                         Component.translatable("advancements.speedrunnermod.your_majesty.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -683,7 +649,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.DRAGON_HEAD,
                         Component.translatable("advancements.speedrunnermod.yes_the_end.title"),
                         Component.translatable("advancements.speedrunnermod.yes_the_end.description"),
-                        null,
                         AdvancementType.GOAL,
                         true,
                         true,
@@ -698,7 +663,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.INFINI_PEARL,
                         Component.translatable("advancements.speedrunnermod.to_infini_and_beyond.title"),
                         Component.translatable("advancements.speedrunnermod.to_infini_and_beyond.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -714,7 +678,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.KNOCKBACK_STICK,
                         Component.translatable("advancements.speedrunnermod.boing.title"),
                         Component.translatable("advancements.speedrunnermod.boing.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -730,7 +693,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.ELYTRA,
                         Component.translatable("advancements.speedrunnermod.forever_flight.title"),
                         Component.translatable("advancements.speedrunnermod.forever_flight.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -752,7 +714,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         ModItems.SPEEDRUNNERS_TOTEM,
                         Component.translatable("advancements.speedrunnermod.immortal.title"),
                         Component.translatable("advancements.speedrunnermod.immortal.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -768,7 +729,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.SCULK_SHRIEKER,
                         Component.translatable("advancements.speedrunnermod.deep_dark.title"),
                         Component.translatable("advancements.speedrunnermod.deep_dark.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -786,7 +746,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.PLAYER_HEAD,
                         Component.translatable("advancements.speedrunnermod.dominion.title"),
                         Component.translatable("advancements.speedrunnermod.dominion.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -814,7 +773,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.OAK_LOG,
                         Component.translatable("advancements.speedrunnermod.lumberjack.title"),
                         Component.translatable("advancements.speedrunnermod.lumberjack.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -839,7 +797,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.QUARTZ,
                         Component.translatable("advancements.speedrunnermod.mineral_springs.title"),
                         Component.translatable("advancements.speedrunnermod.mineral_springs.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -865,7 +822,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.DIAMOND_SWORD,
                         Component.translatable("advancements.speedrunnermod.sword_collector.title"),
                         Component.translatable("advancements.speedrunnermod.sword_collector.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -888,7 +844,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.WOOL.white(),
                         Component.translatable("advancements.speedrunnermod.shepherd.title"),
                         Component.translatable("advancements.speedrunnermod.shepherd.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -920,7 +875,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.WOOL.lime(),
                         Component.translatable("advancements.speedrunnermod.expert_shepherd.title"),
                         Component.translatable("advancements.speedrunnermod.expert_shepherd.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -936,7 +890,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.FLETCHING_TABLE,
                         Component.translatable("advancements.speedrunnermod.artisan.title"),
                         Component.translatable("advancements.speedrunnermod.artisan.description"),
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -965,7 +918,6 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
                         Items.MUSIC_DISC_CREATOR,
                         Component.translatable("advancements.speedrunnermod.music_enthusiast.title"),
                         Component.translatable("advancements.speedrunnermod.music_enthusiast.description"),
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -1001,43 +953,43 @@ public class ModAdvancementTabProvider extends FabricAdvancementProvider {
     /**
      * @return a {@code speedrunnermod/item} advancement.
      */
-    private static String ofItemAdvancement(String id) {
-        return "speedrunnermod:items/"+id;
+    private static Identifier ofItemAdvancement(String id) {
+        return ofSpeedrunnerMod("items/"+id);
     }
 
     /**
      * @return a {@code speedrunnermod/adventure} advancement.
      */
-    private static String ofAdventureAdvancement(String id) {
-        return "speedrunnermod:adventure/"+id;
+    private static Identifier ofAdventureAdvancement(String id) {
+        return ofSpeedrunnerMod("adventure/"+id);
     }
 
     /**
      * @return a {@code speedrunnermod/blocks} advancement.
      */
-    private static String ofBlockAdvancement(String id) {
-        return "speedrunnermod:blocks/"+id;
+    private static Identifier ofBlockAdvancement(String id) {
+        return ofSpeedrunnerMod("blocks/"+id);
     }
 
     /**
      * @return a {@code speedrunnermod/enchantments} advancement.
      */
-    private static String ofEnchantmentAdvancement(String id) {
-        return "speedrunnermod:enchantments/"+id;
+    private static Identifier ofEnchantmentAdvancement(String id) {
+        return ofSpeedrunnerMod("enchantments/"+id);
     }
 
     /**
      * @return a {@code speedrunnermod/potions} advancement.
      */
-    private static String ofPotionAdvancement(String id) {
-        return "speedrunnermod:potions/"+id;
+    private static Identifier ofPotionAdvancement(String id) {
+        return ofSpeedrunnerMod("potions/"+id);
     }
 
     /**
      * @return a {@code speedrunnermod/challenges} advancement.
      */
-    private static String ofChallengeAdvancement(String id) {
-        return "speedrunnermod:challenges/"+id;
+    private static Identifier ofChallengeAdvancement(String id) {
+        return ofSpeedrunnerMod("challenges/"+id);
     }
 
     /**

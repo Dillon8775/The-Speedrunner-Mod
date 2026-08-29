@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
-import net.dillon.speedrunnermod.item.material.ModEquipmentAssetKeys;
 import net.dillon.speedrunnermod.render.GoldenShieldModelRenderer;
 import net.dillon.speedrunnermod.render.SpeedrunnerShieldModelRenderer;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
@@ -19,6 +18,8 @@ import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+
+import java.util.Map;
 
 /**
  * Used to create the blockstate and model JSON files from scratch using code.
@@ -110,15 +111,23 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ModItems.SPEEDRUNNER_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ModItems.GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR, ModelTemplates.FLAT_ITEM);
 
-        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("helmet"), false);
-        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("chestplate"), false);
-        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("leggings"), false);
-        itemModelGenerator.generateTrimmableItem(ModItems.SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("boots"), false);
+        itemModelGenerator.generateTrimmableArmorSet(
+                ModItems.SPEEDRUNNER_HELMET,
+                ModItems.SPEEDRUNNER_CHESTPLATE,
+                ModItems.SPEEDRUNNER_LEGGINGS,
+                ModItems.SPEEDRUNNER_BOOTS,
+                false,
+                Map.of()
+        );
 
-        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_HELMET, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("helmet"), false);
-        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("chestplate"), false);
-        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("leggings"), false);
-        itemModelGenerator.generateTrimmableItem(ModItems.GOLDEN_SPEEDRUNNER_BOOTS, ModEquipmentAssetKeys.GOLDEN_SPEEDRUNNER, ItemModelGenerators.prefixForSlotTrim("boots"), false);
+        itemModelGenerator.generateTrimmableArmorSet(
+                ModItems.GOLDEN_SPEEDRUNNER_HELMET,
+                ModItems.GOLDEN_SPEEDRUNNER_CHESTPLATE,
+                ModItems.GOLDEN_SPEEDRUNNER_LEGGINGS,
+                ModItems.GOLDEN_SPEEDRUNNER_BOOTS,
+                false,
+                Map.of()
+        );
 
         this.generateModdedBow(itemModelGenerator, ModItems.SPEEDRUNNER_BOW);
         this.generateModdedCrossbow(itemModelGenerator, ModItems.SPEEDRUNNER_CROSSBOW);

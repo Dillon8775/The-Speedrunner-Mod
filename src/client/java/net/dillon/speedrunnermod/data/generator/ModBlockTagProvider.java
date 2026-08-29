@@ -41,10 +41,6 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.IRON_BLOCK.block())
                 .add(ModBlockItemIds.SPEEDRUNNER_BLOCK.block());
 
-        tag(ModBlockItemTags.NETHER_PORTAL_BASE_BLOCKS.block())
-                .add(BlockItemIds.OBSIDIAN.block())
-                .add(BlockItemIds.CRYING_OBSIDIAN.block());
-
         tag(ModBlockItemTags.SPEEDRUNNER_LOGS.block())
                 .add(ModBlockItemIds.SPEEDRUNNER_LOG.block())
                 .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_LOG.block())
@@ -390,6 +386,9 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
                 .add(ModBlockItemIds.DEEPSLATE_SPEEDRUNNER_ORE.block())
                 .add(ModBlockItemIds.EXPERIENCE_ORE.block())
                 .add(ModBlockItemIds.DEEPSLATE_EXPERIENCE_ORE.block());
+
+        tag(BlockTags.NETHER_PORTAL_FRAME)
+                .add(BlockItemIds.CRYING_OBSIDIAN.block());
 
         tag(BlockTags.PLANKS)
                 .add(ModBlockItemIds.SPEEDRUNNER_PLANKS.block())

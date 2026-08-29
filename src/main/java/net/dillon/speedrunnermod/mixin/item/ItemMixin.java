@@ -66,7 +66,7 @@ public abstract class ItemMixin {
             }
 
             if (hasEnchantment(stack, ModEnchantments.WITHERED)) {
-                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(ModItems.STRIPPED_SPEEDRUNNER_LOG)); // Placeholder item for triggered instance
+                ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(ModItems.DEAD_SPEEDRUNNER_LOG)); // Placeholder item for triggered instance
             }
 
             if (hasEnchantment(stack, ModEnchantments.COOLDOWN)) {

@@ -50,7 +50,7 @@ public abstract class MobMixin extends LivingEntity {
                 this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 5, 32);
             } else if (dis instanceof Blaze ||
                     dis instanceof Breeze ||
-                    dis instanceof EnderMan) {
+                    dis instanceof Enderman) {
                 this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 10, 48);
             } else if (dis instanceof ElderGuardian) {
                 this.xpReward = ModHelper.modifyDroppedExperiencePoints(dis, attacker, 15, 88);

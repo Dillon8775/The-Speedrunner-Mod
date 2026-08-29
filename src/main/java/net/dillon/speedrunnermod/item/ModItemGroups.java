@@ -140,8 +140,6 @@ public class ModItemGroups {
                         entries.accept(ModItems.NETHER_IGNEOUS_ORE);
                         entries.accept(ModItems.SPEEDRUNNER_LOG);
                         entries.accept(ModItems.SPEEDRUNNER_WOOD);
-                        entries.accept(ModItems.STRIPPED_SPEEDRUNNER_LOG);
-                        entries.accept(ModItems.STRIPPED_SPEEDRUNNER_WOOD);
                         entries.accept(ModItems.SPEEDRUNNER_PLANKS);
                         entries.accept(ModItems.SPEEDRUNNER_STAIRS);
                         entries.accept(ModItems.SPEEDRUNNER_SLAB);
@@ -158,8 +156,6 @@ public class ModItemGroups {
                         entries.accept(ModItems.SPEEDRUNNER_PADDLE);
                         entries.accept(ModItems.DEAD_SPEEDRUNNER_LOG);
                         entries.accept(ModItems.DEAD_SPEEDRUNNER_WOOD);
-                        entries.accept(ModItems.DEAD_STRIPPED_SPEEDRUNNER_LOG);
-                        entries.accept(ModItems.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
                         entries.accept(ModItems.DEAD_SPEEDRUNNER_PLANKS);
                         entries.accept(ModItems.DEAD_SPEEDRUNNER_STAIRS);
                         entries.accept(ModItems.DEAD_SPEEDRUNNER_SLAB);
@@ -345,13 +341,9 @@ public class ModItemGroups {
                 ModItems.FLESH_BLOCK,
                 ModItems.THRUSTED_BLOCK,
                 ModItems.SPEEDRUNNER_LOG,
-                ModItems.STRIPPED_SPEEDRUNNER_LOG,
                 ModItems.SPEEDRUNNER_WOOD,
-                ModItems.STRIPPED_SPEEDRUNNER_WOOD,
                 ModItems.DEAD_SPEEDRUNNER_LOG,
-                ModItems.DEAD_STRIPPED_SPEEDRUNNER_LOG,
                 ModItems.DEAD_SPEEDRUNNER_WOOD,
-                ModItems.DEAD_STRIPPED_SPEEDRUNNER_WOOD,
                 ModItems.SPEEDRUNNER_LEAVES,
                 ModItems.DEAD_SPEEDRUNNER_LEAVES,
                 ModItems.SPEEDRUNNER_SAPLING,

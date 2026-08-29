@@ -14,7 +14,6 @@ public class ModBlockItemTags {
     public static final BlockItemTagId EXPERIENCE_ORES = createBlockAndItemTag(ofSpeedrunnerMod("experience_ores"));
     public static final BlockItemTagId IGNEOUS_ORES = createBlockAndItemTag(ofSpeedrunnerMod("igneous_ores"));
     public static final BlockItemTagId IRON_BLOCKS = createBlockAndItemTag(ofSpeedrunnerMod("iron_blocks"));
-    public static final BlockItemTagId NETHER_PORTAL_BASE_BLOCKS = createBlockAndItemTag(ofSpeedrunnerMod("nether_portal_base_blocks"));
     public static final BlockItemTagId SPEEDRUNNER_FUELS = createBlockAndItemTag(ofSpeedrunnerMod("speedrunner_fuels"));
     public static final BlockItemTagId SPEEDRUNNER_LOGS = createBlockAndItemTag(ofSpeedrunnerMod("speedrunner_logs"));
     public static final BlockItemTagId SPEEDRUNNER_ORES = createBlockAndItemTag(ofSpeedrunnerMod("speedrunner_ores"));

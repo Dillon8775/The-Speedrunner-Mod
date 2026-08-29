@@ -1,7 +1,9 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.component.ModEnchantments;
+import net.dillon.speedrunnermod.component.ModNumberProviders;
 import net.dillon.speedrunnermod.data.generator.dynamic.ModEnchantmentProvider;
+import net.dillon.speedrunnermod.data.generator.dynamic.ModNumberProvider;
 import net.dillon.speedrunnermod.data.generator.dynamic.ModVillagerTradeProvider;
 import net.dillon.speedrunnermod.data.generator.dynamic.ModWorldProvider;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
@@ -45,6 +47,7 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DoomBlockLootProvider::new);
 
         pack.addProvider(ModEnchantmentProvider::new);
+        pack.addProvider(ModNumberProvider::new);
         pack.addProvider(ModVillagerTradeProvider::new);
         pack.addProvider(ModWorldProvider::new);
 
@@ -59,6 +62,8 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
      */
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
+        registryBuilder.add(Registries.NUMBER_PROVIDER, ModNumberProviders::bootstrap);
+
         registryBuilder.add(Registries.TRADE_SET, ModTradeSetProvider::bootstrap);
         registryBuilder.add(Registries.VILLAGER_TRADE, ModTradesProvider::bootstrap);
 
