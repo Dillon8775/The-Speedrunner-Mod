@@ -23,7 +23,7 @@ public class HudMixin {
     /**
      * @return the new dragon's aura heart to render.
      */
-    @ModifyArg(method = "extractHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"), index = 1)
+    @ModifyArg(method = "extractHeart", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"), index = 1)
     private Identifier modifyToDragonsAuraHeart(Identifier original) {
         LocalPlayer player = this.minecraft.player;
         if (player == null) {
