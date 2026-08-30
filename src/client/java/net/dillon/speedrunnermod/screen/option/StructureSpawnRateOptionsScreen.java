@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.Screen;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 /**
  * Configure structure spawn rates individually by each structure.
@@ -58,7 +58,7 @@ public class StructureSpawnRateOptionsScreen extends AbstractModScreen {
         this.buttonList.addAll(structures());
 
         super.init();
-        this.configFile = configHandler().getConfigFile();
+        this.configFile = commonConfigHandler().getConfigFile();
     }
 
     @Override

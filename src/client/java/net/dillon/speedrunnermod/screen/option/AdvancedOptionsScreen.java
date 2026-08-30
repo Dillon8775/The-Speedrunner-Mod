@@ -8,10 +8,10 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.option.ListOptions.ofRestartable;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * A screen for some of the {@code advanced speedrunner mod options.}
@@ -103,7 +103,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.icarusFireworksInventorySlot, options().general.iCarusMode.getCurrentValue(),
+        this.lockOptionWithTooltip(this.icarusFireworksInventorySlot, common().general.iCarusMode.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.icarus_fireworks_inventory_slot.tooltip"),
                 Component.translatable("speedrunnermod.options.icarus_mode_must_be_enabled.tooltip"),
                 graphics,
@@ -111,7 +111,7 @@ public class AdvancedOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.infiniPearlInventorySlot, options().general.infiniPearlMode.getCurrentValue(),
+        this.lockOptionWithTooltip(this.infiniPearlInventorySlot, common().general.infiniPearlMode.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.infini_pearl_inventory_slot.tooltip"),
                 Component.translatable("speedrunnermod.options.infini_pearl_mode_must_be_enabled.tooltip"),
                 graphics,

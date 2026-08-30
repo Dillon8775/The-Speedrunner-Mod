@@ -10,10 +10,10 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 import static net.dillon.speedrunnermod.option.ListOptions.ofWorldReload;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
 
 /**
  * Options for WorldGen-related features.
@@ -77,7 +77,7 @@ public class WorldGenOptionsScreen extends AbstractModScreen {
     @Override
     protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         boolean balancedMode = !isBalancedMode();
-        boolean balancedModeAndModifiedStrongholdGeneration = balancedMode && options().advanced.modifiedStrongholdGeneration.getCurrentValue();
+        boolean balancedModeAndModifiedStrongholdGeneration = balancedMode && common().advanced.modifiedStrongholdGeneration.getCurrentValue();
 
         if (this.structureSpawnRate.isHovered()) {
             graphics.setTooltipForNextFrame(this.font, this.font.split(ListOptions.structureSpawnRateTooltip(), 200), mouseX, mouseY);

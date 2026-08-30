@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(Vex.class)
 public class VexMixin extends Monster {

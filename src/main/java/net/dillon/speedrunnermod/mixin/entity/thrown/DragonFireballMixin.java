@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.entity.thrown;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.item.ThrowableFireball;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -47,7 +47,7 @@ public class DragonFireballMixin extends AbstractHurtingProjectile {
 
         if (areaEffectCloudEntity.getOwner() instanceof LivingEntity living) {
             areaEffectCloudEntity.setRadius(4.5F);
-            areaEffectCloudEntity.setDuration(TickCalculator.minutes(1));
+            areaEffectCloudEntity.setDuration(Arithmetics.mas(1));
             areaEffectCloudEntity.setRadiusPerTick((15.5F - areaEffectCloudEntity.getRadius()) / areaEffectCloudEntity.getDuration());
             areaEffectCloudEntity.level().explode(
                     null,

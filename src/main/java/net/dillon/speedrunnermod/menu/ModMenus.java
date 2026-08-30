@@ -16,7 +16,7 @@ public class ModMenus {
     /**
      * Initializes all screen speedrunner mod handlers.
      */
-    public static void initializeScreenHandlers() {
-        SpeedrunnerMod.debug("Initialized screen handlers.");
+    public static void initializeMenus() {
+        SpeedrunnerMod.LOGGER.debug("Initialized screen handlers.");
     }
 }

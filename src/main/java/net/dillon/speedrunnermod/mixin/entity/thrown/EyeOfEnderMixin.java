@@ -19,8 +19,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(EyeOfEnder.class)
 public abstract class EyeOfEnderMixin extends Entity {
@@ -50,7 +50,7 @@ public abstract class EyeOfEnderMixin extends Entity {
      */
     @ModifyConstant(method = "tick", constant = @Constant(intValue = 80))
     private int changeEnderEyeBreakingCooldown(int constant) {
-        return options().getEnderEyeBreakingCooldown();
+        return common().getEnderEyeBreakingCooldown();
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class EyeOfEnderMixin extends Entity {
      */
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/EyeOfEnder;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), cancellable = true)
     private void eyeOfEnderFunctions(CallbackInfo ci) {
-        if (this.life > options().getEnderEyeBreakingCooldown() && !this.level().isClientSide()) {
+        if (this.life > common().getEnderEyeBreakingCooldown() && !this.level().isClientSide()) {
             if (this.getItem().is(ModItemTags.ENDER_EYE_DEATH_SOUND)) {
                 this.playSound(SoundEvents.ENDER_EYE_DEATH, 1.0F, 1.0F);
             } else if (this.getItem().is(ModItemTags.FIRECHARGE_SOUND)) {

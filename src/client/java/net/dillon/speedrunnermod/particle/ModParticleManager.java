@@ -16,6 +16,6 @@ public class ModParticleManager {
         ParticleProviderRegistry.getInstance().register(ModParticleTypes.BLUE_PORTAL, BluePortalParticle.Factory::new);
         ParticleProviderRegistry.getInstance().register(ModParticleTypes.SPEEDRUNNERS_TOTEM, SpeedrunnersTotemParticle.Factory::new);
 
-        SpeedrunnerMod.debug("Registered client-side particle defaults for Speedrunner Mod.");
+        SpeedrunnerMod.LOGGER.debug("Registered client-side particle defaults for Speedrunner Mod.");
     }
 }

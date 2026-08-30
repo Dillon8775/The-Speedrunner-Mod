@@ -43,6 +43,6 @@ public class ModTrades {
      * Initializes all speedrunner mod trades.
      */
     public static void initializeTrades() {
-        SpeedrunnerMod.debug("Initialized trades.");
+        SpeedrunnerMod.LOGGER.debug("Initialized trades.");
     }
 }

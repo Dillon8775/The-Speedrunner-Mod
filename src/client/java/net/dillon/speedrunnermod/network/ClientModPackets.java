@@ -13,7 +13,7 @@ import net.dillon.speedrunnermod.network.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.network.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.option.ClientModOptions;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.CommonModOptions;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
@@ -36,7 +36,7 @@ import java.util.TimerTask;
 
 import static net.dillon.dillonlib.task.ClientTasks.executeIfClientPlayer;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 import static net.dillon.speedrunnermod.option.ClientModOptions.isActionbar;
 
 public class ClientModPackets {
@@ -48,7 +48,7 @@ public class ClientModPackets {
         PayloadTypeRegistry.clientboundPlay().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
-            if (options().general.mode.getCurrentValue() != packet.serverSideMode()) {
+            if (common().general.mode.getCurrentValue() != packet.serverSideMode()) {
                 context.client().getConnection().getConnection().disconnect(ModTexts.MODE_DOESNT_MATCH_SERVER_SETTING);
                 context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()), false, false);
             }
@@ -62,8 +62,8 @@ public class ClientModPackets {
         PayloadTypeRegistry.clientboundPlay().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(MatchClientOptionsWithServerS2CPacket.PACKET, (packet, context) -> {
-            ModOptions serverOptions = packet.toOptions();
-            configHandler().match(serverOptions);
+            CommonModOptions serverOptions = packet.toOptions();
+            commonConfigHandler().match(serverOptions);
             context.client().getConnection().getConnection().disconnect(ModTexts.MATCHED_SETTINGS_WITH_SERVER);
             context.client().disconnect(new TimedScreen(null, 5, true), false, false);
         });
@@ -88,7 +88,7 @@ public class ClientModPackets {
         PayloadTypeRegistry.clientboundPlay().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
 
         ClientPlayNetworking.registerGlobalReceiver(RequestClientSideOptionsS2CPacket.PACKET, (payload, context) -> {
-            ClientPlayNetworking.send(MatchServerOptionsWithClientC2SPacket.from(options(), context.player().getName().getString()));
+            ClientPlayNetworking.send(MatchServerOptionsWithClientC2SPacket.from(common(), context.player().getName().getString()));
             context.player().sendSystemMessage(Component.translatable("speedrunnermod.client_options_sent"));
         });
     }
@@ -142,7 +142,7 @@ public class ClientModPackets {
 
         registerClientJoinAndDisconnectEvents();
 
-        SpeedrunnerMod.debug("Registered server-to-client packets.");
+        SpeedrunnerMod.LOGGER.debug("Registered server-to-client packets.");
     }
 
     /**
@@ -151,7 +151,7 @@ public class ClientModPackets {
     public static void syncFwc(Minecraft client, int delayTicks) {
         IntegratedServer integratedServer = client.getSingleplayerServer();
         if (integratedServer != null) {
-            integratedServer.setWorldAllowCommands(clientOptions().client.allowCommands.getCurrentValue());
+            integratedServer.setWorldAllowCommands(client().client.allowCommands.getCurrentValue());
             PermissionSet permissionPredicate = integratedServer.getProfilePermissions(client.player.nameAndId());
             client.player.setPermissions(permissionPredicate);
 
@@ -159,7 +159,7 @@ public class ClientModPackets {
                 integratedServer.getCommands().sendCommands(serverPlayerEntity);
             }
 
-            SpeedrunnerMod.debug("Synced fast world creation settings with world in " + delayTicks + " ticks.");
+            SpeedrunnerMod.LOGGER.debug("Synced fast world creation settings with world in " + delayTicks + " ticks.");
         }
     }
 
@@ -167,7 +167,7 @@ public class ClientModPackets {
      * Updates client-sided options and sends to server-side.
      */
     public static void sendNewC2SOptions() {
-        ClientModOptions.Client options = clientOptions().client;
+        ClientModOptions.Client options = client().client;
         ClientPlayNetworking.send(new ClientPreferencesC2SPacket(
                 isActionbar(), options.warningMessages.getCurrentValue(), options.iCarusFireworksInventorySlot.getCurrentValue(), options.infiniPearlInventorySlot.getCurrentValue()
         ));

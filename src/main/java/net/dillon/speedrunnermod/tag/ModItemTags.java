@@ -70,6 +70,6 @@ public class ModItemTags {
      * Initializes all Speedrunner Mod {@code item tags.}
      */
     public static void initializeItemTags() {
-        SpeedrunnerMod.debug("Initialized item tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized item tags.");
     }
 }

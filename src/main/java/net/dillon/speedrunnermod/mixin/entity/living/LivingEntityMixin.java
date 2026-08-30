@@ -1,12 +1,12 @@
 package net.dillon.speedrunnermod.mixin.entity.living;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.InventoryPreserver;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -43,7 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements InventoryPreserver {
@@ -245,7 +245,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
         if (level > 10) {
             level = 10;
         }
-        livingTarget.addEffect(new MobEffectInstance(MobEffects.WITHER, TickCalculator.seconds(3 + level), amplifier));
+        livingTarget.addEffect(new MobEffectInstance(MobEffects.WITHER, Arithmetics.sas(3 + level), amplifier));
     }
 
     /**
@@ -310,7 +310,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "checkTotemDeathProtection", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/DeathProtection;applyEffects(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V"))
     private void applyFireResistance(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.minutes(2), 0));
+        this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.mas(2), 0));
     }
 
     /**
@@ -318,7 +318,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "handleFallFlyingCollisions", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)V"), cancellable = true)
     private void cancelOutElytraDamage(double oldSpeed, double newSpeed, CallbackInfo ci) {
-        if (!options().general.kineticDamage.getCurrentValue()) {
+        if (!common().general.kineticDamage.getCurrentValue()) {
             ci.cancel();
         }
     }
@@ -328,7 +328,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "handleFallFlyingCollisions", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), cancellable = true)
     private void cancelOutElytraDamageSound(double oldSpeed, double newSpeed, CallbackInfo ci) {
-        if (!options().general.kineticDamage.getCurrentValue()) {
+        if (!common().general.kineticDamage.getCurrentValue()) {
             ci.cancel();
         }
     }

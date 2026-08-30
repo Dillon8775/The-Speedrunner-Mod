@@ -54,7 +54,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * Helper methods for various different things (ex. items and math calculations)
@@ -190,7 +190,7 @@ public class ModHelper {
      * @return true if a dragon is alive, near the ender dragon.
      */
     public static boolean isGiantAlive(EnderDragon dragon) {
-        List<Giant> giants = getEntitiesWithinRange(dragon.level(), Giant.class, dragon, options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
+        List<Giant> giants = getEntitiesWithinRange(dragon.level(), Giant.class, dragon, common().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
 
         for (Giant giant : giants) {
             if (giant.isAlive()) {
@@ -205,7 +205,7 @@ public class ModHelper {
      * @return true if a wither is alive, near the ender dragon.
      */
     public static boolean isWitherAlive(EnderDragon dragon) {
-        List<WitherBoss> withers = getEntitiesWithinRange(dragon.level(), WitherBoss.class, dragon, options().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue());
+        List<WitherBoss> withers = getEntitiesWithinRange(dragon.level(), WitherBoss.class, dragon, common().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue());
 
         for (WitherBoss wither : withers) {
             if (wither.isAlive()) {
@@ -220,7 +220,7 @@ public class ModHelper {
      * @return true if a zombie {@link Minion}, near the ender dragon.
      */
     public static boolean isZombieMinionAlive(EnderDragon dragon) {
-        List<Zombie> zombies = getEntitiesWithinRange(dragon.level(), Zombie.class, dragon, options().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
+        List<Zombie> zombies = getEntitiesWithinRange(dragon.level(), Zombie.class, dragon, common().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
 
         for (Zombie zombie : zombies) {
             if (zombie instanceof Minion minion && minion.isGoliathMinion()) {
@@ -254,12 +254,12 @@ public class ModHelper {
             return optional.orElseThrow();
         } catch (Exception o) {
             if (!(errorMessagesSent > 100)) {
-                SpeedrunnerMod.error("(" + errorMessagesSent + ") Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.");
+                SpeedrunnerMod.LOGGER.error("({}) Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.", errorMessagesSent);
             }
             if (errorMessagesSent == 101) {
-                SpeedrunnerMod.error("(" + errorMessagesSent + ") Returning LOOTING enchantment.");
+                SpeedrunnerMod.LOGGER.error("({}) Returning LOOTING enchantment.", errorMessagesSent);
                 o.printStackTrace();
-                SpeedrunnerMod.error("(" + errorMessagesSent + ") This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.");
+                SpeedrunnerMod.LOGGER.error("({}) This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.", errorMessagesSent);
             }
             errorMessagesSent++;
             Level world = null;

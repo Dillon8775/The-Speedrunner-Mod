@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.network;
 
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.CommonModOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ public class DedicatedServerStorage {
     private static final Map<UUID, Boolean> WARNING_MESSAGES = new HashMap<>();
     private static final Map<UUID, Integer> ICARUS_FIREWORK_SLOT = new HashMap<>();
     private static final Map<UUID, Integer> INFINI_PEARL_SLOT = new HashMap<>();
-    private static final Map<String, ModOptions> pendingRequests = new HashMap<>();
+    private static final Map<String, CommonModOptions> pendingRequests = new HashMap<>();
 
     /**
      * Sets the {@code action bar preference} for a player.
@@ -85,14 +85,14 @@ public class DedicatedServerStorage {
     /**
      * Stores a {@code syncoption request} (with the player name and the requesting player's options).
      */
-    public static void storePendingSyncRequest(String player, ModOptions options) {
+    public static void storePendingSyncRequest(String player, CommonModOptions options) {
         pendingRequests.put(player, options);
     }
 
     /**
      * Gets the {@code pending sync request} for a player.
      */
-    public static ModOptions getPendingSyncRequest(String player) {
+    public static CommonModOptions getPendingSyncRequest(String player) {
         return pendingRequests.get(player);
     }
 

@@ -12,8 +12,8 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * The Speedrunner Mod's {@code "fast world creation"} options, which set the settings of each new world created.
@@ -51,8 +51,8 @@ public class WorldCreationOptionsScreen extends AbstractModScreen {
         EditBox seedField = new EditBox(Minecraft.getInstance().font, 0, 0, 150, 20, Component.empty());
         seedField.setMaxLength(128);
         seedField.setHint(Component.translatable("speedrunnermod.options.seed"));
-        seedField.setValue(clientOptions().client.seed.getCurrentValue());
-        seedField.setResponder(value -> clientOptions().client.seed.set(value));
+        seedField.setValue(client().client.seed.getCurrentValue());
+        seedField.setResponder(value -> client().client.seed.set(value));
         return seedField;
     }
 
@@ -67,7 +67,7 @@ public class WorldCreationOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-        this.lockOptionWithTooltip(this.gameMode, clientOptions().client.instantWorldCreation.getCurrentValue(),
+        this.lockOptionWithTooltip(this.gameMode, client().client.instantWorldCreation.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.gamemode.tooltip"),
                 Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 graphics,
@@ -75,11 +75,11 @@ public class WorldCreationOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.difficulty, clientOptions().client.instantWorldCreation.getCurrentValue() && !isDoomMode() && !clientOptions().client.gameMode.getCurrentValue().hardcore(),
+        this.lockOptionWithTooltip(this.difficulty, client().client.instantWorldCreation.getCurrentValue() && !isDoomMode() && !client().client.gameMode.getCurrentValue().hardcore(),
                 Component.translatable("speedrunnermod.options.difficulty.tooltip"),
-                clientOptions().client.gameMode.getCurrentValue().hardcore() ?
+                client().client.gameMode.getCurrentValue().hardcore() ?
                         Component.translatable("options.worldOptions.game_mode.disabled.tooltip") :
-                        clientOptions().client.instantWorldCreation.getCurrentValue() ?
+                        client().client.instantWorldCreation.getCurrentValue() ?
                                 Component.translatable("speedrunnermod.options.difficulty_locked.tooltip") :
                                 Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 graphics,
@@ -87,9 +87,9 @@ public class WorldCreationOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.allowCheats, clientOptions().client.instantWorldCreation.getCurrentValue() && !clientOptions().client.gameMode.getCurrentValue().hardcore(),
+        this.lockOptionWithTooltip(this.allowCheats, client().client.instantWorldCreation.getCurrentValue() && !client().client.gameMode.getCurrentValue().hardcore(),
                 Component.translatable("speedrunnermod.options.allow_commands.tooltip"),
-                !clientOptions().client.instantWorldCreation.getCurrentValue() ?
+                !client().client.instantWorldCreation.getCurrentValue() ?
                         Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip") :
                         Component.translatable("options.worldOptions.allow_commands.disabled.tooltip"),
                 graphics,
@@ -97,7 +97,7 @@ public class WorldCreationOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.seed, clientOptions().client.instantWorldCreation.getCurrentValue(),
+        this.lockOptionWithTooltip(this.seed, client().client.instantWorldCreation.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.seed.tooltip"),
                 Component.translatable("speedrunnermod.options.fast_world_creation_must_be_enabled.tooltip"),
                 graphics,

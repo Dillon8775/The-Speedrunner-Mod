@@ -59,6 +59,6 @@ public class ModBlockHardnessTags {
      * Initializes all Speedrunner Mod {@code block baseHardness tags.}
      */
     public static void initializeBlockHardnessTags() {
-        SpeedrunnerMod.debug("Initialized block baseHardness tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized block baseHardness tags.");
     }
 }

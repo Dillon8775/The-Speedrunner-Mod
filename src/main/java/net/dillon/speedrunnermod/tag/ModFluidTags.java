@@ -17,6 +17,6 @@ public class ModFluidTags {
      * Initializes all Speedrunner Mod {@code fluid tags.}
      */
     public static void initializeFluidTags() {
-        SpeedrunnerMod.debug("Initialized fluid tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized fluid tags.");
     }
 }

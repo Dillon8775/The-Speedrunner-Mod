@@ -28,6 +28,6 @@ public class ModMobEffects {
     }
 
     public static void registerStatusEffects() {
-        SpeedrunnerMod.debug("Registered potions.");
+        SpeedrunnerMod.LOGGER.debug("Registered potions.");
     }
 }

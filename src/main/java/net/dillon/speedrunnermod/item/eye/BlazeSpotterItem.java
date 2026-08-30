@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.item.eye;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -32,7 +32,7 @@ import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
@@ -67,8 +67,8 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.blaze_spotter.couldnt_find_spawner"), ChatFormatting.GOLD, ChatFormatting.WHITE);
             } else {
                 this.correctlyTeleport(world, blazeSpawnerPos, player, 1.0F);
-                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.seconds(world.getRandom().nextInt(4) + 7), 0, false, true, true));
-                player.getCooldowns().addCooldown(this.getDefaultInstance(), TickCalculator.seconds(30));
+                player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.sas(world.getRandom().nextInt(4) + 7), 0, false, true, true));
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.sas(30));
                 world.broadcastEntityEvent(player, ModStatuses.ADD_BLAZE_SMOKE_PARTICLES);
                 this.playTeleportSound(world, player);
                 this.playWorldSound(SoundEvents.BLAZE_AMBIENT, 3.0F, 0.6F, world, player);
@@ -90,9 +90,9 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
      */
     private BlockPos findNearestBlazeSpawner(ServerLevel world, BlockPos fortressPos) {
         for (BlockPos pos : BlockPos.withinClippedManhattan(fortressPos,
-                options().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(),
-                options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1),
-                options().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2))) {
+                common().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(),
+                common().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1),
+                common().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2))) {
             if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof SpawnerBlockEntity) {

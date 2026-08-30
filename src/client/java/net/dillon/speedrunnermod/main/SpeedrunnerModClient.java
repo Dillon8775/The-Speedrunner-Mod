@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.main;
 
-import net.dillon.speedrunnermod.keybind.ModKeyMappings;
 import net.dillon.speedrunnermod.network.ClientModPackets;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.option.Leaderboards;
@@ -31,14 +30,14 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         clientConfigHandler().load();
 
-        if (options().general.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
+        if (common().general.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
             speedrunIGTMissing = true;
-            warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
+            LOGGER.warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
         }
 
         Leaderboards.initializeLeaderboards();
 
-        debug("The client-side for The Speedrunner Mod has successfully loaded.");
+        LOGGER.debug("The client-side for The Speedrunner Mod has successfully loaded.");
     }
 
     /**
@@ -46,7 +45,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
 
-    public static ClientModOptions clientOptions() {
+    public static ClientModOptions client() {
         return ClientModOptions.CLIENT_INSTANCE.getInstance();
     }
 
@@ -110,13 +109,13 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Returns the {@code minimum brightness} value for the speedrunner mod.
      */
     public static double getMinBrightness() {
-        return clientOptions().client.minimumBrightness.getCurrentValue();
+        return client().client.minimumBrightness.getCurrentValue();
     }
 
     /**
      * Returns the {@code maximum brightness} value for the speedrunner mod.
      */
     public static double getMaxBrightness() {
-        return (double) clientOptions().client.fullBrightAmount.getCurrentValue() / 100;
+        return (double) client().client.fullBrightAmount.getCurrentValue() / 100;
     }
 }

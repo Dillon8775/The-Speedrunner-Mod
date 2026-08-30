@@ -17,9 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 public class RestartRequiredScreen extends AbstractModScreen {
@@ -36,12 +35,12 @@ public class RestartRequiredScreen extends AbstractModScreen {
     protected void init() {
         this.addRenderableWidget(Button.builder(ModTexts.RESTART_NOW, (buttonWidget) -> {
             this.quitWorld();
-            info("Closing game! Re-launch to apply changes.");
+            SpeedrunnerMod.LOGGER.info("Closing game! Re-launch to apply changes.");
             this.minecraft.stop();
         }).bounds(this.getButtonsLeftSide(), this.getButtonsHeight(), 100, 20).build());
         this.addRenderableWidget(Button.builder(ModTexts.REVERT_CHANGES, (buttonWidget) -> {
             revertChanges();
-            info("Changes reverted.");
+            SpeedrunnerMod.LOGGER.info("Changes reverted.");
             this.minecraft.gui.setScreen(this.parent);
             if (this.parent instanceof FeatureScreen featureScreen) {
                 featureScreen.refreshFeatureScreen(featureScreen.getPageNumber(), featureScreen.featurePage.getCategory());
@@ -108,8 +107,8 @@ public class RestartRequiredScreen extends AbstractModScreen {
         initialValues.clear();
         processedObjects.clear();
 
-        scanOptions(options());
-        scanOptions(clientOptions());
+        scanOptions(common());
+        scanOptions(client());
     }
 
     /**
@@ -117,7 +116,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
      */
     private static void scanOptions(Object optionsClass) {
         if (optionsClass == null) {
-            SpeedrunnerMod.error("Options class is null");
+            SpeedrunnerMod.LOGGER.error("Options class is null");
             return;
         }
 
@@ -146,7 +145,7 @@ public class RestartRequiredScreen extends AbstractModScreen {
                     scanOptions(value);
                 }
             } catch (IllegalAccessException e) {
-                SpeedrunnerMod.debug("Failed to access field: " + field.getName() + " - " + e.getMessage());
+                SpeedrunnerMod.LOGGER.debug("Failed to access field: " + field.getName() + " - " + e.getMessage());
                 e.printStackTrace();
             }
         }

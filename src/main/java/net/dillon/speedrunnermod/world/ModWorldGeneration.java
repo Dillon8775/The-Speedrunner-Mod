@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.world;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.dillon.speedrunnermod.world.feature.ModStructureSets;
 import net.dillon.speedrunnermod.world.feature.ModStructures;
@@ -11,9 +10,9 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * All Speedrunner Mod {@code custom world gen features.}
@@ -31,12 +30,12 @@ public class ModWorldGeneration {
         addOres();
         addVegetalDecoration();
 
-        if (isDoomMode() && options().worldGen.totalLibraries.getCurrentValue() > 5) {
-            options().worldGen.totalLibraries.set(5);
-            warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
+        if (isDoomMode() && common().worldGen.totalLibraries.getCurrentValue() > 5) {
+            common().worldGen.totalLibraries.set(5);
+            LOGGER.warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
         }
 
-        SpeedrunnerMod.debug("Initialized world gen features.");
+        LOGGER.debug("Initialized world gen features.");
     }
 
     /**
@@ -78,7 +77,7 @@ public class ModWorldGeneration {
      * All Speedrunner Mod {@code vegetation decoration features.}
      */
     private static void addVegetalDecoration() {
-        if (options().worldGen.generateSpeedrunnerWood.getCurrentValue()) {
+        if (common().worldGen.generateSpeedrunnerWood.getCurrentValue()) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                             Biomes.DESERT,
                             Biomes.BADLANDS),

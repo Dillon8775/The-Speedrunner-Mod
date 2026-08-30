@@ -32,6 +32,6 @@ public class ModStructureSets {
      * Initializes all speedrunner mod structure sets.
      */
     public static void initializeStructureSets() {
-        SpeedrunnerMod.debug("Initialized structure sets.");
+        SpeedrunnerMod.LOGGER.debug("Initialized structure sets.");
     }
 }

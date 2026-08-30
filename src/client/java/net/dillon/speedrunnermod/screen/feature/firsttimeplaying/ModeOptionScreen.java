@@ -9,7 +9,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
 public class ModeOptionScreen extends FTPFeatureScreen {
@@ -23,19 +23,19 @@ public class ModeOptionScreen extends FTPFeatureScreen {
     protected void init() {
         super.init();
         this.easyButton = this.addButtonObject(Button.builder(ModTexts.EASY_MODE, button -> {
-            options().general.mode.set(Mode.EASY);
+            common().general.mode.set(Mode.EASY);
             saveDedicatedServerChanges();
             restartRequired = false;
             this.minecraft.gui.setScreen(this.getNextScreen());
         }).build());
         this.balancedButton = this.addButtonObject(Button.builder(ModTexts.BALANCED_MODE, button -> {
-            options().general.mode.set(Mode.BALANCED);
+            common().general.mode.set(Mode.BALANCED);
             saveDedicatedServerChanges();
             restartRequired = true;
             this.minecraft.gui.setScreen(this.getNextScreen());
         }).build());
         this.doomButton = this.addButtonObject(Button.builder(ModTexts.DOOM_MODE, button -> {
-            options().general.mode.set(Mode.DOOM);
+            common().general.mode.set(Mode.DOOM);
             saveDedicatedServerChanges();
             restartRequired = true;
             this.minecraft.gui.setScreen(this.getNextScreen());

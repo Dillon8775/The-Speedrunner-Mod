@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item.eye;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.entity.ModStatuses;
@@ -7,7 +8,6 @@ import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -61,7 +61,7 @@ public class EnderThrusterItem extends Item implements SpeedrunnerItem {
             if (!canTeleport) {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.ender_thruster.couldnt_teleport"));
             } else {
-                player.getCooldowns().addCooldown(this.getDefaultInstance(), TickCalculator.seconds(10));
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.sas(10));
 
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 

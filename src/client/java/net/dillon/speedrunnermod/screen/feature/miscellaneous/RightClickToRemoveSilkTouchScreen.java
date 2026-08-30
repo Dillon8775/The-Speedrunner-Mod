@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 public class RightClickToRemoveSilkTouchScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +17,8 @@ public class RightClickToRemoveSilkTouchScreen extends DefaultMiscellaneousFeatu
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(options().general.rightClickToRemoveSilkTouch.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().general.rightClickToRemoveSilkTouch.set(!options().general.rightClickToRemoveSilkTouch.getCurrentValue());
+        this.addButtonObject(Button.builder(common().general.rightClickToRemoveSilkTouch.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            common().general.rightClickToRemoveSilkTouch.set(!common().general.rightClickToRemoveSilkTouch.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

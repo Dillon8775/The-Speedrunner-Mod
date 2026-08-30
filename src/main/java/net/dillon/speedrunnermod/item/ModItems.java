@@ -394,6 +394,6 @@ public class ModItems {
      * Initializes all Speedrunner Mod {@code items.}
      */
     public static void initializeItems() {
-        SpeedrunnerMod.debug("Initialized items.");
+        SpeedrunnerMod.LOGGER.debug("Initialized items.");
     }
 }

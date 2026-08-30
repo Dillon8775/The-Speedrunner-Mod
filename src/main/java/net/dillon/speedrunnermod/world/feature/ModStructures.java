@@ -32,6 +32,6 @@ public class ModStructures {
      * Initializes all speedrunner mod structures.
      */
     public static void initializeStructures() {
-        SpeedrunnerMod.debug("Initialized structures.");
+        SpeedrunnerMod.LOGGER.debug("Initialized structures.");
     }
 }

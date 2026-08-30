@@ -134,6 +134,6 @@ public class ModEnchantments {
      * Initializes all Speedrunner Mod {@code enchantments.}
      */
     public static void initializeEnchantments() {
-        SpeedrunnerMod.debug("Initialized enchantments.");
+        SpeedrunnerMod.LOGGER.debug("Initialized enchantments.");
     }
 }

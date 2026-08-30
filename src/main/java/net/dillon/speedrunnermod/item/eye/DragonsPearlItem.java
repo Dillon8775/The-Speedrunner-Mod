@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.item.eye;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -25,7 +25,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
@@ -54,7 +54,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
             this.playPitchedLaunchSound(5.0F, world, player);
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").withStyle(ChatFormatting.LIGHT_PURPLE));
         } else {
-            List<EnderDragon> dragons = ModHelper.getEntitiesWithinRange(world, EnderDragon.class, player, options().advanced.dragonsPearlSearchRadius.getCurrentValue());
+            List<EnderDragon> dragons = ModHelper.getEntitiesWithinRange(world, EnderDragon.class, player, common().advanced.dragonsPearlSearchRadius.getCurrentValue());
 
             if (dragons.isEmpty()) {
                 this.playWorldSound(SoundEvents.ENDER_EYE_LAUNCH, 3.0F, world, player);
@@ -63,7 +63,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
                 EnderDragon enderDragon = dragons.get(0);
                 if (!isDragonAlreadyPerchingOrPerched(enderDragon) && !isDragonDead(enderDragon)) {
                     this.playWorldSound(SoundEvents.ENDER_EYE_LAUNCH, 2.0F, 0.3F, world, player);
-                    player.getCooldowns().addCooldown(this.getDefaultInstance(), TickCalculator.seconds(30));
+                    player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.sas(30));
 
                     ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 

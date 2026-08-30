@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.screen.misc;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
@@ -10,9 +11,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-
+@Deprecated(forRemoval = true)
 public class SpeedrunIGTMissingScreen extends AbstractModScreen {
     protected Button leftButton, middleButton, rightButton;
 
@@ -31,7 +30,7 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
             this.minecraft.stop();
         }).bounds(this.getButtonsMiddle(), height, 100, 20).build());
         this.rightButton = this.addRenderableWidget(Button.builder(ModTexts.CLOSE_GAME, (buttonWidget) -> {
-            info("Closing game!");
+            SpeedrunnerMod.LOGGER.info("Closing game!");
             this.minecraft.stop();
         }).bounds(this.getButtonsRightSide(), height, 100, 20).build());
     }
@@ -49,7 +48,7 @@ public class SpeedrunIGTMissingScreen extends AbstractModScreen {
 
     @Override
     public void onClose() {
-        warn("Cannot close screen! Please select an option.");
+        SpeedrunnerMod.LOGGER.warn("Cannot close screen! Please select an option.");
     }
 
     @Override

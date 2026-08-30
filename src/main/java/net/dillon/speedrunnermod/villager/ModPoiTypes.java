@@ -45,6 +45,6 @@ public class ModPoiTypes {
      * Initializes all speedrunner mod poi types.
      */
     public static void initializeModPois() {
-        SpeedrunnerMod.debug("Initialized POIs.");
+        SpeedrunnerMod.LOGGER.debug("Initialized POIs.");
     }
 }

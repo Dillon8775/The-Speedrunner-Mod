@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(Vindicator.class)
 public abstract class VindicatorMixin extends AbstractIllager {
@@ -43,7 +43,7 @@ public abstract class VindicatorMixin extends AbstractIllager {
             return false;
         } else {
             if (isDoomMode() && target instanceof Player) {
-                ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(10), 0));
+                ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(10), 0));
             }
 
             return true;

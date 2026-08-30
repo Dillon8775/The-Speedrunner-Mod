@@ -21,6 +21,6 @@ public class ModRecipes {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_speedrunner_shield_decoration"), SpeedrunnerShieldDecorationRecipe.SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ofSpeedrunnerMod("crafting_golden_shield_decoration"), GoldenShieldDecorationRecipe.SERIALIZER);
 
-        SpeedrunnerMod.debug("Initialized custom recipes.");
+        SpeedrunnerMod.LOGGER.debug("Initialized custom recipes.");
     }
 }

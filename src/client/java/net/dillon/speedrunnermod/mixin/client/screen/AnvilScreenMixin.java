@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Author(Authors.KURAION)
 @Mixin(AnvilScreen.class)
@@ -18,7 +18,7 @@ public class AnvilScreenMixin {
      */
     @ModifyConstant(method = "extractLabels", constant = @Constant(intValue = 40))
     private int removeTooExpensiveText(int i) {
-        if (options().general.betterAnvil.getCurrentValue()) {
+        if (common().general.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;
         } else {
             return 40;

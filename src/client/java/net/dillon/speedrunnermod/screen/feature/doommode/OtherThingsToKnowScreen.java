@@ -9,8 +9,8 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 public class OtherThingsToKnowScreen extends DoomModeFeatureScreen {
     private AbstractWidget enableDoomModeButton;
@@ -28,7 +28,7 @@ public class OtherThingsToKnowScreen extends DoomModeFeatureScreen {
             if (!isDoomMode()) {
                 this.minecraft.gui.setScreen(new RestartRequiredScreen(this));
             }
-            options().general.mode.set(Mode.DOOM);
+            common().general.mode.set(Mode.DOOM);
         }).build());
         this.enableDoomModeButton.active = !isDoomMode();
         this.addButtonObject(Button.builder(ModTexts.NOT_NOW, button -> this.onClose()).build());

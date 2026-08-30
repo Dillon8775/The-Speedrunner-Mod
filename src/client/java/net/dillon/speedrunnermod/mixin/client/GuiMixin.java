@@ -18,9 +18,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 
 @Mixin(Gui.class)
 public abstract class GuiMixin {
@@ -31,21 +31,22 @@ public abstract class GuiMixin {
      * Adds the {@code Safe Mode} feature.
      * <p>If the speedrunner mod detects broken options, then the game will load into the {@link SafeBootScreen}.</p>
      */
+    @Deprecated(forRemoval = true)
     @Inject(method = "buildInitialScreens", at = @At("RETURN"), cancellable = true)
     private void openSpeedrunnerModScreens(GameLoadCookie cookie, CallbackInfoReturnable<Runnable> cir) {
         Runnable vanillaFlow = cir.getReturnValue();
         cir.setReturnValue(() -> {
             if (ModConstants.safeBoot) {
                 this.setScreen(new SafeBootScreen(null));
-                warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
-            } else if (clientOptions().storedValues.firstTimePlaying.getCurrentValue() || Overrides.firstTimePlaying()) {
+                LOGGER.warn("Booted into safe mode, due to corrupt options. It is recommended that you fix these options before proceeding.");
+            } else if (client().storedValues.firstTimePlaying.getCurrentValue() || Overrides.firstTimePlaying()) {
                 this.setScreen(FeaturePage.FIRST_TIME_PLAYING.createScreen(null));
-            } else if (!Leaderboards.isEligibleForLeaderboardRuns() && options().general.leaderboardsMode.getCurrentValue()) {
+            } else if (!Leaderboards.isEligibleForLeaderboardRuns() && common().general.leaderboardsMode.getCurrentValue()) {
                 this.setScreen(new LeaderboardsSafeScreen(null));
-                warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");
-            } else if (options().general.leaderboardsMode.getCurrentValue() && SpeedrunnerModClient.speedrunIGTMissing) {
+                LOGGER.warn("You have invalid options set for the leaderboards, you must fix these if you want to submit a speedrun to the leaderboards.");
+            } else if (common().general.leaderboardsMode.getCurrentValue() && SpeedrunnerModClient.speedrunIGTMissing) {
                 this.setScreen(new SpeedrunIGTMissingScreen(null));
-                warn("SpeedrunIGT mod is missing, please download to submit speedruns.");
+                LOGGER.warn("SpeedrunIGT mod is missing, please download to submit speedruns.");
             } else {
                 vanillaFlow.run();
             }

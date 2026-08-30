@@ -23,7 +23,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * Any type of speedrunner item that contains a tooltip, or advanced eye items.
@@ -184,7 +184,7 @@ public interface SpeedrunnerItem {
      */
     default void addStateOfTheArtItemTooltip(Consumer<Component> textConsumer) {
         for (Mode mode : this.disabledModes()) {
-            if (options().general.mode.getCurrentValue() == mode) {
+            if (common().general.mode.getCurrentValue() == mode) {
                 textConsumer.accept(ModTexts.stateOfTheArtItemDisabledTooltip(mode));
             }
         }
@@ -227,7 +227,7 @@ public interface SpeedrunnerItem {
      */
     default boolean isDisabled() {
         for (Mode mode : this.disabledModes()) {
-            if (options().general.mode.getCurrentValue() == mode) {
+            if (common().general.mode.getCurrentValue() == mode) {
                 return true;
             }
         }

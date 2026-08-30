@@ -71,6 +71,6 @@ public class ModAttributes {
      * Initializes all Speedrunner Mod attributes.
      */
     public static void initializeAttributes() {
-        SpeedrunnerMod.debug("Initialized attributes.");
+        SpeedrunnerMod.LOGGER.debug("Initialized attributes.");
     }
 }

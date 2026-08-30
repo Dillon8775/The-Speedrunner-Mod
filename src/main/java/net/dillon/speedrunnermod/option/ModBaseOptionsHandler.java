@@ -6,71 +6,35 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import net.dillon.dillonlib.util.BaseOptions;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.error;
-import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isSafe;
 
 /**
  * The base class for registering options on different environment sides.
  */
-public abstract class BaseOptions<T> {
+public abstract class ModBaseOptionsHandler<T> extends BaseOptions<T> {
     public static final String CURRENT_VALUE = "current_value";
     private final Gson GSON = createGson();
-    private final String fileName;
-    private File file;
     protected T instance;
 
     private final String space = " ";
     private final String pertaining = "Pertaining to: ";
     protected final String related = space + pertaining;
 
-    /**
-     * Constructor which initializes the file name and the instance of the options.
-     */
-    protected BaseOptions(String fileName) {
-        this.fileName = fileName;
-        this.instance = createDefault();
-    }
-
-    /**
-     * Returns the type to get the options from.
-     */
-    protected abstract T createDefault();
-
-    /**
-     * Returns the class to get the options from.
-     */
-    protected abstract Class<T> getConfigClass();
-
-    /**
-     * Runs a safe check through all options to ensure no issues.
-     * <p>Preforms a {@code "safe check"} on all the Speedrunner Mod options, and makes sure that they are valid and safe to run in-game.
-     * <p>If an option is broken or invalid, and it is not recommended to run, the user will automatically boot into the Safe boot screen.</p>
-     */
-    protected abstract void safeCheck();
-
-    /**
-     * Sets an option to be broken and logs it.
-     */
-    public void setBroken(OptionValue<?> option, String value) {
-        error(ModConstants.OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options."+value);
-        isSafe(false);
-        option.setBroken();
+    public ModBaseOptionsHandler(String fileName) {
+        super(fileName);
     }
 
     /**
      * Creates the {@code GSON reader,} which reads options correctly.
      */
+    @Override
     public Gson createGson() {
         GsonBuilder builder = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -118,10 +82,12 @@ public abstract class BaseOptions<T> {
     }
 
     /**
-     * Gets the instance of options.
+     * Sets an option to be broken and logs it.
      */
-    public T getInstance() {
-        return this.instance;
+    public void setBroken(OptionValue<?> option, String value) {
+        SpeedrunnerMod.LOGGER.error(ModConstants.OPTIONS_ERROR_MESSAGE + related + "speedrunnermod.options.{}", value);
+        isSafe(false);
+        option.setBroken();
     }
 
     /**
@@ -145,77 +111,10 @@ public abstract class BaseOptions<T> {
     }
 
     /**
-     * Loads {@code this} config.
-     */
-    public void load() {
-        File configFile = getConfigFile();
-        for (File oldConfigFile : this.oldConfigFiles()) {
-            if (oldConfigFile.exists()) {
-                if (oldConfigFile.delete()) {
-                    SpeedrunnerMod.warn("Found old speedrunner mod config file, deleting.");
-                }
-            }
-        }
-        if (!configFile.exists()) {
-            this.instance = createDefault();
-        } else {
-            try (FileReader reader = new FileReader(configFile)) {
-                this.instance = GSON.fromJson(reader, getConfigClass());
-            } catch (Exception e) {
-                e.printStackTrace();
-                this.instance = createDefault();
-            }
-        }
-        this.safeCheck();
-        this.save();
-    }
-
-    /**
-     * Saves {@code this} config.
-     */
-    public void save() {
-        try (FileWriter writer = new FileWriter(getConfigFile())) {
-            writer.write(GSON.toJson(this.instance));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Matches client-side options with server-side options.
      */
     public void match(T sentOptions) {
         this.instance = sentOptions;
         save();
-    }
-
-    /**
-     * Gets {@code this} config file.
-     */
-    public File getConfigFile() {
-        if (this.file == null) {
-            this.file = this.ofFile(this.fileName);
-        }
-        return this.file;
-    }
-
-    /**
-     * @return the {@link File} in the fabric config directory.
-     */
-    private File ofFile(String fileName) {
-        return new File(FabricLoader.getInstance().getConfigDir().toFile(), fileName);
-    }
-
-    /**
-     * @return a list of old config files to be deleted.
-     */
-    private List<File> oldConfigFiles() {
-        return List.of(
-                this.ofFile("speedrunnermod-client_config_1.11.1.json"),
-                this.ofFile("speedrunnermod-config_1.11.1.json"),
-                this.ofFile("speedrunnermod-config.json"),
-                this.ofFile("speedrunnermod-client_config.json"),
-                this.ofFile("speedrunnermod-options.json")
-        );
     }
 }

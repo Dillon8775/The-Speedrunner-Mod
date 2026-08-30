@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(Block.class)
 public class BlockMixin {
@@ -22,7 +22,7 @@ public class BlockMixin {
     @Overwrite
     public void fallOn(Level world, BlockState state, BlockPos pos, Entity entity, double fallDistance) {
         float fallDamage;
-        if (!options().general.fallDamage.getCurrentValue()) {
+        if (!common().general.fallDamage.getCurrentValue()) {
             fallDamage = 0.0F;
         } else {
             fallDamage = isDoomMode() ? 1.0F : 0.7F;

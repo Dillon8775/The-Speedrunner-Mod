@@ -1,10 +1,10 @@
 package net.dillon.speedrunnermod.item;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.entity.goliath.Minion;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.util.RandomChance;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,8 +21,8 @@ import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * A fireball, which can be thrown.
@@ -61,7 +61,7 @@ public interface ThrowableFireball {
 
             if (thrower instanceof Player player) {
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer) player, new ItemStack(Items.FIRE_CHARGE));
-                player.getCooldowns().addCooldown(stack, TickCalculator.seconds(getFireballCooldown(explosionPower, dragon)));
+                player.getCooldowns().addCooldown(stack, Arithmetics.sas(getFireballCooldown(explosionPower, dragon)));
                 if (!player.getAbilities().instabuild) {
                     stack.shrink(1);
                 }
@@ -97,7 +97,7 @@ public interface ThrowableFireball {
 
         int power = isDoomMode()
                 ? RandomChance.intInclusive(1, maxPower)
-                : options().general.fireballExplosionPower.getCurrentValue();
+                : common().general.fireballExplosionPower.getCurrentValue();
 
         if (dragon && power > maxDragonPower) {
             power = 5;

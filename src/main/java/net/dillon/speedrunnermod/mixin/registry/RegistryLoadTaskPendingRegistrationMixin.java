@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isSsrDefault;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isSsrDefault;
 
 @Mixin(RegistryLoadTask.PendingRegistration.class)
 public class RegistryLoadTaskPendingRegistrationMixin {
@@ -82,7 +82,7 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             PlacedFeaturesLoader.modifyMonsterRoom(jsonElement);
         }
 
-        if (options().worldGen.commonOres.getCurrentValue()) {
+        if (common().worldGen.commonOres.getCurrentValue()) {
             String oreDiamond = JsonIdentifiers.ORE_DIAMOND;
             if (fileName.equals(oreDiamond) || fileName.equals(JsonIdentifiers.ORE_DIAMOND_BURIED)) {
                 PlacedFeaturesLoader.modifyOreDiamond(fileName, oreDiamond, jsonElement);
@@ -98,7 +98,7 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             }
         }
 
-        if (options().worldGen.commonPlainTrees.getCurrentValue()) {
+        if (common().worldGen.commonPlainTrees.getCurrentValue()) {
             if (fileName.equals(JsonIdentifiers.TREES_PLAINS)) {
                 PlacedFeaturesLoader.modifyTreePlains(jsonElement);
             }

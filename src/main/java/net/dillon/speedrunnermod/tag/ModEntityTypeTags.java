@@ -23,6 +23,6 @@ public class ModEntityTypeTags {
      * Initializes all Speedrunner Mod {@code entity type tags.}
      */
     public static void initializeEntityTypeTags() {
-        SpeedrunnerMod.debug("Initialized entity type tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized entity type tags.");
     }
 }

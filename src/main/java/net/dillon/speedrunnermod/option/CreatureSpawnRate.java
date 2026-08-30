@@ -10,6 +10,7 @@ import java.util.Comparator;
 /**
  * All the different {@code Mob Spawning Rate} options.
  */
+@Deprecated(forRemoval = true) // Soon to be fixed boolean
 public enum CreatureSpawnRate implements StringRepresentable {
     LOW(0, "low", "speedrunnermod.options.creature_spawn_rate.low"),
     NORMAL(1, "normal", "speedrunnermod.options.creature_spawn_rate.normal"),

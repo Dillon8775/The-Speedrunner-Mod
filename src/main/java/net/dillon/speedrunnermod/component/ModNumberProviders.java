@@ -123,6 +123,6 @@ public class ModNumberProviders {
      * Initializes all speedrunner mod number providers.
      */
     public static void initializeNumberProviders() {
-        SpeedrunnerMod.debug("Initialized number providers.");
+        SpeedrunnerMod.LOGGER.debug("Initialized number providers.");
     }
 }

@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(BrewingStandBlockEntity.class)
 public class BrewingStandBlockEntityMixin {
@@ -15,6 +15,6 @@ public class BrewingStandBlockEntityMixin {
      */
     @ModifyConstant(method = "serverTick", constant = @Constant(floatValue = 400.0F))
     private static float changeBrewTime(float original) {
-        return options().general.fasterBrewing.getCurrentValue() ? 100.0F : original;
+        return common().general.fasterBrewing.getCurrentValue() ? 100.0F : original;
     }
 }

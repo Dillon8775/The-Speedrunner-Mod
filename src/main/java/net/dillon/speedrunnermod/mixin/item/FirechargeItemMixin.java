@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(FireChargeItem.class)
 public class FirechargeItemMixin extends Item {
@@ -29,8 +29,8 @@ public class FirechargeItemMixin extends Item {
     @Inject(method = "useOn", at = @At("HEAD"), cancellable = true)
     private void throwFireballWhenShifting(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = context.getPlayer();
-        if (options().general.throwableFireballs.getCurrentValue()) {
-            if (!options().advanced.shiftToThrowFireball.getCurrentValue()) {
+        if (common().general.throwableFireballs.getCurrentValue()) {
+            if (!common().advanced.shiftToThrowFireball.getCurrentValue()) {
                 this.throwAndSetReturnValue(context, player, cir);
             } else {
                 if (player.isShiftKeyDown()) {
@@ -45,7 +45,7 @@ public class FirechargeItemMixin extends Item {
      */
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
-        if (options().general.throwableFireballs.getCurrentValue()) {
+        if (common().general.throwableFireballs.getCurrentValue()) {
             return this.throwFireball(world, player, hand);
         }
         return super.use(world, player, hand);

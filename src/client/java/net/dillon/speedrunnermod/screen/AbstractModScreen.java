@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.dillonlib.task.ClientTasks;
+import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
@@ -82,7 +83,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
 
             this.openOptionsFileButton = this.addRenderableWidget(Button.builder(ModTexts.MENU_OPEN_OPTIONS_FILE, (button) -> {
                 this.onClose();
-                this.configFile = !Minecraft.getInstance().hasShiftDown() ? configHandler().getConfigFile() : clientConfigHandler().getConfigFile();
+                this.configFile = !Minecraft.getInstance().hasShiftDown() ? commonConfigHandler().getConfigFile() : clientConfigHandler().getConfigFile();
                 Util.getPlatform().openFile(this.configFile);
             }).bounds(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
 
@@ -90,10 +91,10 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.minecraft.gui.setScreen(new ResetOptionsConfirmScreen(this.parent));
             }).bounds(this.getButtonsRightSide(), this.getDoneButtonHeight(), 100, 20).build());
 
-            this.helpButton = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (button) -> {
+            this.helpButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (button) -> {
                 this.openLink(ModLinks.MODRINTH, true);
             }).bounds(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
-            this.matchSettingsWithServer = this.addRenderableWidget(Button.builder(ModTexts.BLANK, (button) -> {
+            this.matchSettingsWithServer = this.addRenderableWidget(Button.builder(Texts.BLANK, (button) -> {
                 this.minecraft.gui.setScreen(new MatchSettingsWithServerScreen(this.parent));
             }).bounds(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer.active = this.isOnServer();
@@ -236,7 +237,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
         try {
             if (this.buttonList != null) {
                 if (option == null) {
-                    SpeedrunnerMod.error("No widget found with option: " + option.toString());
+                    SpeedrunnerMod.LOGGER.error("No widget found with option: " + option.toString());
                 } else {
                     if (this.searchField.getValue().isEmpty()) {
                         option.active = bl;
@@ -319,7 +320,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
             LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = false;
             this.alreadySettingToIneligibleScreen = false;
 
-            if (options().general.leaderboardsMode.getCurrentValue()) {
+            if (common().general.leaderboardsMode.getCurrentValue()) {
                 if (Leaderboards.wasLeaderboardsModeChanged()) {
                     LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = true;
                 }

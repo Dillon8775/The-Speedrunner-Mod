@@ -9,7 +9,7 @@ import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
 public class ModeDoesntMatchScreen extends AbstractModScreen {
@@ -24,7 +24,7 @@ public class ModeDoesntMatchScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.matchModeToServerButton = this.addRenderableWidget(Button.builder(ModTexts.MATCH_MODE_TO_SERVER, (buttonWidget) -> {
-            options().general.mode.set(this.serverSideMode);
+            common().general.mode.set(this.serverSideMode);
             saveDedicatedServerChanges();
             this.minecraft.gui.setScreen(new TimedScreen(null, 5, true));
         }).bounds(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());

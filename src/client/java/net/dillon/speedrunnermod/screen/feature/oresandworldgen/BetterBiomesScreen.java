@@ -6,7 +6,7 @@ import net.dillon.speedrunnermod.screen.option.WorldGenOptionsScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 public class BetterBiomesScreen extends DefaultOresAndWorldGenFeatureFactory {
 
@@ -18,9 +18,9 @@ public class BetterBiomesScreen extends DefaultOresAndWorldGenFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(options().worldGen.betterBiomes.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+        this.addButtonObject(Button.builder(common().worldGen.betterBiomes.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
             this.refreshRestartableFeature(new WorldGenOptionsScreen(this));
-            options().worldGen.betterBiomes.set(!options().worldGen.betterBiomes.getCurrentValue());
+            common().worldGen.betterBiomes.set(!common().worldGen.betterBiomes.getCurrentValue());
             ((WorldGenOptionsScreen)this.minecraft.gui.screen()).searchField.setValue("better biomes");
         }).build());
     }

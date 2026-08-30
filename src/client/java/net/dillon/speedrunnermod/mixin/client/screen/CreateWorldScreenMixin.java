@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin {
@@ -34,12 +34,12 @@ public abstract class CreateWorldScreenMixin {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void fastWorldCreationButtonFunction(CallbackInfo ci) {
-        if (!clientOptions().client.instantWorldCreation.getCurrentValue()) {
+        if (!client().client.instantWorldCreation.getCurrentValue()) {
             return;
         }
 
         Difficulty difficulty = null;
-        switch (clientOptions().client.difficulty.getCurrentValue()) {
+        switch (client().client.difficulty.getCurrentValue()) {
             case PEACEFUL:
                 difficulty = Difficulty.PEACEFUL;
                 break;
@@ -55,7 +55,7 @@ public abstract class CreateWorldScreenMixin {
         }
 
         WorldCreationUiState.SelectedGameMode gameMode = null;
-        switch (clientOptions().client.gameMode.getCurrentValue()) {
+        switch (client().client.gameMode.getCurrentValue()) {
             case SURVIVAL:
                 gameMode = WorldCreationUiState.SelectedGameMode.SURVIVAL;
                 break;
@@ -73,12 +73,12 @@ public abstract class CreateWorldScreenMixin {
         assert gameMode != null;
         assert difficulty != null;
         this.uiState.setGameMode(gameMode);
-        if (!clientOptions().client.gameMode.getCurrentValue().hardcore()) {
+        if (!client().client.gameMode.getCurrentValue().hardcore()) {
             this.uiState.setDifficulty(difficulty);
-            this.uiState.setAllowCommands(clientOptions().client.allowCommands.getCurrentValue());
+            this.uiState.setAllowCommands(client().client.allowCommands.getCurrentValue());
         }
-        if (!clientOptions().client.seed.getCurrentValue().isEmpty()) {
-            this.uiState.setSeed(clientOptions().client.seed.getCurrentValue());
+        if (!client().client.seed.getCurrentValue().isEmpty()) {
+            this.uiState.setSeed(client().client.seed.getCurrentValue());
         }
         onCreate();
     }

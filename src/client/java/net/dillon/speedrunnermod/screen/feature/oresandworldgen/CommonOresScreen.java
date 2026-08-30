@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 public class CommonOresScreen extends DefaultOresAndWorldGenFeatureFactory {
 
@@ -17,8 +17,8 @@ public class CommonOresScreen extends DefaultOresAndWorldGenFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(options().worldGen.commonOres.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().worldGen.commonOres.set(!options().worldGen.commonOres.getCurrentValue());
+        this.addButtonObject(Button.builder(common().worldGen.commonOres.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            common().worldGen.commonOres.set(!common().worldGen.commonOres.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

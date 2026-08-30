@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.world.structure;
 
 import com.google.gson.JsonElement;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
 import org.jetbrains.annotations.NotNull;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.CommonModOptions.*;
 
 /**
  * A special config for mineshafts, as it generates differently.
@@ -41,7 +41,7 @@ public class MineshaftConfig {
     }
 
     public @NotNull OptionValue<Integer> custom() {
-        return options().customStructureSpawnRates.mineshafts;
+        return SpeedrunnerMod.common().customStructureSpawnRates.mineshafts;
     }
 
     /**

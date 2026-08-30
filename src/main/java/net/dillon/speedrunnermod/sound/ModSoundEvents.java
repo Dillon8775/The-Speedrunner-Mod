@@ -18,6 +18,6 @@ public class ModSoundEvents {
      * Initializes all speedrunner mod {@code custom sounds.}
      */
     public static void initializeSoundEvents() {
-        SpeedrunnerMod.debug("Initialized sound events.");
+        SpeedrunnerMod.LOGGER.debug("Initialized sound events.");
     }
 }

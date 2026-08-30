@@ -11,6 +11,6 @@ public class ModBiomeTags {
      * Initializes all Speedrunner Mod {@code attribute tags.}
      */
     public static void initializeBiomeTags() {
-        SpeedrunnerMod.debug("Initialized biome tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized biome tags.");
     }
 }

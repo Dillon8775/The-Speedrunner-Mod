@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.CommonModOptions.*;
 
 /**
  * The abstract class for configurating {@code Structure Spawn Rate} options.

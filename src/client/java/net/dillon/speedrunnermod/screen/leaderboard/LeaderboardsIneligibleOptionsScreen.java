@@ -7,8 +7,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.util.CommonColors;
 
-@Deprecated
-
+@Deprecated(forRemoval = true)
 public class LeaderboardsIneligibleOptionsScreen extends AbstractModScreen {
     private final Screen parent;
     public static boolean fromInitialBoot = true;

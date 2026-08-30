@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * Improves the anvils functionality by adding and changing several different features.
@@ -34,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40))
     private int mixinLimitInt(int i) {
-        if (options().general.betterAnvil.getCurrentValue()) {
+        if (common().general.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE;
         } else {
             return 40;
@@ -46,7 +46,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @ModifyConstant(method = "createResult", constant = @Constant(intValue = 39))
     private int mixinMaxInt(int i) {
-        if (options().general.betterAnvil.getCurrentValue()) {
+        if (common().general.betterAnvil.getCurrentValue()) {
             return Integer.MAX_VALUE - 1;
         } else {
             return 39;
@@ -58,8 +58,8 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @Inject(method = "createResult", at = @At("TAIL"))
     private void setLevelCostIfTooHigh(CallbackInfo ci) {
-        if (options().general.anvilCostLimit.getCurrentValue() != 50 && this.cost.get() > options().general.anvilCostLimit.getCurrentValue()) {
-            this.cost.set(options().general.anvilCostLimit.getCurrentValue());
+        if (common().general.anvilCostLimit.getCurrentValue() != 50 && this.cost.get() > common().general.anvilCostLimit.getCurrentValue()) {
+            this.cost.set(common().general.anvilCostLimit.getCurrentValue());
         }
     }
 
@@ -68,7 +68,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @Redirect(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/Enchantment;getMaxLevel()I"))
     private int countOverMaxLevel(Enchantment enchantment) {
-        if (!options().general.higherEnchantmentLevels.getCurrentValue()) {
+        if (!common().general.higherEnchantmentLevels.getCurrentValue()) {
             return enchantment.getMaxLevel();
         }
 

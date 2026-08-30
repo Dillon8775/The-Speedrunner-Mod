@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
 /**
@@ -21,7 +21,7 @@ public class MinecraftMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setGammaUponStart(GameConfig args, CallbackInfo ci) {
-        clientOptions().client.fullBright.set(Minecraft.getInstance().options.gamma().get() >= clientOptions().client.fullBrightAmount.getCurrentValue());
+        client().client.fullBright.set(Minecraft.getInstance().options.gamma().get() >= client().client.fullBrightAmount.getCurrentValue());
         saveClientChanges();
     }
 }

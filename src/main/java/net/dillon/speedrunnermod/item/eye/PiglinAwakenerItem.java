@@ -1,13 +1,13 @@
 package net.dillon.speedrunnermod.item.eye;
 
 import net.dillon.dillonlib.task.CommonTasks;
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.Awakened;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -33,8 +33,8 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * An item that teleports {@code nearby piglin} to the player.
@@ -65,7 +65,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
         } else if (world.dimension() != Level.NETHER) {
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), ChatFormatting.RED, ChatFormatting.WHITE);
         } else {
-            List<Piglin> piglins = CommonTasks.getEntitiesWithinRange(world, Piglin.class, player, options().advanced.piglinAwakenerSearchRadius.getCurrentValue(),
+            List<Piglin> piglins = CommonTasks.getEntitiesWithinRange(world, Piglin.class, player, common().advanced.piglinAwakenerSearchRadius.getCurrentValue(),
                     e ->
                             !e.hasCustomName()
                                     && !e.isBaby()
@@ -101,7 +101,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                     int piglinTeleported = 0;
                     for (Piglin piglin : piglins) {
                         if (world.getRandom().nextFloat() < 0.50F) {
-                            piglin.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.minutes(1), 0, false, true, false));
+                            piglin.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.mas(1), 0, false, true, false));
                         }
                         double x = !sneakingWhenClicked ? player.getX() + world.getRandom().nextInt(7) - 3 : player.getX();
                         double y = !sneakingWhenClicked ? player.getY() + world.getRandom().nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();
@@ -109,7 +109,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                         piglin.randomTeleport(x, y, z, false, state -> true);
                         piglinTeleported++;
                         ((Awakened)piglin).setAwakened(true);
-                        if (piglinTeleported >= options().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
+                        if (piglinTeleported >= common().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
                             break;
                         }
                     }

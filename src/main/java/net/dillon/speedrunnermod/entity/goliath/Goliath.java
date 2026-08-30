@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
-import net.dillon.speedrunnermod.util.TickCalculator;
+import net.dillon.dillonlib.util.Arithmetics;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -66,9 +66,9 @@ public interface Goliath {
         if (bl) {
             EnchantmentHelper.doPostAttackEffects(world, target, damageSource);
             if (!(attacker.getHealth() < attacker.getMaxHealth() / 3)) {
-                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(3)));
-                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, TickCalculator.seconds(3)));
-                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, TickCalculator.seconds(7)));
+                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Arithmetics.sas(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, Arithmetics.sas(7)));
             }
             if (!attacker.isBaby()) {
                 knockback(attacker, target);

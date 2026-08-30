@@ -3,8 +3,8 @@ package net.dillon.speedrunnermod.world.structure;
 import com.google.gson.JsonElement;
 import net.minecraft.world.level.levelgen.structure.placement.ConcentricRingsStructurePlacement;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * A special config for strongholds, as they use a {@link ConcentricRingsStructurePlacement}.
@@ -19,9 +19,9 @@ public class StrongholdConfig {
      */
     public void configure(JsonElement element) {
         if (!isDoomMode()) {
-            element.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", options().worldGen.strongholdDistance.getCurrentValue());
-            element.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", options().worldGen.strongholdSpread.getCurrentValue());
+            element.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", common().worldGen.strongholdDistance.getCurrentValue());
+            element.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", common().worldGen.strongholdSpread.getCurrentValue());
         }
-        element.getAsJsonObject().getAsJsonObject("placement").addProperty("count", options().worldGen.totalStrongholds.getCurrentValue());
+        element.getAsJsonObject().getAsJsonObject("placement").addProperty("count", common().worldGen.totalStrongholds.getCurrentValue());
     }
 }

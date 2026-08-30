@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.component;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,17 +15,17 @@ import net.minecraft.world.item.alchemy.Potion;
  */
 public class ModPotions {
     public static final Holder<Potion> DRAGONS_AURA = registerModPotion(ModPotionIds.DRAGONS_AURA, new Potion("dragons_aura",
-            new MobEffectInstance(ModMobEffects.DRAGONS_AURA, TickCalculator.minutes(2), 0)));
+            new MobEffectInstance(ModMobEffects.DRAGONS_AURA, Arithmetics.mas(2), 0)));
     public static final Holder<Potion> LONG_DRAGONS_AURA = registerModPotion(ModPotionIds.LONG_DRAGONS_AURA, new Potion("long_dragons_aura",
-            new MobEffectInstance(ModMobEffects.DRAGONS_AURA, TickCalculator.minutes(6), 0)));
+            new MobEffectInstance(ModMobEffects.DRAGONS_AURA, Arithmetics.mas(6), 0)));
     public static final Holder<Potion> WITHERED = registerModPotion(ModPotionIds.WITHERED, new Potion("withered",
-            new MobEffectInstance(ModMobEffects.WITHERED, TickCalculator.minutes(3), 0)));
+            new MobEffectInstance(ModMobEffects.WITHERED, Arithmetics.mas(3), 0)));
     public static final Holder<Potion> LONG_WITHERED = registerModPotion(ModPotionIds.LONG_WITHERED, new Potion("long_withered",
-            new MobEffectInstance(ModMobEffects.WITHERED, TickCalculator.minutes(8), 0)));
+            new MobEffectInstance(ModMobEffects.WITHERED, Arithmetics.mas(8), 0)));
     public static final Holder<Potion> STRONG_WITHERED = registerModPotion(ModPotionIds.STRONG_WITHERED, new Potion("strong_withered",
             new MobEffectInstance(ModMobEffects.WITHERED, 1800, 1)));
     public static final Holder<Potion> STRONG_LUCK = registerModPotion(ModPotionIds.STRONG_LUCK, new Potion("strong_luck",
-            new MobEffectInstance(MobEffects.LUCK, TickCalculator.minutes(2), 1)));
+            new MobEffectInstance(MobEffects.LUCK, Arithmetics.mas(2), 1)));
 
     /**
      * Registers a potion.
@@ -38,6 +38,6 @@ public class ModPotions {
      * Initializes all potions.
      */
     public static void initializePotions() {
-        SpeedrunnerMod.debug("Initialized potions.");
+        SpeedrunnerMod.LOGGER.debug("Initialized potions.");
     }
 }

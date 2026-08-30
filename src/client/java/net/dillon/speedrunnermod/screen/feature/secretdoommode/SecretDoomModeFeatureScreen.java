@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.screen.feature.secretdoommode;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.screen.FeatureScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
@@ -25,7 +25,7 @@ public class SecretDoomModeFeatureScreen extends FeatureScreen {
         this.addButtonObject(Button.builder(this.getButtonText(), (button) -> {
             this.getButtonFunction();
         }).build());
-        this.addButtonObject(Button.builder(ModTexts.BACK, (button) -> {
+        this.addButtonObject(Button.builder(Texts.BACK, (button) -> {
             if (this.getPageNumber() == 1 || this.getPageNumber() == 5) {
                 this.onClose();
             } else {
@@ -60,6 +60,6 @@ public class SecretDoomModeFeatureScreen extends FeatureScreen {
      * Must be overriden.
      */
     protected Component getButtonText() {
-        return ModTexts.BLANK;
+        return Texts.BLANK;
     }
 }

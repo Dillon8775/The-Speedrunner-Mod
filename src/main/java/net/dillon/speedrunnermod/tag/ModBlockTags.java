@@ -11,6 +11,6 @@ public class ModBlockTags {
      * Initializes all Speedrunner Mod {@code block tags.}
      */
     public static void initializeBlockTags() {
-        SpeedrunnerMod.debug("Initialized block tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized block tags.");
     }
 }

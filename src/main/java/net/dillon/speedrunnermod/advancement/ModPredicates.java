@@ -22,6 +22,6 @@ public class ModPredicates {
      * Initializes speedrunner mod criterions.
      */
     public static void initializeCriterions() {
-        SpeedrunnerMod.debug("Initialized predicate.");
+        SpeedrunnerMod.LOGGER.debug("Initialized predicate.");
     }
 }

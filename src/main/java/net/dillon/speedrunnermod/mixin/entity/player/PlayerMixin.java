@@ -31,8 +31,8 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
@@ -119,7 +119,7 @@ public abstract class PlayerMixin extends LivingEntity {
      */
     @Override
     protected int decreaseAirSupply(int air) {
-        if (!options().advanced.increasedOxygen.getCurrentValue() || isDoomMode()) {
+        if (!common().advanced.increasedOxygen.getCurrentValue() || isDoomMode()) {
             return super.decreaseAirSupply(air);
         }
 
@@ -135,7 +135,7 @@ public abstract class PlayerMixin extends LivingEntity {
      */
     @Override
     public int increaseAirSupply(int air) {
-        if (!options().advanced.increasedOxygen.getCurrentValue()) {
+        if (!common().advanced.increasedOxygen.getCurrentValue()) {
             return super.increaseAirSupply(air);
         }
 

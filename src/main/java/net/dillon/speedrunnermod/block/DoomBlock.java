@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.block;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
@@ -7,7 +8,6 @@ import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.loot.ModLootTables;
 import net.dillon.speedrunnermod.util.RandomChance;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,8 +37,8 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * Be careful what you wish for...
@@ -88,7 +88,7 @@ public class DoomBlock {
                 } else if (entityType == EntityTypes.GHAST) {
                     entity = EntityTypes.GHAST.create(level, EntitySpawnReason.MOB_SUMMONED);
                 }
-                entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.seconds(30), 0, false, true, false));
+                entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.sas(30), 0, false, true, false));
                 entity.snapTo(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, level.getRandom().nextFloat() * 360.0F, 0.0F);
                 for (int i = 0; i < (entityType == EntityTypes.ZOMBIE ? 3 : 1); i++) {
                     level.addFreshEntity(entity);
@@ -130,7 +130,7 @@ public class DoomBlock {
      */
     private static void fallDamage(Entity entity, double fallDistance) {
         float fallDamage;
-        if (!options().general.fallDamage.getCurrentValue()) {
+        if (!common().general.fallDamage.getCurrentValue()) {
             fallDamage = 0.0F;
         } else {
             fallDamage = isDoomMode() ? 1.15F : 1.0F;

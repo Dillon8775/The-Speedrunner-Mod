@@ -2,10 +2,10 @@ package net.dillon.speedrunnermod.option;
 
 import net.dillon.speedrunnermod.helper.ModHelper;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.configHandler;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isIntegerOptionValid;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isIntegerOptionValid;
 
 /**
  * All {@code Client-side Speedrunner Mod options.}
@@ -147,14 +147,14 @@ public class ClientModOptions {
      * Returns true if the {@code Item Messages} option is set to actionbar.
      */
     public static boolean isActionbar() {
-        return clientOptions().client.itemMessages.getCurrentValue().equals(ItemMessages.ACTIONBAR);
+        return client().client.itemMessages.getCurrentValue().equals(ItemMessages.ACTIONBAR);
     }
 
     /**
      * Resets all of the {@code speedrunner mod options} back to factory default.
      */
     public static void resetAllOptions() {
-        configHandler().resetToDefault();
+        commonConfigHandler().resetToDefault();
     }
 
     /**
@@ -167,7 +167,7 @@ public class ClientModOptions {
     /**
      * A handler class for handling the client-side options file.
      */
-    public static class ModClientOptionsHandler extends BaseOptions<ClientModOptions> {
+    public static class ModClientOptionsHandler extends ModBaseOptionsHandler<ClientModOptions> {
 
         protected ModClientOptionsHandler() {
             super(ModHelper.CLIENT_CONFIG_FILE_NAME);
@@ -185,24 +185,24 @@ public class ClientModOptions {
 
         @Override
         protected void safeCheck() {
-            if (clientOptions().client.itemMessages.getCurrentValue() == null) {
-                this.setBroken(clientOptions().client.itemMessages, "itemMessages");
+            if (client().client.itemMessages.getCurrentValue() == null) {
+                this.setBroken(client().client.itemMessages, "itemMessages");
             }
 
-            if (clientOptions().client.gameMode.getCurrentValue() == null) {
-                this.setBroken(clientOptions().client.gameMode, "gameMode");
+            if (client().client.gameMode.getCurrentValue() == null) {
+                this.setBroken(client().client.gameMode, "gameMode");
             }
 
-            if (clientOptions().client.difficulty.getCurrentValue() == null) {
-                this.setBroken(clientOptions().client.difficulty, "difficulty");
+            if (client().client.difficulty.getCurrentValue() == null) {
+                this.setBroken(client().client.difficulty, "difficulty");
             }
 
-            if (!isIntegerOptionValid(clientOptions().client.iCarusFireworksInventorySlot)) {
-                this.setBroken(clientOptions().client.iCarusFireworksInventorySlot, "iCarusFireworksInventorySlot");
+            if (!isIntegerOptionValid(client().client.iCarusFireworksInventorySlot)) {
+                this.setBroken(client().client.iCarusFireworksInventorySlot, "iCarusFireworksInventorySlot");
             }
 
-            if (!isIntegerOptionValid(clientOptions().client.infiniPearlInventorySlot)) {
-                this.setBroken(clientOptions().client.infiniPearlInventorySlot, "infiniPearlInventorySlot");
+            if (!isIntegerOptionValid(client().client.infiniPearlInventorySlot)) {
+                this.setBroken(client().client.infiniPearlInventorySlot, "infiniPearlInventorySlot");
             }
         }
     }

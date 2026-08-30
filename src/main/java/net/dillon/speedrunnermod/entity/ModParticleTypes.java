@@ -22,6 +22,6 @@ public class ModParticleTypes {
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, ofSpeedrunnerMod("speedrunners_totem"), SPEEDRUNNERS_TOTEM);
         Registry.register(BuiltInRegistries.PARTICLE_TYPE, ofSpeedrunnerMod("blue_portal"), BLUE_PORTAL);
 
-        SpeedrunnerMod.debug("Registered speedrunner mod particle types.");
+        SpeedrunnerMod.LOGGER.debug("Registered speedrunner mod particle types.");
     }
 }

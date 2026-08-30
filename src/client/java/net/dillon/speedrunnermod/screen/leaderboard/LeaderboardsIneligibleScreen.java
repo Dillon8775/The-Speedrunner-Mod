@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.screen.leaderboard;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.screen.MainScreen;
@@ -14,12 +15,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Util;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
-@Deprecated
-
+@Deprecated(forRemoval = true)
 public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     public static boolean needsRestart = false;
     public static boolean needsRestartFromEnablingLeaderboardsMode = false;
@@ -38,7 +36,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
                 this.minecraft.stop();
             } else if (Leaderboards.noOptionsWereChanged()) {
                 this.quitWorld();
-                info("Fixing options! Re-launch to apply changes.");
+                SpeedrunnerMod.LOGGER.info("Fixing options! Re-launch to apply changes.");
                 Leaderboards.fixOptions();
                 saveAllChanges();
                 this.minecraft.stop();
@@ -135,7 +133,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
     private void revertChanges() {
         Leaderboards.revertChanges();
         saveAllChanges();
-        info("Changes reverted.");
+        SpeedrunnerMod.LOGGER.info("Changes reverted.");
         this.minecraft.gui.setScreen(this.parent);
     }
 
@@ -146,7 +144,7 @@ public class LeaderboardsIneligibleScreen extends AbstractModScreen {
 
     @Override
     public void onClose() {
-        warn("Cannot close screen! Please choose an option.");
+        SpeedrunnerMod.LOGGER.warn("Cannot close screen! Please choose an option.");
     }
 
     @Override

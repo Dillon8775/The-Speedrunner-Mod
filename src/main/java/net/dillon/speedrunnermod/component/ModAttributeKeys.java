@@ -32,6 +32,6 @@ public class ModAttributeKeys {
      * Initializes all speedrunner mod attribute keys.
      */
     public static void initializeAttributeKeys() {
-        SpeedrunnerMod.debug("Initialized attribute keys.");
+        SpeedrunnerMod.LOGGER.debug("Initialized attribute keys.");
     }
 }

@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
-import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.dillonlib.util.Texts;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -10,7 +10,7 @@ public class TemporaryScreen extends AbstractModScreen {
     private final Component text;
 
     public TemporaryScreen(Screen parent, Component text) {
-        super(parent, ModTexts.BLANK);
+        super(parent, Texts.BLANK);
         this.text = text;
     }
 

@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.screen.leaderboard;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
@@ -13,12 +14,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 import net.minecraft.util.Util;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
-@Deprecated
-
+@Deprecated(forRemoval = true)
 public class LeaderboardsSafeScreen extends AbstractModScreen {
     protected Button leftButton, middleButton, rightButton, viewIneligibleOptionsButton, viewSubmissionPageButton;
 
@@ -30,7 +28,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
     protected void init() {
         int height = this.height / 6 + 102;
         this.leftButton = this.addRenderableWidget(Button.builder(ModTexts.FIX_AND_RESTART, (buttonWidget) -> {
-            info("Fixing options! Re-launch to apply changes.");
+            SpeedrunnerMod.LOGGER.info("Fixing options! Re-launch to apply changes.");
             Leaderboards.fixOptions();
             saveAllChanges();
             this.minecraft.stop();
@@ -62,7 +60,7 @@ public class LeaderboardsSafeScreen extends AbstractModScreen {
 
     @Override
     public void onClose() {
-        warn("Cannot close screen! Please select an option.");
+        SpeedrunnerMod.LOGGER.warn("Cannot close screen! Please select an option.");
     }
 
     @Override

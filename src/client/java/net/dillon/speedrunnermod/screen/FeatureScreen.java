@@ -1,7 +1,9 @@
 package net.dillon.speedrunnermod.screen;
 
 import com.mojang.blaze3d.platform.InputConstants;
+import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenPage;
@@ -20,7 +22,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.warn;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
@@ -36,7 +37,7 @@ public class FeatureScreen extends AbstractScrollableScreen {
      * Constructs a feature screen.
      */
     public FeatureScreen(Screen parent, FeaturePage featurePage) {
-        super(parent, ModTexts.BLANK);
+        super(parent, Texts.BLANK);
         this.parent = parent;
         this.featurePage = featurePage;
     }
@@ -144,7 +145,7 @@ public class FeatureScreen extends AbstractScrollableScreen {
             return true;
         } else if (input.key() == InputConstants.KEY_RIGHT || input.key() == InputConstants.KEY_D) {
             if (featurePage.getCategory() == FeatureScreenCategory.FIRST_TIME_PLAYING && !(this.getPageNumber() < 3)) {
-                warn("Please choose an option!");
+                SpeedrunnerMod.LOGGER.warn("Please choose an option!");
             } else if (this.getPageNumber() != this.getMaxPages()) {
                 this.minecraft.gui.setScreen(this.getNextScreen());
             }

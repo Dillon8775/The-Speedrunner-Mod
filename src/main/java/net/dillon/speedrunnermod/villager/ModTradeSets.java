@@ -28,6 +28,6 @@ public class ModTradeSets {
      * Initializes all speedrunner mod trade sets.
      */
     public static void initializeTradeSets() {
-        SpeedrunnerMod.debug("Initialized trade sets.");
+        SpeedrunnerMod.LOGGER.debug("Initialized trade sets.");
     }
 }

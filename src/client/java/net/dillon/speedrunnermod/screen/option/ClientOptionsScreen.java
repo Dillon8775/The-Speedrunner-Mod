@@ -55,14 +55,14 @@ public class ClientOptionsScreen extends AbstractModScreen {
 
     @Override
     protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
-        this.lockOptionWithTooltip(this.fog, SpeedrunnerModClient.clientOptions().mixins.fogMixins.getCurrentValue(),
+        this.lockOptionWithTooltip(this.fog, SpeedrunnerModClient.client().mixins.fogMixins.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.fog.tooltip"),
                 Component.translatable("speedrunnermod.options.fog_mixins_must_be_enabled.tooltip"),
                 graphics,
                 mouseX,
                 mouseY
         );
-        this.lockOptionWithTooltip(this.increasedLavaVision, SpeedrunnerModClient.clientOptions().mixins.fogMixins.getCurrentValue(),
+        this.lockOptionWithTooltip(this.increasedLavaVision, SpeedrunnerModClient.client().mixins.fogMixins.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.increased_lava_vision.tooltip"),
                 Component.translatable("speedrunnermod.options.fog_mixins_must_be_enabled.tooltip"),
                 graphics,

@@ -63,7 +63,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             }
         } catch (IOException e) {
             if (e instanceof FileNotFoundException) {
-                SpeedrunnerMod.warn("No text file found for " + this.getClass().getSimpleName() + ": " + path);
+                SpeedrunnerMod.LOGGER.warn("No text file found for " + this.getClass().getSimpleName() + ": " + path);
             } else {
                 e.printStackTrace();
             }
@@ -88,7 +88,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                     try {
                         customScale = Float.parseFloat(parts[i].substring("scale=".length()));
                     } catch (NumberFormatException e) {
-                        SpeedrunnerMod.error("Invalid scale format in line: " + line);
+                        SpeedrunnerMod.LOGGER.error("Invalid scale format in line: " + line);
                     }
                 }
             }
@@ -109,7 +109,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 return new LineObject(null, 1.0F, imageId, scaledWidth, scaledHeight, null);
             } catch (IOException e) {
                 if (e instanceof FileNotFoundException) {
-                    SpeedrunnerMod.error("No image file found in referencing text file " + this.getClass().getSimpleName() + ": " + imageId);
+                    SpeedrunnerMod.LOGGER.error("No image file found in referencing text file " + this.getClass().getSimpleName() + ": " + imageId);
                 } else {
                     e.printStackTrace();
                 }

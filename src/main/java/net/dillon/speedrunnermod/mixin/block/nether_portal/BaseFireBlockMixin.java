@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(BaseFireBlock.class)
 public class BaseFireBlockMixin {
@@ -16,7 +16,7 @@ public class BaseFireBlockMixin {
      */
     @Overwrite
     private static boolean inPortalDimension(Level world) {
-        if (options().worldGen.globalNetherPortals.getCurrentValue()) {
+        if (common().worldGen.globalNetherPortals.getCurrentValue()) {
             return world.dimension() == Level.OVERWORLD || world.dimension() == Level.NETHER || world.dimension() == Level.END;
         } else {
             return world.dimension() == Level.OVERWORLD || world.dimension() == Level.NETHER;

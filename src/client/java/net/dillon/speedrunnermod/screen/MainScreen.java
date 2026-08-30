@@ -20,8 +20,8 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, external links, other mods, and more.
@@ -50,7 +50,7 @@ public class MainScreen extends AbstractModScreen {
     protected void init() {
         this.optionsButton = Button.builder(Component.translatable("speedrunnermod.configure").withStyle(getOptionsTextColor()).withStyle(ChatFormatting.UNDERLINE), (button) -> {
             Leaderboards.getCurrentLeaderboardsMode();
-            if (options().general.leaderboardsMode.getCurrentValue()) {
+            if (common().general.leaderboardsMode.getCurrentValue()) {
                 Leaderboards.getCurrentOptions();
             }
             this.minecraft.gui.setScreen(new ModOptionsScreen(this));
@@ -91,7 +91,7 @@ public class MainScreen extends AbstractModScreen {
     @Override
     protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.optionsButton.isHovered()) {
-            if (options().general.leaderboardsMode.getCurrentValue()) {
+            if (common().general.leaderboardsMode.getCurrentValue()) {
                 if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                     this.renderBasicTooltip(ModTexts.MENU_OPTIONS_ACTION_NEEDED, context, mouseX, mouseY);
                 } else {
@@ -125,7 +125,7 @@ public class MainScreen extends AbstractModScreen {
      * Sets the color of the options button, depending on if leaderboards mode is on, and if the options meet the leaderboards criteria.
      */
     private static ChatFormatting getOptionsTextColor() {
-        if (options().general.leaderboardsMode.getCurrentValue()) {
+        if (common().general.leaderboardsMode.getCurrentValue()) {
             if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 return ChatFormatting.RED;
             } else {

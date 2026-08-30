@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(BucketItem.class)
 public abstract class BucketItemMixin {
@@ -17,6 +17,6 @@ public abstract class BucketItemMixin {
      */
     @Redirect(method = "emptyContents", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/material/Fluid;is(Lnet/minecraft/tags/TagKey;)Z"))
     private boolean allowWaterInNether(Fluid instance, TagKey<Fluid> tag) {
-        return !options().worldGen.netherWater.getCurrentValue();
+        return !common().worldGen.netherWater.getCurrentValue();
     }
 }

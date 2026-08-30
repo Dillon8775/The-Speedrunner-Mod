@@ -21,6 +21,6 @@ public class ModTradeTags {
      * Initializes all Speedrunner Mod {@code trade tags.}
      */
     public static void initializeTradeTags() {
-        SpeedrunnerMod.debug("Initialized trade tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized trade tags.");
     }
 }

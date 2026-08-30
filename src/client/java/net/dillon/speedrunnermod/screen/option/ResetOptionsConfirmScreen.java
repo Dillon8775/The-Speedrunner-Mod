@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.screen.option;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.ClientModOptions;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -9,7 +10,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 public class ResetOptionsConfirmScreen extends AbstractModScreen {
@@ -25,7 +25,7 @@ public class ResetOptionsConfirmScreen extends AbstractModScreen {
             ClientModOptions.resetAllOptions();
             ClientModOptions.resetAllClientOptions();
             saveAllChanges();
-            info("Successfully reset all options. Restart the game to take full effect.");
+            SpeedrunnerMod.LOGGER.info("Successfully reset all options. Restart the game to take full effect.");
             this.minecraft.gui.setScreen(new ResetOptionsScreen(this.parent));
         }).bounds(this.getButtonsLeftSide(), height, 150, 20).build());
         this.addRenderableWidget(Button.builder(ModTexts.NOT_NOW, (buttonWidget) -> {

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ElderGuardian;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(ElderGuardian.class)
 public class ElderGuardianMixin {
@@ -42,7 +42,7 @@ public class ElderGuardianMixin {
      */
     @ModifyConstant(method = "customServerAiStep", constant = @Constant(intValue = 6000))
     private int changeMiningFatigueDuration(int constant) {
-        return isDoomMode() ? TickCalculator.minutes(5) : TickCalculator.seconds(30);
+        return isDoomMode() ? Arithmetics.mas(5) : Arithmetics.sas(30);
     }
 
     /**

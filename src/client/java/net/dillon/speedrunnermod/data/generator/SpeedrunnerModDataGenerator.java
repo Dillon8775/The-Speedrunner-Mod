@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.component.ModEnchantments;
-import net.dillon.speedrunnermod.component.ModNumberProviders;
 import net.dillon.speedrunnermod.data.generator.dynamic.ModEnchantmentProvider;
 import net.dillon.speedrunnermod.data.generator.dynamic.ModNumberProvider;
 import net.dillon.speedrunnermod.data.generator.dynamic.ModVillagerTradeProvider;
@@ -22,7 +21,7 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
-        SpeedrunnerMod.info("Initializing speedrunner mod data generator!");
+        SpeedrunnerMod.LOGGER.info("Initializing speedrunner mod data generator!");
 
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
         pack.addProvider(ModModelProvider::new);
@@ -54,7 +53,7 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
         DataGenerator.PackGenerator secondPack = fabricDataGenerator.createPack();
         secondPack.addProvider(ModEquipmentAssetProvider::new);
 
-        SpeedrunnerMod.info("Finished running through data generator.");
+        SpeedrunnerMod.LOGGER.info("Finished running through data generator.");
     }
 
     /**

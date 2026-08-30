@@ -1,6 +1,8 @@
 package net.dillon.speedrunnermod.screen.option;
 
+import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModTexts;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -8,12 +10,10 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.info;
-
 public class ResetOptionsScreen extends AbstractModScreen {
 
     public ResetOptionsScreen(Screen parent) {
-        super(parent, ModTexts.BLANK);
+        super(parent, Texts.BLANK);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ResetOptionsScreen extends AbstractModScreen {
         int height = this.height / 6 + 126;
         this.addRenderableWidget(Button.builder(ModTexts.RESTART_NOW, (buttonWidget) -> {
             this.quitWorld();
-            info("Closing game! Re-launch to apply changes.");
+            SpeedrunnerMod.LOGGER.info("Closing game! Re-launch to apply changes.");
             this.minecraft.stop();
         }).bounds(this.getButtonsLeftSide(), height, 150, 20).build());
         this.addRenderableWidget(Button.builder(ModTexts.RESTART_LATER, (buttonWidget) -> {

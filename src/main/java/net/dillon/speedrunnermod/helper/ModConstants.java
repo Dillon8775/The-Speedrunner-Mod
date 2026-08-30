@@ -6,9 +6,9 @@ import net.dillon.speedrunnermod.util.RandomChance;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.level.Level;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isEasyMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isEasyMode;
 
 /**
  * Constant variables and values for the Speedrunner Mod.
@@ -27,6 +27,7 @@ public class ModConstants {
     public static final String THE_SPEEDRUNNER_MOD_STRING = "The Speedrunner Mod";
     public static final String OPTIONS_ERROR_MESSAGE = "Found error with speedrunner mod settings, launching in safe mode.";
     public static final String OPTIONS_WARNING_MESSAGE = "Found an unusual value in the speedrunner mod settings.";
+    @Deprecated(forRemoval = true)
     public static boolean safeBoot;
 
     public static final int DEFAULT_DOOM_ZOMBIE_FIREBALL_CHARGE_SPEED = 40;
@@ -37,7 +38,7 @@ public class ModConstants {
      * Initializes all constant variables.
      */
     public static void initConstants() {
-        SpeedrunnerMod.debug("Initialized mod constants.");
+        SpeedrunnerMod.LOGGER.debug("Initialized mod constants.");
     }
 
     /**
@@ -98,7 +99,7 @@ public class ModConstants {
      * @return how long it takes for a oldPlayer to lose an air bubble (in seconds).
      */
     public static int getPlayerBreathTime() {
-        return options().advanced.increasedOxygen.getCurrentValue() ? 6 : 4;
+        return common().advanced.increasedOxygen.getCurrentValue() ? 6 : 4;
     }
 
     /**
@@ -212,7 +213,7 @@ public class ModConstants {
      * @return how long the ender dragon should stay sitting.
      */
     public static float getEnderDragonSittingTime() {
-        return options().advanced.longerDragonPerchStayTime.getCurrentValue() ? 0.60F : 0.25F;
+        return common().advanced.longerDragonPerchStayTime.getCurrentValue() ? 0.60F : 0.25F;
     }
 
     /**
@@ -233,6 +234,6 @@ public class ModConstants {
      * @return the distance in blocks that a zombified piglin must be in from a piglin in order to get scared and run away.
      */
     public static double getZombifiedPiglinRunawayDistance() {
-        return options().advanced.decreasedZombifiedPiglinScareDistance.getCurrentValue() ? 2.0D : 6.0D;
+        return common().advanced.decreasedZombifiedPiglinScareDistance.getCurrentValue() ? 2.0D : 6.0D;
     }
 }

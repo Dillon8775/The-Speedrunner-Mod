@@ -1,11 +1,10 @@
 package net.dillon.speedrunnermod.world.structure;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 public class SwampHutConfig extends Ssr {
 
@@ -41,6 +40,6 @@ public class SwampHutConfig extends Ssr {
 
     @Override
     public @NotNull OptionValue<List<Integer>> custom() {
-        return options().customStructureSpawnRates.swampHuts;
+        return SpeedrunnerMod.common().customStructureSpawnRates.swampHuts;
     }
 }

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.item.eye;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
@@ -8,7 +9,6 @@ import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
 import net.dillon.speedrunnermod.option.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,8 +31,8 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
 
 /**
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
@@ -89,7 +89,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").withStyle(ChatFormatting.RED));
             } else {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.eye_of_annul.teleporting").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD));
-                player.getCooldowns().addCooldown(this.getDefaultInstance(), TickCalculator.minutes(1));
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.mas(1));
                 this.playThrowSound(world, player);
 
                 this.correctlyTeleport(world, centerBlock, player, 0.0F);
@@ -132,9 +132,9 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
      */
     private BlockPos findEndPortalFrame(Level world, BlockPos strongholdPos) {
         for (BlockPos pos : BlockPos.withinClippedManhattan(strongholdPos,
-                options().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
-                options().advanced.annulEyeSearchRadius.getCurrentValue().get(1),
-                options().advanced.annulEyeSearchRadius.getCurrentValue().get(2))) {
+                common().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
+                common().advanced.annulEyeSearchRadius.getCurrentValue().get(1),
+                common().advanced.annulEyeSearchRadius.getCurrentValue().get(2))) {
             if (this.isEndPortalFrame(world, pos)) {
                 return this.getCenterPos(world, pos);
             }

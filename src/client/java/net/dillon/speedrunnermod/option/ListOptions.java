@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.option;
 
 import com.mojang.serialization.Codec;
+import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.util.TranslationStringKeys;
 import net.minecraft.ChatFormatting;
@@ -14,26 +15,27 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * All {@code "list"} options, which are used on the actual options screens to allow changing of these options.
  */
+@Deprecated(forRemoval = true)
 public class ListOptions {
 
     public static OptionInstance<Mode> mode() {
         return new OptionInstance<>("speedrunnermod.options.mode", OptionInstance.noTooltip(), (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(Mode.values()), Codec.INT.xmap(Mode::byId, Mode::getId)),
-                options().general.mode.getCurrentValue(), value -> options().general.mode.set(value));
+                common().general.mode.getCurrentValue(), value -> common().general.mode.set(value));
     }
 
     public static OptionInstance<StructureSpawnRate> structureSpawnRate() {
         return new OptionInstance<>("speedrunnermod.options.structure_spawn_rates", OptionInstance.noTooltip(), (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(StructureSpawnRate.values()), Codec.INT.xmap(StructureSpawnRate::byId, StructureSpawnRate::getId)),
-                options().worldGen.structureSpawnRates.getCurrentValue(), value -> options().worldGen.structureSpawnRates.set(value));
+                common().worldGen.structureSpawnRates.getCurrentValue(), value -> common().worldGen.structureSpawnRates.set(value));
     }
 
     public static OptionInstance<ItemMessages> itemMessages() {
@@ -42,8 +44,8 @@ public class ListOptions {
                 (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(ItemMessages.values()),
                         Codec.INT.xmap(ItemMessages::byId, ItemMessages::getId)),
-                clientOptions().client.itemMessages.getCurrentValue(),
-                value -> clientOptions().client.itemMessages.set(value));
+                client().client.itemMessages.getCurrentValue(),
+                value -> client().client.itemMessages.set(value));
     }
 
     public static OptionInstance<CreatureSpawnRate> creatureSpawningRate() {
@@ -52,8 +54,8 @@ public class ListOptions {
                 (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(CreatureSpawnRate.values()),
                         Codec.INT.xmap(CreatureSpawnRate::byId, CreatureSpawnRate::getId)),
-                options().worldGen.creatureSpawnRate.getCurrentValue(),
-                value -> options().worldGen.creatureSpawnRate.set(value));
+                common().worldGen.creatureSpawnRate.getCurrentValue(),
+                value -> common().worldGen.creatureSpawnRate.set(value));
     }
 
     public static OptionInstance<GameMode> gameMode() {
@@ -62,8 +64,8 @@ public class ListOptions {
                 (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(GameMode.values()),
                         Codec.INT.xmap(GameMode::byId, GameMode::getId)),
-                clientOptions().client.gameMode.getCurrentValue(),
-                value -> clientOptions().client.gameMode.set(value));
+                client().client.gameMode.getCurrentValue(),
+                value -> client().client.gameMode.set(value));
     }
 
     public static OptionInstance<Difficulty> difficulty() {
@@ -72,15 +74,15 @@ public class ListOptions {
                 (optionText, value) -> value.getText(),
                 new OptionInstance.Enum<>(Arrays.asList(Difficulty.values()),
                         Codec.INT.xmap(Difficulty::byId, Difficulty::getId)),
-                isDoomMode() ? Difficulty.HARD : clientOptions().client.difficulty.getCurrentValue(),
-                value -> clientOptions().client.difficulty.set(value));
+                isDoomMode() ? Difficulty.HARD : client().client.difficulty.getCurrentValue(),
+                value -> client().client.difficulty.set(value));
     }
 
     public static OptionInstance<Boolean> warningMessages() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.warning_messages",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.warning_messages.tooltip")),
-                clientOptions().client.warningMessages
+                client().client.warningMessages
         );
     }
 
@@ -88,7 +90,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_block_breaking",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_block_breaking.tooltip")),
-                options().general.fasterBlockBreaking
+                common().general.fasterBlockBreaking
         );
     }
 
@@ -96,18 +98,18 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.icarus_mode",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.icarus_mode.tooltip")),
-                options().general.iCarusMode
+                common().general.iCarusMode
         );
     }
 
     public static OptionInstance<Boolean> fog() {
         return new OptionInstance<>("speedrunnermod.options.fog",
                 OptionInstance.noTooltip(),
-                (optionText, value) -> !clientOptions().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
+                (optionText, value) -> !client().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? Texts.OFF.copy().withStyle(ChatFormatting.RED) : Texts.ON.copy().withStyle(ChatFormatting.GREEN),
                 OptionInstance.BOOLEAN_VALUES,
-                clientOptions().client.fog.getCurrentValue(),
+                client().client.fog.getCurrentValue(),
                 value -> {
-                    clientOptions().client.fog.set(value);
+                    client().client.fog.set(value);
                     Minecraft.getInstance().levelExtractor.allChanged();
                 });
     }
@@ -115,17 +117,17 @@ public class ListOptions {
     public static OptionInstance<Boolean> increasedLavaVision() {
         return new OptionInstance<>("speedrunnermod.options.increased_lava_vision",
                 OptionInstance.noTooltip(),
-                (optionText, value) -> !clientOptions().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? ModTexts.OFF : ModTexts.ON,
+                (optionText, value) -> !client().mixins.fogMixins.getCurrentValue() ? ModTexts.FEATURE_DISABLED : !value ? Texts.OFF.copy().withStyle(ChatFormatting.RED) : Texts.ON.copy().withStyle(ChatFormatting.GREEN),
                 OptionInstance.BOOLEAN_VALUES,
-                clientOptions().client.increasedLavaVision.getCurrentValue(),
-                value -> clientOptions().client.increasedLavaVision.set(value));
+                client().client.increasedLavaVision.getCurrentValue(),
+                value -> client().client.increasedLavaVision.set(value));
     }
 
     public static OptionInstance<Boolean> infiniPearlMode() {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.infini_pearl_mode",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.infini_pearl_mode.tooltip")),
-                options().general.infiniPearlMode
+                common().general.infiniPearlMode
         );
     }
 
@@ -134,7 +136,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.leaderboards_mode",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.leaderboards_mode.tooltip")),
-                options().general.leaderboardsMode
+                common().general.leaderboardsMode
         );
     }
 
@@ -142,7 +144,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.kill_ghast_on_fireball",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.kill_ghast_on_fireball.tooltip")),
-                options().general.killGhastOnFireball
+                common().general.killGhastOnFireball
         );
     }
 
@@ -150,7 +152,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_spawners",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_spawners.tooltip")),
-                options().general.fasterSpawners
+                common().general.fasterSpawners
         );
     }
 
@@ -158,7 +160,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_smelting",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_smelting.tooltip")),
-                options().general.fasterSmelting
+                common().general.fasterSmelting
         );
     }
 
@@ -166,7 +168,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.faster_brewing",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.faster_brewing.tooltip")),
-                options().general.fasterBrewing
+                common().general.fasterBrewing
         );
     }
 
@@ -174,7 +176,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_biomes",
                 OptionInstance.cachedConstantTooltip(ofRestartable(Component.translatable("speedrunnermod.options.better_biomes.tooltip"))),
-                options().worldGen.betterBiomes
+                common().worldGen.betterBiomes
         );
     }
 
@@ -182,7 +184,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.generate_speedrunners_wasteland",
                 OptionInstance.cachedConstantTooltip(ofRestartable(Component.translatable("speedrunnermod.options.generate_speedrunners_wasteland.tooltip"))),
-                options().worldGen.generateSpeedrunnersWasteland
+                common().worldGen.generateSpeedrunnersWasteland
         );
     }
 
@@ -190,7 +192,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.generate_speedrunner_wood",
                 OptionInstance.cachedConstantTooltip(ofRestartable(Component.translatable("speedrunnermod.options.generate_speedrunner_wood.tooltip"))),
-                options().worldGen.generateSpeedrunnerWood
+                common().worldGen.generateSpeedrunnerWood
         );
     }
 
@@ -198,7 +200,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.common_plain_trees",
                 OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.common_plain_trees.tooltip"))),
-                options().worldGen.commonPlainTrees
+                common().worldGen.commonPlainTrees
         );
     }
 
@@ -206,7 +208,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.common_ores",
                 OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.common_ores.tooltip"))),
-                options().worldGen.commonOres
+                common().worldGen.commonOres
         );
     }
 
@@ -214,7 +216,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.nether_water",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.nether_water.tooltip")),
-                options().worldGen.netherWater
+                common().worldGen.netherWater
         );
     }
 
@@ -222,7 +224,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_foods",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.better_foods.tooltip")),
-                options().general.betterFoods
+                common().general.betterFoods
         );
     }
 
@@ -230,7 +232,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.fall_damage",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fall_damage.tooltip")),
-                options().general.fallDamage
+                common().general.fallDamage
         );
     }
 
@@ -238,7 +240,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.arrows_destroy_beds",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.arrows_destroy_beds.tooltip")),
-                options().worldGen.arrowsDestroyBeds
+                common().worldGen.arrowsDestroyBeds
         );
     }
 
@@ -246,7 +248,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.global_nether_portals",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.global_nether_portals.tooltip")),
-                options().worldGen.globalNetherPortals
+                common().worldGen.globalNetherPortals
         );
     }
 
@@ -254,7 +256,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.better_anvil",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.better_anvil.tooltip")),
-                options().general.betterAnvil
+                common().general.betterAnvil
         );
     }
 
@@ -262,7 +264,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.higher_enchantment_levels",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.higher_enchantment_levels.tooltip")),
-                options().general.higherEnchantmentLevels
+                common().general.higherEnchantmentLevels
         );
     }
 
@@ -270,7 +272,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.right_click_to_remove_silk_touch",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.right_click_to_remove_silk_touch.tooltip")),
-                options().general.rightClickToRemoveSilkTouch
+                common().general.rightClickToRemoveSilkTouch
         );
     }
 
@@ -278,7 +280,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.show_death_cords",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.show_death_cords.tooltip")),
-                options().general.showDeathCords
+                common().general.showDeathCords
         );
     }
 
@@ -286,7 +288,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.kinetic_damage",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.kinetic_damage.tooltip")),
-                options().general.kineticDamage
+                common().general.kineticDamage
         );
     }
 
@@ -294,7 +296,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.throwable_fireballs",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.throwable_fireballs.tooltip")),
-                options().general.throwableFireballs
+                common().general.throwableFireballs
         );
     }
 
@@ -302,7 +304,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.fast_world_creation",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fast_world_creation.tooltip")),
-                clientOptions().client.instantWorldCreation
+                client().client.instantWorldCreation
         );
     }
 
@@ -310,7 +312,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.allow_commands",
                 OptionInstance.noTooltip(),
-                clientOptions().client.allowCommands
+                client().client.allowCommands
         );
     }
 
@@ -318,7 +320,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_stronghold_generation",
                 new boolean[]{!isBalancedMode()},
-                options().advanced.modifiedStrongholdGeneration
+                common().advanced.modifiedStrongholdGeneration
         );
     }
 
@@ -326,7 +328,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_stronghold_y_generation",
                 new boolean[]{!isBalancedMode()},
-                options().advanced.modifiedStrongholdYGeneration
+                common().advanced.modifiedStrongholdYGeneration
         );
     }
 
@@ -334,7 +336,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.modified_nether_fortress_generation",
                 new boolean[]{!isBalancedMode()},
-                options().advanced.modifiedNetherFortressGeneration
+                common().advanced.modifiedNetherFortressGeneration
         );
     }
 
@@ -342,7 +344,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.dragon_kills_nearby_hostile_entities",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.dragon_kills_nearby_hostile_entities.tooltip")),
-                options().advanced.dragonKillsNearbyHostileEntities
+                common().advanced.dragonKillsNearbyHostileEntities
         );
     }
 
@@ -350,7 +352,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.dragon_immunity_from_goliath_and_wither",
                 OptionInstance.noTooltip(),
-                options().advanced.dragonImmunityFromGoliathAndWither
+                common().advanced.dragonImmunityFromGoliathAndWither
         );
     }
 
@@ -358,7 +360,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.shift_to_throw_fireball",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.shift_to_throw_fireball.tooltip")),
-                options().advanced.shiftToThrowFireball
+                common().advanced.shiftToThrowFireball
         );
     }
 
@@ -366,7 +368,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.show_reset_button",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.show_reset_button.tooltip")),
-                clientOptions().client.showResetButton
+                client().client.showResetButton
         );
     }
 
@@ -374,7 +376,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.increased_oxygen",
                 OptionInstance.noTooltip(),
-                options().advanced.increasedOxygen
+                common().advanced.increasedOxygen
         );
     }
 
@@ -382,7 +384,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.longer_dragon_perch_stay_time",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.longer_dragon_perch_stay_time.tooltip")),
-                options().advanced.longerDragonPerchStayTime,
+                common().advanced.longerDragonPerchStayTime,
                 true
         );
     }
@@ -391,7 +393,7 @@ public class ListOptions {
         return createSimpleBooleanOption(
                 "speedrunnermod.options.decreased_zombified_piglin_scare_distance",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.decreased_zombified_piglin_scare_distance.tooltip")),
-                options().advanced.decreasedZombifiedPiglinScareDistance
+                common().advanced.decreasedZombifiedPiglinScareDistance
         );
     }
 
@@ -399,7 +401,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.view_features",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.view_features.tooltip")),
-                clientOptions().storedValues.viewFeatures,
+                client().storedValues.viewFeatures,
                 true
         );
     }
@@ -408,7 +410,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.the_end_gateway_block_entity_mixin",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.the_end_gateway_block_entity_mixin.tooltip")),
-                options().mixins.theEndGatewayBlockEntityMixin,
+                common().mixins.theEndGatewayBlockEntityMixin,
                 false
         );
     }
@@ -417,7 +419,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.item_stack_mixin",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.item_stack_mixin.tooltip")),
-                options().mixins.itemStackMixin,
+                common().mixins.itemStackMixin,
                 false
         );
     }
@@ -426,7 +428,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.fog_mixins",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fog_mixins.tooltip")),
-                clientOptions().mixins.fogMixins,
+                client().mixins.fogMixins,
                 false
         );
     }
@@ -435,7 +437,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.abstract_client_player_mixin",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.abstract_client_player_mixin.tooltip")),
-                clientOptions().mixins.abstractClientPlayerMixin,
+                client().mixins.abstractClientPlayerMixin,
                 false
         );
     }
@@ -444,7 +446,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.option_instance_mixin",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.option_instance_mixin.tooltip")),
-                clientOptions().mixins.optionInstanceMixin,
+                client().mixins.optionInstanceMixin,
                 false
         );
     }
@@ -453,7 +455,7 @@ public class ListOptions {
         return createSimpleBooleanOptionWithCustomSwitch(
                 "speedrunnermod.options.logo_renderer_mixin",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.logo_renderer_mixin.tooltip")),
-                clientOptions().mixins.logoRendererMixin,
+                client().mixins.logoRendererMixin,
                 false
         );
     }
@@ -462,10 +464,10 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.block_breaking_multiplier",
                 OptionInstance.noTooltip(),
-                options().general.blockBreakingMultiplier,
+                common().general.blockBreakingMultiplier,
                 (optionText, value) -> {
                     if (value == 1) {
-                        return Options.genericValueLabel(optionText, ModTexts.OFF);
+                        return Options.genericValueLabel(optionText, Texts.OFF.copy().withStyle(ChatFormatting.RED));
                     } else {
                         return Options.genericValueLabel(optionText, Component.literal("x" + value).withStyle(ChatFormatting.AQUA));
                     }
@@ -477,12 +479,12 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.dragon_perch_time",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.dragon_perch_time.tooltip")),
-                options().general.dragonPerchTime,
+                common().general.dragonPerchTime,
                 (optionText, value) -> {
                     if (value == 9) {
                         return Options.genericValueLabel(optionText, Component.literal("Instant").withStyle(ChatFormatting.GREEN));
                     } else if (value <= 8) {
-                        return Options.genericValueLabel(optionText, ModTexts.OFF);
+                        return Options.genericValueLabel(optionText, Texts.OFF.copy().withStyle(ChatFormatting.RED));
                     } else if (value >= 60 && value <= 119) {
                         int minutes = value / 60;
                         int seconds = value % 60;
@@ -502,7 +504,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_distance",
                 OptionInstance.noTooltip(),
-                options().worldGen.strongholdDistance
+                common().worldGen.strongholdDistance
         );
     }
 
@@ -510,7 +512,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.stronghold_spread",
                 OptionInstance.noTooltip(),
-                options().worldGen.strongholdSpread
+                common().worldGen.strongholdSpread
         );
     }
 
@@ -518,7 +520,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.total_strongholds",
                 OptionInstance.noTooltip(),
-                options().worldGen.totalStrongholds
+                common().worldGen.totalStrongholds
         );
     }
 
@@ -526,7 +528,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.total_portal_rooms",
                 OptionInstance.noTooltip(),
-                options().worldGen.totalPortamRooms
+                common().worldGen.totalPortamRooms
         );
     }
 
@@ -534,7 +536,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.total_libraries",
                 OptionInstance.noTooltip(),
-                options().worldGen.totalLibraries
+                common().worldGen.totalLibraries
         );
     }
 
@@ -542,7 +544,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.nether_portal_delay",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.nether_portal_delay.tooltip")),
-                options().worldGen.netherPortalDelay,
+                common().worldGen.netherPortalDelay,
                 (optionText, value) -> {
                     if (value == -1) {
                         return Options.genericValueLabel(optionText, Component.literal("Go by Gamerule").withStyle(ChatFormatting.GREEN));
@@ -559,7 +561,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.anvil_cost_limit",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.anvil_cost_limit.tooltip")),
-                options().general.anvilCostLimit,
+                common().general.anvilCostLimit,
                 (optionText, value) -> {
                     if (value == 50) {
                         return Options.genericValueLabel(optionText, Component.literal("No Limit").withStyle(ChatFormatting.RED));
@@ -576,7 +578,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.ender_eye_breaking_cooldown",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.ender_eye_breaking_cooldown.tooltip")),
-                options().advanced.enderEyeBreakingCooldown,
+                common().advanced.enderEyeBreakingCooldown,
                 (optionText, value) -> Options.genericValueLabel(optionText, Component.literal(value + "s").withStyle(ChatFormatting.AQUA))
         );
     }
@@ -585,7 +587,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.piglin_awakener_piglin_count",
                 OptionInstance.noTooltip(),
-                options().advanced.piglinAwakenerPiglinCount
+                common().advanced.piglinAwakenerPiglinCount
         );
     }
 
@@ -593,7 +595,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.fullbright_amount",
                 OptionInstance.cachedConstantTooltip(Component.translatable("speedrunnermod.options.fullbright_amount.tooltip")),
-                clientOptions().client.fullBrightAmount
+                client().client.fullBrightAmount
         );
     }
 
@@ -601,7 +603,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.icarus_fireworks_inventory_slot",
                 OptionInstance.noTooltip(),
-                clientOptions().client.iCarusFireworksInventorySlot,
+                client().client.iCarusFireworksInventorySlot,
                 (optionText, value) -> {
                     if (value < 10) {
                         return Options.genericValueLabel(optionText, Component.literal("Hotbar Slot ").withStyle(ChatFormatting.AQUA)
@@ -618,7 +620,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.infini_pearl_inventory_slot",
                 OptionInstance.noTooltip(),
-                clientOptions().client.infiniPearlInventorySlot,
+                client().client.infiniPearlInventorySlot,
                 (optionText, value) -> {
                     if (value < 10) {
                         return Options.genericValueLabel(optionText, Component.literal("Hotbar Slot ").withStyle(ChatFormatting.AQUA)
@@ -635,7 +637,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.fireball_explosion_power",
                 OptionInstance.noTooltip(),
-                options().general.fireballExplosionPower
+                common().general.fireballExplosionPower
         );
     }
 
@@ -643,7 +645,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.annul_eye_search_radius",
                 OptionInstance.noTooltip(),
-                options().advanced.annulEyeSearchRadius,
+                common().advanced.annulEyeSearchRadius,
                 100,
                 200,
                 x,
@@ -656,7 +658,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.piglin_awakener_search_radius",
                 OptionInstance.noTooltip(),
-                options().advanced.piglinAwakenerSearchRadius,
+                common().advanced.piglinAwakenerSearchRadius,
                 100,
                 300,
                 x,
@@ -669,7 +671,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.blaze_spotter_search_radius",
                 OptionInstance.noTooltip(),
-                options().advanced.blazeSpotterSearchRadius,
+                common().advanced.blazeSpotterSearchRadius,
                 50,
                 300,
                 x,
@@ -682,7 +684,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.raid_eradicator_search_radius",
                 OptionInstance.noTooltip(),
-                options().advanced.raidEradicatorSearchRadius,
+                common().advanced.raidEradicatorSearchRadius,
                 100,
                 400,
                 x,
@@ -695,7 +697,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.dragons_pearl_search_radius",
                 OptionInstance.noTooltip(),
-                options().advanced.dragonsPearlSearchRadius,
+                common().advanced.dragonsPearlSearchRadius,
                 100,
                 350,
                 x,
@@ -708,7 +710,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.dragon_mass_kill_radius",
                 OptionInstance.cachedConstantTooltip(ListOptions.listIntegerTooltip(Component.translatable("speedrunnermod.options.dragon_mass_kill_radius.tooltip"))),
-                options().advanced.dragonMassKillRadius,
+                common().advanced.dragonMassKillRadius,
                 100,
                 300,
                 x,
@@ -721,7 +723,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.dragon_immunity_detection_radius_for_goliath",
                 OptionInstance.noTooltip(),
-                options().advanced.dragonImmunityDetectionRadiusForGoliath,
+                common().advanced.dragonImmunityDetectionRadiusForGoliath,
                 100,
                 300,
                 x,
@@ -734,7 +736,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.dragon_immunity_detection_radius_for_wither",
                 OptionInstance.noTooltip(),
-                options().advanced.dragonImmunityDetectionRadiusForWither,
+                common().advanced.dragonImmunityDetectionRadiusForWither,
                 100,
                 350,
                 x,
@@ -747,7 +749,7 @@ public class ListOptions {
         return ofIntegerList(
                 "speedrunnermod.options.goliath_and_zombie_entity_detection_radius",
                 OptionInstance.cachedConstantTooltip(listIntegerTooltip(Component.translatable("speedrunnermod.options.goliath_and_zombie_entity_detection_radius.tooltip"))),
-                options().advanced.goliathAndZombieEntityDetectionRadius,
+                common().advanced.goliathAndZombieEntityDetectionRadius,
                 50,
                 400,
                 x,
@@ -761,7 +763,7 @@ public class ListOptions {
      */
     private static OptionInstance<Boolean> createSimpleBooleanOption(String key, OptionInstance.TooltipSupplier<Boolean> tooltip, OptionValue<Boolean> option) {
         return new OptionInstance<>(key, tooltip,
-                (optionText, value) -> !value ? ModTexts.OFF : ModTexts.ON,
+                (optionText, value) -> !value ? Texts.OFF.copy().withStyle(ChatFormatting.RED) : Texts.ON.copy().withStyle(ChatFormatting.GREEN),
                 OptionInstance.BOOLEAN_VALUES,
                 option.getCurrentValue(),
                 option::set);
@@ -776,10 +778,10 @@ public class ListOptions {
                 (optionText, value) -> {
                     for (boolean b : bl) {
                         if (!b) {
-                            return ModTexts.OFF;
+                            return Texts.OFF.copy().withStyle(ChatFormatting.RED);
                         }
                     }
-                    return !value ? ModTexts.OFF : ModTexts.ON;
+                    return !value ? Texts.OFF.copy().withStyle(ChatFormatting.RED) : Texts.ON.copy().withStyle(ChatFormatting.GREEN);
                 },
                 OptionInstance.BOOLEAN_VALUES,
                 option.getCurrentValue(),
@@ -791,7 +793,7 @@ public class ListOptions {
      */
     private static OptionInstance<Boolean> createSimpleBooleanOptionWithCustomSwitch(String key, OptionInstance.TooltipSupplier<Boolean> tooltip, OptionValue<Boolean> option, boolean question) {
         return new OptionInstance<>(key, tooltip,
-                (optionText, value) -> !value ? question ? ModTexts.NO : ModTexts.DISABLED : question ? ModTexts.YES : ModTexts.ENABLED,
+                (optionText, value) -> !value ? question ? Texts.NO.copy().withStyle(ChatFormatting.RED) : ModTexts.DISABLED : question ? Texts.YES.copy().withStyle(ChatFormatting.GREEN) : ModTexts.ENABLED,
                 OptionInstance.BOOLEAN_VALUES,
                 option.getCurrentValue(),
                 option::set);
@@ -822,7 +824,7 @@ public class ListOptions {
         return createSimpleIntegerOption(
                 "speedrunnermod.options.structure_spawn_rates.mineshafts",
                 OptionInstance.cachedConstantTooltip(ofWorldReload(Component.translatable("speedrunnermod.options.structure_spawn_rates.mineshafts.tooltip"))),
-                options().customStructureSpawnRates.mineshafts,
+                common().customStructureSpawnRates.mineshafts,
                 (optionText, value) -> {
                     return Options.genericValueLabel(optionText, Component.literal(value + "%"));
                 });
@@ -913,21 +915,21 @@ public class ListOptions {
      */
     private static void determineValue(String structure, int value) {
         switch (structure) {
-            case TranslationStringKeys.ANCIENT_CITY -> setValue(options().customStructureSpawnRates.ancientCities.getCurrentValue(), value);
-            case TranslationStringKeys.VILLAGE -> setValue(options().customStructureSpawnRates.villages.getCurrentValue(), value);
-            case TranslationStringKeys.DESERT_PYRAMID -> setValue(options().customStructureSpawnRates.desertPyramids.getCurrentValue(), value);
-            case TranslationStringKeys.JUNGLE_PYRAMID -> setValue(options().customStructureSpawnRates.junglePyramids.getCurrentValue(), value);
-            case TranslationStringKeys.PILLAGER_OUTPOST -> setValue(options().customStructureSpawnRates.pillagerOutposts.getCurrentValue(), value);
-            case TranslationStringKeys.IGLOO -> setValue(options().customStructureSpawnRates.igloos.getCurrentValue(), value);
-            case TranslationStringKeys.OCEAN_RUIN -> setValue(options().customStructureSpawnRates.oceanRuins.getCurrentValue(), value);
-            case TranslationStringKeys.SWAMP_HUT -> setValue(options().customStructureSpawnRates.swampHuts.getCurrentValue(), value);
-            case TranslationStringKeys.END_CITY -> setValue(options().customStructureSpawnRates.endCities.getCurrentValue(), value);
-            case TranslationStringKeys.WOODLAND_MANSION -> setValue(options().customStructureSpawnRates.woodlandMansions.getCurrentValue(), value);
-            case TranslationStringKeys.RUINED_PORTAL -> setValue(options().customStructureSpawnRates.ruinedPortals.getCurrentValue(), value);
-            case TranslationStringKeys.SHIPWRECK -> setValue(options().customStructureSpawnRates.shipwrecks.getCurrentValue(), value);
-            case TranslationStringKeys.TRIAL_CHAMBER -> setValue(options().customStructureSpawnRates.trialChambers.getCurrentValue(), value);
-            case TranslationStringKeys.TRAIL_RUIN -> setValue(options().customStructureSpawnRates.trailRuins.getCurrentValue(), value);
-            case TranslationStringKeys.NETHER_COMPLEXES -> setValue(options().customStructureSpawnRates.netherComplexes.getCurrentValue(), value);
+            case TranslationStringKeys.ANCIENT_CITY -> setValue(common().customStructureSpawnRates.ancientCities.getCurrentValue(), value);
+            case TranslationStringKeys.VILLAGE -> setValue(common().customStructureSpawnRates.villages.getCurrentValue(), value);
+            case TranslationStringKeys.DESERT_PYRAMID -> setValue(common().customStructureSpawnRates.desertPyramids.getCurrentValue(), value);
+            case TranslationStringKeys.JUNGLE_PYRAMID -> setValue(common().customStructureSpawnRates.junglePyramids.getCurrentValue(), value);
+            case TranslationStringKeys.PILLAGER_OUTPOST -> setValue(common().customStructureSpawnRates.pillagerOutposts.getCurrentValue(), value);
+            case TranslationStringKeys.IGLOO -> setValue(common().customStructureSpawnRates.igloos.getCurrentValue(), value);
+            case TranslationStringKeys.OCEAN_RUIN -> setValue(common().customStructureSpawnRates.oceanRuins.getCurrentValue(), value);
+            case TranslationStringKeys.SWAMP_HUT -> setValue(common().customStructureSpawnRates.swampHuts.getCurrentValue(), value);
+            case TranslationStringKeys.END_CITY -> setValue(common().customStructureSpawnRates.endCities.getCurrentValue(), value);
+            case TranslationStringKeys.WOODLAND_MANSION -> setValue(common().customStructureSpawnRates.woodlandMansions.getCurrentValue(), value);
+            case TranslationStringKeys.RUINED_PORTAL -> setValue(common().customStructureSpawnRates.ruinedPortals.getCurrentValue(), value);
+            case TranslationStringKeys.SHIPWRECK -> setValue(common().customStructureSpawnRates.shipwrecks.getCurrentValue(), value);
+            case TranslationStringKeys.TRIAL_CHAMBER -> setValue(common().customStructureSpawnRates.trialChambers.getCurrentValue(), value);
+            case TranslationStringKeys.TRAIL_RUIN -> setValue(common().customStructureSpawnRates.trailRuins.getCurrentValue(), value);
+            case TranslationStringKeys.NETHER_COMPLEXES -> setValue(common().customStructureSpawnRates.netherComplexes.getCurrentValue(), value);
         }
     }
 
@@ -945,49 +947,49 @@ public class ListOptions {
     private static Component listIntegerText(Component prefix, String structure) {
         switch (structure) {
             case TranslationStringKeys.ANCIENT_CITY -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.ancientCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.ancientCities.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.ancientCities.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.ancientCities.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.DESERT_PYRAMID -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.desertPyramids.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.desertPyramids.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.desertPyramids.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.desertPyramids.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.JUNGLE_PYRAMID -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.junglePyramids.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.junglePyramids.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.junglePyramids.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.junglePyramids.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.PILLAGER_OUTPOST -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.pillagerOutposts.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.IGLOO -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.igloos.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.igloos.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.igloos.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.igloos.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.OCEAN_RUIN -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.oceanRuins.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.oceanRuins.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.oceanRuins.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.oceanRuins.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.SWAMP_HUT -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.swampHuts.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.swampHuts.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.swampHuts.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.swampHuts.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.END_CITY -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.endCities.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.endCities.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.endCities.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.endCities.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.WOODLAND_MANSION -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.woodlandMansions.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.woodlandMansions.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.woodlandMansions.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.woodlandMansions.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.RUINED_PORTAL -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.ruinedPortals.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.ruinedPortals.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.ruinedPortals.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.ruinedPortals.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.SHIPWRECK -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.shipwrecks.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.shipwrecks.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.shipwrecks.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.shipwrecks.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.TRIAL_CHAMBER -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.trialChambers.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.trialChambers.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.TRAIL_RUIN -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.trailRuins.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.trailRuins.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.trailRuins.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.trailRuins.getCurrentValue().get(1)));
             }
             case TranslationStringKeys.NETHER_COMPLEXES -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.netherComplexes.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.netherComplexes.getCurrentValue().get(1)));
             }
             default -> {
-                return Options.genericValueLabel(prefix, Component.literal(options().customStructureSpawnRates.villages.getCurrentValue().getFirst() + ", " + options().customStructureSpawnRates.villages.getCurrentValue().get(1)));
+                return Options.genericValueLabel(prefix, Component.literal(common().customStructureSpawnRates.villages.getCurrentValue().getFirst() + ", " + common().customStructureSpawnRates.villages.getCurrentValue().get(1)));
             }
         }
     }
@@ -998,49 +1000,49 @@ public class ListOptions {
     private static int defaultStructureValue(String structure) {
         switch (structure) {
             case TranslationStringKeys.ANCIENT_CITY -> {
-                return options().customStructureSpawnRates.ancientCities.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.ancientCities.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.DESERT_PYRAMID -> {
-                return options().customStructureSpawnRates.desertPyramids.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.desertPyramids.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.JUNGLE_PYRAMID -> {
-                return options().customStructureSpawnRates.junglePyramids.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.junglePyramids.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.PILLAGER_OUTPOST -> {
-                return options().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.pillagerOutposts.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.IGLOO -> {
-                return options().customStructureSpawnRates.igloos.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.igloos.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.OCEAN_RUIN -> {
-                return options().customStructureSpawnRates.oceanRuins.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.oceanRuins.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.SWAMP_HUT -> {
-                return options().customStructureSpawnRates.swampHuts.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.swampHuts.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.END_CITY -> {
-                return options().customStructureSpawnRates.endCities.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.endCities.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.WOODLAND_MANSION -> {
-                return options().customStructureSpawnRates.woodlandMansions.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.woodlandMansions.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.RUINED_PORTAL -> {
-                return options().customStructureSpawnRates.ruinedPortals.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.ruinedPortals.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.SHIPWRECK -> {
-                return options().customStructureSpawnRates.shipwrecks.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.shipwrecks.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.TRIAL_CHAMBER -> {
-                return options().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.trialChambers.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.TRAIL_RUIN -> {
-                return options().customStructureSpawnRates.trailRuins.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.trailRuins.getCurrentValue().getFirst();
             }
             case TranslationStringKeys.NETHER_COMPLEXES -> {
-                return options().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.netherComplexes.getCurrentValue().getFirst();
             }
             default -> {
-                return options().customStructureSpawnRates.villages.getCurrentValue().getFirst();
+                return common().customStructureSpawnRates.villages.getCurrentValue().getFirst();
             }
         }
     }
@@ -1050,7 +1052,7 @@ public class ListOptions {
      */
     public static Component structureSpawnRateTooltip() {
         Component structureSpawnRate;
-        switch (options().worldGen.structureSpawnRates.getCurrentValue()) {
+        switch (common().worldGen.structureSpawnRates.getCurrentValue()) {
             case EVERYWHERE -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.everywhere.tooltip");
             case VERY_COMMON -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.very_common.tooltip");
             case COMMON -> structureSpawnRate = Component.translatable("speedrunnermod.options.structure_spawn_rates.common.tooltip");

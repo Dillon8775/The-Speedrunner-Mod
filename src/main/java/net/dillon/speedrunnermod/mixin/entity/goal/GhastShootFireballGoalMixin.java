@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(Ghast.GhastShootFireballGoal.class)
 public abstract class GhastShootFireballGoalMixin extends Goal {
@@ -24,7 +24,7 @@ public abstract class GhastShootFireballGoalMixin extends Goal {
      */
     @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/monster/Ghast$GhastShootFireballGoal;chargeTime:I", ordinal = 1, opcode = Opcodes.PUTFIELD))
     private void killGhastUponFireball(CallbackInfo ci) {
-        if (options().general.killGhastOnFireball.getCurrentValue()) {
+        if (common().general.killGhastOnFireball.getCurrentValue()) {
             this.ghast.kill(getServerLevel(this.ghast));
         }
     }

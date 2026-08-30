@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
@@ -28,7 +28,7 @@ public class FogRendererMixin {
         if (entity instanceof LivingEntity livingEntity &&
                 !livingEntity.hasEffect(MobEffects.BLINDNESS) &&
                 !livingEntity.hasEffect(MobEffects.DARKNESS) &&
-                !clientOptions().client.fog.getCurrentValue() &&
+                !client().client.fog.getCurrentValue() &&
                 fogType != FogType.WATER &&
                 fogType != FogType.LAVA &&
                 fogType != FogType.POWDER_SNOW) {

@@ -21,6 +21,6 @@ public class ModAttributeTags {
      * Initializes all Speedrunner Mod {@code attribute tags.}
      */
     public static void initializeAttributeTags() {
-        SpeedrunnerMod.debug("Initialized attribute tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized attribute tags.");
     }
 }

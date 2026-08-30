@@ -12,7 +12,7 @@ import net.dillon.speedrunnermod.item.ModItemGroups;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.menu.ModMenus;
 import net.dillon.speedrunnermod.network.ModPackets;
-import net.dillon.speedrunnermod.option.ModOptions;
+import net.dillon.speedrunnermod.option.CommonModOptions;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModTags;
@@ -30,7 +30,7 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * The home initializer for the Speedrunner Mod.
@@ -46,7 +46,7 @@ public class SpeedrunnerMod implements ModInitializer {
         ModConstants.initConstants();
 
         ModConstants.safeBoot = false;
-        configHandler().load();
+        commonConfigHandler().load();
 
         ModPackets.registerPackets();
 
@@ -86,69 +86,39 @@ public class SpeedrunnerMod implements ModInitializer {
         ModEnchantments.initializeEnchantments();
         ModRecipes.registerModSerializers();
 
-        ModMenus.initializeScreenHandlers();
+        ModMenus.initializeMenus();
 
         ServerTickEvents.END_SERVER_TICK.register(TaskScheduler::tick);
         ModHelper.registerInventoryPreserver();
 
-        configHandler().save();
+        commonConfigHandler().save();
 
-        if (options().general.mode != null && isDoomMode()) {
-            info("You dare to attempt Doom Mode? Good luck...");
+        if (common().general.mode != null && isDoomMode()) {
+            LOGGER.info("You dare to attempt Doom Mode? Good luck...");
         }
 
-        info("The Speedrunner Mod " + ModConstants.MOD_VERSION + " (for fabric) loaded successfully!");
-    }
-
-    /**
-     * Sends an {@code info} message in console.
-     */
-    public static void info(String info) {
-        LOGGER.info(info);
-    }
-
-    /**
-     * Sends a {@code warning} message in console.
-     */
-    public static void warn(String warning) {
-        LOGGER.warn(warning);
-    }
-
-    /**
-     * Sends a {@code error} message in console.
-     * <p>Mainly used for debugging and testing purposes.</p>
-     */
-    public static void error(String error) {
-        LOGGER.error(error);
-    }
-
-    /**
-     * Sends a {@code debug} message to the {@code debug.log} file.
-     * <p>These debug messages <i>only</i> show in the {@code debug.log} file.</p>
-     */
-    public static void debug(String debug) {
-        LOGGER.debug(debug);
+        LOGGER.info("The Speedrunner Mod {} (for fabric) loaded successfully!", ModConstants.MOD_VERSION);
     }
 
     /**
      * Returns the Speedrunner Mod {@code options.}
      */
-    public static ModOptions options() {
-        return ModOptions.INSTANCE.getInstance();
+    public static CommonModOptions common() {
+        return CommonModOptions.INSTANCE.getInstance();
     }
 
     /**
      * Returns the Speedrunner Mod {@code options handler} (for saving/loading config).
      */
-    public static ModOptions.ModOptionsHandler configHandler() {
-        return ModOptions.INSTANCE;
+    public static CommonModOptions.ModOptionsHandler commonConfigHandler() {
+        return CommonModOptions.INSTANCE;
     }
 
     /**
      * Saves all speedrunner mod option changes on the dedicated {@code server-side}
      */
     public static void saveDedicatedServerChanges() {
-        configHandler().save();
+        commonConfigHandler().save();
     }
 
     /**

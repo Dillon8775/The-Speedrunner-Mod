@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.dillon.speedrunnermod.helper.ModHelper;
 
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.CommonModOptions.*;
 
 /**
  * Contains all of the {@code placed feature modifications.}

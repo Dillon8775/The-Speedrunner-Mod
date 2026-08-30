@@ -10,10 +10,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
-@Deprecated
-
+@Deprecated(forRemoval = true)
 public class LeaderboardsScreen extends AbstractModScreen {
     protected Button submitSpeedrunButton;
 
@@ -28,7 +27,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
         this.submitSpeedrunButton = this.addRenderableWidget(Button.builder(Component.translatable("speedrunnermod.menu.leaderboards.submit").withStyle(getSubmitSpeedrunColor()), (button) -> {
             this.openLink(ModLinks.LEADERBOARDS_SUBMISSION, true);
         }).bounds(this.getButtonsLeftSide(), height, 150, 20).build());
-        this.submitSpeedrunButton.active = options().general.leaderboardsMode.getCurrentValue() && Leaderboards.isEligibleForLeaderboardRuns();
+        this.submitSpeedrunButton.active = common().general.leaderboardsMode.getCurrentValue() && Leaderboards.isEligibleForLeaderboardRuns();
         this.addRenderableWidget(Button.builder(ModTexts.MENU_LEADERBOARDS_VIEW, (button) -> {
             this.openLink(ModLinks.LEADERBOARDS, true);
         }).bounds(this.getButtonsRightSide(), height, 150, 20).build());
@@ -44,7 +43,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
     @Override
     protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
         if (this.submitSpeedrunButton.isHovered()) {
-            if (!options().general.leaderboardsMode.getCurrentValue()) {
+            if (!common().general.leaderboardsMode.getCurrentValue()) {
                 this.renderBasicTooltip(Component.translatable("speedrunnermod.leaderboards_mode_disabled.tooltip"), context, mouseX, mouseY);
             } else if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 this.renderBasicTooltip(Component.translatable("speedrunnermod.cannot_submit_speedrun.tooltip"), context, mouseX, mouseY);
@@ -64,7 +63,7 @@ public class LeaderboardsScreen extends AbstractModScreen {
      * Gets submit a speedrun button text color.
      */
     private static ChatFormatting getSubmitSpeedrunColor() {
-        if (options().general.leaderboardsMode.getCurrentValue()) {
+        if (common().general.leaderboardsMode.getCurrentValue()) {
             if (!Leaderboards.isEligibleForLeaderboardRuns()) {
                 return ChatFormatting.RED;
             } else {

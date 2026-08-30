@@ -9,22 +9,13 @@ import net.minecraft.network.chat.Component;
  */
 public class ModTexts {
     // Main
-    public static final Component BLANK = Component.literal("");
-    public static final Component OK = Component.translatable("speedrunnermod.ok");
     public static final Component SAVE = Component.translatable("speedrunnermod.save");
     public static final Component SAVE_TOOLTIP = Component.translatable("speedrunnermod.save.tooltip");
-    public static final Component NEXT = Component.translatable("speedrunnermod.next");
     public static final Component NEXT_ARROW = Component.literal(">").withStyle(ChatFormatting.BOLD);
     public static final Component NEXT_ARROW_TOOLTIP = Component.translatable("speedrunnermod.next.tooltip");
     public static final Component PREVIOUS = Component.literal("<").withStyle(ChatFormatting.BOLD);
     public static final Component PREVIOUS_TOOLTIP = Component.translatable("speedrunnermod.previous.tooltip");
-    public static final Component BACK = Component.translatable("speedrunnermod.back");
     public static final Component HELP_TOOLTIP = Component.translatable("speedrunnermod.help_button.tooltip");
-    public static final Component ON = Component.literal("ON").withStyle(ChatFormatting.GREEN);
-    public static final Component OFF = Component.literal("OFF").withStyle(ChatFormatting.RED);
-    public static final Component YES = Component.literal("YES").withStyle(ChatFormatting.GREEN);
-    public static final Component NO = Component.literal("NO").withStyle(ChatFormatting.RED);
-    public static final Component LETS_GO = Component.translatable("speedrunnermod.lets_go");
     public static final Component REFRESHING = Component.literal("Refreshing...");
     public static final Component ENABLED = Component.literal("Enabled").withStyle(ChatFormatting.GREEN);
     public static final Component DISABLED = Component.literal("DISABLED").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.RED);

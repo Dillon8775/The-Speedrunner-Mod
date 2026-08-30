@@ -43,6 +43,6 @@ public class ModVillagers {
      * Registers all speedrunner mod {@code villager professions.}
      */
     public static void initializeVillagerProfessions() {
-        SpeedrunnerMod.debug("Initialized villager professions.");
+        SpeedrunnerMod.LOGGER.debug("Initialized villager professions.");
     }
 }

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.component;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -37,12 +37,12 @@ public class ModDataComponentTypes {
                     new ApplyStatusEffectsConsumeEffect(
                             List.of(
                                     new MobEffectInstance(MobEffects.REGENERATION, 1800, 1),
-                                    new MobEffectInstance(MobEffects.ABSORPTION, TickCalculator.minutes(1), 1),
-                                    new MobEffectInstance(MobEffects.RESISTANCE, TickCalculator.seconds(30)),
-                                    new MobEffectInstance(MobEffects.FIRE_RESISTANCE, TickCalculator.minutes(2)),
-                                    new MobEffectInstance(MobEffects.STRENGTH, TickCalculator.seconds(15)),
-                                    new MobEffectInstance(MobEffects.SPEED, TickCalculator.seconds(30)),
-                                    new MobEffectInstance(MobEffects.SLOW_FALLING, TickCalculator.seconds(10))
+                                    new MobEffectInstance(MobEffects.ABSORPTION, Arithmetics.mas(1), 1),
+                                    new MobEffectInstance(MobEffects.RESISTANCE, Arithmetics.sas(30)),
+                                    new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.mas(2)),
+                                    new MobEffectInstance(MobEffects.STRENGTH, Arithmetics.sas(15)),
+                                    new MobEffectInstance(MobEffects.SPEED, Arithmetics.sas(30)),
+                                    new MobEffectInstance(MobEffects.SLOW_FALLING, Arithmetics.sas(10))
                             )
                     )
             ));
@@ -86,6 +86,6 @@ public class ModDataComponentTypes {
      * Initializes all speedrunner mod data components.
      */
     public static void initializeDataComponents() {
-        SpeedrunnerMod.debug("Initialized data components.");
+        SpeedrunnerMod.LOGGER.debug("Initialized data components.");
     }
 }

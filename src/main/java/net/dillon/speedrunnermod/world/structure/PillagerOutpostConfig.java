@@ -1,12 +1,11 @@
 package net.dillon.speedrunnermod.world.structure;
 
 import com.google.gson.JsonElement;
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.option.OptionValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
 
 public class PillagerOutpostConfig extends Ssr {
 
@@ -48,6 +47,6 @@ public class PillagerOutpostConfig extends Ssr {
 
     @Override
     public @NotNull OptionValue<List<Integer>> custom() {
-        return options().customStructureSpawnRates.pillagerOutposts;
+        return SpeedrunnerMod.common().customStructureSpawnRates.pillagerOutposts;
     }
 }

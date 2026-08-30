@@ -19,6 +19,6 @@ public class ModPotionsTags {
      * Initializes all Speedrunner Mod {@code potion tags.}
      */
     public static void initializePotionTags() {
-        SpeedrunnerMod.debug("Initialized potion tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized potion tags.");
     }
 }

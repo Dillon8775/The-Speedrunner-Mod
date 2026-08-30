@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(OverworldBiomeBuilder.class)
 public class OverworldBiomeBuilderMixin {
@@ -50,11 +50,11 @@ public class OverworldBiomeBuilderMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (!options().worldGen.generateSpeedrunnersWasteland.getCurrentValue()) {
+        if (!common().worldGen.generateSpeedrunnersWasteland.getCurrentValue()) {
             this.MIDDLE_BIOMES = VANILLA_MIDDLE_BIOMES;
             return;
         }
 
-        this.MIDDLE_BIOMES = options().worldGen.betterBiomes.getCurrentValue() ? BETTER_MIDDLE_BIOMES : CUSTOM_MIDDLE_BIOMES;
+        this.MIDDLE_BIOMES = common().worldGen.betterBiomes.getCurrentValue() ? BETTER_MIDDLE_BIOMES : CUSTOM_MIDDLE_BIOMES;
     }
 }

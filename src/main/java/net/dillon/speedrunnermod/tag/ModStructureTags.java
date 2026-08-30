@@ -25,6 +25,6 @@ public class ModStructureTags {
      * Initializes all Speedrunner Mod {@code structure tags.}
      */
     public static void initializeStructureTags() {
-        SpeedrunnerMod.debug("Initialized structure tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized structure tags.");
     }
 }

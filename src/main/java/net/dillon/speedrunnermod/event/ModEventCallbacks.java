@@ -22,6 +22,6 @@ public class ModEventCallbacks {
             return true;
         });
 
-        SpeedrunnerMod.debug("Registered event callbacks.");
+        SpeedrunnerMod.LOGGER.debug("Registered event callbacks.");
     }
 }

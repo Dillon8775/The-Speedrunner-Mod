@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public class BlockStateBaseMixin {
@@ -24,8 +24,8 @@ public class BlockStateBaseMixin {
      */
     @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
     private void applyFasterBlockBreaking(BlockGetter world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
-        if (options().general.fasterBlockBreaking.getCurrentValue()) {
-            int multiplier = options().general.blockBreakingMultiplier.getCurrentValue();
+        if (common().general.fasterBlockBreaking.getCurrentValue()) {
+            int multiplier = common().general.blockBreakingMultiplier.getCurrentValue();
             cir.setReturnValue(this.destroySpeed / multiplier);
 
             // Speedrunner mod blocks do not get modified block hardness values. They are instead hard-coded.

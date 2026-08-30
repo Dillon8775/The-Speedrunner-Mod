@@ -10,8 +10,8 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * The Speedrunner Mod's {@code general options.}
@@ -85,7 +85,7 @@ public class GeneralOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.blockBreakingMultiplier, options().general.fasterBlockBreaking.getCurrentValue(),
+        this.lockOptionWithTooltip(this.blockBreakingMultiplier, common().general.fasterBlockBreaking.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.block_breaking_multiplier.tooltip"),
                 Component.translatable("speedrunnermod.options.block_breaking_multiplier.inactive"),
                 graphics,
@@ -93,7 +93,7 @@ public class GeneralOptionsScreen extends AbstractModScreen {
                 mouseY
         );
 
-        this.lockOptionWithTooltip(this.fireballExplosionPower, !isDoomMode() && options().general.throwableFireballs.getCurrentValue(),
+        this.lockOptionWithTooltip(this.fireballExplosionPower, !isDoomMode() && common().general.throwableFireballs.getCurrentValue(),
                 Component.translatable("speedrunnermod.options.fireball_explosion_power.tooltip"),
                 isDoomMode()
                         ? Component.translatable("speedrunnermod.options.mode_easy_or_balanced_required.tooltip")

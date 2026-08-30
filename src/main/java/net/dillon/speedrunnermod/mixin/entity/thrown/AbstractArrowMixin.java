@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin extends Projectile {
@@ -29,7 +29,7 @@ public abstract class AbstractArrowMixin extends Projectile {
      */
     @Inject(method = "onHitBlock", at = @At("TAIL"))
     private void arrowExplodeBed(BlockHitResult hitResult, CallbackInfo ci) {
-        if (!options().worldGen.arrowsDestroyBeds.getCurrentValue()) {
+        if (!common().worldGen.arrowsDestroyBeds.getCurrentValue()) {
             return;
         }
 

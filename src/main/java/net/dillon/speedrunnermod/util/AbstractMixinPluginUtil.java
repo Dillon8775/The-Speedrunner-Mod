@@ -5,7 +5,7 @@ import com.google.gson.JsonParser;
 import net.dillon.dillonlib.mixinplugin.MixinPluginUtil;
 import net.dillon.dillonlib.mixinplugin.PredicateEntry;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.option.BaseOptions;
+import net.dillon.speedrunnermod.option.ModBaseOptionsHandler;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import java.io.FileReader;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.isEnvironmentTypeServer;
-import static net.dillon.speedrunnermod.option.ModOptions.isSafe;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isSafe;
 
 /**
  * Abstract representation of a mixin plugin utility class.
@@ -58,8 +58,8 @@ public abstract class AbstractMixinPluginUtil extends MixinPluginUtil {
                 JsonObject mixins = json.getAsJsonObject(optionCategory);
                 if (mixins.has(optionValue)) {
                     JsonObject option = mixins.getAsJsonObject(optionValue);
-                    if (option.has(BaseOptions.CURRENT_VALUE)) {
-                        return option.get(BaseOptions.CURRENT_VALUE).getAsBoolean();
+                    if (option.has(ModBaseOptionsHandler.CURRENT_VALUE)) {
+                        return option.get(ModBaseOptionsHandler.CURRENT_VALUE).getAsBoolean();
                     }
                 }
             }
@@ -67,7 +67,7 @@ public abstract class AbstractMixinPluginUtil extends MixinPluginUtil {
             if (isEnvironmentTypeServer()) {
                 throw new IllegalStateException("Failed to read config for mixin plugin: " + e.getMessage() + ". This is likely caused to updating to the newest version of the speedrunner mod, please relaunch the server and everything should work.");
             } else {
-                SpeedrunnerMod.error("Failed to read config for mixin plugin: " + e.getMessage());
+                SpeedrunnerMod.LOGGER.error("Failed to read config for mixin plugin: {}", e.getMessage());
                 isSafe(false);
             }
         }

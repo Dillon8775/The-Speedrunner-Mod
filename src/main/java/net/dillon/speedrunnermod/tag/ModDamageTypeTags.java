@@ -17,6 +17,6 @@ public class ModDamageTypeTags {
      * Initializes all Speedrunner Mod {@code damage type tags.}
      */
     public static void initializeDamageTypeTags() {
-        SpeedrunnerMod.debug("Initialized damage type tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized damage type tags.");
     }
 }

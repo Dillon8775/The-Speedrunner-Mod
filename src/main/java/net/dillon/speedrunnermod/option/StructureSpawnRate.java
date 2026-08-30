@@ -10,6 +10,7 @@ import java.util.Comparator;
 /**
  * All the different {@code Structure Spawn Rate} options, from extremely common to extremely rare.
  */
+@Deprecated(forRemoval = true) // Soon to be fixed boolean
 public enum StructureSpawnRate implements StringRepresentable {
     EVERYWHERE(0, "everywhere", "speedrunnermod.options.structure_spawn_rates.everywhere"),
     VERY_COMMON(1, "very_common", "speedrunnermod.options.structure_spawn_rates.very_common"),

@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.mixin.world;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.dillon.speedrunnermod.util.TaskScheduler;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.core.Holder;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(MinecraftServer.class)
 public abstract class MinecraftServerMixin {
@@ -41,7 +41,7 @@ public abstract class MinecraftServerMixin {
             if (!serverLevelData.isInitialized()) {
                 level.clockManager().setTotalTicks(worldClockHolder, 13000L);
                 if (level.getRandom().nextFloat() < RandomChance.floatInclusive(0.25F, 0.33F)) {
-                    int ticks = TickCalculator.minutes(10);
+                    int ticks = Arithmetics.mas(10);
                     this.setWeatherParameters(0, ticks, true, true);
                     TaskScheduler.schedule(ticks, () -> this.setWeatherParameters(0, 0, false, false));
                 }

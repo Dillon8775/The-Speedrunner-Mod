@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.option;
 
+import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
@@ -7,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
-import static net.dillon.speedrunnermod.option.ModOptions.*;
+import static net.dillon.speedrunnermod.option.CommonModOptions.*;
 
 /**
  * The main class for the leaderboards in the Speedrunner Mod.
  */
-@Deprecated // deprecated because it's not used anymore
+@Deprecated(forRemoval = true) // deprecated because it's not used anymore
 public class Leaderboards {
     public static List<Component> ineligibleOptions = new ArrayList<>();
-    private static final General general = options().general;
-    private static final WorldGen worldGen = options().worldGen;
-    private static final ClientModOptions.Client cloptions = clientOptions().client;
+    private static final General general = common().general;
+    private static final WorldGen worldGen = common().worldGen;
+    private static final ClientModOptions.Client cloptions = client().client;
     private static boolean currentLeaderboardsMode;
     private static StructureSpawnRate currentStructureSpawnRates;
     private static int currentBlockBreakingMultiplier;
@@ -373,8 +374,8 @@ public class Leaderboards {
      * Disables leaderboards mode.
      */
     public static void disableLeaderboardsMode() {
-        info("Disabling leaderboards mode and closing game. Re-launch to apply changes.");
-        options().general.leaderboardsMode.set(false);
+        SpeedrunnerMod.LOGGER.info("Disabling leaderboards mode and closing game. Re-launch to apply changes.");
+        common().general.leaderboardsMode.set(false);
         saveDedicatedServerChanges();
         if (!isEnvironmentTypeServer()) {
             saveClientChanges();
@@ -385,14 +386,14 @@ public class Leaderboards {
      * Sends a warning log/message to console that the user ignored the ineligible options, and cannot submit any runs until turned back on.
      */
     public static void sendIgnoreWarning() {
-        warn("Proceeding. Because you chose to ignore, you will not be able to submit any speedruns to the leaderboards, unless you re-enable the leaderboards mode and restart your game.");
+        SpeedrunnerMod.LOGGER.warn("Proceeding. Because you chose to ignore, you will not be able to submit any speedruns to the leaderboards, unless you re-enable the leaderboards mode and restart your game.");
     }
 
     /**
      * Sends a warning log to console, displaying the specific ineligible option that needs to be changed.
      */
     private static void warnIneligible(String optionName) {
-        warn("Current Option \"" + optionName + "\" is ineligible for a leaderboard submission.");
+        SpeedrunnerMod.LOGGER.warn("Current Option \"" + optionName + "\" is ineligible for a leaderboard submission.");
     }
 
     private static boolean areStructureSpawnRatesEligible() {
@@ -410,7 +411,7 @@ public class Leaderboards {
     }
 
     private static boolean isDifficultyEligible() {
-        return clientOptions().client.difficulty.getCurrentValue() != Difficulty.PEACEFUL;
+        return client().client.difficulty.getCurrentValue() != Difficulty.PEACEFUL;
     }
 
     private static boolean isStrongholdCountEligible() {

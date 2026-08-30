@@ -1,11 +1,11 @@
 package net.dillon.speedrunnermod.mixin.entity.goliath;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.entity.goliath.Minion;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.tag.ModDamageTypeTags;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
-import net.dillon.speedrunnermod.util.TickCalculator;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,8 +35,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(Zombie.class)
 public class ZombieMixin extends Monster implements Minion {
@@ -140,7 +140,7 @@ public class ZombieMixin extends Monster implements Minion {
             }
         }
         this.setTarget(targetPlayer);
-        targetPlayer.addEffect(new MobEffectInstance(MobEffects.GLOWING, TickCalculator.seconds(3)));
+        targetPlayer.addEffect(new MobEffectInstance(MobEffects.GLOWING, Arithmetics.sas(3)));
 
         net.dillon.speedrunnermod.entity.goliath.Goliath.addAngryParticles(this);
         net.dillon.speedrunnermod.entity.goliath.Goliath.safeFromVoid(this);
@@ -176,7 +176,7 @@ public class ZombieMixin extends Monster implements Minion {
             return false;
         } else {
             if (isDoomMode() && target instanceof Player player) {
-                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, TickCalculator.seconds(10), 0));
+                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(10), 0));
             }
 
             return true;
@@ -188,6 +188,6 @@ public class ZombieMixin extends Monster implements Minion {
      */
     @Unique
     private List findEntities(Class<? extends LivingEntity> entity) {
-        return ModHelper.getEntitiesWithinRange(this.level(), entity, this, options().advanced.goliathAndZombieEntityDetectionRadius.getCurrentValue());
+        return ModHelper.getEntitiesWithinRange(this.level(), entity, this, common().advanced.goliathAndZombieEntityDetectionRadius.getCurrentValue());
     }
 }

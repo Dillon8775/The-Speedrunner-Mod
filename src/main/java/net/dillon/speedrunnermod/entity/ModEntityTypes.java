@@ -101,6 +101,6 @@ public class ModEntityTypes {
      * Initializes all {@code Speedrunner Mod entity types.}
      */
     public static void initializeEntityTypes() {
-        SpeedrunnerMod.debug("Initialized entity types.");
+        SpeedrunnerMod.LOGGER.debug("Initialized entity types.");
     }
 }

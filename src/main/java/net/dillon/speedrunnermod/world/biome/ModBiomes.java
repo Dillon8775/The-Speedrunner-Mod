@@ -35,6 +35,6 @@ public class ModBiomes {
      * Initializes this class, registering the {@code Speedrunner's Wasteland} biome.
      */
     public static void initializeBiomes() {
-        SpeedrunnerMod.debug("Initialized Speedrunner Mod biomes.");
+        SpeedrunnerMod.LOGGER.debug("Initialized Speedrunner Mod biomes.");
     }
 }

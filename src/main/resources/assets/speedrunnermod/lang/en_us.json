@@ -10,14 +10,11 @@
   "speedrunnermod.view_features": "View Features",
   "speedrunnermod.view_features.tooltip": "When finished, load into the §afeature screens,§f where you can learn more about each feature in this mod!\n\nIf you don't want to view them now, you can always view them via the §b§oSpeedrunner Mod Main Menu.",
 
-  "speedrunnermod.ok": "Ok",
   "speedrunnermod.save": "Save",
   "speedrunnermod.save.tooltip": "Save and flush all changes.",
-  "speedrunnermod.next": "Next",
   "speedrunnermod.next.tooltip": "Use §l>§r key to navigate to next page",
   "speedrunnermod.previous": "Previous",
   "speedrunnermod.previous.tooltip": "Use §l<§r key to navigate to previous page",
-  "speedrunnermod.back": "Back",
   "speedrunnermod.help_button.tooltip": "Help...",
 
   "speedrunnermod.player_death_cords": "You died at X: %.2f, Y = %.2f, Z = %.2f",

@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 public class ICarusModeScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +17,8 @@ public class ICarusModeScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(options().general.iCarusMode.getCurrentValue() ? ModTexts.DISABLE_ICARUS_MODE : ModTexts.ENABLE_ICARUS_MODE, button -> {
-            options().general.iCarusMode.set(!options().general.iCarusMode.getCurrentValue());
+        this.addButtonObject(Button.builder(common().general.iCarusMode.getCurrentValue() ? ModTexts.DISABLE_ICARUS_MODE : ModTexts.ENABLE_ICARUS_MODE, button -> {
+            common().general.iCarusMode.set(!common().general.iCarusMode.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

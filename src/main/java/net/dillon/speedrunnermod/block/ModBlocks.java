@@ -480,6 +480,6 @@ public class ModBlocks {
      * Initializes all Speedrunner Mod {@code blocks.}
      */
     public static void initializeBlocks() {
-        SpeedrunnerMod.debug("Initialized blocks.");
+        SpeedrunnerMod.LOGGER.debug("Initialized blocks.");
     }
 }

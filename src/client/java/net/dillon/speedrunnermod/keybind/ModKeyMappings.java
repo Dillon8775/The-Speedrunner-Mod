@@ -24,10 +24,10 @@ public class ModKeyMappings {
      * Initializes all {@code Speedrunner Mod} keybindings.
      */
     public static void initializeKeybinds() {
-        SpeedrunnerMod.debug("Initialized keybinds.");
+        SpeedrunnerMod.LOGGER.debug("Initialized keybinds.");
 
         if (isSimpleKeybindsLoaded()) {
-            SpeedrunnerMod.debug("Simple Keybinds mod is loaded, compatibility has been added.");
+            SpeedrunnerMod.LOGGER.debug("Simple Keybinds mod is loaded, compatibility has been added.");
         }
     }
 
@@ -37,7 +37,7 @@ public class ModKeyMappings {
             .handleWorldInput(input -> {
                 Minecraft minecraft = Minecraft.getInstance();
                 if (minecraft.isLocalServer() && minecraft.getCurrentServer() == null) {
-                    if (clientOptions().client.instantWorldCreation.getCurrentValue()) {
+                    if (client().client.instantWorldCreation.getCurrentValue()) {
                         ClientModUtil.createNewWorld(Minecraft.getInstance());
                         return true;
                     } else {
@@ -58,10 +58,10 @@ public class ModKeyMappings {
                     debugWarn("key.speedrunnermod.toggle_fog.quality_of_queso_loaded");
                 } else if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
-                } else if (!clientOptions().mixins.fogMixins.getCurrentValue()) {
+                } else if (!client().mixins.fogMixins.getCurrentValue()) {
                     debugWarn("key.speedrunnermod.toggle_fog.mixin_disabled");
                 } else {
-                    clientOptions().client.fog.set(!clientOptions().client.fog.getCurrentValue());
+                    client().client.fog.set(!client().client.fog.getCurrentValue());
                     saveClientChanges();
                     Minecraft.getInstance().levelExtractor.allChanged();
                     return true;
@@ -76,12 +76,12 @@ public class ModKeyMappings {
             .handleWorldInput(input -> {
                 if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
-                } else if (!clientOptions().mixins.optionInstanceMixin.getCurrentValue()) {
+                } else if (!client().mixins.optionInstanceMixin.getCurrentValue()) {
                     debugWarn("key.speedrunnermod.toggle_fullbright.mixin_disabled");
                 } else {
-                    clientOptions().client.fullBright.set(!clientOptions().client.fullBright.getCurrentValue());
+                    client().client.fullBright.set(!client().client.fullBright.getCurrentValue());
                     saveClientChanges();
-                    Minecraft.getInstance().options.gamma().set(clientOptions().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                    Minecraft.getInstance().options.gamma().set(client().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
                     Minecraft.getInstance().options.save();
                     return true;
                 }

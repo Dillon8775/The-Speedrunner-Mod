@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.option;
 
+import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.util.TickCalculator;
 
 import java.util.List;
 
@@ -12,10 +12,10 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 /**
  * All Speedrunner Mod {@code options.}
  * <p>When adding new options...</p>
- * <p>- An {@code "isBroken"} check safe boot screen and in {@link BaseOptions#safeCheck()}</p>
+ * <p>- An {@code "isBroken"} check safe boot screen and in {@link CommonModOptions.ModOptionsHandler#safeCheck()}</p>
  * <p>- and a {@code ModListOption.}</p>
  */
-public class ModOptions {
+public class CommonModOptions {
     public static final ModOptionsHandler INSTANCE = new ModOptionsHandler();
     public final General general = new General();
     public final WorldGen worldGen = new WorldGen();
@@ -393,21 +393,21 @@ public class ModOptions {
      * @return {@code true} if the {@code Dragon Perch Time} option is {@code "instant".}
      */
     public boolean isInstantDragonPerchTime() {
-        return options().general.dragonPerchTime.getCurrentValue() == 9;
+        return common().general.dragonPerchTime.getCurrentValue() == 9;
     }
 
     /**
      * Returns the current {@code Dragon Perch Time} option in milliseconds.
      */
     public int getDragonPerchTime() {
-        return options().general.dragonPerchTime.getCurrentValue();
+        return common().general.dragonPerchTime.getCurrentValue();
     }
 
     /**
      * Returns the current {@code Ender Eye Breaking Cooldown} option in ticks.
      */
     public int getEnderEyeBreakingCooldown() {
-        return TickCalculator.seconds(options().advanced.enderEyeBreakingCooldown.getCurrentValue());
+        return Arithmetics.sas(common().advanced.enderEyeBreakingCooldown.getCurrentValue());
     }
 
     /**
@@ -428,89 +428,90 @@ public class ModOptions {
      * @return the {@code Easy} mode option.
      */
     public static boolean isEasyMode() {
-        return options().general.mode.getCurrentValue().equals(Mode.EASY);
+        return common().general.mode.getCurrentValue().equals(Mode.EASY);
     }
 
     /**
      * @return the {@code Balanced} mode option.
      */
     public static boolean isBalancedMode() {
-        return options().general.mode.getCurrentValue().equals(Mode.BALANCED);
+        return common().general.mode.getCurrentValue().equals(Mode.BALANCED);
     }
 
     /**
      * @return the {@code Doom} mode option.
      */
     public static boolean isDoomMode() {
-        return options().general.mode.getCurrentValue().equals(Mode.DOOM);
+        return common().general.mode.getCurrentValue().equals(Mode.DOOM);
     }
 
     /**
      * Returns the {@code Everywhere} structure spawn rate option.
      */
     public static boolean isSsrEverywhere() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.EVERYWHERE);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.EVERYWHERE);
     }
 
     /**
      * Returns the {@code Very Common} structure spawn rate option.
      */
     public static boolean isSsrVeryCommon() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_COMMON);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_COMMON);
     }
 
     /**
      * Returns the {@code Very Common} or {@code Common} structure spawn rate option.
      */
     public static boolean isSsrVeryCommonCommon() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_COMMON) || options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_COMMON) || common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON);
     }
 
     /**
      * Returns the {@code Common} structure spawn rate option.
      */
     public static boolean isSsrCommon() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.COMMON);
     }
 
     /**
      * Returns the {@code Normal} structure spawn rate option.
      */
     public static boolean isSsrNormal() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.NORMAL);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.NORMAL);
     }
 
     /**
      * Returns the {@code Default} structure spawn rate option.
      */
     public static boolean isSsrDefault() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.DEFAULT);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.DEFAULT);
     }
 
     /**
      * Returns the {@code Rare} structure spawn rate option.
      */
     public static boolean isSsrRare() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.RARE);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.RARE);
     }
 
     /**
      * Returns the {@code Very Rare} structure spawn rate option.
      */
     public static boolean isSsrVeryRare() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_RARE);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.VERY_RARE);
     }
 
     /**
      * Returns the {@code Custom} structure spawn rate option.
      */
     public static boolean isSsrCustom() {
-        return options().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.CUSTOM);
+        return common().worldGen.structureSpawnRates.getCurrentValue().equals(StructureSpawnRate.CUSTOM);
     }
 
     /**
      * The game is safe to run if the {@code safe} parameter returns true.
      */
+    @Deprecated(forRemoval = true)
     public static void isSafe(boolean safe) {
         ModConstants.safeBoot = !safe;
     }
@@ -518,138 +519,139 @@ public class ModOptions {
     /**
      * A handler class for handling the main options file.
      */
-    public static class ModOptionsHandler extends BaseOptions<ModOptions> {
+    public static class ModOptionsHandler extends ModBaseOptionsHandler<CommonModOptions> {
 
         protected ModOptionsHandler() {
             super(ModHelper.CONFIG_FILE_NAME);
         }
 
         @Override
-        protected ModOptions createDefault() {
-            return new ModOptions();
+        protected CommonModOptions createDefault() {
+            return new CommonModOptions();
         }
 
         @Override
-        protected Class<ModOptions> getConfigClass() {
-            return ModOptions.class;
+        protected Class<CommonModOptions> getConfigClass() {
+            return CommonModOptions.class;
         }
 
         @Override
+        @Deprecated(forRemoval = true)
         protected void safeCheck() {
-            if (options().general.mode.getCurrentValue() == null) {
+            if (common().general.mode.getCurrentValue() == null) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNullPointerException("Mode", Mode.values());
                 } else {
-                    this.setBroken(options().general.mode, "mode");
+                    this.setBroken(common().general.mode, "mode");
                 }
             }
 
-            if (options().worldGen.structureSpawnRates.getCurrentValue() == null) {
+            if (common().worldGen.structureSpawnRates.getCurrentValue() == null) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNullPointerException("Structure Spawn Rates", StructureSpawnRate.values());
                 } else {
-                    this.setBroken(options().worldGen.structureSpawnRates, "structureSpawnRates");
+                    this.setBroken(common().worldGen.structureSpawnRates, "structureSpawnRates");
                 }
             }
 
-            if (options().worldGen.creatureSpawnRate.getCurrentValue() == null) {
+            if (common().worldGen.creatureSpawnRate.getCurrentValue() == null) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNullPointerException("Mob Spawning Rate", CreatureSpawnRate.values());
                 } else {
-                    this.setBroken(options().worldGen.creatureSpawnRate, "mobSpawningRate");
+                    this.setBroken(common().worldGen.creatureSpawnRate, "mobSpawningRate");
                 }
             }
 
-            if (options().general.leaderboardsMode.getCurrentValue()) {
+            if (common().general.leaderboardsMode.getCurrentValue()) {
                 String message = "Leaderboards mode is ON, please disable, as the leaderboards have been deleted.";
                 if (isEnvironmentTypeServer()) {
                     throw new IllegalStateException(message);
                 } else {
-                    this.setBroken(options().general.leaderboardsMode, message);
+                    this.setBroken(common().general.leaderboardsMode, message);
                 }
             }
 
-            if (options().worldGen.netherPortalDelay.getCurrentValue() < options().worldGen.netherPortalDelay.getMinValue()) {
+            if (common().worldGen.netherPortalDelay.getCurrentValue() < common().worldGen.netherPortalDelay.getMinValue()) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Nether Portal Cooldown");
                 } else {
-                    this.setBroken(options().worldGen.netherPortalDelay, "netherPortalDelay");
+                    this.setBroken(common().worldGen.netherPortalDelay, "netherPortalDelay");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.netherPortalDelay)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
+            } else if (!isIntegerOptionValid(common().worldGen.netherPortalDelay)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.netherPortalCooldown");
             }
 
-            if (options().worldGen.strongholdDistance.getCurrentValue() < 1) {
+            if (common().worldGen.strongholdDistance.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Distance");
                 } else {
-                    this.setBroken(options().worldGen.strongholdDistance, "strongholdDistance");
+                    this.setBroken(common().worldGen.strongholdDistance, "strongholdDistance");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.strongholdDistance)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
+            } else if (!isIntegerOptionValid(common().worldGen.strongholdDistance)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdDistance");
             }
 
-            if (options().worldGen.strongholdSpread.getCurrentValue() < 1) {
+            if (common().worldGen.strongholdSpread.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Spread");
                 } else {
-                    this.setBroken(options().worldGen.strongholdSpread, "strongholdSpread");
+                    this.setBroken(common().worldGen.strongholdSpread, "strongholdSpread");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.strongholdSpread)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
+            } else if (!isIntegerOptionValid(common().worldGen.strongholdSpread)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdSpread");
             }
 
-            if (options().worldGen.totalStrongholds.getCurrentValue() < 1) {
+            if (common().worldGen.totalStrongholds.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Count");
                 } else {
-                    this.setBroken(options().worldGen.totalStrongholds, "strongholdCount");
+                    this.setBroken(common().worldGen.totalStrongholds, "strongholdCount");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.totalStrongholds)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
+            } else if (!isIntegerOptionValid(common().worldGen.totalStrongholds)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdCount");
             }
 
-            if (options().worldGen.totalPortamRooms.getCurrentValue() < 1) {
+            if (common().worldGen.totalPortamRooms.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Portal Room Count");
                 } else {
-                    this.setBroken(options().worldGen.totalPortamRooms, "strongholdPortalRoomCount");
+                    this.setBroken(common().worldGen.totalPortamRooms, "strongholdPortalRoomCount");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.totalPortamRooms)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
+            } else if (!isIntegerOptionValid(common().worldGen.totalPortamRooms)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdPortalRoomCount");
             }
 
-            if (options().worldGen.totalLibraries.getCurrentValue() < 1) {
+            if (common().worldGen.totalLibraries.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     this.throwNumberLessThanOneException("Stronghold Library Count");
                 } else {
-                    this.setBroken(options().worldGen.totalLibraries, "strongholdLibraryCount");
+                    this.setBroken(common().worldGen.totalLibraries, "strongholdLibraryCount");
                 }
-            } else if (!isIntegerOptionValid(options().worldGen.totalLibraries)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
+            } else if (!isIntegerOptionValid(common().worldGen.totalLibraries)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.strongholdLibraryCount");
             }
 
-            if (options().general.blockBreakingMultiplier.getCurrentValue() < 1) {
+            if (common().general.blockBreakingMultiplier.getCurrentValue() < 1) {
                 if (isEnvironmentTypeServer()) {
                     throw new ArithmeticException("blockBreakingMultiplier cannot be set to a value less than 1.");
                 } else {
-                    this.setBroken(options().general.blockBreakingMultiplier, "blockBreakingMultiplier");
-                    warn("Cannot divide by zero! o_0");
+                    this.setBroken(common().general.blockBreakingMultiplier, "blockBreakingMultiplier");
+                    LOGGER.warn("Cannot divide by zero! o_0");
                 }
-            } else if (!isIntegerOptionValid(options().general.blockBreakingMultiplier)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
+            } else if (!isIntegerOptionValid(common().general.blockBreakingMultiplier)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.blockBreakingMultiplier");
             }
 
-            if (!isIntegerOptionValid(options().general.dragonPerchTime)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.dragonPerchTime");
+            if (!isIntegerOptionValid(common().general.dragonPerchTime)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.dragonPerchTime");
             }
 
-            if (!isIntegerOptionValid(options().general.anvilCostLimit)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.anvilCostLimit");
+            if (!isIntegerOptionValid(common().general.anvilCostLimit)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.anvilCostLimit");
             }
 
-            if (!isIntegerOptionValid(options().advanced.enderEyeBreakingCooldown)) {
-                warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.eyeOfEnderBreakingCooldown");
+            if (!isIntegerOptionValid(common().advanced.enderEyeBreakingCooldown)) {
+                LOGGER.warn(OPTIONS_WARNING_MESSAGE + related + "speedrunnermod.options.eyeOfEnderBreakingCooldown");
             }
         }
     }

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen.synced;
 
+import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.minecraft.client.Minecraft;
@@ -21,7 +22,7 @@ public class TimedScreen extends AbstractModScreen {
     private Timer timer;
 
     public TimedScreen(Screen parent, int countdown, boolean server) {
-        super(parent, ModTexts.BLANK);
+        super(parent, Texts.BLANK);
         this.parent = parent;
         this.countdown = countdown + 1;
         this.server = server;

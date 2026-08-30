@@ -7,8 +7,8 @@ import net.dillon.speedrunnermod.option.CreatureSpawnRate;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 /**
  * Contains helper methods used to create certain objects and arrays in JSON files.
@@ -28,13 +28,13 @@ public class LoaderMain {
             if (creatureValues.containsKey(mobType)) {
                 Integer[] values = creatureValues.get(mobType);
                 spawner.addProperty("weight", values[0]);
-                if (options().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.LOW)) {
+                if (common().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.LOW)) {
                     spawner.addProperty("minCount", values[1]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.NORMAL)) {
+                } else if (common().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.NORMAL)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[4]);
-                } else if (options().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.HIGH)) {
+                } else if (common().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.HIGH)) {
                     spawner.addProperty("minCount", values[2]);
                     spawner.addProperty("maxCount", values[3]);
                 }

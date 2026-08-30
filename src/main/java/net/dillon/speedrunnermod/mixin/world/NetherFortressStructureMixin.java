@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
-import static net.dillon.speedrunnermod.option.ModOptions.isBalancedMode;
-import static net.dillon.speedrunnermod.option.ModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
 
 @Mixin(NetherFortressStructure.class)
 public class NetherFortressStructureMixin {
@@ -25,7 +25,7 @@ public class NetherFortressStructureMixin {
     private static WeightedList<MobSpawnSettings.SpawnerData> FORTRESS_ENEMIES;
 
     static {
-        if (options().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
+        if (common().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
             if (isDoomMode()) {
                 FORTRESS_ENEMIES = WeightedList.<MobSpawnSettings.SpawnerData>builder()
                         .add(new MobSpawnSettings.SpawnerData(EntityTypes.BLAZE, new UniformInt(1, 4)), 50)

@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.option.ModOptions.isSsrCustom;
+import static net.dillon.speedrunnermod.option.CommonModOptions.isSsrCustom;
 
 /**
  * The {@code options} screen for the Speedrunner Mod, consisting of all the option categories.

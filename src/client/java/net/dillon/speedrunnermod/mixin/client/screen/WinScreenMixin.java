@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientOptions;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
 
 @Mixin(WinScreen.class)
@@ -21,7 +21,7 @@ public class WinScreenMixin {
      */
     @Inject(method = "respawn", at = @At("TAIL"))
     private static void allowClosingOfCreditsScreen(CallbackInfo ci) {
-        clientOptions().client.canCloseEndCredits.set(true);
+        client().client.canCloseEndCredits.set(true);
         saveClientChanges();
     }
 
@@ -30,7 +30,7 @@ public class WinScreenMixin {
      */
     @Inject(method = "onClose", at = @At("HEAD"), cancellable = true)
     private void preventClosingOfCreditsScreen(CallbackInfo ci) {
-        if (this.poem && !clientOptions().client.canCloseEndCredits.getCurrentValue()) {
+        if (this.poem && !client().client.canCloseEndCredits.getCurrentValue()) {
             ci.cancel();
         }
     }

@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(FoodProperties.class)
 public class FoodPropertiesMixin {
 
     @Inject(method = "onConsume", at = @At("TAIL"))
     private void addFoodEffects(Level world, LivingEntity user, ItemStack stack, Consumable consumable, CallbackInfo ci) {
-        if (options().general.betterFoods.getCurrentValue() && user instanceof Player player && stack.is(Items.GOLDEN_CARROT)) {
+        if (common().general.betterFoods.getCurrentValue() && user instanceof Player player && stack.is(Items.GOLDEN_CARROT)) {
              player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0));
         }
     }

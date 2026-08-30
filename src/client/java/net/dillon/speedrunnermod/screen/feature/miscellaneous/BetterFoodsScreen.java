@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.options;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 public class BetterFoodsScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +17,8 @@ public class BetterFoodsScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(options().general.betterFoods.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            options().general.betterFoods.set(!options().general.betterFoods.getCurrentValue());
+        this.addButtonObject(Button.builder(common().general.betterFoods.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            common().general.betterFoods.set(!common().general.betterFoods.getCurrentValue());
             this.refreshNonRestartableFeature();
         }).build());
     }

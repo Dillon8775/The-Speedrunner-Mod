@@ -17,6 +17,6 @@ public class ModEnchantmentTags {
      * Initializes all Speedrunner Mod {@code enchantment tags.}
      */
     public static void initializeEnchantmentTags() {
-        SpeedrunnerMod.debug("Initialized enchantment tags.");
+        SpeedrunnerMod.LOGGER.debug("Initialized enchantment tags.");
     }
 }
