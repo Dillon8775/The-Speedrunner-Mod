@@ -33,9 +33,7 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         blockStateModelGenerator.woodProvider(ModBlocks.SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.SPEEDRUNNER_LOG).wood(ModBlocks.SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.woodProvider(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
         blockStateModelGenerator.woodProvider(ModBlocks.DEAD_SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.DEAD_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
-        blockStateModelGenerator.woodProvider(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).logWithHorizontal(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG).wood(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
         blockStateModelGenerator.woodProvider(ModBlocks.DOOM_LOG).logWithHorizontal(ModBlocks.DOOM_LOG);
 
         blockStateModelGenerator.createTrivialBlock(ModBlocks.SPEEDRUNNER_LEAVES, TexturedModel.LEAVES);

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:raw_speedrunner_from_raw_speedrunner_block"
+        "recipes": "speedrunnermod:raw_speedrunner_from_raw_speedrunner_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

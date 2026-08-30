@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:cooked_flesh_from_smoking"
+        "recipes": "speedrunnermod:cooked_flesh_from_smoking"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

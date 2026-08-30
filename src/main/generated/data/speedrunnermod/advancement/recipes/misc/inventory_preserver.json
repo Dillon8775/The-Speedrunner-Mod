@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:inventory_preserver"
+        "recipes": "speedrunnermod:inventory_preserver"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

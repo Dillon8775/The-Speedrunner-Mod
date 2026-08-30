@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:dead_speedrunner_button"
+        "recipes": "speedrunnermod:dead_speedrunner_button"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

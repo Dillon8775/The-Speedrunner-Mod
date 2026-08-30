@@ -3,20 +3,18 @@
   "criteria": {
     "killed_zombielike_holding_fireball": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "#speedrunnermod:spare_me_advancement_mobs",
-              "minecraft:equipment": {
-                "mainhand": {
-                  "items": "minecraft:fire_charge"
-                }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "#speedrunnermod:spare_me_advancement_mobs",
+            "minecraft:equipment": {
+              "mainhand": {
+                "items": "minecraft:fire_charge"
               }
             }
           }
-        ],
+        },
         "killing_blow": {
           "direct_entity": {
             "minecraft:entity_type": "minecraft:fireball"
@@ -24,7 +22,7 @@
           "tags": [
             {
               "expected": true,
-              "id": "minecraft:is_projectile"
+              "id": "#minecraft:is_projectile"
             }
           ]
         }

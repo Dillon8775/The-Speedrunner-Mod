@@ -10,9 +10,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class ModBlockItemIds {
     public static final BlockItemId SPEEDRUNNER_LOG = create("speedrunner_log");
-    public static final BlockItemId STRIPPED_SPEEDRUNNER_LOG = create("stripped_speedrunner_log");
     public static final BlockItemId SPEEDRUNNER_WOOD = create("speedrunner_wood");
-    public static final BlockItemId STRIPPED_SPEEDRUNNER_WOOD = create("stripped_speedrunner_wood");
     public static final BlockItemId SPEEDRUNNER_LEAVES = create("speedrunner_leaves");
     public static final BlockItemId SPEEDRUNNER_SAPLING = create("speedrunner_sapling");
     public static final BlockItemId SPEEDRUNNER_PLANKS = create("speedrunner_planks");
@@ -25,9 +23,7 @@ public class ModBlockItemIds {
     public static final BlockItemId SPEEDRUNNER_PRESSURE_PLATE = create("speedrunner_pressure_plate");
     public static final BlockItemId SPEEDRUNNER_DOOR = create("speedrunner_door");
     public static final BlockItemId DEAD_SPEEDRUNNER_LOG = create("dead_speedrunner_log");
-    public static final BlockItemId DEAD_STRIPPED_SPEEDRUNNER_LOG = create("dead_stripped_speedrunner_log");
     public static final BlockItemId DEAD_SPEEDRUNNER_WOOD = create("dead_speedrunner_wood");
-    public static final BlockItemId DEAD_STRIPPED_SPEEDRUNNER_WOOD = create("dead_stripped_speedrunner_wood");
     public static final BlockItemId DEAD_SPEEDRUNNER_LEAVES = create("dead_speedrunner_leaves");
     public static final BlockItemId DEAD_SPEEDRUNNER_SAPLING = create("dead_speedrunner_sapling");
     public static final BlockItemId DEAD_SPEEDRUNNER_PLANKS = create("dead_speedrunner_planks");

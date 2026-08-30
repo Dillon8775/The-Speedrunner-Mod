@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_shield"
+        "recipes": "speedrunnermod:speedrunner_shield"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

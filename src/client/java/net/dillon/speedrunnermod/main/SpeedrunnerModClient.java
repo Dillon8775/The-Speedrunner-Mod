@@ -27,7 +27,7 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         ModParticleManager.registerDefaults();
         ModMenus.registerScreens();
-        ModKeyMappings.initializeKeybinds();
+        // ModKeyMappings.initializeKeybinds();
 
         clientConfigHandler().load();
 

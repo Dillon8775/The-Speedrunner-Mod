@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:piglin_awakener"
+        "recipes": "speedrunnermod:piglin_awakener"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

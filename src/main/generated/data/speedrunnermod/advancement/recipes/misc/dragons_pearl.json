@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:dragons_pearl"
+        "recipes": "speedrunnermod:dragons_pearl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -16,7 +16,7 @@ public class LogoRendererMixin {
     @Shadow @Final
     private boolean keepLogoThroughFade;
 
-    @Inject(method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IFI)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIII)V", ordinal = 1), cancellable = true)
+    @Inject(method = "extractRenderState(Lnet/minecraft/client/gui/GuiGraphicsExtractor;IFI)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIII)V", ordinal = 1), cancellable = true)
     private void replaceJavaEditionLogoWithSpeedrunnerEditionLogo(GuiGraphicsExtractor context, int screenWidth, float alpha, int y2, CallbackInfo ci) {
         ci.cancel();
         float f = this.keepLogoThroughFade ? 1.0F : alpha;

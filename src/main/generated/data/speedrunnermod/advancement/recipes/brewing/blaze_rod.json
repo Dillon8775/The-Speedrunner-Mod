@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:blaze_rod"
+        "recipes": "speedrunnermod:blaze_rod"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

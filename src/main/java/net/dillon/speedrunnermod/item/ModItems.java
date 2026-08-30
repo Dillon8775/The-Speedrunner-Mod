@@ -357,8 +357,11 @@ public class ModItems {
     public static final Item DEAD_SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_TRAPDOOR, ModBlocks.DEAD_SPEEDRUNNER_TRAPDOOR, p -> p.cookingFuel(ModNumberProviders.COOKING_TIME_DEAD_SPEEDRUNNER_TRAPDOOR));
     public static final Item DEAD_SPEEDRUNNER_DOOR = registerModBlock(ModBlockItemIds.DEAD_SPEEDRUNNER_DOOR, ModBlocks.DEAD_SPEEDRUNNER_DOOR, DoubleHighBlockItem::new);
 
+    @Deprecated(forRemoval = true)
     public static final Item SPEEDRUNNER_WEIGHTED_PRESSURE_PLATE = registerModBlock(ModBlockItemIds.MEDIATE_WEIGHTED_SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.MEDIATE_WEIGHTED_SPEEDRUNNER_PRESSURE_PLATE);
+    @Deprecated(forRemoval = true)
     public static final Item METAL_SPEEDRUNNER_TRAPDOOR = registerModBlock(ModBlockItemIds.METAL_SPEEDRUNNER_TRAPDOOR, ModBlocks.METAL_SPEEDRUNNER_TRAPDOOR);
+    @Deprecated(forRemoval = true)
     public static final Item METAL_SPEEDRUNNER_DOOR = registerModBlock(ModBlockItemIds.METAL_SPEEDRUNNER_DOOR, ModBlocks.METAL_SPEEDRUNNER_DOOR);
 
     public static final Item SPEEDRUNNERS_WORKBENCH = registerModBlock(ModBlockItemIds.SPEEDRUNNERS_WORKBENCH, ModBlocks.SPEEDRUNNERS_WORKBENCH, (block, properties) -> new BlockItem(ModBlocks.SPEEDRUNNERS_WORKBENCH,

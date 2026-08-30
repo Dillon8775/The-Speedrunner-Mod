@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunners_workbench"
+        "recipes": "speedrunnermod:speedrunners_workbench"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

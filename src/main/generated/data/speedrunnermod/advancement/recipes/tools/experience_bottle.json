@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:experience_bottle"
+        "recipes": "speedrunnermod:experience_bottle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

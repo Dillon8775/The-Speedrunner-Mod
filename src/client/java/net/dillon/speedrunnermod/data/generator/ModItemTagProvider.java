@@ -223,21 +223,13 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(BlockItemIds.IRON_BLOCK.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_BLOCK.item());
 
-        tag(ModBlockItemTags.NETHER_PORTAL_BASE_BLOCKS.item())
-                .add(BlockItemIds.OBSIDIAN.item())
-                .add(BlockItemIds.CRYING_OBSIDIAN.item());
-
         tag(ModBlockItemTags.SPEEDRUNNER_LOGS.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_LOG.item())
-                .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_LOG.item())
-                .add(ModBlockItemIds.SPEEDRUNNER_WOOD.item())
-                .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_WOOD.item());
+                .add(ModBlockItemIds.SPEEDRUNNER_WOOD.item());
 
         tag(ModBlockItemTags.DEAD_SPEEDRUNNER_LOGS.item())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_LOG.item())
-                .add(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_LOG.item())
-                .add(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD.item())
-                .add(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_WOOD.item());
+                .add(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD.item());
 
         tag(ModBlockItemTags.SPEEDRUNNER_PLANKS.item())
                 .add(ModBlockItemIds.SPEEDRUNNER_PLANKS.item())

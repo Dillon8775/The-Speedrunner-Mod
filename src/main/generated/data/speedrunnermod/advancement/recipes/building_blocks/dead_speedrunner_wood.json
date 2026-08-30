@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:dead_speedrunner_wood"
+        "recipes": "speedrunnermod:dead_speedrunner_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

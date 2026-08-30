@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:cooked_piglin_pork_from_smelting"
+        "recipes": "speedrunnermod:cooked_piglin_pork_from_smelting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

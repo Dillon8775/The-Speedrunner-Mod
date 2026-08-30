@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:metal_speedrunner_door"
+        "recipes": "speedrunnermod:metal_speedrunner_door"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

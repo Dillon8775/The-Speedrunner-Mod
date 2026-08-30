@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_trapdoor"
+        "recipes": "speedrunnermod:speedrunner_trapdoor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_shovel"
+        "recipes": "speedrunnermod:speedrunner_shovel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

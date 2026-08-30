@@ -3,57 +3,49 @@
   "criteria": {
     "killed_dragon": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "minecraft:ender_dragon"
-            }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:ender_dragon"
           }
-        ]
+        }
       },
       "trigger": "minecraft:player_killed_entity"
     },
     "killed_elder_guardian": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "minecraft:giant"
-            }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:giant"
           }
-        ]
+        }
       },
       "trigger": "minecraft:player_killed_entity"
     },
     "killed_warden": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "minecraft:warden"
-            }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:warden"
           }
-        ]
+        }
       },
       "trigger": "minecraft:player_killed_entity"
     },
     "killed_wither": {
       "conditions": {
-        "entity": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:entity_type": "minecraft:wither"
-            }
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "minecraft:wither"
           }
-        ]
+        }
       },
       "trigger": "minecraft:player_killed_entity"
     }

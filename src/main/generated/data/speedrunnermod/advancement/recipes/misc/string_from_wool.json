@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:string_from_wool"
+        "recipes": "speedrunnermod:string_from_wool"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

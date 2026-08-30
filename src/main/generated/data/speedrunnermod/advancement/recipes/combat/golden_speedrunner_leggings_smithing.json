@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:golden_speedrunner_leggings_smithing"
+        "recipes": "speedrunnermod:golden_speedrunner_leggings_smithing"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

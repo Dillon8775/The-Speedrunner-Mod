@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_planks_from_speedrunner_stick"
+        "recipes": "speedrunnermod:speedrunner_planks_from_speedrunner_stick"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

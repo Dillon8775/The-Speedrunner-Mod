@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_fence"
+        "recipes": "speedrunnermod:speedrunner_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

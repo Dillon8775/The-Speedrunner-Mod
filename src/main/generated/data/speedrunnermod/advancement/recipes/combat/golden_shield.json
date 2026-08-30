@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:golden_shield"
+        "recipes": "speedrunnermod:golden_shield"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

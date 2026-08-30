@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:raid_eradicator"
+        "recipes": "speedrunnermod:raid_eradicator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

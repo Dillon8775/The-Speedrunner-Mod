@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_ingot_from_speedrunner_block"
+        "recipes": "speedrunnermod:speedrunner_ingot_from_speedrunner_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

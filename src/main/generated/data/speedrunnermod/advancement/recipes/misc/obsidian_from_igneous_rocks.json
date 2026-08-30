@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:obsidian_from_igneous_rocks"
+        "recipes": "speedrunnermod:obsidian_from_igneous_rocks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

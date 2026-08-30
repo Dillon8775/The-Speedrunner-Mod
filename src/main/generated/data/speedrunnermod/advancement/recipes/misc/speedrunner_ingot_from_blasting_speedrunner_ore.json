@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_ingot_from_blasting_speedrunner_ore"
+        "recipes": "speedrunnermod:speedrunner_ingot_from_blasting_speedrunner_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

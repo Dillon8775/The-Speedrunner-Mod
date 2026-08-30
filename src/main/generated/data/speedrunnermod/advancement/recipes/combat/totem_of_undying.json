@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:totem_of_undying"
+        "recipes": "speedrunnermod:totem_of_undying"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -93,7 +93,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_nugget_from_blasting"
+        "recipes": "speedrunnermod:speedrunner_nugget_from_blasting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

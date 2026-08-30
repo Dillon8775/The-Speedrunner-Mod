@@ -62,7 +62,7 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
      */
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
-        registryBuilder.add(Registries.NUMBER_PROVIDER, ModNumberProviders::bootstrap);
+        // registryBuilder.add(Registries.NUMBER_PROVIDER, ModNumberProviders::bootstrap);
 
         registryBuilder.add(Registries.TRADE_SET, ModTradeSetProvider::bootstrap);
         registryBuilder.add(Registries.VILLAGER_TRADE, ModTradesProvider::bootstrap);

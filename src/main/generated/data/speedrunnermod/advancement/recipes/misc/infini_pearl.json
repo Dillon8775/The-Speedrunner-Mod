@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:infini_pearl"
+        "recipes": "speedrunnermod:infini_pearl"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:oak_planks_from_sticks"
+        "recipes": "speedrunnermod:oak_planks_from_sticks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

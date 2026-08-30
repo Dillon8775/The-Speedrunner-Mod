@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_bow"
+        "recipes": "speedrunnermod:speedrunner_bow"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

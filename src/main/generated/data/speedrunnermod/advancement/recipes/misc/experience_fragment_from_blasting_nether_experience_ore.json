@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:experience_fragment_from_blasting_nether_experience_ore"
+        "recipes": "speedrunnermod:experience_fragment_from_blasting_nether_experience_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

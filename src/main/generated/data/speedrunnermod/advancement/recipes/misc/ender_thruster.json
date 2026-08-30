@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:ender_thruster"
+        "recipes": "speedrunnermod:ender_thruster"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

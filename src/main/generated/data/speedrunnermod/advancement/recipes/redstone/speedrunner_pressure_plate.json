@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_pressure_plate"
+        "recipes": "speedrunnermod:speedrunner_pressure_plate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

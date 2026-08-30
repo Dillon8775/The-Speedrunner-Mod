@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_chestplate"
+        "recipes": "speedrunnermod:speedrunner_chestplate"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

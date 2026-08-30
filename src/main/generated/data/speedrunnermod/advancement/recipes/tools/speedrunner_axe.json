@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_axe"
+        "recipes": "speedrunnermod:speedrunner_axe"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

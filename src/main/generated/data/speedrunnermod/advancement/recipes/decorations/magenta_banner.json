@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:magenta_banner"
+        "recipes": "speedrunnermod:magenta_banner"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

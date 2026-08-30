@@ -3,9 +3,11 @@ package net.dillon.speedrunnermod.data.generator;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.*;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -25,8 +27,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public class RecipeGeneratorHelper extends RecipeProvider {
 
-    protected RecipeGeneratorHelper(HolderLookup.Provider registries, RecipeOutput exporter) {
-        super(registries, exporter);
+    protected RecipeGeneratorHelper(BootstrapContext<Recipe<?>> recipeOutput, BootstrapContext<Advancement> advancementOutput) {
+        super(recipeOutput, advancementOutput);
     }
 
     /**

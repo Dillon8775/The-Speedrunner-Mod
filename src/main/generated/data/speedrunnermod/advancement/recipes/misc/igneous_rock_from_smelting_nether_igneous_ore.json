@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:igneous_rock_from_smelting_nether_igneous_ore"
+        "recipes": "speedrunnermod:igneous_rock_from_smelting_nether_igneous_ore"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

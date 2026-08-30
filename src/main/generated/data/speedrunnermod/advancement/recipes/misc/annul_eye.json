@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:annul_eye"
+        "recipes": "speedrunnermod:annul_eye"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

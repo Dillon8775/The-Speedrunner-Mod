@@ -21,7 +21,6 @@
     "render.WaterFogEnvironmentMixin",
     "screen.AbstractContainerScreenMixin",
     "screen.AnvilScreenMixin",
-    "screen.BrewingStandScreenMixin",
     "screen.CreateWorldScreenMixin",
     "screen.DeathScreenMixin",
     "screen.LogoRendererMixin",

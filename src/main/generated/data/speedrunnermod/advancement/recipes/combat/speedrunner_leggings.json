@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_leggings"
+        "recipes": "speedrunnermod:speedrunner_leggings"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

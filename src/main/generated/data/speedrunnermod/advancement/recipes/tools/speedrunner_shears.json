@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_shears"
+        "recipes": "speedrunnermod:speedrunner_shears"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

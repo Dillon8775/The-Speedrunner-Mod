@@ -43,15 +43,11 @@ public class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 
         tag(ModBlockItemTags.SPEEDRUNNER_LOGS.block())
                 .add(ModBlockItemIds.SPEEDRUNNER_LOG.block())
-                .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_LOG.block())
-                .add(ModBlockItemIds.SPEEDRUNNER_WOOD.block())
-                .add(ModBlockItemIds.STRIPPED_SPEEDRUNNER_WOOD.block());
+                .add(ModBlockItemIds.SPEEDRUNNER_WOOD.block());
 
         tag(ModBlockItemTags.DEAD_SPEEDRUNNER_LOGS.block())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_LOG.block())
-                .add(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_LOG.block())
-                .add(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD.block())
-                .add(ModBlockItemIds.DEAD_STRIPPED_SPEEDRUNNER_WOOD.block());
+                .add(ModBlockItemIds.DEAD_SPEEDRUNNER_WOOD.block());
 
         tag(ModBlockItemTags.SPEEDRUNNER_PLANKS.block())
                 .add(ModBlockItemIds.SPEEDRUNNER_PLANKS.block())

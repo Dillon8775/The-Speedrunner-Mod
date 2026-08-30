@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_paddle"
+        "recipes": "speedrunnermod:speedrunner_paddle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

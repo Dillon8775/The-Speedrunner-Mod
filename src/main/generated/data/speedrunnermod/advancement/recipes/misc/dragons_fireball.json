@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:dragons_fireball"
+        "recipes": "speedrunnermod:dragons_fireball"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

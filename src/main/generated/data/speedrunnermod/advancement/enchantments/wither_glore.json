@@ -4,7 +4,7 @@
     "obtained_withered_enchantment": {
       "conditions": {
         "item": {
-          "items": "speedrunnermod:stripped_speedrunner_log"
+          "items": "speedrunnermod:dead_speedrunner_log"
         }
       },
       "trigger": "minecraft:itemlike_trigger"

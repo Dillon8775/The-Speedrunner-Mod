@@ -69,7 +69,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                     }
                 }.buildRecipes();
 
-                RecipeGeneratorHelper helper = new RecipeGeneratorHelper(wrapperLookup, output);
+                RecipeGeneratorHelper helper = new RecipeGeneratorHelper(recipes, advancementOutput);
 
                 helper.createAxe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_AXE);
                 helper.createHoe(ModItemTags.SPEEDRUNNER_TOOL_MATERIALS, ModItems.SPEEDRUNNER_HOE);
@@ -236,9 +236,7 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 this.planksFromLogs(ModBlocks.SPEEDRUNNER_PLANKS, ModBlockItemTags.SPEEDRUNNER_LOGS.item(), 4);
 
                 this.woodFromLogs(ModBlocks.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_LOG);
-                this.woodFromLogs(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
                 this.woodFromLogs(ModBlocks.SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_LOG);
-                this.woodFromLogs(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD, ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
 
                 SimpleCookingRecipeBuilder.smelting(
                                 Ingredient.of(

@@ -93,14 +93,10 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
 
     private void addWoodDrops() {
         dropSelf(ModBlocks.SPEEDRUNNER_LOG);
-        dropSelf(ModBlocks.STRIPPED_SPEEDRUNNER_LOG);
         dropSelf(ModBlocks.SPEEDRUNNER_WOOD);
-        dropSelf(ModBlocks.STRIPPED_SPEEDRUNNER_WOOD);
 
         dropSelf(ModBlocks.DEAD_SPEEDRUNNER_LOG);
-        dropSelf(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_LOG);
         dropSelf(ModBlocks.DEAD_SPEEDRUNNER_WOOD);
-        dropSelf(ModBlocks.DEAD_STRIPPED_SPEEDRUNNER_WOOD);
     }
 
     private void addDoomDrops() {

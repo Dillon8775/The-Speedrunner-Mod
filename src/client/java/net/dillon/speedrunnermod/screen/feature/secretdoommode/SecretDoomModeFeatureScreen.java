@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen.feature.secretdoommode;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.FeatureScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
@@ -7,7 +8,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 
 /**
  * An abstract representation of a {@code secret doom mode} feature screen.
@@ -36,12 +36,12 @@ public class SecretDoomModeFeatureScreen extends FeatureScreen {
 
     @Override
     public boolean keyPressed(KeyEvent input) {
-        if (input.key() == GLFW.GLFW_KEY_LEFT || input.key() == GLFW.GLFW_KEY_A) {
+        if (input.key() == InputConstants.KEY_LEFT || input.key() == InputConstants.KEY_A) {
             if (this.getPageNumber() != 1) {
                 this.minecraft.gui.setScreen(this.getPreviousScreen());
             }
             return true;
-        } else if (input.key() == GLFW.GLFW_KEY_RIGHT || input.key() == GLFW.GLFW_KEY_D) {
+        } else if (input.key() == InputConstants.KEY_RIGHT || input.key() == InputConstants.KEY_D) {
             if (this.getPageNumber() == 4 || this.getPageNumber() == 9) {
                 this.getButtonFunction();
             } else if (this.getPageNumber() != this.getMaxPages()) {

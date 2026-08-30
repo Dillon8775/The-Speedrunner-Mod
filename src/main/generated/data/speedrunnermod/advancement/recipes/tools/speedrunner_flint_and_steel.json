@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_flint_and_steel"
+        "recipes": "speedrunnermod:speedrunner_flint_and_steel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -3,17 +3,15 @@
   "criteria": {
     "speedrunnermod:speedrunners_wasteland": {
       "conditions": {
-        "player": [
-          {
-            "condition": "minecraft:entity_properties",
-            "entity": "this",
-            "predicate": {
-              "minecraft:location": {
-                "biomes": "speedrunnermod:speedrunners_wasteland"
-              }
+        "player": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:location": {
+              "biomes": "speedrunnermod:speedrunners_wasteland"
             }
           }
-        ]
+        }
       },
       "trigger": "minecraft:location"
     }

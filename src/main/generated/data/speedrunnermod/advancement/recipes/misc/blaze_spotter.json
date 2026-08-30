@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:blaze_spotter"
+        "recipes": "speedrunnermod:blaze_spotter"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

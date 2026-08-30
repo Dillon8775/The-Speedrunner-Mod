@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:fireproof_crimson_boat_with_chest_paddle"
+        "recipes": "speedrunnermod:fireproof_crimson_boat_with_chest_paddle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

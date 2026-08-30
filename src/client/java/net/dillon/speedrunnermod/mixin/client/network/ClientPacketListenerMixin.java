@@ -93,7 +93,7 @@ public abstract class ClientPacketListenerMixin extends ClientCommonPacketListen
             if (entity != this.minecraft.player) {
                 return;
             }
-            this.minecraft.gameRenderer.displayItemActivation(ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
+            this.minecraft.player.displayItemActivation(ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
         }
     }
 }

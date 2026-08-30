@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:fireproof_speedrunner_boat"
+        "recipes": "speedrunnermod:fireproof_speedrunner_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

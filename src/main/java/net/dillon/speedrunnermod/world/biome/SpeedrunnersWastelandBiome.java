@@ -10,9 +10,11 @@ import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.util.ARGB;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.EntityTypes;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -29,8 +31,8 @@ public class SpeedrunnersWastelandBiome {
      */
     protected static Biome createSpeedrunnersWasteland(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        net.minecraft.world.level.biome.BiomeGenerationSettings.Builder lookupBackedBuilder = new net.minecraft.world.level.biome.BiomeGenerationSettings.Builder(
-                context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CONFIGURED_CARVER));
+        BiomeGenerationSettings.Builder lookupBackedBuilder = new BiomeGenerationSettings.Builder(
+                context.lookup(Registries.PLACED_FEATURE), context.lookup(Registries.CARVER));
 
         BiomeDefaultFeatures.addDefaultCarversAndLakes(lookupBackedBuilder);
         BiomeDefaultFeatures.addDefaultCrystalFormations(lookupBackedBuilder);
@@ -63,9 +65,9 @@ public class SpeedrunnersWastelandBiome {
                         .foliageColorOverride(0xAED6F1)
                         .grassColorOverride(0xAED6F1)
                         .build())
-                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, ModHelper.SPEEDRUNNER_WATER_FOG_COLOR)
-                .setAttribute(EnvironmentAttributes.FOG_COLOR, 0xEBF5FB)
-                .setAttribute(EnvironmentAttributes.SKY_COLOR, OverworldBiomes.calculateSkyColor(0.5F))
+                .setAttribute(EnvironmentAttributes.WATER_FOG_COLOR, ARGB.vector3fFromRGB24(ModHelper.SPEEDRUNNER_WATER_FOG_COLOR))
+                .setAttribute(EnvironmentAttributes.FOG_COLOR, ARGB.vector3fFromRGB24(0xEBF5FB))
+                .setAttribute(EnvironmentAttributes.SKY_COLOR, ARGB.vector3fFromRGB24(OverworldBiomes.calculateSkyColor(0.5F)))
                 .mobSpawnSettings(spawnBuilder.build())
                 .generationSettings(lookupBackedBuilder.build()).build();
     }
@@ -111,13 +113,13 @@ public class SpeedrunnersWastelandBiome {
      * Adds all {@code farm animal spawn entries} to the {@code Speedrunner's Wasteland biome.}
      */
     public static void addSpeedrunnersWastelandFarmAnimals(final MobSpawnSettings.Builder builder) {
-        builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.COW, 4, 8));
-        builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.PIG, 4, 8));
-        builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.SHEEP, 4, 8));
-        builder.addSpawn(MobCategory.CREATURE, 100, new MobSpawnSettings.SpawnerData(EntityTypes.CHICKEN, 4, 8));
-        builder.addSpawn(MobCategory.CREATURE, 40, new MobSpawnSettings.SpawnerData(EntityTypes.HORSE, 2, 6));
-        builder.addSpawn(MobCategory.CREATURE, 20, new MobSpawnSettings.SpawnerData(EntityTypes.DONKEY, 2, 3));
-        builder.addSpawn(MobCategory.CREATURE, 10, new MobSpawnSettings.SpawnerData(EntityTypes.SNIFFER, 1, 1));
+        builder.addSpawn(EntityTypes.COW, 100, new UniformInt(4, 8));
+        builder.addSpawn(EntityTypes.PIG, 100, new UniformInt(4, 8));
+        builder.addSpawn(EntityTypes.SHEEP, 100, new UniformInt(4, 8));
+        builder.addSpawn(EntityTypes.CHICKEN, 100, new UniformInt(4, 8));
+        builder.addSpawn(EntityTypes.HORSE, 40, new UniformInt(2, 6));
+        builder.addSpawn(EntityTypes.DONKEY, 20, new UniformInt(2, 3));
+        builder.addSpawn(EntityTypes.SNIFFER, 10, new ConstantInt(1));
     }
 
     /**
@@ -125,12 +127,12 @@ public class SpeedrunnersWastelandBiome {
      * @param builder
      */
     private static void addSpeedrunnersWastelandMonsters(MobSpawnSettings.Builder builder) {
-        builder.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.SPIDER, 4, 4));
-        builder.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE, 1, 4));
-        builder.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.ZOMBIE_VILLAGER, 1, 1));
-        builder.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.SKELETON, 1, 4));
-        builder.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.CREEPER, 1, 4));
-        builder.addSpawn(MobCategory.MONSTER, 25, new MobSpawnSettings.SpawnerData(EntityTypes.SLIME, 1, 3));
-        builder.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityTypes.ENDERMAN, 1, 2));
+        builder.addSpawn(EntityTypes.SPIDER, 25, new UniformInt(1, 4));
+        builder.addSpawn(EntityTypes.ZOMBIE, 25, new UniformInt(1, 4));
+        builder.addSpawn(EntityTypes.ZOMBIE_VILLAGER, 25, new ConstantInt(1));
+        builder.addSpawn(EntityTypes.SKELETON, 25, new UniformInt(1, 4));
+        builder.addSpawn(EntityTypes.CREEPER, 25, new UniformInt(1, 4));
+        builder.addSpawn(EntityTypes.SLIME, 25, new UniformInt(1, 3));
+        builder.addSpawn(EntityTypes.ENDERMAN, 100, new UniformInt(1, 2));
     }
 }

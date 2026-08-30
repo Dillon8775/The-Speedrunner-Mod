@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:speedrunner_slab"
+        "recipes": "speedrunnermod:speedrunner_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

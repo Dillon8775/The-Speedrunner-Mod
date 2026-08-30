@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "speedrunnermod:enchanted_golden_apple"
+        "recipes": "speedrunnermod:enchanted_golden_apple"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
