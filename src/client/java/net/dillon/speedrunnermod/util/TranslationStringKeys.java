@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.util;
 
-import net.dillon.speedrunnermod.option.ListOptions;
-
 /**
  * Certain translation keys used in {@link ListOptions}.
  */

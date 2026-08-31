@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.screen.synced;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -9,8 +9,7 @@ import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.CommonColors;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 public class ModeDoesntMatchScreen extends AbstractModScreen {
     private Button matchModeToServerButton;
@@ -24,8 +23,7 @@ public class ModeDoesntMatchScreen extends AbstractModScreen {
     @Override
     protected void init() {
         this.matchModeToServerButton = this.addRenderableWidget(Button.builder(ModTexts.MATCH_MODE_TO_SERVER, (buttonWidget) -> {
-            common().general.mode.set(this.serverSideMode);
-            saveDedicatedServerChanges();
+            commonConfigHandler().update(o -> o.general().mode = this.serverSideMode);
             this.minecraft.gui.setScreen(new TimedScreen(null, 5, true));
         }).bounds(this.getButtonsLeftSide(), this.getCustomButtonsHeight(), 150, 20).build());
         this.addRenderableWidget(Button.builder(Component.translatable("gui.toMenu"), (buttonWidget) -> {

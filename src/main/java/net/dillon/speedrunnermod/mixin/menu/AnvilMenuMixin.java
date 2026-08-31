@@ -34,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40))
     private int mixinLimitInt(int i) {
-        if (common().general.betterAnvil.getCurrentValue()) {
+        if (common().general().betterAnvil) {
             return Integer.MAX_VALUE;
         } else {
             return 40;
@@ -46,7 +46,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @ModifyConstant(method = "createResult", constant = @Constant(intValue = 39))
     private int mixinMaxInt(int i) {
-        if (common().general.betterAnvil.getCurrentValue()) {
+        if (common().general().betterAnvil) {
             return Integer.MAX_VALUE - 1;
         } else {
             return 39;
@@ -58,8 +58,8 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @Inject(method = "createResult", at = @At("TAIL"))
     private void setLevelCostIfTooHigh(CallbackInfo ci) {
-        if (common().general.anvilCostLimit.getCurrentValue() != 50 && this.cost.get() > common().general.anvilCostLimit.getCurrentValue()) {
-            this.cost.set(common().general.anvilCostLimit.getCurrentValue());
+        if (common().general().anvilCostLimit != 50 && this.cost.get() > common().general().anvilCostLimit) {
+            this.cost.set(common().general().anvilCostLimit);
         }
     }
 
@@ -68,7 +68,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      */
     @Redirect(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/Enchantment;getMaxLevel()I"))
     private int countOverMaxLevel(Enchantment enchantment) {
-        if (!common().general.higherEnchantmentLevels.getCurrentValue()) {
+        if (!common().general().higherEnchantmentLevels) {
             return enchantment.getMaxLevel();
         }
 

@@ -50,11 +50,11 @@ public class OverworldBiomeBuilderMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (!common().worldGen.generateSpeedrunnersWasteland.getCurrentValue()) {
+        if (!common().worldGen().generateSpeedrunnersWasteland) {
             this.MIDDLE_BIOMES = VANILLA_MIDDLE_BIOMES;
             return;
         }
 
-        this.MIDDLE_BIOMES = common().worldGen.betterBiomes.getCurrentValue() ? BETTER_MIDDLE_BIOMES : CUSTOM_MIDDLE_BIOMES;
+        this.MIDDLE_BIOMES = common().worldGen().betterBiomes ? BETTER_MIDDLE_BIOMES : CUSTOM_MIDDLE_BIOMES;
     }
 }

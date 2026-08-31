@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isSsrDefault;
 
 @Mixin(RegistryLoadTask.PendingRegistration.class)
 public class RegistryLoadTaskPendingRegistrationMixin {
@@ -82,7 +81,7 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             PlacedFeaturesLoader.modifyMonsterRoom(jsonElement);
         }
 
-        if (common().worldGen.commonOres.getCurrentValue()) {
+        if (common().worldGen().commonOres) {
             String oreDiamond = JsonIdentifiers.ORE_DIAMOND;
             if (fileName.equals(oreDiamond) || fileName.equals(JsonIdentifiers.ORE_DIAMOND_BURIED)) {
                 PlacedFeaturesLoader.modifyOreDiamond(fileName, oreDiamond, jsonElement);
@@ -98,13 +97,13 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             }
         }
 
-        if (common().worldGen.commonPlainTrees.getCurrentValue()) {
+        if (common().worldGen().commonPlainTrees) {
             if (fileName.equals(JsonIdentifiers.TREES_PLAINS)) {
                 PlacedFeaturesLoader.modifyTreePlains(jsonElement);
             }
         }
 
-        if (!isSsrDefault()) {
+        if (common().worldGen().makeStructuresMoreCommon) {
             if (fileName.equals(JsonIdentifiers.ANCIENT_CITIES)) {
                 StructuresLoader.modifyAncientCities(jsonElement);
             }
@@ -118,7 +117,7 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             }
 
             if (fileName.equals(JsonIdentifiers.JUNGLE_TEMPLES)) {
-                StructuresLoader.modifyJungleTemples(jsonElement);
+                StructuresLoader.modifyJunglePyramids(jsonElement);
             }
 
             if (fileName.equals(JsonIdentifiers.MINESHAFTS)) {

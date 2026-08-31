@@ -37,7 +37,7 @@ public class ModKeyMappings {
             .handleWorldInput(input -> {
                 Minecraft minecraft = Minecraft.getInstance();
                 if (minecraft.isLocalServer() && minecraft.getCurrentServer() == null) {
-                    if (client().client.instantWorldCreation.getCurrentValue()) {
+                    if (client().client.instantWorldCreation) {
                         ClientModUtil.createNewWorld(Minecraft.getInstance());
                         return true;
                     } else {
@@ -58,11 +58,10 @@ public class ModKeyMappings {
                     debugWarn("key.speedrunnermod.toggle_fog.quality_of_queso_loaded");
                 } else if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
-                } else if (!client().mixins.fogMixins.getCurrentValue()) {
+                } else if (!client().mixins().fogMixins) {
                     debugWarn("key.speedrunnermod.toggle_fog.mixin_disabled");
                 } else {
-                    client().client.fog.set(!client().client.fog.getCurrentValue());
-                    saveClientChanges();
+                    clientConfigHandler().update(c -> c.client.fog = !c.client.fog);
                     Minecraft.getInstance().levelExtractor.allChanged();
                     return true;
                 }
@@ -76,12 +75,11 @@ public class ModKeyMappings {
             .handleWorldInput(input -> {
                 if (ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
-                } else if (!client().mixins.optionInstanceMixin.getCurrentValue()) {
+                } else if (!client().mixins().optionInstanceMixin) {
                     debugWarn("key.speedrunnermod.toggle_fullbright.mixin_disabled");
                 } else {
-                    client().client.fullBright.set(!client().client.fullBright.getCurrentValue());
-                    saveClientChanges();
-                    Minecraft.getInstance().options.gamma().set(client().client.fullBright.getCurrentValue() ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                    clientConfigHandler().update(c -> c.client.fullBright = !c.client.fullBright);
+                    Minecraft.getInstance().options.gamma().set(client().client.fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
                     Minecraft.getInstance().options.save();
                     return true;
                 }

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
 
 /**
  * Implements all keybindings functions into the game.
@@ -21,7 +21,6 @@ public class MinecraftMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setGammaUponStart(GameConfig args, CallbackInfo ci) {
-        client().client.fullBright.set(Minecraft.getInstance().options.gamma().get() >= client().client.fullBrightAmount.getCurrentValue());
-        saveClientChanges();
+        clientConfigHandler().update(c -> c.client.fullBright = Minecraft.getInstance().options.gamma().get() >= client().client.fullBrightAmount);
     }
 }

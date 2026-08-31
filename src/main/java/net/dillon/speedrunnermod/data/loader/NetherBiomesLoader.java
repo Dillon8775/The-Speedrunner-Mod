@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * Contains all of the {@code nether biomes modifications.}

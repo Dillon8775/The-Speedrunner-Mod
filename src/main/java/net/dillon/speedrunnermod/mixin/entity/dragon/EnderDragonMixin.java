@@ -41,7 +41,7 @@ import java.util.List;
 
 import static net.dillon.speedrunnermod.helper.ModHelper.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(value = EnderDragon.class, priority = 999)
 public abstract class EnderDragonMixin extends Mob {
@@ -143,7 +143,7 @@ public abstract class EnderDragonMixin extends Mob {
         }
 
         EnderDragon dragon = (EnderDragon)(Object)this;
-        if (this.getHealth() <= 1.0F && common().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && isGiantOrWitherAlive(dragon)) {
+        if (this.getHealth() <= 1.0F && common().accessibility().dragonImmunityFromGoliathAndWither && isGiantOrWitherAlive(dragon)) {
             cir.setReturnValue(false);
         } else if (isZombieMinionAlive(dragon)) {
             this.protectDragon(dragon, false, false);
@@ -176,11 +176,13 @@ public abstract class EnderDragonMixin extends Mob {
      */
     @Inject(method = "tickDeath", at = @At("TAIL"))
     public void killNearbyHostiles(CallbackInfo ci) {
-        if (common().advanced.dragonKillsNearbyHostileEntities.getCurrentValue() && this.level() instanceof ServerLevel serverWorld) {
+        if (common().accessibility().dragonKillsNearbyHostileEntities && this.level() instanceof ServerLevel serverWorld) {
             EnderDragon dragon = (EnderDragon) (Object) this;
             Level world = this.level();
 
-            List<Monster> hostiles = getEntitiesWithinRange(world, Monster.class, dragon, common().advanced.dragonMassKillRadius.getCurrentValue());
+            final int r = 300;
+            List<Integer> radius = List.of(r, r, r);
+            List<Monster> hostiles = getEntitiesWithinRange(world, Monster.class, dragon, radius);
 
             for (Monster hostile : hostiles) {
                 if (!hostile.is(ModEntityTypeTags.BLACKLISTED_ENDER_DRAGON_KILL_MOBS)) {
@@ -197,7 +199,9 @@ public abstract class EnderDragonMixin extends Mob {
     private void grantAdvancementToAll(CallbackInfo ci) {
         EnderDragon dragon = (EnderDragon)(Object)this;
 
-        List<Player> players = getEntitiesWithinRange(dragon.level(), Player.class, dragon, common().advanced.dragonMassKillRadius.getCurrentValue());
+        final int r = 300;
+        List<Integer> radius = List.of(r, r, r);
+        List<Player> players = getEntitiesWithinRange(dragon.level(), Player.class, dragon, radius);
         for (Player player : players) {
             if (player instanceof ServerPlayer serverPlayer) {
                 CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger(serverPlayer, dragon, dragon.damageSources().playerAttack(serverPlayer));
@@ -236,6 +240,6 @@ public abstract class EnderDragonMixin extends Mob {
      */
     @Unique
     private boolean isDragonInvincible(EnderDragon dragon) {
-        return isDoomMode() && common().advanced.dragonImmunityFromGoliathAndWither.getCurrentValue() && isGiantOrWitherAlive(dragon);
+        return isDoomMode() && common().accessibility().dragonImmunityFromGoliathAndWither && isGiantOrWitherAlive(dragon);
     }
 }

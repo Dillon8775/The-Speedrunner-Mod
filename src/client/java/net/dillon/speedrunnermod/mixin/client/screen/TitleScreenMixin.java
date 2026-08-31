@@ -7,8 +7,6 @@ import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
-import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
-import net.dillon.speedrunnermod.screen.synced.TimedScreen;
 import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -32,7 +30,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
     @Unique
-    private Button featuresButton, createWorldButton, optionsButton, restartButton;
+    private Button featuresButton, createWorldButton, optionsButton;
 
     public TitleScreenMixin(Component title) {
         super(title);
@@ -47,21 +45,15 @@ public class TitleScreenMixin extends Screen {
             this.minecraft.gui.setScreen(new MainScreen(this));
         }).bounds(this.width / 2 - 124, this.height / 4 + 96, 20, 20).build());
 
-        if (RestartRequiredScreen.restartRequired) {
-            this.restartButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (buttonWidget) -> {
-                this.minecraft.gui.setScreen(new TimedScreen(this, 5, false));
-            }).bounds(this.optionsButton.getX() - 24, this.optionsButton.getY(), 20, 20).build());
-        }
-
         this.featuresButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (buttonWidget) -> {
             this.minecraft.gui.setScreen(new FeaturesScreen(this));
         }).bounds(this.optionsButton.getX(), this.optionsButton.getY() - 48, 20, 20).build());
 
-        if (client().client.showResetButton.getCurrentValue()) {
+        if (client().client.showResetButton) {
             this.createWorldButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (buttonWidget) -> ClientModUtil.createNewWorld(this.minecraft))
                     .bounds(this.optionsButton.getX(), this.optionsButton.getY() - 24, 20, 20)
                     .build());
-            this.createWorldButton.active = client().client.instantWorldCreation.getCurrentValue();
+            this.createWorldButton.active = client().client.instantWorldCreation;
         }
     }
 
@@ -72,14 +64,12 @@ public class TitleScreenMixin extends Screen {
     private void renderSpeedrunnerModButtonTexturesAndText(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci, float f) {
         ClientModUtil.renderSpeedrunnerSmithingTemplate(context, this.featuresButton, f);
 
-        if (client().client.showResetButton.getCurrentValue()) {
+        if (client().client.showResetButton) {
             context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16, ARGB.color(f, CommonColors.WHITE));
         }
 
         ClientModUtil.renderModIcon(context, this.optionsButton, f);
-        if (this.restartButton != null) {
-            ClientModUtil.renderSyncIcon(context, this.restartButton, f);
-        }
+
         if (ModConstants.HAS_UPDATE && this.optionsButton != null) {
             ClientTasks.drawUpdateSprite(context, this.optionsButton.getX() - 2, this.optionsButton.getY() - 2);
         }
@@ -97,16 +87,12 @@ public class TitleScreenMixin extends Screen {
             context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
         }
 
-        if (client().client.showResetButton.getCurrentValue() && this.createWorldButton.isHovered()) {
-            context.setTooltipForNextFrame(this.font, this.font.split(client().client.instantWorldCreation.getCurrentValue() ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
+        if (client().client.showResetButton && this.createWorldButton.isHovered()) {
+            context.setTooltipForNextFrame(this.font, this.font.split(client().client.instantWorldCreation ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.optionsButton.isHovered()) {
             context.setTooltipForNextFrame(this.font, this.font.split(ModConstants.HAS_UPDATE ? ModTexts.OPTIONS_UPDATE_TOOLTIP : ModTexts.OPTIONS_TOOLTIP, 200), mouseX, mouseY);
-        }
-
-        if (this.restartButton != null && this.restartButton.isHovered()) {
-            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.RESTART_REQUIRED_TOOLTIP, 200), mouseX, mouseY);
         }
     }
 

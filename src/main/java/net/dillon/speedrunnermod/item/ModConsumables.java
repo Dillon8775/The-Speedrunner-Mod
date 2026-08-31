@@ -56,8 +56,8 @@ public class ModConsumables {
         SPEEDRUNNER_BULK = new FoodProperties.Builder().nutrition(12).saturationModifier(1.2F).alwaysEdible().build();
         ROTTEN_SPEEDRUNNER_BULK = new FoodProperties.Builder().nutrition(4).saturationModifier(0.1F).build();
         COOKED_FLESH = new FoodProperties.Builder().nutrition(6).saturationModifier(0.8F).build();
-        PIGLIN_PORK = common().general.betterFoods.getCurrentValue() ? new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build() : new FoodProperties.Builder().nutrition(3).saturationModifier(0.2F).build();
-        COOKED_PIGLIN_PORK = common().general.betterFoods.getCurrentValue() ? new FoodProperties.Builder().nutrition(8).saturationModifier(0.8F).build() : new FoodProperties.Builder().nutrition(8).saturationModifier(0.7F).build();
+        PIGLIN_PORK = common().general().betterFoods ? new FoodProperties.Builder().nutrition(4).saturationModifier(0.3F).build() : new FoodProperties.Builder().nutrition(3).saturationModifier(0.2F).build();
+        COOKED_PIGLIN_PORK = common().general().betterFoods ? new FoodProperties.Builder().nutrition(8).saturationModifier(0.8F).build() : new FoodProperties.Builder().nutrition(8).saturationModifier(0.7F).build();
         APPLE = new FoodProperties.Builder().nutrition(4).saturationModifier(0.8F).build();
         BAKED_POTATO = new FoodProperties.Builder().nutrition(6).saturationModifier(0.9F).build();
         BEEF = new FoodProperties.Builder().nutrition(4).saturationModifier(0.7F).build();

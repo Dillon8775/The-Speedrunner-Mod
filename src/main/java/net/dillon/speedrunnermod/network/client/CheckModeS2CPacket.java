@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.network.client;
 
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;

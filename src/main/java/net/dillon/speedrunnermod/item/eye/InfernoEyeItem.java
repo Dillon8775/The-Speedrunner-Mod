@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.item.eye;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

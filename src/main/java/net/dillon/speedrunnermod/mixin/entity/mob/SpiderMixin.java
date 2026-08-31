@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Spider.class)
 public class SpiderMixin extends Monster {

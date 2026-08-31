@@ -6,9 +6,8 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveClientChanges;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isEasyMode;
+import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isEasyMode;
 
 public class FTPRestartRequiredScreen extends FTPFeatureScreen {
 
@@ -26,8 +25,7 @@ public class FTPRestartRequiredScreen extends FTPFeatureScreen {
             }
         }).build());
         this.addButtonObject(Button.builder(ModTexts.RESTART_NOW, button -> {
-            client().storedValues.firstTimePlaying.set(false);
-            saveClientChanges();
+            clientConfigHandler().update(c -> c.storedValues().firstTimePlaying = false);
             this.minecraft.stop();
         }).build());
     }

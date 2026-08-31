@@ -318,7 +318,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "handleFallFlyingCollisions", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)V"), cancellable = true)
     private void cancelOutElytraDamage(double oldSpeed, double newSpeed, CallbackInfo ci) {
-        if (!common().general.kineticDamage.getCurrentValue()) {
+        if (!common().general().kineticDamage) {
             ci.cancel();
         }
     }
@@ -328,7 +328,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "handleFallFlyingCollisions", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), cancellable = true)
     private void cancelOutElytraDamageSound(double oldSpeed, double newSpeed, CallbackInfo ci) {
-        if (!common().general.kineticDamage.getCurrentValue()) {
+        if (!common().general().kineticDamage) {
             ci.cancel();
         }
     }

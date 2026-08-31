@@ -1,15 +1,14 @@
 package net.dillon.speedrunnermod.main;
 
 import net.dillon.speedrunnermod.network.ClientModPackets;
-import net.dillon.speedrunnermod.option.ClientModOptions;
-import net.dillon.speedrunnermod.option.Leaderboards;
-import net.dillon.speedrunnermod.option.OptionValue;
+import net.dillon.speedrunnermod.option.ModClientOptions;
 import net.dillon.speedrunnermod.particle.ModParticleManager;
 import net.dillon.speedrunnermod.screen.ModMenus;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
 /**
  * The home initializer for the client-side of the Speedrunner Mod.
@@ -30,13 +29,6 @@ public class SpeedrunnerModClient implements ClientModInitializer {
 
         clientConfigHandler().load();
 
-        if (common().general.leaderboardsMode.getCurrentValue() && !isSpeedrunIGTLoaded()) {
-            speedrunIGTMissing = true;
-            LOGGER.warn("Detected that SpeedrunIGT is not loaded, you should probably download this mod if you would like to submit speedruns to the leaderboards.");
-        }
-
-        Leaderboards.initializeLeaderboards();
-
         LOGGER.debug("The client-side for The Speedrunner Mod has successfully loaded.");
     }
 
@@ -45,8 +37,8 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
 
-    public static ClientModOptions client() {
-        return ClientModOptions.CLIENT_INSTANCE.getInstance();
+    public static ModClientOptions client() {
+        return ModClientOptions.INSTANCE.getInstance();
     }
 
     /**
@@ -54,8 +46,8 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
 
-    public static ClientModOptions.ModClientOptionsHandler clientConfigHandler() {
-        return ClientModOptions.CLIENT_INSTANCE;
+    public static ModClientOptions.ModClientOptionsHandler clientConfigHandler() {
+        return ModClientOptions.INSTANCE;
     }
 
     /**
@@ -92,30 +84,16 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     }
 
     /**
-     * Fixes broken speedrunner mod options.
-     */
-    public static void fixAllBrokenOptions() {
-        for (OptionValue<?> option : OptionValue.getBrokenOptions()) {
-            if (option.isBroken()) {
-                option.reset();
-                option.setFixed();
-            }
-        }
-
-        saveAllChanges();
-    }
-
-    /**
      * Returns the {@code minimum brightness} value for the speedrunner mod.
      */
     public static double getMinBrightness() {
-        return client().client.minimumBrightness.getCurrentValue();
+        return client().client.minimumBrightness;
     }
 
     /**
      * Returns the {@code maximum brightness} value for the speedrunner mod.
      */
     public static double getMaxBrightness() {
-        return (double) client().client.fullBrightAmount.getCurrentValue() / 100;
+        return (double) client().client.fullBrightAmount / 100;
     }
 }

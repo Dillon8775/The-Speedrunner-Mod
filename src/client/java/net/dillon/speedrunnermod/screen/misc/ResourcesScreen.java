@@ -1,79 +1,61 @@
 package net.dillon.speedrunnermod.screen.misc;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
-import net.dillon.speedrunnermod.screen.AbstractModScreen;
+import net.dillon.speedrunnermod.screen.BaseModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-public class ResourcesScreen extends AbstractModScreen {
-    private Button modsButton, questionsAndIssuesButton, tutorialsButton, showcaseVideoButton, releaseTrailerButton;
+import static net.dillon.dillonlib.task.ClientTasks.openLink;
+
+public class ResourcesScreen extends BaseModScreen {
 
     public ResourcesScreen(Screen parent) {
-        super(parent, ModTexts.TITLE_RESOURCES);
-    }
-
-    @Override
-    protected List<AbstractWidget> buttons() {
-        return List.of(
-                this.modsButton,
-                this.questionsAndIssuesButton,
-                this.tutorialsButton,
-                this.showcaseVideoButton,
-                this.releaseTrailerButton
-        );
+        super(parent, Component.translatable("speedrunnermod.title.resources"));
     }
 
     @Override
     protected void init() {
-        this.modsButton = Button.builder(ModTexts.MENU_MODS, (button) -> {
-            this.minecraft.gui.setScreen(new OtherModsScreen(this.parent));
-        }).build();
-
-        this.questionsAndIssuesButton = Button.builder(ModTexts.QUESTIONS_AND_ISSUES, (button) -> {
-            this.openLink(ModLinks.QUESTIONS_AND_ISSUES, true);
-        }).build();
-
-        this.tutorialsButton = Button.builder(ModTexts.MENU_TUTORIALS, (button) -> {
-            this.minecraft.gui.setScreen(new TutorialsScreen(this.parent));
-        }).build();
-
-        this.showcaseVideoButton = Button.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
-            this.openLink(ModLinks.SHOWCASE_VIDEO, true);
-        }).build();
-
-        this.releaseTrailerButton = Button.builder(ModTexts.MOD_RELEASE_TRAILER, (buttonWidget) -> {
-            this.openLink(ModLinks.RELEASE_TRAILER, true);
-        }).build();
-
         super.init();
-    }
 
-    @Override
-    public String pageId() {
-        return "t09efi0z";
-    }
+        Button showcaseVideoButton = Button.builder(ModTexts.MOD_SHOWCASE_VIDEO, (buttonWidget) -> {
+            openLink(this, ModLinks.SHOWCASE_VIDEO, true);
+        }).build();
 
-    @Override
-    protected int columns() {
-        return 2;
-    }
+        Button releaseTrailerButton = Button.builder(ModTexts.MOD_RELEASE_TRAILER, (buttonWidget) -> {
+            openLink(this, ModLinks.RELEASE_TRAILER, true);
+        }).build();
 
-    @Override
-    protected boolean shouldRenderVersionText() {
-        return true;
-    }
+        Button otherModsButton = Button.builder(ModTexts.MENU_MODS, (button) -> {
+            this.minecraft.gui.setScreen(new OtherModsScreen(this));
+        }).build();
 
-    @Override
-    public boolean isOptionsScreen() {
-        return false;
-    }
+        Button questionsAndIssuesButton = Button.builder(ModTexts.QUESTIONS_AND_ISSUES, (button) -> {
+            openLink(this, ModLinks.QUESTIONS_AND_ISSUES, true);
+        }).build();
 
-    @Override
-    protected boolean shouldRenderTitleText() {
-        return true;
+        Button tutorialsButton = Button.builder(ModTexts.MENU_TUTORIALS, (button) -> {
+            this.minecraft.gui.setScreen(new TutorialsScreen(this));
+        }).build();
+
+        this.list.addHeader(Component.translatable("speedrunnermod.menu.mod_info"));
+        this.list.addSmall(
+                List.of(
+                        showcaseVideoButton,
+                        releaseTrailerButton,
+                        otherModsButton
+                )
+        );
+
+        this.list.addHeader(Component.translatable("speedrunnermod.menu.help"));
+        this.list.addSmall(
+                List.of(
+                        questionsAndIssuesButton,
+                        tutorialsButton
+                )
+        );
     }
 }

@@ -7,7 +7,7 @@ import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

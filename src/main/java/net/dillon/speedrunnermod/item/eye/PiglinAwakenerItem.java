@@ -7,7 +7,7 @@ import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.Awakened;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * An item that teleports {@code nearby piglin} to the player.
@@ -65,7 +65,9 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
         } else if (world.dimension() != Level.NETHER) {
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.piglin_awakener.wrong_dimension"), ChatFormatting.RED, ChatFormatting.WHITE);
         } else {
-            List<Piglin> piglins = CommonTasks.getEntitiesWithinRange(world, Piglin.class, player, common().advanced.piglinAwakenerSearchRadius.getCurrentValue(),
+            final int r = 100;
+            List<Integer> radius = List.of(r, r, r);
+            List<Piglin> piglins = CommonTasks.getEntitiesWithinRange(world, Piglin.class, player, radius,
                     e ->
                             !e.hasCustomName()
                                     && !e.isBaby()
@@ -109,7 +111,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                         piglin.randomTeleport(x, y, z, false, state -> true);
                         piglinTeleported++;
                         ((Awakened)piglin).setAwakened(true);
-                        if (piglinTeleported >= common().advanced.piglinAwakenerPiglinCount.getCurrentValue() || (isDoomMode() && piglinTeleported >= 3)) {
+                        if (piglinTeleported >= common().accessibility().piglinAwakenerPiglinCount || (isDoomMode() && piglinTeleported >= 3)) {
                             break;
                         }
                     }

@@ -24,7 +24,7 @@ public abstract class GhastShootFireballGoalMixin extends Goal {
      */
     @Inject(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/monster/Ghast$GhastShootFireballGoal;chargeTime:I", ordinal = 1, opcode = Opcodes.PUTFIELD))
     private void killGhastUponFireball(CallbackInfo ci) {
-        if (common().general.killGhastOnFireball.getCurrentValue()) {
+        if (common().general().killGhastOnFireball) {
             this.ghast.kill(getServerLevel(this.ghast));
         }
     }

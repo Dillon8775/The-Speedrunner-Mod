@@ -15,6 +15,6 @@ public class BrewingStandBlockEntityMixin {
      */
     @ModifyConstant(method = "serverTick", constant = @Constant(floatValue = 400.0F))
     private static float changeBrewTime(float original) {
-        return common().general.fasterBrewing.getCurrentValue() ? 100.0F : original;
+        return common().general().fasterBrewing ? 100.0F : original;
     }
 }

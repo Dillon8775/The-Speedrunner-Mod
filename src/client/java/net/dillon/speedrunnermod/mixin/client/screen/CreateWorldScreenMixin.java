@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
+import net.dillon.speedrunnermod.option.eum.WorldGameMode;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.world.Difficulty;
@@ -12,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin {
@@ -34,12 +35,12 @@ public abstract class CreateWorldScreenMixin {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void fastWorldCreationButtonFunction(CallbackInfo ci) {
-        if (!client().client.instantWorldCreation.getCurrentValue()) {
+        if (!client().client.instantWorldCreation) {
             return;
         }
 
         Difficulty difficulty = null;
-        switch (client().client.difficulty.getCurrentValue()) {
+        switch (client().client.worldDifficulty) {
             case PEACEFUL:
                 difficulty = Difficulty.PEACEFUL;
                 break;
@@ -55,7 +56,7 @@ public abstract class CreateWorldScreenMixin {
         }
 
         WorldCreationUiState.SelectedGameMode gameMode = null;
-        switch (client().client.gameMode.getCurrentValue()) {
+        switch (client().client.worldGameMode) {
             case SURVIVAL:
                 gameMode = WorldCreationUiState.SelectedGameMode.SURVIVAL;
                 break;
@@ -73,12 +74,12 @@ public abstract class CreateWorldScreenMixin {
         assert gameMode != null;
         assert difficulty != null;
         this.uiState.setGameMode(gameMode);
-        if (!client().client.gameMode.getCurrentValue().hardcore()) {
+        if (client().client.worldGameMode != WorldGameMode.HARDCORE) {
             this.uiState.setDifficulty(difficulty);
-            this.uiState.setAllowCommands(client().client.allowCommands.getCurrentValue());
+            this.uiState.setAllowCommands(client().client.allowCommands);
         }
-        if (!client().client.seed.getCurrentValue().isEmpty()) {
-            this.uiState.setSeed(client().client.seed.getCurrentValue());
+        if (!client().client.seed.isEmpty()) {
+            this.uiState.setSeed(client().client.seed);
         }
         onCreate();
     }

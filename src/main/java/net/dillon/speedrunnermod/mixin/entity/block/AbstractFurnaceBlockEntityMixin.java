@@ -27,7 +27,7 @@ public class AbstractFurnaceBlockEntityMixin {
      */
     @Inject(method = "serverTick", at = @At("TAIL"))
     private static void keepFasterCookingTime(ServerLevel world, BlockPos pos, BlockState state, AbstractFurnaceBlockEntity furnace, CallbackInfo ci) {
-        if (!common().general.fasterSmelting.getCurrentValue()) {
+        if (!common().general().fasterSmelting) {
             return;
         }
 

@@ -8,6 +8,8 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
+import static net.dillon.dillonlib.task.ClientTasks.openLink;
+
 public class AndMoreScreen extends DefaultMiscellaneousFeatureFactory {
 
     public AndMoreScreen(Screen parent, FeaturePage featurePage) {
@@ -18,7 +20,7 @@ public class AndMoreScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
         this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.menu.features.learn_more"), button -> {
-            this.openLink(ModLinks.MODRINTH, true);
+            openLink(this, ModLinks.MODRINTH, true);
         }).build());
 
         this.addButtonObject(Button.builder(ModTexts.MENU_BLOCKS_AND_ITEMS, button -> {

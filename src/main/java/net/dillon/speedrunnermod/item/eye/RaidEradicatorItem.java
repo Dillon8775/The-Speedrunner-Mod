@@ -6,7 +6,7 @@ import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.helper.VillagerGlowCountdown;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -33,8 +33,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isBalancedMode;
 
 /**
  * An item that kills all nearby {@link Raider}s.
@@ -60,7 +59,9 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
             player.spawnAtLocation((ServerLevel)world, Items.ENCHANTED_GOLDEN_APPLE);
             player.spawnAtLocation((ServerLevel)world, ModItems.SPEEDRUNNERS_EYE);
         } else {
-            List<Raider> raiders = ModHelper.getEntitiesWithinRange(world, Raider.class, player, common().advanced.raidEradicatorSearchRadius.getCurrentValue());
+            final int r = 300;
+            List<Integer> radius = List.of(r, r, r);
+            List<Raider> raiders = ModHelper.getEntitiesWithinRange(world, Raider.class, player, radius);
 
             if (raiders.isEmpty()) {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"));
@@ -70,7 +71,7 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
                 this.decrementIfPossible(player, stack);
                 ServerPlayer serverPlayer = (ServerPlayer)player;
 
-                List<Villager> villagers = ModHelper.getEntitiesWithinRange(world, Villager.class, player, common().advanced.raidEradicatorSearchRadius.getCurrentValue());
+                List<Villager> villagers = ModHelper.getEntitiesWithinRange(world, Villager.class, player, radius);
 
                 TaskScheduler.schedule(Arithmetics.sas(3), () -> {
                     for (Raider raider : raiders) {

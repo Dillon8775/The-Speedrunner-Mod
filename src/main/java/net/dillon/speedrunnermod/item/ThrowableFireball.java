@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * A fireball, which can be thrown.
@@ -97,7 +97,7 @@ public interface ThrowableFireball {
 
         int power = isDoomMode()
                 ? RandomChance.intInclusive(1, maxPower)
-                : common().general.fireballExplosionPower.getCurrentValue();
+                : common().general().fireballExplosionPower;
 
         if (dragon && power > maxDragonPower) {
             power = 5;

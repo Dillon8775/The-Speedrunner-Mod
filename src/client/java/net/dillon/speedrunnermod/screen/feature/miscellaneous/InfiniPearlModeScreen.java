@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 public class InfiniPearlModeScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +18,8 @@ public class InfiniPearlModeScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().general.infiniPearlMode.getCurrentValue() ? ModTexts.DISABLE_INFINI_PEARL_MODE : ModTexts.ENABLE_INFINI_PEARL_MODE, button -> {
-            common().general.infiniPearlMode.set(!common().general.infiniPearlMode.getCurrentValue());
+        this.addButtonObject(Button.builder(common().general().infiniPearlMode ? ModTexts.DISABLE_INFINI_PEARL_MODE : ModTexts.ENABLE_INFINI_PEARL_MODE, button -> {
+            commonConfigHandler().update(o -> o.general().infiniPearlMode = !o.general().infiniPearlMode);
             this.refreshNonRestartableFeature();
         }).build());
     }

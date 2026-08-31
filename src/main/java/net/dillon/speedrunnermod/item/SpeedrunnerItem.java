@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.helper.ModTexts;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -184,7 +184,7 @@ public interface SpeedrunnerItem {
      */
     default void addStateOfTheArtItemTooltip(Consumer<Component> textConsumer) {
         for (Mode mode : this.disabledModes()) {
-            if (common().general.mode.getCurrentValue() == mode) {
+            if (common().general().mode == mode) {
                 textConsumer.accept(ModTexts.stateOfTheArtItemDisabledTooltip(mode));
             }
         }
@@ -227,7 +227,7 @@ public interface SpeedrunnerItem {
      */
     default boolean isDisabled() {
         for (Mode mode : this.disabledModes()) {
-            if (common().general.mode.getCurrentValue() == mode) {
+            if (common().general().mode == mode) {
                 return true;
             }
         }

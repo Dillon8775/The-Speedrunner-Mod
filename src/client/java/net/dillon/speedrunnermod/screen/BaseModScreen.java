@@ -2,14 +2,12 @@ package net.dillon.speedrunnermod.screen;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.ConfirmLinkScreen;
-import net.minecraft.client.gui.screens.GenericMessageScreen;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Util;
 
 /**
  * The base screen for any {@code Speedrunner Mod} screen.
@@ -19,18 +17,6 @@ public class BaseModScreen extends OptionsSubScreen {
 
     public BaseModScreen(Screen parent, Component title) {
         super(parent, Minecraft.getInstance().options, title);
-    }
-
-    /**
-     * Quits a world.
-     */
-    protected void quitWorld() {
-        if (this.minecraft.isLocalServer()) {
-            this.minecraft.level.disconnect(Component.translatable("menu.savingLevel"));
-            this.minecraft.disconnect(new GenericMessageScreen(Component.translatable("menu.savingLevel")), false, false);
-        } else {
-            this.minecraft.disconnect(new TitleScreen(), false, false);
-        }
     }
 
     /**
@@ -52,17 +38,18 @@ public class BaseModScreen extends OptionsSubScreen {
         }
     }
 
-    /**
-     * An easier way to open a link.
-     */
-    protected void openLink(String link, boolean trusted) {
-        this.minecraft.gui.setScreen(new ConfirmLinkScreen(openInBrowser -> {
-            if (openInBrowser) {
-                Util.getPlatform().openUri(link);
-            }
-            this.minecraft.gui.setScreen(this);
-            this.resize(this.width, this.height);
-        }, link, trusted));
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
+
+        AbstractModScreen.renderSpeedrunnerModTitleText(graphics, this.width);
+    }
+
+    @Override
+    protected void addFooter() {
+        this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> {
+            this.onClose();
+        }).width(175).build());
     }
 
     /**

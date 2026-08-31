@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import net.dillon.speedrunnermod.network.DedicatedServerStorage;
-import net.dillon.speedrunnermod.option.CommonModOptions;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ public class SyncOptionsAuthorizeCommand {
                                     }
 
                                     if (action.equalsIgnoreCase("accept")) {
-                                        CommonModOptions clientOptions = DedicatedServerStorage.getPendingSyncRequest(player);
+                                        ModCommonOptions clientOptions = DedicatedServerStorage.getPendingSyncRequest(player);
                                         commonConfigHandler().match(clientOptions);
 
                                         // Disconnect all players

@@ -7,7 +7,7 @@ import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -31,8 +31,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isBalancedMode;
 
 /**
  * <p>An {@code eye of ender} item that locates the {@code exact distance} of the {@code nearest stronghold} (in meters/blocks) and tells it to the player.</p>
@@ -131,10 +130,8 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
      * Finds the nearest end portal frame block inside the stronghold.
      */
     private BlockPos findEndPortalFrame(Level world, BlockPos strongholdPos) {
-        for (BlockPos pos : BlockPos.withinClippedManhattan(strongholdPos,
-                common().advanced.annulEyeSearchRadius.getCurrentValue().getFirst(),
-                common().advanced.annulEyeSearchRadius.getCurrentValue().get(1),
-                common().advanced.annulEyeSearchRadius.getCurrentValue().get(2))) {
+        final int r = 128;
+        for (BlockPos pos : BlockPos.withinClippedManhattan(strongholdPos, r, r, r)) {
             if (this.isEndPortalFrame(world, pos)) {
                 return this.getCenterPos(world, pos);
             }

@@ -28,7 +28,7 @@ public class FogRendererMixin {
         if (entity instanceof LivingEntity livingEntity &&
                 !livingEntity.hasEffect(MobEffects.BLINDNESS) &&
                 !livingEntity.hasEffect(MobEffects.DARKNESS) &&
-                !client().client.fog.getCurrentValue() &&
+                !client().client.fog &&
                 fogType != FogType.WATER &&
                 fogType != FogType.LAVA &&
                 fogType != FogType.POWDER_SNOW) {

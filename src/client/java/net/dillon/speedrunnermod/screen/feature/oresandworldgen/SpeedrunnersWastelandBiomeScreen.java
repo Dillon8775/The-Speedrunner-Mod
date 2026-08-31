@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 public class SpeedrunnersWastelandBiomeScreen extends DefaultOresAndWorldGenFeatureFactory {
 
@@ -17,8 +18,8 @@ public class SpeedrunnersWastelandBiomeScreen extends DefaultOresAndWorldGenFeat
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen.generateSpeedrunnersWasteland.getCurrentValue() ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
-            common().worldGen.generateSpeedrunnersWasteland.set(!common().worldGen.generateSpeedrunnersWasteland.getCurrentValue());
+        this.addButtonObject(Button.builder(common().worldGen().generateSpeedrunnersWasteland ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
+            commonConfigHandler().update(o -> o.worldGen().generateSpeedrunnersWasteland = !o.worldGen().generateSpeedrunnersWasteland);
             this.refreshNonRestartableFeature();
         }).build());
     }

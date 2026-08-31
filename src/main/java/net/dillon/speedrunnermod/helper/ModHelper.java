@@ -54,15 +54,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-
 /**
  * Helper methods for various different things (ex. items and math calculations)
  */
 public class ModHelper {
     public static int errorMessagesSent = 0;
-    public static final String CONFIG_FILE_NAME = "speedrunnermod.json";
-    public static final String CLIENT_CONFIG_FILE_NAME = "speedrunnermod_client.json";
 
     public static final int SPEEDRUNNER_WATER_COLOR = 0x85C1E9;
     public static final int SPEEDRUNNER_WATER_FOG_COLOR = 0x85C1E9;
@@ -190,7 +186,9 @@ public class ModHelper {
      * @return true if a dragon is alive, near the ender dragon.
      */
     public static boolean isGiantAlive(EnderDragon dragon) {
-        List<Giant> giants = getEntitiesWithinRange(dragon.level(), Giant.class, dragon, common().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
+        final int r = 300;
+        List<Integer> radius = List.of(r, r, r);
+        List<Giant> giants = getEntitiesWithinRange(dragon.level(), Giant.class, dragon, radius);
 
         for (Giant giant : giants) {
             if (giant.isAlive()) {
@@ -205,7 +203,9 @@ public class ModHelper {
      * @return true if a wither is alive, near the ender dragon.
      */
     public static boolean isWitherAlive(EnderDragon dragon) {
-        List<WitherBoss> withers = getEntitiesWithinRange(dragon.level(), WitherBoss.class, dragon, common().advanced.dragonImmunityDetectionRadiusForWither.getCurrentValue());
+        final int r = 300;
+        List<Integer> radius = List.of(r, r, r);
+        List<WitherBoss> withers = getEntitiesWithinRange(dragon.level(), WitherBoss.class, dragon, radius);
 
         for (WitherBoss wither : withers) {
             if (wither.isAlive()) {
@@ -220,7 +220,9 @@ public class ModHelper {
      * @return true if a zombie {@link Minion}, near the ender dragon.
      */
     public static boolean isZombieMinionAlive(EnderDragon dragon) {
-        List<Zombie> zombies = getEntitiesWithinRange(dragon.level(), Zombie.class, dragon, common().advanced.dragonImmunityDetectionRadiusForGoliath.getCurrentValue());
+        final int r = 300;
+        List<Integer> radius = List.of(r, r, r);
+        List<Zombie> zombies = getEntitiesWithinRange(dragon.level(), Zombie.class, dragon, radius);
 
         for (Zombie zombie : zombies) {
             if (zombie instanceof Minion minion && minion.isGoliathMinion()) {

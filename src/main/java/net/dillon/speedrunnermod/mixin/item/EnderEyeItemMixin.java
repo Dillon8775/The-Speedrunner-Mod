@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.mixin.item;
 
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.tag.ModStructureTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

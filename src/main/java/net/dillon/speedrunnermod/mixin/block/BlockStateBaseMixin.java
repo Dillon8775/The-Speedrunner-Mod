@@ -24,8 +24,8 @@ public class BlockStateBaseMixin {
      */
     @Inject(method = "getDestroySpeed", at = @At("HEAD"), cancellable = true)
     private void applyFasterBlockBreaking(BlockGetter world, BlockPos pos, CallbackInfoReturnable<Float> cir) {
-        if (common().general.fasterBlockBreaking.getCurrentValue()) {
-            int multiplier = common().general.blockBreakingMultiplier.getCurrentValue();
+        if (common().general().fasterBlockBreaking) {
+            int multiplier = common().general().blockBreakingMultiplier;
             cir.setReturnValue(this.destroySpeed / multiplier);
 
             // Speedrunner mod blocks do not get modified block hardness values. They are instead hard-coded.

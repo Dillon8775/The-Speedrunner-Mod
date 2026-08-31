@@ -45,7 +45,7 @@ public class DropExperienceBlockMixin extends Block {
     @Override
     public InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         ItemStack itemStack = player.getItemInHand(hand);
-        if (!world.isClientSide() && itemStack.isCorrectToolForDrops(state) && EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.SILK_TOUCH), itemStack) > 0 && common().general.rightClickToRemoveSilkTouch.getCurrentValue()) {
+        if (!world.isClientSide() && itemStack.isCorrectToolForDrops(state) && EnchantmentHelper.getItemEnchantmentLevel(ModHelper.enchantment(player, Enchantments.SILK_TOUCH), itemStack) > 0 && common().general().rightClickToRemoveSilkTouch) {
             ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.updateEnchantments(itemStack, builder -> builder.removeIf(enchantmentRegistryEntry -> enchantmentRegistryEntry.is(Enchantments.SILK_TOUCH)));
             EnchantmentHelper.setEnchantments(itemStack, itemEnchantmentsComponent);
             world.playSound(null, pos, SoundEvents.WARDEN_HEARTBEAT, SoundSource.BLOCKS, 1.0F, 1.0F);

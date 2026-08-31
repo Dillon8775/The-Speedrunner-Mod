@@ -1,163 +1,98 @@
 package net.dillon.speedrunnermod.screen;
 
+import net.dillon.dillonlib.util.Texts;
+import net.dillon.speedrunnermod.config.ConfigurationScreen;
 import net.dillon.speedrunnermod.helper.ModTexts;
-import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.feature.secretdoommode.SecretDoomModeFeatureScreen;
-import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsScreen;
-import net.dillon.speedrunnermod.screen.misc.LinksScreen;
 import net.dillon.speedrunnermod.screen.misc.ResourcesScreen;
-import net.dillon.speedrunnermod.screen.option.ModOptionsScreen;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.WinScreen;
 import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.dillonlib.task.ClientTasks.tryOpenYaclScreen;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
- * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, external links, other mods, and more.
+ * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, other mods, and more.
  */
-public class MainScreen extends AbstractModScreen {
-    private Button optionsButton, featuresButton, resourcesButton, externalButton, creditsButton, leaderboardsButton, doomModeButton;
+public class MainScreen extends BaseModScreen {
 
     public MainScreen(Screen parent) {
-        super(parent, ModTexts.TITLE);
-    }
-
-    @Override
-    protected List<AbstractWidget> buttons() {
-        return List.of(
-                this.optionsButton,
-                this.featuresButton,
-                this.resourcesButton,
-                this.externalButton,
-                this.creditsButton,
-                this.leaderboardsButton,
-                this.doomModeButton
-        );
+        super(parent, Texts.BLANK);
     }
 
     @Override
     protected void init() {
-        this.optionsButton = Button.builder(Component.translatable("speedrunnermod.configure").withStyle(getOptionsTextColor()).withStyle(ChatFormatting.UNDERLINE), (button) -> {
-            Leaderboards.getCurrentLeaderboardsMode();
-            if (common().general.leaderboardsMode.getCurrentValue()) {
-                Leaderboards.getCurrentOptions();
-            }
-            this.minecraft.gui.setScreen(new ModOptionsScreen(this));
-        }).build();
-        this.featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
-            this.minecraft.gui.setScreen(new FeaturesScreen(this));
-        }).build();
-
-        this.resourcesButton = Button.builder(ModTexts.MENU_RESOURCES, (button) -> {
-            this.minecraft.gui.setScreen(new ResourcesScreen(this));
-        }).build();
-
-        this.externalButton = Button.builder(ModTexts.MENU_LINKS, (button) -> {
-            this.minecraft.gui.setScreen(new LinksScreen(this));
-        }).build();
-
-        this.creditsButton = Button.builder(ModTexts.MENU_CREDITS, (button) -> {
-            this.minecraft.gui.setScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> this.minecraft.gui.setScreen(this)));
-        }).build();
-
-        this.leaderboardsButton = Button.builder(ModTexts.MENU_LEADERBOARDS, (button) -> {
-            this.minecraft.gui.setScreen(new LeaderboardsScreen(this));
-        }).build();
-        this.leaderboardsButton.active = false;
-
-        this.doomModeButton = Button.builder(ModTexts.MENU_DOOM_MODE, (button) -> {
-            if (SecretDoomModeFeatureScreen.doomModeButtonAlreadyClicked > 0) {
-                this.minecraft.gui.setScreen(FeaturePage.UM.createScreen(this.parent));
-            } else {
-                this.minecraft.gui.setScreen(FeaturePage.YOU_ARENT_READY_FOR_THIS.createScreen(this.parent));
-            }
-        }).build();
-        this.doomModeButton.visible = isDoomMode();
-
         super.init();
-    }
 
-    @Override
-    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
-        if (this.optionsButton.isHovered()) {
-            if (common().general.leaderboardsMode.getCurrentValue()) {
-                if (!Leaderboards.isEligibleForLeaderboardRuns()) {
-                    this.renderBasicTooltip(ModTexts.MENU_OPTIONS_ACTION_NEEDED, context, mouseX, mouseY);
-                } else {
-                    this.renderBasicTooltip(ModTexts.MENU_OPTIONS_SAFE, context, mouseX, mouseY);
-                }
+        Button configurateButton = Button.builder(Component.translatable("speedrunnermod.configure")
+                .withStyle(ChatFormatting.AQUA)
+                .withStyle(ChatFormatting.UNDERLINE), (button) ->
+                tryOpenYaclScreen(() -> ConfigurationScreen.configScreen().generateScreen(this), ModTexts.TITLE)
+        ).tooltip(
+                Tooltip.create(Component.translatable("speedrunnermod.menu.options.tooltip"))
+        ).build();
+
+        Button featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
+            this.minecraft.gui.setScreen(new FeaturesScreen(this));
+        }).tooltip(
+                Tooltip.create(Component.translatable("speedrunnermod.menu.features.tooltip"))
+        ).build();
+
+        Button resourcesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources"), (button) -> {
+            this.minecraft.gui.setScreen(new ResourcesScreen(this));
+        }).tooltip(
+                Tooltip.create(Component.translatable("speedrunnermod.menu.resources.tooltip"))
+        ).build();
+
+        Button creditsButton = Button.builder(Component.translatable("speedrunnermod.menu.credits"), (button) -> {
+            this.minecraft.gui.setScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> this.minecraft.gui.setScreen(this)));
+        }).tooltip(
+                Tooltip.create(Component.translatable("speedrunnermod.menu.credits.tooltip"))
+        ).build();
+
+        Button doomModeButton = Button.builder(Component.translatable("speedrunnermod.menu.doom_mode"), (button) -> {
+            if (SecretDoomModeFeatureScreen.doomModeButtonAlreadyClicked > 0) {
+                this.minecraft.gui.setScreen(FeaturePage.UM.createScreen(this));
             } else {
-                this.renderBasicTooltip(ModTexts.MENU_OPTIONS_TOOLTIP, context, mouseX, mouseY);
+                this.minecraft.gui.setScreen(FeaturePage.YOU_ARENT_READY_FOR_THIS.createScreen(this));
             }
+        }).build();
+        doomModeButton.visible = isDoomMode();
+
+        this.list.addHeader(Component.translatable("speedrunnermod.menu.features_and_settings"));
+        this.list.addBig(
+                configurateButton
+        );
+        this.list.addSmall(
+                List.of(
+                        featuresButton
+                )
+        );
+
+        this.list.addHeader(Component.translatable("speedrunnermod.menu.utilities"));
+        this.list.addSmall(
+                List.of(
+                        resourcesButton,
+                        creditsButton
+                )
+        );
+
+        if (doomModeButton.visible) {
+            this.list.addHeader(Component.translatable("speedrunnermod.menu.what_is_this"));
+            this.list.addSmall(
+                    List.of(
+                            doomModeButton
+                    )
+            );
         }
-        if (this.featuresButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_FEATURES_TOOLTIP, context, mouseX, mouseY);
-        }
-        if (this.resourcesButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_RESOURCES_TOOLTIP, context, mouseX, mouseY);
-        }
-        if (this.creditsButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_CREDITS_TOOLIP, context, mouseX, mouseY);
-        }
-        if (this.leaderboardsButton.isHovered()) {
-            this.renderBasicTooltip(ModTexts.MENU_LEADERBOARDS_DISABLED, context, mouseX, mouseY);
-        }
-        super.renderTooltips(context, mouseX, mouseY);
-    }
-
-    @Override
-    public String pageId() {
-        return "spei0ri09we";
-    }
-
-    /**
-     * Sets the color of the options button, depending on if leaderboards mode is on, and if the options meet the leaderboards criteria.
-     */
-    private static ChatFormatting getOptionsTextColor() {
-        if (common().general.leaderboardsMode.getCurrentValue()) {
-            if (!Leaderboards.isEligibleForLeaderboardRuns()) {
-                return ChatFormatting.RED;
-            } else {
-                return ChatFormatting.GREEN;
-            }
-        } else {
-            return ChatFormatting.AQUA;
-        }
-    }
-
-    @Override
-    protected boolean shouldRenderSpeedrunnerModTitle() {
-        return true;
-    }
-
-    @Override
-    protected int columns() {
-        return 2;
-    }
-
-    @Override
-    protected boolean shouldRenderVersionText() {
-        return true;
-    }
-
-    @Override
-    public boolean isOptionsScreen() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldRenderTitleText() {
-        return false;
     }
 }

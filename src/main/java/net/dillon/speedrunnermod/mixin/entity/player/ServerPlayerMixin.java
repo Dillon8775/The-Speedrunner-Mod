@@ -133,7 +133,7 @@ public abstract class ServerPlayerMixin extends Player {
      */
     @Inject(method = "die", at = @At("TAIL"))
     private void sendDeathCords(DamageSource source, CallbackInfo ci) {
-        if (common().general.showDeathCords.getCurrentValue() && this.level().getGameRules().get(GameRules.SHOW_DEATH_MESSAGES)) {
+        if (common().general().showDeathCords && this.level().getGameRules().get(GameRules.SHOW_DEATH_MESSAGES)) {
             ModHelper.latestDeathCords = new double[]{this.getX(), this.getY(), this.getZ()};
             this.sendSystemMessage(ModHelper.deathCords(ModHelper.latestDeathCords[0], ModHelper.latestDeathCords[1], ModHelper.latestDeathCords[2]));
         }

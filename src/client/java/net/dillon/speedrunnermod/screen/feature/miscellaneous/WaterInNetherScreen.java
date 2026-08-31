@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 public class WaterInNetherScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +18,8 @@ public class WaterInNetherScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen.netherWater.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            common().worldGen.netherWater.set(!common().worldGen.netherWater.getCurrentValue());
+        this.addButtonObject(Button.builder(common().worldGen().netherWater ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            commonConfigHandler().update(o -> o.worldGen().netherWater = !o.worldGen().netherWater);
             this.refreshNonRestartableFeature();
         }).build());
     }

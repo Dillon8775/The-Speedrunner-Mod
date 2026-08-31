@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * Prevents and fixes piglin brutes from spawning in the air.

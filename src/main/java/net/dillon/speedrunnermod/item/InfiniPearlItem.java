@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.item;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.helper.InfiniPearl;
 import net.dillon.speedrunnermod.helper.ModComponentHelper;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;

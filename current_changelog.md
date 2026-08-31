@@ -1,12 +1,17 @@
-# Version 1.12.8
+# Version 1.13
 - Update to 26.3.
 
+### Mod now requires [YetAnotherConfigLib](https://modrinth.com/mod/yacl) in order to run.
+
 ## Redundancy and Balancing
-- Redundancy and balancing will be more present in the next update, 1.13, where certain features are removed from the mod due because they are pointless and/or are too hard to upkeep.
-- For now, due to redundancy, all stripped speedrunner logs have been removed from the mod.
-- Tweaked how long certain speedrunner items last in a furnace as fuel.
-  - Some speedrunner items have been removed as a fuel source, as they will be removed in a later version.
+- Due to redundancy, all stripped speedrunner logs have been removed from the mod.
+- The mod's Structure Spawn Rate option is now a simple toggle switch, which has been renamed to the legacy "Make Structures More Common" option, and custom structure spawn rates are only possible via the config (and if Make Structures More Common is enabled).
+- Finally wiped the leaderboards from the mod entirely.
+- Removed the mod's safe boot screen and links screen.
 
 ## Other Changes
-- Revamped speedrunner mod screens.
+- Massive backend optimizations, and several changes to the mod's configuration system.
+- The mod's built-in "fog" option is now disabled by default (meaning Minecraft's fog will be disabled by default).
+- Tweaked how long certain speedrunner items last in a furnace as fuel.
+- Revamped some speedrunner mod screens.
 - Zombies now only throw 1-2 explosion power fireballs.

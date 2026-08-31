@@ -54,6 +54,6 @@ public class SpeedrunnerModPlatform extends ModPlatform {
 
     @Override
     public @NotNull LogoWidth logoWidth() {
-        return LogoWidth.LONG_PATCH;
+        return LogoWidth.PATCH;
     }
 }

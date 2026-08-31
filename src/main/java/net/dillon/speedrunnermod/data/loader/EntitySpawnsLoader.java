@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 public class EntitySpawnsLoader {
 
@@ -29,18 +29,18 @@ public class EntitySpawnsLoader {
 
     public static void modifyBiomesWithFarmAnimals(JsonElement jsonElement) {
         Map<String, Integer[]> creatureSpawns = new HashMap<>();
-        creatureSpawns.put("minecraft:cow", LoaderMain.createSpawnSettings(16, 1, 4, 8, 4));
-        creatureSpawns.put("minecraft:pig", LoaderMain.createSpawnSettings(12, 1, 4, 8, 4));
-        creatureSpawns.put("minecraft:sheep", LoaderMain.createSpawnSettings(8, 1, 4, 8, 4));
-        creatureSpawns.put("minecraft:chicken", LoaderMain.createSpawnSettings(8, 1, 4, 8, 4));
+        creatureSpawns.put("minecraft:cow", LoaderMain.createSpawnSettings(16, 4, 8));
+        creatureSpawns.put("minecraft:pig", LoaderMain.createSpawnSettings(12, 4, 8));
+        creatureSpawns.put("minecraft:sheep", LoaderMain.createSpawnSettings(8, 4, 8));
+        creatureSpawns.put("minecraft:chicken", LoaderMain.createSpawnSettings(8, 4, 8));
 
         LoaderMain.modifyCreatureSpawns(jsonElement, creatureSpawns, false);
     }
 
     public static void modifyWaterCreatureSpawns(JsonElement jsonElement) {
         Map<String, Integer[]> waterCreatureSpawns = new HashMap<>();
-        waterCreatureSpawns.put("minecraft:dolphin", LoaderMain.createSpawnSettings(15, 1, 1, 2, 1));
-        waterCreatureSpawns.put("minecraft:tropical_fish", LoaderMain.createSpawnSettings(10, 1, 4, 8, 4));
+        waterCreatureSpawns.put("minecraft:dolphin", LoaderMain.createSpawnSettings(15, 1, 2));
+        waterCreatureSpawns.put("minecraft:tropical_fish", LoaderMain.createSpawnSettings(10, 4, 8));
 
         LoaderMain.modifyCreatureSpawns(jsonElement, waterCreatureSpawns, true);
     }
@@ -51,6 +51,7 @@ public class EntitySpawnsLoader {
     public static List<String> biomesWithDefaultMonsters() {
         return List.of(
                 // Newly added biomes
+                biomeName("dappled_forest"),
                 biomeName("cherry_grove"),
                 biomeName("dripstone_caves"),
                 biomeName("desert"),
@@ -94,7 +95,8 @@ public class EntitySpawnsLoader {
                 biomeName("stony_peaks"),
                 biomeName("snowy_slopes"),
                 biomeName("grove"),
-                biomeName("lush_caves"));
+                biomeName("lush_caves")
+        );
     }
 
     /**
@@ -102,6 +104,7 @@ public class EntitySpawnsLoader {
      */
     public static List<String> biomesWithFarmAnimals() {
         return List.of(
+                biomeName("dappled_forest"),
                 biomeName("old_growth_pine_taiga"),
                 biomeName("old_growth_spruce_taiga"),
                 biomeName("windswept_hills"),
@@ -118,7 +121,8 @@ public class EntitySpawnsLoader {
                 biomeName("snowy_taiga"),
                 biomeName("dark_forest"),
                 biomeName("swamp"),
-                biomeName("grove"));
+                biomeName("grove")
+        );
     }
 
     /**

@@ -7,8 +7,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.level.Level;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isEasyMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isEasyMode;
 
 /**
  * Constant variables and values for the Speedrunner Mod.
@@ -99,7 +99,7 @@ public class ModConstants {
      * @return how long it takes for a oldPlayer to lose an air bubble (in seconds).
      */
     public static int getPlayerBreathTime() {
-        return common().advanced.increasedOxygen.getCurrentValue() ? 6 : 4;
+        return common().general().increasedOxygen ? 6 : 4;
     }
 
     /**
@@ -213,7 +213,7 @@ public class ModConstants {
      * @return how long the ender dragon should stay sitting.
      */
     public static float getEnderDragonSittingTime() {
-        return common().advanced.longerDragonPerchStayTime.getCurrentValue() ? 0.60F : 0.25F;
+        return common().accessibility().longerDragonPerchStayTime ? 0.60F : 0.25F;
     }
 
     /**
@@ -234,6 +234,6 @@ public class ModConstants {
      * @return the distance in blocks that a zombified piglin must be in from a piglin in order to get scared and run away.
      */
     public static double getZombifiedPiglinRunawayDistance() {
-        return common().advanced.decreasedZombifiedPiglinScareDistance.getCurrentValue() ? 2.0D : 6.0D;
+        return common().accessibility().decreasedZombifiedPiglinScareDistance ? 2.0D : 6.0D;
     }
 }

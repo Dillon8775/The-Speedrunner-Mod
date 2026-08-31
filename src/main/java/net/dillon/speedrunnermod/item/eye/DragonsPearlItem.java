@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -24,8 +24,6 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.function.Consumer;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
@@ -54,7 +52,9 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
             this.playPitchedLaunchSound(5.0F, world, player);
             ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.dragons_pearl.wrong_dimension").withStyle(ChatFormatting.LIGHT_PURPLE));
         } else {
-            List<EnderDragon> dragons = ModHelper.getEntitiesWithinRange(world, EnderDragon.class, player, common().advanced.dragonsPearlSearchRadius.getCurrentValue());
+            final int r = 150;
+            List<Integer> radius = List.of(r, r, r);
+            List<EnderDragon> dragons = ModHelper.getEntitiesWithinRange(world, EnderDragon.class, player, radius);
 
             if (dragons.isEmpty()) {
                 this.playWorldSound(SoundEvents.ENDER_EYE_LAUNCH, 3.0F, world, player);

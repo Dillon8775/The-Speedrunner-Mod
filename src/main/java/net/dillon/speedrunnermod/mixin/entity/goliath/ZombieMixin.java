@@ -35,8 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Zombie.class)
 public class ZombieMixin extends Monster implements Minion {
@@ -188,6 +187,8 @@ public class ZombieMixin extends Monster implements Minion {
      */
     @Unique
     private List findEntities(Class<? extends LivingEntity> entity) {
-        return ModHelper.getEntitiesWithinRange(this.level(), entity, this, common().advanced.goliathAndZombieEntityDetectionRadius.getCurrentValue());
+        final int r = 300;
+        List<Integer> radius = List.of(r, r, r);
+        return ModHelper.getEntitiesWithinRange(this.level(), entity, this, radius);
     }
 }

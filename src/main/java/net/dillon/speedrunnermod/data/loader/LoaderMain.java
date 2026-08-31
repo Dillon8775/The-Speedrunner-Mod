@@ -3,12 +3,10 @@ package net.dillon.speedrunnermod.data.loader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.dillon.speedrunnermod.option.CreatureSpawnRate;
 
 import java.util.Map;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * Contains helper methods used to create certain objects and arrays in JSON files.
@@ -28,16 +26,8 @@ public class LoaderMain {
             if (creatureValues.containsKey(mobType)) {
                 Integer[] values = creatureValues.get(mobType);
                 spawner.addProperty("weight", values[0]);
-                if (common().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.LOW)) {
-                    spawner.addProperty("minCount", values[1]);
-                    spawner.addProperty("maxCount", values[4]);
-                } else if (common().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.NORMAL)) {
-                    spawner.addProperty("minCount", values[2]);
-                    spawner.addProperty("maxCount", values[4]);
-                } else if (common().worldGen.creatureSpawnRate.getCurrentValue().equals(CreatureSpawnRate.HIGH)) {
-                    spawner.addProperty("minCount", values[2]);
-                    spawner.addProperty("maxCount", values[3]);
-                }
+                spawner.addProperty("minCount", values[1]);
+                spawner.addProperty("maxCount", values[2]);
             }
         }
     }
@@ -84,13 +74,6 @@ public class LoaderMain {
 
     /**
      * Creates a mob spawn setting, specifically for creature spawns.
-     */
-    protected static Integer[] createSpawnSettings(int weight, int minCountLow, int defaultMinCount, int maxCountHigh, int defaultMaxCount) {
-        return new Integer[]{weight, minCountLow, defaultMinCount, maxCountHigh, defaultMaxCount};
-    }
-
-    /**
-     * Creates a mob spawn setting, specifically for monster spawns.
      */
     protected static Integer[] createSpawnSettings(int weight, int minCount, int maxCount) {
         return new Integer[]{weight, minCount, maxCount};

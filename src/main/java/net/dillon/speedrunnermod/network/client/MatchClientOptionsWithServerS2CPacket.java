@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.network.client;
 
 import com.google.gson.Gson;
-import net.dillon.speedrunnermod.option.CommonModOptions;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -20,12 +20,12 @@ public record MatchClientOptionsWithServerS2CPacket(String jsonOptions) implemen
         buf -> new MatchClientOptionsWithServerS2CPacket(buf.readUtf())
     );
 
-    public static MatchClientOptionsWithServerS2CPacket from(CommonModOptions options) {
+    public static MatchClientOptionsWithServerS2CPacket from(ModCommonOptions options) {
         return new MatchClientOptionsWithServerS2CPacket(GSON.toJson(options));
     }
 
-    public CommonModOptions toOptions() {
-        return GSON.fromJson(this.jsonOptions, CommonModOptions.class);
+    public ModCommonOptions toOptions() {
+        return GSON.fromJson(this.jsonOptions, ModCommonOptions.class);
     }
 
     @Override

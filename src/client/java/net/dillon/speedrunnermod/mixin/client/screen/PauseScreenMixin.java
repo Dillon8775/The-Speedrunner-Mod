@@ -9,8 +9,6 @@ import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.MainScreen;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
-import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
-import net.dillon.speedrunnermod.screen.synced.TimedScreen;
 import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
@@ -36,7 +34,7 @@ public class PauseScreenMixin extends Screen {
     @Shadow @Final
     private boolean showPauseMenu;
     @Unique
-    private Button featuresButton, optionsButton, createWorldButton, restartButton;
+    private Button featuresButton, optionsButton, createWorldButton;
 
     public PauseScreenMixin(Component title, Button createWorldButton) {
         super(title);
@@ -49,14 +47,14 @@ public class PauseScreenMixin extends Screen {
     @Expression("integratedServer = ?")
     @Inject(method = "createPauseMenu", at = @At("MIXINEXTRAS:EXPRESSION"))
     private void addResetWorldButton(CallbackInfo ci, @Local(name = "iconButtonRow") LinearLayout iconButtonRow) {
-        if (!this.showPauseMenu || !client().client.showResetButton.getCurrentValue()) {
+        if (!this.showPauseMenu || !client().client.showResetButton) {
             return;
         }
 
         this.createWorldButton = Button.builder(Texts.BLANK, (buttonWidget) -> ClientModUtil.createNewWorld(this.minecraft))
                 .width(20)
                 .build();
-        this.createWorldButton.active = client().client.instantWorldCreation.getCurrentValue();
+        this.createWorldButton.active = client().client.instantWorldCreation;
         iconButtonRow.addChild(this.createWorldButton);
     }
 
@@ -72,12 +70,6 @@ public class PauseScreenMixin extends Screen {
         this.optionsButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (buttonWidget) -> {
             this.minecraft.gui.setScreen(new MainScreen(this));
         }).bounds(this.width / 2 - 4 - 120 - 2, this.height / 4 + 96 - 16, 20, 20).build());
-
-        if (RestartRequiredScreen.restartRequired) {
-            this.restartButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (buttonWidget) -> {
-                this.minecraft.gui.setScreen(new TimedScreen(this, 5, false));
-            }).bounds(this.optionsButton.getX() - 24, this.optionsButton.getY(), 20, 20).build());
-        }
 
         this.featuresButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (buttonWidget) -> {
             this.minecraft.gui.setScreen(new FeaturesScreen(this));
@@ -97,14 +89,12 @@ public class PauseScreenMixin extends Screen {
 
         context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/gui/speedrunner_mod.png"), this.width / 2 - 4 - 58 - 2, this.height / 4 - 26 + 2, 0.0F, 0.0F, 129, 16, 129, 16);
 
-        if (client().client.showResetButton.getCurrentValue()) {
+        if (client().client.showResetButton) {
             context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/item/speedrunner_boots.png"), createWorldButton.getX() + 2, createWorldButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
         }
 
         ClientModUtil.renderModIcon(context, this.optionsButton);
-        if (this.restartButton != null) {
-            ClientModUtil.renderSyncIcon(context, this.restartButton);
-        }
+
         if (ModConstants.HAS_UPDATE && this.optionsButton != null) {
             ClientTasks.drawUpdateSprite(context, this.optionsButton.getX() - 2, this.optionsButton.getY() - 2);
         }
@@ -117,8 +107,8 @@ public class PauseScreenMixin extends Screen {
      */
     @Unique
     private void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
-        if (client().client.showResetButton.getCurrentValue() && createWorldButton.isHovered()) {
-            context.setTooltipForNextFrame(this.font, this.font.split(client().client.instantWorldCreation.getCurrentValue() ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
+        if (client().client.showResetButton && createWorldButton.isHovered()) {
+            context.setTooltipForNextFrame(this.font, this.font.split(client().client.instantWorldCreation ? ModTexts.CREATE_WORLD_BUTTON_TOOLTIP : ModTexts.CREATE_WORLD_BUTTON_DISABLED_TOOLTIP, 200), mouseX, mouseY);
         }
 
         if (this.optionsButton.isHovered()) {
@@ -126,9 +116,6 @@ public class PauseScreenMixin extends Screen {
         }
         if (this.featuresButton.isHovered()) {
             context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.FEATURES_TOOLTIP, 200), mouseX, mouseY);
-        }
-        if (this.restartButton != null && this.restartButton.isHovered()) {
-            context.setTooltipForNextFrame(this.font, this.font.split(ModTexts.RESTART_REQUIRED_TOOLTIP, 200), mouseX, mouseY);
         }
     }
 }

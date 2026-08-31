@@ -38,7 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * Be careful what you wish for...
@@ -130,7 +130,7 @@ public class DoomBlock {
      */
     private static void fallDamage(Entity entity, double fallDistance) {
         float fallDamage;
-        if (!common().general.fallDamage.getCurrentValue()) {
+        if (!common().general().fallDamage) {
             fallDamage = 0.0F;
         } else {
             fallDamage = isDoomMode() ? 1.15F : 1.0F;

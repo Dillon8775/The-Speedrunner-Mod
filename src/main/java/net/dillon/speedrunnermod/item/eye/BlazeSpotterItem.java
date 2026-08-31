@@ -5,7 +5,7 @@ import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
-import net.dillon.speedrunnermod.option.Mode;
+import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -31,8 +31,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 
 import java.util.function.Consumer;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
  * An item that {@code teleports} the player to the {@code nearest blaze spawner.}
@@ -89,10 +87,12 @@ public class BlazeSpotterItem extends Item implements SpeedrunnerItem {
      * Finds the nearest blaze spawner.
      */
     private BlockPos findNearestBlazeSpawner(ServerLevel world, BlockPos fortressPos) {
+        final int xPlaneRadius = 156;
+        final int yPlaneRadius = 72;
         for (BlockPos pos : BlockPos.withinClippedManhattan(fortressPos,
-                common().advanced.blazeSpotterSearchRadius.getCurrentValue().getFirst(),
-                common().advanced.blazeSpotterSearchRadius.getCurrentValue().get(1),
-                common().advanced.blazeSpotterSearchRadius.getCurrentValue().get(2))) {
+                xPlaneRadius,
+                yPlaneRadius,
+                xPlaneRadius)) {
             if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
                 BlockEntity blockEntity = world.getBlockEntity(pos);
                 if (blockEntity instanceof SpawnerBlockEntity) {

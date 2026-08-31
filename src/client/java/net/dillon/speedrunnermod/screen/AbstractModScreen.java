@@ -1,21 +1,12 @@
 package net.dillon.speedrunnermod.screen;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModTexts;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.network.ClientModPackets;
-import net.dillon.speedrunnermod.option.Leaderboards;
 import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
-import net.dillon.speedrunnermod.screen.leaderboard.LeaderboardsIneligibleScreen;
-import net.dillon.speedrunnermod.screen.option.AdvancedOptionsScreen;
-import net.dillon.speedrunnermod.screen.option.ResetOptionsConfirmScreen;
-import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
-import net.dillon.speedrunnermod.screen.option.WorldCreationOptionsScreen;
 import net.dillon.speedrunnermod.screen.synced.MatchSettingsWithServerScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.minecraft.ChatFormatting;
@@ -27,7 +18,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -39,7 +29,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.dillonlib.task.ClientTasks.openLink;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
@@ -47,11 +39,9 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges
  * Used to create any {@code Speedrunner Mod} screens.
  */
 public abstract class AbstractModScreen extends BaseModScreen {
-    protected boolean alreadySettingToIneligibleScreen = false;
     protected File configFile; // This returns null unless the screen is an options screen
     protected final Screen parent;
     protected Button helpButton, saveButton, openOptionsFileButton, doneButton, matchSettingsWithServer;
-    public Button resetOptionsButton;
     public ModButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
     protected final List<AbstractWidget> featureButtons = new ArrayList<>();
 
@@ -75,7 +65,9 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.buttonList.layoutButtons(true);
             }
         }
+
         this.addWidget(this.buttonList);
+
         if (isOptionsScreen()) {
             this.saveButton = this.addRenderableWidget(Button.builder(ModTexts.SAVE, (button) -> {
                 this.onClose();
@@ -87,12 +79,8 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 Util.getPlatform().openFile(this.configFile);
             }).bounds(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
 
-            this.resetOptionsButton = this.addRenderableWidget(Button.builder(ModTexts.RESET, (button) -> {
-                this.minecraft.gui.setScreen(new ResetOptionsConfirmScreen(this.parent));
-            }).bounds(this.getButtonsRightSide(), this.getDoneButtonHeight(), 100, 20).build());
-
             this.helpButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (button) -> {
-                this.openLink(ModLinks.MODRINTH, true);
+                openLink(this, ModLinks.MODRINTH, true);
             }).bounds(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
             this.matchSettingsWithServer = this.addRenderableWidget(Button.builder(Texts.BLANK, (button) -> {
                 this.minecraft.gui.setScreen(new MatchSettingsWithServerScreen(this.parent));
@@ -103,6 +91,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
                 this.doneButton = this.addRenderableWidget(Button.builder(this.getDoneText(), (button) -> this.onClose()).bounds(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
             }
         }
+
         if (this.hasSearchField()) {
             int y = !this.isCentered() ? 10 : this.buttonList.getY() - 23;
             this.searchField = new EditBox(this.font, this.width / 2 + 17, y, 100, 15, null);
@@ -110,6 +99,11 @@ public abstract class AbstractModScreen extends BaseModScreen {
             this.searchField.setHint(Component.translatable(isOptionsScreen() ? "speedrunnermod.search_field_options_screen.placeholder" : "speedrunnermod.search_field_features_screen.placeholder").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
             this.addWidget(this.searchField);
         }
+    }
+
+    @Override
+    protected void addFooter() {
+        this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, (button) -> this.onClose()).width(200).build());
     }
 
     @Override
@@ -154,9 +148,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
         }
 
         if (this.shouldRenderSpeedrunnerModTitle()) {
-            int middle = this.width / 2 - 69;
-            int height = 10;
-            context.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
+            renderSpeedrunnerModTitleText(context, this.width);
         }
         this.renderCustomObjects(context);
         if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
@@ -218,49 +210,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Deactivates certain buttons based on certain boolean values, and renders the option's default tooltip and disabled tooltip.
-     * <p>Do not call if {@code optionList} is {@code null.}</p>
-     * @param option the boolean expression to determine if the option should be locked.
-     *               <p>if {@code bl} is {@code false}, the specified option is locked.</p>
-     * @param defaultTooltip the tooltip to render when the option is enabled/unlocked.
-     * @param disabledTooltip the tooltip to render when the option is disabled/locked.
-     */
-    protected void lockOptionWithTooltip(
-            AbstractWidget option,
-            boolean bl,
-            Component defaultTooltip,
-            Component disabledTooltip,
-            GuiGraphicsExtractor graphics,
-            int mouseX,
-            int mouseY
-    ) throws NullPointerException {
-        try {
-            if (this.buttonList != null) {
-                if (option == null) {
-                    SpeedrunnerMod.LOGGER.error("No widget found with option: " + option.toString());
-                } else {
-                    if (this.searchField.getValue().isEmpty()) {
-                        option.active = bl;
-                    } else {
-                        option.active = option.getMessage().getString().toLowerCase().contains(this.searchField.getValue().toLowerCase());
-                        if (option.isHovered() && !bl) {
-                            option.active = false;
-                        }
-                    }
-                    if (option.isHovered()) {
-                        renderBasicTooltip(bl ? defaultTooltip : disabledTooltip, graphics, mouseX, mouseY);
-                    }
-                }
-            } else {
-                throw new NullPointerException("\"optionList\" variable cannot be null on \"lockOption\" call.");
-            }
-        } catch (NullPointerException n) {
-            this.minecraft.stop();
-            n.printStackTrace();
-        }
-    }
-
-    /**
      * Creates an option using a {@link OptionInstance}.
      */
     protected static AbstractWidget createOption(OptionInstance<?> option) {
@@ -307,42 +256,7 @@ public abstract class AbstractModScreen extends BaseModScreen {
     public void onClose() {
         if (this.isOptionsScreen()) {
             saveAllChanges();
-            boolean bl = this.minecraft.getSingleplayerServer() != null;
-            boolean bl2 = this.minecraft.level != null;
-            if (bl || bl2) {
-                ClientModPackets.sendNewC2SOptions();
-                if (bl2 && this instanceof WorldCreationOptionsScreen) {
-                    ClientModPackets.syncFwc(this.minecraft, 0);
-                }
-            }
-
-            LeaderboardsIneligibleScreen.needsRestart = false;
-            LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = false;
-            this.alreadySettingToIneligibleScreen = false;
-
-            if (common().general.leaderboardsMode.getCurrentValue()) {
-                if (Leaderboards.wasLeaderboardsModeChanged()) {
-                    LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode = true;
-                }
-
-                if (LeaderboardsIneligibleScreen.needsRestartFromEnablingLeaderboardsMode) {
-                    this.minecraft.gui.setScreen(new LeaderboardsIneligibleScreen(this.parent));
-                } else if (!Leaderboards.isEligibleForLeaderboardRuns()) {
-                    if (RestartRequiredScreen.needsRestart()) {
-                        LeaderboardsIneligibleScreen.needsRestart = true;
-                    }
-                    this.alreadySettingToIneligibleScreen = true;
-                    this.minecraft.gui.setScreen(new LeaderboardsIneligibleScreen(this.parent));
-                } else if (!this.alreadySettingToIneligibleScreen && Leaderboards.wasLeaderboardsModeChanged() || RestartRequiredScreen.needsRestart()) {
-                    this.minecraft.gui.setScreen(new RestartRequiredScreen(this.parent));
-                } else {
-                    this.setParentAndResize();
-                }
-            } else if (RestartRequiredScreen.needsRestart()) {
-                this.minecraft.gui.setScreen(new RestartRequiredScreen(this.parent));
-            } else {
-                this.setParentAndResize();
-            }
+            this.setParentAndResize();
         } else {
             if (this.list != null) {
                 this.list.applyUnsavedChanges();
@@ -352,20 +266,12 @@ public abstract class AbstractModScreen extends BaseModScreen {
     }
 
     /**
-     * Refreshes the screen to allow the user to modify list options.
+     * Renders the speedrunner mod title text.
      */
-    @Override
-    public boolean keyPressed(KeyEvent input) {
-        if (this.isOptionsScreen()) {
-            if (this instanceof AdvancedOptionsScreen advancedOptionsScreen && !this.searchField.isFocused() && (hasADown() || hasXDown() || hasYDown() || hasZDown())) {
-                double scrollY = advancedOptionsScreen.buttonList.scrollAmount();
-                this.minecraft.gui.setScreen(new AdvancedOptionsScreen(this.parent));
-                AbstractModScreen modScreen = (AdvancedOptionsScreen) Minecraft.getInstance().gui.screen();
-                modScreen.buttonList.setScrollAmount(scrollY);
-                return true;
-            }
-        }
-        return super.keyPressed(input);
+    protected static void renderSpeedrunnerModTitleText(GuiGraphicsExtractor graphics, int width) {
+        int middle = width / 2 - 65;
+        int height = 10;
+        graphics.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
     }
 
     /**
@@ -449,34 +355,6 @@ public abstract class AbstractModScreen extends BaseModScreen {
      */
     protected boolean shouldRenderTooltips() {
         return this.isOptionsScreen();
-    }
-
-    /**
-     * @return {@code true} if the {@code A} key is being held down.
-     */
-    protected boolean hasADown() {
-        return InputConstants.isKeyDown(InputConstants.KEY_A);
-    }
-
-    /**
-     * @return {@code true} if the {@code X} key is being held down.
-     */
-    protected boolean hasXDown() {
-        return InputConstants.isKeyDown(InputConstants.KEY_X);
-    }
-
-    /**
-     * @return {@code true} if the {@code Y} key is being held down.
-     */
-    protected boolean hasYDown() {
-        return InputConstants.isKeyDown(InputConstants.KEY_Y);
-    }
-
-    /**
-     * @return {@code true} if the {@code Z} key is being held down.
-     */
-    protected boolean hasZDown() {
-        return InputConstants.isKeyDown(InputConstants.KEY_Z);
     }
 
     /**

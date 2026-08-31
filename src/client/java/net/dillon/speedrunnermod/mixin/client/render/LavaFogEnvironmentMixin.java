@@ -16,7 +16,7 @@ public class LavaFogEnvironmentMixin {
      */
     @Redirect(method = "setupFog", at = @At(value = "FIELD", target = "Lnet/minecraft/client/renderer/fog/FogData;environmentalEnd:F", ordinal = 1))
     private void applyIncreasedLavaVisionDistance(FogData fog, float value) {
-        if (client().client.increasedLavaVision.getCurrentValue()) {
+        if (client().client.increasedLavaVision) {
             fog.environmentalEnd = 35.0F;
         }
     }

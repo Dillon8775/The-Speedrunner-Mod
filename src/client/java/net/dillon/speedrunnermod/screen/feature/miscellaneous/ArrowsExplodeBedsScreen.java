@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 public class ArrowsExplodeBedsScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +18,8 @@ public class ArrowsExplodeBedsScreen extends DefaultMiscellaneousFeatureFactory 
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen.arrowsDestroyBeds.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            common().worldGen.arrowsDestroyBeds.set(!common().worldGen.arrowsDestroyBeds.getCurrentValue());
+        this.addButtonObject(Button.builder(common().worldGen().arrowsDestroyBeds ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            commonConfigHandler().update(o -> o.worldGen().arrowsDestroyBeds = !o.worldGen().arrowsDestroyBeds);
             this.refreshNonRestartableFeature();
         }).build());
     }

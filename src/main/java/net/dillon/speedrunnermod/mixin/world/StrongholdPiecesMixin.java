@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isBalancedMode;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isBalancedMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * Makes strongholds smaller, and easier to navigate.
@@ -20,7 +20,7 @@ public class StrongholdPiecesMixin {
     private static StrongholdPieces.PieceWeight[] STRONGHOLD_PIECE_WEIGHTS;
 
     static {
-        if (common().advanced.modifiedStrongholdGeneration.getCurrentValue() && !isBalancedMode()) {
+        if (common().accessibility().modifiedStrongholdGeneration && !isBalancedMode()) {
             if (isDoomMode()) {
                 STRONGHOLD_PIECE_WEIGHTS = new StrongholdPieces.PieceWeight[]{
                         new StrongholdPieces.PieceWeight(StrongholdPieces.Straight.class, 25, 5),
@@ -32,7 +32,7 @@ public class StrongholdPiecesMixin {
                         new StrongholdPieces.PieceWeight(StrongholdPieces.StairsDown.class, 50, 5),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.FiveCrossing.class, 50, 5),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.ChestCorridor.class, 25, 5),
-                        new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 100, common().worldGen.totalLibraries.getCurrentValue() * 2) {
+                        new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 100, common().structureConfigs().stronghold.totalLibrariesPerWorld * 2) {
 
                             @Override
                             public boolean doPlace(int chainLength) {
@@ -55,13 +55,13 @@ public class StrongholdPiecesMixin {
                         new StrongholdPieces.PieceWeight(StrongholdPieces.StairsDown.class, 10, 1),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.FiveCrossing.class, 10, 2),
                         new StrongholdPieces.PieceWeight(StrongholdPieces.ChestCorridor.class, 25, 2),
-                        new StrongholdPieces.PieceWeight(StrongholdPieces.PortalRoom.class, 200, common().worldGen.totalPortamRooms.getCurrentValue()) {
+                        new StrongholdPieces.PieceWeight(StrongholdPieces.PortalRoom.class, 200, common().structureConfigs().stronghold.totalPortalRoomsPerWorld) {
 
                             @Override
                             public boolean doPlace(int chainLength) {
                                 return super.doPlace(chainLength);
                             }
-                        }, new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 200, common().worldGen.totalLibraries.getCurrentValue()) {
+                        }, new StrongholdPieces.PieceWeight(StrongholdPieces.Library.class, 200, common().structureConfigs().stronghold.totalLibrariesPerWorld) {
 
                     @Override
                     public boolean doPlace(int chainLength) {

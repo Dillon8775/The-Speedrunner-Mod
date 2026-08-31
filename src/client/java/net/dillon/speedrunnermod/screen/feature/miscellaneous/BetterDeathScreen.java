@@ -6,6 +6,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
 
 public class BetterDeathScreen extends DefaultMiscellaneousFeatureFactory {
 
@@ -17,8 +18,8 @@ public class BetterDeathScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().general.showDeathCords.getCurrentValue() ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            common().general.showDeathCords.set(!common().general.showDeathCords.getCurrentValue());
+        this.addButtonObject(Button.builder(common().general().showDeathCords ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            commonConfigHandler().update(o -> o.general().showDeathCords = !o.general().showDeathCords);
             this.refreshNonRestartableFeature();
         }).build());
     }

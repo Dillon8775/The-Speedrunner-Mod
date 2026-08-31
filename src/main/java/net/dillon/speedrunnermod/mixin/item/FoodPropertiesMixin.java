@@ -21,7 +21,7 @@ public class FoodPropertiesMixin {
 
     @Inject(method = "onConsume", at = @At("TAIL"))
     private void addFoodEffects(Level world, LivingEntity user, ItemStack stack, Consumable consumable, CallbackInfo ci) {
-        if (common().general.betterFoods.getCurrentValue() && user instanceof Player player && stack.is(Items.GOLDEN_CARROT)) {
+        if (common().general().betterFoods && user instanceof Player player && stack.is(Items.GOLDEN_CARROT)) {
              player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0));
         }
     }

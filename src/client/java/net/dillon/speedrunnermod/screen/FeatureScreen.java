@@ -8,7 +8,6 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenPage;
 import net.dillon.speedrunnermod.screen.feature.firsttimeplaying.FirstTimePlayingScreen;
-import net.dillon.speedrunnermod.screen.option.RestartRequiredScreen;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -21,8 +20,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create {@code feature screens}, for the soul purpose of displaying some of Speedrunner Mod's features.
@@ -228,7 +225,6 @@ public class FeatureScreen extends AbstractScrollableScreen {
      * Toggles a feature when pressing the enable/disable button.
      */
     protected void refreshNonRestartableFeature() {
-        saveAllChanges();
         this.refreshFeatureScreen(this.getPageNumber(), featurePage.getCategory());
     }
 
@@ -236,7 +232,6 @@ public class FeatureScreen extends AbstractScrollableScreen {
      * Toggles a feature that requires a restart when pressing the enable/disable button.
      */
     protected void refreshRestartableFeature(Screen screen) {
-        RestartRequiredScreen.getCurrentOptions();
         this.minecraft.gui.setScreen(screen);
     }
 

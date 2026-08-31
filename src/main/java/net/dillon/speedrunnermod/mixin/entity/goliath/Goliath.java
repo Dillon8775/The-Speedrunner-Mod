@@ -62,8 +62,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-
 /**
  * The {@code Goliath Boss (doom mode)} exclusive.
  * <p>- Constantly regenerates health</p>
@@ -536,7 +534,9 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
                 level.playSound(null, this.getX(), this.getEyeY(), this.getZ(), SoundEvents.FIRECHARGE_USE, SoundSource.AMBIENT, 5.0F, 1.0F);
             }
 
-            List<ServerPlayer> players = ModHelper.getEntitiesWithinRange(this.level(), ServerPlayer.class, this, common().advanced.goliathAndZombieEntityDetectionRadius.getCurrentValue());
+            final int r = 300;
+            List<Integer> radius = List.of(r, r, r);
+            List<ServerPlayer> players = ModHelper.getEntitiesWithinRange(this.level(), ServerPlayer.class, this, radius);
             for (ServerPlayer player : players) {
                 player.sendSystemMessage(Component.translatable("speedrunnermod.doom_mode.minions.warning")
                         .withStyle(ChatFormatting.YELLOW));

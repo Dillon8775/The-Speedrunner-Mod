@@ -11,7 +11,7 @@ import net.dillon.speedrunnermod.network.client.RequestClientSideOptionsS2CPacke
 import net.dillon.speedrunnermod.network.server.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.network.server.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
-import net.dillon.speedrunnermod.option.CommonModOptions;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -42,7 +42,7 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 public class ModPackets {
 
@@ -68,7 +68,7 @@ public class ModPackets {
         PayloadTypeRegistry.serverboundPlay().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(RequestServerSideOptionsC2SPacket.PACKET, (packet, context) -> {
-            CommonModOptions serverOptions = common();
+            ModCommonOptions serverOptions = common();
             ServerPlayNetworking.send(context.player(), MatchClientOptionsWithServerS2CPacket.from(serverOptions));
             LOGGER.info("{} requested this server's speedrunner mod settings.", context.player().getDisplayName().getString());
         });
@@ -81,7 +81,7 @@ public class ModPackets {
         PayloadTypeRegistry.serverboundPlay().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
 
         ServerPlayNetworking.registerGlobalReceiver(MatchServerOptionsWithClientC2SPacket.PACKET, (packet, context) -> {
-            CommonModOptions clientOptions = packet.toOptions();
+            ModCommonOptions clientOptions = packet.toOptions();
             String player = packet.playerName();
             DedicatedServerStorage.storePendingSyncRequest(player, clientOptions);
             context.server().sendSystemMessage(Component.translatable("speedrunnermod.client_options_request_received", player, player));
@@ -120,7 +120,7 @@ public class ModPackets {
                             int infiniPearlInventorySlot = DedicatedServerStorage.getInfiniPearlSlot(playerUuid);
 
                             ItemStack item;
-                            if (common().general.iCarusMode.getCurrentValue()) {
+                            if (common().general().iCarusMode) {
                                 item = ModHelper.ofUnbreakable(Items.ELYTRA);
                                 ItemStack fireworks = ModHelper.fireworkWithFlightDuration(64);
 
@@ -128,15 +128,15 @@ public class ModPackets {
                                 player.getInventory().getNonEquipmentItems().set(iCarusFireworksInventorySlot - 1, fireworks);
                             }
 
-                            if (common().general.infiniPearlMode.getCurrentValue()) {
+                            if (common().general().infiniPearlMode) {
                                 ItemStack infiniPearl = ModHelper.ofUnbreakable(ModItems.INFINI_PEARL);
                                 int slot = infiniPearlInventorySlot - 1;
 
-                                if (common().general.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
+                                if (common().general().iCarusMode && iCarusFireworksInventorySlot == infiniPearlInventorySlot) {
                                     slot += 1;
                                 }
 
-                                if (common().general.iCarusMode.getCurrentValue() && iCarusFireworksInventorySlot == infiniPearlInventorySlot && infiniPearlInventorySlot >= 36) {
+                                if (common().general().iCarusMode && iCarusFireworksInventorySlot == infiniPearlInventorySlot && infiniPearlInventorySlot >= 36) {
                                     slot -= 2;
                                 }
 
@@ -199,7 +199,7 @@ public class ModPackets {
             // Make sure each player's playing mode always matches each tick
             ServerTickEvents.END_SERVER_TICK.register(server -> {
                 for (ServerPlayer player : server.getPlayerList().getPlayers()) {
-                    ServerPlayNetworking.send(player, new CheckModeS2CPacket(common().general.mode.getCurrentValue()));
+                    ServerPlayNetworking.send(player, new CheckModeS2CPacket(common().general().mode));
                 }
             });
         }

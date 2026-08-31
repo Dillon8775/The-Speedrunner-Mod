@@ -12,7 +12,7 @@ import net.dillon.speedrunnermod.item.ModItemGroups;
 import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.menu.ModMenus;
 import net.dillon.speedrunnermod.network.ModPackets;
-import net.dillon.speedrunnermod.option.CommonModOptions;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModTags;
@@ -30,7 +30,7 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static net.dillon.speedrunnermod.option.CommonModOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * The home initializer for the Speedrunner Mod.
@@ -93,7 +93,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         commonConfigHandler().save();
 
-        if (common().general.mode != null && isDoomMode()) {
+        if (common().general().mode != null && isDoomMode()) {
             LOGGER.info("You dare to attempt Doom Mode? Good luck...");
         }
 
@@ -103,15 +103,15 @@ public class SpeedrunnerMod implements ModInitializer {
     /**
      * Returns the Speedrunner Mod {@code options.}
      */
-    public static CommonModOptions common() {
-        return CommonModOptions.INSTANCE.getInstance();
+    public static ModCommonOptions common() {
+        return ModCommonOptions.INSTANCE.getInstance();
     }
 
     /**
      * Returns the Speedrunner Mod {@code options handler} (for saving/loading config).
      */
-    public static CommonModOptions.ModOptionsHandler commonConfigHandler() {
-        return CommonModOptions.INSTANCE;
+    public static ModCommonOptions.ModOptionsHandler commonConfigHandler() {
+        return ModCommonOptions.INSTANCE;
     }
 
     /**
