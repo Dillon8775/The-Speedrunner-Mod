@@ -54,7 +54,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModWorldGeneration.initializeWorldGenFeatures();
 
-        ModNumberProviders.initializeNumberProviders();
+        ModContextIntProviders.initializeIntProviders();
 
         ModEntityTypes.initializeEntityTypes();
 

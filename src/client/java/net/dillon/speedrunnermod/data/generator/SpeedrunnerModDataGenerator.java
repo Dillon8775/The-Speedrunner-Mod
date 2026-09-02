@@ -45,15 +45,15 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ModBlockLootTableProvider::new);
         pack.addProvider(DoomBlockLootProvider::new);
 
-        pack.addProvider(ModEnchantmentProvider::new);
         pack.addProvider(ModContextIntProvider::new);
+        pack.addProvider(ModEnchantmentProvider::new);
         pack.addProvider(ModVillagerTradeProvider::new);
         pack.addProvider(ModWorldProvider::new);
 
         DataGenerator.PackGenerator secondPack = fabricDataGenerator.createPack();
         secondPack.addProvider(ModEquipmentAssetProvider::new);
 
-        SpeedrunnerMod.LOGGER.info("Finished running through data generator.");
+        SpeedrunnerMod.LOGGER.info("Finished running through Speedrunner Mod data generator.");
     }
 
     /**
@@ -61,19 +61,19 @@ public class SpeedrunnerModDataGenerator implements DataGeneratorEntrypoint {
      */
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
-        // registryBuilder.add(Registries.NUMBER_PROVIDER, ModNumberProviders::bootstrap);
-
-        registryBuilder.add(Registries.TRADE_SET, ModTradeSetProvider::bootstrap);
-        registryBuilder.add(Registries.VILLAGER_TRADE, ModTradesProvider::bootstrap);
+        // registryBuilder.add(Registries.CONTEXT_INT_PROVIDER, ModContextIntProviders::bootstrap);
 
         registryBuilder.add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
+
         registryBuilder.add(Registries.BIOME, ModBiomes::bootstrap);
+        registryBuilder.add(Registries.FEATURE, ModWorldFeatures::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, ModWorldPlacements::bootstrap);
+
         registryBuilder.add(Registries.TEMPLATE_POOL, ModPools::bootstrap);
         registryBuilder.add(Registries.STRUCTURE, ModStructures::bootstrap);
         registryBuilder.add(Registries.STRUCTURE_SET, ModStructureSets::bootstrap);
-        registryBuilder.add(Registries.FEATURE, ModWorldFeatures::bootstrap);
-        registryBuilder.add(Registries.FEATURE, WastelandFeatures::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, ModWorldPlacements::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, WastelandPlacements::bootstrap);
+
+        registryBuilder.add(Registries.TRADE_SET, ModTradeSetProvider::bootstrap);
+        registryBuilder.add(Registries.VILLAGER_TRADE, ModTradesProvider::bootstrap);
     }
 }

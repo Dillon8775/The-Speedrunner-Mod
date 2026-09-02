@@ -1,9 +1,5 @@
 {
   "values": [
-    {
-      "id": "#c:enchantables",
-      "required": false
-    },
     "minecraft:book",
     "speedrunnermod:speedrunner_ingot"
   ]

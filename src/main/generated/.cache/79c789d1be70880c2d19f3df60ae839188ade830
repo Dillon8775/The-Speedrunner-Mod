@@ -1,0 +1,8 @@
+// 26.3-pre-1	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:entity_type
+6f8bc3eb93347d4d15c38a3b7cfbd2b796ac201c data/speedrunnermod/tags/entity_type/blacklisted_ender_dragon_kill_mobs.json
+6f8bc3eb93347d4d15c38a3b7cfbd2b796ac201c data/speedrunnermod/tags/entity_type/blacklisted_minion_call_mobs.json
+35f597040f739c6af2121d3936c0afa49c16d910 data/speedrunnermod/tags/entity_type/blacklisted_wither_target_mobs.json
+8ba3e70084ffdea346859d47ceb978a2ddcd649e data/speedrunnermod/tags/entity_type/goliath_immune_mobs.json
+8618d8d16e3fcf838ade9e06b3a8d7b29c59f6a3 data/speedrunnermod/tags/entity_type/spare_me_advancement_mobs.json
+15a25c9993c604b9721e38ee69b0872064e482f1 data/speedrunnermod/tags/entity_type/speedrunner_imperative_mobs.json
+191bfcfff8cba8050e2a128cc1f12c23e91dbf0d data/speedrunnermod/tags/entity_type/withered_effected_mobs.json

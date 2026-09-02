@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "minecraft:cornflower",
+        "weight": 3
+      },
+      {
+        "data": "minecraft:blue_orchid",
+        "weight": 2
+      },
+      {
+        "data": "minecraft:wildflowers",
+        "weight": 1
+      }
+    ]
+  }
+}

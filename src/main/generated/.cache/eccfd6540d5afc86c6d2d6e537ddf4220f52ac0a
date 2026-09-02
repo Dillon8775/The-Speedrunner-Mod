@@ -1,0 +1,8 @@
+// 26.3-pre-1	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:worldgen/biome
+99253d73f50a94176d1909cf5c7279363d9d8634 data/minecraft/tags/worldgen/biome/allows_surface_slime_spawns.json
+99253d73f50a94176d1909cf5c7279363d9d8634 data/minecraft/tags/worldgen/biome/has_structure/mineshaft.json
+99253d73f50a94176d1909cf5c7279363d9d8634 data/minecraft/tags/worldgen/biome/has_structure/ruined_portal_desert.json
+99253d73f50a94176d1909cf5c7279363d9d8634 data/minecraft/tags/worldgen/biome/has_structure/ruined_portal_mountain.json
+99253d73f50a94176d1909cf5c7279363d9d8634 data/minecraft/tags/worldgen/biome/has_structure/ruined_portal_standard.json
+387724c6b49d0359e957066a8eb8cc79b346614a data/minecraft/tags/worldgen/biome/has_structure/village_plains.json
+1a807634d4fcaf2a57b240c377513e9c042059ee data/minecraft/tags/worldgen/biome/has_structure/village_taiga.json

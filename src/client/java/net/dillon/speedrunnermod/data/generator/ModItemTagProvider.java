@@ -6,7 +6,6 @@ import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
-import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.references.ItemIds;
@@ -25,37 +24,37 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider arg) {
-        tag(ConventionalItemTags.BOW_TOOLS)
-                .add(ModItemIds.SPEEDRUNNER_BOW);
-
-        tag(ConventionalItemTags.CROSSBOW_TOOLS)
-                .add(ModItemIds.SPEEDRUNNER_CROSSBOW);
-
-        tag(ConventionalItemTags.IGNITER_TOOLS)
-                .add(ModItemIds.SPEEDRUNNER_FLINT_AND_STEEL);
-
-        tag(ConventionalItemTags.IRON_INGOTS)
-                .add(ModItemIds.SPEEDRUNNER_INGOT);
-
-        tag(ConventionalItemTags.IRON_NUGGETS)
-                .add(ModItemIds.SPEEDRUNNER_NUGGET);
-
-        tag(ConventionalItemTags.SHEAR_TOOLS)
-                .add(ModItemIds.SPEEDRUNNER_SHEARS);
-
-        tag(ConventionalItemTags.SHIELD_TOOLS)
-                .add(ModItemIds.GOLDEN_SHIELD)
-                .add(ModItemIds.SPEEDRUNNER_SHIELD);
-
-        tag(ConventionalItemTags.NAUTILUS_ARMORS)
-                .addOptionalTag(ModItemTags.SPEEDRUNNER_NAUTILUSES);
+//        tag(ConventionalItemTags.BOW_TOOLS)
+//                .add(ModItemIds.SPEEDRUNNER_BOW);
+//
+//        tag(ConventionalItemTags.CROSSBOW_TOOLS)
+//                .add(ModItemIds.SPEEDRUNNER_CROSSBOW);
+//
+//        tag(ConventionalItemTags.IGNITER_TOOLS)
+//                .add(ModItemIds.SPEEDRUNNER_FLINT_AND_STEEL);
+//
+//        tag(ConventionalItemTags.IRON_INGOTS)
+//                .add(ModItemIds.SPEEDRUNNER_INGOT);
+//
+//        tag(ConventionalItemTags.IRON_NUGGETS)
+//                .add(ModItemIds.SPEEDRUNNER_NUGGET);
+//
+//        tag(ConventionalItemTags.SHEAR_TOOLS)
+//                .add(ModItemIds.SPEEDRUNNER_SHEARS);
+//
+//        tag(ConventionalItemTags.SHIELD_TOOLS)
+//                .add(ModItemIds.GOLDEN_SHIELD)
+//                .add(ModItemIds.SPEEDRUNNER_SHIELD);
+//
+//        tag(ConventionalItemTags.NAUTILUS_ARMORS)
+//                .addOptionalTag(ModItemTags.SPEEDRUNNER_NAUTILUSES);
 
         tag(ModItemTags.SPEED_BOOTS)
                 .add(ModItemIds.SPEEDRUNNER_BOOTS)
                 .add(ModItemIds.GOLDEN_SPEEDRUNNER_BOOTS);
 
         tag(ModItemTags.COOLDOWN_ENCHANTMENT_ITEMS)
-                .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS)
+                // .addOptionalTag(ConventionalItemTags.SHIELD_TOOLS)
                 .addOptionalTag(ModItemTags.THROWABLE_FIREBALLS)
                 .add(ItemIds.ENDER_PEARL)
                 .add(ModItemIds.INFINI_PEARL)
@@ -103,7 +102,7 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIds.GOLD_INGOT);
 
         tag(ModItemTags.IGNITABLES)
-                .addOptionalTag(ConventionalItemTags.IGNITER_TOOLS)
+                // .addOptionalTag(ConventionalItemTags.IGNITER_TOOLS)
                 .add(ItemIds.FIRE_CHARGE);
 
         tag(ModItemTags.THROWABLE_FIREBALLS)
@@ -197,12 +196,12 @@ public class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvider {
                 .add(ModItemIds.SPEEDRUNNER_NAUTILUS_ARMOR);
 
         tag(ModItemTags.SPEEDRUNNERS_WORKBENCH_CONVERTABLE)
-                .addOptionalTag(ConventionalItemTags.ENCHANTABLES)
+                // .addOptionalTag(ConventionalItemTags.ENCHANTABLES)
                 .add(ItemIds.BOOK)
                 .add(ModItemIds.SPEEDRUNNER_INGOT);
 
         tag(ModItemTags.SPEEDRUNNERS_WORKBENCH_UPGRADEABLE)
-                .addOptionalTag(ConventionalItemTags.ENCHANTABLES)
+                // .addOptionalTag(ConventionalItemTags.ENCHANTABLES)
                 .add(ItemIds.GOLDEN_NAUTILUS_ARMOR)
                 .add(ModItemIds.SPEEDRUNNER_NAUTILUS_ARMOR);
 

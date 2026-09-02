@@ -1,18 +1,16 @@
 {
-  "given_item_modifiers": [
-    {
-      "function": "minecraft:set_random_potion",
-      "options": "#speedrunnermod:retired_speedrunner_potion_effects"
-    }
-  ],
+  "given_item_modifier": {
+    "type": "minecraft:set_random_potion",
+    "options": "#speedrunnermod:retired_speedrunner_potion_effects"
+  },
   "gives": {
     "id": "minecraft:potion"
   },
-  "max_uses": 1.0,
+  "max_uses": 1,
   "reputation_discount": 0.05,
   "wants": {
-    "count": 12.0,
+    "count": 12,
     "id": "minecraft:blaze_powder"
   },
-  "xp": 35.0
+  "xp": 35
 }

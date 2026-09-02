@@ -35,13 +35,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
     public void generate() {
         add(
                 ModBlocks.DEAD_SPEEDRUNNER_BUSH,
-                block -> this.createShearsDispatchTable(
-                        block,
-                        this.applyExplosionDecay(
-                                block, LootItem.lootTableItem(ModItems.SPEEDRUNNER_STICK)
-                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(3, 9)))
-                        )
-                )
+                this::speedrunnerBushDrops
         );
         add(
                 ModBlocks.SPEEDRUNNER_LEAVES,
@@ -103,41 +97,18 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
     }
 
     private void addOreDrops() {
-        add(
-                ModBlocks.SPEEDRUNNER_ORE,
-                block -> createOreDrop(
-                        block,
-                        ModItems.SPEEDRUNNER_INGOT
-                )
-        );
-        add(
-                ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE,
-                block -> createOreDrop(block, ModItems.SPEEDRUNNER_INGOT));
-        add(
-                ModBlocks.NETHER_SPEEDRUNNER_ORE,
-                block -> createSilkTouchDispatchTable(
-                        block,
-                        this.applyExplosionDecay(
-                                        block,
-                                        LootItem.lootTableItem(ModItems.SPEEDRUNNER_NUGGET)
-                                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 6))))
-                                .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
-                ));
+        add(ModBlocks.SPEEDRUNNER_ORE, block -> simpleItemDrop(block, ModItems.SPEEDRUNNER_INGOT));
+        add(ModBlocks.DEEPSLATE_SPEEDRUNNER_ORE, block -> simpleItemDrop(block, ModItems.SPEEDRUNNER_INGOT));
+        add(ModBlocks.NETHER_SPEEDRUNNER_ORE, block -> countedItemDrop(block, ModItems.SPEEDRUNNER_NUGGET, 2, 6));
 
-        add(
-                ModBlocks.IGNEOUS_ORE,
-                block -> igneousOreDrops(block, 2));
-        add(
-                ModBlocks.DEEPSLATE_IGNEOUS_ORE,
-                block -> igneousOreDrops(block, 2));
-        add(
-                ModBlocks.NETHER_IGNEOUS_ORE,
-                block -> igneousOreDrops(block, 4));
+        add(ModBlocks.IGNEOUS_ORE, block -> countedItemDrop(block, ModItems.IGNEOUS_ROCK, 2, 6));
+        add(ModBlocks.DEEPSLATE_IGNEOUS_ORE, block -> countedItemDrop(block, ModItems.IGNEOUS_ROCK, 2, 6));
+        add(ModBlocks.NETHER_IGNEOUS_ORE, block -> countedItemDrop(block, ModItems.IGNEOUS_ROCK, 4, 6));
 
-        dropWhenSilkTouch(ModBlocks.THRUSTED_BLOCK);
-        dropWhenSilkTouch(ModBlocks.EXPERIENCE_ORE);
-        dropWhenSilkTouch(ModBlocks.DEEPSLATE_EXPERIENCE_ORE);
-        dropWhenSilkTouch(ModBlocks.NETHER_EXPERIENCE_ORE);
+        dropSelf(ModBlocks.THRUSTED_BLOCK);
+        add(ModBlocks.EXPERIENCE_ORE, block -> countedItemDrop(block, ModItems.EXPERIENCE_FRAGMENT, 1, 3));
+        add(ModBlocks.DEEPSLATE_EXPERIENCE_ORE, block -> countedItemDrop(block, ModItems.EXPERIENCE_FRAGMENT, 1, 3));
+        add(ModBlocks.NETHER_EXPERIENCE_ORE, block -> countedItemDrop(block, ModItems.EXPERIENCE_FRAGMENT, 1, 3));
     }
 
     private void addWoodDrops() {
@@ -149,37 +120,67 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
     }
 
     private void addDoomDrops() {
-        dropWhenSilkTouch(ModBlocks.DOOM_STONE);
-        dropWhenSilkTouch(ModBlocks.DOOM_LOG);
+        dropSelf(ModBlocks.DOOM_STONE);
+        dropSelf(ModBlocks.DOOM_LOG);
     }
 
-    private LootTable.Builder igneousOreDrops(Block dropWithSilkTouch, int min) {
-        return createSilkTouchDispatchTable(
-                dropWithSilkTouch,
-                applyExplosionDecay(
-                        dropWithSilkTouch,
-                        LootItem.lootTableItem(ModItems.IGNEOUS_ROCK)
-                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(min, 6)))
-                                .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
-                )
-        );
-    }
-
-    private LootTable.Builder speedrunnerLeavesDrops(Block leaves, Item item, Block drop, boolean goldenApple, float... chance) {
-        return createSilkTouchOrShearsDispatchTable(
-                leaves,
-                applyExplosionCondition(
-                        leaves,
-                        LootItem.lootTableItem(drop)
-                )
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), chance)))
+    @Deprecated
+    private LootTable.Builder speedrunnerBushDrops(Block block) {
+        return LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ContextIntProviders.exactly(1))
-                        .when(doesNotHaveShearsOrSilkTouch())
-                        .add(applyExplosionCondition(leaves, LootItem.lootTableItem(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE)))
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F))
-                        .add(applyExplosionDecay(leaves, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))))
-                        .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE))
-                );
+                        .add(applyExplosionDecay(
+                                block,
+                                LootItem.lootTableItem(ModItems.SPEEDRUNNER_STICK)
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(3, 9)))
+                        )));
+    }
+
+    @Deprecated
+    private LootTable.Builder simpleItemDrop(Block block, Item item) {
+        return LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(applyExplosionDecay(block, LootItem.lootTableItem(item))));
+    }
+
+    @Deprecated
+    private LootTable.Builder countedItemDrop(Block block, Item item, int min, int max) {
+        return LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(applyExplosionDecay(
+                                block,
+                                LootItem.lootTableItem(item)
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(min, max)))
+                                        .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
+                        )));
+    }
+
+    @Deprecated
+    private LootTable.Builder speedrunnerLeavesDrops(Block leaves, Item item, Block drop, boolean goldenApple, float... chance) {
+        return LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(applyExplosionDecay(
+                                drop,
+                                LootItem.lootTableItem(drop)
+                                        .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), chance))
+                        )))
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(applyExplosionCondition(
+                                leaves,
+                                LootItem.lootTableItem(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE)
+                        ))
+                        .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F)))
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(applyExplosionDecay(
+                                leaves,
+                                LootItem.lootTableItem(item)
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
+                        ))
+                        .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE)));
     }
 }

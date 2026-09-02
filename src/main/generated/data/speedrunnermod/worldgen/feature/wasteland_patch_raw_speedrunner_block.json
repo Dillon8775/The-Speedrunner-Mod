@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block_pile",
+  "state_provider": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "speedrunnermod:raw_speedrunner_block",
+        "weight": 19
+      },
+      {
+        "data": "speedrunnermod:speedrunner_block",
+        "weight": 1
+      }
+    ]
+  }
+}

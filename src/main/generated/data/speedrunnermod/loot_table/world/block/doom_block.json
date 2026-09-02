@@ -5,77 +5,67 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 33.0,
-                "min": 20.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchant_with_levels",
+            "levels": {
+              "type": "minecraft:uniform",
+              "max": 33,
+              "min": 20
+            },
+            "options": "#minecraft:on_random_loot"
+          },
           "name": "minecraft:diamond_sword"
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 33.0,
-                "min": 27.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchant_with_levels",
+            "levels": {
+              "type": "minecraft:uniform",
+              "max": 33,
+              "min": 27
+            },
+            "options": "#minecraft:on_random_loot"
+          },
           "name": "minecraft:netherite_chestplate"
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 33.0,
-                "min": 30.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchant_with_levels",
+            "levels": {
+              "type": "minecraft:uniform",
+              "max": 33,
+              "min": 30
+            },
+            "options": "#minecraft:on_random_loot"
+          },
           "name": "minecraft:bow"
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 33.0,
-                "min": 27.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchant_with_levels",
+            "levels": {
+              "type": "minecraft:uniform",
+              "max": 33,
+              "min": 27
+            },
+            "options": "#minecraft:on_random_loot"
+          },
           "name": "minecraft:crossbow"
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:enchant_with_levels",
-              "levels": {
-                "type": "minecraft:uniform",
-                "max": 28.0,
-                "min": 24.0
-              },
-              "options": "#minecraft:on_random_loot"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:enchant_with_levels",
+            "levels": {
+              "type": "minecraft:uniform",
+              "max": 28,
+              "min": 24
+            },
+            "options": "#minecraft:on_random_loot"
+          },
           "name": "minecraft:iron_chestplate"
         },
         {
@@ -84,16 +74,14 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 3,
+              "min": 1
             }
-          ],
+          },
           "name": "minecraft:golden_apple",
           "weight": 4
         },
@@ -107,61 +95,53 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 5.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 5,
+              "min": 2
             }
-          ],
+          },
           "name": "minecraft:fire_charge",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 3,
+              "min": 1
             }
-          ],
+          },
           "name": "speedrunnermod:dragon_fireball",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 11.0,
-                "min": 2.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 11,
+              "min": 2
             }
-          ],
+          },
           "name": "minecraft:experience_bottle",
           "weight": 3
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.45,
-                "min": 0.18
-              },
-              "function": "minecraft:set_damage"
+          "modifier": {
+            "type": "minecraft:set_damage",
+            "damage": {
+              "type": "minecraft:uniform",
+              "max": 0.45,
+              "min": 0.18
             }
-          ],
+          },
           "name": "minecraft:elytra"
         },
         {
@@ -170,23 +150,19 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_random_potion",
-              "options": "#speedrunnermod:doom_block_potions"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:set_random_potion",
+            "options": "#speedrunnermod:doom_block_potions"
+          },
           "name": "minecraft:potion",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "function": "minecraft:set_potion",
-              "id": "speedrunnermod:dragons_aura"
-            }
-          ],
+          "modifier": {
+            "type": "minecraft:set_potion",
+            "id": "speedrunnermod:dragons_aura"
+          },
           "name": "minecraft:potion"
         },
         {
@@ -196,35 +172,31 @@
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 16.0,
-                "min": 4.0
-              },
-              "function": "minecraft:set_count"
+          "modifier": {
+            "type": "minecraft:set_count",
+            "count": {
+              "type": "minecraft:uniform",
+              "max": 16,
+              "min": 4
             }
-          ],
+          },
           "name": "minecraft:wind_charge",
           "weight": 2
         },
         {
           "type": "minecraft:item",
-          "functions": [
-            {
-              "damage": {
-                "type": "minecraft:uniform",
-                "max": 0.23,
-                "min": 0.12
-              },
-              "function": "minecraft:set_damage"
+          "modifier": {
+            "type": "minecraft:set_damage",
+            "damage": {
+              "type": "minecraft:uniform",
+              "max": 0.23,
+              "min": 0.12
             }
-          ],
+          },
           "name": "minecraft:mace"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }
