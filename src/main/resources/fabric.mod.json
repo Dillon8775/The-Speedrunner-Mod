@@ -15,7 +15,7 @@
     "issues": "https://github.com/Dillon8775/Speedrunner-Mod/issues"
   },
   "license": "All Rights Reserved.",
-  "icon": "icon.png",
+  "icon": "assets/speedrunnermod/textures/gui/sprites/hud/logo_smithing_template.png",
   "environment": "*",
   "entrypoints": {
     "main": [
