@@ -1,12 +1,11 @@
 package net.dillon.speedrunnermod.mixin.entity.player;
 
 import com.mojang.authlib.GameProfile;
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.event.SpeedrunnersTotemEvent;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -32,6 +31,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
@@ -44,7 +44,7 @@ public abstract class ServerPlayerMixin extends Player {
     @Shadow
     public abstract ServerLevel level();
     @Unique
-    private int effectsTimer = Arithmetics.sas(10);
+    private int effectsTimer = S_asTick(10);
     @Unique
     private boolean effectsAdded = false;
     @Unique
@@ -83,16 +83,16 @@ public abstract class ServerPlayerMixin extends Player {
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
             } else if (this.hasEffect(ModMobEffects.DRAGONS_AURA)) {
                 if (!this.effectsAdded && this.canAddEffects) {
-                    this.addEffect(new MobEffectInstance(MobEffects.GLOWING, Arithmetics.sas(10)));
-                    this.addEffect(new MobEffectInstance(MobEffects.LEVITATION, Arithmetics.sas(10), 19));
+                    this.addEffect(new MobEffectInstance(MobEffects.GLOWING, S_asTick(10)));
+                    this.addEffect(new MobEffectInstance(MobEffects.LEVITATION, S_asTick(10), 19));
                     this.level().playSound(null, this.blockPosition(), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE, SoundSource.PLAYERS, 5.0F, 1.0F);
                     this.level().playSound(null, this.blockPosition(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 5.0F, 1.0F);
                     ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)(Object)this, ModItems.SPEEDRUNNERS_TOTEM.getDefaultInstance());
                     this.sendSystemMessage(Component.translatable("effect.speedrunnermod.dragons_aura.used_void"));
-                    TaskScheduler.schedule(Arithmetics.sas(10), () -> {
+                    TaskScheduler.schedule(S_asTick(10), () -> {
                         this.removeEffect(ModMobEffects.DRAGONS_AURA);
                         this.sendSystemMessage(Component.translatable("effect.speedrunnermod.dragons_aura.expires"));
-                        this.addEffect(new MobEffectInstance(ModMobEffects.DRAGONS_AURA, Arithmetics.sas(20)));
+                        this.addEffect(new MobEffectInstance(ModMobEffects.DRAGONS_AURA, S_asTick(20)));
                     });
                     this.effectsAdded = true;
                 } else if (this.effectsTimer <= 0) {
@@ -139,6 +139,6 @@ public abstract class ServerPlayerMixin extends Player {
         }
         this.canAddEffects = false;
         this.effectsAdded = false;
-        this.effectsTimer = Arithmetics.sas(10);
+        this.effectsTimer = S_asTick(10);
     }
 }

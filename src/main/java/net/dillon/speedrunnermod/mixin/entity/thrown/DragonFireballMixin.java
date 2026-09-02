@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.mixin.entity.thrown;
 
-import net.dillon.dillonlib.util.Arithmetics;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.item.ThrowableFireball;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.entity.Entity;
@@ -21,6 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
+
 @Mixin(DragonFireball.class)
 public class DragonFireballMixin extends AbstractHurtingProjectile {
 
@@ -33,7 +34,7 @@ public class DragonFireballMixin extends AbstractHurtingProjectile {
      */
     @ModifyArg(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;<init>(Lnet/minecraft/core/Holder;II)V"), index = 2)
     private int changeInstantDamageAmplifier(int x) {
-        return ModConstants.getEnderDragonFireballInstantDamageAmplifier();
+        return doomOrDefault(1, 0);
     }
 
     /**
@@ -47,7 +48,7 @@ public class DragonFireballMixin extends AbstractHurtingProjectile {
 
         if (areaEffectCloudEntity.getOwner() instanceof LivingEntity living) {
             areaEffectCloudEntity.setRadius(4.5F);
-            areaEffectCloudEntity.setDuration(Arithmetics.mas(1));
+            areaEffectCloudEntity.setDuration(M_asTick(1));
             areaEffectCloudEntity.setRadiusPerTick((15.5F - areaEffectCloudEntity.getRadius()) / areaEffectCloudEntity.getDuration());
             areaEffectCloudEntity.level().explode(
                     null,

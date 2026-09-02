@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.component;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
@@ -18,6 +17,8 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 import java.util.List;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.minecraft.world.item.component.Consumables.defaultFood;
 
@@ -36,13 +37,13 @@ public class ModDataComponentTypes {
                     new ClearAllStatusEffectsConsumeEffect(),
                     new ApplyStatusEffectsConsumeEffect(
                             List.of(
-                                    new MobEffectInstance(MobEffects.REGENERATION, 1800, 1),
-                                    new MobEffectInstance(MobEffects.ABSORPTION, Arithmetics.mas(1), 1),
-                                    new MobEffectInstance(MobEffects.RESISTANCE, Arithmetics.sas(30)),
-                                    new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.mas(2)),
-                                    new MobEffectInstance(MobEffects.STRENGTH, Arithmetics.sas(15)),
-                                    new MobEffectInstance(MobEffects.SPEED, Arithmetics.sas(30)),
-                                    new MobEffectInstance(MobEffects.SLOW_FALLING, Arithmetics.sas(10))
+                                    new MobEffectInstance(MobEffects.REGENERATION, S_asTick(30), 1),
+                                    new MobEffectInstance(MobEffects.ABSORPTION, M_asTick(1), 1),
+                                    new MobEffectInstance(MobEffects.RESISTANCE, S_asTick(30)),
+                                    new MobEffectInstance(MobEffects.FIRE_RESISTANCE, M_asTick(2)),
+                                    new MobEffectInstance(MobEffects.STRENGTH, S_asTick(15)),
+                                    new MobEffectInstance(MobEffects.SPEED, S_asTick(30)),
+                                    new MobEffectInstance(MobEffects.SLOW_FALLING, S_asTick(10))
                             )
                     )
             ));

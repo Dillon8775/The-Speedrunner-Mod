@@ -7,12 +7,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 /**
- * A minion of {@link Goliath}.
+ * A minion of {@link GoliathBase}.
  */
-public interface Minion {
+public interface MinionBase {
     void setFireballChargeTime(int time);
     int getFireballChargeTime();
     void setGoliathMinion(boolean value);
@@ -30,11 +30,11 @@ public interface Minion {
     /**
      * @return the cooldown for a fireball.
      */
-    static int fireballChargeTime(Minion minion) {
+    static int fireballChargeTime(MinionBase minion) {
         if (minion.isGoliathMinion()) {
             return ModConstants.DEFAULT_MINION_FIREBALL_CHARGE_SPEED;
         } else {
-            return isDoomMode() ? ModConstants.DEFAULT_DOOM_ZOMBIE_FIREBALL_CHARGE_SPEED : ModConstants.DEFAULT_ZOMBIE_FIREBALL_CHARGE_SPEED;
+            return doomOrDefault(ModConstants.DEFAULT_DOOM_ZOMBIE_FIREBALL_CHARGE_SPEED, ModConstants.DEFAULT_ZOMBIE_FIREBALL_CHARGE_SPEED);
         }
     }
 
@@ -42,6 +42,6 @@ public interface Minion {
      * @return the chance for a isZombie to spawn with a fireball.
      */
     static float spawnWithFireballChance() {
-        return isDoomMode() ? RandomChance.floatInclusive(0.14F, 0.19F) : RandomChance.floatInclusive(0.03F, 0.18F);
+        return doomOrDefault(RandomChance.floatInclusive(0.14F, 0.19F), RandomChance.floatInclusive(0.03F, 0.18F));
     }
 }

@@ -21,6 +21,6 @@ public class MinecraftMixin {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void setGammaUponStart(GameConfig args, CallbackInfo ci) {
-        clientConfigHandler().update(c -> c.client.fullBright = Minecraft.getInstance().options.gamma().get() >= client().client.fullBrightAmount);
+        clientConfigHandler().update(c -> c.general().fullBright = Minecraft.getInstance().options.gamma().get() >= client().general().fullBrightAmount);
     }
 }

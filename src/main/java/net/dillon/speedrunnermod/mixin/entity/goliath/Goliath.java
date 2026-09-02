@@ -1,11 +1,12 @@
 package net.dillon.speedrunnermod.mixin.entity.goliath;
 
 import net.dillon.speedrunnermod.entity.goliath.GoliathAttackGoal;
-import net.dillon.speedrunnermod.entity.goliath.Minion;
+import net.dillon.speedrunnermod.entity.goliath.GoliathBase;
+import net.dillon.speedrunnermod.entity.goliath.MinionBase;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.minecraft.ChatFormatting;
@@ -73,7 +74,7 @@ import java.util.List;
  * <p>- And more...</p>
  */
 @Mixin(Giant.class)
-public class Goliath extends Monster implements net.dillon.speedrunnermod.entity.goliath.Goliath {
+public class Goliath extends Monster implements GoliathBase {
     @Unique
     protected WaterBoundPathNavigation waterNavigation;
     @Unique
@@ -172,12 +173,12 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
         }
 
         if (this.getHealth() <= this.getMaxHealth() / 3) {
-            net.dillon.speedrunnermod.entity.goliath.Goliath.addAngryParticles(this);
+            GoliathBase.addAngryParticles(this);
         }
 
         this.bossBar.setProgress(this.getHealth() / this.getMaxHealth());
 
-        if (this.getTarget() instanceof Minion minion && minion.isGoliathMinion()) {
+        if (this.getTarget() instanceof MinionBase minion && minion.isGoliathMinion()) {
             this.setTarget(null);
         }
     }
@@ -187,7 +188,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
      */
     @Override
     public void checkBelowWorld() {
-        net.dillon.speedrunnermod.entity.goliath.Goliath.safeFromVoid(this);
+        GoliathBase.safeFromVoid(this);
     }
 
     /**
@@ -257,7 +258,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
     @Override
     public boolean doHurtTarget(ServerLevel world, Entity target) {
         this.level().broadcastEntityEvent(this, (byte)4);
-        return net.dillon.speedrunnermod.entity.goliath.Goliath.tryAttack(world, this, (LivingEntity)target);
+        return GoliathBase.tryAttack(world, this, (LivingEntity)target);
     }
 
     /**
@@ -265,7 +266,7 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
      */
     @Override
     protected void blockedByItem(final LivingEntity defender, final DamageSource source, final float damage) {
-        net.dillon.speedrunnermod.entity.goliath.Goliath.knockback(this, defender);
+        GoliathBase.knockback(this, defender);
     }
 
     /**
@@ -521,10 +522,10 @@ public class Goliath extends Monster implements net.dillon.speedrunnermod.entity
 
                 ModAttributeHelper.modifyMaxHealth(zombie, 25.0F);
                 zombie.setHealth(25.0F);
-                ItemStack stack = Minion.zombiesFireball(level.getRandom().nextFloat() < 0.15F ? ModItems.DRAGON_FIREBALL : Items.FIRE_CHARGE);
+                ItemStack stack = MinionBase.zombiesFireball(level.getRandom().nextFloat() < 0.15F ? ModItems.DRAGON_FIREBALL : Items.FIRE_CHARGE);
                 zombie.setItemSlot(EquipmentSlot.MAINHAND, stack);
-                ((Minion)zombie).setGoliathMinion(true);
-                ((Minion)zombie).setFireballChargeTime(ModConstants.DEFAULT_MINION_FIREBALL_CHARGE_SPEED);
+                ((MinionBase)zombie).setGoliathMinion(true);
+                ((MinionBase)zombie).setFireballChargeTime(ModConstants.DEFAULT_MINION_FIREBALL_CHARGE_SPEED);
 
                 zombie.setGlowingTag(true);
                 zombie.snapTo(pos.x, this.getY(), pos.z, this.getYRot(), 0.0F);

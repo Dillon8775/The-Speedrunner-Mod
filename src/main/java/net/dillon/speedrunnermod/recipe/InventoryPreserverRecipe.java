@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;

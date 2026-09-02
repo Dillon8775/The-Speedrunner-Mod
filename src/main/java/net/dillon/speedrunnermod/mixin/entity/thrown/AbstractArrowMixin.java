@@ -29,7 +29,7 @@ public abstract class AbstractArrowMixin extends Projectile {
      */
     @Inject(method = "onHitBlock", at = @At("TAIL"))
     private void arrowExplodeBed(BlockHitResult hitResult, CallbackInfo ci) {
-        if (!common().worldGen().arrowsDestroyBeds) {
+        if (!common().worldgen().arrowsDestroyBeds) {
             return;
         }
 

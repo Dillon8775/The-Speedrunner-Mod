@@ -14,6 +14,8 @@ import net.minecraft.util.CommonColors;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static net.dillon.dillonlib.task.ClientTasks.openScreen;
+
 public class TimedScreen extends AbstractModScreen {
     private final Screen parent;
     private final boolean server;
@@ -53,21 +55,21 @@ public class TimedScreen extends AbstractModScreen {
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), (buttonWidget) -> {
             this.onClose();
-        }).bounds(this.getButtonsMiddle() - 27, this.getCustomButtonsHeight(), 150, 20).build());
+        }).bounds(this.width / 2 - 50, this.height / 6 + 126, 150, 20).build());
     }
 
     @Override
-    public void renderCustomText(GuiGraphicsExtractor context) {
+    public void renderCustomText(GuiGraphicsExtractor graphics) {
         if (this.server) {
-            context.centeredText(this.font, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, CommonColors.WHITE);
+            graphics.centeredText(this.font, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, CommonColors.WHITE);
         }
-        context.centeredText(this.font, Component.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, CommonColors.WHITE);
-        context.centeredText(this.font, Component.literal(this.countdown+"..."), this.width / 2, 160, CommonColors.WHITE);
+        graphics.centeredText(this.font, Component.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, CommonColors.WHITE);
+        graphics.centeredText(this.font, Component.literal(this.countdown+"..."), this.width / 2, 160, CommonColors.WHITE);
     }
 
     @Override
     public void onClose() {
-        this.minecraft.gui.setScreen(this.minecraft.level == null ? new TitleScreen() : this.parent);
+        openScreen(this.minecraft.level == null ? new TitleScreen() : this.parent);
         this.canceled = true;
     }
 
@@ -82,27 +84,7 @@ public class TimedScreen extends AbstractModScreen {
     }
 
     @Override
-    public String pageId() {
-        return "sdffdf;lkofdspo";
-    }
-
-    @Override
-    protected int columns() {
-        return 1;
-    }
-
-    @Override
     protected boolean shouldRenderVersionText() {
-        return false;
-    }
-
-    @Override
-    public boolean isOptionsScreen() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldRenderTitleText() {
         return false;
     }
 }

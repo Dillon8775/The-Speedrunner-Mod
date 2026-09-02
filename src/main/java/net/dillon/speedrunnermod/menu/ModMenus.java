@@ -11,7 +11,13 @@ import net.minecraft.world.inventory.MenuType;
  */
 public class ModMenus {
     public static final MenuType<WorkbenchMenu> WORKBENCH = Registry.register(
-            BuiltInRegistries.MENU, "workbench", new MenuType<>(WorkbenchMenu::new, FeatureFlags.VANILLA_SET));
+            BuiltInRegistries.MENU,
+            "workbench",
+            new MenuType<>(
+                    WorkbenchMenu::new,
+                    FeatureFlags.VANILLA_SET
+            )
+    );
 
     /**
      * Initializes all screen speedrunner mod handlers.

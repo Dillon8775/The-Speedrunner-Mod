@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Warden.class)
 public class WardenMixin extends Monster {
@@ -33,11 +33,11 @@ public class WardenMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeWardenAttributes(EntityType<? extends Warden> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 500.0D : 200.0D);
-        ModAttributeHelper.modifyMovementSpeed(this, isDoomMode() ? 0.4D : 0.2D);
-        ModAttributeHelper.modifyKnockbackResistance(this, isDoomMode() ? 1.0D : 0.65D);
-        ModAttributeHelper.modifyAttackKnockback(this, isDoomMode() ? 2.0D : 1.0D);
-        ModAttributeHelper.modifyAttackDamage(this, isDoomMode() ? 30.0D : 15.0D);
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(500.0D, 200.0D));
+        ModAttributeHelper.modifyMovementSpeed(this, doomOrDefault(0.4D, 0.2D));
+        ModAttributeHelper.modifyKnockbackResistance(this, doomOrDefault(1.0D, 0.65D));
+        ModAttributeHelper.modifyAttackKnockback(this, doomOrDefault(2.0D, 1.0D));
+        ModAttributeHelper.modifyAttackDamage(this, doomOrDefault(30.0D, 15.0D));
     }
 
     /**

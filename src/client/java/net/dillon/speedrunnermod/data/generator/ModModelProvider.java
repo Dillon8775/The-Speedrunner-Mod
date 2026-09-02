@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.render.GoldenShieldModelRenderer;
 import net.dillon.speedrunnermod.render.SpeedrunnerShieldModelRenderer;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;

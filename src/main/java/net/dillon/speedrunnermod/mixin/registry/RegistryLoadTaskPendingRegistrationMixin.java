@@ -6,7 +6,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Decoder;
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
-import net.dillon.speedrunnermod.data.loader.*;
+import net.dillon.speedrunnermod.data.*;
 import net.minecraft.resources.RegistryLoadTask;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
@@ -81,7 +81,7 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             PlacedFeaturesLoader.modifyMonsterRoom(jsonElement);
         }
 
-        if (common().worldGen().commonOres) {
+        if (common().worldgen().commonOres) {
             String oreDiamond = JsonIdentifiers.ORE_DIAMOND;
             if (fileName.equals(oreDiamond) || fileName.equals(JsonIdentifiers.ORE_DIAMOND_BURIED)) {
                 PlacedFeaturesLoader.modifyOreDiamond(fileName, oreDiamond, jsonElement);
@@ -97,13 +97,13 @@ public class RegistryLoadTaskPendingRegistrationMixin {
             }
         }
 
-        if (common().worldGen().commonPlainTrees) {
+        if (common().worldgen().commonPlainTrees) {
             if (fileName.equals(JsonIdentifiers.TREES_PLAINS)) {
                 PlacedFeaturesLoader.modifyTreePlains(jsonElement);
             }
         }
 
-        if (common().worldGen().makeStructuresMoreCommon) {
+        if (common().worldgen().makeStructuresMoreCommon) {
             if (fileName.equals(JsonIdentifiers.ANCIENT_CITIES)) {
                 StructuresLoader.modifyAncientCities(jsonElement);
             }

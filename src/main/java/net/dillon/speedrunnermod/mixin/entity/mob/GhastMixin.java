@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.mixin.entity.mob;
 
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Ghast;
@@ -12,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
-
 @Mixin(Ghast.class)
 public class GhastMixin {
 
@@ -23,8 +22,8 @@ public class GhastMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeGhastAttributes(EntityType<? extends Ghast> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 20.0D : 5.0D);
-        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 100.0D : 50.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, ModCommonOptions.doomOrDefault(20.0D, 5.0D));
+        ModAttributeHelper.modifyFollowRange(dis, ModCommonOptions.doomOrDefault(100.0D, 50.0D));
     }
 
     /**

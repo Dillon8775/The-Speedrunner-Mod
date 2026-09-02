@@ -15,7 +15,7 @@
     "issues": "https://github.com/Dillon8775/Speedrunner-Mod/issues"
   },
   "license": "All Rights Reserved.",
-  "icon": "assets/speedrunnermod/textures/gui/icon.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

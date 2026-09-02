@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(AbstractSkeleton.class)
 public class AbstractSkeletonMixin extends Monster {
@@ -26,7 +26,7 @@ public class AbstractSkeletonMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeSkeletonMovementSpeed(EntityType<? extends AbstractSkeleton> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyMovementSpeed(this, isDoomMode() ? 0.3D : 0.25D);
+        ModAttributeHelper.modifyMovementSpeed(this, doomOrDefault(0.3D, 0.25D));
     }
 
     /**
@@ -34,9 +34,9 @@ public class AbstractSkeletonMixin extends Monster {
      */
     @ModifyVariable(method = "reassessWeaponGoal", at = @At("STORE"), ordinal = 0)
     private int increaseSkeletonArrowSpeed(int x) {
-        int i = isDoomMode() ? 5 : 20;
+        int i = doomOrDefault(5, 20);
         if (this.level().getDifficulty() != Difficulty.HARD) {
-            i = isDoomMode() ? 10 : 20;
+            i = doomOrDefault(10, 20);
         }
         return i;
     }

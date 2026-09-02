@@ -6,6 +6,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
+
 @Mixin(SmallFireball.class)
 public class SmallFireballMixin {
 
@@ -14,7 +16,7 @@ public class SmallFireballMixin {
      */
     @ModifyArg(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;igniteForSeconds(F)V"))
     private float changeFireballFireTime(float x) {
-        return ModConstants.getSmallFireballDamageTime();
+        return doomOrDefault(6, 3);
     }
 
     /**

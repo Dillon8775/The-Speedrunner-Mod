@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.screen;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.ChatFormatting;
@@ -31,7 +32,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  * A scrollable text screen.
  */
 public abstract class AbstractScrollableScreen extends AbstractModScreen {
-    protected final Screen parent;
     public final List<LineObject> objectsToDisplay = new ArrayList<>();
     private final int scrollSpeed = 12;
     protected float scrollOffset;
@@ -44,7 +44,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
     public AbstractScrollableScreen(Screen parent, Component title) {
         super(parent, title);
-        this.parent = parent;
     }
 
     /**
@@ -234,8 +233,8 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Initializes top and bottom positions.
      */
     private void initializeTopAndBottom() {
-        this.top = this.buttonList.getY() + 20;
-        this.bottom = this.getDoneButtonHeight() - 16;
+        this.top = this.list.getY() + 20;
+        this.bottom = (this.height - 29) - 16;
     }
 
     /**
@@ -259,7 +258,6 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      */
     @Override
     protected void init() {
-        this.initializeModButtonListWidget(); // Gets the top Y (the top line) for the screen
         this.objectsToDisplay.clear(); // Clear the lines to refresh it
         loadAndPrintText(ofSpeedrunnerMod(this.getTextFile())); // Print the text on the screen
 
@@ -270,7 +268,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
      * Renders scrollable formatted text.
      */
     @Override
-    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
         if (!isDraggingScrollbar && !isDraggingAnywhere) {
             this.scrollOffset += (targetScrollOffset - scrollOffset) * SCROLL_LERP_SPEED;
             int maxScroll = getAccurateMaxScroll();
@@ -278,7 +276,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
         } else {
             this.scrollOffset = targetScrollOffset;
         }
-        super.extractRenderState(context, mouseX, mouseY, delta);
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
 
         initializeTopAndBottom();
         int scrollbarX = this.width - 10;
@@ -306,11 +304,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                     int textWidth = this.font.width(wrappedLine);
                     double textX = (this.width - textWidth * scale) / 2.0;
 
-                    context.pose().pushMatrix();
-                    context.pose().translate(this.centerAligned() ? (float)textX : (float)this.width / 2 - 175, (float)y);
-                    context.pose().scale(scale, scale);
-                    context.text(this.font, wrappedLine, 0, 0, CommonColors.WHITE);
-                    context.pose().popMatrix();
+                    graphics.pose().pushMatrix();
+                    graphics.pose().translate(this.centerAligned() ? (float)textX : (float)this.width / 2 - 175, (float)y);
+                    graphics.pose().scale(scale, scale);
+                    graphics.text(this.font, wrappedLine, 0, 0, CommonColors.WHITE);
+                    graphics.pose().popMatrix();
 
                     y += lineHeight;
                 }
@@ -334,7 +332,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
 
                 if (visibleHeight > 0) {
                     int x = (this.width - scaledWidth) / 2;
-                    context.blit(RenderPipelines.GUI_TEXTURED, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
+                    graphics.blit(RenderPipelines.GUI_TEXTURED, line.imageId, x, visibleY, 0, imageYOffset, scaledWidth, visibleHeight, scaledWidth, scaledHeight);
                 }
 
                 y += scaledHeight + 16;
@@ -363,7 +361,7 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
                 if (!this.children().contains(button)) {
                     this.addRenderableWidget(button);
                 }
-                button.extractRenderState(context, mouseX, mouseY, delta);
+                button.extractRenderState(graphics, mouseX, mouseY, delta);
 
                 y += button.getHeight() + 4;
             }
@@ -377,14 +375,14 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
             int thumbY = top + (int)(scrollPercent * (scrollbarHeight - thumbHeight));
 
             // Draw track
-            context.fill(scrollbarX, top, scrollbarX + scrollbarWidth, bottom, 0xFF202020);
+            graphics.fill(scrollbarX, top, scrollbarX + scrollbarWidth, bottom, 0xFF202020);
 
             // Hover effect for thumb
             boolean isHovered = mouseX >= scrollbarX && mouseX <= scrollbarX + scrollbarWidth && mouseY >= thumbY && mouseY <= thumbY + thumbHeight;
             int thumbColor = isHovered ? 0xFFFFFFFF : 0xFFA0A0A0;
 
             // Draw thumb
-            context.fill(scrollbarX, thumbY, scrollbarX + scrollbarWidth, thumbY + thumbHeight, thumbColor);
+            graphics.fill(scrollbarX, thumbY, scrollbarX + scrollbarWidth, thumbY + thumbHeight, thumbColor);
         }
     }
 
@@ -484,22 +482,14 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     public boolean keyPressed(KeyEvent input) {
         float maxScroll = getAccurateMaxScroll();
 
-        if (input.key() == 264) { // Down arrow
+        if (input.key() == InputConstants.KEY_DOWN) {
             this.targetScrollOffset = Math.min(this.targetScrollOffset + scrollSpeed, maxScroll);
             return true;
-        } else if (input.key() == 265) { // Up arrow
+        } else if (input.key() == InputConstants.KEY_UP) {
             this.targetScrollOffset = Math.max(this.targetScrollOffset - scrollSpeed, 0);
             return true;
         }
         return super.keyPressed(input);
-    }
-
-    /**
-     * Default columns for all scrollable screens is 2.
-     */
-    @Override
-    protected int columns() {
-        return 2;
     }
 
     /**
@@ -511,24 +501,11 @@ public abstract class AbstractScrollableScreen extends AbstractModScreen {
     }
 
     /**
-     * Not an options screen.
-     */
-    @Override
-    public boolean isOptionsScreen() {
-        return false;
-    }
-
-    /**
      * Render title text.
      */
     @Override
     protected boolean shouldRenderTitleText() {
         return true;
-    }
-
-    @Override
-    public void onClose() {
-        this.minecraft.gui.setScreen(this.parent);
     }
 
     /**

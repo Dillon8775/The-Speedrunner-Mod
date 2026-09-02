@@ -1,10 +1,12 @@
-package net.dillon.speedrunnermod.item;
+package net.dillon.speedrunnermod.item.core;
 
 import net.dillon.dillonlib.factory.item.IgnitableFactory;
+import net.dillon.dillonlib.mixin.accessor.ItemsInvoker;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.component.ModNumberProviders;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
+import net.dillon.speedrunnermod.item.*;
 import net.dillon.speedrunnermod.item.equipment.*;
 import net.dillon.speedrunnermod.item.eye.*;
 import net.dillon.speedrunnermod.item.material.ModArmorMaterials;
@@ -160,8 +162,8 @@ public class ModItems {
             new SpeedrunnerBootsItem(
                     ModArmorMaterials.GOLDEN_SPEEDRUNNER, properties, true));
 
-    public static final Item GOLDEN_UPGRADE_SMITHING_TEMPLATE = registerModItem(ModItemIds.GOLDEN_UPGRADE_SMITHING_TEMPLATE, GoldenUpgradeSmithingTemplateItem::new);
-    public static final Item DRAGON_UPGRADE_SMITHING_TEMPLATE = registerModItem(ModItemIds.DRAGON_UPGRADE_SMITHING_TEMPLATE, DragonUpgradeSmithingTemplateItem::new);
+    public static final Item GOLDEN_UPGRADE_SMITHING_TEMPLATE = ItemsInvoker.registerModItem(ModItemIds.GOLDEN_UPGRADE_SMITHING_TEMPLATE, GoldenUpgradeSmithingTemplateItem::new);
+    public static final Item DRAGON_UPGRADE_SMITHING_TEMPLATE = ItemsInvoker.registerModItem(ModItemIds.DRAGON_UPGRADE_SMITHING_TEMPLATE, DragonUpgradeSmithingTemplateItem::new);
 
     public static final Item GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR = registerModItem(ModItemIds.GOLDEN_SPEEDRUNNER_NAUTILUS_ARMOR, properties ->
             new SpeedrunnerNautilusArmorItem(

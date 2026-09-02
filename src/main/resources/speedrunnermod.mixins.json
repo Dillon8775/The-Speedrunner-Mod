@@ -12,7 +12,7 @@
     "accessor.CrossbowItemAccessor",
     "accessor.InventoryAccessor",
     "accessor.LivingEntityAccessor",
-    "accessor.NumberProvidersInvoker",
+    "accessor.ContextIntProvidersInvoker",
     "accessor.OrePlacementsInvoker",
     "accessor.PiglinAiInvoker",
     "accessor.PoiTypesInvoker",

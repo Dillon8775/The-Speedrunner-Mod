@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.advancement.ItemLikeTrigger;
 import net.dillon.speedrunnermod.component.ModPotions;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.world.biome.ModBiomes;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;

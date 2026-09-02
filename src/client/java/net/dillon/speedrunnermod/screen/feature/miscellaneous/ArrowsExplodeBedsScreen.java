@@ -18,8 +18,8 @@ public class ArrowsExplodeBedsScreen extends DefaultMiscellaneousFeatureFactory 
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen().arrowsDestroyBeds ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            commonConfigHandler().update(o -> o.worldGen().arrowsDestroyBeds = !o.worldGen().arrowsDestroyBeds);
+        this.addButtonObject(Button.builder(common().worldgen().arrowsDestroyBeds ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            commonConfigHandler().update(o -> o.worldgen().arrowsDestroyBeds = !o.worldgen().arrowsDestroyBeds);
             this.refreshNonRestartableFeature();
         }).build());
     }

@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.network;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.mixin.accessor.LivingEntityAccessor;
 import net.dillon.speedrunnermod.network.client.CheckModeS2CPacket;
 import net.dillon.speedrunnermod.network.client.MatchClientOptionsWithServerS2CPacket;
@@ -41,6 +40,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
@@ -151,7 +152,7 @@ public class ModPackets {
                     }
 
                     // Create doom mode tasks
-                    TaskScheduler.schedule(Arithmetics.sas(1), () -> {
+                    TaskScheduler.schedule(S_asTick(1), () -> {
                         ServerLevel serverLevel = server.getLevel(ServerLevel.OVERWORLD);
                         player.connection.send(
                                 new ClientboundSetTitleTextPacket(Component.translatable("speedrunnermod.doom_mode",
@@ -165,8 +166,8 @@ public class ModPackets {
                                         .withStyle(ChatFormatting.RED)
                                 )
                         );
-                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, Arithmetics.mas(2)));
-                        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, Arithmetics.mas(2)));
+                        player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, M_asTick(2)));
+                        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, M_asTick(2)));
 
                         serverLevel.playSound(null, player.getOnPos(), SoundEvents.ENDER_DRAGON_GROWL, SoundSource.HOSTILE);
 

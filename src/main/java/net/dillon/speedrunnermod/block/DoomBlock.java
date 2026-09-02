@@ -1,11 +1,10 @@
 package net.dillon.speedrunnermod.block;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.loot.ModLootTables;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.minecraft.core.BlockPos;
@@ -37,7 +36,9 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
@@ -88,7 +89,7 @@ public class DoomBlock {
                 } else if (entityType == EntityTypes.GHAST) {
                     entity = EntityTypes.GHAST.create(level, EntitySpawnReason.MOB_SUMMONED);
                 }
-                entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.sas(30), 0, false, true, false));
+                entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, S_asTick(30), 0, false, true, false));
                 entity.snapTo(pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, level.getRandom().nextFloat() * 360.0F, 0.0F);
                 for (int i = 0; i < (entityType == EntityTypes.ZOMBIE ? 3 : 1); i++) {
                     level.addFreshEntity(entity);
@@ -133,7 +134,7 @@ public class DoomBlock {
         if (!common().general().fallDamage) {
             fallDamage = 0.0F;
         } else {
-            fallDamage = isDoomMode() ? 1.15F : 1.0F;
+            fallDamage = doomOrDefault(1.15F, 1.0F);
             if (entity.isShiftKeyDown()) {
                 fallDamage = fallDamage / 1.25F;
             }

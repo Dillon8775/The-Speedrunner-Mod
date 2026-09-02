@@ -21,7 +21,7 @@ public class ConfigurationScreen {
                         GeneralCategory.create()
                 )
                 .category(
-                        WorldGenCategory.create()
+                        WorldgenCategory.create()
                 )
                 .category(
                         ClientCategory.create()

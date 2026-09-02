@@ -3,228 +3,77 @@ package net.dillon.speedrunnermod.screen;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModConstants;
-import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
-import net.dillon.speedrunnermod.screen.synced.MatchSettingsWithServerScreen;
-import net.dillon.speedrunnermod.util.ModLinks;
-import net.minecraft.ChatFormatting;
+import net.dillon.speedrunnermod.util.ClientModUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.OptionsList;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
-import net.minecraft.util.CommonColors;
-import net.minecraft.util.Util;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.dillon.dillonlib.task.ClientTasks.openLink;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
+import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.clientConfigHandler;
-import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.saveAllChanges;
 
 /**
  * Used to create any {@code Speedrunner Mod} screens.
  */
-public abstract class AbstractModScreen extends BaseModScreen {
-    protected File configFile; // This returns null unless the screen is an options screen
-    protected final Screen parent;
-    protected Button helpButton, saveButton, openOptionsFileButton, doneButton, matchSettingsWithServer;
-    public ModButtonListWidget buttonList; // The list of all the buttons for a speedrunner mod screen, returns null if there is no need for a scrollable section
-    protected final List<AbstractWidget> featureButtons = new ArrayList<>();
+public abstract class AbstractModScreen extends OptionsSubScreen {
+    public Button doneButton;
+    public Component realTitle;
 
     public AbstractModScreen(Screen parent, Component title) {
-        super(parent, title);
-        this.parent = parent;
-    }
-
-    @Override
-    protected void init() {
-        if (!this.isOptionsScreen()) {
-            this.initializeModButtonListWidget();
-            this.buttonList.addAll(this.buttons());
-            if (this.isCentered()) {
-                int defaultY = this.buttonList.getY();
-                int defaultHeight = this.buttonList.getHeight();
-                int listHeight = Math.min(this.buttonList.getEntryContentHeight(), defaultHeight);
-                int y = Math.max((this.height - listHeight) / 2, defaultY);
-
-                this.buttonList.updateSizeAndPosition(this.width, listHeight, 0, y);
-                this.buttonList.layoutButtons(true);
-            }
-        }
-
-        this.addWidget(this.buttonList);
-
-        if (isOptionsScreen()) {
-            this.saveButton = this.addRenderableWidget(Button.builder(ModTexts.SAVE, (button) -> {
-                this.onClose();
-            }).bounds(this.getButtonsLeftSide(), this.getDoneButtonHeight(), 100, 20).build());
-
-            this.openOptionsFileButton = this.addRenderableWidget(Button.builder(ModTexts.MENU_OPEN_OPTIONS_FILE, (button) -> {
-                this.onClose();
-                this.configFile = !Minecraft.getInstance().hasShiftDown() ? commonConfigHandler().getConfigFile() : clientConfigHandler().getConfigFile();
-                Util.getPlatform().openFile(this.configFile);
-            }).bounds(this.getButtonsMiddle(), this.getDoneButtonHeight(), 100, 20).build());
-
-            this.helpButton = this.addRenderableWidget(Button.builder(Texts.BLANK, (button) -> {
-                openLink(this, ModLinks.MODRINTH, true);
-            }).bounds(this.getButtonsRightSide() + 104, this.getDoneButtonHeight(), 20, 20).build());
-            this.matchSettingsWithServer = this.addRenderableWidget(Button.builder(Texts.BLANK, (button) -> {
-                this.minecraft.gui.setScreen(new MatchSettingsWithServerScreen(this.parent));
-            }).bounds(this.getButtonsLeftSide() - 24, this.getDoneButtonHeight(), 20, 20).build());
-            this.matchSettingsWithServer.active = this.isOnServer();
-        } else {
-            if ((this instanceof FeatureScreen featureScreen && featureScreen.featurePage.getCategory() != FeatureScreenCategory.FIRST_TIME_PLAYING && featureScreen.featurePage.getCategory() != FeatureScreenCategory.SECRET_DOOM_MODE) || !(this instanceof FeatureScreen)) {
-                this.doneButton = this.addRenderableWidget(Button.builder(this.getDoneText(), (button) -> this.onClose()).bounds(this.width / 2 - 100, this.getDoneButtonHeight(), 200, 20).build());
-            }
-        }
-
-        if (this.hasSearchField()) {
-            int y = !this.isCentered() ? 10 : this.buttonList.getY() - 23;
-            this.searchField = new EditBox(this.font, this.width / 2 + 17, y, 100, 15, null);
-            this.searchField.setMaxLength(50);
-            this.searchField.setHint(Component.translatable(isOptionsScreen() ? "speedrunnermod.search_field_options_screen.placeholder" : "speedrunnermod.search_field_features_screen.placeholder").withStyle(ChatFormatting.ITALIC).withStyle(ChatFormatting.GRAY));
-            this.addWidget(this.searchField);
-        }
+        super(parent, Minecraft.getInstance().options, Texts.BLANK);
+        this.realTitle = title;
     }
 
     @Override
     protected void addFooter() {
-        this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, (button) -> this.onClose()).width(200).build());
+        this.doneButton = this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose()).width(200).build());
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-        super.extractRenderState(context, mouseX, mouseY, delta);
-        this.renderCustomText(context);
+    protected void addTitle() {
+        if (!this.shouldRenderTitleText()) {
+            return;
+        }
+
+        Component realTitle = this.realTitle;
+        if (this instanceof FeatureScreen abstractFeatureScreen) {
+            FeatureScreenCategory category = abstractFeatureScreen.featurePage.getCategory();
+            String key = abstractFeatureScreen.featurePage.getKey().toLowerCase();
+            realTitle = FeatureScreen.featureTitleText(category, key);
+        }
+
+        this.layout.addTitleHeader(realTitle, this.font);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
+
+        this.renderCustomText(graphics);
 
         if (this.shouldRenderVersionText()) {
-            int textWidth = this.width - 20;
-            int textHeight = this.height - 21;
-            int imageWidth = this.width - (SpeedrunnerModPlatforms.getPlatform().logoWidth().getWidthModifier());
-            int imageHeight = this.height - 26;
-            context.centeredText(this.font, Component.literal(ModConstants.MOD_VERSION).withStyle(ChatFormatting.AQUA), textWidth, textHeight, CommonColors.WHITE);
-            context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/icon.png"), imageWidth, imageHeight, 0.0F, 0.0F, 18, 18, 18, 18);
-            if (ModConstants.HAS_UPDATE) {
-                ClientTasks.drawUpdateSprite(context, imageWidth - 3, imageHeight - 3);
-            }
+            ClientTasks.drawModInfo(
+                    graphics,
+                    this,
+                    ModConstants.MOD_VERSION,
+                    SpeedrunnerModPlatforms.getPlatform().logoWidth().getWidthModifier(),
+                    ofSpeedrunnerMod("hud/logo_smithing_template"),
+                    ModConstants.HAS_UPDATE
+            );
         }
 
-        if (this.searchField != null) {
-            this.searchField.extractWidgetRenderState(context, mouseX, mouseY, delta);
-            this.search(!this.searchField.getValue().isEmpty());
-        }
-        this.lockOptionsAndRenderTooltips(context, mouseX, mouseY);
-
-        if (this.shouldRenderTitleText()) {
-            Component title = this.title;
-            if (this instanceof FeatureScreen abstractFeatureScreen) {
-                FeatureScreenCategory category = abstractFeatureScreen.featurePage.getCategory();
-                String key = abstractFeatureScreen.featurePage.getKey().toLowerCase();
-                title = FeatureScreen.featureTitleText(category, key);
-            }
-
-            int x = this.hasSearchField() ? this.width / 2 - 47 : this.width / 2;
-            int y = !this.isCentered() ? 13 : this.buttonList.getY() - 19;
-            context.centeredText(this.font, title, x, y, CommonColors.WHITE);
-        }
-
-        if (this.isOptionsScreen()) {
-            context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/question_mark.png"), helpButton.getX() + 2, helpButton.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-            context.blit(RenderPipelines.GUI_TEXTURED, ofSpeedrunnerMod("textures/gui/sync.png"), matchSettingsWithServer.getX() + 2, matchSettingsWithServer.getY() + 2, 0.0F, 0.0F, 16, 16, 16, 16);
-        }
-
-        if (this.shouldRenderSpeedrunnerModTitle()) {
-            renderSpeedrunnerModTitleText(context, this.width);
-        }
-        this.renderCustomObjects(context);
-        if (!this.buttons().isEmpty() || this.shouldRenderTooltips()) {
-            this.renderTooltips(context, mouseX, mouseY);
-        }
-    }
-
-    /**
-     * Renders tooltips on certain buttons.
-     */
-    protected void renderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
-        if (this.isOptionsScreen()) {
-            if (this.saveButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.SAVE_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.openOptionsFileButton.isHovered()) {
-                if (!Minecraft.getInstance().hasShiftDown()) {
-                    this.renderBasicTooltip(ModTexts.OPEN_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
-                } else {
-                    this.renderBasicTooltip(ModTexts.OPEN_CLIENT_OPTIONS_FILE_TOOLTIP, context, mouseX, mouseY);
-                }
-            }
-            if (this.helpButton.isHovered()) {
-                this.renderBasicTooltip(ModTexts.HELP_TOOLTIP, context, mouseX, mouseY);
-            }
-            if (this.matchSettingsWithServer.isHovered()) {
-                if (this.matchSettingsWithServer.active) {
-                    this.renderBasicTooltip(Component.translatable("speedrunnermod.match_settings_with_server.tooltip"), context, mouseX, mouseY);
-                } else {
-                    this.renderBasicTooltip(Component.translatable("speedrunnermod.match_settings_with_server.must_be_on_server.tooltip"), context, mouseX, mouseY);
-                }
-            }
-        }
-    }
-
-    /**
-     * Searches buttons and filters them active/inactive.
-     */
-    private void search(boolean lock) {
-        if (this.buttonList != null) {
-            for (ModButtonListWidget.ModWidgetEntry entry : this.buttonList.children()) {
-                for (AbstractWidget widget : entry.widgets) {
-                    this.filter(widget, lock);
-                }
-            }
-        }
-    }
-
-    /**
-     * Grays out a button based on a search query.
-     */
-    private void filter(AbstractWidget widget, boolean lock) {
-        String optionText = widget.getMessage().getString().toLowerCase();
-        int colonIndex = optionText.indexOf(":");
-        if (colonIndex > 0) {
-            optionText = optionText.substring(0, optionText.indexOf(":")).toLowerCase();
-        }
-        widget.active = !lock || this.searchField.getValue().isEmpty() || optionText.contains(this.searchField.getValue().toLowerCase());
-    }
-
-    /**
-     * Creates an option using a {@link OptionInstance}.
-     */
-    protected static AbstractWidget createOption(OptionInstance<?> option) {
-        return option.createButton(Minecraft.getInstance().options);
-    }
-
-    /**
-     * Sets the screen to the {@code parent} screen and resizes it correctly.
-     */
-    protected void setParentAndResize() {
-        if (this.parent != null) {
-            this.parent.resize(this.width, this.height);
-            this.minecraft.gui.setScreen(this.parent);
-        } else {
-            super.onClose();
+        if (!this.shouldRenderTitleText()) {
+            renderSpeedrunnerModTitleText(graphics, this.width);
         }
     }
 
@@ -232,17 +81,18 @@ public abstract class AbstractModScreen extends BaseModScreen {
      * Iterate through all {@link FeatureScreen}s to add to the main feature screen lists.
      */
     protected void addButtonsIteratively(FeatureScreenCategory screenCategory) {
-        this.featureButtons.clear();
-
+        List<AbstractWidget> featureButtons = new ArrayList<>();
         for (FeaturePage page : FeaturePage.values()) {
             if (page.getCategory() == screenCategory) {
                 FeatureScreen screen = this.createFeatureScreen(page);
 
-                this.featureButtons.add(Button.builder(
-                        FeatureScreen.featureTitleText(screenCategory, page.getKey()), b -> this.minecraft.gui.setScreen(screen)
+                featureButtons.add(Button.builder(
+                        FeatureScreen.featureTitleText(screenCategory, page.getKey()), b -> openScreen(screen)
                 ).build());
             }
         }
+
+        this.list.addSmall(featureButtons);
     }
 
     /**
@@ -252,173 +102,40 @@ public abstract class AbstractModScreen extends BaseModScreen {
         return page.createScreen(this);
     }
 
-    @Override
-    public void onClose() {
-        if (this.isOptionsScreen()) {
-            saveAllChanges();
-            this.setParentAndResize();
-        } else {
-            if (this.list != null) {
-                this.list.applyUnsavedChanges();
-            }
-            this.setParentAndResize();
-        }
-    }
-
     /**
      * Renders the speedrunner mod title text.
      */
     protected static void renderSpeedrunnerModTitleText(GuiGraphicsExtractor graphics, int width) {
         int middle = width / 2 - 65;
         int height = 10;
-        graphics.blit(RenderPipelines.GUI_TEXTURED, Identifier.parse("speedrunnermod:textures/gui/speedrunner_mod.png"), middle, height, 0.0F, 0.0F, 129, 16, 129, 16);
-    }
-
-    /**
-     * Initializes the custom button list widget. Used similarly to an {@link OptionsList}, but for normal buttons. Also see {@link AbstractScrollableScreen} for the top Y.
-     */
-    protected void initializeModButtonListWidget() {
-        this.buttonList = this.addRenderableWidget(new ModButtonListWidget(this.minecraft, this.width, this));
-    }
-
-    /**
-     * The list of buttons to add.
-     * @return {@code featureButtons list} (if it's not empty, for feature screen categories), otherwise returns an empty list.
-     * <p>Override this method to create a screen with a {@link ModButtonListWidget}, and add the buttons to this list to display them.</p>
-     * <p>Avoid using booleans to return different lists, doing so could result in crashes.</p>
-     */
-    protected List<AbstractWidget> buttons() {
-        return !this.featureButtons.isEmpty() ? this.featureButtons : List.of();
-    }
-
-    /**
-     * @return {@code true} if the player is on a server.
-     */
-    public boolean isOnServer() {
-        return !this.minecraft.isLocalServer() && !(this.minecraft.getCurrentServer() == null);
-    }
-
-    /**
-     * Returns the {@code "left side"} of a screen.
-     */
-    protected int getButtonsLeftSide() {
-        return this.columns() == 3 ? this.width / 2 - 50 - 105 : this.columns() == 2 ? this.width / 2 - 155 : this.width / 2 - 160;
-    }
-
-    /**
-     * Returns the {@code "middle" (or center)} of a screen.
-     */
-    protected int getButtonsMiddle() {
-        return this.columns() == 2 ? this.width / 2 - 100 : this.width / 2 - 50;
-    }
-
-    /**
-     * Returns the {@code "right side"} of a screen.
-     */
-    protected int getButtonsRightSide() {
-        return this.columns() == 3 ? this.width / 2 - 50 + 105 : this.columns() == 2 ? this.getButtonsLeftSide() + 160 : this.width / 2 + 60;
-    }
-
-    /**
-     * @return the height of buttons on a screen.
-     * <p>To add another row of buttons, add {@code 24} to this variable.</p>
-     * <p>For example, <pre>height += 24;</pre>
-     */
-    protected int getButtonsHeight() {
-        return this.height / 6 - 12;
-    }
-
-    /**
-     * @return the height for buttons on a custom screen.
-     */
-    protected int getCustomButtonsHeight() {
-        return this.height / 6 + 126;
-    }
-
-    /**
-     * @return the {@code "done"} buttons height, typically at the bottom of a screen.
-     */
-    protected int getDoneButtonHeight() {
-        return this.height - 29;
-    }
-
-    /**
-     * @return the text that should be displayed on the typical "Done" button.
-     */
-    protected Component getDoneText() {
-        return CommonComponents.GUI_DONE;
-    }
-
-    /**
-     * @return {@code true} if the screen should render tooltips.
-     * <p>This is ignored if {@code buttons.size() > 0.}</p>
-     */
-    protected boolean shouldRenderTooltips() {
-        return this.isOptionsScreen();
-    }
-
-    /**
-     * @return {@code true} if the screen should render the speedrunner mod title.
-     */
-    protected boolean shouldRenderSpeedrunnerModTitle(){
-        return false;
-    }
-
-    /**
-     * @return {@code true} if the screen should have a search field to search for features/options.
-     */
-    protected boolean hasSearchField() {
-        return this.isOptionsScreen();
+        ClientModUtil.renderSpeedrunnerModLogo(graphics, middle, height, false);
     }
 
     /**
      * Render custom text on a mod screen.
      * <p><b>Never</b> {@link Override} the {@code basic render method,} use this method instead.</p>
      */
-    protected void renderCustomText(GuiGraphicsExtractor context) {
+    protected void renderCustomText(GuiGraphicsExtractor graphics) {
     }
-
-    /**
-     * Render custom objects on a mod screen.
-     */
-    protected void renderCustomObjects(GuiGraphicsExtractor context) {
-    }
-
-    /**
-     * Renders all {@link OptionInstance} tooltips.
-     */
-    protected void lockOptionsAndRenderTooltips(GuiGraphicsExtractor context, int mouseX, int mouseY) {
-    }
-
-    /**
-     * @return if the screen should be centered.
-     */
-    public boolean isCentered() {
-        return false;
-    }
-
-    /**
-     * Returns the page ID of a screen. This is used to determined the refreshed screen.
-     */
-    public abstract String pageId();
-
-    /**
-     * Determines how many columns should be displayed on the screen.
-     */
-    protected abstract int columns();
 
     /**
      * Determines if the screen should render the "Version: v#.#" text.
      */
-    protected abstract boolean shouldRenderVersionText();
-
-    /**
-     * Determines if the screen is an options screen.
-     */
-    public abstract boolean isOptionsScreen();
+    protected boolean shouldRenderVersionText() {
+        return true;
+    }
 
     /**
      * Determines if the screen should render the title text.
      */
-    protected abstract boolean shouldRenderTitleText();
+    protected boolean shouldRenderTitleText() {
+        return false;
+    }
+
+    /**
+     * Needed because this method is abstract in {@link OptionsSubScreen}.
+     */
+    @Override
+    protected void addOptions() {
+    }
 }

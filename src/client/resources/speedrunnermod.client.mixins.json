@@ -8,6 +8,7 @@
   "package": "net.dillon.speedrunnermod.mixin.client",
   "plugin": "net.dillon.speedrunnermod.mixin.client.plugin.ClientConditionalMixinPlugin",
   "client": [
+    "GuiMixin",
     "MinecraftMixin",
     "fix.AbstractClientPlayerFix",
     "fix.SpecialModelRenderersFix",

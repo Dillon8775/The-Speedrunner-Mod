@@ -10,7 +10,8 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
@@ -28,11 +29,6 @@ public class ModWorldGeneration {
 
         addOres();
         addVegetalDecoration();
-
-        if (isDoomMode() && common().structureConfigs().stronghold.totalLibrariesPerWorld > 5) {
-            commonConfigHandler().update(o -> o.structureConfigs().stronghold.totalLibrariesPerWorld = 5);
-            LOGGER.warn("Doom mode is on, and detected too high stronghold library count. Setting to 5. May require a restart to take full effect.");
-        }
 
         LOGGER.debug("Initialized world gen features.");
     }
@@ -76,7 +72,7 @@ public class ModWorldGeneration {
      * All Speedrunner Mod {@code vegetation decoration features.}
      */
     private static void addVegetalDecoration() {
-        if (common().worldGen().generateSpeedrunnerWood) {
+        if (common().worldgen().generateSpeedrunnerWood) {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(
                             Biomes.DESERT,
                             Biomes.BADLANDS),

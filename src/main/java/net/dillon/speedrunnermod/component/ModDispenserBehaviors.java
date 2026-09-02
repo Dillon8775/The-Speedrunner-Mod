@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.component;
 import net.dillon.dillonlib.factory.Factories;
 import net.dillon.speedrunnermod.block.SkullBlockInvoker;
 import net.dillon.speedrunnermod.entity.ModEntityTypes;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;

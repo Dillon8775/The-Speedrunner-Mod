@@ -1,10 +1,9 @@
 package net.dillon.speedrunnermod.mixin.entity.living;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.InventoryPreserver;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.core.Holder;
@@ -43,6 +42,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Predicate;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(LivingEntity.class)
@@ -245,7 +246,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
         if (level > 10) {
             level = 10;
         }
-        livingTarget.addEffect(new MobEffectInstance(MobEffects.WITHER, Arithmetics.sas(3 + level), amplifier));
+        livingTarget.addEffect(new MobEffectInstance(MobEffects.WITHER, S_asTick(3 + level), amplifier));
     }
 
     /**
@@ -310,7 +311,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
      */
     @Inject(method = "checkTotemDeathProtection", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/DeathProtection;applyEffects(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V"))
     private void applyFireResistance(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
-        this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.mas(2), 0));
+        this.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, M_asTick(2), 0));
     }
 
     /**

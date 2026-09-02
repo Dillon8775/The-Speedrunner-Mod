@@ -20,38 +20,9 @@ public abstract class FeatureCategoryScreen extends AbstractModScreen {
 
     @Override
     protected void init() {
-        this.addButtonsIteratively(this.getScreenCategory());
         super.init();
-    }
 
-    @Override
-    public void onClose() {
-        this.minecraft.gui.setScreen(new FeaturesScreen(this.parent));
-    }
-
-    @Override
-    public boolean isCentered() {
-        return true;
-    }
-
-    @Override
-    protected int columns() {
-        return 2;
-    }
-
-    @Override
-    protected boolean hasSearchField() {
-        return true;
-    }
-
-    @Override
-    protected boolean shouldRenderVersionText() {
-        return true;
-    }
-
-    @Override
-    public boolean isOptionsScreen() {
-        return false;
+        this.addButtonsIteratively(this.getScreenCategory());
     }
 
     @Override

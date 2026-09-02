@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(PiglinBrute.class)
 public class PiglinBruteMixin {
@@ -21,6 +21,6 @@ public class PiglinBruteMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changePiglinBruteAttributes(EntityType<? extends PiglinBrute> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 25.0D : 50.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, doomOrDefault(25.0D, 50.0D));
     }
 }

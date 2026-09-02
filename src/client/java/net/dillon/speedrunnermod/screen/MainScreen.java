@@ -7,7 +7,6 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.feature.secretdoommode.SecretDoomModeFeatureScreen;
 import net.dillon.speedrunnermod.screen.misc.ResourcesScreen;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
@@ -17,13 +16,14 @@ import net.minecraft.network.chat.Component;
 
 import java.util.List;
 
+import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 import static net.dillon.dillonlib.task.ClientTasks.tryOpenYaclScreen;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * The {@code main screen} for the Speedrunner Mod, consisting of all the basic resources, such as options, other mods, and more.
  */
-public class MainScreen extends BaseModScreen {
+public class MainScreen extends AbstractModScreen {
 
     public MainScreen(Screen parent) {
         super(parent, Texts.BLANK);
@@ -33,48 +33,42 @@ public class MainScreen extends BaseModScreen {
     protected void init() {
         super.init();
 
-        Button configurateButton = Button.builder(Component.translatable("speedrunnermod.configure")
-                .withStyle(ChatFormatting.AQUA)
-                .withStyle(ChatFormatting.UNDERLINE), (button) ->
+        Button featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
+            openScreen(new FeaturesScreen(this));
+        }).tooltip(
+                Tooltip.create(Component.translatable("speedrunnermod.menu.features.tooltip"))
+        ).build();
+
+        Button configurateButton = Button.builder(Component.translatable("speedrunnermod.configure"), (button) ->
                 tryOpenYaclScreen(() -> ConfigurationScreen.configScreen().generateScreen(this), ModTexts.TITLE)
         ).tooltip(
                 Tooltip.create(Component.translatable("speedrunnermod.menu.options.tooltip"))
         ).build();
 
-        Button featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
-            this.minecraft.gui.setScreen(new FeaturesScreen(this));
-        }).tooltip(
-                Tooltip.create(Component.translatable("speedrunnermod.menu.features.tooltip"))
-        ).build();
-
         Button resourcesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources"), (button) -> {
-            this.minecraft.gui.setScreen(new ResourcesScreen(this));
-        }).tooltip(
-                Tooltip.create(Component.translatable("speedrunnermod.menu.resources.tooltip"))
-        ).build();
+            openScreen(new ResourcesScreen(this));
+        }).build();
 
         Button creditsButton = Button.builder(Component.translatable("speedrunnermod.menu.credits"), (button) -> {
-            this.minecraft.gui.setScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> this.minecraft.gui.setScreen(this)));
+            openScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> openScreen(this)));
         }).tooltip(
                 Tooltip.create(Component.translatable("speedrunnermod.menu.credits.tooltip"))
         ).build();
 
         Button doomModeButton = Button.builder(Component.translatable("speedrunnermod.menu.doom_mode"), (button) -> {
             if (SecretDoomModeFeatureScreen.doomModeButtonAlreadyClicked > 0) {
-                this.minecraft.gui.setScreen(FeaturePage.UM.createScreen(this));
+                openScreen(FeaturePage.UM.createScreen(this));
             } else {
-                this.minecraft.gui.setScreen(FeaturePage.YOU_ARENT_READY_FOR_THIS.createScreen(this));
+                openScreen(FeaturePage.YOU_ARENT_READY_FOR_THIS.createScreen(this));
             }
         }).build();
         doomModeButton.visible = isDoomMode();
 
         this.list.addHeader(Component.translatable("speedrunnermod.menu.features_and_settings"));
-        this.list.addBig(
-                configurateButton
-        );
         this.list.addSmall(
                 List.of(
-                        featuresButton
+                        featuresButton,
+                        configurateButton
                 )
         );
 

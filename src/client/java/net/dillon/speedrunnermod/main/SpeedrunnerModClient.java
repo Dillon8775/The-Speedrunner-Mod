@@ -8,7 +8,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.saveDedicatedServerChanges;
 
 /**
  * The home initializer for the client-side of the Speedrunner Mod.
@@ -45,35 +44,8 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      * Returns the {@code client} Speedrunner Mod {@code options handler} (for saving/loading config).
      * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
      */
-
     public static ModClientOptions.ModClientOptionsHandler clientConfigHandler() {
         return ModClientOptions.INSTANCE;
-    }
-
-    /**
-     * Saves all speedrunner mod option changes on the {@code client-side.}
-     * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
-     */
-
-    public static void saveClientChanges() {
-        clientConfigHandler().save();
-    }
-
-    /**
-     * Saves all speedrunner mod option changes (both client and server-side).
-     * <p>This should <b>ONLY</b> be called in {@code EnvType.CLIENT} classes and methods.</p>
-     */
-
-    public static void saveAllChanges() {
-        saveDedicatedServerChanges();
-        saveClientChanges();
-    }
-
-    /**
-     * Returns true if the {@code SpeedrunIGT} mod is loaded.
-     */
-    public static boolean isSpeedrunIGTLoaded() {
-        return FabricLoader.getInstance().isModLoaded("speedrunigt");
     }
 
     /**
@@ -84,16 +56,9 @@ public class SpeedrunnerModClient implements ClientModInitializer {
     }
 
     /**
-     * Returns the {@code minimum brightness} value for the speedrunner mod.
-     */
-    public static double getMinBrightness() {
-        return client().client.minimumBrightness;
-    }
-
-    /**
      * Returns the {@code maximum brightness} value for the speedrunner mod.
      */
     public static double getMaxBrightness() {
-        return (double) client().client.fullBrightAmount / 100;
+        return (double) client().general().fullBrightAmount / 100;
     }
 }

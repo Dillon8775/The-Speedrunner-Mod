@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(ZombifiedPiglin.class)
 public class ZombifiedPiglinMixin {
@@ -19,7 +19,7 @@ public class ZombifiedPiglinMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeZombifiedPiglinAttributes(CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMovementSpeed(dis, isDoomMode() ? 0.33D : 0.23D);
-        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 2.0D);
+        ModAttributeHelper.modifyMovementSpeed(dis, doomOrDefault(0.33D, 0.23D));
+        ModAttributeHelper.modifyAttackDamage(dis, doomOrDefault(7.0D, 2.0D));
     }
 }

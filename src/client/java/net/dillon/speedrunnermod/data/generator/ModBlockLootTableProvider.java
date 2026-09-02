@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
@@ -15,8 +15,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -40,7 +39,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
                         block,
                         this.applyExplosionDecay(
                                 block, LootItem.lootTableItem(ModItems.SPEEDRUNNER_STICK)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(3, 9)))
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(3, 9)))
                         )
                 )
         );
@@ -121,7 +120,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
                         this.applyExplosionDecay(
                                         block,
                                         LootItem.lootTableItem(ModItems.SPEEDRUNNER_NUGGET)
-                                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 6))))
+                                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 6))))
                                 .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
                 ));
 
@@ -160,7 +159,7 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
                 applyExplosionDecay(
                         dropWithSilkTouch,
                         LootItem.lootTableItem(ModItems.IGNEOUS_ROCK)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, 6)))
+                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(min, 6)))
                                 .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
                 )
         );
@@ -175,11 +174,11 @@ public class ModBlockLootTableProvider extends FabricBlockLootSubProvider {
                 )
                         .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), chance)))
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0f))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .when(doesNotHaveShearsOrSilkTouch())
                         .add(applyExplosionCondition(leaves, LootItem.lootTableItem(goldenApple ? Items.GOLDEN_APPLE : Items.APPLE)))
                         .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), 0.50F, 0.05555558F, 0.35F, 0.07F, 0.1F))
-                        .add(applyExplosionDecay(leaves, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2)))))
+                        .add(applyExplosionDecay(leaves, LootItem.lootTableItem(item).apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))))
                         .when(BonusLevelTableCondition.bonusLevelFlatChance(this.enchantments.getOrThrow(Enchantments.FORTUNE), NEW_LEAVES_STICK_DROP_CHANCE))
                 );
     }

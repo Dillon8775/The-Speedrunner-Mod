@@ -8,11 +8,12 @@ import net.dillon.speedrunnermod.entity.ModParticleTypes;
 import net.dillon.speedrunnermod.event.ModEventCallbacks;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModItemGroups;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItemGroups;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.menu.ModMenus;
 import net.dillon.speedrunnermod.network.ModPackets;
 import net.dillon.speedrunnermod.option.ModCommonOptions;
+import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModTags;
@@ -43,10 +44,9 @@ public class SpeedrunnerMod implements ModInitializer {
      */
     @Override
     public void onInitialize() {
-        ModConstants.initConstants();
-
-        ModConstants.safeBoot = false;
         commonConfigHandler().load();
+
+        ModConstants.initConstants();
 
         ModPackets.registerPackets();
 
@@ -97,7 +97,7 @@ public class SpeedrunnerMod implements ModInitializer {
             LOGGER.info("You dare to attempt Doom Mode? Good luck...");
         }
 
-        LOGGER.info("The Speedrunner Mod {} (for fabric) loaded successfully!", ModConstants.MOD_VERSION);
+        LOGGER.info("The Speedrunner Mod {} (for fabric) loaded successfully!", SpeedrunnerModPlatforms.getPlatform().modVersion());
     }
 
     /**

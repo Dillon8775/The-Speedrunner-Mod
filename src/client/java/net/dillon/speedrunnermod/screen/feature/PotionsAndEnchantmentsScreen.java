@@ -13,9 +13,4 @@ public class PotionsAndEnchantmentsScreen extends FeatureCategoryScreen {
     protected FeatureScreenCategory getScreenCategory() {
         return FeatureScreenCategory.POTIONS_AND_ENCHANTMENTS;
     }
-
-    @Override
-    public String pageId() {
-        return "gkbljfkosdj";
-    }
 }

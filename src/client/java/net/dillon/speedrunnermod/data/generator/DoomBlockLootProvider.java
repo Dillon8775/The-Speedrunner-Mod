@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.component.ModPotions;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.loot.ModLootTables;
 import net.dillon.speedrunnermod.tag.ModPotionsTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -20,8 +20,8 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
@@ -49,27 +49,27 @@ public class DoomBlockLootProvider extends SimpleFabricLootTableSubProvider {
         output.accept(ModLootTables.DOOM_BLOCK_LOOT, LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(
-                                ConstantValue.exactly(1.0F)
+                                ContextIntProviders.exactly(1)
                         )
                         .add(
                                 LootItem.lootTableItem(Items.DIAMOND_SWORD)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(20.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, ContextIntProviders.between(20, 33)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.NETHERITE_CHESTPLATE)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(27.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, ContextIntProviders.between(27, 33)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.BOW)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(30.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, ContextIntProviders.between(30, 33)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.CROSSBOW)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(27.0F, 33.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, ContextIntProviders.between(27, 33)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.IRON_CHESTPLATE)
-                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, UniformGenerator.between(24.0F, 28.0F)))
+                                        .apply(EnchantWithLevelsFunction.enchantWithLevels(enchantments, ContextIntProviders.between(24, 28)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.ENCHANTED_GOLDEN_APPLE)
@@ -77,7 +77,7 @@ public class DoomBlockLootProvider extends SimpleFabricLootTableSubProvider {
                         .add(
                                 LootItem.lootTableItem(Items.GOLDEN_APPLE)
                                         .setWeight(4)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3)))
                         )
                         .add(
                                 LootItem.lootTableItem(ModItems.RAID_ERADICATOR)
@@ -88,21 +88,21 @@ public class DoomBlockLootProvider extends SimpleFabricLootTableSubProvider {
                         .add(
                                 LootItem.lootTableItem(Items.FIRE_CHARGE)
                                         .setWeight(3)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 5.0F)))
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 5)))
                         )
                         .add(
                                 LootItem.lootTableItem(ModItems.DRAGON_FIREBALL)
                                         .setWeight(2)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.EXPERIENCE_BOTTLE)
                                         .setWeight(3)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 11.0F)))
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 11)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.ELYTRA)
-                                        .apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.18F, 0.45F)))
+                                        .apply(SetItemDamageFunction.setDamage(ContextFloatProviders.between(0.18F, 0.45F)))
                         )
                         .add(
                                 LootItem.lootTableItem(ModItems.KNOCKBACK_STICK)
@@ -123,11 +123,11 @@ public class DoomBlockLootProvider extends SimpleFabricLootTableSubProvider {
                         .add(
                                 LootItem.lootTableItem(Items.WIND_CHARGE)
                                         .setWeight(2)
-                                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 16.0F)))
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(4, 16)))
                         )
                         .add(
                                 LootItem.lootTableItem(Items.MACE)
-                                        .apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.12F, 0.23F)))
+                                        .apply(SetItemDamageFunction.setDamage(ContextFloatProviders.between(0.12F, 0.23F)))
                         )
                 )
         );

@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.entity.goal;
 
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.mixin.accessor.BlazeAttackGoalAccessor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
@@ -10,6 +9,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
+
 @Mixin(Blaze.BlazeAttackGoal.class)
 public class BlazeAttackGoalMixin {
 
@@ -18,7 +20,9 @@ public class BlazeAttackGoalMixin {
      */
     @Redirect(method = "tick", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/monster/Blaze$BlazeAttackGoal;attackTime:I", ordinal = 4, opcode = Opcodes.PUTFIELD))
     private void changeBlazeFireballCooldown(Blaze.BlazeAttackGoal blaze, int value) {
-        ((BlazeAttackGoalAccessor)blaze).setAttackTime(ModConstants.getBlazeFireballCooldown());
+        ((BlazeAttackGoalAccessor)blaze).setAttackTime(
+                doomOrDefault(S_asTick(3), S_asTick(9))
+        );
     }
 
     /**

@@ -16,7 +16,7 @@ public class BaseFireBlockMixin {
      */
     @Overwrite
     private static boolean inPortalDimension(Level world) {
-        if (common().worldGen().globalNetherPortals) {
+        if (common().worldgen().globalNetherPortals) {
             return world.dimension() == Level.OVERWORLD || world.dimension() == Level.NETHER || world.dimension() == Level.END;
         } else {
             return world.dimension() == Level.OVERWORLD || world.dimension() == Level.NETHER;

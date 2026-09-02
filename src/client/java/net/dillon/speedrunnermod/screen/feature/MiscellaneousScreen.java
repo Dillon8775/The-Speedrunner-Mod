@@ -13,9 +13,4 @@ public class MiscellaneousScreen extends FeatureCategoryScreen {
     protected FeatureScreenCategory getScreenCategory() {
         return FeatureScreenCategory.MISCELLANEOUS;
     }
-
-    @Override
-    public String pageId() {
-        return "gfipi0ads";
-    }
 }

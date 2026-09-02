@@ -18,8 +18,8 @@ public class SpeedrunnersWastelandBiomeScreen extends DefaultOresAndWorldGenFeat
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen().generateSpeedrunnersWasteland ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
-            commonConfigHandler().update(o -> o.worldGen().generateSpeedrunnersWasteland = !o.worldGen().generateSpeedrunnersWasteland);
+        this.addButtonObject(Button.builder(common().worldgen().generateSpeedrunnersWasteland ? ModTexts.STOP_SPEEDRUNNERS_WASTELAND_BIOME_FROM_GENERATING : ModTexts.ALLOW_SPEEDRUNNERS_WASTELAND_BIOME_TO_GENERATE, button -> {
+            commonConfigHandler().update(o -> o.worldgen().generateSpeedrunnersWasteland = !o.worldgen().generateSpeedrunnersWasteland);
             this.refreshNonRestartableFeature();
         }).build());
     }

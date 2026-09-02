@@ -1,9 +1,10 @@
-package net.dillon.speedrunnermod.data.loader;
+package net.dillon.speedrunnermod.data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
@@ -22,7 +23,7 @@ public class TheEndBiomesLoader {
         enderman.addProperty("type", "minecraft:enderman");
         enderman.addProperty("maxCount", 4);
         enderman.addProperty("minCount", 1);
-        enderman.addProperty("weight", isDoomMode() ? 85 : 10);
+        enderman.addProperty("weight", doomOrDefault(85, 10));
 
         JsonObject skeleton = new JsonObject();
         skeleton.addProperty("type", "minecraft:skeleton");

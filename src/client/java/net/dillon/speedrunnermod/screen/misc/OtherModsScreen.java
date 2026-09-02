@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.screen.misc;
 
 import net.dillon.speedrunnermod.helper.ModTexts;
-import net.dillon.speedrunnermod.screen.BaseModScreen;
+import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.dillon.speedrunnermod.util.ModLinks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import static net.dillon.dillonlib.task.ClientTasks.openLink;
 
-public class OtherModsScreen extends BaseModScreen {
+public class OtherModsScreen extends AbstractModScreen {
     private Button sodiumButton, lithiumButton, speedrunIGTButton, kryptonButton, simpleKeybindsButton, qualityOfQuesoButton;
 
     public OtherModsScreen(Screen parent) {

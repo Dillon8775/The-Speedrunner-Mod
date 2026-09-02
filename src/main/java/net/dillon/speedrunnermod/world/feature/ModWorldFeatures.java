@@ -2,13 +2,14 @@ package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.mixin.accessor.TreeFeaturesInvoker;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BlockStateProviders;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
@@ -46,8 +47,8 @@ public class ModWorldFeatures {
      * See ModWorldGenerator for more.
      */
     public static void bootstrap(BootstrapContext<Feature> context) {
-        HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
-        BlockStateProvider belowTrunkProvider = TreeFeature.defaultPlaceBelowTreeTrunkProvider(biomes);
+        HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
+        Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 
         List<BlockReplacement> speedrunnerOres = List.of(
                 BlockReplacement.replace(STONE_ORE_REPLACEABLES, ModBlocks.SPEEDRUNNER_ORE.defaultBlockState()),
@@ -72,7 +73,7 @@ public class ModWorldFeatures {
 
         context.register(DEAD_SPEEDRUNNER, defaultDeadSpeedrunner(belowTrunkProvider).build());
         context.register(DOOM_TREE, doomTree(belowTrunkProvider).build());
-        context.register(PATCH_DEAD_SPEEDRUNNER_BUSH, new SimpleBlockFeature(BlockStateProvider.simple(ModBlocks.DEAD_SPEEDRUNNER_BUSH)));
+        context.register(PATCH_DEAD_SPEEDRUNNER_BUSH, new SimpleBlockFeature(BlockStateProvider.of(ModBlocks.DEAD_SPEEDRUNNER_BUSH)));
         context.register(ORE_SPEEDRUNNER, new OreFeature(speedrunnerOres, 9));
         context.register(ORE_SPEEDRUNNER_SMALL,  new OreFeature(speedrunnerOres, 4));
         context.register(ORE_NETHER_SPEEDRUNNER, new OreFeature(netherSpeedrunnerOres, 10));
@@ -82,17 +83,17 @@ public class ModWorldFeatures {
         context.register(ORE_NETHER_EXPERIENCE, new OreFeature(netherExperienceOres, 3));
     }
 
-    private static TreeFeature.Builder defaultDeadSpeedrunner(final BlockStateProvider belowTrunkProvider) {
+    private static TreeFeature.Builder defaultDeadSpeedrunner(final Holder<BlockStateProvider> belowTrunkProvider) {
         return TreeFeaturesInvoker.invokeCreateStraightBlobTree(
                         ModBlocks.DEAD_SPEEDRUNNER_LOG, ModBlocks.DEAD_SPEEDRUNNER_LEAVES, 4, 2, 0, 2, belowTrunkProvider)
                 .ignoreVines();
     }
 
-    private static TreeFeature.Builder doomTree(final BlockStateProvider belowTrunkProvider) {
+    private static TreeFeature.Builder doomTree(final Holder<BlockStateProvider> belowTrunkProvider) {
         return new TreeFeature.Builder(
-                BlockStateProvider.simple(ModBlocks.DOOM_LOG),
+                BlockStateProvider.of(ModBlocks.DOOM_LOG),
                 new FancyTrunkPlacer(3, 11, 0),
-                BlockStateProvider.simple(ModBlocks.DOOM_LEAVES),
+                BlockStateProvider.of(ModBlocks.DOOM_LEAVES),
                 new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
                 new TwoLayersFeatureSize(0, 0, 0, OptionalInt.of(4)),
                 belowTrunkProvider

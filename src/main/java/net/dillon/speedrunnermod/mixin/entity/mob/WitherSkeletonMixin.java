@@ -1,7 +1,5 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.dillonlib.util.Arithmetics;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(WitherSkeleton.class)
@@ -24,7 +24,7 @@ public class WitherSkeletonMixin {
      */
     @ModifyArg(method = "finalizeSpawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/attributes/AttributeInstance;setBaseValue(D)V"))
     private double changeWitherSkeletonMaxDamage(double baseValue) {
-        return isDoomMode() ? 10.0D : 1.0D;
+        return doomOrDefault(10.0D, 1.0D);
     }
 
     /**
@@ -32,7 +32,7 @@ public class WitherSkeletonMixin {
      */
     @ModifyArg(method = "doHurtTarget", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/effect/MobEffectInstance;<init>(Lnet/minecraft/core/Holder;I)V"), index = 1)
     private int changeWitherEffectDuration(int x) {
-        return ModConstants.getWitherSkeletonWitherEffectDuration();
+        return doomOrDefault(200, 60);
     }
 
     /**
@@ -41,7 +41,7 @@ public class WitherSkeletonMixin {
     @Inject(method = "doHurtTarget", at = @At("RETURN"))
     private void inflictSlowness(ServerLevel world, Entity target, CallbackInfoReturnable<?> cir) {
         if (isDoomMode() && target instanceof Player player) {
-            player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(10), 0));
+            player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, S_asTick(10), 0));
         }
     }
 }

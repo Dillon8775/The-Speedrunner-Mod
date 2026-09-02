@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Guardian.class)
 public class GuardianMixin {
@@ -21,8 +21,8 @@ public class GuardianMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeGuardianAttributes(EntityType<? extends Guardian> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 7.0D : 3.0D);
-        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 24.0D : 8.0D);
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 35.0D : 15.0D);
+        ModAttributeHelper.modifyAttackDamage(dis, doomOrDefault(7.0D, 3.0D));
+        ModAttributeHelper.modifyFollowRange(dis, doomOrDefault(24.0D, 8.0D));
+        ModAttributeHelper.modifyMaxHealth(dis, doomOrDefault(35.0D, 15.0D));
     }
 }

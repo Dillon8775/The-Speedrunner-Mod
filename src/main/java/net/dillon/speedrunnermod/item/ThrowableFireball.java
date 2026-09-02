@@ -1,8 +1,7 @@
 package net.dillon.speedrunnermod.item;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
-import net.dillon.speedrunnermod.entity.goliath.Minion;
+import net.dillon.speedrunnermod.entity.goliath.MinionBase;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,6 +20,7 @@ import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
@@ -61,7 +61,7 @@ public interface ThrowableFireball {
 
             if (thrower instanceof Player player) {
                 ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer) player, new ItemStack(Items.FIRE_CHARGE));
-                player.getCooldowns().addCooldown(stack, Arithmetics.sas(getFireballCooldown(explosionPower, dragon)));
+                player.getCooldowns().addCooldown(stack, S_asTick(getFireballCooldown(explosionPower, dragon)));
                 if (!player.getAbilities().instabuild) {
                     stack.shrink(1);
                 }
@@ -87,7 +87,7 @@ public interface ThrowableFireball {
      */
     static int getExplosionPower(boolean dragon, LivingEntity thrower) {
         boolean isZombie = thrower instanceof Zombie;
-        boolean isMinion = thrower instanceof Minion minion && minion.isGoliathMinion();
+        boolean isMinion = thrower instanceof MinionBase minion && minion.isGoliathMinion();
 
         final int maxDragonPower = 5;
         int maxPower = 10;

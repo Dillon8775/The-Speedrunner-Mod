@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob.piglin;
 
 import net.dillon.speedrunnermod.component.ModAttributes;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.mixin.accessor.PiglinAiInvoker;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -16,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 @Mixin(PiglinAi.class)
 public abstract class PiglinAiMixin {
@@ -75,6 +76,6 @@ public abstract class PiglinAiMixin {
      */
     @ModifyArg(method = "isNearZombified", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/piglin/Piglin;closerThan(Lnet/minecraft/world/entity/Entity;D)Z"), index = 1)
     private static double changeNearestPiglinDistance(double radius) {
-        return ModConstants.getZombifiedPiglinRunawayDistance();
+        return common().accessibility().decreasedZombifiedPiglinScareDistance ? 2.0D : 6.0D;
     }
 }

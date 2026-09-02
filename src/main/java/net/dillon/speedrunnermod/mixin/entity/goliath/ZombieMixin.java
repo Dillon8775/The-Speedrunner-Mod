@@ -1,9 +1,10 @@
 package net.dillon.speedrunnermod.mixin.entity.goliath;
 
-import net.dillon.dillonlib.util.Arithmetics;
-import net.dillon.speedrunnermod.entity.goliath.Minion;
+import net.dillon.speedrunnermod.entity.goliath.GoliathBase;
+import net.dillon.speedrunnermod.entity.goliath.MinionBase;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.dillon.speedrunnermod.helper.ModHelper;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.dillon.speedrunnermod.tag.ModDamageTypeTags;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -35,10 +36,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Zombie.class)
-public class ZombieMixin extends Monster implements Minion {
+public class ZombieMixin extends Monster implements MinionBase {
     @Unique
     private static final EntityDataAccessor<Integer> FIREBALL_CHARGE_TIME = SynchedEntityData.defineId(Zombie.class, EntityDataSerializers.INT);
     @Unique
@@ -100,10 +102,10 @@ public class ZombieMixin extends Monster implements Minion {
      */
     @Inject(method = "<init>(Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/world/level/Level;)V", at = @At("TAIL"))
     private void changeZombieAttributes(EntityType<? extends Zombie> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyFollowRange(this, isDoomMode() ? 50.0D : 25.0D);
-        ModAttributeHelper.modifyMovementSpeed(this, isDoomMode() ? 0.33D : 0.23D);
-        ModAttributeHelper.modifyAttackDamage(this, isDoomMode() ? 7.0D : 2.0D);
-        ModAttributeHelper.modifyArmor(this, isDoomMode() ? 2.0D : 1.0D);
+        ModAttributeHelper.modifyFollowRange(this, ModCommonOptions.doomOrDefault(50.0D, 25.0D));
+        ModAttributeHelper.modifyMovementSpeed(this, ModCommonOptions.doomOrDefault(0.33D, 0.23D));
+        ModAttributeHelper.modifyAttackDamage(this, ModCommonOptions.doomOrDefault(7.0D, 2.0D));
+        ModAttributeHelper.modifyArmor(this, ModCommonOptions.doomOrDefault(2.0D, 1.0D));
     }
 
     /**
@@ -111,8 +113,8 @@ public class ZombieMixin extends Monster implements Minion {
      */
     @Inject(method = "finalizeSpawn", at = @At("RETURN"))
     private void giveZombiesFireballs(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason spawnReason, SpawnGroupData groupData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        if (level.getRandom().nextFloat() < Minion.spawnWithFireballChance()) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, Minion.zombiesFireball(Items.FIRE_CHARGE));
+        if (level.getRandom().nextFloat() < MinionBase.spawnWithFireballChance()) {
+            this.setItemSlot(EquipmentSlot.MAINHAND, MinionBase.zombiesFireball(Items.FIRE_CHARGE));
             ModAttributeHelper.modifyMaxHealth(this, this.getAttributeValue(Attributes.MAX_HEALTH) / 2);
             ModAttributeHelper.modifyArmor(this, this.getAttributeValue(Attributes.ATTACK_DAMAGE) / 2);
         }
@@ -139,10 +141,10 @@ public class ZombieMixin extends Monster implements Minion {
             }
         }
         this.setTarget(targetPlayer);
-        targetPlayer.addEffect(new MobEffectInstance(MobEffects.GLOWING, Arithmetics.sas(3)));
+        targetPlayer.addEffect(new MobEffectInstance(MobEffects.GLOWING, S_asTick(3)));
 
-        net.dillon.speedrunnermod.entity.goliath.Goliath.addAngryParticles(this);
-        net.dillon.speedrunnermod.entity.goliath.Goliath.safeFromVoid(this);
+        GoliathBase.addAngryParticles(this);
+        GoliathBase.safeFromVoid(this);
     }
 
     /**
@@ -175,7 +177,7 @@ public class ZombieMixin extends Monster implements Minion {
             return false;
         } else {
             if (isDoomMode() && target instanceof Player player) {
-                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(10), 0));
+                player.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, S_asTick(10), 0));
             }
 
             return true;

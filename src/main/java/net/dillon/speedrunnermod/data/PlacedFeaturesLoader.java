@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.data.loader;
+package net.dillon.speedrunnermod.data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -21,7 +21,7 @@ public class PlacedFeaturesLoader {
         for (JsonElement element : placement) {
             JsonObject placementObj = element.getAsJsonObject();
             if (placementObj.has("type") && placementObj.get("type").getAsString().equals("minecraft:count")) {
-                placementObj.addProperty("count", common().worldGen().makeStructuresMoreCommon ? 16 : 8);
+                placementObj.addProperty("count", common().worldgen().makeStructuresMoreCommon ? 16 : 8);
                 break;
             }
         }

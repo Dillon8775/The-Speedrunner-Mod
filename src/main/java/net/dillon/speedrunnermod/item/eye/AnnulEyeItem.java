@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.item.eye;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
@@ -31,6 +30,7 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 
 import java.util.function.Consumer;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isBalancedMode;
 
 /**
@@ -88,7 +88,7 @@ public class AnnulEyeItem extends Item implements SpeedrunnerItem {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.eye_of_annul.couldnt_find_portal_room").withStyle(ChatFormatting.RED));
             } else {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.eye_of_annul.teleporting").withStyle(ChatFormatting.LIGHT_PURPLE).withStyle(ChatFormatting.BOLD));
-                player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.mas(1));
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), M_asTick(1));
                 this.playThrowSound(world, player);
 
                 this.correctlyTeleport(world, centerBlock, player, 0.0F);

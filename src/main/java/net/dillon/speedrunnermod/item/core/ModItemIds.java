@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.item;
+package net.dillon.speedrunnermod.item.core;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

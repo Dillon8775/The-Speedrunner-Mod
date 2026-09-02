@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -13,6 +12,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(AbstractCubeMob.class)
 public abstract class AbstractCubeMobMixin extends AgeableMob {
@@ -27,7 +28,7 @@ public abstract class AbstractCubeMobMixin extends AgeableMob {
     @Inject(method = "getJumpDelay", at = @At("HEAD"), cancellable = true)
     private void modifyJumpTime(CallbackInfoReturnable<Integer> cir) {
         if (this.isHostileCube()) {
-            cir.setReturnValue(ModConstants.getSlimeJumpTime());
+            cir.setReturnValue(doomOrDefault(20, 100));
         }
     }
 
@@ -37,7 +38,7 @@ public abstract class AbstractCubeMobMixin extends AgeableMob {
     @Inject(method = "getAttackDamage", at = @At("HEAD"), cancellable = true)
     private void modifyAttackDamage(CallbackInfoReturnable<Float> cir) {
         if (this.isHostileCube()) {
-            cir.setReturnValue((float)this.getAttributeValue(Attributes.ATTACK_DAMAGE) * ModConstants.getSlimeDamageMultiplier());
+            cir.setReturnValue((float)this.getAttributeValue(Attributes.ATTACK_DAMAGE) * doomOrDefault(2.2F, 1.5F));
         }
     }
 

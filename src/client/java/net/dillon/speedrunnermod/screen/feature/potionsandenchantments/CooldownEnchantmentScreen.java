@@ -6,6 +6,8 @@ import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 
+import static net.dillon.dillonlib.task.ClientTasks.openScreen;
+
 public class CooldownEnchantmentScreen extends DefaultPotionsAndEnchantmentsFeatureFactory {
 
     public CooldownEnchantmentScreen(Screen parent, FeaturePage featurePage) {
@@ -16,19 +18,19 @@ public class CooldownEnchantmentScreen extends DefaultPotionsAndEnchantmentsFeat
     protected void init() {
         super.init();
         this.addButtonObject(Button.builder(ModTexts.MENU_ORES_AND_WORLDGEN, b -> {
-            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.ORES_AND_WORLDGEN).createScreen(this));
+            openScreen(FeaturePage.getFirstPage(FeatureScreenCategory.ORES_AND_WORLDGEN).createScreen(this));
         }).build());
         this.addButtonObject(Button.builder(ModTexts.MENU_MISCELLANEOUS, b -> {
-            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.MISCELLANEOUS).createScreen(this));
+            openScreen(FeaturePage.getFirstPage(FeatureScreenCategory.MISCELLANEOUS).createScreen(this));
         }).build());
         this.addButtonObject(Button.builder(ModTexts.MENU_FEATURE_DOOM_MODE, b -> {
-            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.DOOM_MODE).createScreen(this));
+            openScreen(FeaturePage.getFirstPage(FeatureScreenCategory.DOOM_MODE).createScreen(this));
         }).build());
         this.addButtonObject(Button.builder(ModTexts.MENU_BLOCKS_AND_ITEMS, b -> {
-            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.BLOCKS_AND_ITEMS).createScreen(this));
+            openScreen(FeaturePage.getFirstPage(FeatureScreenCategory.BLOCKS_AND_ITEMS).createScreen(this));
         }).build());
         this.addButtonObject(Button.builder(ModTexts.MENU_TOOLS_AND_ARMOR, b -> {
-            this.minecraft.gui.setScreen(FeaturePage.getFirstPage(FeatureScreenCategory.TOOLS_AND_ARMOR).createScreen(this));
+            openScreen(FeaturePage.getFirstPage(FeatureScreenCategory.TOOLS_AND_ARMOR).createScreen(this));
         }).build());
     }
 }

@@ -21,7 +21,7 @@ public class WinScreenMixin {
      */
     @Inject(method = "respawn", at = @At("TAIL"))
     private static void allowClosingOfCreditsScreen(CallbackInfo ci) {
-        clientConfigHandler().update(c -> c.client.canCloseEndCredits = true);
+        clientConfigHandler().update(c -> c.storedValues().canCloseEndCredits = true);
     }
 
     /**
@@ -29,7 +29,7 @@ public class WinScreenMixin {
      */
     @Inject(method = "onClose", at = @At("HEAD"), cancellable = true)
     private void preventClosingOfCreditsScreen(CallbackInfo ci) {
-        if (this.poem && !client().client.canCloseEndCredits) {
+        if (this.poem && !client().storedValues().canCloseEndCredits) {
             ci.cancel();
         }
     }

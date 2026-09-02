@@ -13,9 +13,4 @@ public class BlocksAndItemsScreen extends FeatureCategoryScreen {
     protected FeatureScreenCategory getScreenCategory() {
         return FeatureScreenCategory.BLOCKS_AND_ITEMS;
     }
-
-    @Override
-    public String pageId() {
-        return "gfipiads";
-    }
 }

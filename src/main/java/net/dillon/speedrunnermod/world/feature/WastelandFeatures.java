@@ -2,13 +2,14 @@ package net.dillon.speedrunnermod.world.feature;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.mixin.accessor.TreeFeaturesInvoker;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BlockStateProviders;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.*;
@@ -39,8 +40,8 @@ public class WastelandFeatures {
      * See ModWorldGenerator for more.
      */
     public static void bootstrap(BootstrapContext<Feature> context) {
-        HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
-        BlockStateProvider belowTrunkProvider = TreeFeature.defaultPlaceBelowTreeTrunkProvider(biomes);
+        HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
+        Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 
         List<BlockReplacement> speedrunnerOres = List.of(
                 BlockReplacement.replace(ModWorldFeatures.STONE_ORE_REPLACEABLES, ModBlocks.SPEEDRUNNER_ORE.defaultBlockState()),
@@ -59,9 +60,11 @@ public class WastelandFeatures {
         context.register(
                 PATCH_RAW_SPEEDRUNNER_BLOCK,
                 new BlockPileFeature(
-                        new WeightedStateProvider(WeightedList.<BlockState>builder()
-                                .add(ModBlocks.RAW_SPEEDRUNNER_BLOCK.defaultBlockState(), 19)
-                                .add(ModBlocks.SPEEDRUNNER_BLOCK.defaultBlockState(), 1))
+                        Holder.direct(
+                                new WeightedStateProvider(WeightedList.<BlockState>builder()
+                                        .add(ModBlocks.RAW_SPEEDRUNNER_BLOCK.defaultBlockState(), 19)
+                                        .add(ModBlocks.SPEEDRUNNER_BLOCK.defaultBlockState(), 1))
+                        )
                 )
         );
         context.register(
@@ -82,16 +85,16 @@ public class WastelandFeatures {
         context.register(ORE_DIAMOND_BURIED, new OreFeature(diamondOres, 12, 1.0F));
     }
 
-    private static TreeFeature.Builder speedrunnersWasteland(final BlockStateProvider belowTrunkProvider) {
+    private static TreeFeature.Builder speedrunnersWasteland(final Holder<BlockStateProvider> belowTrunkProvider) {
         return TreeFeaturesInvoker.invokeCreateStraightBlobTree(
                         ModBlocks.SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LEAVES, 5, 3, 1, 3, belowTrunkProvider)
                 .ignoreVines();
     }
 
-    private static TreeFeature.Builder fancySpeedrunnersWasteland(final BlockStateProvider belowTrunkProvider) {
-        return new TreeFeature.Builder(BlockStateProvider.simple(
+    private static TreeFeature.Builder fancySpeedrunnersWasteland(final Holder<BlockStateProvider> belowTrunkProvider) {
+        return new TreeFeature.Builder(BlockStateProvider.of(
                 ModBlocks.SPEEDRUNNER_LOG),
-                new FancyTrunkPlacer(3, 13, 0), BlockStateProvider.simple(ModBlocks.SPEEDRUNNER_LEAVES),
+                new FancyTrunkPlacer(3, 13, 0), BlockStateProvider.of(ModBlocks.SPEEDRUNNER_LEAVES),
                 new FancyFoliagePlacer(ConstantInt.of(2), ConstantInt.of(4), 4),
                 new TwoLayersFeatureSize(0, 1, 0, OptionalInt.of(4)),
                 belowTrunkProvider

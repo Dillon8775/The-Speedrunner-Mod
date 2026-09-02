@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Piglin.class)
 public abstract class PiglinMixin extends AbstractPiglin implements Awakened {
@@ -70,8 +70,8 @@ public abstract class PiglinMixin extends AbstractPiglin implements Awakened {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changePiglinAttributes(EntityType<? extends Piglin> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 24.0D : 16.0D);
-        ModAttributeHelper.modifyAttackDamage(this, isDoomMode() ? 6.0D : 2.0D);
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(24.0D, 16.0D));
+        ModAttributeHelper.modifyAttackDamage(this, doomOrDefault(6.0D, 2.0D));
     }
 
     /**

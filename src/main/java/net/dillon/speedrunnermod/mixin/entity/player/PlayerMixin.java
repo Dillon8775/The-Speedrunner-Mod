@@ -3,8 +3,7 @@ package net.dillon.speedrunnermod.mixin.entity.player;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.ModComponentHelper;
-import net.dillon.speedrunnermod.helper.ModConstants;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.core.particles.ParticleTypes;
@@ -140,7 +139,7 @@ public abstract class PlayerMixin extends LivingEntity {
         }
 
         Player self = (Player) (Object)this;
-        float increasedBreathTime = ModConstants.getPlayerBreathTime();
+        float increasedBreathTime = common().general().increasedOxygen ? 6 : 4;
         float additionalAirRecovery = (float)self.getAttributeValue(ModAttributes.BONUS_AIR_RECOVERY);
         return Math.min(air + (int)(increasedBreathTime + additionalAirRecovery), this.getMaxAirSupply());
     }

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.data.generator;
 
-import net.dillon.speedrunnermod.item.ModBlockItemIds;
-import net.dillon.speedrunnermod.item.ModItemIds;
+import net.dillon.speedrunnermod.item.core.ModBlockItemIds;
+import net.dillon.speedrunnermod.item.core.ModItemIds;
 import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;

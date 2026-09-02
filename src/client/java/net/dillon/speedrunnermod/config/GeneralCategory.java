@@ -1,9 +1,6 @@
 package net.dillon.speedrunnermod.config;
 
-import dev.isxander.yacl3.api.ConfigCategory;
-import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.OptionDescription;
-import dev.isxander.yacl3.api.OptionGroup;
+import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.BooleanControllerBuilder;
 import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
@@ -11,6 +8,7 @@ import dev.isxander.yacl3.impl.controller.TickBoxControllerBuilderImpl;
 import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.network.chat.Component;
 
+import static net.dillon.dillonlib.task.ClientTasks.isOnServer;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
 /**
@@ -34,6 +32,8 @@ public class GeneralCategory {
                                                 .controller(o -> EnumControllerBuilder.create(o)
                                                         .enumClass(Mode.class)
                                                         .formatValue(v -> Component.literal(v.getSerializedName())))
+                                                .available(!isOnServer())
+                                                .flag(OptionFlag.GAME_RESTART)
                                                 .build()
                                 )
                                 .option(
@@ -48,7 +48,7 @@ public class GeneralCategory {
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.infini_pearl_mode"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.infini_pearl_mode.description")))
-                                                .binding(false, () -> common().general().iCarusMode, v -> common().general().iCarusMode = v)
+                                                .binding(false, () -> common().general().infiniPearlMode, v -> common().general().infiniPearlMode = v)
                                                 .controller(BooleanControllerBuilder::create)
                                                 .build()
                                 )
@@ -57,7 +57,7 @@ public class GeneralCategory {
                 .group(
                         OptionGroup.createBuilder()
                                 .name(Component.translatable("speedrunnermod.options.title.player_friendly"))
-                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.player_friendly_description")))
+                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.player_friendly.description")))
                                 .option(
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.better_foods"))
@@ -70,7 +70,7 @@ public class GeneralCategory {
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.fall_damage"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.fall_damage.description")))
-                                                .binding(true, () -> common().general().fasterBlockBreaking, v -> common().general().fasterBlockBreaking = v)
+                                                .binding(true, () -> common().general().fallDamage, v -> common().general().fallDamage = v)
                                                 .controller(TickBoxControllerBuilderImpl::new)
                                                 .build()
                                 )
@@ -98,6 +98,14 @@ public class GeneralCategory {
                                                 .controller(TickBoxControllerBuilderImpl::new)
                                                 .build()
                                 )
+                                .option(
+                                        Option.<Boolean>createBuilder()
+                                                .name(Component.translatable("speedrunnermod.options.right_click_to_remove_silk_touch"))
+                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.right_click_to_remove_silk_touch.description")))
+                                                .binding(true, () -> common().general().rightClickToRemoveSilkTouch, v -> common().general().rightClickToRemoveSilkTouch = v)
+                                                .controller(TickBoxControllerBuilderImpl::new)
+                                                .build()
+                                )
                                 .build()
                 )
                 .group(
@@ -120,7 +128,7 @@ public class GeneralCategory {
                                                 .controller(o -> IntegerSliderControllerBuilder.create(o)
                                                         .range(1, 3)
                                                         .step(1)
-                                                        .formatValue(v -> v < 2 ? Component.literal("§7OFF") : Component.literal(String.valueOf(v)))
+                                                        .formatValue(v -> v == 1 ? Component.literal("§7Default") : Component.literal(String.valueOf(v)))
                                                 )
                                                 .build()
                                 )

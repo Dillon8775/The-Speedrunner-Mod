@@ -35,12 +35,12 @@ public abstract class CreateWorldScreenMixin {
      */
     @Inject(method = "init", at = @At("TAIL"))
     private void fastWorldCreationButtonFunction(CallbackInfo ci) {
-        if (!client().client.instantWorldCreation) {
+        if (!client().worldCreation().instantWorldCreation) {
             return;
         }
 
         Difficulty difficulty = null;
-        switch (client().client.worldDifficulty) {
+        switch (client().worldCreation().worldDifficulty) {
             case PEACEFUL:
                 difficulty = Difficulty.PEACEFUL;
                 break;
@@ -56,7 +56,7 @@ public abstract class CreateWorldScreenMixin {
         }
 
         WorldCreationUiState.SelectedGameMode gameMode = null;
-        switch (client().client.worldGameMode) {
+        switch (client().worldCreation().worldGameMode) {
             case SURVIVAL:
                 gameMode = WorldCreationUiState.SelectedGameMode.SURVIVAL;
                 break;
@@ -74,12 +74,12 @@ public abstract class CreateWorldScreenMixin {
         assert gameMode != null;
         assert difficulty != null;
         this.uiState.setGameMode(gameMode);
-        if (client().client.worldGameMode != WorldGameMode.HARDCORE) {
+        if (client().worldCreation().worldGameMode != WorldGameMode.HARDCORE) {
             this.uiState.setDifficulty(difficulty);
-            this.uiState.setAllowCommands(client().client.allowCommands);
+            this.uiState.setAllowCommands(client().worldCreation().allowCommands);
         }
-        if (!client().client.seed.isEmpty()) {
-            this.uiState.setSeed(client().client.seed);
+        if (!client().worldCreation().seed.isEmpty()) {
+            this.uiState.setSeed(client().worldCreation().seed);
         }
         onCreate();
     }

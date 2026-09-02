@@ -1,9 +1,6 @@
 package net.dillon.speedrunnermod.config;
 
-import dev.isxander.yacl3.api.ConfigCategory;
-import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.OptionDescription;
-import dev.isxander.yacl3.api.OptionGroup;
+import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.EnumControllerBuilder;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
@@ -12,6 +9,7 @@ import dev.isxander.yacl3.impl.controller.TickBoxControllerBuilderImpl;
 import net.dillon.speedrunnermod.option.eum.ItemMessages;
 import net.dillon.speedrunnermod.option.eum.WorldDifficulty;
 import net.dillon.speedrunnermod.option.eum.WorldGameMode;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
@@ -33,7 +31,7 @@ public class ClientCategory {
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.instant_world_creation"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.instant_world_creation.description")))
-                                                .binding(true, () -> client().client.instantWorldCreation, v -> client().client.instantWorldCreation = v)
+                                                .binding(true, () -> client().worldCreation().instantWorldCreation, v -> client().worldCreation().instantWorldCreation = v)
                                                 .controller(BooleanControllerBuilderImpl::new)
                                                 .build()
                                 )
@@ -41,7 +39,7 @@ public class ClientCategory {
                                         Option.<WorldGameMode>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.gamemode"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.gamemode.description")))
-                                                .binding(WorldGameMode.SURVIVAL, () -> client().client.worldGameMode, v -> client().client.worldGameMode = v)
+                                                .binding(WorldGameMode.SURVIVAL, () -> client().worldCreation().worldGameMode, v -> client().worldCreation().worldGameMode = v)
                                                 .controller(o -> EnumControllerBuilder.create(o)
                                                         .enumClass(WorldGameMode.class)
                                                         .formatValue(v -> Component.literal(v.getSerializedName())))
@@ -51,7 +49,7 @@ public class ClientCategory {
                                         Option.<WorldDifficulty>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.difficulty"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.difficulty.description")))
-                                                .binding(WorldDifficulty.EASY, () -> client().client.worldDifficulty, v -> client().client.worldDifficulty = v)
+                                                .binding(WorldDifficulty.EASY, () -> client().worldCreation().worldDifficulty, v -> client().worldCreation().worldDifficulty = v)
                                                 .controller(o -> EnumControllerBuilder.create(o)
                                                         .enumClass(WorldDifficulty.class)
                                                         .formatValue(v -> Component.literal(v.getSerializedName())))
@@ -61,7 +59,7 @@ public class ClientCategory {
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.allow_commands"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.allow_commands.description")))
-                                                .binding(false, () -> client().client.allowCommands, v -> client().client.allowCommands = v)
+                                                .binding(false, () -> client().worldCreation().allowCommands, v -> client().worldCreation().allowCommands = v)
                                                 .controller(BooleanControllerBuilderImpl::new)
                                                 .build()
                                 )
@@ -69,7 +67,7 @@ public class ClientCategory {
                                         Option.<String>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.seed"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.seed.description")))
-                                                .binding("", () -> client().client.seed, v -> client().client.seed = v)
+                                                .binding("", () -> client().worldCreation().seed, v -> client().worldCreation().seed = v)
                                                 .controller(StringControllerBuilderImpl::new)
                                                 .build()
                                 )
@@ -78,20 +76,21 @@ public class ClientCategory {
                 .group(
                         OptionGroup.createBuilder()
                                 .name(Component.translatable("speedrunnermod.options.title.vision"))
-                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.fog.vision")))
+                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.vision.description")))
                                 .option(
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.fog"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.fog.description")))
-                                                .binding(false, () -> client().client.fog, v -> client().client.fog = v)
+                                                .binding(false, () -> client().general().fog, v -> client().general().fog = v)
                                                 .controller(BooleanControllerBuilderImpl::new)
+                                                .flag(OptionFlag.RELOAD_CHUNKS)
                                                 .build()
                                 )
                                 .option(
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.increased_lava_vision"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.increased_lava_vision.description")))
-                                                .binding(true, () -> client().client.increasedLavaVision, v -> client().client.increasedLavaVision = v)
+                                                .binding(true, () -> client().general().increasedLavaVision, v -> client().general().increasedLavaVision = v)
                                                 .controller(TickBoxControllerBuilderImpl::new)
                                                 .build()
                                 )
@@ -105,11 +104,14 @@ public class ClientCategory {
                                         Option.<Integer>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.icarus_fireworks_inventory_slot"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.icarus_fireworks_inventory_slot.description")))
-                                                .binding(1, () -> client().client.iCarusFireworksInventorySlot, v -> client().client.iCarusFireworksInventorySlot = v)
+                                                .binding(1, () -> client().general().iCarusFireworksInventorySlot, v -> client().general().iCarusFireworksInventorySlot = v)
                                                 .controller(o -> IntegerSliderControllerBuilder.create(o)
                                                         .range(1, 36)
                                                         .step(1)
-                                                        .formatValue(v -> v < 10 ? Component.literal("Hotbar Slot " + v) : Component.literal("Slot " + v))
+                                                        .formatValue(v -> v < 10 ? Component.literal("Hotbar Slot " + v)
+                                                                .copy().withStyle(ChatFormatting.AQUA) : Component.literal("Slot " + v)
+                                                                .copy().withStyle(ChatFormatting.AQUA)
+                                                        )
                                                 )
                                                 .build()
                                 )
@@ -117,11 +119,14 @@ public class ClientCategory {
                                         Option.<Integer>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.infini_pearl_inventory_slot"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.infini_pearl_inventory_slot.description")))
-                                                .binding(1, () -> client().client.infiniPearlInventorySlot, v -> client().client.infiniPearlInventorySlot = v)
+                                                .binding(1, () -> client().general().infiniPearlInventorySlot, v -> client().general().infiniPearlInventorySlot = v)
                                                 .controller(o -> IntegerSliderControllerBuilder.create(o)
                                                         .range(1, 36)
                                                         .step(1)
-                                                        .formatValue(v -> v < 10 ? Component.literal("Hotbar Slot " + v) : Component.literal("Slot " + v))
+                                                        .formatValue(v -> v < 10 ? Component.literal("Hotbar Slot " + v)
+                                                                .copy().withStyle(ChatFormatting.AQUA) : Component.literal("Slot " + v)
+                                                                .copy().withStyle(ChatFormatting.AQUA)
+                                                        )
                                                 )
                                                 .build()
                                 )
@@ -135,7 +140,7 @@ public class ClientCategory {
                                         Option.<ItemMessages>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.item_messages"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.item_messages.description")))
-                                                .binding(ItemMessages.OVERLAY, () -> client().client.itemMessages, v -> client().client.itemMessages = v)
+                                                .binding(ItemMessages.OVERLAY, () -> client().general().itemMessages, v -> client().general().itemMessages = v)
                                                 .controller(o -> EnumControllerBuilder.create(o)
                                                         .enumClass(ItemMessages.class)
                                                         .formatValue(v -> Component.literal(v.getSerializedName())))
@@ -145,7 +150,7 @@ public class ClientCategory {
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.warning_messages"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.warning_messages.description")))
-                                                .binding(true, () -> client().client.warningMessages, v -> client().client.warningMessages = v)
+                                                .binding(true, () -> client().general().warningMessages, v -> client().general().warningMessages = v)
                                                 .controller(TickBoxControllerBuilderImpl::new)
                                                 .build()
                                 )
@@ -153,10 +158,10 @@ public class ClientCategory {
                                         Option.<Integer>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.fullbright_amount"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.fullbright_amount.description")))
-                                                .binding(1200, () -> client().client.fullBrightAmount, v -> client().client.fullBrightAmount = v)
+                                                .binding(1200, () -> client().general().fullBrightAmount, v -> client().general().fullBrightAmount = v)
                                                 .controller(o -> IntegerSliderControllerBuilder.create(o)
                                                         .range(300, 1200)
-                                                        .step(1)
+                                                        .step(10)
                                                         .formatValue(v -> Component.literal(String.valueOf(v)))
                                                 )
                                                 .build()
@@ -164,8 +169,8 @@ public class ClientCategory {
                                 .option(
                                         Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.show_reset_button"))
-                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.show_reset_button")))
-                                                .binding(true, () -> client().client.showResetButton, v -> client().client.showResetButton = v)
+                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.show_reset_button.description")))
+                                                .binding(true, () -> client().general().showResetButton, v -> client().general().showResetButton = v)
                                                 .controller(TickBoxControllerBuilderImpl::new)
                                                 .build()
                                 )

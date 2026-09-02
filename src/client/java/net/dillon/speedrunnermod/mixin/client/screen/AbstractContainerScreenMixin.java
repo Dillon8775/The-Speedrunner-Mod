@@ -37,7 +37,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
      * Adds the {@code Dragon's Aura} tooltip over armor items.
      */
     @Inject(method = "extractTooltip", at = @At("HEAD"), cancellable = true)
-    private void addDragonsAuraTooltip(GuiGraphicsExtractor context, int x, int y, CallbackInfo ci) {
+    private void addDragonsAuraTooltip(GuiGraphicsExtractor graphics, int x, int y, CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
         if (player != null && player.hasEffect(ModMobEffects.DRAGONS_AURA)) {
             Slot hoveredSlot = this.getHoveredSlot(x, y);
@@ -53,7 +53,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
             List<Component> originalTooltip = stack.getTooltipLines(Item.TooltipContext.EMPTY, player, Minecraft.getInstance().options.advancedItemTooltips ? TooltipFlag.ADVANCED : TooltipFlag.NORMAL);
             originalTooltip.add(1, Component.translatable("item.minecraft.armor.dragons_aura.tooltip").withStyle(ChatFormatting.DARK_PURPLE));
             originalTooltip.add(2, Component.translatable("item.minecraft.armor.dragons_aura.description").withStyle(ChatFormatting.GRAY));
-            context.setTooltipForNextFrame(this.font, originalTooltip, Optional.empty(), x, y);
+            graphics.setTooltipForNextFrame(this.font, originalTooltip, Optional.empty(), x, y);
             ci.cancel();
         }
     }

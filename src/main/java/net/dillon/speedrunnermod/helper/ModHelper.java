@@ -4,8 +4,8 @@ import net.dillon.dillonlib.task.CommonTasks;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
-import net.dillon.speedrunnermod.entity.goliath.Minion;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.entity.goliath.MinionBase;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.dillon.speedrunnermod.network.DedicatedServerStorage;
 import net.dillon.speedrunnermod.util.TaskScheduler;
@@ -217,7 +217,7 @@ public class ModHelper {
     }
 
     /**
-     * @return true if a zombie {@link Minion}, near the ender dragon.
+     * @return true if a zombie {@link MinionBase}, near the ender dragon.
      */
     public static boolean isZombieMinionAlive(EnderDragon dragon) {
         final int r = 300;
@@ -225,7 +225,7 @@ public class ModHelper {
         List<Zombie> zombies = getEntitiesWithinRange(dragon.level(), Zombie.class, dragon, radius);
 
         for (Zombie zombie : zombies) {
-            if (zombie instanceof Minion minion && minion.isGoliathMinion()) {
+            if (zombie instanceof MinionBase minion && minion.isGoliathMinion()) {
                 return true;
             }
         }

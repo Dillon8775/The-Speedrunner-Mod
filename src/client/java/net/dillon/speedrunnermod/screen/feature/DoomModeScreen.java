@@ -13,9 +13,4 @@ public class DoomModeScreen extends FeatureCategoryScreen {
     protected FeatureScreenCategory getScreenCategory() {
         return FeatureScreenCategory.DOOM_MODE;
     }
-
-    @Override
-    public String pageId() {
-        return "gkpiiads";
-    }
 }

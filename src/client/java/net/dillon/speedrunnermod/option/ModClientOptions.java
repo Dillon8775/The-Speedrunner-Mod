@@ -10,9 +10,18 @@ import net.dillon.speedrunnermod.option.eum.WorldGameMode;
  */
 public class ModClientOptions {
     public static final ModClientOptionsHandler INSTANCE = new ModClientOptionsHandler();
-    public final Client client = new Client();
+    private final General general = new General();
+    private final WorldCreation worldCreation = new WorldCreation();
     private final Mixins mixins = new Mixins();
     private final StoredValues storedValues = new StoredValues();
+
+    public General general() {
+        return this.general;
+    }
+
+    public WorldCreation worldCreation() {
+        return this.worldCreation;
+    }
 
     public Mixins mixins() {
         return this.mixins;
@@ -42,7 +51,7 @@ public class ModClientOptions {
         }
     }
 
-    public static class Client {
+    public static class General {
 
         /**
          * Enable/disable Minecraft's default fog.
@@ -63,31 +72,6 @@ public class ModClientOptions {
          * Determines whether warning messages are send to the player's chat.
          */
         public boolean warningMessages = true;
-
-        /**
-         * Create a new world with just one click.
-         */
-        public boolean instantWorldCreation = true;
-
-        /**
-         * Determines the gamemode they every new world should generate with.
-         */
-        public WorldGameMode worldGameMode = WorldGameMode.SURVIVAL;
-
-        /**
-         * Determines the difficulty that every new world should generate with.
-         */
-        public WorldDifficulty worldDifficulty = WorldDifficulty.EASY;
-
-        /**
-         * Allows cheats when a new world is created.
-         */
-        public boolean allowCommands = false;
-
-        /**
-         * The seed when a new world is created. Leave blank for random seed.
-         */
-        public String seed = "";
 
         /**
          * Display the reset button on the title screen, game menu screen and pause screen.
@@ -114,16 +98,34 @@ public class ModClientOptions {
          * Increases lava vision distance when submerged in lava with the fire resistance effect.
          */
         public boolean increasedLavaVision = true;
+    }
+
+    public static class WorldCreation {
 
         /**
-         * The minimum brightness amount for the Speedrunner Mod.
+         * Create a new world with just one click.
          */
-        public double minimumBrightness = 0.0D;
+        public boolean instantWorldCreation = true;
 
         /**
-         * To show people who to turn to.
+         * Determines the gamemode they every new world should generate with.
          */
-        public boolean canCloseEndCredits = false;
+        public WorldGameMode worldGameMode = WorldGameMode.SURVIVAL;
+
+        /**
+         * Determines the difficulty that every new world should generate with.
+         */
+        public WorldDifficulty worldDifficulty = WorldDifficulty.EASY;
+
+        /**
+         * Allows cheats when a new world is created.
+         */
+        public boolean allowCommands = false;
+
+        /**
+         * The seed when a new world is created. Leave blank for random seed.
+         */
+        public String seed = "";
     }
 
     public static class Mixins {
@@ -167,9 +169,14 @@ public class ModClientOptions {
          * Determines if the user should load into feature screens.
          */
         public boolean viewFeatures = true;
+
+        /**
+         * To show people who to turn to.
+         */
+        public boolean canCloseEndCredits = false;
     }
 
     public static boolean isOverlay() {
-        return SpeedrunnerModClient.client().client.itemMessages.equals(ItemMessages.OVERLAY);
+        return SpeedrunnerModClient.client().general().itemMessages.equals(ItemMessages.OVERLAY);
     }
 }

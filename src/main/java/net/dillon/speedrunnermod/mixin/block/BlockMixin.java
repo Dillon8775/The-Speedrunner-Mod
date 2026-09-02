@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Block.class)
 public class BlockMixin {
@@ -25,7 +25,7 @@ public class BlockMixin {
         if (!common().general().fallDamage) {
             fallDamage = 0.0F;
         } else {
-            fallDamage = isDoomMode() ? 1.0F : 0.7F;
+            fallDamage = doomOrDefault(1.0F, 0.7F);
             if (entity.isShiftKeyDown()) {
                 fallDamage = fallDamage / 1.25F;
             }

@@ -1,11 +1,10 @@
 package net.dillon.speedrunnermod.item.eye;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.helper.VillagerGlowCountdown;
-import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.option.eum.Mode;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.minecraft.ChatFormatting;
@@ -33,6 +32,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isBalancedMode;
 
 /**
@@ -67,30 +68,30 @@ public class RaidEradicatorItem extends Item implements SpeedrunnerItem {
                 ModHelper.sendMessageWithActionbarPref(player, Component.translatable("item.speedrunnermod.raid_eradicator.couldnt_find_raiders"));
             } else {
                 this.playWorldSound(SoundEvents.RAVAGER_ROAR, 3.0F, 1.0F, world, player);
-                player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.mas(3));
+                player.getCooldowns().addCooldown(this.getDefaultInstance(), M_asTick(3));
                 this.decrementIfPossible(player, stack);
                 ServerPlayer serverPlayer = (ServerPlayer)player;
 
                 List<Villager> villagers = ModHelper.getEntitiesWithinRange(world, Villager.class, player, radius);
 
-                TaskScheduler.schedule(Arithmetics.sas(3), () -> {
+                TaskScheduler.schedule(S_asTick(3), () -> {
                     for (Raider raider : raiders) {
                         if (!(raider instanceof Evoker) && !raider.hasCustomName() && !raider.isBaby()) {
                             raider.kill((ServerLevel)world);
                         } else {
                             Random random = new Random();
-                            raider.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(30), 2, false, true, false));
-                            raider.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Arithmetics.sas(30), 1, false, true, false));
-                            raider.addEffect(new MobEffectInstance(MobEffects.GLOWING, Arithmetics.mas(2), 0, false, true, false));
+                            raider.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, S_asTick(30), 2, false, true, false));
+                            raider.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, S_asTick(30), 1, false, true, false));
+                            raider.addEffect(new MobEffectInstance(MobEffects.GLOWING, M_asTick(2), 0, false, true, false));
                             raider.randomTeleport(player.getX() + random.nextInt(7) - 3, player.getY() + random.nextDouble() * (2.0 - 0.5) + 0.5, player.getZ() + random.nextInt(7) - 3, false, state -> true);
                         }
                     }
                     if (!villagers.isEmpty()) {
                         for (Villager villager : villagers) {
-                            villager.addEffect(new MobEffectInstance(MobEffects.REGENERATION, Arithmetics.sas(30), 1));
-                            villager.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, Arithmetics.sas(30)));
+                            villager.addEffect(new MobEffectInstance(MobEffects.REGENERATION, S_asTick(30), 1));
+                            villager.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, S_asTick(30)));
                             villager.setGlowingTag(true);
-                            ((VillagerGlowCountdown)villager).setGlowingFor(Arithmetics.mas(3));
+                            ((VillagerGlowCountdown)villager).setGlowingFor(M_asTick(3));
                         }
                     }
 

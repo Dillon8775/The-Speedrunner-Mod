@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Witch.class)
 public class WitchMixin {
@@ -21,7 +21,7 @@ public class WitchMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeWitchAttributes(EntityType<? extends Witch> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 26.0D : 14.0D);
-        ModAttributeHelper.modifyMovementSpeed(dis, isDoomMode() ? 0.35D : 0.25D);
+        ModAttributeHelper.modifyMaxHealth(dis, doomOrDefault(26.0D, 14.0D));
+        ModAttributeHelper.modifyMovementSpeed(dis, doomOrDefault(0.35D, 0.25D));
     }
 }

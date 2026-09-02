@@ -13,9 +13,4 @@ public class OresAndWorldGenScreen extends FeatureCategoryScreen {
     protected FeatureScreenCategory getScreenCategory() {
         return FeatureScreenCategory.ORES_AND_WORLDGEN;
     }
-
-    @Override
-    public String pageId() {
-        return "dfijoeijaw";
-    }
 }

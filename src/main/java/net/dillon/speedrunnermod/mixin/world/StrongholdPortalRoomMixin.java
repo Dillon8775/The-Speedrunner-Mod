@@ -1,10 +1,12 @@
 package net.dillon.speedrunnermod.mixin.world;
 
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.level.levelgen.structure.structures.StrongholdPieces;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.isEasyMode;
 
 @Mixin(StrongholdPieces.PortalRoom.class)
 public class StrongholdPortalRoomMixin {
@@ -14,6 +16,6 @@ public class StrongholdPortalRoomMixin {
      */
     @ModifyConstant(method = "postProcess", constant = @Constant(floatValue = 0.9F))
     private float changePrefilledEyeChance(float constant) {
-        return ModConstants.getPrefilledEnderEyeChance();
+        return doomOrDefault(0.99F, isEasyMode() ? 0.6F : 0.9F);
     }
 }

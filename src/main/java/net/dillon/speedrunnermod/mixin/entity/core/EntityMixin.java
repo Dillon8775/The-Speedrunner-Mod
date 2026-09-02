@@ -2,7 +2,6 @@ package net.dillon.speedrunnermod.mixin.entity.core;
 
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Entity.class)
 public abstract class EntityMixin {
@@ -35,7 +36,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "lavaIgnite", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;igniteForSeconds(F)V"))
     private float changeFireFromLavaTime(float x) {
-        return ModConstants.getFireDamageFromLavaDuration();
+        return doomOrDefault(15, 7);
     }
 
     /**
@@ -43,7 +44,7 @@ public abstract class EntityMixin {
      */
     @ModifyArg(method = "lavaHurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurtServer(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
     private float changeLavaDamageAmount(float x) {
-        return ModConstants.getLavaDamageValue();
+        return doomOrDefault(4.0F, 2.0F);
     }
 
     /**

@@ -5,13 +5,9 @@ package net.dillon.speedrunnermod.author;
  */
 public enum Authors {
     ANXIETIE,
-    ADAMVIOLA,
-    DUNCANRUNS,
     MAXENCEDC,
     KURAION,
     KWPUGH,
-    TURTYWURTY,
-    TERRAFORMERSMC,
     BLOCKLEGEND001,
     YELEEFFF,
     SERILUM,

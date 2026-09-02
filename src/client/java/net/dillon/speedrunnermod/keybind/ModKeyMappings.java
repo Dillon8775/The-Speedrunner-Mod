@@ -37,7 +37,7 @@ public class ModKeyMappings {
             .handleWorldInput(input -> {
                 Minecraft minecraft = Minecraft.getInstance();
                 if (minecraft.isLocalServer() && minecraft.getCurrentServer() == null) {
-                    if (client().client.instantWorldCreation) {
+                    if (client().worldCreation().instantWorldCreation) {
                         ClientModUtil.createNewWorld(Minecraft.getInstance());
                         return true;
                     } else {
@@ -61,7 +61,7 @@ public class ModKeyMappings {
                 } else if (!client().mixins().fogMixins) {
                     debugWarn("key.speedrunnermod.toggle_fog.mixin_disabled");
                 } else {
-                    clientConfigHandler().update(c -> c.client.fog = !c.client.fog);
+                    clientConfigHandler().update(c -> c.general().fog = !c.general().fog);
                     Minecraft.getInstance().levelExtractor.allChanged();
                     return true;
                 }
@@ -78,8 +78,8 @@ public class ModKeyMappings {
                 } else if (!client().mixins().optionInstanceMixin) {
                     debugWarn("key.speedrunnermod.toggle_fullbright.mixin_disabled");
                 } else {
-                    clientConfigHandler().update(c -> c.client.fullBright = !c.client.fullBright);
-                    Minecraft.getInstance().options.gamma().set(client().client.fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
+                    clientConfigHandler().update(c -> c.general().fullBright = !c.general().fullBright);
+                    Minecraft.getInstance().options.gamma().set(client().general().fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);
                     Minecraft.getInstance().options.save();
                     return true;
                 }

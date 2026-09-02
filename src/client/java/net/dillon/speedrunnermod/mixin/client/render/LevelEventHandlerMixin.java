@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.mixin.client.render;
 
 import net.dillon.speedrunnermod.entity.ModParticleTypes;
 import net.dillon.speedrunnermod.entity.ModStatuses;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.mixin.entity.thrown.EyeOfEnderMixin;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelEventHandler;

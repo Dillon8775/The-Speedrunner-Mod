@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.screen.misc;
 
-import net.dillon.speedrunnermod.screen.BaseModScreen;
+import net.dillon.speedrunnermod.screen.AbstractModScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import static net.dillon.dillonlib.task.ClientTasks.openLink;
 
-public class TutorialsScreen extends BaseModScreen {
+public class TutorialsScreen extends AbstractModScreen {
 
     public TutorialsScreen(Screen parent) {
         super(parent, Component.translatable("speedrunnermod.title.resources.tutorials"));

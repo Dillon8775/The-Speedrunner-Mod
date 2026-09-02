@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.item.component;
 
 import net.dillon.speedrunnermod.helper.ModComponentHelper;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

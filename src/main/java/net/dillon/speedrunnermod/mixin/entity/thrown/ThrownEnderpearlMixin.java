@@ -1,12 +1,10 @@
 package net.dillon.speedrunnermod.mixin.entity.thrown;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.entity.ModStatuses;
 import net.dillon.speedrunnermod.helper.InfiniPearl;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.item.InfiniPearlItem;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -34,6 +32,8 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(ThrownEnderpearl.class)
@@ -137,9 +137,9 @@ public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile impl
         }
 
         if (isDoomMode() && !player.hasEffect(ModMobEffects.DRAGONS_AURA) && !(player.isCreative() || player.isSpectator())) {
-            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, Arithmetics.sas(3), 0));
+            player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, S_asTick(3), 0));
         }
-        return player.hurtServer(player.level(), this.damageSources().enderPearl(), ModConstants.getEnderPearlDamageValue());
+        return player.hurtServer(player.level(), this.damageSources().enderPearl(), doomOrDefault(5.0F, 2.0F));
     }
 
     /**

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.accessor;
 
+import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -10,7 +11,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(TreeFeatures.class)
 public interface TreeFeaturesInvoker {
     @Invoker("createStraightBlobTree")
-    static TreeFeature.Builder invokeCreateStraightBlobTree(final Block oakLog, final Block oakLeaves, final int baseHeight, final int heightRandA, final int heightRandB, final int blobRadius, final BlockStateProvider belowTrunkProvider) {
+    static TreeFeature.Builder invokeCreateStraightBlobTree(final Block oakLog, final Block oakLeaves, final int baseHeight, final int heightRandA, final int heightRandB, final int blobRadius, final Holder<BlockStateProvider> belowTrunkProvider) {
         throw new AssertionError();
     }
 }

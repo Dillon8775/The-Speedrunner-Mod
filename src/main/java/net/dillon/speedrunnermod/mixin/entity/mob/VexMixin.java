@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
@@ -14,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Vex.class)
@@ -28,8 +28,8 @@ public class VexMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeVexAttributes(EntityType<? extends Vex> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 7.0D : 14.0D);
-        ModAttributeHelper.modifyAttackDamage(this, isDoomMode() ? 3.0D : 4.0D);
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(7.0D, 14.0D));
+        ModAttributeHelper.modifyAttackDamage(this, doomOrDefault(3.0D, 4.0D));
     }
 
     /**
@@ -46,7 +46,7 @@ public class VexMixin extends Monster {
      */
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/Vex;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)V"), index = 1)
     private float increaseVexDecayDamage(float amount) {
-        return ModConstants.getVexDecayDamageValue();
+        return doomOrDefault(100.0F, 1.0F);
     }
 
     /**

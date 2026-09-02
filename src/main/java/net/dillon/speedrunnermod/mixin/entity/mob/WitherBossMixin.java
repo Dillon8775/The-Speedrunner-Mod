@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -15,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
+
 @Mixin(WitherBoss.class)
 public class WitherBossMixin extends Monster {
 
@@ -27,7 +28,7 @@ public class WitherBossMixin extends Monster {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeWitherMaxHealth(EntityType<? extends WitherBoss> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyMaxHealth(this, ModConstants.getWitherMaxHealth());
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(250.0D, 100.0D));
     }
 
     /**

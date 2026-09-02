@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModEnchantmentTags;
 import net.dillon.speedrunnermod.tag.ModPotionsTags;
 import net.minecraft.advancements.predicates.DataComponentMatchers;
@@ -26,7 +26,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.trading.TradeCost;
 import net.minecraft.world.item.trading.VillagerTrade;
 import net.minecraft.world.level.storage.loot.functions.*;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.List;
 import java.util.Optional;
@@ -324,7 +324,7 @@ public class ModTradesProvider {
      */
     public static List<LootItemFunction> enchantedItem(final HolderGetter<Item> items, final HolderSet<Enchantment> options, final Item expectedItem) {
         return List.of(
-                new EnchantWithLevelsFunction.Builder(UniformGenerator.between(33.0F, 36.0F))
+                new EnchantWithLevelsFunction.Builder(ContextIntProviders.between(33, 36))
                         .withOptions(options)
                         .build(),
                 FilteredFunction.filtered(

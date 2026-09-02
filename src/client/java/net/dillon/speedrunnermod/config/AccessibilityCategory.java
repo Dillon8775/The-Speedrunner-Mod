@@ -1,9 +1,6 @@
 package net.dillon.speedrunnermod.config;
 
-import dev.isxander.yacl3.api.ConfigCategory;
-import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.api.OptionDescription;
-import dev.isxander.yacl3.api.OptionGroup;
+import dev.isxander.yacl3.api.*;
 import dev.isxander.yacl3.api.controller.IntegerSliderControllerBuilder;
 import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.TickBoxControllerBuilderImpl;
@@ -20,36 +17,6 @@ public class AccessibilityCategory {
         return ConfigCategory.createBuilder()
                 .name(Component.translatable("speedrunnermod.options.title.accessibility"))
                 .tooltip(Component.translatable("speedrunnermod.options.accessibility.tooltip"))
-                .group(
-                        OptionGroup.createBuilder()
-                                .name(Component.translatable("speedrunnermod.options.title.advanced_worldgen"))
-                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.advanced_worldgen.description")))
-                                .option(
-                                        Option.<Boolean>createBuilder()
-                                                .name(Component.translatable("speedrunnermod.options.modified_stronghold_generation"))
-                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.modified_stronghold_generation.description")))
-                                                .binding(true, () -> common().accessibility().modifiedStrongholdGeneration, v -> common().accessibility().modifiedStrongholdGeneration = v)
-                                                .controller(TickBoxControllerBuilderImpl::new)
-                                                .build()
-                                )
-                                .option(
-                                        Option.<Boolean>createBuilder()
-                                                .name(Component.translatable("speedrunnermod.options.modified_stronghold_y_generation"))
-                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.modified_stronghold_y_generation")))
-                                                .binding(true, () -> common().accessibility().modifiedStrongholdYGeneration, v -> common().accessibility().modifiedStrongholdYGeneration = v)
-                                                .controller(TickBoxControllerBuilderImpl::new)
-                                                .build()
-                                )
-                                .option(
-                                        Option.<Boolean>createBuilder()
-                                                .name(Component.translatable("speedrunnermod.options.modified_nether_fortress_generation"))
-                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.modified_nether_fortress_generation.description")))
-                                                .binding(true, () -> common().accessibility().modifiedNetherFortressGeneration, v -> common().accessibility().modifiedNetherFortressGeneration = v)
-                                                .controller(TickBoxControllerBuilderImpl::new)
-                                                .build()
-                                )
-                                .build()
-                )
                 .group(
                         OptionGroup.createBuilder()
                                 .name(Component.translatable("speedrunnermod.options.title.items"))
@@ -86,18 +53,6 @@ public class AccessibilityCategory {
                                                 .controller(BooleanControllerBuilderImpl::new)
                                                 .build()
                                 )
-                                .option(
-                                        Option.<Integer>createBuilder()
-                                                .name(Component.translatable("speedrunnermod.options.ender_eye_breaking_cooldown"))
-                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.ender_eye_breaking_cooldown.description")))
-                                                .binding(4, () -> common().accessibility().enderEyeBreakingCooldown, v -> common().accessibility().enderEyeBreakingCooldown = v)
-                                                .controller(o -> IntegerSliderControllerBuilder.create(o)
-                                                        .range(1, 10)
-                                                        .step(1)
-                                                        .formatValue(v -> Component.literal(v + "s"))
-                                                )
-                                                .build()
-                                )
                                 .build()
                 )
                 .group(
@@ -122,10 +77,51 @@ public class AccessibilityCategory {
                                 )
                                 .option(
                                         Option.<Boolean>createBuilder()
+                                                .name(Component.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither"))
+                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.dragon_immunity_from_goliath_and_wither.description")))
+                                                .binding(true, () -> common().accessibility().dragonImmunityFromGoliathAndWither, v -> common().accessibility().dragonImmunityFromGoliathAndWither = v)
+                                                .controller(TickBoxControllerBuilderImpl::new)
+                                                .build()
+                                )
+                                .option(
+                                        Option.<Boolean>createBuilder()
                                                 .name(Component.translatable("speedrunnermod.options.decreased_zombified_piglin_scare_distance"))
                                                 .description(OptionDescription.of(Component.translatable("speedrunnermod.options.decreased_zombified_piglin_scare_distance.description")))
                                                 .binding(true, () -> common().accessibility().decreasedZombifiedPiglinScareDistance, v -> common().accessibility().decreasedZombifiedPiglinScareDistance = v)
                                                 .controller(TickBoxControllerBuilderImpl::new)
+                                                .build()
+                                )
+                                .build()
+                )
+                .group(
+                        OptionGroup.createBuilder()
+                                .name(Component.translatable("speedrunnermod.options.title.advanced_worldgen"))
+                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.advanced_worldgen.description")))
+                                .option(
+                                        Option.<Boolean>createBuilder()
+                                                .name(Component.translatable("speedrunnermod.options.modified_stronghold_generation"))
+                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.modified_stronghold_generation.description")))
+                                                .binding(true, () -> common().accessibility().modifiedStrongholdGeneration, v -> common().accessibility().modifiedStrongholdGeneration = v)
+                                                .controller(TickBoxControllerBuilderImpl::new)
+                                                .flag(OptionFlag.GAME_RESTART)
+                                                .build()
+                                )
+                                .option(
+                                        Option.<Boolean>createBuilder()
+                                                .name(Component.translatable("speedrunnermod.options.modified_stronghold_y_generation"))
+                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.modified_stronghold_y_generation.description")))
+                                                .binding(true, () -> common().accessibility().modifiedStrongholdYGeneration, v -> common().accessibility().modifiedStrongholdYGeneration = v)
+                                                .controller(TickBoxControllerBuilderImpl::new)
+                                                .flag(OptionFlag.GAME_RESTART)
+                                                .build()
+                                )
+                                .option(
+                                        Option.<Boolean>createBuilder()
+                                                .name(Component.translatable("speedrunnermod.options.modified_nether_fortress_generation"))
+                                                .description(OptionDescription.of(Component.translatable("speedrunnermod.options.modified_nether_fortress_generation.description")))
+                                                .binding(true, () -> common().accessibility().modifiedNetherFortressGeneration, v -> common().accessibility().modifiedNetherFortressGeneration = v)
+                                                .controller(TickBoxControllerBuilderImpl::new)
+                                                .flag(OptionFlag.GAME_RESTART)
                                                 .build()
                                 )
                                 .build()

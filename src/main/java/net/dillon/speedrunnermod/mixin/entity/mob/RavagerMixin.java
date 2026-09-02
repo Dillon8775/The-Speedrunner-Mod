@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Ravager.class)
@@ -28,10 +29,10 @@ public class RavagerMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeRavagerAttributes(EntityType<? extends Ravager> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 100.0D : 50.0D);
-        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 16.0D : 10.0D);
-        ModAttributeHelper.modifyAttackKnockback(dis, isDoomMode() ? 1.6D : 1.1D);
-        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 48.0D : 32.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, ModCommonOptions.doomOrDefault(100.0D, 50.0D));
+        ModAttributeHelper.modifyAttackDamage(dis, ModCommonOptions.doomOrDefault(16.0D, 10.0D));
+        ModAttributeHelper.modifyAttackKnockback(dis, ModCommonOptions.doomOrDefault(1.6D, 1.1D));
+        ModAttributeHelper.modifyFollowRange(dis, ModCommonOptions.doomOrDefault(48.0D, 32.0D));
     }
 
     /**
@@ -40,7 +41,7 @@ public class RavagerMixin {
     @Inject(method = "doHurtTarget", at = @At("RETURN"))
     private void ravagerInflictsSlowness(ServerLevel world, Entity target, CallbackInfoReturnable<Boolean> cir) {
         if (isDoomMode() && target instanceof Player) {
-            ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(10), 0));
+            ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, S_asTick(10), 0));
         }
     }
 }

@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.menu;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.core.Holder;

@@ -49,7 +49,7 @@ public class ClientModPackets {
 
         ClientPlayNetworking.registerGlobalReceiver(CheckModeS2CPacket.PACKET, (packet, context) -> {
             if (common().general().mode != packet.serverSideMode()) {
-                context.client().getConnection().getConnection().disconnect(ModTexts.MODE_DOESNT_MATCH_SERVER_SETTING);
+                context.client().getConnection().getConnection().disconnect(Component.translatable("speedrunnermod.mode.doesnt_match_server"));
                 context.client().disconnect(new ModeDoesntMatchScreen(packet.serverSideMode()), false, false);
             }
         });
@@ -151,7 +151,7 @@ public class ClientModPackets {
     public static void syncFwc(Minecraft client, int delayTicks) {
         IntegratedServer integratedServer = client.getSingleplayerServer();
         if (integratedServer != null) {
-            integratedServer.setWorldAllowCommands(client().client.allowCommands);
+            integratedServer.setWorldAllowCommands(client().worldCreation().allowCommands);
             PermissionSet permissionPredicate = integratedServer.getProfilePermissions(client.player.nameAndId());
             client.player.setPermissions(permissionPredicate);
 
@@ -167,7 +167,7 @@ public class ClientModPackets {
      * Updates client-sided options and sends to server-side.
      */
     public static void sendNewC2SOptions() {
-        ModClientOptions.Client options = client().client;
+        ModClientOptions.General options = client().general();
         ClientPlayNetworking.send(new ClientPreferencesC2SPacket(
                 isOverlay(), options.warningMessages, options.iCarusFireworksInventorySlot, options.infiniPearlInventorySlot
         ));

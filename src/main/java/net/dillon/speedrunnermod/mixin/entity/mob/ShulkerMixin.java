@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Shulker.class)
@@ -36,7 +37,7 @@ public abstract class ShulkerMixin extends AbstractGolem {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeShulkerAttributes(EntityType<? extends Shulker> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 32.0D : 20.0D);
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(32.0D, 0.0D));
     }
 
     /**

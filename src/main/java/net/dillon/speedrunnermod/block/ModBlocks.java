@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.block;
 
-import net.dillon.speedrunnermod.item.ModBlockIds;
-import net.dillon.speedrunnermod.item.ModBlockItemIds;
+import net.dillon.speedrunnermod.item.core.ModBlockIds;
+import net.dillon.speedrunnermod.item.core.ModBlockItemIds;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;

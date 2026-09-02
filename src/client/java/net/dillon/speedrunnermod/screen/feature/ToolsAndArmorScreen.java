@@ -13,9 +13,4 @@ public class ToolsAndArmorScreen extends FeatureCategoryScreen {
     protected FeatureScreenCategory getScreenCategory() {
         return FeatureScreenCategory.TOOLS_AND_ARMOR;
     }
-
-    @Override
-    public String pageId() {
-        return "gfnipiads";
-    }
 }

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.entity;
 
 import net.dillon.dillonlib.factory.Factories;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.boat.Boat;

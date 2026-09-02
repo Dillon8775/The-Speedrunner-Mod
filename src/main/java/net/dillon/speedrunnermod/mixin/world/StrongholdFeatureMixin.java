@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.world;
 
-import net.dillon.speedrunnermod.helper.ModConstants;
 import net.minecraft.world.level.levelgen.structure.structures.StrongholdStructure;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -8,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 /**
  * Changes how stronghold's initially generate in a world.
@@ -21,8 +21,8 @@ public abstract class StrongholdFeatureMixin {
     @ModifyArgs(method = "generatePieces", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/structure/pieces/StructurePiecesBuilder;moveBelowSeaLevel(IILnet/minecraft/util/RandomSource;I)I"))
     private static void changeStrongholdMinAndMaxY(Args args) {
         if (common().accessibility().modifiedStrongholdYGeneration) {
-            args.set(1, ModConstants.getStrongholdMinY());
-            args.set(0, ModConstants.getStrongholdMaxY());
+            args.set(1, doomOrDefault(-48, 27)); // Min Y
+            args.set(0, doomOrDefault(0, 63)); // Max Y
         }
     }
 }

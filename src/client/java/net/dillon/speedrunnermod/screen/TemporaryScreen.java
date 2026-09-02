@@ -19,32 +19,12 @@ public class TemporaryScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void renderCustomText(GuiGraphicsExtractor context) {
-        context.centeredText(this.font, this.text, this.width / 2, 100, CommonColors.WHITE);
-    }
-
-    @Override
-    public String pageId() {
-        return "bfipdfsioads";
-    }
-
-    @Override
-    protected int columns() {
-        return 0;
+    protected void renderCustomText(GuiGraphicsExtractor graphics) {
+        graphics.centeredText(this.font, this.text, this.width / 2, 100, CommonColors.WHITE);
     }
 
     @Override
     protected boolean shouldRenderVersionText() {
-        return false;
-    }
-
-    @Override
-    public boolean isOptionsScreen() {
-        return false;
-    }
-
-    @Override
-    protected boolean shouldRenderTitleText() {
         return false;
     }
 }

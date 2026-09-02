@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.entity.goal;
 
-import net.dillon.speedrunnermod.entity.goliath.Minion;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.entity.goliath.MinionBase;
 import net.dillon.speedrunnermod.item.ThrowableFireball;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.PathfinderMob;
@@ -32,7 +32,7 @@ public class ZombieAttackGoalMixin extends MeleeAttackGoal {
     @Inject(method = "tick", at = @At("TAIL"))
     private void zombieFireballGoal(CallbackInfo ci) {
         ItemStack heldItem = this.zombie.getItemBySlot(EquipmentSlot.MAINHAND);
-        if (!this.zombie.isAggressive() || !heldItem.is(ModItemTags.THROWABLE_FIREBALLS) || !(this.zombie instanceof Minion minion)) {
+        if (!this.zombie.isAggressive() || !heldItem.is(ModItemTags.THROWABLE_FIREBALLS) || !(this.zombie instanceof MinionBase minion)) {
             return;
         }
 
@@ -41,7 +41,7 @@ public class ZombieAttackGoalMixin extends MeleeAttackGoal {
         }
         minion.setFireballChargeTime(minion.getFireballChargeTime() + 1);
 
-        if (minion.getFireballChargeTime() >= Minion.fireballChargeTime(minion)) {
+        if (minion.getFireballChargeTime() >= MinionBase.fireballChargeTime(minion)) {
             ThrowableFireball.createFireballEntity(this.zombie.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.DRAGON_FIREBALL), this.zombie, this.zombie.getUsedItemHand());
             minion.setFireballChargeTime(0);
         }

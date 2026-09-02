@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Zoglin.class)
 public class ZoglinMixin {
@@ -21,9 +21,9 @@ public class ZoglinMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeZoglinAttributes(EntityType<? extends Zoglin> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
-        ModAttributeHelper.modifyKnockbackResistance(dis, isDoomMode() ? 0.7D : 0.6D);
-        ModAttributeHelper.modifyAttackKnockback(dis, isDoomMode() ? 1.2D : 0.5D);
-        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, doomOrDefault(60.0D, 25.0D));
+        ModAttributeHelper.modifyKnockbackResistance(dis, doomOrDefault(0.7D, 0.6D));
+        ModAttributeHelper.modifyAttackKnockback(dis, doomOrDefault(1.2D, 0.5D));
+        ModAttributeHelper.modifyAttackDamage(dis, doomOrDefault(8.0D, 4.0D));
     }
 }

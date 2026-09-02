@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.item.eye;
 
 import net.dillon.dillonlib.task.CommonTasks;
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModDataComponentTypes;
 import net.dillon.speedrunnermod.entity.Awakened;
@@ -33,6 +32,7 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
@@ -103,7 +103,7 @@ public class PiglinAwakenerItem extends Item implements SpeedrunnerItem {
                     int piglinTeleported = 0;
                     for (Piglin piglin : piglins) {
                         if (world.getRandom().nextFloat() < 0.50F) {
-                            piglin.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, Arithmetics.mas(1), 0, false, true, false));
+                            piglin.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, M_asTick(1), 0, false, true, false));
                         }
                         double x = !sneakingWhenClicked ? player.getX() + world.getRandom().nextInt(7) - 3 : player.getX();
                         double y = !sneakingWhenClicked ? player.getY() + world.getRandom().nextDouble() * (2.0 - 0.5) + 0.5 : player.getY();

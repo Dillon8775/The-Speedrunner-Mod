@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
+import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.ElderGuardian;
@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 
 @Mixin(ElderGuardian.class)
 public class ElderGuardianMixin {
@@ -25,8 +26,8 @@ public class ElderGuardianMixin {
     private void changeElderGuardianAttributes(EntityType<? extends ElderGuardian> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
         ModAttributeHelper.modifyMovementSpeed(dis, 0.30000001192092896D);
-        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 50.0D : 25.0D);
+        ModAttributeHelper.modifyAttackDamage(dis, ModCommonOptions.doomOrDefault(8.0D, 4.0D));
+        ModAttributeHelper.modifyMaxHealth(dis, ModCommonOptions.doomOrDefault(50.0D, 25.0D));
     }
 
     /**
@@ -34,7 +35,7 @@ public class ElderGuardianMixin {
      */
     @ModifyConstant(method = "customServerAiStep", constant = @Constant(intValue = 1200))
     private int changeRandom(int constant) {
-        return isDoomMode() ? 6000 : 1200;
+        return ModCommonOptions.doomOrDefault(6000, 1200);
     }
 
     /**
@@ -42,7 +43,7 @@ public class ElderGuardianMixin {
      */
     @ModifyConstant(method = "customServerAiStep", constant = @Constant(intValue = 6000))
     private int changeMiningFatigueDuration(int constant) {
-        return isDoomMode() ? Arithmetics.mas(5) : Arithmetics.sas(30);
+        return ModCommonOptions.doomOrDefault(M_asTick(5), S_asTick(30));
     }
 
     /**
@@ -50,6 +51,6 @@ public class ElderGuardianMixin {
      */
     @ModifyConstant(method = "customServerAiStep", constant = @Constant(doubleValue = 50.0D))
     private double changePlayerRadius(double constant) {
-        return isDoomMode() ? 55.0D : 25.0D;
+        return ModCommonOptions.doomOrDefault(55.0D, 25.0D);
     }
 }

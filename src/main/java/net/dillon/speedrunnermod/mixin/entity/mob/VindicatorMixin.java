@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.mixin.entity.mob;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(Vindicator.class)
@@ -30,8 +31,8 @@ public abstract class VindicatorMixin extends AbstractIllager {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeVindicatorAttributes(EntityType<? extends Vindicator> entityType, Level world, CallbackInfo ci) {
-        ModAttributeHelper.modifyFollowRange(this, isDoomMode() ? 48.0D : 12.0D);
-        ModAttributeHelper.modifyMaxHealth(this, isDoomMode() ? 20.0D : 24.0D);
+        ModAttributeHelper.modifyFollowRange(this, doomOrDefault(48.0D, 12.0D));
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(20.0D, 24.0D));
     }
 
     /**
@@ -43,7 +44,7 @@ public abstract class VindicatorMixin extends AbstractIllager {
             return false;
         } else {
             if (isDoomMode() && target instanceof Player) {
-                ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(10), 0));
+                ((Player)target).addEffect(new MobEffectInstance(MobEffects.SLOWNESS, S_asTick(10), 0));
             }
 
             return true;

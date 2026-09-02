@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.data.loader;
+package net.dillon.speedrunnermod.data;
 
 /**
  * A class used specifically to get the names of certain Minecraft ".json" files.

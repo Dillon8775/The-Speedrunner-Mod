@@ -18,8 +18,8 @@ public class CommonOresScreen extends DefaultOresAndWorldGenFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen().commonOres ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            commonConfigHandler().update(o -> o.worldGen().commonOres = !o.worldGen().commonOres);
+        this.addButtonObject(Button.builder(common().worldgen().commonOres ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            commonConfigHandler().update(o -> o.worldgen().commonOres = !o.worldgen().commonOres);
             this.refreshNonRestartableFeature();
         }).build());
     }

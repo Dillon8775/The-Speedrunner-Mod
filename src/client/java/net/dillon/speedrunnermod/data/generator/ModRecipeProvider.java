@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.data.generator;
 import com.google.common.collect.ImmutableList;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.dillon.speedrunnermod.component.ModPotions;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.recipe.*;
 import net.dillon.speedrunnermod.tag.ModBlockItemTags;
 import net.dillon.speedrunnermod.tag.ModItemTags;

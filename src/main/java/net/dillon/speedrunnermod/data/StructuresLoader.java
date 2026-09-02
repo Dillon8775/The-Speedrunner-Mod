@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.data.loader;
+package net.dillon.speedrunnermod.data;
 
 import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.option.StructureConfig;
@@ -102,10 +102,10 @@ public class StructuresLoader {
      */
     public static void modifyStrongholds(JsonElement jsonElement) {
         if (!isDoomMode()) {
-            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", common().structureConfigs().stronghold.distance);
-            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", common().structureConfigs().stronghold.spread);
+            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("distance", common().structureConfigs().stronghold.distance());
+            jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("spread", common().structureConfigs().stronghold.spread());
         }
-        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", common().structureConfigs().stronghold.totalStrongholdsPerWorld);
+        jsonElement.getAsJsonObject().getAsJsonObject("placement").addProperty("count", common().structureConfigs().stronghold.totalStrongholdsPerWorld());
     }
 
     /**

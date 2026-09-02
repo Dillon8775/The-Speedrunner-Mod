@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.entity.goliath;
 
-import net.dillon.dillonlib.util.Arithmetics;
+import net.dillon.speedrunnermod.mixin.entity.goliath.Goliath;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -15,10 +15,12 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
+
 /**
- * See {@link net.dillon.speedrunnermod.mixin.entity.goliath.Goliath} for the actual Goliath code.
+ * @see Goliath
  */
-public interface Goliath {
+public interface GoliathBase {
     void setSpawnedZombies(boolean value);
     boolean hasSpawnedZombies();
 
@@ -66,9 +68,9 @@ public interface Goliath {
         if (bl) {
             EnchantmentHelper.doPostAttackEffects(world, target, damageSource);
             if (!(attacker.getHealth() < attacker.getMaxHealth() / 3)) {
-                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, Arithmetics.sas(3)));
-                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, Arithmetics.sas(3)));
-                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, Arithmetics.sas(7)));
+                target.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, S_asTick(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, S_asTick(3)));
+                target.addEffect(new MobEffectInstance(MobEffects.NAUSEA, S_asTick(7)));
             }
             if (!attacker.isBaby()) {
                 knockback(attacker, target);

@@ -11,7 +11,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 public class ModCommonOptions {
     public static final ModOptionsHandler INSTANCE = new ModOptionsHandler();
     private final General general = new General();
-    private final WorldGen worldGen = new WorldGen();
+    private final Worldgen worldgen = new Worldgen();
     private final Accessibility accessibility = new Accessibility();
     private final StructureConfigs structureConfigs = new StructureConfigs();
     private final Mixins mixins = new Mixins();
@@ -20,8 +20,8 @@ public class ModCommonOptions {
         return this.general;
     }
 
-    public WorldGen worldGen() {
-        return this.worldGen;
+    public Worldgen worldgen() {
+        return this.worldgen;
     }
 
     public Accessibility accessibility() {
@@ -79,7 +79,7 @@ public class ModCommonOptions {
         public boolean iCarusMode = false;
 
         /**
-         * Grants the player with an ender pearl that does not do damage nor get consumed upon use.
+         * Grants the player with an ender pearl that does defaultValue do damage nor get consumed upon use.
          */
         public boolean infiniPearlMode = false;
 
@@ -169,7 +169,7 @@ public class ModCommonOptions {
     /**
      * All {@code WorldGen Speedrunner Mod options.}
      */
-    public static class WorldGen {
+    public static class Worldgen {
 
         /**
          * Determines how frequently Minecraft structures generate throughout the world.
@@ -233,7 +233,7 @@ public class ModCommonOptions {
         public boolean modifiedStrongholdGeneration = true;
 
         /**
-         * Allows strongholds to generate at higher/lower Y-levels, depending on if doom mode is enabled or not.
+         * Allows strongholds to generate at higher/lower Y-levels, depending on if doom mode is enabled or defaultValue.
          */
         public boolean modifiedStrongholdYGeneration = true;
 
@@ -309,13 +309,13 @@ public class ModCommonOptions {
 
         /**
          * Applies the end gateway block entity mixin into the game.
-         * <p>Disable this if you do not want doom stone to generate throughout the end when doom mode is enabled, or if another mod is trying to generate other blocks.</p>
+         * <p>Disable this if you do defaultValue want doom stone to generate throughout the end when doom mode is enabled, or if another mod is trying to generate other blocks.</p>
          */
         public boolean theEndGatewayBlockEntityMixin = true;
 
         /**
          * Applies the item stack mixin into the game
-         * <p>Disable this if you do not want modded attributes to be grouped correctly.</p>
+         * <p>Disable this if you do defaultValue want modded attributes to be grouped correctly.</p>
          */
         public boolean itemStackMixin = true;
     }
@@ -345,7 +345,7 @@ public class ModCommonOptions {
      * Returns the current {@code Ender Eye Breaking Cooldown} option in ticks.
      */
     public int getEnderEyeBreakingCooldown() {
-        return Arithmetics.sas(common().accessibility().enderEyeBreakingCooldown);
+        return Arithmetics.S_asTick(common().accessibility().enderEyeBreakingCooldown);
     }
 
     /**
@@ -374,5 +374,26 @@ public class ModCommonOptions {
      */
     public static boolean isDoomMode() {
         return common().general().mode.equals(Mode.DOOM);
+    }
+
+    /**
+     * @return a {@code int} value based on doom mode.
+     */
+    public static int doomOrDefault(int doomValue, int defaultValue) {
+        return isDoomMode() ? doomValue : defaultValue;
+    }
+
+    /**
+     * @return a {@code double} value based on doom mode.
+     */
+    public static double doomOrDefault(double doomValue, double defaultValue) {
+        return isDoomMode() ? doomValue : defaultValue;
+    }
+
+    /**
+     * @return a {@code float} value based on doom mode.
+     */
+    public static float doomOrDefault(float doomValue, float defaultValue) {
+        return isDoomMode() ? doomValue : defaultValue;
     }
 }

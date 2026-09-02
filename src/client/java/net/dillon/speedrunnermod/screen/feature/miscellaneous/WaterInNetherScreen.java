@@ -18,8 +18,8 @@ public class WaterInNetherScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
 
-        this.addButtonObject(Button.builder(common().worldGen().netherWater ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
-            commonConfigHandler().update(o -> o.worldGen().netherWater = !o.worldGen().netherWater);
+        this.addButtonObject(Button.builder(common().worldgen().netherWater ? ModTexts.DISABLE_THIS_FEATURE : ModTexts.ENABLE_THIS_FEATURE, button -> {
+            commonConfigHandler().update(o -> o.worldgen().netherWater = !o.worldgen().netherWater);
             this.refreshNonRestartableFeature();
         }).build());
     }

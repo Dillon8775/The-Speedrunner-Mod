@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.data.loader;
+package net.dillon.speedrunnermod.data;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

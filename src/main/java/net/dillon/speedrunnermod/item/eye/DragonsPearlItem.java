@@ -1,10 +1,9 @@
 package net.dillon.speedrunnermod.item.eye;
 
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.helper.ModHelper;
-import net.dillon.speedrunnermod.item.ModItems;
 import net.dillon.speedrunnermod.item.SpeedrunnerItem;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -24,6 +23,8 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 
 /**
  * An item that forces the {@code ender dragon} to {@code perch.}
@@ -63,7 +64,7 @@ public class DragonsPearlItem extends Item implements SpeedrunnerItem {
                 EnderDragon enderDragon = dragons.get(0);
                 if (!isDragonAlreadyPerchingOrPerched(enderDragon) && !isDragonDead(enderDragon)) {
                     this.playWorldSound(SoundEvents.ENDER_EYE_LAUNCH, 2.0F, 0.3F, world, player);
-                    player.getCooldowns().addCooldown(this.getDefaultInstance(), Arithmetics.sas(30));
+                    player.getCooldowns().addCooldown(this.getDefaultInstance(), S_asTick(30));
 
                     ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger((ServerPlayer)player, stack);
 

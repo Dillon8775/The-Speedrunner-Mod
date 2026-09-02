@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 @Mixin(Enderman.class)
 public class EndermanMixin {
@@ -21,8 +21,8 @@ public class EndermanMixin {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeEndermanAttributes(EntityType<? extends Enderman> entityType, Level world, CallbackInfo ci) {
         Mob dis = (Mob)(Object)this;
-        ModAttributeHelper.modifyMaxHealth(dis, isDoomMode() ? 60.0D : 25.0D);
-        ModAttributeHelper.modifyAttackDamage(dis, isDoomMode() ? 8.0D : 4.0D);
-        ModAttributeHelper.modifyFollowRange(dis, isDoomMode() ? 64.0D : 12.0D);
+        ModAttributeHelper.modifyMaxHealth(dis, doomOrDefault(60.0D, 25.0D));
+        ModAttributeHelper.modifyAttackDamage(dis, doomOrDefault(8.0D, 4.0D));
+        ModAttributeHelper.modifyFollowRange(dis, doomOrDefault(64.0D, 12.0D));
     }
 }

@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.data.generator;
 
 import net.dillon.speedrunnermod.block.ModBlocks;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.tag.ModItemTags;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.registries.Registries;

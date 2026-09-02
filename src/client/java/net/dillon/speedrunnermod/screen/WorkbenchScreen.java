@@ -9,7 +9,6 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.CyclingSlotBackground;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.client.input.KeyEvent;
-import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -22,6 +21,7 @@ import net.minecraft.world.item.Items;
 import java.util.List;
 import java.util.Optional;
 
+import static net.dillon.dillonlib.task.ClientTasks.drawSprite;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 import static net.minecraft.resources.Identifier.withDefaultNamespace;
 
@@ -95,7 +95,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
     /**
      * Renders helpful tooltips on enchantment transferrer slots.
      */
-    private void renderSlotTooltip(GuiGraphicsExtractor context, int mouseX, int mouseY) {
+    private void renderSlotTooltip(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         Optional<Component> optional = Optional.empty();
 
         if (this.hoveredSlot != null) {
@@ -109,18 +109,18 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
             }
         }
 
-        optional.ifPresent(text -> context.setTooltipForNextFrame(this.font, this.font.split(text, 115), mouseX, mouseY));
+        optional.ifPresent(text -> graphics.setTooltipForNextFrame(this.font, this.font.split(text, 115), mouseX, mouseY));
     }
 
     @Override
-    public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
-        this.inputSlotIcon.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
-        this.outputSlotTextures.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        this.inputSlotIcon.extractRenderState(this.menu, graphics, delta, this.leftPos, this.topPos);
+        this.outputSlotTextures.extractRenderState(this.menu, graphics, delta, this.leftPos, this.topPos);
         if (this.menu.getInputSlot().hasItem()) {
-            this.transferToSlotIcon.extractRenderState(this.menu, context, delta, this.leftPos, this.topPos);
+            this.transferToSlotIcon.extractRenderState(this.menu, graphics, delta, this.leftPos, this.topPos);
         }
-        this.renderSlotTooltip(context, mouseX, mouseY);
-        super.extractRenderState(context, mouseX, mouseY, delta);
+        this.renderSlotTooltip(graphics, mouseX, mouseY);
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
     }
 
     /**
@@ -140,13 +140,22 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
      * <p>Draws the foreground.</p>
      */
     @Override
-    protected void extractLabels(GuiGraphicsExtractor context, int mouseX, int mouseY) {
-        super.extractLabels(context, mouseX, mouseY);
-        context.blitSprite(RenderPipelines.GUI_TEXTURED, SMITHING_TEMPLATE, this.menu.getSmithingTemplateSlot().x, this.menu.getSmithingTemplateSlot().y, 16, 16);
+    protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
+        super.extractLabels(graphics, mouseX, mouseY);
+
+        drawSprite(
+                graphics,
+                SMITHING_TEMPLATE,
+                this.menu.getSmithingTemplateSlot().x,
+                this.menu.getSmithingTemplateSlot().y,
+                16,
+                16
+        );
+
         if (this.menu.getTransferToSlot().getItem().is(Items.BOOK)) {
             int color = -1275068416;
             Slot slot = this.menu.getSmithingTemplateSlot();
-            context.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, color, color);
+            graphics.fillGradient(slot.x, slot.y, slot.x + 16, slot.y + 16, color, color);
         }
         int i = this.menu.getLevelCost();
         if (i > 0) {
@@ -163,8 +172,8 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
 
             if (text != null) {
                 int k = this.imageWidth - 8 - this.font.width(text) - 2;
-                context.fill(k - 2, 67, this.imageWidth - 8, 79, 1325400064);
-                context.text(this.font, text, k, 69, j);
+                graphics.fill(k - 2, 67, this.imageWidth - 8, 79, 1325400064);
+                graphics.text(this.font, text, k, 69, j);
             }
         }
     }
@@ -173,9 +182,16 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
      * Draws the red arrow texture when something doesn't go righ.t
      */
     @Override
-    protected void extractErrorIcon(GuiGraphicsExtractor context, int x, int y) {
+    protected void extractErrorIcon(GuiGraphicsExtractor graphics, int x, int y) {
         if ((this.menu.getSlot(this.menu.getInputSlot().index).hasItem() && this.menu.getSlot(this.menu.getTransferToSlot().index).hasItem()) && !this.menu.getSlot(this.menu.getResultSlot()).hasItem()) {
-            context.blitSprite(RenderPipelines.GUI_TEXTURED, ERROR_TEXTURE, x + 99, y + 35, 28, 21);
+            drawSprite(
+                    graphics,
+                    ERROR_TEXTURE,
+                    x + 99,
+                    y + 35,
+                    28,
+                    31
+            );
         }
     }
 

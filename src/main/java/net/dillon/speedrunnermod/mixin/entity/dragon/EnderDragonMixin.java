@@ -1,13 +1,11 @@
 package net.dillon.speedrunnermod.mixin.entity.dragon;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.dillon.dillonlib.util.Arithmetics;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModAttributes;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.ModAttributeHelper;
-import net.dillon.speedrunnermod.helper.ModConstants;
-import net.dillon.speedrunnermod.item.ModItems;
+import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.item.material.ModToolMaterials;
 import net.dillon.speedrunnermod.item.tool.DragonsSwordItem;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
@@ -39,8 +37,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.speedrunnermod.helper.ModHelper.*;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(value = EnderDragon.class, priority = 999)
@@ -71,8 +71,8 @@ public abstract class EnderDragonMixin extends Mob {
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void changeEnderDragonMaxHealth(CallbackInfo ci) {
-        ModAttributeHelper.modifyMaxHealth(this, ModConstants.getEnderDragonMaxHealth());
-        ModAttributeHelper.modifyFollowRange(this, ModConstants.getEnderDragonFollowRange());
+        ModAttributeHelper.modifyMaxHealth(this, doomOrDefault(500.0D, 100.0D));
+        ModAttributeHelper.modifyFollowRange(this, doomOrDefault(64.0D, 16.0D));
     }
 
     /**
@@ -80,7 +80,7 @@ public abstract class EnderDragonMixin extends Mob {
      */
     @ModifyArg(method = "checkCrystals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;setHealth(F)V"))
     private float changeTickCrystalHealAmount(float value) {
-        return this.getHealth() + ModConstants.getEnderDragonEndCrystalHealingValue();
+        return this.getHealth() + doomOrDefault(1.7F, 0.1F);
     }
 
     /**
@@ -90,7 +90,7 @@ public abstract class EnderDragonMixin extends Mob {
     private void changeEnderDragonDamageValue(ServerLevel world, List<Entity> entities, CallbackInfo ci, @Local Entity entity) {
         boolean bl = entity instanceof Player playerEntity && playerEntity.hasEffect(ModMobEffects.DRAGONS_AURA);
         DamageSource damageSource = this.damageSources().mobAttack(this);
-        entity.hurtServer(world, damageSource, ModConstants.getEnderDragonDamageValue() / (bl ? 2 : 1));
+        entity.hurtServer(world, damageSource, doomOrDefault(12.0F, 3.0F) / (bl ? 2 : 1));
         EnchantmentHelper.doPostAttackEffects(world, entity, damageSource);
         ci.cancel();
     }
@@ -100,7 +100,7 @@ public abstract class EnderDragonMixin extends Mob {
      */
     @ModifyArg(method = "onCrystalDestroyed", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/boss/enderdragon/EnderDragon;hurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/boss/enderdragon/EnderDragonPart;Lnet/minecraft/world/damagesource/DamageSource;F)Z"), index = 3)
     private float changeEnderDragonCrystalDestroyedDamage(float amount) {
-        return ModConstants.getEnderDragonDestroyedEndCrystalDamageValue();
+        return doomOrDefault(3.0F, 20.0F);
     }
 
     /**
@@ -119,7 +119,7 @@ public abstract class EnderDragonMixin extends Mob {
 
             if (!isDoomMode() || !isGiantOrWitherAlive(dragon)) {
                 this.reallyHurt(serverLevel, source, 1000.0F);
-                living.addEffect(new MobEffectInstance(ModMobEffects.DRAGONS_AURA, Arithmetics.mas(90)));
+                living.addEffect(new MobEffectInstance(ModMobEffects.DRAGONS_AURA, M_asTick(90)));
                 if (living instanceof ServerPlayer player) {
                     ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(player, new ItemStack(ModItems.DRAGONS_SWORD));
                 }
@@ -168,7 +168,7 @@ public abstract class EnderDragonMixin extends Mob {
      */
     @ModifyConstant(method = "hurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/boss/enderdragon/EnderDragonPart;Lnet/minecraft/world/damagesource/DamageSource;F)Z", constant = @Constant(floatValue = 0.25F))
     private float increaseDragonStayTime(float constant) {
-        return ModConstants.getEnderDragonSittingTime();
+        return common().accessibility().longerDragonPerchStayTime ? 0.60F : 0.25F;
     }
 
     /**
