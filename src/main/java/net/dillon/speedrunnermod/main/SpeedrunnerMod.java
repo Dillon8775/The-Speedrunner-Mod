@@ -10,13 +10,13 @@ import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.core.ModItemGroups;
 import net.dillon.speedrunnermod.item.core.ModItems;
+import net.dillon.speedrunnermod.loot.ModContextInts;
 import net.dillon.speedrunnermod.menu.ModMenus;
 import net.dillon.speedrunnermod.network.ModPackets;
 import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
-import net.dillon.speedrunnermod.tag.ModTags;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.dillon.speedrunnermod.villager.ModPoiTypes;
 import net.dillon.speedrunnermod.villager.ModTradeSets;
@@ -54,8 +54,6 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModWorldGeneration.initializeWorldGenFeatures();
 
-        ModContextIntProviders.initializeIntProviders();
-
         ModEntityTypes.initializeEntityTypes();
 
         ModMobEffects.registerStatusEffects();
@@ -78,9 +76,6 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModEventCallbacks.registerEventCallbacks();
         ModDispenserBehaviors.registerDispenserBehaviors();
-
-        ModTags.initializeAllTags();
-
         ModSoundEvents.initializeSoundEvents();
 
         ModEnchantments.initializeEnchantments();

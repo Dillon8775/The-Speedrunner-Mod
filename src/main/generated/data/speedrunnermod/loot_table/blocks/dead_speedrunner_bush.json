@@ -4,21 +4,31 @@
     {
       "entries": [
         {
-          "type": "minecraft:item",
-          "modifier": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "type": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 9,
-                "min": 3
-              }
+              "type": "minecraft:item",
+              "condition": "minecraft:tool/can_shear",
+              "name": "speedrunnermod:dead_speedrunner_bush"
             },
             {
-              "type": "minecraft:explosion_decay"
+              "type": "minecraft:item",
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 9,
+                    "min": 3
+                  }
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ],
+              "name": "speedrunnermod:speedrunner_stick"
             }
-          ],
-          "name": "speedrunnermod:speedrunner_stick"
+          ]
         }
       ],
       "rolls": 1

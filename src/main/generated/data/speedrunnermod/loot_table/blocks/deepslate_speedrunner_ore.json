@@ -4,11 +4,28 @@
     {
       "entries": [
         {
-          "type": "minecraft:item",
-          "modifier": {
-            "type": "minecraft:explosion_decay"
-          },
-          "name": "speedrunnermod:speedrunner_ingot"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": "minecraft:tool/can_silk_touch",
+              "name": "speedrunnermod:deepslate_speedrunner_ore"
+            },
+            {
+              "type": "minecraft:item",
+              "modifier": [
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ],
+              "name": "speedrunnermod:speedrunner_ingot"
+            }
+          ]
         }
       ],
       "rolls": 1

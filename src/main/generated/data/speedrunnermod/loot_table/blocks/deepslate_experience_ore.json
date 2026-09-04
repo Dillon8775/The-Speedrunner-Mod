@@ -2,28 +2,11 @@
   "type": "minecraft:block",
   "pools": [
     {
+      "condition": "minecraft:tool/can_silk_touch",
       "entries": [
         {
           "type": "minecraft:item",
-          "modifier": [
-            {
-              "type": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3,
-                "min": 1
-              }
-            },
-            {
-              "type": "minecraft:apply_bonus",
-              "enchantment": "minecraft:fortune",
-              "formula": "minecraft:ore_drops"
-            },
-            {
-              "type": "minecraft:explosion_decay"
-            }
-          ],
-          "name": "speedrunnermod:experience_fragment"
+          "name": "speedrunnermod:deepslate_experience_ore"
         }
       ],
       "rolls": 1

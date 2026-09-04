@@ -1,6 +1,10 @@
 {
   "values": [
     {
+      "id": "#c:tools/shield",
+      "required": false
+    },
+    {
       "id": "#speedrunnermod:throwable_fireballs",
       "required": false
     },

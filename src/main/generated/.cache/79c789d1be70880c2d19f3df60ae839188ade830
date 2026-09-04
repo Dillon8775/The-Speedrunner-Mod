@@ -1,4 +1,4 @@
-// 26.3-pre-1	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:entity_type
+// 26.3-pre-2	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:entity_type
 6f8bc3eb93347d4d15c38a3b7cfbd2b796ac201c data/speedrunnermod/tags/entity_type/blacklisted_ender_dragon_kill_mobs.json
 6f8bc3eb93347d4d15c38a3b7cfbd2b796ac201c data/speedrunnermod/tags/entity_type/blacklisted_minion_call_mobs.json
 35f597040f739c6af2121d3936c0afa49c16d910 data/speedrunnermod/tags/entity_type/blacklisted_wither_target_mobs.json

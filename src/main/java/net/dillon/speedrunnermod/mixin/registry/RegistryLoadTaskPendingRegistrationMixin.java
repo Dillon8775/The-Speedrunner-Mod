@@ -23,8 +23,8 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 public class RegistryLoadTaskPendingRegistrationMixin {
 
     /**
-     * Directly modifies {@code ".json" files} to change and modify {@code world generation features,} including structures, mob spawns, and more.
-     * <p>See package {@link net.dillon.speedrunnermod.data.loader} fore more on this.</p>
+     * Directly modifies {@code json files} to change and modify {@code world generation features,} including structures, mob spawns, and more.
+     * <p>See package {@link net.dillon.speedrunnermod.data} fore more on this.</p>
      */
     @Author(Authors.MAXENCEDC)
     @Inject(method = "loadFromResource", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Decoder;parse(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"), locals = LocalCapture.CAPTURE_FAILEXCEPTION)

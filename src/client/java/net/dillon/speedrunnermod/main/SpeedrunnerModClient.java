@@ -13,7 +13,6 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
  * The home initializer for the client-side of the Speedrunner Mod.
  */
 public class SpeedrunnerModClient implements ClientModInitializer {
-    public static boolean speedrunIGTMissing = false;
 
     /**
      * Initializes all the client-side {@code speedrunner mod} renderers, configurations, etc.

@@ -1,8 +1,14 @@
 package net.dillon.speedrunnermod.tag;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.component.ModAttributeKeys;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+
+import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createAttributeTag;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
@@ -10,7 +16,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * All speedrunner mod attribute tags.
  */
-public class ModAttributeTags {
+public class ModAttributeTags extends FabricTagsProvider<Attribute> {
     public static final TagKey<Attribute> WHEN_SHOT = createAttributeTag(ofSpeedrunnerMod("when_shot"));
     public static final TagKey<Attribute> WHEN_THROWN = createAttributeTag(ofSpeedrunnerMod("when_thrown"));
     public static final TagKey<Attribute> WHEN_MINING = createAttributeTag(ofSpeedrunnerMod("when_mining"));
@@ -18,9 +24,35 @@ public class ModAttributeTags {
     public static final TagKey<Attribute> UPON_DEATH = createAttributeTag(ofSpeedrunnerMod("upon_death"));
 
     /**
-     * Initializes all Speedrunner Mod {@code attribute tags.}
+     * Constructs a new {@link FabricTagsProvider} with the default computed path.
+     *
+     * <p>Common implementations of this class are provided.
+     *
+     * @param output               the {@link FabricPackOutput} instance
+     * @param registryLookupFuture the backing registry for the tag type
      */
-    public static void initializeAttributeTags() {
-        SpeedrunnerMod.LOGGER.debug("Initialized attribute tags.");
+    public ModAttributeTags(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
+        super(output, Registries.ATTRIBUTE, registryLookupFuture);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider registries) {
+        tag(ModAttributeTags.WHEN_SHOT)
+                .addOptional(ModAttributeKeys.ADDITIONAL_BOW_POWER);
+
+        tag(ModAttributeTags.WHEN_THROWN)
+                .addOptional(ModAttributeKeys.ADDITIONAL_RANGE)
+                .addOptional(ModAttributeKeys.ADDITIONAL_INERTIA)
+                .addOptional(ModAttributeKeys.ADDITIONAL_TARGET_DAMAGE);
+
+        tag(ModAttributeTags.WHEN_MINING)
+                .addOptional(ModAttributeKeys.DOOM_BLOCK_PROTECTION);
+
+        tag(ModAttributeTags.WHEN_RIDDEN)
+                .addOptional(ModAttributeKeys.ADDITIONAL_BOAT_MOVEMENT_SPEED)
+                .addOptional(ModAttributeKeys.LAVA_INVULNERABILITY);
+
+        tag(ModAttributeTags.UPON_DEATH)
+                .addOptional(ModAttributeKeys.INVENTORY_PRESERVATION);
     }
 }

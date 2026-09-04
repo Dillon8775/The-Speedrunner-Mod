@@ -16,7 +16,7 @@ public class ClientSpeedrunnerModMixinPlugin extends AbstractMixinPluginUtil {
                 new PredicateEntry(
                         new String[]{OPTION_INSTANCE_MIXIN},
                         ModReferences.isModLoaded(ModReferences.SIMPLE_KEYBINDS) || !ModClientOptions.INSTANCE.getInstance().mixins().optionInstanceMixin,
-                        "either mod \"Simple Keybinds\" mod is loaded, and already modifies what this mod does, or \"option_instance_mixin\" is disabled."
+                        "either Simple Keybinds mod is loaded, and already modifies what this mod does, or OptionInstanceMixin  is disabled via config."
                 ),
                 new PredicateEntry(
                         new String[]{FOG_RENDERER_MIXIN},
@@ -26,17 +26,17 @@ public class ClientSpeedrunnerModMixinPlugin extends AbstractMixinPluginUtil {
                 new PredicateEntry(
                         new String[]{FOG_RENDERER_MIXIN, "client.render.LavaFogEnvironmentMixin"},
                         !ModClientOptions.INSTANCE.getInstance().mixins().fogMixins,
-                        "\"fog_mixins\" are disabled."
+                        "Fog Mixins are disabled via config."
                 ),
                 new PredicateEntry(
                         new String[]{"fix.AbstractClientPlayerMixin"},
                         !ModClientOptions.INSTANCE.getInstance().mixins().abstractClientPlayerMixin,
-                        "\"abstract_client_player_mixin\" is disabled."
+                        "AbstractClientPlayerMixin is disabled via config."
                 ),
                 new PredicateEntry(
                         new String[]{"client.screen.LogoRendererMixin"},
                         !ModClientOptions.INSTANCE.getInstance().mixins().logoRendererMixin,
-                        "\"logo_renderer_mixin\" is disabled."
+                        "LogoRendererMixin is disabled via config."
                 )
         );
     }

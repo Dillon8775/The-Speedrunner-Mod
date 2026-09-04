@@ -2,10 +2,11 @@ package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModAttributes;
+import net.dillon.speedrunnermod.loot.ModBlockLootTables;
+import net.dillon.speedrunnermod.loot.ModChestLootTables;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.core.ModItems;
-import net.dillon.speedrunnermod.loot.ModLootTables;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -39,7 +40,6 @@ import java.util.List;
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
-import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
  * Be careful what you wish for...
@@ -103,7 +103,7 @@ public class DoomBlock {
                         .withOptionalParameter(LootContextParams.THIS_ENTITY, player)
                         .withOptionalParameter(LootContextParams.TOOL, player.getMainHandItem());
 
-                for (ItemStack stack : serverLevel.getServer().reloadableRegistries().getLootTable(ModLootTables.DOOM_BLOCK_LOOT)
+                for (ItemStack stack : serverLevel.getServer().reloadableRegistries().getLootTable(ModBlockLootTables.DOOM_BLOCK_LOOT)
                         .getRandomItems(lootParams.create(LootContextParamSets.BLOCK))) {
                     spawnFloatingItemEntity(level, pos, stack, player, true);
                 }
@@ -176,9 +176,7 @@ public class DoomBlock {
 
         @Override
         public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-            if (isDoomMode()) {
-                whenBroken(world, pos, player);
-            }
+            whenBroken(world, pos, player);
             return super.playerWillDestroy(world, pos, state, player);
         }
     }
@@ -196,9 +194,7 @@ public class DoomBlock {
 
         @Override
         public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-            if (isDoomMode()) {
-                whenBroken(world, pos, player);
-            }
+            whenBroken(world, pos, player);
             return super.playerWillDestroy(world, pos, state, player);
         }
     }
@@ -216,9 +212,7 @@ public class DoomBlock {
 
         @Override
         public BlockState playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
-            if (isDoomMode()) {
-                whenBroken(world, pos, player);
-            }
+            whenBroken(world, pos, player);
             return super.playerWillDestroy(world, pos, state, player);
         }
     }

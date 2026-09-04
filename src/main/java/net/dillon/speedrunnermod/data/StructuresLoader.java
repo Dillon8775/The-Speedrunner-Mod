@@ -7,7 +7,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**
- * Contains all of the {@code structure modifications,} making them generate more commonly.
+ * Contains all  {@code structure modifications}, making them generate more commonly.
  */
 public class StructuresLoader {
 

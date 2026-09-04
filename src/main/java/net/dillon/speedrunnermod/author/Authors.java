@@ -8,7 +8,6 @@ public enum Authors {
     MAXENCEDC,
     KURAION,
     KWPUGH,
-    BLOCKLEGEND001,
     YELEEFFF,
     SERILUM,
     SAMEDDIFFERENT,

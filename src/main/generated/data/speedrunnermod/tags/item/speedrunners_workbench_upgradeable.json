@@ -1,5 +1,9 @@
 {
   "values": [
+    {
+      "id": "#c:enchantables",
+      "required": false
+    },
     "minecraft:golden_nautilus_armor",
     "speedrunnermod:speedrunner_nautilus_armor"
   ]

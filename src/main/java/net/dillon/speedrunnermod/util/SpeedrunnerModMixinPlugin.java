@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.util;
 
+import net.dillon.dillonlib.mixinplugin.MessageType;
 import net.dillon.dillonlib.mixinplugin.PredicateEntry;
 import net.dillon.speedrunnermod.option.ModCommonOptions;
 
@@ -13,12 +14,18 @@ public class SpeedrunnerModMixinPlugin extends AbstractMixinPluginUtil {
                 new PredicateEntry(
                         new String[]{"attribute.ItemStackMixin"},
                         !ModCommonOptions.INSTANCE.getInstance().mixins().itemStackMixin,
-                        "\"item_stack_mixin\" is disabled."
+                        "ItemStackMixin is disabled via config."
                 ),
                 new PredicateEntry(
                         new String[]{"world.TheEndGatewayBlockEntityMixin"},
                         !ModCommonOptions.INSTANCE.getInstance().mixins().theEndGatewayBlockEntityMixin,
-                        "\"the_end_gateway_block_entity_mixin\" is disabled."
+                        "TheEndGatewayBlockEntityMixin is disabled via config."
+                ),
+                new PredicateEntry(
+                        new String[]{"registry.RegistryLoadTaskPendingRegistrationMixin"},
+                        !Overrides.applyRegistryLoaderMixin(),
+                        "Apply Registry Loader Mixin is disabled via an override.",
+                        MessageType.ERROR
                 )
         );
     }

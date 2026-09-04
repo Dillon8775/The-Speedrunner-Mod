@@ -116,6 +116,7 @@
     "menu.AnvilMenuMixin",
     "menu.BrewingStandMenuMixin",
     "registry.RegistryLoadTaskPendingRegistrationMixin",
+    "registry.StructureTemplateMixin",
     "world.EndIslandFeatureMixin",
     "world.EndPodiumFeatureMixin",
     "world.MinecraftServerMixin",

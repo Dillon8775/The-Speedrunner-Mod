@@ -69,14 +69,14 @@ public class PauseScreenMixin extends Screen {
             return;
         }
 
-        Button optionsButton = this.addRenderableOnly(
+        Button optionsButton = this.addRenderableWidget(
                 ClientModUtil.createMenuButton(this)
         );
         optionsButton.setX(this.width / 2 - 4 - 120 - 2);
         optionsButton.setY(this.height / 4 + 96 - 16);
         optionsButton.setWidth(20);
 
-        this.featuresButton = ClientModUtil.createFeaturesButton(this, optionsButton.getX(), optionsButton.getY() - 48);
+        this.featuresButton = this.addRenderableWidget(ClientModUtil.createFeaturesButton(this, optionsButton.getX(), optionsButton.getY() - 48));
     }
 
     /**

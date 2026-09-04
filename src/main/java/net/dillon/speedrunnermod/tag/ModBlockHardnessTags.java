@@ -1,6 +1,5 @@
 package net.dillon.speedrunnermod.tag;
 
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 
@@ -53,12 +52,5 @@ public class ModBlockHardnessTags {
      */
     private static TagKey<Block> createBlockHardnessTag(int baseHardness) {
         return createBlockTag(ofSpeedrunnerMod("block_hardness/"+ baseHardness +"_hardness"));
-    }
-
-    /**
-     * Initializes all Speedrunner Mod {@code block baseHardness tags.}
-     */
-    public static void initializeBlockHardnessTags() {
-        SpeedrunnerMod.LOGGER.debug("Initialized block baseHardness tags.");
     }
 }

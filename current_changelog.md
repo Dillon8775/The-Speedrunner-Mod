@@ -11,7 +11,9 @@
 
 ## Other Changes
 - Massive backend optimizations, and several changes to the mod's configuration system.
+- Vanilla loot tables (including chests and recipes) now point to the speedrunner mod's directory, using its own custom loot tables.
 - The mod's built-in "fog" option is now disabled by default (meaning Minecraft's fog will be disabled by default).
+- Doom blocks now function the same on easy and balanced mode as they do on doom mode.
 - Tweaked how long certain speedrunner items last in a furnace as fuel.
 - Revamped some speedrunner mod screens.
 - Zombies now only throw 1-2 explosion power fireballs.

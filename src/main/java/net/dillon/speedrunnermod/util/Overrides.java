@@ -14,4 +14,11 @@ public class Overrides {
     public static boolean firstTimePlaying() {
         return false;
     }
+
+    /**
+     * @return if we should apply registry loader mixin.
+     */
+    public static boolean applyRegistryLoaderMixin() {
+        return false;
+    }
 }

@@ -1,4 +1,12 @@
-// 26.3-pre-1	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:item
+// 26.3-pre-2	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:item
+2174d631b80c644c6451f983073ed2b1c15ec66e data/c/tags/item/armors/nautilus.json
+d4e8fbabce8e118bdc7985820641d86ff907ff7f data/c/tags/item/ingots/iron.json
+55a14f2855efc563470730747a0b80e668282d9e data/c/tags/item/nuggets/iron.json
+e39ac6ffb6af974addd599ea1dfef968053522ad data/c/tags/item/tools/bow.json
+362b26547b99707c8fde2e335bfd18110e4f7fc2 data/c/tags/item/tools/crossbow.json
+eda7dbbdacb3b7dde786ad7f02df7264022a6ee9 data/c/tags/item/tools/igniter.json
+0294870efdba5d14283ef50ef105a69f9cd23a84 data/c/tags/item/tools/shear.json
+62333d0dc22834871128cfa13bfee82bb6c0fe9d data/c/tags/item/tools/shield.json
 35dbdd5b07ec26f99db2410ac17f1ae92714ec5a data/minecraft/tags/item/axes.json
 bdb6ccb8e26431ab082745677529b55974345122 data/minecraft/tags/item/boats.json
 6a35e28f3c01ba2bc12985687a3cb20b4adc1311 data/minecraft/tags/item/chest_armor.json
@@ -46,7 +54,7 @@ d0cc82c9eabc9daf643225eedfcdcce23a48226f data/speedrunnermod/tags/item/advanceme
 5e59f47367a93ada86b5551b589c2dc1e751da67 data/speedrunnermod/tags/item/advancement_criterions/speedrunner_flint_and_steel.json
 4cae771e713f1d1a85069d5fa5a8ca94c93ca144 data/speedrunnermod/tags/item/advancement_criterions/speedrunners_workbench.json
 7b29010002e2490e16af757cb4cab4306655c1df data/speedrunnermod/tags/item/blue_eye_particles.json
-36c0d76259f91b666420761ae114fa5e08f37568 data/speedrunnermod/tags/item/cooldown_enchantment_items.json
+cbc58ff21628eefa20d262a72ebcb6fc85eb6dba data/speedrunnermod/tags/item/cooldown_enchantment_items.json
 71990591036527b31eff75201e2faa865b5df853 data/speedrunnermod/tags/item/dead_speedrunner_logs.json
 f8b0553a95ba098a27732b88c76e57a1e2b6f40b data/speedrunnermod/tags/item/doom_logs.json
 75dae314d8a37b64bff30c49069eb3b6edf26878 data/speedrunnermod/tags/item/dragon_particle_items.json
@@ -62,7 +70,7 @@ c3e38b1466cf43e5890795757eff2d3864a6627e data/speedrunnermod/tags/item/fireproof
 4700a32659d74a1df0a1b4bd1d667ebc1882ad61 data/speedrunnermod/tags/item/golden_shield_repairable.json
 f2aa87f54e7951ea0cf81ac252c2abe279b0c936 data/speedrunnermod/tags/item/golden_speedrunner_tool_materials.json
 ccac9c96189386e48ab1cb1a3e96a7f5ff7b52be data/speedrunnermod/tags/item/igneous_ores.json
-e11ed0b6a7871924f38af8fc5dd6c9cb70d4e018 data/speedrunnermod/tags/item/ignitables.json
+d23d8989e5ca49d1fc51b5f5157979984bad74f3 data/speedrunnermod/tags/item/ignitables.json
 673791220c22c286b011a6e244a959a605b3260b data/speedrunnermod/tags/item/iron_blocks.json
 676f5d5be91c5e791b272525ecce1995ed9f7798 data/speedrunnermod/tags/item/piglin_awakener_craftables.json
 09e2fc4537e561a88bc0b28d4451bfa2de85e126 data/speedrunnermod/tags/item/purple_eye_particles.json
@@ -79,8 +87,8 @@ ad2bc39d1c696a086452905e74843a5f49ecdc40 data/speedrunnermod/tags/item/speedrunn
 49cf36d6cfaecc7ed143e42813ab64ed7d475fca data/speedrunnermod/tags/item/speedrunner_shield_repairable.json
 1cdcec497959de36b75c7b9a1397f824d5dcd10c data/speedrunnermod/tags/item/speedrunner_sticks.json
 d4e8fbabce8e118bdc7985820641d86ff907ff7f data/speedrunnermod/tags/item/speedrunner_tool_materials.json
-cedf81d8d01222920008586b343ea1ef32255ebf data/speedrunnermod/tags/item/speedrunners_workbench_convertable.json
-7868ff68081d56bc720b0023304476190e9c2587 data/speedrunnermod/tags/item/speedrunners_workbench_upgradeable.json
+d7dcce29a48dfde98775ef8f50f4ebb93d5899d0 data/speedrunnermod/tags/item/speedrunners_workbench_convertable.json
+80939322faef56f7e3a32178f1c7af36cbec3e9a data/speedrunnermod/tags/item/speedrunners_workbench_upgradeable.json
 665d8409ac3a36472092740f9af19156023a5c33 data/speedrunnermod/tags/item/sticks.json
 eedf6f9346bbce4b250969deb256730a7540ad09 data/speedrunnermod/tags/item/throwable_fireballs.json
 2304ff4d95604d43fbe00791aa7aab11834cc1bb data/speedrunnermod/tags/item/totems.json

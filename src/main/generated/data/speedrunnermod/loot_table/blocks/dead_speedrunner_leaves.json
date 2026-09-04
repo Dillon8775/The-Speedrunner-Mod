@@ -4,36 +4,83 @@
     {
       "entries": [
         {
-          "type": "minecraft:item",
-          "condition": {
-            "type": "minecraft:table_bonus",
-            "chances": [
-              0.075,
-              0.08,
-              0.093333334,
-              0.15
-            ],
-            "enchantment": "minecraft:fortune"
-          },
-          "modifier": {
-            "type": "minecraft:explosion_decay"
-          },
-          "name": "speedrunnermod:dead_speedrunner_sapling"
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:any_of",
+                "terms": [
+                  "minecraft:tool/can_shear",
+                  "minecraft:tool/can_silk_touch"
+                ]
+              },
+              "name": "speedrunnermod:dead_speedrunner_leaves"
+            },
+            {
+              "type": "minecraft:item",
+              "condition": {
+                "type": "minecraft:all_of",
+                "terms": [
+                  {
+                    "type": "minecraft:survives_explosion"
+                  },
+                  {
+                    "type": "minecraft:table_bonus",
+                    "chances": [
+                      0.075,
+                      0.08,
+                      0.093333334,
+                      0.15
+                    ],
+                    "enchantment": "minecraft:fortune"
+                  }
+                ]
+              },
+              "name": "speedrunnermod:dead_speedrunner_sapling"
+            }
+          ]
         }
       ],
       "rolls": 1
     },
     {
       "condition": {
-        "type": "minecraft:table_bonus",
-        "chances": [
-          0.5,
-          0.05555558,
-          0.35,
-          0.07,
-          0.1
-        ],
-        "enchantment": "minecraft:fortune"
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:inverted",
+            "term": {
+              "type": "minecraft:any_of",
+              "terms": [
+                "minecraft:tool/can_shear",
+                "minecraft:tool/can_silk_touch"
+              ]
+            }
+          },
+          {
+            "type": "minecraft:table_bonus",
+            "chances": [
+              0.5,
+              0.05555558,
+              0.35,
+              0.07,
+              0.1
+            ],
+            "enchantment": "minecraft:fortune"
+          },
+          {
+            "type": "minecraft:table_bonus",
+            "chances": [
+              0.65,
+              0.06555558,
+              0.7,
+              0.075,
+              0.1
+            ],
+            "enchantment": "minecraft:fortune"
+          }
+        ]
       },
       "entries": [
         {
@@ -42,23 +89,7 @@
             "type": "minecraft:survives_explosion"
           },
           "name": "minecraft:apple"
-        }
-      ],
-      "rolls": 1
-    },
-    {
-      "condition": {
-        "type": "minecraft:table_bonus",
-        "chances": [
-          0.65,
-          0.06555558,
-          0.7,
-          0.075,
-          0.1
-        ],
-        "enchantment": "minecraft:fortune"
-      },
-      "entries": [
+        },
         {
           "type": "minecraft:item",
           "modifier": [

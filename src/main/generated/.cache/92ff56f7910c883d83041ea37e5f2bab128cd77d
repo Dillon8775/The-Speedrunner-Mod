@@ -1,5 +1,6 @@
-// 26.3-pre-1	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:enchantment
+// 26.3-pre-2	-999999999-01-01T00:00:00	The Speedrunner Mod/Tags for minecraft:enchantment
 bd8a9e461ad9140f03e9e819f77bc8790ded8cf3 data/minecraft/tags/enchantment/non_treasure.json
+208a35f1a35cf9b8cb656522624c0546f9c5767f data/speedrunnermod/tags/enchantment/on_golden_sword_in_ruined_portal.json
 0443eb51ce33df361183648f48b94fca116402b3 data/speedrunnermod/tags/enchantment/on_random_speedrunner_loot.json
 22a0b8f1bbadb44e6ed8433c99dadcd565086ea1 data/speedrunnermod/tags/enchantment/retired_speedrunner_trades.json
 342a64a8c2606c3491a917fd413dddf88dd13db1 data/speedrunnermod/tags/enchantment/speedrunner_enchantments.json

@@ -4,26 +4,36 @@
     {
       "entries": [
         {
-          "type": "minecraft:item",
-          "modifier": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "type": "minecraft:set_count",
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 6,
-                "min": 2
-              }
+              "type": "minecraft:item",
+              "condition": "minecraft:tool/can_silk_touch",
+              "name": "speedrunnermod:igneous_ore"
             },
             {
-              "type": "minecraft:apply_bonus",
-              "enchantment": "minecraft:fortune",
-              "formula": "minecraft:ore_drops"
-            },
-            {
-              "type": "minecraft:explosion_decay"
+              "type": "minecraft:item",
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "max": 6,
+                    "min": 2
+                  }
+                },
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ],
+              "name": "speedrunnermod:igneous_rock"
             }
-          ],
-          "name": "speedrunnermod:igneous_rock"
+          ]
         }
       ],
       "rolls": 1
