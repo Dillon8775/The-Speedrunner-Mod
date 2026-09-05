@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.mixin.world;
+package net.dillon.speedrunnermod.mixin.structure;
 
 import net.dillon.speedrunnermod.world.ModWorldGeneration;
 import net.minecraft.world.level.levelgen.structure.structures.NetherFortressPieces;

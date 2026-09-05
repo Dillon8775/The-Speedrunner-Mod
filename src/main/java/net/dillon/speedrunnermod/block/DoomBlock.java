@@ -2,11 +2,10 @@ package net.dillon.speedrunnermod.block;
 
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.component.ModAttributes;
-import net.dillon.speedrunnermod.loot.ModBlockLootTables;
-import net.dillon.speedrunnermod.loot.ModChestLootTables;
 import net.dillon.speedrunnermod.component.ModMobEffects;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.core.ModItems;
+import net.dillon.speedrunnermod.loot.ModBlockLootTables;
 import net.dillon.speedrunnermod.util.RandomChance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;

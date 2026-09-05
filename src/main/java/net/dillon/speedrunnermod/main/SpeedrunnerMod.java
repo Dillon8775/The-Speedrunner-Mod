@@ -10,7 +10,6 @@ import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.core.ModItemGroups;
 import net.dillon.speedrunnermod.item.core.ModItems;
-import net.dillon.speedrunnermod.loot.ModContextInts;
 import net.dillon.speedrunnermod.menu.ModMenus;
 import net.dillon.speedrunnermod.network.ModPackets;
 import net.dillon.speedrunnermod.option.ModCommonOptions;

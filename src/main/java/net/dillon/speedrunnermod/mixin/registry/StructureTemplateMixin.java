@@ -1,6 +1,6 @@
 package net.dillon.speedrunnermod.mixin.registry;
 
-import net.dillon.speedrunnermod.data.VanillaLootLoader;
+import net.dillon.speedrunnermod.data.VanillaChestLootLoader;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.Block;
@@ -18,6 +18,6 @@ public class StructureTemplateMixin {
      */
     @Inject(method = "load", at = @At("HEAD"))
     private void modifyStructure(HolderGetter<Block> blockLookup, CompoundTag tag, CallbackInfo ci) {
-        VanillaLootLoader.modifyVanillaLootPaths(tag);
+        VanillaChestLootLoader.modifyVanillaLootPaths(tag);
     }
 }

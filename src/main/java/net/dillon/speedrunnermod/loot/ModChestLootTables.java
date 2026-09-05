@@ -28,54 +28,55 @@ import static net.dillon.speedrunnermod.loot.ModBlockLoot.createLootTable;
  * All custom speedrunner mod chest loot tables.
  */
 public class ModChestLootTables extends SimpleFabricLootTableSubProvider {
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_CORRIDOR = createLootTable("chests/trial_chambers/corridor");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_ENTRANCE = createLootTable("chests/trial_chambers/entrance");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_INTERSECTION = createLootTable("chests/trial_chambers/intersection");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_INTERSECTION_BARREL = createLootTable("chests/trial_chambers/intersection_barrel");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_REWARD_OMINOUS_COMMON = createLootTable("chests/trial_chambers/reward_ominous_common");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_REWARD_OMINOUS_RARE = createLootTable("chests/trial_chambers/reward_ominous_rare");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_REWARD_OMINOUS_UNIQUE = createLootTable("chests/trial_chambers/reward_ominous_unique");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_REWARD_RARE = createLootTable("chests/trial_chambers/reward_rare");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_REWARD_UNIQUE = createLootTable("chests/trial_chambers/reward_unique");
-    public static final ResourceKey<LootTable> TRIAL_CHAMBERS_SUPPLY = createLootTable("chests/trial_chambers/supply");
-    public static final ResourceKey<LootTable> VILLAGE_ARMORER = createLootTable("chests/village/village_armorer");
-    public static final ResourceKey<LootTable> VILLAGE_BUTCHER = createLootTable("chests/village/village_butcher");
-    public static final ResourceKey<LootTable> VILLAGE_CARTOGRAPHER = createLootTable("chests/village/village_cartographer");
-    public static final ResourceKey<LootTable> VILLAGE_DESERT_HOUSE = createLootTable("chests/village/village_desert_house");
-    public static final ResourceKey<LootTable> VILLAGE_FISHER = createLootTable("chests/village/village_fisher");
-    public static final ResourceKey<LootTable> VILLAGE_FLETCHER = createLootTable("chests/village/village_fletcher");
-    public static final ResourceKey<LootTable> VILLAGE_MASON = createLootTable("chests/village/village_mason");
-    public static final ResourceKey<LootTable> VILLAGE_PLAINS_HOUSE = createLootTable("chests/village/village_plains_house");
-    public static final ResourceKey<LootTable> VILLAGE_SAVANNA_HOUSE = createLootTable("chests/village/village_savanna_house");
-    public static final ResourceKey<LootTable> VILLAGE_SHEPHERD = createLootTable("chests/village/village_shepherd");
-    public static final ResourceKey<LootTable> VILLAGE_SNOWY_HOUSE = createLootTable("chests/village/village_snowy_house");
-    public static final ResourceKey<LootTable> VILLAGE_TAIGA_HOUSE = createLootTable("chests/village/village_taiga_house");
-    public static final ResourceKey<LootTable> VILLAGE_TANNERY = createLootTable("chests/village/village_tannery");
-    public static final ResourceKey<LootTable> VILLAGE_TEMPLE = createLootTable("chests/village/village_temple");
-    public static final ResourceKey<LootTable> VILLAGE_TOOLSMITH = createLootTable("chests/village/village_toolsmith");
-    public static final ResourceKey<LootTable> VILLAGE_WEAPONSMITH = createLootTable("chests/village/village_weaponsmith");
-    public static final ResourceKey<LootTable> ABANDONED_MINESHAFT = createLootTable("chests/");
-    public static final ResourceKey<LootTable> ANCIENT_CITY = createLootTable("chests/");
-    public static final ResourceKey<LootTable> BASTION_BRIDGE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> BASTION_HOGLIN_STABLE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> BASTION_OTHER = createLootTable("chests/");
-    public static final ResourceKey<LootTable> BURIED_TREASURE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> DESERT_PYRAMID = createLootTable("chests/");
-    public static final ResourceKey<LootTable> END_CITY_TREASURE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> IGLOO_CHEST = createLootTable("chests/");
-    public static final ResourceKey<LootTable> JUNGLE_TEMPLE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> NETHER_BRIDGE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> PILLAGER_OUTPOST = createLootTable("chests/");
-    public static final ResourceKey<LootTable> RUINED_PORTAL = createLootTable("chests/ruined_portal");
-    public static final ResourceKey<LootTable> SHIPWRECK_SUPPLY = createLootTable("chests/");
-    public static final ResourceKey<LootTable> SHIPWRECK_TREASURE = createLootTable("chests/");
-    public static final ResourceKey<LootTable> SIMPLE_DUNGEON = createLootTable("chests/");
-    public static final ResourceKey<LootTable> STRONGHOLD_CORRIDOR = createLootTable("chests/");
-    public static final ResourceKey<LootTable> STRONGHOLD_CROSSING = createLootTable("chests/");
-    public static final ResourceKey<LootTable> STRONGHOLD_LIBRARY = createLootTable("chests/");
-    public static final ResourceKey<LootTable> UNDERWATER_RUIN_BIG = createLootTable("chests/");
-    public static final ResourceKey<LootTable> UNDERWATER_RUIN_SMALL = createLootTable("chests/");
-    public static final ResourceKey<LootTable> WOODLAND_MANSION = createLootTable("chests/");
+    public static final ResourceKey<LootTable> MC_ABANDONED_MINESHAFT = createLootTable("chests/mc_abandoned_mineshaft");
+    public static final ResourceKey<LootTable> MC_ANCIENT_CITY = createLootTable("chests/mc_ancient_city");
+    public static final ResourceKey<LootTable> MC_BASTION_BRIDGE = createLootTable("chests/mc_bastion_bridge");
+    public static final ResourceKey<LootTable> MC_BASTION_HOGLIN_STABLE = createLootTable("chests/mc_bastion_hoglin_stable");
+    public static final ResourceKey<LootTable> MC_BASTION_OTHER = createLootTable("chests/mc_bastion_other");
+    public static final ResourceKey<LootTable> MC_BASTION_TREASURE = createLootTable("chests/mc_bastion_treasure");
+    public static final ResourceKey<LootTable> MC_BURIED_TREASURE = createLootTable("chests/mc_buried_treasure");
+    public static final ResourceKey<LootTable> MC_DESERT_PYRAMID = createLootTable("chests/mc_desert_pyramid");
+    public static final ResourceKey<LootTable> MC_END_CITY_TREASURE = createLootTable("chests/mc_end_city_treasure");
+    public static final ResourceKey<LootTable> MC_IGLOO_CHEST = createLootTable("chests/mc_igloo_chest");
+    public static final ResourceKey<LootTable> MC_JUNGLE_TEMPLE = createLootTable("chests/mc_jungle_temple");
+    public static final ResourceKey<LootTable> MC_NETHER_BRIDGE = createLootTable("chests/mc_nether_bridge");
+    public static final ResourceKey<LootTable> MC_PILLAGER_OUTPOST = createLootTable("chests/mc_pillager_outpost");
+    public static final ResourceKey<LootTable> MC_RUINED_PORTAL = createLootTable("chests/mc_ruined_portal");
+    public static final ResourceKey<LootTable> MC_SHIPWRECK_SUPPLY = createLootTable("chests/mc_shipwreck_supply");
+    public static final ResourceKey<LootTable> MC_SHIPWRECK_TREASURE = createLootTable("chests/mc_shipwreck_treasure");
+    public static final ResourceKey<LootTable> MC_SIMPLE_DUNGEON = createLootTable("chests/mc_simple_dungeon");
+    public static final ResourceKey<LootTable> MC_STRONGHOLD_CORRIDOR = createLootTable("chests/mc_stronghold_corridor");
+    public static final ResourceKey<LootTable> MC_STRONGHOLD_CROSSING = createLootTable("chests/mc_stronghold_crossing");
+    public static final ResourceKey<LootTable> MC_STRONGHOLD_LIBRARY = createLootTable("chests/mc_stronghold_library");
+    public static final ResourceKey<LootTable> MC_UNDERWATER_RUIN_BIG = createLootTable("chests/mc_underwater_ruin_big");
+    public static final ResourceKey<LootTable> MC_UNDERWATER_RUIN_SMALL = createLootTable("chests/mc_underwater_ruin_small");
+    public static final ResourceKey<LootTable> MC_WOODLAND_MANSION = createLootTable("chests/mc_woodland_mansion");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_CORRIDOR = createLootTable("chests/trial_chambers/mc_corridor");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_ENTRANCE = createLootTable("chests/trial_chambers/mc_entrance");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_INTERSECTION = createLootTable("chests/trial_chambers/mc_intersection");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_INTERSECTION_BARREL = createLootTable("chests/trial_chambers/mc_intersection_barrel");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_REWARD_OMINOUS_COMMON = createLootTable("chests/trial_chambers/mc_reward_ominous_common");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_REWARD_OMINOUS_RARE = createLootTable("chests/trial_chambers/mc_reward_ominous_rare");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_REWARD_OMINOUS_UNIQUE = createLootTable("chests/trial_chambers/mc_reward_ominous_unique");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_REWARD_RARE = createLootTable("chests/trial_chambers/mc_reward_rare");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_REWARD_UNIQUE = createLootTable("chests/trial_chambers/mc_reward_unique");
+    public static final ResourceKey<LootTable> MC_TRIAL_CHAMBERS_SUPPLY = createLootTable("chests/trial_chambers/mc_supply");
+    public static final ResourceKey<LootTable> MC_VILLAGE_ARMORER = createLootTable("chests/village/mc_village_armorer");
+    public static final ResourceKey<LootTable> MC_VILLAGE_BUTCHER = createLootTable("chests/village/mc_village_butcher");
+    public static final ResourceKey<LootTable> MC_VILLAGE_CARTOGRAPHER = createLootTable("chests/village/mc_village_cartographer");
+    public static final ResourceKey<LootTable> MC_VILLAGE_DESERT_HOUSE = createLootTable("chests/village/mc_village_desert_house");
+    public static final ResourceKey<LootTable> MC_VILLAGE_FISHER = createLootTable("chests/village/mc_village_fisher");
+    public static final ResourceKey<LootTable> MC_VILLAGE_FLETCHER = createLootTable("chests/village/mc_village_fletcher");
+    public static final ResourceKey<LootTable> MC_VILLAGE_MASON = createLootTable("chests/village/mc_village_mason");
+    public static final ResourceKey<LootTable> MC_VILLAGE_PLAINS_HOUSE = createLootTable("chests/village/mc_village_plains_house");
+    public static final ResourceKey<LootTable> MC_VILLAGE_SAVANNA_HOUSE = createLootTable("chests/village/mc_village_savanna_house");
+    public static final ResourceKey<LootTable> MC_VILLAGE_SHEPHERD = createLootTable("chests/village/mc_village_shepherd");
+    public static final ResourceKey<LootTable> MC_VILLAGE_SNOWY_HOUSE = createLootTable("chests/village/mc_village_snowy_house");
+    public static final ResourceKey<LootTable> MC_VILLAGE_TAIGA_HOUSE = createLootTable("chests/village/mc_village_taiga_house");
+    public static final ResourceKey<LootTable> MC_VILLAGE_TANNERY = createLootTable("chests/village/mc_village_tannery");
+    public static final ResourceKey<LootTable> MC_VILLAGE_TEMPLE = createLootTable("chests/village/mc_village_temple");
+    public static final ResourceKey<LootTable> MC_VILLAGE_TOOLSMITH = createLootTable("chests/village/mc_village_toolsmith");
+    public static final ResourceKey<LootTable> MC_VILLAGE_WEAPONSMITH = createLootTable("chests/village/mc_village_weaponsmith");
     private final CompletableFuture<HolderLookup.Provider> registryLookupFuture;
 
     public ModChestLootTables(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookupFuture) {
@@ -89,7 +90,7 @@ public class ModChestLootTables extends SimpleFabricLootTableSubProvider {
         HolderGetter<Enchantment> enchantments = provider.lookupOrThrow(Registries.ENCHANTMENT);
 
         context.accept(
-                ModChestLootTables.RUINED_PORTAL,
+                ModChestLootTables.MC_RUINED_PORTAL,
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()

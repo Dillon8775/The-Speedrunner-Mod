@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.mixin.world;
+package net.dillon.speedrunnermod.mixin.structure;
 
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
