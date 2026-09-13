@@ -26,7 +26,7 @@ public class TargetGoalMixin {
      */
     @Inject(method = "canAttack", at = @At("HEAD"), cancellable = true)
     private void preventWitherFromAggroingDragon(LivingEntity target, TargetingConditions targetConditions, CallbackInfoReturnable<Boolean> cir) {
-        if (isDoomMode() && this.mob instanceof WitherBoss && target.is(ModEntityTypeTags.BLACKLISTED_WITHER_TARGET_MOBS)) {
+        if (isDoomMode() && this.mob instanceof WitherBoss && target.is(ModEntityTypeTags.BLACKLISTED_WITHER_TARGETS)) {
             cir.setReturnValue(false);
         }
     }

@@ -259,7 +259,7 @@ public abstract class LivingEntityMixin extends Entity implements InventoryPrese
         if (!(attacker instanceof LivingEntity livingAttacker)) {
             return;
         }
-        if (!livingAttacker.is(ModEntityTypeTags.SPEEDRUNNER_IMPERATIVE_MOBS)) {
+        if (!livingAttacker.is(ModEntityTypeTags.SPEEDRUNNER_IMPERATIVE)) {
             return;
         }
 

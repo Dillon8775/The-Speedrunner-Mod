@@ -133,7 +133,7 @@ public class ModBlockLoot extends FabricBlockLootSubProvider {
                         this.applyExplosionDecay(
                                         block,
                                         LootItem.lootTableItem(ModItems.SPEEDRUNNER_NUGGET)
-                                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(2, 6))))
+                                                .apply(SetItemCountFunction.setCount(ContextIntProviders.between(3, 6))))
                                 .apply(ApplyBonusCount.addOreBonusCount(this.enchantments.getOrThrow(Enchantments.FORTUNE)))
                 ));
 

@@ -8,11 +8,16 @@ plugins {
 	alias libs.plugins.modrinthMinotaur apply(true)
 }
 
-version = project.mod_version
+version = project.mod_version+"_fabric-"+project.mc_version
 group = project.maven_group
 
-def modVersion = project.mod_version.toString()
-def modVersionWithoutSuffix = modVersion.contains("_") ? modVersion.substring(0, modVersion.indexOf("_")) : modVersion
+tasks.named('jar', Jar) {
+	archiveFileName.set("${mod_id}-${mod_version}_fabric-mc${minecraft_version}.jar")
+}
+
+apply from: rootProject.file('repositories.gradle')
+apply from: 'dependencies.gradle'
+apply from: 'resources.gradle'
 
 loom {
 	splitEnvironmentSourceSets()
@@ -53,10 +58,6 @@ fabricApi {
 		client = true
 	}
 }
-
-apply from: rootProject.file('repositories.gradle')
-apply from: 'dependencies.gradle'
-apply from: 'resources.gradle'
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
@@ -104,7 +105,7 @@ tasks.register('curseforge', TaskPublishCurseForge) {
 	}
 	if (projectId) {
 		def mainFile = upload(findProperty("curseforge_project_id"), tasks.named("jar", Jar).get().archiveFile.get().asFile)
-		mainFile.displayName = "[${mc_version.substring(2)}] $mod_name ${modVersionWithoutSuffix}"
+		mainFile.displayName = "[${mc_version.substring(2)}] $mod_name ${mod_version}"
 		mainFile.changelog = rootProject.file("${changelog_file}").text
 		mainFile.addRequirement("fabric-api")
 		mainFile.addRequirement("dillonlib")
@@ -125,8 +126,8 @@ modrinth {
 	token = project.findProperty("modrinth.token") ?: System.getenv("MODRINTH_TOKEN") ?: "none"
 	projectId = findProperty("modrinth_project_id")
 
-	versionNumber = modVersionWithoutSuffix
-	versionName = "[mc${minecraft_version}] ${mod_name} ${modVersionWithoutSuffix}"
+	versionNumber = mod_version
+	versionName = "[mc${minecraft_version}] ${mod_name} ${mod_version}"
 
 	uploadFile = tasks.named("jar")
 	def changelogFile = rootProject.file("${changelog_file}")

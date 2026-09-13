@@ -5,6 +5,9 @@
     "minecraft:enderman",
     "minecraft:piglin",
     "minecraft:piglin_brute",
+    "minecraft:fireball",
+    "minecraft:small_fireball",
+    "minecraft:dragon_fireball",
     "minecraft:giant"
   ]
 }

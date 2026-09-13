@@ -136,7 +136,7 @@ public class ZombieMixin extends Monster implements MinionBase {
         }
         Player targetPlayer = players.getFirst();
         for (Mob mob : surroundingMobs) {
-            if (!mob.is(ModEntityTypeTags.BLACKLISTED_MINION_CALL_MOBS)) {
+            if (!mob.is(ModEntityTypeTags.BLACKLISTED_FROM_MINION_CALL)) {
                 mob.setTarget(targetPlayer);
             }
         }

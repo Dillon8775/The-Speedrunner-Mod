@@ -9,7 +9,7 @@
 - The Speedrunner Paddle has been removed from the mod, and all fireproof boat items have also been removed. Speedrunner, warped and crimson boats are now immune to lava with the default boat crafting recipe with planks.
     - You no longer need a speedrunner paddle to make them fireproof.
     - The Dead Speedrunner Boat is still vulnerable to fire.
-- All Dead Speedrunner Blocks can now be smelted in regular Speedrunner Blocks.
+- All Dead Speedrunner Blocks and items can be smelted in regular Speedrunner blocks/items.
 - Speedrunner ingots, nuggets and blocks can no longer be used to craft some vanilla items.
 - Due to redundancy, all stripped speedrunner logs have been removed from the mod.
 - Rotten Speedrunner Bulk has been removed.
@@ -29,6 +29,7 @@
 ## Fireball Changes
 - The default fireball explosion power has been reverted to 1.
 - On doom mode, zombies now only throw 1-2 explosion power fireballs, and the power is not increased based on the fireball explosion power option.
+- Any sort of fireball is now considered a speedrunner imperative entity.
 
 ## Revamps and Other Changes
 - The mod's built-in "fog" option is now disabled by default (meaning Minecraft's fog will be disabled by default).

@@ -418,7 +418,7 @@ public class ModAdvancementProvider extends FabricAdvancementProvider {
                         "killed_zombielike_holding_fireball",
                         KilledTrigger.TriggerInstance.playerKilledEntity(
                                 EntityPredicate.Builder.entity()
-                                        .of(entityLookup, ModEntityTypeTags.SPARE_ME_ADVANCEMENT_MOBS)
+                                        .of(entityLookup, ModEntityTypeTags.SPARE_ME_ADVANCEMENT_ENTITIES)
                                         .equipment(
                                                 EntityEquipmentPredicate.Builder.equipment()
                                                         .mainhand(

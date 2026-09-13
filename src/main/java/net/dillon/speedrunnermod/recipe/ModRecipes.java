@@ -378,19 +378,21 @@ public class ModRecipes extends RecipeProvider {
         this.woodFromLogs(ModBlocks.DEAD_SPEEDRUNNER_WOOD, ModBlocks.DEAD_SPEEDRUNNER_LOG);
         this.woodFromLogs(ModBlocks.SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_LOG);
 
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_LOG, ModBlocks.SPEEDRUNNER_LOG);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_WOOD, ModBlocks.SPEEDRUNNER_WOOD);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_LEAVES, ModBlocks.SPEEDRUNNER_LEAVES);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_SAPLING, ModBlocks.SPEEDRUNNER_SAPLING);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_PLANKS, ModBlocks.SPEEDRUNNER_PLANKS);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_SLAB, ModBlocks.SPEEDRUNNER_SLAB);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_STAIRS, ModBlocks.SPEEDRUNNER_STAIRS);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_FENCE, ModBlocks.SPEEDRUNNER_FENCE);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_FENCE_GATE, ModBlocks.SPEEDRUNNER_FENCE_GATE);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_BUTTON, ModBlocks.SPEEDRUNNER_BUTTON);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_PRESSURE_PLATE, ModBlocks.SPEEDRUNNER_PRESSURE_PLATE);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_TRAPDOOR, ModBlocks.SPEEDRUNNER_TRAPDOOR);
-        offerSmeltableDeadSpeedrunner(ModBlocks.DEAD_SPEEDRUNNER_DOOR, ModBlocks.SPEEDRUNNER_DOOR);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_BOAT, ModItems.SPEEDRUNNER_BOAT);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_CHEST_BOAT, ModItems.SPEEDRUNNER_CHEST_BOAT);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_LOG, ModItems.SPEEDRUNNER_LOG);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_WOOD, ModItems.SPEEDRUNNER_WOOD);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_LEAVES, ModItems.SPEEDRUNNER_LEAVES);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_SAPLING, ModItems.SPEEDRUNNER_SAPLING);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_PLANKS, ModItems.SPEEDRUNNER_PLANKS);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_SLAB, ModItems.SPEEDRUNNER_SLAB);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_STAIRS, ModItems.SPEEDRUNNER_STAIRS);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_FENCE, ModItems.SPEEDRUNNER_FENCE);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_FENCE_GATE, ModItems.SPEEDRUNNER_FENCE_GATE);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_BUTTON, ModItems.SPEEDRUNNER_BUTTON);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_PRESSURE_PLATE, ModItems.SPEEDRUNNER_PRESSURE_PLATE);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_TRAPDOOR, ModItems.SPEEDRUNNER_TRAPDOOR);
+        offerSmeltableDeadSpeedrunner(ModItems.DEAD_SPEEDRUNNER_DOOR, ModItems.SPEEDRUNNER_DOOR);
 
         createStickRecipe(true, "speedrunner_stick_from_dead_speedrunner_planks");
         createStickRecipe(false, "speedrunner_stick_from_speedrunner_planks");

@@ -185,7 +185,7 @@ public abstract class EnderDragonMixin extends Mob {
             List<Monster> hostiles = getEntitiesWithinRange(world, Monster.class, dragon, radius);
 
             for (Monster hostile : hostiles) {
-                if (!hostile.is(ModEntityTypeTags.BLACKLISTED_ENDER_DRAGON_KILL_MOBS)) {
+                if (!hostile.is(ModEntityTypeTags.BLACKLISTED_FROM_ENDER_DRAGON_DEATH)) {
                     hostile.kill(serverWorld);
                 }
             }

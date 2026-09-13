@@ -7,7 +7,7 @@
           "type": "minecraft:entity_properties",
           "entity": "this",
           "predicate": {
-            "minecraft:entity_type": "#speedrunnermod:spare_me_advancement_mobs",
+            "minecraft:entity_type": "#speedrunnermod:spare_me_advancement_entities",
             "minecraft:equipment": {
               "mainhand": {
                 "items": "minecraft:fire_charge"

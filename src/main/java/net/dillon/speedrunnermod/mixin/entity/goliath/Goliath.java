@@ -213,7 +213,7 @@ public class Goliath extends Monster implements GoliathBase {
     public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
         Entity entity = source.getDirectEntity();
 
-        if (entity != null && entity.is(ModEntityTypeTags.GOLIATH_IMMUNE_MOBS)) {
+        if (entity != null && entity.is(ModEntityTypeTags.GOLIATH_IMMUNE)) {
             return false;
         }
 

@@ -55,7 +55,7 @@ public abstract class PlayerMixin extends LivingEntity {
             Player self = (Player)(Object)this;
             float damage = original;
 
-            if (living.is(ModEntityTypeTags.SPEEDRUNNER_IMPERATIVE_MOBS)) {
+            if (living.is(ModEntityTypeTags.SPEEDRUNNER_IMPERATIVE)) {
                 damage *= (float)self.getAttributeValue(ModAttributes.IMPERATIVE_DAMAGE);
             }
 

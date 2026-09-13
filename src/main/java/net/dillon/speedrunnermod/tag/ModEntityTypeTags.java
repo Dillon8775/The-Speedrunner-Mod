@@ -20,13 +20,13 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 public class ModEntityTypeTags extends FabricTagsProvider<EntityType<?>> {
     public static final TagKey<EntityType<?>> FIREPROOF_BOATS = createEntityTypeTag(ofSpeedrunnerMod("fireproof_boats"));
     public static final TagKey<EntityType<?>> FAST_BOATS = createEntityTypeTag(ofSpeedrunnerMod("fast_boats"));
-    public static final TagKey<EntityType<?>> BLACKLISTED_WITHER_TARGET_MOBS = createEntityTypeTag(ofSpeedrunnerMod("blacklisted_wither_target_mobs"));
-    public static final TagKey<EntityType<?>> BLACKLISTED_MINION_CALL_MOBS = createEntityTypeTag(ofSpeedrunnerMod("blacklisted_minion_call_mobs"));
-    public static final TagKey<EntityType<?>> BLACKLISTED_ENDER_DRAGON_KILL_MOBS = createEntityTypeTag(ofSpeedrunnerMod("blacklisted_ender_dragon_kill_mobs"));
-    public static final TagKey<EntityType<?>> SPARE_ME_ADVANCEMENT_MOBS = createEntityTypeTag(ofSpeedrunnerMod("spare_me_advancement_mobs"));
-    public static final TagKey<EntityType<?>> SPEEDRUNNER_IMPERATIVE_MOBS = createEntityTypeTag(ofSpeedrunnerMod("speedrunner_imperative_mobs"));
-    public static final TagKey<EntityType<?>> GOLIATH_IMMUNE_MOBS = createEntityTypeTag(ofSpeedrunnerMod("goliath_immune_mobs"));
-    public static final TagKey<EntityType<?>> WITHERED_EFFECTED_MOBS = createEntityTypeTag(ofSpeedrunnerMod("withered_effected_mobs"));
+    public static final TagKey<EntityType<?>> SPEEDRUNNER_IMPERATIVE = createEntityTypeTag(ofSpeedrunnerMod("speedrunner_imperative"));
+    public static final TagKey<EntityType<?>> GOLIATH_IMMUNE = createEntityTypeTag(ofSpeedrunnerMod("goliath_immune"));
+    public static final TagKey<EntityType<?>> WITHERED_EFFECTED = createEntityTypeTag(ofSpeedrunnerMod("withered_effected"));
+    public static final TagKey<EntityType<?>> BLACKLISTED_WITHER_TARGETS = createEntityTypeTag(ofSpeedrunnerMod("blacklisted_wither_targets"));
+    public static final TagKey<EntityType<?>> BLACKLISTED_FROM_MINION_CALL = createEntityTypeTag(ofSpeedrunnerMod("blacklisted_from_minion_call"));
+    public static final TagKey<EntityType<?>> BLACKLISTED_FROM_ENDER_DRAGON_DEATH = createEntityTypeTag(ofSpeedrunnerMod("blacklisted_from_ender_dragon_death"));
+    public static final TagKey<EntityType<?>> SPARE_ME_ADVANCEMENT_ENTITIES = createEntityTypeTag(ofSpeedrunnerMod("spare_me_advancement_entities"));
 
     /**
      * Constructs a new {@link FabricTagsProvider} with the default computed path.
@@ -54,31 +54,18 @@ public class ModEntityTypeTags extends FabricTagsProvider<EntityType<?>> {
                 .add(ModEntityTypeIds.SPEEDRUNNER_BOAT)
                 .add(ModEntityTypeIds.SPEEDRUNNER_CHEST_BOAT);
 
-        tag(ModEntityTypeTags.BLACKLISTED_WITHER_TARGET_MOBS)
-                .add(EntityTypeIds.ENDER_DRAGON)
-                .add(EntityTypeIds.GIANT);
-
-        tag(ModEntityTypeTags.BLACKLISTED_MINION_CALL_MOBS)
-                .add(EntityTypeIds.ENDERMAN);
-
-        tag(ModEntityTypeTags.BLACKLISTED_ENDER_DRAGON_KILL_MOBS)
-                .add(EntityTypeIds.ENDERMAN);
-
-        tag(ModEntityTypeTags.SPARE_ME_ADVANCEMENT_MOBS)
-                .add(EntityTypeIds.ZOMBIE)
-                .add(EntityTypeIds.ZOMBIE_VILLAGER)
-                .add(EntityTypeIds.DROWNED)
-                .add(EntityTypeIds.HUSK);
-
-        tag(ModEntityTypeTags.SPEEDRUNNER_IMPERATIVE_MOBS)
+        tag(ModEntityTypeTags.SPEEDRUNNER_IMPERATIVE)
                 .add(EntityTypeIds.BLAZE)
                 .add(EntityTypeIds.ZOMBIE_VILLAGER)
                 .add(EntityTypeIds.ENDERMAN)
                 .add(EntityTypeIds.PIGLIN)
                 .add(EntityTypeIds.PIGLIN_BRUTE)
+                .add(EntityTypeIds.FIREBALL)
+                .add(EntityTypeIds.SMALL_FIREBALL)
+                .add(EntityTypeIds.DRAGON_FIREBALL)
                 .add(EntityTypeIds.GIANT);
 
-        tag(ModEntityTypeTags.GOLIATH_IMMUNE_MOBS)
+        tag(ModEntityTypeTags.GOLIATH_IMMUNE)
                 .add(EntityTypeIds.IRON_GOLEM)
                 .add(EntityTypeIds.RAVAGER)
                 .add(EntityTypeIds.VINDICATOR)
@@ -95,7 +82,23 @@ public class ModEntityTypeTags extends FabricTagsProvider<EntityType<?>> {
                 .add(EntityTypeIds.ENDER_DRAGON)
                 .add(EntityTypeIds.AREA_EFFECT_CLOUD);
 
-        tag(ModEntityTypeTags.WITHERED_EFFECTED_MOBS)
+        tag(ModEntityTypeTags.WITHERED_EFFECTED)
                 .add(EntityTypeIds.WITHER_SKELETON);
+
+        tag(ModEntityTypeTags.BLACKLISTED_WITHER_TARGETS)
+                .add(EntityTypeIds.ENDER_DRAGON)
+                .add(EntityTypeIds.GIANT);
+
+        tag(ModEntityTypeTags.BLACKLISTED_FROM_MINION_CALL)
+                .add(EntityTypeIds.ENDERMAN);
+
+        tag(ModEntityTypeTags.BLACKLISTED_FROM_ENDER_DRAGON_DEATH)
+                .add(EntityTypeIds.ENDERMAN);
+
+        tag(ModEntityTypeTags.SPARE_ME_ADVANCEMENT_ENTITIES)
+                .add(EntityTypeIds.ZOMBIE)
+                .add(EntityTypeIds.ZOMBIE_VILLAGER)
+                .add(EntityTypeIds.DROWNED)
+                .add(EntityTypeIds.HUSK);
     }
 }

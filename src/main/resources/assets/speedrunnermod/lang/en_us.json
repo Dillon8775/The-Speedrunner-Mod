@@ -682,6 +682,7 @@
   "speedrunnermod.options.gamemode.description": "The gamemode for each world you create.",
   "speedrunnermod.options.difficulty": "Difficulty",
   "speedrunnermod.options.difficulty.description": "The difficulty for each world you create.",
+  "speedrunnermod.options.difficulty_locked.tooltip": "§cYour difficulty is locked on Hard because you are on §c§lDoom Mode.",
   "speedrunnermod.options.allow_commands": "Allow Commands",
   "speedrunnermod.options.allow_commands.description": "Allow commands in each world you create.",
   "speedrunnermod.options.seed": "Enter set seed",
