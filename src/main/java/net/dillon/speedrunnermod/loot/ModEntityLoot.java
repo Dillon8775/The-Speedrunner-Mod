@@ -902,16 +902,6 @@ public class ModEntityLoot extends FabricEntityLootSubProvider {
                                         )
                                         .when(killedByPlayer())
                         )
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(ContextIntProviders.between(0, 1))
-                                        .add(
-                                                LootItem.lootTableItem(Items.EMERALD_BLOCK)
-                                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
-                                                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.enchantments, ContextFloatProviders.between(0.0F, 1.0F)))
-                                        )
-                                        .when(killedByPlayer())
-                        )
         );
 
         add(

@@ -27,37 +27,6 @@
         }
       ],
       "rolls": 1
-    },
-    {
-      "condition": {
-        "type": "minecraft:killed_by_player"
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "modifier": [
-            {
-              "type": "minecraft:set_count",
-              "count": 1
-            },
-            {
-              "type": "minecraft:enchanted_count_increase",
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 1.0,
-                "min": 0.0
-              },
-              "enchantment": "minecraft:looting"
-            }
-          ],
-          "name": "minecraft:emerald_block"
-        }
-      ],
-      "rolls": {
-        "type": "minecraft:uniform",
-        "max": 1,
-        "min": 0
-      }
     }
   ]
 }
