@@ -22,9 +22,7 @@
 
 ## Blocks and Items
 ### Speedrunner Tools, Armor, & Weapons
-Better than iron, but worse than diamond. However, they're faster than both **diamond** and **iron.**
-
-Each piece of armor has a special buff!
+Better than iron, but worse than diamond. However, they're faster than both **diamond** and **iron.** Each piece of armor has a special buff!
 
 <a href="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Items/speedrunner_armor.png" target="_blank">
   <img src="https://raw.githubusercontent.com/Dillon8775/ImageGIFs/refs/heads/the-speedrunner-mod/Items/speedrunner_armor.png" width="109" height="134" alt="Speedrunner armor.">
@@ -48,43 +46,27 @@ This type of wood can be used as a fuel source, but it does not burn from nearby
 
 ---
 
-### Speedrunner Paddle
-A paddle, which is used to craft **lava boats.**
+### Dead Speedrunner Wood
+Similar to speedrunner wood, however, these blocks do burn from nearby fire and lava, and it's respective boats (the dead speedrunner boat) cannot ride in lava, but are still faster than normal boats.
 
-<img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Recipes/speedrunner_paddle_crafting_recipe.png?raw=true" width="228" height="104" alt="Speedrunner paddle recipe.">
+However, you can smelt any dead speedrunner block or item into it's default speedrunner block or item state, removing it's "dead" property.
 
----
-
-### The Speedrunner Boat
-Faster than normal boats, and can be ridden in lava (if crafted with a speedrunner paddle).
-
-<img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/normal%20speedrunner%20boat%20recipe.png?raw=true" width="228" height="104" alt="Speedrunner boat recipe.">
-
-####
-
-<img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20recipe.png?raw=true" width="228" height="104" alt="Fireproof speedrunner boat recipe.">
+<img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead_speedrunner_wood.png?raw=true" width="73" height="73" alt="Dead speedrunner wood.">
 
 ---
 
 ### Fireproof Boats
-Boats that can be ridden in lava (if crafted with a speedrunner paddle).
+Boats that can be ridden in lava.
+
+These include the warped, crimson, and speedrunner boats.
+
+The speedrunner boats also move faster than regular boats.
+
+The dead speedrunner boat cannot be ridden in lava.
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/boats%20showcase.png?raw=true" width="320" height="180" alt="Speedrunner, warped and crimson boats.">
 </a>
-
-####
-
-<a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20in%20lava.png?raw=true" target="_blank">
-  <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Boats/fireproof%20boat%20in%20lava.png?raw=true" width="320" height="180" alt="Fireproof boat in lava.">
-</a>
-
----
-
-### Dead Speedrunner Wood
-Similar to speedrunner wood, however, these blocks do burn from nearby fire and lava, and it's respective boats (the dead speedrunner boat) cannot ride in lava, but are still faster than normal boats.
-
-<img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Items/dead_speedrunner_wood.png?raw=true" width="73" height="73" alt="Dead speedrunner wood.">
 
 ---
 
@@ -476,28 +458,14 @@ Yes, this exists with this mod. It can only be obtained from breaking the doom b
 
 # WorldGen Features
 
-## Structures of almost all types generate more commonly (configurable)!
-### Structure Probability Configurations:
-**Everywhere:** structures will spawn blocks next to each other (this will cause lag!).
+# Structures of almost all types generate more commonly.
 
-**Very Common:** structures will spawn very close to each other.
-
-**Common (default setting):** structures will spawn more commonly than usual.
-
-**Normal:** structures will spawn normally, not too much and not too little.
-
-**Default:** structures will spawn according to Minecraft's default settings.
-
-**Rare:** Structures will be pretty hard to find.
-
-**Very Rare:** Structures will be extremely hard to find, generating hundreds if not thousands of blocks apart.
+You can configure custom structure spawn rates from the mod's configuration file.
 
 ---
 
-### The Speedrunner's Wasteland Biome
+## The Speedrunner's Wasteland Biome
 Generates throughout the overworld, and it's great for speedrunning, because ores are more common, enderman spawn more often than anything, it doesn't rain, and all other mobs spawn less.
-
-You can disable this biome from generating by turning off the "Custom Biomes and Custom Biome Features" option.
 
 <a href="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/speedrunner%20wasteland.png?raw=true" target="_blank">
   <img src="https://github.com/Dillon8775/ImageGIFs/blob/the-speedrunner-mod/Worldgen/speedrunner%20wasteland.png?raw=true" width="480" height="270" alt="Speedrunner's Wasteland biome">
@@ -536,8 +504,6 @@ Obtained from smelting experience ores, can be used to craft XP bottles!
 
 ### Speedrunner Bushes
 Like dead bushes, but speedrunner. They generate in deserts, swamps, and badlands.
-
-You can disable these from generating by turning off the "Custom Biomes and Custom Biome Features" option.
 
 ---
 
