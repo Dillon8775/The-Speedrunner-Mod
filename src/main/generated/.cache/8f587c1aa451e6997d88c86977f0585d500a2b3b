@@ -1,4 +1,4 @@
-// 26.3-rc-3	-999999999-01-01T00:00:00	The Speedrunner Mod/minecraft:archaeology Loot Table
+// 26.3	-999999999-01-01T00:00:00	The Speedrunner Mod/minecraft:archaeology Loot Table
 d5cdd61d293a23601aa4581ea53ffe41e63b12e5 data/minecraft/loot_table/archaeology/desert_pyramid.json
 014963e19dfc9faebe90f2991c8a6550a0a98a9e data/minecraft/loot_table/archaeology/desert_well.json
 608f96cbad6363db13efe6eb1eaea4a2b4fb71d6 data/minecraft/loot_table/archaeology/ocean_ruin_cold.json
