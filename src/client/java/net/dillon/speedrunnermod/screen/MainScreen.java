@@ -7,7 +7,6 @@ import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.feature.secretdoommode.SecretDoomModeFeatureScreen;
 import net.dillon.speedrunnermod.screen.misc.ResourcesScreen;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
@@ -50,10 +49,8 @@ public class MainScreen extends AbstractModScreen {
         }).build();
 
         Button creditsButton = Button.builder(Component.translatable("speedrunnermod.menu.credits"), (button) -> {
-            openScreen(new WinScreen(Minecraft.getInstance().hasShiftDown(), () -> openScreen(this)));
-        }).tooltip(
-                Tooltip.create(Component.translatable("speedrunnermod.menu.credits.tooltip"))
-        ).build();
+            openScreen(new WinScreen(false, () -> openScreen(this)));
+        }).build();
 
         Button doomModeButton = Button.builder(Component.translatable("speedrunnermod.menu.doom_mode"), (button) -> {
             if (SecretDoomModeFeatureScreen.doomModeButtonAlreadyClicked > 0) {

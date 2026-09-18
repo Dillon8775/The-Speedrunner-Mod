@@ -24,7 +24,8 @@ public class SpeedrunnerModClient implements ClientModInitializer {
         try {
             ModKeyMappings.initializeKeybinds();
         } catch (ExceptionInInitializerError o) {
-            SpeedrunnerMod.LOGGER.error("Skipping keybind initialization. You should only see this if you are running the Datagen.");
+            SpeedrunnerMod.LOGGER.error("Error initializing keybinds. Skipping!");
+            o.printStackTrace();
         }
 
         clientConfigHandler().load();

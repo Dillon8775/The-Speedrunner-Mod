@@ -537,8 +537,8 @@
   "speedrunnermod.menu.features_and_settings": "§l§nCore",
   "speedrunnermod.menu.utilities": "§l§nUtilities",
   "speedrunnermod.menu.what_is_this": "§l§n§kWhat Is This...?",
-  "speedrunnermod.menu.mod_info": "§l§nMod Info",
-  "speedrunnermod.menu.help": "§l§nHelp",
+  "speedrunnermod.menu.mod_resources": "§l§nMod Resources",
+  "speedrunnermod.menu.questions_and_bugs": "§l§nQuestions and Bugs",
   "speedrunnermod.menu.performance_mods": "§l§nPerformance Mods",
   "speedrunnermod.menu.qol_mods": "§l§lQoL Mods",
   "speedrunnermod.menu.tutorials.routes": "§l§nRoutes",
@@ -879,7 +879,6 @@
   "speedrunnermod.menu.resources": "Resources...",
   "speedrunnermod.menu.resources.tooltip": "Mods, tutorials, and more!",
   "speedrunnermod.title.resources": "Resources",
-  "speedrunnermod.menu.resources.mods": "Other Mods...",
   "speedrunnermod.title.resources.mods": "Other Mods",
   "speedrunnermod.title.resources.mods.sodium": "Sodium...",
   "speedrunnermod.title.resources.mods.sodium.tooltip": "A mod that improves the frame rate and fixes graphical issues.",
@@ -937,12 +936,13 @@
   "speedrunnermod.menu.resources.tutorials.thirty_min_run": "Quick Speedruns...",
   "speedrunnermod.menu.resources.tutorials.thirty_min_run.tooltip": "Check out this video by \"FrizzClips\" on how you can easily beat the game in under 30 minutes.",
 
-  "speedrunnermod.menu.links.mod_showcase_video": "Showcase Video...",
-  "speedrunnermod.menu.links.mod_release_trailer": "Release Trailer...",
+  "speedrunnermod.menu.resources.showcase_video": "Showcase Video...",
+  "speedrunnermod.menu.resources.release_trailer": "Release Trailer...",
+  "speedrunnermod.menu.resources.other_mods": "Other Mods...",
+  "speedrunnermod.menu.resources.resource_packs": "Resource Packs...",
 
-  "speedrunnermod.questions_and_issues": "Questions and Issues...",
-  "speedrunnermod.suggestions_and_feedback": "Suggestions and Feedback...",
+  "speedrunnermod.resources.ask_questions": "Questions and Issues...",
+  "speedrunnermod.resources.report_bugs": "Report a bug...",
 
-  "speedrunnermod.menu.credits": "Credits...",
-  "speedrunnermod.menu.credits.tooltip": "I urge you.\n\nHold shift and click to hear a story..."
+  "speedrunnermod.menu.credits": "Credits..."
 }

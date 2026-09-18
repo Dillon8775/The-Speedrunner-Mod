@@ -364,6 +364,9 @@ public class ModBlockItemTags extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.DRAGON_IMMUNE)
                 .add(ModBlockItemIds.DOOM_STONE.block());
 
+        tag(BlockTags.BLOCKS_MOTION_NO_LEAVES)
+                .add(ModBlockItemIds.DOOM_STONE.block());
+
         tag(BlockTags.FENCE_GATES)
                 .add(ModBlockItemIds.SPEEDRUNNER_FENCE_GATE.block())
                 .add(ModBlockItemIds.DEAD_SPEEDRUNNER_FENCE_GATE.block());

@@ -9,5 +9,9 @@ dependencies {
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
     implementation "net.litetex.mcm:dev-auth-neo:${project.devauth_neo_version}"
 
+    runtimeOnly "maven.modrinth:quality-of-queso:${project.qoq_version}"
+    runtimeOnly "maven.modrinth:simple-keybinds:${project.simple_keybinds_version}"
+    runtimeOnly "maven.modrinth:balm:${project.balm_version}+fabric-${minecraft_version}"
+
     include "net.blay09.mods:kuma-api-fabric:$kuma_version"
 }

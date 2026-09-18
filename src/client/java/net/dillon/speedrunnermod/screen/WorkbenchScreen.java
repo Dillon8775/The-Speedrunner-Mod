@@ -190,7 +190,7 @@ public class WorkbenchScreen extends ItemCombinerScreen<WorkbenchMenu> {
                     x + 99,
                     y + 35,
                     28,
-                    31
+                    21
             );
         }
     }

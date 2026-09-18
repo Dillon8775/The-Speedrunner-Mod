@@ -1,7 +1,6 @@
 package net.dillon.speedrunnermod.screen.misc;
 
 import net.dillon.speedrunnermod.screen.AbstractModScreen;
-import net.dillon.speedrunnermod.util.ModLinks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -22,40 +21,50 @@ public class ResourcesScreen extends AbstractModScreen {
     protected void init() {
         super.init();
 
-        Button showcaseVideoButton = Button.builder(Component.translatable("speedrunnermod.menu.links.mod_showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE), (buttonWidget) -> {
-            openLink(this, ModLinks.SHOWCASE_VIDEO, true);
+        Button showcaseVideoButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE), (buttonWidget) -> {
+            openLink(this, "https://youtu.be/08z9VvnFacw", false);
         }).build();
 
-        Button releaseTrailerButton = Button.builder(Component.translatable("speedrunnermod.menu.links.mod_release_trailer").withStyle(ChatFormatting.AQUA), (buttonWidget) -> {
-            openLink(this, ModLinks.RELEASE_TRAILER, true);
+        Button releaseTrailerButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.release_trailer").withStyle(ChatFormatting.AQUA), (buttonWidget) -> {
+            openLink(this, "https://youtu.be/u37ujBiCMCw", false);
         }).build();
 
-        Button otherModsButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.mods").withStyle(ChatFormatting.AQUA), (button) -> {
+        Button otherModsButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.other_mods").withStyle(ChatFormatting.AQUA), (button) -> {
             openScreen(new OtherModsScreen(this));
         }).build();
 
-        Button questionsAndIssuesButton = Button.builder(Component.translatable("speedrunnermod.questions_and_issues").withStyle(ChatFormatting.BLUE), (button) -> {
-            openLink(this, ModLinks.QUESTIONS_AND_ISSUES, true);
+        Button resourcePacks = Button.builder(Component.translatable("speedrunnermod.menu.resources.resource_packs"), (button) -> {
+            openLink(this, "https://1drv.ms/f/c/dde4bd527f59679e/IgA2xkc_Nf8aR5PFjlG-0dgQAancHE7CokUkzyRyzlDDNeE?e=FJgVIt", false);
         }).build();
 
         Button tutorialsButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials").withStyle(ChatFormatting.GREEN), (button) -> {
             openScreen(new TutorialsScreen(this));
         }).build();
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.mod_info"));
+        Button askQuestionsButton = Button.builder(Component.translatable("speedrunnermod.resources.ask_questions"), (button) -> {
+            openLink(this, "https://discord.gg/vfqEAn4YFy", false);
+        }).build();
+
+        Button reportBugsButton = Button.builder(Component.translatable("speedrunnermod.resources.report_bugs"), (button) -> {
+            openLink(this, "https://github.com/Dillon8775/The-Speedrunner-Mod/issues", false);
+        }).build();
+
+        this.list.addHeader(Component.translatable("speedrunnermod.menu.mod_resources"));
         this.list.addSmall(
                 List.of(
                         showcaseVideoButton,
                         releaseTrailerButton,
-                        otherModsButton
+                        otherModsButton,
+                        resourcePacks,
+                        tutorialsButton
                 )
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.help"));
+        this.list.addHeader(Component.translatable("speedrunnermod.menu.questions_and_bugs"));
         this.list.addSmall(
                 List.of(
-                        questionsAndIssuesButton,
-                        tutorialsButton
+                        askQuestionsButton,
+                        reportBugsButton
                 )
         );
     }

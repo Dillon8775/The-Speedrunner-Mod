@@ -17,7 +17,6 @@ import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.dillon.speedrunnermod.screen.feature.FeaturesScreen;
 import net.dillon.speedrunnermod.screen.synced.ModeDoesntMatchScreen;
 import net.dillon.speedrunnermod.screen.synced.TimedScreen;
-import net.dillon.speedrunnermod.util.ModLinks;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -123,7 +122,7 @@ public class ClientModPackets {
                 }, delayInTicks);
 
                 if (ModConstants.HAS_UPDATE) {
-                    CommonTasks.sendUpdateMessage(player, ModTexts.TITLE.copy().withStyle(ChatFormatting.AQUA), ModLinks.MODRINTH_VERSIONS, TextColor.AQUA.getValue());
+                    CommonTasks.sendUpdateMessage(player, ModTexts.TITLE.copy().withStyle(ChatFormatting.AQUA), "https://modrinth.com/mod/speedrunner-mod/versions", TextColor.AQUA.getValue());
                 }
             });
         });

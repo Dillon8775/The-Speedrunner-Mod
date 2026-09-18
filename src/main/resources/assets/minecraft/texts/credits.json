@@ -1,6 +1,6 @@
 [
   {
-    "section": "Mod Credits",
+    "section": "Speedrunner Mod Credits",
     "disciplines": [
       {
         "discipline": "Creators and Founders",
@@ -47,7 +47,7 @@
             ]
           },
           {
-            "title": "Lava Paddle Sound",
+            "title": "Lava Paddling Sound",
             "names": [
               "Anxietie"
             ]
@@ -112,12 +112,6 @@
             ]
           },
           {
-            "title": "Fullbright",
-            "names": [
-              "Adam Viola"
-            ]
-          },
-          {
             "title": "Data Generation Modification",
             "names": [
               "MaxenceDC"
@@ -127,12 +121,6 @@
             "title": "Speedrunner's Totem Functionality",
             "names": [
               "Yeleefff"
-            ]
-          },
-          {
-            "title": "Custom Sign APIs",
-            "names": [
-              "TerraformersMC"
             ]
           }
         ]

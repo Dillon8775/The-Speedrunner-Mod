@@ -169,11 +169,6 @@ public class ModClientOptions {
          * Determines if the user should load into feature screens.
          */
         public boolean viewFeatures = true;
-
-        /**
-         * To show people who to turn to.
-         */
-        public boolean canCloseEndCredits = false;
     }
 
     public static boolean isOverlay() {

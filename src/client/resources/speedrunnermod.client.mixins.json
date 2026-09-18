@@ -26,7 +26,6 @@
     "screen.LogoRendererMixin",
     "screen.PauseScreenMixin",
     "screen.TitleScreenMixin",
-    "screen.WinScreenMixin",
     "screen.WorldOptionsScreenMixin"
   ],
   "injectors": {

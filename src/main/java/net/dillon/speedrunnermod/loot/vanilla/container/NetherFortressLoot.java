@@ -51,14 +51,13 @@ public class NetherFortressLoot extends GeneratableLootTable {
                                                         .apply(setCount(1, 12))
                                         )
                                         .add(
-                                                LootItem.lootTableItem(Items.FLINT_AND_STEEL)
-                                                        .setWeight(7)
-                                                        .apply(setCount(1, 12))
-                                        )
-                                        .add(
                                                 LootItem.lootTableItem(Items.NETHER_WART)
                                                         .setWeight(5)
                                                         .apply(setCount(3, 7))
+                                        )
+                                        .add(
+                                                LootItem.lootTableItem(Items.FLINT_AND_STEEL)
+                                                        .setWeight(7)
                                         )
                                         .add(
                                                 LootItem.lootTableItem(Items.SADDLE)

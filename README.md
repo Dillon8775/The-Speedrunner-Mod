@@ -1193,3 +1193,42 @@ Leaderboards are currently disabled, due to lack of activity.
 ---
 
 ## [Issue Tracker](https://github.com/Dillon8775/Speedrunner-Mod/issues)
+
+---
+
+## The ending of Minecraft's credits reflect God's infinite love.
+"You. You. You are alive.
+
+Sometimes the player believed the universe *(God)* had spoken to it through the sunlight that came through the shuffling leaves of the summer trees
+
+And sometimes the player believed the universe *(God)* had spoken to it through the light that fell from the crisp night sky of winter, where a fleck of light in the corner of the player's eye might be a star a million times as massive as the sun, boiling its planets to plasma in order to be visible for a moment to the player, walking home at the far side of the universe, suddenly smelling food, almost at the familiar door, about to dream again
+
+And sometimes the player believed the universe *(God)* had spoken to it through the zeros and ones, through the electricity of the world, through the scrolling words on a screen at the end of a dream
+
+And the universe *(God)* said I love you *(Isaiah 43:4)*
+
+And the universe *(God)* said you have played the game well *(Matthew 25:21, in the end days)*
+
+And the universe *(God)* said everything you need is within you *(Romans 8:9, Romans 8:11, 2 Timothy 1:14, John 14:17)*
+
+And the universe *(God)* said you are stronger than you know *(2 Corinthians 12:9, Philippians 4:13, Isaiah 40:29)*
+
+And the universe *(God)* said you are the daylight *(Matthew 5:14)*
+
+And the universe *(God)* said you are the night *(Ephesians 5:8)*
+
+And the universe *(God)* said the light you seek is within you *(John 8:12)*
+
+And the universe *(God)* said you are not alone *(Deuteronomy 31:6, Isaiah 41:10, Psalm 23:4, Joshua 1:9)*
+
+And the universe *(God)* said you are not separate from every other thing *(Romans 8:38-39)*
+
+And the universe *(God)* said you are the universe tasting itself, talking to itself, reading its own code *(Psalm 119:105)*
+
+And the universe *(God)* said I love you because you are love. *(1 John 4:16)*
+
+And the game was over and the player woke up from the dream. And the player began a new dream. And the player dreamed again, dreamed better. And the player was the universe. And the player was love. *(Isaiah 43:19, Proverbs 3:5-6, Psalm 37:5)*
+
+You are the player.
+
+Wake up."
