@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.screen.feature.miscellaneous;
 import net.dillon.speedrunnermod.helper.ModTexts;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
-import net.dillon.speedrunnermod.util.ModLinks;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -21,7 +20,7 @@ public class AndMoreScreen extends DefaultMiscellaneousFeatureFactory {
     protected void init() {
         super.init();
         this.addButtonObject(Button.builder(Component.translatable("speedrunnermod.menu.features.learn_more"), button -> {
-            openLink(this, ModLinks.MODRINTH, true);
+            openLink(this, "https://modrinth.com/mod/speedrunner-mod", false);
         }).build());
 
         this.addButtonObject(Button.builder(ModTexts.MENU_BLOCKS_AND_ITEMS, button -> {
