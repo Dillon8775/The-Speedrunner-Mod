@@ -22,11 +22,10 @@ public class ClientSpeedrunnerModPlatform extends ClientModPlatform {
     @Override
     public List<PlatformMenuButton> menuButtons() {
         return List.of(
-                new PlatformMenuButton(
-                        false,
+                PlatformMenuButton.pauseOnlyEmpty(
                         client().worldCreation().instantWorldCreation,
-                        ClientModUtil.createNewWorldButton(),
-                        spriteIconButton -> {})
+                        ClientModUtil.createNewWorldButton()
+                )
         );
     }
 

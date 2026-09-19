@@ -3,7 +3,6 @@ package net.dillon.speedrunnermod.screen;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModConstants;
-import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.dillon.speedrunnermod.util.ClientModUtil;
@@ -66,7 +65,6 @@ public abstract class AbstractModScreen extends OptionsSubScreen {
                     graphics,
                     this,
                     ModConstants.MOD_VERSION,
-                    SpeedrunnerModPlatforms.getPlatform().logoWidth().getWidthModifier(),
                     ofSpeedrunnerMod("hud/logo_smithing_template"),
                     ModConstants.HAS_UPDATE
             );

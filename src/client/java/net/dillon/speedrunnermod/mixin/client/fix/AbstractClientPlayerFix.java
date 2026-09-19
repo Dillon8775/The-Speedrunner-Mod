@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.mixin.client.fix;
 
 import com.mojang.authlib.GameProfile;
+import net.dillon.dillonlib.core.DillonLibModReferences;
 import net.dillon.speedrunnermod.item.tool.SpeedrunnerBowItem;
-import net.dillon.speedrunnermod.platform.ModReferences;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +24,6 @@ public abstract class AbstractClientPlayerFix extends Player {
     @ModifyConstant(method = "getFieldOfViewModifier", constant = @Constant(floatValue = 20.0F))
     private float changePullbackTime(float constant) {
         ItemStack heldItem = this.getUseItem();
-        return !ModReferences.isModLoaded(ModReferences.QUALITY_OF_QUESO) && heldItem.getItem() instanceof SpeedrunnerBowItem ? SpeedrunnerBowItem.MAX_DRAW_DURATION + 2.0F : constant;
+        return !DillonLibModReferences.isModLoaded(DillonLibModReferences.QUALITY_OF_QUESO) && heldItem.getItem() instanceof SpeedrunnerBowItem ? SpeedrunnerBowItem.MAX_DRAW_DURATION + 2.0F : constant;
     }
 }
