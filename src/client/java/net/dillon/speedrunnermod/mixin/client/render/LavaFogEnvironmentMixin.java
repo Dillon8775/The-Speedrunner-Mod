@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.minecraft.client.renderer.fog.FogData;
 import net.minecraft.client.renderer.fog.environment.LavaFogEnvironment;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 
+@Predicated
 @Mixin(LavaFogEnvironment.class)
 public class LavaFogEnvironmentMixin {
 

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.render;
 
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerModClient.client;
 
+@Predicated
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
 

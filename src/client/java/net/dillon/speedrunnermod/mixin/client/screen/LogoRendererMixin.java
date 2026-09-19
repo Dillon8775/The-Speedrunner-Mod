@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.client.screen;
 
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.LogoRenderer;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Predicated
 @Mixin(LogoRenderer.class)
 public class LogoRendererMixin {
     @Shadow @Final

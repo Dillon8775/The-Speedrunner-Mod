@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Decoder;
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.data.*;
@@ -19,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
 
+@Predicated
 @Mixin(RegistryLoadTask.PendingRegistration.class)
 public class RegistryLoadTaskPendingRegistrationMixin {
 

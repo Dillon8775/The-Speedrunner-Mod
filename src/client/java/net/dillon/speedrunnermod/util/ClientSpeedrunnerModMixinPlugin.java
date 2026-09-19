@@ -8,16 +8,10 @@ import java.util.List;
 
 public class ClientSpeedrunnerModMixinPlugin extends AbstractMixinPluginUtil {
     private static final String FOG_RENDERER_MIXIN = "client.render.FogRendererMixin";
-    private static final String OPTION_INSTANCE_MIXIN = "client.OptionInstanceMixin";
 
     @Override
     public List<PredicateEntry> entries() {
         return List.of(
-                PredicateEntry.ofDebug(
-                        PredicateEntry.single(OPTION_INSTANCE_MIXIN),
-                        DillonLibModReferences.isModLoaded(DillonLibModReferences.SIMPLE_KEYBINDS) || !ModClientOptions.INSTANCE.getInstance().mixins().optionInstanceMixin,
-                        "either Simple Keybinds mod is loaded, and already modifies what this mod does, or OptionInstanceMixin  is disabled via config."
-                ),
                 PredicateEntry.ofDebug(
                         PredicateEntry.single(FOG_RENDERER_MIXIN),
                         DillonLibModReferences.isModLoaded(DillonLibModReferences.QUALITY_OF_QUESO),

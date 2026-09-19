@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.attribute;
 
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.dillon.speedrunnermod.component.ModAttributeKeys;
 import net.dillon.speedrunnermod.item.tool.SpeedrunnerBowItem;
 import net.dillon.speedrunnermod.item.tool.SpeedrunnerCrossbowItem;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+@Predicated
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
     @Shadow

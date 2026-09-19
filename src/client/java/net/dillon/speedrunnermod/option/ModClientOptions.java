@@ -143,12 +143,6 @@ public class ModClientOptions {
         public boolean abstractClientPlayerMixin = true;
 
         /**
-         * Applies the simple option mixin into the game, which controls the brightness option slider.
-         * <p>Disable this if you are experiencing compatibility issues with other mods, or if you don't want the new brightness slider.</p>
-         */
-        public boolean optionInstanceMixin = true;
-
-        /**
          * Applies the logo drawer mixin into the game, which adds the custom speedrunner edition logo to the title screen.
          * <p>Disable this if you do not want the custom logo, or are making a custom texture pack that uses a different logo, or are experiencing compatibility issues with other mods.</p>
          */

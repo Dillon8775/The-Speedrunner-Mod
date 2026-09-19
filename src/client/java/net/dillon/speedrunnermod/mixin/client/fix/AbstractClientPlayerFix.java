@@ -2,6 +2,7 @@ package net.dillon.speedrunnermod.mixin.client.fix;
 
 import com.mojang.authlib.GameProfile;
 import net.dillon.dillonlib.core.DillonLibModReferences;
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.dillon.speedrunnermod.item.tool.SpeedrunnerBowItem;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+@Predicated
 @Mixin(AbstractClientPlayer.class)
 public abstract class AbstractClientPlayerFix extends Player {
 

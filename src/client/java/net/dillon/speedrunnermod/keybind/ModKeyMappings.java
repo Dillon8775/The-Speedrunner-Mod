@@ -70,8 +70,6 @@ public class ModKeyMappings {
             .handleWorldInput(input -> {
                 if (DillonLibModReferences.isModLoaded(DillonLibModReferences.SIMPLE_KEYBINDS)) {
                     debugWarn("key.speedrunnermod.simple_keybinds_loaded");
-                } else if (!client().mixins().optionInstanceMixin) {
-                    debugWarn("key.speedrunnermod.toggle_fullbright.mixin_disabled");
                 } else {
                     clientConfigHandler().update(c -> c.general().fullBright = !c.general().fullBright);
                     Minecraft.getInstance().options.gamma().set(client().general().fullBright ? SpeedrunnerModClient.getMaxBrightness() : 1.0D);

@@ -1,5 +1,6 @@
 package net.dillon.speedrunnermod.mixin.world;
 
+import net.dillon.dillonlib.mixinplugin.Predicated;
 import net.dillon.speedrunnermod.block.ModBlocks;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -10,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
+@Predicated
 @Mixin(TheEndGatewayBlockEntity.class)
 public class TheEndGatewayBlockEntityMixin {
 
