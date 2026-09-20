@@ -1,18 +1,16 @@
 package net.dillon.speedrunnermod.screen;
 
+import net.dillon.dillonlib.screen.DillonLibScreen;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModConstants;
 import net.dillon.speedrunnermod.screen.feature.FeaturePage;
 import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
 import net.dillon.speedrunnermod.util.ClientModUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.OptionsSubScreen;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -24,18 +22,24 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * Used to create any {@code Speedrunner Mod} screens.
  */
-public abstract class AbstractModScreen extends OptionsSubScreen {
+public abstract class AbstractModScreen extends DillonLibScreen {
     public Button doneButton;
     public Component realTitle;
 
     public AbstractModScreen(Screen parent, Component title) {
-        super(parent, Minecraft.getInstance().options, Texts.BLANK);
+        super(parent, Texts.BLANK);
         this.realTitle = title;
     }
 
     @Override
-    protected void addFooter() {
-        this.doneButton = this.layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> this.onClose()).width(200).build());
+    protected void renderModInfo(GuiGraphicsExtractor graphics) {
+        ClientTasks.drawModInfo(
+                graphics,
+                this,
+                ModConstants.MOD_VERSION,
+                ofSpeedrunnerMod("hud/logo_smithing_template"),
+                ModConstants.HAS_UPDATE
+        );
     }
 
     @Override
@@ -61,13 +65,7 @@ public abstract class AbstractModScreen extends OptionsSubScreen {
         this.renderCustomText(graphics);
 
         if (this.shouldRenderVersionText()) {
-            ClientTasks.drawModInfo(
-                    graphics,
-                    this,
-                    ModConstants.MOD_VERSION,
-                    ofSpeedrunnerMod("hud/logo_smithing_template"),
-                    ModConstants.HAS_UPDATE
-            );
+            this.renderModInfo(graphics);
         }
 
         if (!this.shouldRenderTitleText()) {
@@ -128,12 +126,5 @@ public abstract class AbstractModScreen extends OptionsSubScreen {
      */
     protected boolean shouldRenderTitleText() {
         return false;
-    }
-
-    /**
-     * Needed because this method is abstract in {@link OptionsSubScreen}.
-     */
-    @Override
-    protected void addOptions() {
     }
 }

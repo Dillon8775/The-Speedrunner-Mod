@@ -6,8 +6,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
-
 import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 
 public class FeaturesScreen extends AbstractModScreen {
@@ -17,9 +15,7 @@ public class FeaturesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void init() {
-        super.init();
-
+    protected void widgets() {
         Button blocksAndItemsButton = Button.builder(ModTexts.MENU_BLOCKS_AND_ITEMS, (buttonWidget) -> {
             openScreen(new BlocksAndItemsScreen(this));
         }).build();
@@ -44,22 +40,18 @@ public class FeaturesScreen extends AbstractModScreen {
             openScreen(new MiscellaneousScreen(this));
         }).build();
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.items"));
-        this.list.addSmall(
-                List.of(
-                        blocksAndItemsButton,
-                        toolsAndArmorButton,
-                        potionsAndEnchantmentsButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.items"),
+                blocksAndItemsButton,
+                toolsAndArmorButton,
+                potionsAndEnchantmentsButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.world_and_more"));
-        this.list.addSmall(
-                List.of(
-                        oresAndWorldgenButton,
-                        doomModeButton,
-                        miscellaneousButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.world_and_more"),
+                oresAndWorldgenButton,
+                doomModeButton,
+                miscellaneousButton
         );
     }
 

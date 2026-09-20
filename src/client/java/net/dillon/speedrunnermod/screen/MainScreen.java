@@ -13,8 +13,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.WinScreen;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
-
 import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 import static net.dillon.dillonlib.task.ClientTasks.tryOpenYaclScreen;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
@@ -29,9 +27,7 @@ public class MainScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void init() {
-        super.init();
-
+    protected void widgets() {
         Button featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
             openScreen(new FeaturesScreen(this));
         }).tooltip(
@@ -61,28 +57,22 @@ public class MainScreen extends AbstractModScreen {
         }).build();
         doomModeButton.visible = isDoomMode();
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.features_and_settings"));
-        this.list.addSmall(
-                List.of(
-                        featuresButton,
-                        configurateButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.features_and_settings"),
+                featuresButton,
+                configurateButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.utilities"));
-        this.list.addSmall(
-                List.of(
-                        resourcesButton,
-                        creditsButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.utilities"),
+                resourcesButton,
+                creditsButton
         );
 
         if (doomModeButton.visible) {
-            this.list.addHeader(Component.translatable("speedrunnermod.menu.what_is_this"));
-            this.list.addSmall(
-                    List.of(
-                            doomModeButton
-                    )
+            this.createHeader(
+                    Component.translatable("speedrunnermod.menu.what_is_this"),
+                    doomModeButton
             );
         }
     }

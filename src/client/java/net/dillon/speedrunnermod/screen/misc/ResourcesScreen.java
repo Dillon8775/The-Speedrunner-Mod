@@ -6,8 +6,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
-
 import static net.dillon.dillonlib.task.ClientTasks.openLink;
 import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 
@@ -18,9 +16,7 @@ public class ResourcesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void init() {
-        super.init();
-
+    protected void widgets() {
         Button showcaseVideoButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE), (buttonWidget) -> {
             openLink(this, "https://youtu.be/08z9VvnFacw", false);
         }).build();
@@ -49,23 +45,19 @@ public class ResourcesScreen extends AbstractModScreen {
             openLink(this, "https://github.com/Dillon8775/The-Speedrunner-Mod/issues", false);
         }).build();
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.mod_resources"));
-        this.list.addSmall(
-                List.of(
-                        showcaseVideoButton,
-                        releaseTrailerButton,
-                        otherModsButton,
-                        resourcePacks,
-                        tutorialsButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.mod_resources"),
+                showcaseVideoButton,
+                releaseTrailerButton,
+                otherModsButton,
+                resourcePacks,
+                tutorialsButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.questions_and_bugs"));
-        this.list.addSmall(
-                List.of(
-                        askQuestionsButton,
-                        reportBugsButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.questions_and_bugs"),
+                askQuestionsButton,
+                reportBugsButton
         );
     }
 }

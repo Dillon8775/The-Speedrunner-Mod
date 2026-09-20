@@ -6,8 +6,6 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
-
 import static net.dillon.dillonlib.task.ClientTasks.openLink;
 
 public class TutorialsScreen extends AbstractModScreen {
@@ -17,9 +15,7 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void init() {
-        super.init();
-
+    protected void widgets() {
         // Routes
         Button treasureBastionButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.treasure"), (button) -> {
             openLink(this, "https://www.youtube.com/watch?v=np6fc_z9LUY", false);
@@ -101,49 +97,39 @@ public class TutorialsScreen extends AbstractModScreen {
                 Tooltip.create(Component.translatable("speedrunnermod.menu.resources.tutorials.other_useful_tricks.tooltip"))
         ).build();
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.tutorials.routes"));
-        this.list.addSmall(
-                List.of(
-                        treasureBastionButton,
-                        bridgeBastionButton,
-                        stablesBastionButton,
-                        housingBastionButton,
-                        netherFortressesButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.tutorials.routes"),
+                treasureBastionButton,
+                bridgeBastionButton,
+                stablesBastionButton,
+                housingBastionButton,
+                netherFortressesButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.tutorials.microlensing"));
-        this.list.addSmall(
-                List.of(
-                        microlensingBastionsButton,
-                        microlensingFortressesButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.tutorials.microlensing"),
+                microlensingBastionsButton,
+                microlensingFortressesButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.tutorials.world_navigation"));
-        this.list.addSmall(
-                List.of(
-                        blindTravelButton,
-                        buriedTreasuresButton,
-                        pieChartButton,
-                        f3MenuButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.tutorials.world_navigation"),
+                blindTravelButton,
+                buriedTreasuresButton,
+                pieChartButton,
+                f3MenuButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.tutorials.the_end"));
-        this.list.addSmall(
-                List.of(
-                        oneCyclingButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.tutorials.the_end"),
+                oneCyclingButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.tutorials.other"));
-        this.list.addSmall(
-                List.of(
-                        comprehensiveGuideButton,
-                        thirtyMinRun,
-                        otherUsefulTricksButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.tutorials.other"),
+                comprehensiveGuideButton,
+                thirtyMinRun,
+                otherUsefulTricksButton
         );
     }
 }

@@ -8,8 +8,6 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
-
 import static net.dillon.dillonlib.task.ClientTasks.openLink;
 
 public class OtherModsScreen extends AbstractModScreen {
@@ -19,9 +17,7 @@ public class OtherModsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void init() {
-        super.init();
-
+    protected void widgets() {
         Button sodiumButton = Button.builder(ModTexts.SODIUM, (buttonWidget) -> {
             openLink(this, link("https://modrinth.com/mod/sodium"), false);
         }).tooltip(
@@ -58,22 +54,18 @@ public class OtherModsScreen extends AbstractModScreen {
                 Tooltip.create(Component.translatable("speedrunnermod.title.resources.mods.qoq.tooltip"))
         ).build();
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.qol_mods"));
-        this.list.addSmall(
-                List.of(
-                        speedrunIGTButton,
-                        qualityOfQuesoButton,
-                        simpleKeybindsButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.qol_mods"),
+                speedrunIGTButton,
+                qualityOfQuesoButton,
+                simpleKeybindsButton
         );
 
-        this.list.addHeader(Component.translatable("speedrunnermod.menu.performance_mods"));
-        this.list.addSmall(
-                List.of(
-                        sodiumButton,
-                        lithiumButton,
-                        kryptonButton
-                )
+        this.createHeader(
+                Component.translatable("speedrunnermod.menu.performance_mods"),
+                sodiumButton,
+                lithiumButton,
+                kryptonButton
         );
     }
 
