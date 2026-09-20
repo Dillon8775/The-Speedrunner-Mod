@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
  */
 public class ModTexts {
     // Titles and menus
-    public static final Component TITLE = Component.translatable("speedrunnermod.title");
+    public static final Component TITLE = Component.translatable("speedrunnermod");
     public static final Component MENU_FEATURES = Component.translatable("speedrunnermod.menu.features").withStyle(ChatFormatting.AQUA);
     public static final Component TITLE_FEATURES = Component.translatable("speedrunnermod.title.features").withStyle(ChatFormatting.AQUA);
     public static final Component ENABLE_DOOM_MODE = Component.translatable("speedrunnermod.doom_mode.enable").withStyle(ChatFormatting.RED);
@@ -60,8 +60,6 @@ public class ModTexts {
     // Title and pause screen
     public static final Component CREATE_WORLD_BUTTON_TOOLTIP = Component.translatable("speedrunnermod.create_world_button.desc");
     public static final Component CREATE_WORLD_BUTTON_DISABLED_TOOLTIP = Component.translatable("speedrunnermod.create_world_button.disabled");
-    public static final Component OPTIONS_TOOLTIP = Component.translatable("speedrunnermod.title.options.tooltip");
-    public static final Component OPTIONS_UPDATE_TOOLTIP = Component.translatable("speedrunnermod.title.update_available");
 
     /**
      * @return the text for disabled items.

@@ -16,7 +16,7 @@ public class ConfigurationScreen {
 
     public static YetAnotherConfigLib configScreen() {
         return YetAnotherConfigLib.createBuilder()
-                .title(Component.translatable("speedrunnermod.title"))
+                .title(Component.translatable("speedrunnermod"))
                 .category(
                         GeneralCategory.create()
                 )

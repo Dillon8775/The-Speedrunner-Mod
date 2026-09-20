@@ -41,14 +41,14 @@ public class FeaturesScreen extends AbstractModScreen {
         }).build();
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.items"),
+                Component.translatable("speedrunnermod.header.items"),
                 blocksAndItemsButton,
                 toolsAndArmorButton,
                 potionsAndEnchantmentsButton
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.world_and_more"),
+                Component.translatable("speedrunnermod.header.world_and_more"),
                 oresAndWorldgenButton,
                 doomModeButton,
                 miscellaneousButton

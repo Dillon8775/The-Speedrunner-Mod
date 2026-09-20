@@ -1,6 +1,9 @@
 {
-  "speedrunnermod.title": "Speedrunner Mod",
+  "speedrunnermod": "Speedrunner Mod",
   "speedrunnermod.item_group": "The Speedrunner Mod",
+  "speedrunnermod.update_available": "A newer version of the Speedrunner Mod is available",
+
+  "speedrunnermod.title": "Speedrunner Mod Main Menu",
 
   "speedrunnermod.lets_go": "Lets go!",
   "speedrunnermod.mode.easy.tooltip": "§bThe default mode, resulting in the quickest speedrun times.",
@@ -534,25 +537,23 @@
   "block.speedrunnermod.stripped_doom_log": "Stripped Doom Log",
   "block.speedrunnermod.doom_leaves": "Doom Leaves",
 
-  "speedrunnermod.menu.features_and_settings": "§l§nCore",
-  "speedrunnermod.menu.utilities": "§l§nUtilities",
-  "speedrunnermod.menu.what_is_this": "§l§n§kWhat Is This...?",
-  "speedrunnermod.menu.mod_resources": "§l§nMod Resources",
-  "speedrunnermod.menu.questions_and_bugs": "§l§nQuestions and Bugs",
-  "speedrunnermod.menu.performance_mods": "§l§nPerformance Mods",
-  "speedrunnermod.menu.qol_mods": "§l§lQoL Mods",
-  "speedrunnermod.menu.tutorials.routes": "§l§nRoutes",
-  "speedrunnermod.menu.tutorials.microlensing": "§l§nMicrolensing",
-  "speedrunnermod.menu.tutorials.world_navigation": "§l§nWorld Navigation",
-  "speedrunnermod.menu.tutorials.the_end": "§l§nThe End",
-  "speedrunnermod.menu.tutorials.other": "§l§nOther",
-  "speedrunnermod.menu.items": "§a§l§nItems",
-  "speedrunnermod.menu.world_and_more": "§b§l§nWorldGen & More",
+  "speedrunnermod.header.features_and_settings": "§l§nCore",
+  "speedrunnermod.header.utilities": "§l§nUtilities",
+  "speedrunnermod.header.what_is_this": "§l§n§kWhat Is This...?",
+  "speedrunnermod.header.mod_resources": "§l§nMod Resources",
+  "speedrunnermod.header.questions_and_bugs": "§l§nQuestions and Bugs",
+  "speedrunnermod.header.performance_mods": "§l§nPerformance Mods",
+  "speedrunnermod.header.qol_mods": "§l§lQoL Mods",
+  "speedrunnermod.header.tutorials.routes": "§l§nRoutes",
+  "speedrunnermod.header.tutorials.microlensing": "§l§nMicrolensing",
+  "speedrunnermod.header.tutorials.world_navigation": "§l§nWorld Navigation",
+  "speedrunnermod.header.tutorials.the_end": "§l§nThe End",
+  "speedrunnermod.header.tutorials.other": "§l§nOther",
+  "speedrunnermod.header.items": "§a§l§nItems",
+  "speedrunnermod.header.world_and_more": "§b§l§nWorldGen & More",
 
   "speedrunnermod.configure": "§bSettings...",
-  "speedrunnermod.menu.options.tooltip": "Configure the Speedrunner Mod...",
-  "speedrunnermod.title.options.tooltip": "Speedrunner Mod Main Menu",
-  "speedrunnermod.title.update_available": "A newer version of the Speedrunner Mod is available",
+  "speedrunnermod.options.tooltip": "Configure the Speedrunner Mod...",
 
   "key.category.speedrunnermod.speedrunnermod.keybinds": "Speedrunner Mod",
   "key.speedrunnermod.keybinds": "The Speedrunner Mod",
@@ -941,7 +942,7 @@
   "speedrunnermod.menu.resources.other_mods": "Other Mods...",
   "speedrunnermod.menu.resources.resource_packs": "Resource Packs...",
 
-  "speedrunnermod.resources.ask_questions": "Questions and Issues...",
+  "speedrunnermod.resources.ask_questions": "Ask questions...",
   "speedrunnermod.resources.report_bugs": "Report a bug...",
 
   "speedrunnermod.menu.credits": "Credits..."

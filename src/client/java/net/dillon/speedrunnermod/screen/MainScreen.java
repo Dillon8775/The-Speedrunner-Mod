@@ -37,7 +37,7 @@ public class MainScreen extends AbstractModScreen {
         Button configurateButton = Button.builder(Component.translatable("speedrunnermod.configure"), (button) ->
                 tryOpenYaclScreen(() -> ConfigurationScreen.configScreen().generateScreen(this), ModTexts.TITLE)
         ).tooltip(
-                Tooltip.create(Component.translatable("speedrunnermod.menu.options.tooltip"))
+                Tooltip.create(Component.translatable("speedrunnermod.options.tooltip"))
         ).build();
 
         Button resourcesButton = Button.builder(Component.translatable("speedrunnermod.menu.resources"), (button) -> {
@@ -58,20 +58,20 @@ public class MainScreen extends AbstractModScreen {
         doomModeButton.visible = isDoomMode();
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.features_and_settings"),
+                Component.translatable("speedrunnermod.header.features_and_settings"),
                 featuresButton,
                 configurateButton
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.utilities"),
+                Component.translatable("speedrunnermod.header.utilities"),
                 resourcesButton,
                 creditsButton
         );
 
         if (doomModeButton.visible) {
             this.createHeader(
-                    Component.translatable("speedrunnermod.menu.what_is_this"),
+                    Component.translatable("speedrunnermod.header.what_is_this"),
                     doomModeButton
             );
         }

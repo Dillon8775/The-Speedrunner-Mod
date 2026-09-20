@@ -46,7 +46,7 @@ public class ResourcesScreen extends AbstractModScreen {
         }).build();
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.mod_resources"),
+                Component.translatable("speedrunnermod.header.mod_resources"),
                 showcaseVideoButton,
                 releaseTrailerButton,
                 otherModsButton,
@@ -55,7 +55,7 @@ public class ResourcesScreen extends AbstractModScreen {
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.questions_and_bugs"),
+                Component.translatable("speedrunnermod.header.questions_and_bugs"),
                 askQuestionsButton,
                 reportBugsButton
         );

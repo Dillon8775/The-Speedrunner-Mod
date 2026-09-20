@@ -54,9 +54,9 @@ public class ClientModUtil {
                 onPress -> openScreen(new MainScreen(parent)),
                 Map.of(
                         ModConstants.HAS_UPDATE,
-                        Component.translatable("speedrunnermod.title.update_available")
+                        Component.translatable("speedrunnermod.update_available")
                 ),
-                Component.translatable("speedrunnermod.title.options.tooltip"),
+                Component.translatable("speedrunnermod.title"),
                 18,
                 18,
                 true

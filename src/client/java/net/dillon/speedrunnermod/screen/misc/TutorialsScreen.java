@@ -98,7 +98,7 @@ public class TutorialsScreen extends AbstractModScreen {
         ).build();
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.tutorials.routes"),
+                Component.translatable("speedrunnermod.header.tutorials.routes"),
                 treasureBastionButton,
                 bridgeBastionButton,
                 stablesBastionButton,
@@ -107,13 +107,13 @@ public class TutorialsScreen extends AbstractModScreen {
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.tutorials.microlensing"),
+                Component.translatable("speedrunnermod.header.tutorials.microlensing"),
                 microlensingBastionsButton,
                 microlensingFortressesButton
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.tutorials.world_navigation"),
+                Component.translatable("speedrunnermod.header.tutorials.world_navigation"),
                 blindTravelButton,
                 buriedTreasuresButton,
                 pieChartButton,
@@ -121,12 +121,12 @@ public class TutorialsScreen extends AbstractModScreen {
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.tutorials.the_end"),
+                Component.translatable("speedrunnermod.header.tutorials.the_end"),
                 oneCyclingButton
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.tutorials.other"),
+                Component.translatable("speedrunnermod.header.tutorials.other"),
                 comprehensiveGuideButton,
                 thirtyMinRun,
                 otherUsefulTricksButton

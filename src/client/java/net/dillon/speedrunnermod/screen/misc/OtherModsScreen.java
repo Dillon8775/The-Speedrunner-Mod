@@ -55,14 +55,14 @@ public class OtherModsScreen extends AbstractModScreen {
         ).build();
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.qol_mods"),
+                Component.translatable("speedrunnermod.header.qol_mods"),
                 speedrunIGTButton,
                 qualityOfQuesoButton,
                 simpleKeybindsButton
         );
 
         this.createHeader(
-                Component.translatable("speedrunnermod.menu.performance_mods"),
+                Component.translatable("speedrunnermod.header.performance_mods"),
                 sodiumButton,
                 lithiumButton,
                 kryptonButton
