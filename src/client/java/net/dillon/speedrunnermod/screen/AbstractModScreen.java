@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.screen;
 
-import net.dillon.dillonlib.screen.DillonLibScreen;
+import net.dillon.dillonlib.screen.DillonLibMenuScreen;
+import net.dillon.dillonlib.screen.ScreenBuilder;
 import net.dillon.dillonlib.task.ClientTasks;
 import net.dillon.dillonlib.util.Texts;
 import net.dillon.speedrunnermod.helper.ModConstants;
@@ -22,12 +23,12 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 /**
  * Used to create any {@code Speedrunner Mod} screens.
  */
-public abstract class AbstractModScreen extends DillonLibScreen {
+public abstract class AbstractModScreen extends DillonLibMenuScreen {
     public Button doneButton;
     public Component realTitle;
 
     public AbstractModScreen(Screen parent, Component title) {
-        super(parent, Texts.BLANK);
+        super(parent, Texts.BLANK, ScreenBuilder::ofBottomCentered);
         this.realTitle = title;
     }
 

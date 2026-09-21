@@ -3,7 +3,7 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-    implementation "maven.modrinth:dillon-lib:${project.mc_version}-${project.dillonlib_version}-fabric"
+    implementation "net.dillon.dillonlib:dillonlib-fabric-mc26.3:unspecified"
     implementation "dev.isxander:yet-another-config-lib:${project.yacl_version}-fabric"
     implementation "net.blay09.mods:kuma-api-common:$kuma_version"
     implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
