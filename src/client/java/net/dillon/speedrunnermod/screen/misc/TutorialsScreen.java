@@ -15,7 +15,7 @@ public class TutorialsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void widgets() {
+    public void widgets() {
         // Routes
         Button treasureBastionButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.tutorials.bastion_routes.treasure"), (button) -> {
             openLink(this, "https://www.youtube.com/watch?v=np6fc_z9LUY", false);

@@ -16,7 +16,7 @@ public class ResourcesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void widgets() {
+    public void widgets() {
         Button showcaseVideoButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE), (buttonWidget) -> {
             openLink(this, "https://youtu.be/08z9VvnFacw", false);
         }).build();

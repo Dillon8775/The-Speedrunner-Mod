@@ -27,7 +27,7 @@ public class MainScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void widgets() {
+    public void widgets() {
         Button featuresButton = Button.builder(ModTexts.MENU_FEATURES, (button) -> {
             openScreen(new FeaturesScreen(this));
         }).tooltip(

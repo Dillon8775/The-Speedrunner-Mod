@@ -17,7 +17,7 @@ public class OtherModsScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void widgets() {
+    public void widgets() {
         Button sodiumButton = Button.builder(ModTexts.SODIUM, (buttonWidget) -> {
             openLink(this, link("https://modrinth.com/mod/sodium"), false);
         }).tooltip(

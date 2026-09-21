@@ -15,7 +15,7 @@ public class FeaturesScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void widgets() {
+    public void widgets() {
         Button blocksAndItemsButton = Button.builder(ModTexts.MENU_BLOCKS_AND_ITEMS, (buttonWidget) -> {
             openScreen(new BlocksAndItemsScreen(this));
         }).build();
