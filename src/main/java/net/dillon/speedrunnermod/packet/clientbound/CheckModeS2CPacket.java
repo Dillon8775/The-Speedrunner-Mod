@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.network.client;
+package net.dillon.speedrunnermod.packet.clientbound;
 
 import net.dillon.speedrunnermod.option.eum.Mode;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,7 +14,7 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
 public record CheckModeS2CPacket(Mode serverSideMode) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("check_mode_s2c");
 
-    public static final CustomPacketPayload.Type<CheckModeS2CPacket> PACKET = new CustomPacketPayload.Type<>(ID);
+    public static final CustomPacketPayload.Type<CheckModeS2CPacket> PACKET_TYPE = new CustomPacketPayload.Type<>(ID);
     public static final StreamCodec<RegistryFriendlyByteBuf, CheckModeS2CPacket> CODEC =
             StreamCodec.ofMember(
                     (buf, packet) -> {
@@ -27,6 +27,6 @@ public record CheckModeS2CPacket(Mode serverSideMode) implements CustomPacketPay
 
     @Override
     public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
-        return PACKET;
+        return PACKET_TYPE;
     }
 }

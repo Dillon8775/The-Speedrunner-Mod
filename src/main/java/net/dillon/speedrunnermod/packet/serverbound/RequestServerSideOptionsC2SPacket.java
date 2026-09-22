@@ -1,6 +1,6 @@
-package net.dillon.speedrunnermod.network.server;
+package net.dillon.speedrunnermod.packet.serverbound;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
@@ -12,15 +12,15 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public record RequestServerSideOptionsC2SPacket() implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("request_server_side_options_c2s");
-    public static final CustomPacketPayload.Type<RequestServerSideOptionsC2SPacket> PACKET = new CustomPacketPayload.Type<>(ID);
+    public static final CustomPacketPayload.Type<RequestServerSideOptionsC2SPacket> PACKET_TYPE = new CustomPacketPayload.Type<>(ID);
 
-    public static final StreamCodec<FriendlyByteBuf, RequestServerSideOptionsC2SPacket> CODEC = StreamCodec.ofMember(
+    public static final StreamCodec<RegistryFriendlyByteBuf, RequestServerSideOptionsC2SPacket> CODEC = StreamCodec.ofMember(
         (buf, packet) -> {},
         buf -> new RequestServerSideOptionsC2SPacket()
     );
 
     @Override
     public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
-        return PACKET;
+        return PACKET_TYPE;
     }
 }

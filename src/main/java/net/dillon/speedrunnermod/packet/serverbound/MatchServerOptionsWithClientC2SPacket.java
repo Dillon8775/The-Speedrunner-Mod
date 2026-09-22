@@ -1,8 +1,8 @@
-package net.dillon.speedrunnermod.network.server;
+package net.dillon.speedrunnermod.packet.serverbound;
 
 import com.google.gson.Gson;
 import net.dillon.speedrunnermod.option.ModCommonOptions;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
@@ -14,11 +14,11 @@ import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
  */
 public record MatchServerOptionsWithClientC2SPacket(String jsonOptions, String playerName) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("match_server_options_with_client_c2s");
-    public static final CustomPacketPayload.Type<MatchServerOptionsWithClientC2SPacket> PACKET = new CustomPacketPayload.Type<>(ID);
+    public static final CustomPacketPayload.Type<MatchServerOptionsWithClientC2SPacket> PACKET_TYPE = new CustomPacketPayload.Type<>(ID);
 
     public static final Gson GSON = new Gson();
 
-    public static final StreamCodec<FriendlyByteBuf, MatchServerOptionsWithClientC2SPacket> CODEC = StreamCodec.ofMember(
+    public static final StreamCodec<RegistryFriendlyByteBuf, MatchServerOptionsWithClientC2SPacket> CODEC = StreamCodec.ofMember(
             (buf, packet) -> {
                 packet.writeUtf(buf.jsonOptions());
                 packet.writeUtf(buf.playerName());
@@ -38,6 +38,6 @@ public record MatchServerOptionsWithClientC2SPacket(String jsonOptions, String p
 
     @Override
     public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
-        return PACKET;
+        return PACKET_TYPE;
     }
 }

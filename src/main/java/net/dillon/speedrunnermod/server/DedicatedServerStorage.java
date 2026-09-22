@@ -1,4 +1,4 @@
-package net.dillon.speedrunnermod.network;
+package net.dillon.speedrunnermod.server;
 
 import net.dillon.speedrunnermod.option.ModCommonOptions;
 

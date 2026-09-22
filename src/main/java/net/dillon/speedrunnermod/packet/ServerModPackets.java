@@ -1,19 +1,16 @@
-package net.dillon.speedrunnermod.network;
+package net.dillon.speedrunnermod.packet;
 
+import net.blay09.mods.balm.Balm;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.mixin.accessor.LivingEntityAccessor;
-import net.dillon.speedrunnermod.network.client.CheckModeS2CPacket;
-import net.dillon.speedrunnermod.network.client.MatchClientOptionsWithServerS2CPacket;
-import net.dillon.speedrunnermod.network.client.OpenFeaturesScreenS2CPacket;
-import net.dillon.speedrunnermod.network.client.RequestClientSideOptionsS2CPacket;
-import net.dillon.speedrunnermod.network.server.ClientPreferencesC2SPacket;
-import net.dillon.speedrunnermod.network.server.MatchServerOptionsWithClientC2SPacket;
-import net.dillon.speedrunnermod.network.server.RequestServerSideOptionsC2SPacket;
-import net.dillon.speedrunnermod.option.ModCommonOptions;
+import net.dillon.speedrunnermod.packet.clientbound.CheckModeS2CPacket;
+import net.dillon.speedrunnermod.packet.serverbound.ClientPreferencesC2SPacket;
+import net.dillon.speedrunnermod.packet.serverbound.MatchServerOptionsWithClientC2SPacket;
+import net.dillon.speedrunnermod.packet.serverbound.RequestServerSideOptionsC2SPacket;
+import net.dillon.speedrunnermod.server.DedicatedServerStorage;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
@@ -42,64 +39,38 @@ import java.util.UUID;
 
 import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.*;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.SpeedrunnerMod.isEnvironmentTypeServer;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
-public class ModPackets {
+public class ServerModPackets {
 
     /**
-     * Registers the {@link ClientPreferencesC2SPacket} packet.
+     * Registers all speedrunner mod server-bound packets.
      */
-    private static void registerC2SClientPreferences() {
-        PayloadTypeRegistry.serverboundPlay().register(ClientPreferencesC2SPacket.PACKET, ClientPreferencesC2SPacket.CODEC);
+    public static void registerServerBoundPackets() {
+        registerDedicatedServerJoinAndDisconnectEvents();
 
-        ServerPlayNetworking.registerGlobalReceiver(ClientPreferencesC2SPacket.PACKET, (packet, context) -> {
-            UUID playerUuid = context.player().getUUID();
-            DedicatedServerStorage.setActionbarPref(playerUuid, packet.actionbar());
-            DedicatedServerStorage.setWarningMessages(playerUuid, packet.warningMessages());
-            DedicatedServerStorage.setIcarusFireworkSlot(playerUuid, packet.iCarusFireworksInventorySlot());
-            DedicatedServerStorage.setInfiniPearlSlot(playerUuid, packet.infiniPearlInventorySlot());
-        });
-    }
+        Balm.networking().registerServerboundPacket(
+                ClientPreferencesC2SPacket.PACKET_TYPE,
+                ClientPreferencesC2SPacket.class,
+                ClientPreferencesC2SPacket.CODEC,
+                ServerPacketHandlers::handleClientPreferences
+        );
 
-    /**
-     * Registers the receiver for syncing client-side options with server-side.
-     */
-    private static void registerC2SRequestServerSideOptions() {
-        PayloadTypeRegistry.serverboundPlay().register(RequestServerSideOptionsC2SPacket.PACKET, RequestServerSideOptionsC2SPacket.CODEC);
+        Balm.networking().registerServerboundPacket(
+                RequestServerSideOptionsC2SPacket.PACKET_TYPE,
+                RequestServerSideOptionsC2SPacket.class,
+                RequestServerSideOptionsC2SPacket.CODEC,
+                ServerPacketHandlers::handleRequestServerSideOptions
+        );
 
-        ServerPlayNetworking.registerGlobalReceiver(RequestServerSideOptionsC2SPacket.PACKET, (packet, context) -> {
-            ModCommonOptions serverOptions = common();
-            ServerPlayNetworking.send(context.player(), MatchClientOptionsWithServerS2CPacket.from(serverOptions));
-            LOGGER.info("{} requested this server's speedrunner mod settings.", context.player().getDisplayName().getString());
-        });
-    }
-
-    /**
-     * Registers the packet for syncing server-side options with client-side.
-     */
-    private static void registerC2SMatchServerOptionsWithClient() {
-        PayloadTypeRegistry.serverboundPlay().register(MatchServerOptionsWithClientC2SPacket.PACKET, MatchServerOptionsWithClientC2SPacket.CODEC);
-
-        ServerPlayNetworking.registerGlobalReceiver(MatchServerOptionsWithClientC2SPacket.PACKET, (packet, context) -> {
-            ModCommonOptions clientOptions = packet.toOptions();
-            String player = packet.playerName();
-            DedicatedServerStorage.storePendingSyncRequest(player, clientOptions);
-            context.server().sendSystemMessage(Component.translatable("speedrunnermod.client_options_request_received", player, player));
-        });
-    }
-
-    /**
-     * Registers {@code server-to-client} packets on server.
-     */
-    private static void registerS2COnServer() {
-        // Only register on server
-        if (isEnvironmentTypeServer()) {
-            PayloadTypeRegistry.clientboundPlay().register(CheckModeS2CPacket.PACKET, CheckModeS2CPacket.CODEC);
-            PayloadTypeRegistry.clientboundPlay().register(MatchClientOptionsWithServerS2CPacket.PACKET, MatchClientOptionsWithServerS2CPacket.CODEC);
-            PayloadTypeRegistry.clientboundPlay().register(OpenFeaturesScreenS2CPacket.PACKET, OpenFeaturesScreenS2CPacket.CODEC);
-            PayloadTypeRegistry.clientboundPlay().register(RequestClientSideOptionsS2CPacket.PACKET, RequestClientSideOptionsS2CPacket.CODEC);
-        }
+        Balm.networking().registerServerboundPacket(
+                MatchServerOptionsWithClientC2SPacket.PACKET_TYPE,
+                MatchServerOptionsWithClientC2SPacket.class,
+                MatchServerOptionsWithClientC2SPacket.CODEC,
+                ServerPacketHandlers::handleMatchServerOptionsWithUser
+        );
     }
 
     /**
@@ -204,18 +175,5 @@ public class ModPackets {
                 }
             });
         }
-    }
-
-    /**
-     * Registers all speedrunner mod payloads/packets.
-     */
-    public static void registerPackets() {
-        registerC2SClientPreferences();
-        registerC2SMatchServerOptionsWithClient();
-        registerC2SRequestServerSideOptions();
-
-        registerS2COnServer(); // register server-to-client ONLY on EnvType.SERVER
-
-        registerDedicatedServerJoinAndDisconnectEvents();
     }
 }

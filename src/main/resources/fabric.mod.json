@@ -43,7 +43,8 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version_range}",
     "java": ">=${java_version}",
-    "dillonlib": ">=${dillonlib_version}"
+    "dillonlib": ">=${dillonlib_version}",
+    "balm-fabric": ">=${balm_version}"
   },
   "custom": {
     "modmenu": {

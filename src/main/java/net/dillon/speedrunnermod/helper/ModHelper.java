@@ -7,7 +7,7 @@ import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.entity.goliath.MinionBase;
 import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.main.SpeedrunnerMod;
-import net.dillon.speedrunnermod.network.DedicatedServerStorage;
+import net.dillon.speedrunnermod.server.DedicatedServerStorage;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.ChatFormatting;

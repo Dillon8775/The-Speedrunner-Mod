@@ -11,8 +11,8 @@ import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.core.ModItemGroups;
 import net.dillon.speedrunnermod.item.core.ModItems;
 import net.dillon.speedrunnermod.menu.ModMenus;
-import net.dillon.speedrunnermod.network.ModPackets;
 import net.dillon.speedrunnermod.option.ModCommonOptions;
+import net.dillon.speedrunnermod.packet.ServerModPackets;
 import net.dillon.speedrunnermod.platform.SpeedrunnerModPlatforms;
 import net.dillon.speedrunnermod.recipe.ModRecipes;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
@@ -47,7 +47,7 @@ public class SpeedrunnerMod implements ModInitializer {
 
         ModConstants.initConstants();
 
-        ModPackets.registerPackets();
+        ServerModPackets.registerServerBoundPackets();
 
         ModParticleTypes.registerParticles();
 

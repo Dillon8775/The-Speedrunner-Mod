@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.main;
 
 import net.dillon.speedrunnermod.keybind.ModKeyMappings;
-import net.dillon.speedrunnermod.network.ClientModPackets;
 import net.dillon.speedrunnermod.option.ModClientOptions;
+import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.dillon.speedrunnermod.particle.ModParticleManager;
 import net.dillon.speedrunnermod.screen.ModMenus;
 import net.fabricmc.api.ClientModInitializer;
@@ -17,10 +17,12 @@ public class SpeedrunnerModClient implements ClientModInitializer {
      */
     @Override
     public void onInitializeClient() {
-        ClientModPackets.registerClientPackets();
+        ClientModPackets.registerClientBoundPackets();
 
         ModParticleManager.registerParticleTypes();
+
         ModMenus.registerScreens();
+
         try {
             ModKeyMappings.initializeKeybinds();
         } catch (ExceptionInInitializerError o) {

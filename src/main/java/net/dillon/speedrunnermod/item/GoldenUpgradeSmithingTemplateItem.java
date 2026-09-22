@@ -2,7 +2,7 @@ package net.dillon.speedrunnermod.item;
 
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.mixin.accessor.SmithingTemplateItemInvoker;
-import net.dillon.speedrunnermod.network.client.OpenFeaturesScreenS2CPacket;
+import net.dillon.speedrunnermod.packet.clientbound.OpenFeaturesScreenS2CPacket;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

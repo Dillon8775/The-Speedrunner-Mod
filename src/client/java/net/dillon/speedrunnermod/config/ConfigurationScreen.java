@@ -1,7 +1,7 @@
 package net.dillon.speedrunnermod.config;
 
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
-import net.dillon.speedrunnermod.network.ClientModPackets;
+import net.dillon.speedrunnermod.packet.ClientModPackets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 

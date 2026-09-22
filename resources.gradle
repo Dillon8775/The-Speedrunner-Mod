@@ -10,6 +10,7 @@ processResources {
     inputs.property "mc_version", project.mc_version
     inputs.property "minecraft_version_range", project.minecraft_version_range
     inputs.property "dillonlib_version", project.dillonlib_version
+    inputs.property "balm_version", project.balm_version
     inputs.property "fabric_loader_version", project.fabric_loader_version
     inputs.property "java_version", project.java_version
 
@@ -19,6 +20,7 @@ processResources {
                 "mc_version": project.mc_version,
                 "minecraft_version_range": project.minecraft_version_range,
                 "dillonlib_version": project.dillonlib_version,
+                "balm_version": project.balm_version,
                 "fabric_loader_version": project.fabric_loader_version,
                 "java_version": project.java_version
     }
