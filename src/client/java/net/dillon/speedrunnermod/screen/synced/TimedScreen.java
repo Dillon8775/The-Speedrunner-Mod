@@ -34,7 +34,7 @@ public class TimedScreen extends AbstractModScreen {
      * Refreshes the screen to countdown and close the game after 5 seconds.
      */
     @Override
-    protected void init() {
+    public void widgets() {
         this.canceled = false;
         this.timer = new Timer();
         this.timer.scheduleAtFixedRate(new TimerTask() {
@@ -53,18 +53,26 @@ public class TimedScreen extends AbstractModScreen {
             }
         }, 0, 1000);
 
+        builder().widthCenter().apply();
+        builder().widthLeft(50).apply();
+
         this.addRenderableWidget(Button.builder(Component.translatable("gui.cancel"), (buttonWidget) -> {
             this.onClose();
-        }).bounds(this.width / 2 - 50, this.height / 6 + 126, 150, 20).build());
+        }).bounds(builder().captureWidth(), this.height / 6 + 126, 150, 20).build());
     }
 
     @Override
     public void renderCustomText(GuiGraphicsExtractor graphics) {
+        builder().renderHeightTop().apply();
+        builder().renderHeightDown(120).apply();
+
         if (this.server) {
-            graphics.centeredText(this.font, ModTexts.MATCHED_SETTINGS_WITH_SERVER, this.width / 2, 120, CommonColors.WHITE);
+            builder().textCenterAndHeightDown(graphics, ModTexts.MATCHED_SETTINGS_WITH_SERVER).apply();
+        } else {
+            builder().renderHeightDown();
         }
-        graphics.centeredText(this.font, Component.translatable("speedrunnermod.restarting_game_timer"), this.width / 2, 140, CommonColors.WHITE);
-        graphics.centeredText(this.font, Component.literal(this.countdown+"..."), this.width / 2, 160, CommonColors.WHITE);
+        builder().textCenterAndHeightDown(graphics, Component.translatable("speedrunnermod.restarting_game_timer")).apply();
+        builder().textCenterAndHeightDown(graphics, Component.literal(this.countdown+"..."));
     }
 
     @Override

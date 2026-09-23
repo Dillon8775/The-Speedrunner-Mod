@@ -204,7 +204,7 @@ public class FeatureScreen extends AbstractScrollableScreen {
      * Refreshes a feature screen.
      */
     public void refreshFeatureScreen(int pageNumber, FeatureScreenCategory screenCategory) {
-        openScreen(new TemporaryScreen(this.lastScreen, Component.literal("Refreshing...")));
+        openScreen(new TemporaryScreen(this.lastScreen));
         openScreen(this.determineRefreshedFeatureScreen(pageNumber, screenCategory));
     }
 

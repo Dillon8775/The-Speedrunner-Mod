@@ -7,7 +7,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.multiplayer.JoinMultiplayerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.CommonColors;
 
 import static net.dillon.dillonlib.task.ClientTasks.openScreen;
 import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
@@ -21,23 +20,32 @@ public class ModeDoesntMatchScreen extends AbstractModScreen {
     }
 
     @Override
-    protected void init() {
+    public void widgets() {
+        builder().widthCenter().apply();
+        builder().widthLeft(155).apply();
+
         this.addRenderableWidget(Button.builder(Component.translatable("speedrunnermod.match_mode_to_server"), (buttonWidget) -> {
             commonConfigHandler().update(o -> o.general().mode = this.serverSideMode);
             openScreen(new TimedScreen(null, 5, true));
         }).tooltip(
                 Tooltip.create(Component.translatable("speedrunnermod.match_mode_to_server.tooltip"))
-        ).bounds(this.width / 2 - 155, this.height / 6 + 126, 150, 20).build());
+        ).bounds(builder().captureWidth(), this.height / 6 + 126, 150, 20).build());
+
+        builder().widthCenter().apply();
+        builder().widthRight(5).apply();
 
         this.addRenderableWidget(Button.builder(Component.translatable("gui.toMenu"), (buttonWidget) -> {
             this.onClose();
-        }).bounds(this.width / 2 + 5, this.height / 6 + 126, 150, 20).build());
+        }).bounds(builder().captureWidth(), this.height / 6 + 126, 150, 20).build());
     }
 
     @Override
     public void renderCustomText(GuiGraphicsExtractor graphics) {
-        graphics.centeredText(this.font, Component.translatable("speedrunnermod.mode.doesnt_match_server.line1"), this.width / 2, 110, CommonColors.WHITE);
-        graphics.centeredText(this.font, Component.translatable("speedrunnermod.mode.doesnt_match_server.line2"), this.width / 2, 130, CommonColors.WHITE);
+        builder().renderHeightTop().apply();
+        builder().renderHeightDown(110).apply();
+
+        builder().textCenterAndHeightDown(graphics, Component.translatable("speedrunnermod.mode.doesnt_match_server.line1")).apply();
+        builder().textCenterAndHeightDown(graphics, Component.translatable("speedrunnermod.mode.doesnt_match_server.line2")).apply();
     }
 
     @Override
