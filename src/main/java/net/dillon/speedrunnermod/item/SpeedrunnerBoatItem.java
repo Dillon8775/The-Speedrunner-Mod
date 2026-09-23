@@ -8,7 +8,7 @@ import net.minecraft.world.entity.vehicle.boat.AbstractBoat;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * A boat, which is faster than normal boats, or just has different attributes.

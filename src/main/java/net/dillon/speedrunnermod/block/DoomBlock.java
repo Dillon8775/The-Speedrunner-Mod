@@ -37,7 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.List;
 
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 
 /**

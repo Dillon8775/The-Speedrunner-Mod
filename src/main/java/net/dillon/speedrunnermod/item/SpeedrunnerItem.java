@@ -23,7 +23,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 
 /**
  * Any type of speedrunner item that contains a tooltip, or advanced eye items.

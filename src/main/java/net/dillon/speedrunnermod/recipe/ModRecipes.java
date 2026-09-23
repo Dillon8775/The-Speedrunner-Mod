@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All Speedrunner Mod recipes.

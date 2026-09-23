@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(EyeOfEnder.class)

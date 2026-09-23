@@ -13,7 +13,7 @@ import net.minecraft.world.level.biome.Biomes;
 import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createBiomeTag;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * Creates all biome tags for the Speedrunner Mod.

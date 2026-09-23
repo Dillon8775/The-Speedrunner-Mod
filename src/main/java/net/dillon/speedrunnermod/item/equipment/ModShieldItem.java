@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * <p>A modded shield.</p>

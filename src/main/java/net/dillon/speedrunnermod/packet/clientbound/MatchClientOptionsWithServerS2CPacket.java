@@ -7,7 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 public record MatchClientOptionsWithServerS2CPacket(String jsonOptions) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("match_client_options_with_server_s2c");

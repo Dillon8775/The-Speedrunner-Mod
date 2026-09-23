@@ -39,7 +39,7 @@ import java.util.List;
 
 import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.speedrunnermod.helper.ModHelper.*;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.doomOrDefault;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 

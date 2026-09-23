@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.item.core;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod block item ids.

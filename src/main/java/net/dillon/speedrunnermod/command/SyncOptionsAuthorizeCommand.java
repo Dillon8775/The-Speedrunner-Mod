@@ -9,7 +9,7 @@ import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.commonConfigHandler;
+import static net.dillon.speedrunnermod.main.CommonMain.commonConfigHandler;
 
 /**
  * The command to authorize a {@code syncoptions} request.

@@ -1,0 +1,130 @@
+package net.dillon.speedrunnermod.screen;
+
+import net.dillon.dillonlib.screen.DillonLibMenuScreen;
+import net.dillon.dillonlib.screen.ScreenBuilder;
+import net.dillon.dillonlib.task.ClientTasks;
+import net.dillon.dillonlib.util.Texts;
+import net.dillon.speedrunnermod.helper.ModConstants;
+import net.dillon.speedrunnermod.screen.feature.FeaturePage;
+import net.dillon.speedrunnermod.screen.feature.FeatureScreenCategory;
+import net.dillon.speedrunnermod.util.ClientModUtil;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.dillon.dillonlib.task.ClientTasks.openScreen;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
+
+/**
+ * Used to create any {@code Speedrunner Mod} screens.
+ */
+public abstract class AbstractModScreen extends DillonLibMenuScreen {
+    public Button doneButton;
+    public Component realTitle;
+
+    public AbstractModScreen(Screen parent, Component title) {
+        super(parent, Texts.BLANK, ScreenBuilder::ofBottomCentered);
+        this.realTitle = title;
+    }
+
+    @Override
+    protected void renderModInfo(GuiGraphicsExtractor graphics) {
+        ClientTasks.drawModInfo(
+                graphics,
+                this,
+                ModConstants.MOD_VERSION,
+                ofSpeedrunnerMod("hud/logo_smithing_template"),
+                ModConstants.HAS_UPDATE
+        );
+    }
+
+    @Override
+    protected void addTitle() {
+        if (!this.shouldRenderTitleText()) {
+            return;
+        }
+
+        Component realTitle = this.realTitle;
+        if (this instanceof FeatureScreen abstractFeatureScreen) {
+            FeatureScreenCategory category = abstractFeatureScreen.featurePage.getCategory();
+            String key = abstractFeatureScreen.featurePage.getKey().toLowerCase();
+            realTitle = FeatureScreen.featureTitleText(category, key);
+        }
+
+        this.layout.addTitleHeader(realTitle, this.font);
+    }
+
+    @Override
+    public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float delta) {
+        super.extractRenderState(graphics, mouseX, mouseY, delta);
+
+        this.renderCustomText(graphics);
+
+        if (this.shouldRenderVersionText()) {
+            this.renderModInfo(graphics);
+        }
+
+        if (!this.shouldRenderTitleText()) {
+            renderSpeedrunnerModTitleText(graphics, this.width);
+        }
+    }
+
+    /**
+     * Iterate through all {@link FeatureScreen}s to add to the main feature screen lists.
+     */
+    protected void addButtonsIteratively(FeatureScreenCategory screenCategory) {
+        List<AbstractWidget> featureButtons = new ArrayList<>();
+        for (FeaturePage page : FeaturePage.values()) {
+            if (page.getCategory() == screenCategory) {
+                FeatureScreen screen = this.createFeatureScreen(page);
+
+                featureButtons.add(Button.builder(
+                        FeatureScreen.featureTitleText(screenCategory, page.getKey()), b -> openScreen(screen)
+                ).build());
+            }
+        }
+
+        this.list.addSmall(featureButtons);
+    }
+
+    /**
+     * Creates every feature screen based on its category.
+     */
+    private FeatureScreen createFeatureScreen(FeaturePage page) {
+        return page.createScreen(this);
+    }
+
+    /**
+     * Renders the speedrunner mod title text.
+     */
+    protected static void renderSpeedrunnerModTitleText(GuiGraphicsExtractor graphics, int width) {
+        int middle = width / 2 - 65;
+        ClientModUtil.renderSpeedrunnerModLogo(graphics, middle, false);
+    }
+
+    /**
+     * Render custom text on a mod screen.
+     * <p><b>Never</b> {@link Override} the {@code basic render method,} use this method instead.</p>
+     */
+    protected void renderCustomText(GuiGraphicsExtractor graphics) {
+    }
+
+    /**
+     * Determines if the screen should render the "Version: v#.#" text.
+     */
+    protected boolean shouldRenderVersionText() {
+        return true;
+    }
+
+    /**
+     * Determines if the screen should render the title text.
+     */
+    protected boolean shouldRenderTitleText() {
+        return false;
+    }
+}

@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.item.core;
 import net.dillon.speedrunnermod.mixin.item.FoodsMixin;
 import net.minecraft.world.food.FoodProperties;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 
 /**
  * All Speedrunner Mod {@code food components} (or food items).

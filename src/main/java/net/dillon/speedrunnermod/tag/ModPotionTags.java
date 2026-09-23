@@ -12,7 +12,7 @@ import net.minecraft.world.item.alchemy.PotionIds;
 import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createPotionTag;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod potion tags.

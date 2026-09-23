@@ -4,7 +4,7 @@ import net.minecraft.world.level.BaseSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 
 /**
  * Changes the maximum spawn delay for mobs to spawn from spawner blocks.

@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.material.MaterialRules;
 import net.minecraft.world.level.levelgen.material.rule.MaterialRule;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * Material rules for the speedrunner mod.

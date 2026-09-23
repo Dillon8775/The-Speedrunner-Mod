@@ -10,7 +10,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**

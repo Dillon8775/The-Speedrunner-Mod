@@ -6,7 +6,7 @@ import net.dillon.speedrunnermod.author.Author;
 import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.entity.goliath.MinionBase;
 import net.dillon.speedrunnermod.item.core.ModItems;
-import net.dillon.speedrunnermod.main.SpeedrunnerMod;
+import net.dillon.speedrunnermod.main.CommonMain;
 import net.dillon.speedrunnermod.server.DedicatedServerStorage;
 import net.dillon.speedrunnermod.util.TaskScheduler;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -256,12 +256,12 @@ public class ModHelper {
             return optional.orElseThrow();
         } catch (Exception o) {
             if (!(errorMessagesSent > 100)) {
-                SpeedrunnerMod.LOGGER.error("({}) Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.", errorMessagesSent);
+                CommonMain.LOGGER.error("({}) Error with Speedrunner Mod! Likely caused due to the server you joined doesn't have the speedrunner mod installed.", errorMessagesSent);
             }
             if (errorMessagesSent == 101) {
-                SpeedrunnerMod.LOGGER.error("({}) Returning LOOTING enchantment.", errorMessagesSent);
+                CommonMain.LOGGER.error("({}) Returning LOOTING enchantment.", errorMessagesSent);
                 o.printStackTrace();
-                SpeedrunnerMod.LOGGER.error("({}) This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.", errorMessagesSent);
+                CommonMain.LOGGER.error("({}) This Speedrunner Mod error is continuous, but handled. Messages will stop now due to prevent overflow errors.", errorMessagesSent);
             }
             errorMessagesSent++;
             Level world = null;

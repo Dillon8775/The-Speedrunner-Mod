@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.sound;
 import net.dillon.dillonlib.factory.Factories;
 import net.minecraft.sounds.SoundEvent;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All Speedrunner Mod {@code custom sounds.}

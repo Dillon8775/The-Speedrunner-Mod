@@ -37,7 +37,7 @@ import net.minecraft.world.level.biome.Biome;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod advancements.

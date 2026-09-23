@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFlo
 
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod float providers.

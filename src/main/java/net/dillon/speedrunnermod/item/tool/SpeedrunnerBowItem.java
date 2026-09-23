@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * A bow that charges faster, shoots farther, does more damage, and has more durability.

@@ -1,18 +1,18 @@
 package net.dillon.speedrunnermod.packet;
 
+import net.blay09.mods.balm.Balm;
 import net.dillon.speedrunnermod.option.ModCommonOptions;
 import net.dillon.speedrunnermod.packet.clientbound.MatchClientOptionsWithServerS2CPacket;
 import net.dillon.speedrunnermod.packet.serverbound.ClientPreferencesC2SPacket;
 import net.dillon.speedrunnermod.packet.serverbound.MatchServerOptionsWithClientC2SPacket;
 import net.dillon.speedrunnermod.packet.serverbound.RequestServerSideOptionsC2SPacket;
 import net.dillon.speedrunnermod.server.DedicatedServerStorage;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.UUID;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.LOGGER;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 
 /**
  * Handles server-bound packets.
@@ -35,7 +35,7 @@ public class ServerPacketHandlers {
      */
     public static void handleRequestServerSideOptions(ServerPlayer player, RequestServerSideOptionsC2SPacket packet) {
         ModCommonOptions serverOptions = common();
-        ServerPlayNetworking.send(player, MatchClientOptionsWithServerS2CPacket.from(serverOptions));
+        Balm.networking().sendTo(player, MatchClientOptionsWithServerS2CPacket.from(serverOptions));
         LOGGER.info("{} requested this server's speedrunner mod settings.", player.getDisplayName().getString());
     }
 

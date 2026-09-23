@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.storage.loot.providers.number.floats.ContextFloatProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 
 /**
  * All Speedrunner Mod {@code options.}

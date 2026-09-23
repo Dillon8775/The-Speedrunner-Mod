@@ -22,7 +22,7 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * The Speedrunner Mod {@code item group.}

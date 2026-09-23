@@ -24,7 +24,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * An {@code ender pearl} like item that does not get consumed nor do damage upon use.

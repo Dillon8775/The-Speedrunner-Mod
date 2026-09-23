@@ -19,10 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.dillon.speedrunnermod.main.SpeedrunnerMod"
+      "net.dillon.speedrunnermod.main.CommonMain"
     ],
     "client": [
-      "net.dillon.speedrunnermod.main.SpeedrunnerModClient"
+      "net.dillon.speedrunnermod.main.ClientMain"
     ],
     "fabric-datagen": [
       "net.dillon.speedrunnermod.data.SpeedrunnerModDataGenerator"
@@ -32,11 +32,7 @@
     ]
   },
   "mixins": [
-    "speedrunnermod.mixins.json",
-    {
-      "config": "speedrunnermod.client.mixins.json",
-      "environment": "client"
-    }
+    "speedrunnermod.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",

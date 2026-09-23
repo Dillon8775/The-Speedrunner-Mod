@@ -3,7 +3,7 @@ package net.dillon.speedrunnermod.data;
 import com.google.gson.JsonElement;
 import net.dillon.speedrunnermod.option.StructureConfig;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 /**

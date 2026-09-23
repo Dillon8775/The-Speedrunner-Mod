@@ -132,6 +132,27 @@
     "world.TheEndGatewayBlockEntityMixin",
     "world.VibrationsCallbackMixin"
   ],
+  "client": [
+    "client.GuiMixin",
+    "client.MinecraftMixin",
+    "client.fix.AbstractClientPlayerFix",
+    "client.fix.SpecialModelRenderersFix",
+    "client.network.ClientPacketListenerMixin",
+    "client.render.FogRendererMixin",
+    "client.render.HeartTypeMixin",
+    "client.render.HudMixin",
+    "client.render.LavaFogEnvironmentMixin",
+    "client.render.LevelEventHandlerMixin",
+    "client.render.WaterFogEnvironmentMixin",
+    "client.screen.AbstractContainerScreenMixin",
+    "client.screen.AnvilScreenMixin",
+    "client.screen.CreateWorldScreenMixin",
+    "client.screen.DeathScreenMixin",
+    "client.screen.LogoRendererMixin",
+    "client.screen.PauseScreenMixin",
+    "client.screen.TitleScreenMixin",
+    "client.screen.WorldOptionsScreenMixin"
+  ],
   "server": [
   ],
   "injectors": {

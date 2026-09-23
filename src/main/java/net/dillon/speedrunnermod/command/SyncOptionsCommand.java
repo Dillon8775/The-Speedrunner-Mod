@@ -1,8 +1,8 @@
 package net.dillon.speedrunnermod.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import net.blay09.mods.balm.Balm;
 import net.dillon.speedrunnermod.packet.clientbound.RequestClientSideOptionsS2CPacket;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
@@ -16,7 +16,7 @@ public class SyncOptionsCommand {
                 Commands.literal("syncoptions")
                         .requires(Commands.hasPermission(Commands.LEVEL_OWNERS))
                         .executes(context -> {
-                            ServerPlayNetworking.send(context.getSource().getPlayer(), new RequestClientSideOptionsS2CPacket());
+                            Balm.networking().sendTo(context.getSource().getPlayer(), new RequestClientSideOptionsS2CPacket());
                             return 1;
         }));
     }

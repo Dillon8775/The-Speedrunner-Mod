@@ -16,7 +16,7 @@ import net.minecraft.world.item.Item;
 import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createItemTag;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All Speedrunner Mod {@code item tags.}

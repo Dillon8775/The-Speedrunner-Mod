@@ -18,7 +18,7 @@ import java.util.List;
 
 import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 import static net.minecraft.world.item.component.Consumables.defaultFood;
 
 /**

@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntPr
 import java.util.Optional;
 
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 import static net.dillon.speedrunnermod.mixin.accessor.ContextIntProvidersInvoker.invokeCooking;
 import static net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders.COOKING_FAST_BURN_TIME_REDUCTION_FACTOR;
 import static net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders.COOKING_NORMAL_BURN_TIME_REDUCTION_FACTOR;

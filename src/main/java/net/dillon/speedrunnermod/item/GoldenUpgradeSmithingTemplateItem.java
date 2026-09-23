@@ -1,9 +1,9 @@
 package net.dillon.speedrunnermod.item;
 
+import net.blay09.mods.balm.Balm;
 import net.dillon.speedrunnermod.advancement.ModPredicates;
 import net.dillon.speedrunnermod.mixin.accessor.SmithingTemplateItemInvoker;
 import net.dillon.speedrunnermod.packet.clientbound.OpenFeaturesScreenS2CPacket;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Consumer;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * The {@code golden speedrunner upgrade smithing template item.}
@@ -47,7 +47,7 @@ public class GoldenUpgradeSmithingTemplateItem extends SmithingTemplateItem {
     @Override
     public InteractionResult use(Level world, Player player, InteractionHand hand) {
         if (player instanceof ServerPlayer serverPlayer) {
-            ServerPlayNetworking.send(serverPlayer, new OpenFeaturesScreenS2CPacket());
+            Balm.networking().sendTo(serverPlayer, new OpenFeaturesScreenS2CPacket());
             ModPredicates.TRIGGERED_BY_ITEMLIKE.trigger(serverPlayer, this.getDefaultInstance());
         }
         return super.use(world, player, hand);

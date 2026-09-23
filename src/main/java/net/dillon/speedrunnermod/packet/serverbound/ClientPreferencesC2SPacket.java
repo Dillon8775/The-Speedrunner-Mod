@@ -5,7 +5,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.Identifier;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 public record ClientPreferencesC2SPacket(boolean actionbar, boolean warningMessages, int iCarusFireworksInventorySlot, int infiniPearlInventorySlot) implements CustomPacketPayload {
     public static final Identifier ID = ofSpeedrunnerMod("client_preferences_c2s");

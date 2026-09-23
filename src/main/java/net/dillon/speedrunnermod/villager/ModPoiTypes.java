@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.Set;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * {@code Point of Interest Types} for the speedrunner mod.

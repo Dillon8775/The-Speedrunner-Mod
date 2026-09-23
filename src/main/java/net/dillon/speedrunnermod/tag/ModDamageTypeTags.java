@@ -11,7 +11,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createDamageTypeTag;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All Speedrunner Mod {@code damage type tags.}

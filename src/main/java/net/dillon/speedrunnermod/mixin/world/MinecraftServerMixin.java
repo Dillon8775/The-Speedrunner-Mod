@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
 import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.LOGGER;
+import static net.dillon.speedrunnermod.main.CommonMain.LOGGER;
 import static net.dillon.speedrunnermod.option.ModCommonOptions.isDoomMode;
 
 @Mixin(MinecraftServer.class)

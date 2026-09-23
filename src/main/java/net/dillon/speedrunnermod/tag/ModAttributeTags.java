@@ -11,7 +11,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createAttributeTag;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod attribute tags.

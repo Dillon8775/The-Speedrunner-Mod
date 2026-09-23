@@ -31,7 +31,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntPr
 import java.util.List;
 import java.util.Optional;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod villager trade entries.

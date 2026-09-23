@@ -13,7 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import java.util.concurrent.CompletableFuture;
 
 import static net.dillon.dillonlib.factory.Factories.createEnchantmentTag;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 public class ModEnchantmentTags extends FabricTagsProvider<Enchantment> {
     public static final TagKey<Enchantment> SPEEDRUNNER_ENCHANTMENTS = createEnchantmentTag(ofSpeedrunnerMod("speedrunner_enchantments"));

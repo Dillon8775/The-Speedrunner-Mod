@@ -44,7 +44,7 @@ import java.util.function.Predicate;
 
 import static net.dillon.dillonlib.util.Arithmetics.M_asTick;
 import static net.dillon.dillonlib.util.Arithmetics.S_asTick;
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.common;
+import static net.dillon.speedrunnermod.main.CommonMain.common;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements InventoryPreserver {

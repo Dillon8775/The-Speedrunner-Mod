@@ -10,7 +10,7 @@ import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.AttackRange;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * The speedrunner spear, with more block reach and increased momentum from the lunge enchantment.

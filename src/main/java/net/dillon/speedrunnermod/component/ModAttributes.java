@@ -9,7 +9,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 
-import static net.dillon.speedrunnermod.main.SpeedrunnerMod.ofSpeedrunnerMod;
+import static net.dillon.speedrunnermod.main.CommonMain.ofSpeedrunnerMod;
 
 /**
  * All speedrunner mod {@code attributes.}

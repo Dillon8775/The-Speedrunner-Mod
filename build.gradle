@@ -20,15 +20,6 @@ apply from: 'dependencies.gradle'
 apply from: 'resources.gradle'
 
 loom {
-	splitEnvironmentSourceSets()
-
-	mods {
-		"speedrunnermod" {
-			sourceSet sourceSets.main
-			sourceSet sourceSets.client
-		}
-	}
-
 	def aw = file("src/main/resources/${mod_id}.accessWidener")
 	if (aw.exists()) {
 		accessWidenerPath.set(aw)
