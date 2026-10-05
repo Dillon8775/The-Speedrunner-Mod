@@ -1,6 +1,7 @@
 package net.dillon.speedrunnermod.mixin.item;
 
 import net.dillon.speedrunnermod.component.ModAttributes;
+import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.minecraft.world.InteractionHand;
@@ -27,11 +28,18 @@ public class BoatItemMixin extends Item {
     private AbstractBoat makeBoatFireproof(AbstractBoat abstractBoat, Level world, Player player, InteractionHand hand) {
         float lavaInvulnerability = (float)player.getAttributeValue(ModAttributes.LAVA_INVULNERABILITY);
         float additionalBoatSpeed = (float)player.getAttributeValue(ModAttributes.BONUS_BOAT_MOVEMENT_SPEED);
+
         if (lavaInvulnerability > 1.0F || abstractBoat.is(ModEntityTypeTags.FIREPROOF_BOATS)) {
             ((FireproofBoat)abstractBoat).setFireproof(true);
         }
-        if (additionalBoatSpeed > 1.0F || abstractBoat.is(ModEntityTypeTags.FAST_BOATS)) {
+
+        if (additionalBoatSpeed > 1.0F) {
             ((FireproofBoat)abstractBoat).setBoatSpeed(additionalBoatSpeed - 1.0F);
+        }
+
+        // Fallback for attribute swapping
+        if (abstractBoat.is(ModEntityTypeTags.FAST_BOATS)) {
+            ((FireproofBoat)abstractBoat).setBoatSpeed(ModHelper.FAST_BOAT_VELOCITY_MULTIPLIER);
         }
         return abstractBoat;
     }

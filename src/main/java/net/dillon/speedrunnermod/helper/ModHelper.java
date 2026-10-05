@@ -70,6 +70,7 @@ public class ModHelper {
     public static final int LAPIS_LAZULI_ORE_SPAWN_CHANCE = 3;
     public static final int BURIED_LAPIS_LAZULI_ORE_SPAWN_CHANCE = 4;
     public static final float LAVA_BOAT_VELOCITY_MULTIPLIER = 0.95F;
+    public static final float FAST_BOAT_VELOCITY_MULTIPLIER = 1.035F;
     public static final double DOLPHIN_PREDICATE_RANGE = 20.0D;
 
     public static double[] latestDeathCords = new double[]{0, 0, 0};

@@ -5,6 +5,7 @@ import net.dillon.speedrunnermod.author.Authors;
 import net.dillon.speedrunnermod.helper.ModHelper;
 import net.dillon.speedrunnermod.item.FireproofBoat;
 import net.dillon.speedrunnermod.sound.ModSoundEvents;
+import net.dillon.speedrunnermod.tag.ModEntityTypeTags;
 import net.dillon.speedrunnermod.tag.ModFluidTags;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -114,6 +115,12 @@ public abstract class AbstractBoatMixin extends Entity implements FireproofBoat 
 
         if (abstractBoat.isInLava()) {
             abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModHelper.LAVA_BOAT_VELOCITY_MULTIPLIER));
+        }
+
+        // Fallback for attribute swapping
+        if (abstractBoat.is(ModEntityTypeTags.FAST_BOATS)) {
+            abstractBoat.setDeltaMovement(abstractBoat.getDeltaMovement().scale(ModHelper.FAST_BOAT_VELOCITY_MULTIPLIER));
+            return;
         }
 
         if (this.getBoatSpeed() > 0.0F) {

@@ -1,6 +1,4 @@
-# Version 1.13.2
-- Now requires [Balm](https://modrinth.com/mod/balm) in order to run.
-- Now requires [DillonLib](https://modrinth.com/mod/dillon-lib) 1.2.
-- Removed Option Instance mixin option.
-- Backend optimizations.
-- Optimized lang.
+# Version 1.13.3
+
+## Bugs Fixed
+- Quickly placing a fast boat (a speedrunner boat) and then swapping to another hand does not give it the increased boat speed.
