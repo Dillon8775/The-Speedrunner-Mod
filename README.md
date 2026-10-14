@@ -1168,15 +1168,6 @@ Each configuration option has stored values, including:
 
 ---
 
-### Important Note:
-New Speedrunner Mod versions are always released with the *current Minecraft version.* If a new Minecraft version releases, support for any previous Minecraft version for this mod is dropped. I try to make this mod up-to-date with the latest Minecraft version, making it near impossible to keep up support for all previous versions.
-
-With this being said, if you decide to play the Speedrunner Mod on an older Minecraft version, please be aware that *that* version of the mod **may have unknown bugs, outdated features, and/or broken features.** It's recommended to stay on the latest Minecraft version *and* latest speedrunner mod version.
-
-I know newer Minecraft versions are harder to speedrun, but ***not with this mod...***
-
----
-
 # Dependencies & Compatibility
 - ## **Requires** [Fabric API](https://modrinth.com/mod/fabric-api).
 - **Recommended mods** (not required): [Sodium,](https://modrinth.com/mod/sodium) [Lithium,](https://modrinth.com/mod/lithium) and [SpeedrunIGT](https://modrinth.com/mod/speedrunigt) (an in-game timer mod)
