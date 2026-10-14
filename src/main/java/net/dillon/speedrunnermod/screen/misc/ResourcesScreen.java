@@ -17,14 +17,6 @@ public class ResourcesScreen extends AbstractModScreen {
 
     @Override
     public void widgets() {
-        Button showcaseVideoButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.showcase_video").withStyle(ChatFormatting.LIGHT_PURPLE), (buttonWidget) -> {
-            openLink(this, "https://youtu.be/08z9VvnFacw", false);
-        }).build();
-
-        Button releaseTrailerButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.release_trailer").withStyle(ChatFormatting.AQUA), (buttonWidget) -> {
-            openLink(this, "https://youtu.be/u37ujBiCMCw", false);
-        }).build();
-
         Button otherModsButton = Button.builder(Component.translatable("speedrunnermod.menu.resources.other_mods").withStyle(ChatFormatting.AQUA), (button) -> {
             openScreen(new OtherModsScreen(this));
         }).build();
@@ -47,8 +39,6 @@ public class ResourcesScreen extends AbstractModScreen {
 
         this.createHeader(
                 Component.translatable("speedrunnermod.header.mod_resources"),
-                showcaseVideoButton,
-                releaseTrailerButton,
                 otherModsButton,
                 resourcePacks,
                 tutorialsButton

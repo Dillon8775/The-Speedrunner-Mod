@@ -11,12 +11,13 @@
     </a>
 
 ---
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/08z9VvnFacw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
----
 
 # Features
 ## View all features in-depth, *in-game* with the built-in feature screens!
+
+---
+
+# *This project has been discontinued.*
 
 ---
 
@@ -1189,10 +1190,6 @@ Leaderboards are currently disabled, due to lack of activity.
 
 # Credits and License
 ### [All rights reserved](https://en.wikipedia.org/wiki/All_rights_reserved) unless explicitly stated in the mod's credits.
-
----
-
-## [Issue Tracker](https://github.com/Dillon8775/Speedrunner-Mod/issues)
 
 ---
 

@@ -1,4 +1,4 @@
-# Version 1.13.3
+# Version 1.13.4
 
-## Bugs Fixed
-- Quickly placing a fast boat (a speedrunner boat) and then swapping to another hand does not give it the increased boat speed.
+# The final version of The Speedrunner Mod.
+- Removed social links.
