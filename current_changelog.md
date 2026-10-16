@@ -1,6 +1,6 @@
-# Version 1.13.4
+# Version 1.13.4.f
 
-# The final version of The Speedrunner Mod.
-- Now requires [DillonLib](https://modrinth.com/mod/dillon-lib) version 1.2.4 or greater.
+# *.f* - the final version of The Speedrunner Mod.
+- Requires [DillonLib](https://modrinth.com/mod/dillon-lib) version 1.2.4.
 - Removed social links.
 - Removed custom splash texts.

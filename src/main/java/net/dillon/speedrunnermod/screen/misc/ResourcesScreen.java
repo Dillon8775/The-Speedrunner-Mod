@@ -29,25 +29,11 @@ public class ResourcesScreen extends AbstractModScreen {
             openScreen(new TutorialsScreen(this));
         }).build();
 
-        Button askQuestionsButton = Button.builder(Component.translatable("speedrunnermod.resources.ask_questions"), (button) -> {
-            openLink(this, "https://discord.gg/vfqEAn4YFy", false);
-        }).build();
-
-        Button reportBugsButton = Button.builder(Component.translatable("speedrunnermod.resources.report_bugs"), (button) -> {
-            openLink(this, "https://github.com/Dillon8775/The-Speedrunner-Mod/issues", false);
-        }).build();
-
         this.createHeader(
                 Component.translatable("speedrunnermod.header.mod_resources"),
                 otherModsButton,
                 resourcePacks,
                 tutorialsButton
-        );
-
-        this.createHeader(
-                Component.translatable("speedrunnermod.header.questions_and_bugs"),
-                askQuestionsButton,
-                reportBugsButton
         );
     }
 }
